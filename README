@@ -1,9 +1,13 @@
-Sound Juicer 0.1
+Sound Juicer 0.2
 Copyright (C) 2003 Ross Burton
 Licensed under the GPL, version 2 or greater.
 
-
 This is Sound Juicer, a CD ripping tool using GTK+ and GStreamer.
+
+Requirements:
+* GNOME 2.2 Platform (libgnomeui, gconf, libglade)
+* GStreamer 0.6.x - and specifically the cdparanoia and vorbisenc
+  elements.
 
 Do the usual configure/make/make install malarky, and run
 "sound-juicer" in $(prefix)/bin or "CD Ripper" in Applications ->
@@ -14,28 +18,17 @@ Known Issues:
 
 For a complete To Do list, see the file TODO.
 
-GStreamer 0.6.1 (in CVS currently) is required for the Ogg tagging to
-work correctly -- with 0.6.0 the comment field is encoded incorrectly
-and will give an error message, but the other fields are written
-correctly.
-
-There is no way in the UI to select the output path. It defaults to
-$HOME, and can be changed by editing the GConf key
-/apps/sound-juicer/base_path.
+GStreamer 0.6.1 is required for the Ogg tagging to work correctly --
+with 0.6.0 the comment field is encoded incorrectly and will give an
+error message, but the other fields are written correctly.
 
 There is no way in the UI to change the filename of music. It
-currently uses "(basepath)/(album title)/(song title).ogg". To edit
-this change pop_and_rip() in sj-extracting.c
+currently uses "(basepath)/(album artist)/(album title)/(track number)
+- (song title).ogg". This can be changed in GConf.
 
 Musicbrainz 2.0.1 is required. It should be a 10 minute hack to make
 it work for 2.0.0, and maybe even for 1.1.0.
 
 You need to have the 'cdparanoia' and 'vorbisenc' GStreamer elements
 installed. The configure script will look for these and issue a
-warning if they are not found. At the moment if they are not available
-at run time Sound Juicer just exits. This will be fixed, don't panic.
-
-It is recommended to run Sound Juicer first in a terminal, there are
-still many messages which are not displayed in a dialog, but printed
-to the console. Until you know it works for you, run in a terminal to
-check.
+warning if they are not found.

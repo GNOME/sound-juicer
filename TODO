@@ -13,10 +13,7 @@ Play/stop track. Not a full CD player, but simple play/stop should be
 enough.
 
 Maybe add a button to start the users CD player (as determined by
-magicdev?)
-
-SjExtractor's constructor wants to return a GError if it fails. How do
-I do this with GObject?
+magicdev keys?)
 
 Watch the CD drive so the UI updates when a disk is inserted/removed.
 
@@ -40,8 +37,6 @@ Find out why when an error dialog pops up before the main window, I get:
   failed
 when the main window appears unless I can gtk_widget_realize(main_window) first?
 
-Add "Use console-friendly filenames" to lowercase, strip punctuation, s/
-/_/, etc.
+Make the progress dialog modal, or disable the Extract button when ripping
 
-Don't crash if Extract is clicked when extracting. Make the progress dialog
-modal, or disable it...
+Need to handle the case when file exist. At the moment they are written over.
