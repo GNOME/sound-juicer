@@ -52,21 +52,16 @@ AC_SUBST(GNOME_LIBS)
 HAVE_GSTREAMER=no
                                                                                 
 # Look for 0.8
-PKG_CHECK_MODULES(GSTREAMER, gstreamer-0.8,
-        HAVE_GSTREAMER=yes, HAVE_GSTREAMER=no)
-# No? Try 0.7
-if test "x$HAVE_GSTREAMER" = "xno"; then
-PKG_CHECK_MODULES(GSTREAMER, gstreamer-0.7,
-        HAVE_GSTREAMER=yes, HAVE_GSTREAMER=no)
-# No? Try 0.6
-if test "x$HAVE_GSTREAMER" = "xno"; then
-PKG_CHECK_MODULES(GSTREAMER, gstreamer-0.6 >= 0.6.0,
-        HAVE_GSTREAMER=yes, HAVE_GSTREAMER=no)
-fi
-# Still no? We need GStreamer, so stop
-if test "x$HAVE_GSTREAMER" = "xno"; then
-        AC_MSG_ERROR([GStreamer not found, or too old version found])
-fi
+PKG_CHECK_MODULES(GSTREAMER, gstreamer-0.8, HAVE_GSTREAMER=yes, HAVE_GSTREAMER=no)
+if test "x$HAVE_GSTREAMER" = "xyes"; then
+        AC_DEFINE(GSTREAMER_0_8, 1, [GStreamer 0.8])
+else
+        PKG_CHECK_MODULES(GSTREAMER, gstreamer-0.6, HAVE_GSTREAMER=yes, HAVE_GSTREAMER=no)
+        if test "x$HAVE_GSTREAMER" = "xyes"; then
+                AC_DEFINE(GSTREAMER_0_6, 1, [GStreamer 0.6])
+        else
+                AC_MSG_ERROR([GStreamer not found, or too old version found])
+        fi
 fi
 
 # If we get here we found a GStreamer we can use
