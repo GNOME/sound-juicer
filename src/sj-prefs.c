@@ -77,7 +77,8 @@ void prefs_browse_clicked (GtkButton *button, gpointer user_data)
   GtkWidget *filesel;
   int res;
 
-  filesel = gtk_file_selection_new(_("Output Location"));
+  filesel = gtk_file_selection_new(_("Select Output Location"));
+  gtk_file_selection_set_filename (GTK_FILE_SELECTION (filesel), base_path);
   gtk_widget_show_all (filesel);
   /* A little hacky, but it works :) */
   gtk_widget_hide (gtk_widget_get_parent (GTK_FILE_SELECTION(filesel)->file_list));

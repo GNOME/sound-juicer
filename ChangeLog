@@ -1,3 +1,28 @@
+2003-04-24  Ross Burton  <ross@burtonini.com>
+
+	* .cvsignore:
+	Ignore the generated spec file.
+
+	* src/sj-extracting.c:
+	Instead of hardcoding the output filename, use a GConf key and
+	pattern subsitution.
+
+	* src/sj-prefs.c:
+	Nicer path selection dialog title.
+
+	* src/sound-juicer.h:
+	Make more fields public.
+	
+	* data/sound-juicer.schemas.in:
+	* src/sj-main.c:
+	* src/sj-extractor.c:
+	* src/sj-extractor.h:
+	Allow the user to set the paranoia level with a GConf key. Patch
+	from foser@gentoo.org.
+
+	* TODO:
+	Updated.
+
 2003-04-22  Christian Neumair  <chris@gnome-de.org>
 
 	* configure.in: Added "de" (German) to ALL_LINGUAS.
@@ -10,7 +35,14 @@
 2003-04-22  Ross Burton  <ross@burtonini.com>
 
 	* src/sj-prefs.c:
+	When showing the base path file selector, set the default path to
+	the current base path.
+
+2003-04-22  Ross Burton  <ross@burtonini.com>
+
+	* src/sj-prefs.c:
 	Add the UI to set the base path for ripped files.
+
 	* TODO:
 	Updated.
 
@@ -20,7 +52,7 @@
 	* configure.in:
 	Generate the spec file, and change gstreamer element check errors
 	to warnings.
-	
+
 2003-04-11  Ross Burton  <ross@burtonini.com>
 
 	* src/Makefile.am:

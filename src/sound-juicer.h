@@ -53,6 +53,9 @@ extern SjExtractor *extractor;
  */
 extern gboolean extracting;
 
+/**
+ * The columns in the list view
+ */
 enum {
   COLUMN_EXTRACT,
   COLUMN_NUMBER,
@@ -63,8 +66,29 @@ enum {
   COLUMN_TOTAL
 };
 
+/**
+ * The GtkTreeModel which all of the tracks are stored in
+ */
 extern GtkListStore *track_store;
 
+/**
+ * The root path to write files too
+ */
 extern const char *base_path;
+
+/**
+ * The pattern to expand when naming files
+ */
+extern const char *file_pattern;
+
+/**
+ * The encoding format to use
+ */
+extern EncoderFormat encoding_format;
+
+/**
+ * If file names should be shell-friendly (i.e no [ /&*?\] characters
+ */
+extern gboolean shell_names;
 
 #endif /* SOUND_JUICER_H */

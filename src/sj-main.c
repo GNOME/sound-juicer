@@ -48,16 +48,22 @@ static GtkWidget *track_listview, *reread_button, *extract_button;
 static GtkWidget *extract_menuitem, *select_all_menuitem;
 GtkListStore *track_store;
 
-static EncoderFormat encoding_format = VORBIS;
+EncoderFormat encoding_format = VORBIS;
 
 const char *base_path;
+const char* file_pattern;
 static const char *device;
+gboolean shell_names = FALSE;
 gboolean extracting = FALSE;
+
+#define DEFAULT_PARANOIA 4
 
 #define GCONF_ROOT "/apps/sound-juicer"
 #define GCONF_DEVICE GCONF_ROOT "/device"
 #define GCONF_BASEPATH GCONF_ROOT "/base_path"
+#define GCONF_PATTERN GCONF_ROOT "/pattern"
 #define GCONF_FORMAT GCONF_ROOT "/format"
+#define GCONF_PARANOIA GCONF_ROOT "/paranoia"
 
 /**
  * Clicked Quit
@@ -277,6 +283,36 @@ void basepath_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry,
 }
 
 /**
+ * The GConf key for the filename pattern changed
+ */
+void pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+{
+  g_assert (strcmp (entry->key, GCONF_PATTERN) == 0);
+  if (entry->value == NULL) {
+    base_path = g_strdup ("%aa/%at/%tt");
+  } else {
+    base_path = gconf_value_get_string (entry->value);
+  }
+  /* TODO: sanity check the pattern */
+}
+
+/**
+ * The GConf key for the paranoia mode has changed
+ */
+void paranoia_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+{
+  g_assert (strcmp (entry->key, GCONF_PARANOIA) == 0);
+  if (entry->value == NULL) {
+    sj_extractor_set_paranoia (extractor, DEFAULT_PARANOIA);
+  } else {
+    int value = gconf_value_get_int (entry->value);
+    if (value == 0 || value == 4 || value == 255) {
+      sj_extractor_set_paranoia (extractor, value);
+    }
+  }
+}
+
+/**
  * Utility function to reread a CD
  */
 void reread_cd (void)
@@ -427,6 +463,7 @@ int main (int argc, char **argv)
   gconf_client_notify_add (gconf_client, GCONF_DEVICE, device_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_BASEPATH, basepath_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_FORMAT, format_changed_cb, NULL, NULL, NULL);
+  gconf_client_notify_add (gconf_client, GCONF_PARANOIA, paranoia_changed_cb, NULL, NULL, NULL);
 
   glade_init ();
   glade = glade_xml_new (DATADIR"/sound-juicer.glade", NULL, NULL);
@@ -497,8 +534,11 @@ int main (int argc, char **argv)
 
   /* YUCK. As bad as Baldrick's trousers */
   basepath_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEPATH, NULL, TRUE, NULL), NULL);
+  pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATTERN, NULL, TRUE, NULL), NULL);
   device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), NULL);
   format_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FORMAT, NULL, TRUE, NULL), NULL);
+  paranoia_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PARANOIA, NULL, TRUE, NULL), NULL);
+  
     
   gtk_widget_show_all (main_window);
   gtk_main ();

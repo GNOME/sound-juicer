@@ -39,6 +39,30 @@ static GtkWidget *progress_dialog;
 static GtkWidget *track_progress, *album_progress;
 static GtkWidget *progress_label;
 
+/* Declare this now so I can hide it at the end of the file */
+static char* parse_pattern (const char* pattern, const TrackDetails *track);
+
+/**
+ * Build the absolute filename for the specified track.
+ *
+ * The base path is the extern variable 'base_path', the format to use
+ * is the extern variable 'file_pattern'. Free the result when you
+ * have finished with it.
+ */
+static char* build_filename(const TrackDetails *track)
+{
+  char *basefile, *filename;
+  basefile = parse_pattern (file_pattern, track);
+  switch (encoding_format) {
+  case VORBIS:
+    filename = g_strconcat (base_path, basefile, ".ogg", NULL);    
+  default:
+    g_return_val_if_reached (NULL);
+  }
+  g_free (basefile);
+  return filename;
+}
+
 static void pop_and_rip (void)
 {
   TrackDetails *track;
@@ -60,7 +84,9 @@ static void pop_and_rip (void)
   track_duration = track->duration;
 
   gtk_label_set_text (GTK_LABEL (progress_label), g_strdup_printf (_("Currently extracting '%s'"), track->title));
-  file_path = g_strdup_printf("%s/%s/%s.ogg", base_path, track->album->title, track->title); /* TODO: CRAP */
+
+  file_path = build_filename (track);
+
   directory = g_path_get_dirname (file_path);
   if (!g_file_test (directory, G_FILE_TEST_IS_DIR)) {
     GError *error = NULL;
@@ -149,6 +175,9 @@ static void on_completion_cb (SjExtractor *extractor, gpointer data)
  */
 void on_extract_activate (GtkWidget *button, gpointer user_data)
 {
+  /* TODO: this is bad, disable the buttons */
+  if (extracting) return;
+
   if (progress_dialog == NULL) {
     progress_dialog = glade_xml_get_widget (glade, "progress_dialog");
     gtk_window_set_transient_for (GTK_WINDOW (progress_dialog), GTK_WINDOW (main_window));
@@ -169,4 +198,119 @@ void on_extract_activate (GtkWidget *button, gpointer user_data)
 
   gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), rip_track_foreach_cb, NULL);
   pop_and_rip();
+}
+
+/*
+ * Perform magic on a path to make it safe.
+ *
+ * This will always replace '/' with ' ', and optionally make the file
+ * name shell-friendly. This involves removing [?*\ ] and replacing
+ * with '_'.
+ *
+ * This function manipulates the string in-place, so g_strdup()
+ * anything you want to keep safe!
+ */
+static char* sanitize_path (char* s)
+{
+  /* Replace path seperators with whitespace */
+  g_strdelimit  (s, "/", ' ');
+  if (shell_names) {
+    g_strdelimit (s, "\\*?&!", ' ');
+    g_strdelimit (s, " ", '_'); /* TODO: use a different function */
+  }
+  return s;
+}
+
+/**
+ * Parse a filename pattern and replace markers with values from a TrackDetails structure.
+ *
+ * Valid markers so far are:
+ * %at -- album title
+ * %aa -- album artist
+ * %tn -- track number (i.e 8)
+ * %tN -- track number, zero padded (i.e 08)
+ * %tt -- track title
+ * %ta -- track artist
+ */
+static char*
+parse_pattern (const char* pattern, const TrackDetails *track)
+{
+  /* p is the pattern iterator, i is a general purpose iterator */
+  const char *p, *i;
+  /* string is the output string, s is the iterator, t is a general string */
+  char *string, *s, *temp;
+  s = string = g_new0(char, 256); /* TODO: bad hardcoding */
+
+  p = pattern;
+  while (*++p) {
+    /* If not a % marker, copy and continue */
+    if (*p != '%') {
+      *s++ = *p;
+      continue;
+    }
+    /* Is a % marker, go to next and see what to do */
+    switch (*++p) {
+    case '%':
+      /*
+       * Literal %
+       */
+      *s++ = '%';
+      break;
+    case 'a':
+      /*
+       * Album tag
+       */
+      switch (*++p) {
+      case 't':
+        i = temp = sanitize_path (g_strdup (track->album->title));
+        while (*i) *s++ = *i++;
+        g_free (temp);
+        break;
+      case 'a':
+        i = temp = sanitize_path (g_strdup (track->album->artist));
+        while (*i) *s++ = *i++;
+        g_free (temp);
+        break;
+      default:
+        *s++ = '%'; *s++ = 'a'; *s++ = *p;
+      }
+      break;
+    case 't':
+      /*
+       * Track tag
+       */
+      switch (*++p) {
+      case 't':
+        i = temp = sanitize_path (g_strdup (track->title));
+        while (*i) *s++ = *i++;
+        g_free (temp);
+        break;
+      case 'a':
+        i = temp = sanitize_path (g_strdup (track->artist));
+        while (*i) *s++ = *i++;
+        g_free (temp);
+        break;
+      case 'n':
+        /* Track number */
+        i = temp = g_strdup_printf ("%d", track->number);
+        while (*i) *s++ = *i++;
+        g_free (temp);
+        break;
+      case 'N':
+        /* Track number, zero-padded */
+        i = temp = g_strdup_printf ("%02d", track->number);
+        while (*i) *s++ = *i++;
+        g_free (temp);
+        break;
+      default:
+        *s++ = '%'; *s++ = 't'; *s++ = *p;
+      }
+      break;
+    default:
+      *s++ = '%';
+      *s++ = *p;
+    }
+  }
+  *s = '\0';
+  return string;
 }

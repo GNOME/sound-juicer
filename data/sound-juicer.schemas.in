@@ -33,7 +33,27 @@
       <locale name="C">
         <short>The filename pattern to write to.</short>
         <long>
-          TODO: describe valid symbols
+        Do not specify an extension.
+        %at -- album title
+        %aa -- album artist
+        %tn -- track number (i.e 8)
+        %tN -- track number, zero padded (i.e 08)
+        %tt -- track title
+         %ta -- track artist
+        </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/sound-juicer/paranoia</key>
+      <applyto>/apps/sound-juicer/paranoia</applyto>
+      <type>int</type>
+      <owner>sound-juicer</owner>
+      <locale name="C">
+        <short>The paranoia mode to use</short>
+        <long>
+          Paranoia mode, 3 settings: 0 (no paranoia), 4
+          (cdda2wav-style overlap checking) and 255 (full paranoia)
         </long>
       </locale>
     </schema>

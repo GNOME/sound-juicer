@@ -192,7 +192,7 @@ static void build_pipeline (SjExtractor *extractor, GError **error)
                  _("Could not create cdparanoia element"));
     return;
   }
-  g_object_set (G_OBJECT (priv->cdparanoia), "paranoia_mode", 0, NULL);
+
   /* Get the track format for seeking later */
   priv->track_format = gst_format_get_by_nick ("track");
   g_assert (priv->track_format != 0); /* TODO: GError */
@@ -273,6 +273,15 @@ void sj_extractor_set_device (SjExtractor *extractor, const char* device)
   g_return_if_fail (device != NULL);
 
   g_object_set (G_OBJECT (extractor->priv->cdparanoia), "location", device, NULL);
+}
+
+void sj_extractor_set_paranoia (SjExtractor *extractor, const gint paranoia_mode)
+{
+  g_return_if_fail (extractor != NULL);
+  g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
+  g_return_if_fail (paranoia_mode != NULL);
+
+  g_object_set (G_OBJECT (extractor->priv->cdparanoia), "paranoia-mode", paranoia_mode, NULL);
 }
 
 void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, const char* path, GError **error)
