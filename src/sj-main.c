@@ -85,7 +85,7 @@ gboolean on_destory_event (GtkWidget *widget, GdkEvent *event, gpointer user_dat
                                      GTK_BUTTONS_NONE,
                                      _("You are currently extracting a CD. Do you want to quit now or continue?"));
     gtk_dialog_add_button (GTK_DIALOG (dialog), "gtk-quit", GTK_RESPONSE_ACCEPT);
-    gtk_dialog_add_button (GTK_DIALOG (dialog), _("Continue"), GTK_RESPONSE_REJECT);
+    gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Continue"), GTK_RESPONSE_REJECT);
     g_signal_connect_swapped (GTK_OBJECT (dialog), 
                               "response", 
                               G_CALLBACK (gtk_widget_destroy),
