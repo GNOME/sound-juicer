@@ -1,24 +1,24 @@
-dnl Initial blurb
-AC_PREREQ(2.52)
+# Initial blurb
 AC_INIT(sound-juicer, 0.5.9, http://www.burtonini.com/)
+AC_PREREQ(2.52)
+AM_INIT_AUTOMAKE([check-news 1.6])
 AC_CONFIG_SRCDIR(src/sj-extractor.c)
-AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 AM_CONFIG_HEADER(src/config.h)
+AM_MAINTAINER_MODE
 
-# Honor aclocal flags
+# Honour user-set aclocal flags
 ACLOCAL="$ACLOCAL $ACLOCAL_FLAGS"
 
-dnl Do the gettext/i18n stuff
+
+# Do the gettext/i18n stuff
 GETTEXT_PACKAGE=sound-juicer
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [The name of the gettext package.])
 AC_SUBST(GETTEXT_PACKAGE)
+ALL_LINGUAS="ar az be ca cs da de el es fr it ja ko ml nl no pl pt sr sr@Latn sv zh_CN zh_TW"
+AM_GLIB_GNU_GETTEXT
 
-# user help
-SCROLLKEEPER_BUILD_REQUIRED=0.3.5
-AC_SUBST(SCROLLKEEPER_BUILD_REQUIRED)
 
-AM_MAINTAINER_MODE
-
+# Standard C and C++ compiler mojo
 AC_ISC_POSIX
 AC_PROG_CC
 AM_PROG_CC_STDC
@@ -26,95 +26,114 @@ AC_HEADER_STDC
 AC_PROG_CXX
 AC_PROG_INTLTOOL([0.20])
 
-ALL_LINGUAS="ar az be ca cs da de el es fr it ja ko ml nl no pl pt sr sr@Latn sv zh_CN zh_TW"
-AM_GLIB_GNU_GETTEXT dnl TODO: is this still required?
 
+# Find GLib and GObject
 PKG_CHECK_MODULES(GLIB, glib-2.0 gthread-2.0 gobject-2.0)
 AC_SUBST(GLIB_CFLAGS)
 AC_SUBST(GLIB_LIBS)
 
+# Find libglade
 PKG_CHECK_MODULES(LIBGLADE, libglade-2.0)
 AC_SUBST(LIBGLADE_CFLAGS)
 AC_SUBST(LIBGLADE_LIBS)
 
+# Find GConf
 PKG_CHECK_MODULES(GCONF, gconf-2.0)
 AC_SUBST(GCONF_CFLAGS)
 AC_SUBST(GCONF_LIBS)
 
+# Find libgnomeui
 PKG_CHECK_MODULES(GNOME, libgnomeui-2.0)
 AC_SUBST(GNOME_CFLAGS)
 AC_SUBST(GNOME_LIBS)
 
-dnl Now we're ready to ask for gstreamer libs and cflags
-dnl And we can also ask for the right version of gstreamer
+
+# Find GStreamer.
 HAVE_GSTREAMER=no
                                                                                 
-dnl start with 0.7
+# Look for 0.7
 GST_MAJORMINOR=0.7
-PKG_CHECK_MODULES(GSTREAMER, \
-  gstreamer-$GST_MAJORMINOR,
-HAVE_GSTREAMER=yes,HAVE_GSTREAMER=no)
+PKG_CHECK_MODULES(GSTREAMER, gstreamer-$GST_MAJORMINOR,
+        HAVE_GSTREAMER=yes,
+        HAVE_GSTREAMER=no)
                                                                                 
-dnl if not try 0.6
-    if test "x$HAVE_GSTREAMER" = "xno"; then
+# No? Try 0.6
+if test "x$HAVE_GSTREAMER" = "xno"; then
 GST_MAJORMINOR=0.6
-PKG_CHECK_MODULES(GSTREAMER, \
-    gstreamer-$GST_MAJORMINOR >= 0.6.0,
- HAVE_GSTREAMER=yes,HAVE_GSTREAMER=no)
-        fi
-dnl Give error and exit if we don't have gstreamer
-     if test "x$HAVE_GSTREAMER" = "xno"; then
-AC_MSG_ERROR([GStreamer not found, or too old version found])
-        fi
-    have_gstreamer=yes
-GSTREAMER_DEPS="gstreamer-$GST_MAJORMINOR"
-
+PKG_CHECK_MODULES(GSTREAMER, gstreamer-$GST_MAJORMINOR >= 0.6.0,
+        HAVE_GSTREAMER=yes,
+        HAVE_GSTREAMER=no)
+fi
+# Still no? We need GStreamer, so stop
+if test "x$HAVE_GSTREAMER" = "xno"; then
+        AC_MSG_ERROR([GStreamer not found, or too old version found])
+fi
+# If we get here we found a GStreamer we can use
 AC_SUBST(GSTREAMER_CFLAGS)
 AC_SUBST(GSTREAMER_LIBS)
 
-dnl Check if the tagging API introduced after GStreamer 0.7.2 release 
-dnl is available
+# Check if the tagging API introduced after GStreamer 0.7.2 release is available
 CPPFLAGS_save="$CPPFLAGS"
 CPPFLAGS="$CPPFLAGS $GSTREAMER_CFLAGS"
-AC_CHECK_HEADERS(gst/gsttaginterface.h, [gst_tag_iface="yes"], [gst_tag_iface="no"])
+AC_CHECK_HEADERS(gst/gsttaginterface.h)
 CPPFLAGS="$CPPFLAGS_save"
 
-
-PKG_CHECK_MODULES(MUSICBRAINZ, libmusicbrainz >= 2.0.0)
-AC_SUBST(MUSICBRAINZ_CFLAGS)
-AC_SUBST(MUSICBRAINZ_LIBS)
-
-dnl Find how and where to put the GConf schemas
-AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
-if test x"$GCONFTOOL" = xno; then
-        AC_MSG_ERROR([gconftool-2 executable not found in your path - should be installed with GConf])
-fi
-AM_GCONF_SOURCE_2
-
+# Find the GStreamer elements we use, and warn if they are not present.
 AM_GST_ELEMENT_CHECK(cdparanoia,,AC_MSG_WARN([The 'cdparanoia' element was not found. This will cause Sound Juicer to fail at runtime.]))
 AM_GST_ELEMENT_CHECK(vorbisenc,,AC_MSG_WARN([The 'vorbisenc' element was not found. This will cause encoding to Ogg Vorbis to fail.]))
 AM_GST_ELEMENT_CHECK(flacenc,,AC_MSG_WARN([The 'flacenc' element was not found. This will cause encoding to FLAC to fail.]))
 AM_GST_ELEMENT_CHECK(wavenc,,AC_MSG_WARN([The 'wavenc' element was not found. This will cause encoding to Wave to fail.]))
 AM_GST_ELEMENT_CHECK(filesink,,AC_MSG_WARN([The 'filesink' element was not found. This will cause Sound Juicer to fail at runtime.]))
 
-AC_ARG_ENABLE(ignore-missing-cd, [  --enable-ignore-missing-cd      Ignore missing CD-ROM],
-        AC_DEFINE(IGNORE_MISSING_CD, 1, [Ignore missing CD-ROM drives]),)
-dnl TODO: display a message etc
 
+# Find MusicBrainz
+PKG_CHECK_MODULES(MUSICBRAINZ, libmusicbrainz >= 2.0.0)
+AC_SUBST(MUSICBRAINZ_CFLAGS)
+AC_SUBST(MUSICBRAINZ_LIBS)
+
+
+# Find how and where to put the GConf schemas
+AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
+if test x"$GCONFTOOL" = xno; then
+        AC_MSG_ERROR([gconftool-2 executable not found in your path - should be installed with GConf])
+fi
+AM_GCONF_SOURCE_2
+
+
+# Optionally enable a hack so that no CD-ROMs being found is not fatal. Yes, I
+# use this because I code on my CD-less laptop.
+AC_MSG_CHECKING([whether to ignore missing CD-ROM errors])
+AC_ARG_ENABLE(ignore-missing-cd,
+        [AC_HELP_STRING([--enable-ignore-missing-cd],[Ignore missing CD-ROM])],
+        AC_MSG_RESULT([yes]) AC_DEFINE(IGNORE_MISSING_CD, 1, [Ignore missing CD-ROM drives]),
+        AC_MSG_RESULT([no])
+        )
+
+
+# Optionally enable G* deprecations
+AC_MSG_CHECKING([whether to enable deprecation warnings])
 AC_ARG_ENABLE(deprecations,
         [AC_HELP_STRING([--enable-deprecations],
-        [warn about deprecated usages [default=no]])],,
+        [enable deprecation warnings [default=no]])],,
         [enable_deprecations=no])
-
-dnl Enable deprecations
 if test "x$enable_deprecations" = "xyes"; then
+        AC_MSG_RESULT([yes])
         DISABLE_DEPRECATED_CFLAGS="\
-                -DG_DISABLE_DEPRECATED \ -DGDK_DISABLE_DEPRECATED \ -DGTK_DISABLE_DEPRECATED \
-                -DGDK_PIXBUF_DISABLE_DEPRECATED \ -DGCONF_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED"
+                -DG_DISABLE_DEPRECATED  -DGDK_DISABLE_DEPRECATED \
+                -DGTK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED \
+                -DGCONF_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED"
         AC_SUBST(DISABLE_DEPRECATED_CFLAGS)
+else
+        AC_MSG_RESULT([no])
 fi
 
 
+# We require Scroll Keeper 0.3.5 or above for the help
+SCROLLKEEPER_BUILD_REQUIRED=0.3.5
+AC_SUBST(SCROLLKEEPER_BUILD_REQUIRED)
+
+
+# Finally, generate the files
 AC_OUTPUT([
 sound-juicer.spec
 Makefile
