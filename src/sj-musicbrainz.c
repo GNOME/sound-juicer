@@ -1,13 +1,37 @@
+/* 
+ * Copyright (C) 2003 Ross Burton <ross@burtonini.com>
+ *
+ * Sound Juicer - sj-musicbrainz.c
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * Authors: Ross Burton <ross@burtonini.com>
+ */
+
+#include "sound-juicer.h"
+
 #include <glib/gerror.h>
 #include <glib/glist.h>
 #include <glib/gstrfuncs.h>
 #include <glib/gmessages.h>
-#include <libgnome/gnome-i18n.h>
 #include <musicbrainz/queries.h>
 #include <musicbrainz/mb_c.h>
 #include <stdlib.h>
 #include "sj-musicbrainz.h"
 #include "sj-structures.h"
+#include "sj-error.h"
 
 static char* cdrom;
 
@@ -29,10 +53,11 @@ static GList* get_offline_track_listing(musicbrainz_t mb, GError **error)
   int num_tracks, i;
 
   if (!mb_Query (mb, MBQ_GetCDTOC)) {
-    char error[255];
-    mb_GetQueryError (mb, error, 255);
-    g_print(_("Cannot read CD: %s\n"), error);
-    return NULL; /* TODO: GError */
+    char message[255];
+    mb_GetQueryError (mb, message, 255);
+    g_set_error (error,
+                 SJ_ERROR, SJ_ERROR_CD_LOOKUP_ERROR,
+                 _("Cannot read CD: %s"), message);
   }
   num_tracks = mb_GetResultInt (mb, MBE_TOCGetLastTrack);
 
@@ -51,7 +76,6 @@ static GList* get_offline_track_listing(musicbrainz_t mb, GError **error)
   return g_list_append (list, album);
 }
 
-/* TODO: GErrorify */
 GList* sj_musicbrainz_list_albums(GError **error) {
   GList *albums = NULL;
   musicbrainz_t mb;
@@ -60,22 +84,21 @@ GList* sj_musicbrainz_list_albums(GError **error) {
 
   mb = mb_New ();
   if (!mb) {
-    g_print (_("Cannot get MusicBrainz connection\n"));
-    return NULL; /* TODO: GError */
+    g_set_error (error,
+                 SJ_ERROR, SJ_ERROR_CD_LOOKUP_ERROR,
+                 _("Cannot create MusicBrainz client"));
+    return NULL;
   }
   mb_SetDevice (mb, cdrom);
 
   if (!mb_Query (mb, MBQ_GetCDInfo)) {
-    char error[255];
-    mb_GetQueryError (mb, error, 255);
-    g_print(_("Cannot lookup CD: %s\n"), error);
-    return get_offline_track_listing (mb, NULL);
+    return get_offline_track_listing (mb, error);
   }
 
   num_albums = mb_GetResultInt(mb, MBE_GetNumAlbums);
   if (num_albums < 1) {
     g_print(_("This CD was not found.\n"));
-    return NULL;
+    return get_offline_track_listing (mb, error);
   }
 
   for (i = 1; i <= num_albums; i++) {

@@ -1,7 +1,7 @@
 /* 
  * Copyright (C) 2003 Ross Burton <ross@burtonini.com>
  *
- * Sound Juicer - sj-musicbrainz.h
+ * Sound Juicer - sound-juicer.h
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,14 +20,19 @@
  * Authors: Ross Burton <ross@burtonini.com>
  */
 
-#ifndef SJ_MUSICBRAINZ_H
-#define SJ_MUSICBRAINZ_H
+#ifndef SOUND_JUICER_H
+#define SOUND_JUICER_H
 
-#include <glib/glist.h>
-#include <glib/gerror.h>
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif /* HAVE_CONFIG_H */
 
-void sj_musicbrainz_init (void);
-void sj_musicbrainz_set_cdrom (const char* device);
-GList* sj_musicbrainz_list_albums (GError **error);
+#include <libgnome/gnome-i18n.h>
+#include <glade/glade-xml.h>
+#include <gtk/gtkwidget.h>
 
-#endif
+extern GtkWidget * main_window;
+
+extern GladeXML *glade;
+
+#endif /* SOUND_JUICER_H */

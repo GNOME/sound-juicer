@@ -1,41 +1,40 @@
-#include "config.h"
+#include "sound-juicer.h"
+
 #include <string.h>
 #include <gtk/gtk.h>
 #include <glade/glade-xml.h>
 #include <gconf/gconf-client.h>
-#include <libgnome/gnome-i18n.h>
-#include <libgnomeui/gnome-about.h>
+#include "sj-about.h"
 #include "sj-musicbrainz.h"
 #include "sj-extractor.h"
 #include "sj-structures.h"
 #include "sj-error.h"
 #include "sj-util.h"
+#include "prefs-test.h"
 
 GladeXML *glade;
 
-SjExtractor *extractor;
+static SjExtractor *extractor;
 
-GConfClient *gconf_client;
+static GConfClient *gconf_client;
 
-GtkWidget *main_window, *progress_dialog = NULL;
-GtkWidget *title_label, *artist_label, *duration_label;
-GtkWidget *track_listview, *reread_button, *extract_button;
-GtkWidget *extract_menuitem, *select_all_menuitem;
-GtkWidget *progress_label, *track_progress, *album_progress;
-GtkListStore *track_store;
+GtkWidget *main_window;
+static GtkWidget *progress_dialog = NULL;
+static GtkWidget *title_label, *artist_label, *duration_label;
+static GtkWidget *track_listview, *reread_button, *extract_button;
+static GtkWidget *extract_menuitem, *select_all_menuitem;
+static GtkWidget *progress_label, *track_progress, *album_progress;
+static GtkListStore *track_store;
 
-EncoderFormat encoding_format = VORBIS;
+static EncoderFormat encoding_format = VORBIS;
 
-const char *base_path;
-const char *device;
-int track_duration; /* duration of current track for progress dialog */
-gboolean ripping = FALSE;
+static const char *base_path;
+static const char *device;
+static int track_duration; /* duration of current track for progress dialog */
+static gboolean ripping = FALSE;
 
-GList *pending = NULL; /* a GList of TrackDetails* to rip */
-int total_ripping; /* the number of tracks to rip, not decremented */
-
-/* TODO header file */
-extern const char* prefs_get_default_device ();
+static GList *pending = NULL; /* a GList of TrackDetails* to rip */
+static int total_ripping; /* the number of tracks to rip, not decremented */
 
 #define GCONF_ROOT "/apps/sound-juicer"
 #define GCONF_DEVICE GCONF_ROOT "/device"
@@ -51,31 +50,6 @@ enum {
   COLUMN_DETAILS,
   COLUMN_TOTAL
 };
-
-/**
- * Clicked About in the menus
- */
-void on_about_activate (GtkMenuItem *item, gpointer user_data)
-{
-  static GtkWidget *dialog;
-  if (dialog != NULL) {
-    gtk_window_present (GTK_WINDOW (dialog));
-    return;
-  }
-  /* TODO: GError anad path */
-  GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file ("../data/orange-slice.png", NULL);
-  const char* authors[] = {"Ross Burton <ross@burtonini.com>", NULL};
-  dialog = gnome_about_new (_("Sound Juicer"),
-                            VERSION,
-                            _("Copyright (C) 2003 Ross Burton"),
-                            _("A CD ripper"),
-                            authors,
-                            NULL, NULL, pixbuf);
-  gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (main_window));
-  gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog), TRUE);
-  g_object_add_weak_pointer (G_OBJECT (dialog), (gpointer) &dialog);
-  gtk_window_present (GTK_WINDOW (dialog));  
-}
 
 /**
  * Clicked Quit
@@ -304,6 +278,7 @@ void reread_cd (void)
   if (error) {
     g_print (_("Cannot list albums: %s\n"), error->message);
     g_error_free (error);
+    update_ui_for_album (NULL);
     return;
   }
 
@@ -334,7 +309,8 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
                                        "Sound Juicer could not find any CD-ROM drives to read."));
       gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
       gtk_dialog_run (GTK_DIALOG (dialog));
-      exit(1); /* TODO: fix */
+      gtk_main_quit ();
+      return;
 #endif
     }
   } else {
@@ -523,7 +499,6 @@ int main (int argc, char **argv)
 
   gconf_client = gconf_client_get_default();
   g_assert (gconf_client != NULL);
-  /* TODO: move paths and key names to defines */
   gconf_client_add_dir (gconf_client, GCONF_ROOT, GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
   gconf_client_notify_add (gconf_client, GCONF_DEVICE, device_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_BASEPATH, basepath_changed_cb, NULL, NULL, NULL);
@@ -557,25 +532,29 @@ int main (int argc, char **argv)
                                                        NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
-    text_renderer = gtk_cell_renderer_text_new (); /* TODO: is this cheating? */
+    text_renderer = gtk_cell_renderer_text_new ();
     column = gtk_tree_view_column_new_with_attributes (_("Track"),
                                                        text_renderer,
                                                        "text", COLUMN_NUMBER,
                                                        NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
+    /* TODO: Do I need to create these every time or will a single one do? */
+    text_renderer = gtk_cell_renderer_text_new ();
     column = gtk_tree_view_column_new_with_attributes (_("Title"),
                                                        text_renderer,
                                                        "text", COLUMN_TITLE,
                                                        NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
+    text_renderer = gtk_cell_renderer_text_new ();
     column = gtk_tree_view_column_new_with_attributes (_("Artist"),
                                                        text_renderer,
                                                        "text", COLUMN_ARTIST,
                                                        NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
     
+    text_renderer = gtk_cell_renderer_text_new ();
     column = gtk_tree_view_column_new_with_attributes (_("Duration"),
                                                        text_renderer,
                                                        NULL);
@@ -583,13 +562,13 @@ int main (int argc, char **argv)
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
   }
-  
+
   /* YUCK. As bad as Baldrick's trousers */
   basepath_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEPATH, NULL, TRUE, NULL), NULL);
   device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), NULL);
   format_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FORMAT, NULL, TRUE, NULL), NULL);
     
-  gtk_widget_show_all(main_window);
-  gtk_main();
+  gtk_widget_show_all (main_window);
+  gtk_main ();
   return 0;
 }

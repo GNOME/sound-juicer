@@ -20,6 +20,7 @@ static GtkWidget *cd_option, *basepath_label;
 
 const char* prefs_get_default_device ()
 {
+  /* TODO: Yuck, requires the prefs dialog to be shown first. Pants */
   g_return_val_if_fail (cd_option != NULL, NULL);
   return bacon_cd_selection_get_device (BACON_CD_SELECTION (cd_option));
 }

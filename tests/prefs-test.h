@@ -1,7 +1,7 @@
 /* 
  * Copyright (C) 2003 Ross Burton <ross@burtonini.com>
  *
- * Sound Juicer - sj-musicbrainz.h
+ * Sound Juicer - sj-prefs.h
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,14 +20,9 @@
  * Authors: Ross Burton <ross@burtonini.com>
  */
 
-#ifndef SJ_MUSICBRAINZ_H
-#define SJ_MUSICBRAINZ_H
+#ifndef SJ_PREFS_H
+#define SJ_PREFS_H
 
-#include <glib/glist.h>
-#include <glib/gerror.h>
+extern const char* prefs_get_default_device ();
 
-void sj_musicbrainz_init (void);
-void sj_musicbrainz_set_cdrom (const char* device);
-GList* sj_musicbrainz_list_albums (GError **error);
-
-#endif
+#endif /* SJ_PREFS_H */
