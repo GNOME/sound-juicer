@@ -29,26 +29,60 @@
 #include <stdlib.h>
 
 #include <glib/glist.h>
-#include <gtk/gtkwidget.h>
-#include <gtk/gtkwindow.h>
-#include <gtk/gtkstock.h>
+#include <gtk/gtklabel.h>
 #include <gtk/gtkmessagedialog.h>
 #include <gtk/gtkprogressbar.h>
-#include <gtk/gtklabel.h>
-#include <glade/glade-xml.h>
+#include <gtk/gtkstock.h>
+#include <gtk/gtktreemodel.h>
+
 #include "sj-extracting.h"
 #include "sj-util.h"
 
-static GList *pending = NULL; /* a GList of TrackDetails* to rip */
-static int total_ripping; /* the number of tracks to rip, not decremented */
-static int total_duration, current_duration;
-static int track_duration; /* duration of current track for progress dialog */
-static GList *paths; /* A list of strings, where songs have been written */
+/** If this module has been initialised yet. */
+static gboolean initialised = FALSE;
 
+/** The progress dialog. */
 static GtkWidget *progress_dialog;
+
+/** The track and album progress bars. */
 static GtkWidget *track_progress, *album_progress;
+
+/** The progress label. */
 static GtkWidget *progress_label;
+
+/** The extract button in the UI */
 static GtkWidget *extract_button;
+
+/** The current TrackDetails being extracted. */
+static TrackDetails *track;
+
+/**
+ * The list of pending TrackDetails to extract. ->data points to existing
+ * entries, so do not free the data, only the list.
+ */
+static GList *pending;
+
+/**
+ * A list of paths we have extracted music into. Contains allocated items, free
+ * the data and the list when finished.
+ */
+static GList *paths;
+
+/**
+ * The total number of tracks we are extracting.
+ */
+static int total_extracting;
+
+/**
+ * The duration of the extracted tracks, only used so the album progress
+ * displays inter-track progress.
+ */
+
+static int current_duration;
+/**
+ * The total duration of the tracks we are ripping.
+ */
+static int total_duration;
 
 /**
  * Build the absolute filename for the specified track.
@@ -57,7 +91,8 @@ static GtkWidget *extract_button;
  * is the extern variable 'file_pattern'. Free the result when you
  * have finished with it.
  */
-static char* build_filename(const TrackDetails *track)
+static char*
+build_filename (const TrackDetails *track)
 {
   char *realfile, *realpath, *filename, *extension, *path;
   EncoderFormat format;
@@ -80,7 +115,7 @@ static char* build_filename(const TrackDetails *track)
   default:
     g_free (realpath);
     g_free (realfile);
-    g_return_val_if_reached(NULL);
+    g_return_val_if_reached (NULL);
   }
   filename = g_strconcat (realfile, extension, NULL);
   path = g_build_filename (base_path, realpath, filename, NULL);
@@ -93,10 +128,25 @@ static char* build_filename(const TrackDetails *track)
 }
 
 /**
+ * Cleanup the data used, and even enable the Extract button again.
+ */
+static void
+cleanup (void)
+{
+  /* Free the used data */
+  g_list_deep_free (paths, NULL);
+  g_list_free (pending);
+  pending = NULL;
+  track = NULL;
+  gtk_widget_set_sensitive (extract_button, TRUE);
+}
+
+/**
  * Check if a file exists, can be written to, etc.
  * Return true on continue, false on skip.
  */
-static gboolean check_for_file (const char* filename)
+static gboolean
+check_for_file (const char* filename)
 {
   struct stat stats;
   int ret;
@@ -118,7 +168,7 @@ static gboolean check_for_file (const char* filename)
   dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), GTK_DIALOG_MODAL,
                                    GTK_MESSAGE_QUESTION,
                                    GTK_BUTTONS_NONE,
-                                   _("A file called '%s' exists, size %ldK.\nDo you want to skip this track or overwrite it?"),
+                                   _("A file called '%s' exists, size %luK.\nDo you want to skip this track or overwrite it?"),
                                    filename, (unsigned long)(stats.st_size / 1024));
     gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Skip"), GTK_RESPONSE_CANCEL);
     gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Overwrite"), GTK_RESPONSE_ACCEPT);
@@ -129,17 +179,138 @@ static gboolean check_for_file (const char* filename)
     return ret == GTK_RESPONSE_ACCEPT;
 }
 
-static void base_finder (char *data, char **ret)
+/**
+ * Find the name of the directory this file is in, create it, and return the
+ * directory.
+ */
+static char*
+create_directory_for (const char* filename)
 {
-  /* data is the path, a char*
-   * ret is really a char**, a pointer to a pointer, which is the common string */
+  char *directory;
+  g_return_val_if_fail (filename != NULL, NULL);
+
+  directory = g_path_get_dirname (filename);
+  if (!g_file_test (directory, G_FILE_TEST_IS_DIR)) {
+    GError *error = NULL;
+    mkdir_recursive (directory, 0750, &error);
+    if (error) {
+      g_warning (_("mkdir() failed: %s"), error->message);
+      g_error_free (error);
+      return NULL;
+    }
+  }
+  return directory;
+}
+
+/**
+ * The work horse of this file.  Take the first entry from the pending list,
+ * update the UI, and start the extractor.
+ */
+static void
+pop_and_extract (void)
+{
+  if (pending == NULL) {
+    g_assert_not_reached ();
+  } else {
+    char *file_path, *directory;
+    GError *error = NULL;
+    
+    /* Pop the next track to extract */
+    track = pending->data;
+    pending = g_list_remove (pending, track);
+    /* Build the filename for this track */
+    file_path = build_filename (track);
+    /* And create the directory it lives in */
+    directory = create_directory_for (file_path);
+    /* Save the directory name for later */
+    paths = g_list_append (paths, directory);
+    /* See if the file exists */
+    if (!check_for_file (file_path)) {
+      current_duration += track->duration;
+      pop_and_extract ();
+      return;
+    }
+
+    /* Update the progress bars */
+    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), 0);
+    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress),
+                                   1.0 - ((g_list_length (pending) + 1)  / (float)total_extracting));
+    gtk_label_set_text (GTK_LABEL (progress_label), g_strdup_printf (_("Extracting '%s'"), track->title));
+
+    /* Now actually do the extraction */
+    sj_extractor_extract_track (extractor, track, file_path, &error);
+    if (error) {
+      g_print ("Error extracting: %s\n", error->message);
+      // TODO: dialog
+      g_error_free (error);
+      return;
+    }
+    g_free (file_path);
+  }
+}
+
+/**
+ * Foreach callback to populate pending with the list of TrackDetails to
+ * extract.
+ */
+static gboolean
+extract_track_foreach_cb (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer data)
+{
+  gboolean extract;
+  TrackDetails *track;
+
+  gtk_tree_model_get (model, iter,
+                      COLUMN_EXTRACT, &extract,
+                      COLUMN_DETAILS, &track,
+                      -1);
+  if (extract) {
+    pending = g_list_append (pending, track);
+    ++total_extracting;
+    total_duration += track->duration;
+  }
+  return FALSE;
+}
+
+/**
+ * Callback from SjExtractor to report progress.
+ */
+static void
+on_progress_cb (SjExtractor *extractor, const int seconds, gpointer data)
+{
+  /* Track progress */
+  if (track->duration != 0) {
+    float percent;
+    percent = CLAMP ((float)seconds / (float)track->duration, 0, 1);
+    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), percent);
+  } else {
+    gtk_progress_bar_pulse (GTK_PROGRESS_BAR (track_progress));
+  }
+
+  /* Album progress */
+  if (total_duration != 0) {
+    float percent;
+    percent = CLAMP ((float)(current_duration + seconds) / (float)total_duration, 0, 1);
+    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress), percent);
+  }
+}
+
+/**
+ * A list foreach function which will find the deepest common directory in a
+ * list of filenames.
+ * @param path the path in this iteration
+ * @param ret a char** to the deepest common path
+ */
+static void
+base_finder (char *path, char **ret)
+{
   if (*ret == NULL) {
-    *ret = g_strdup (data);
+    /* If no common directory so far, this must be it. */
+    *ret = g_strdup (path);
     return;
   } else {
     /* Urgh */
     char *i, *j, *marker;
-    i = marker = data;
+    i = marker = path;
     j = *ret;
     while (*i == *j) {
       if (*i == G_DIR_SEPARATOR) marker = i;
@@ -151,228 +322,151 @@ static void base_finder (char *data, char **ret)
       j = g_utf8_next_char (j);
     }
     g_free (*ret);
-    *ret = g_strndup (data, marker - data + 1);
+    *ret = g_strndup (path, marker - path + 1);
   }
 }
 
 /**
- * Take a GList* of paths (strings), and return the common base path.
+ * Show the "Finished!" dialog, allowing the user to open Nautilus if he wants.
  */
-char* find_common_base (GList *list)
+static void
+show_finished_dialog (void)
 {
-  char *ret = NULL;
-  g_list_foreach (list, (GFunc)base_finder, &ret);
-  return ret;
-}
-
-static void pop_and_rip (void)
-{
-  TrackDetails *track;
-  char *file_path, *directory;
-  GError *error = NULL;
-  int left;
-
-  if (pending == NULL) {
-    GtkWidget *finished_dialog;
-    int result;
-    
-    gtk_widget_hide (progress_dialog);
-    
-    finished_dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
-                                              GTK_DIALOG_DESTROY_WITH_PARENT,
-                                              GTK_MESSAGE_INFO,
-                                              GTK_BUTTONS_NONE,
-                                              /* TODO: need to have a better message here */
-                                              _("The tracks have been copied successfully."));
-    gtk_dialog_add_buttons (GTK_DIALOG (finished_dialog), GTK_STOCK_OPEN, 1, GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE, NULL);
-    result = gtk_dialog_run (GTK_DIALOG (finished_dialog));
-    gtk_widget_destroy (finished_dialog);
-    if (result == 1) {
-      char *base = find_common_base (paths);
-      char *command = g_strdup_printf ("nautilus --no-desktop \"%s\"", base);
-      g_spawn_command_line_async (command, NULL);
-      g_free (base);
-      g_free (command);
-      g_list_deep_free (paths, NULL);
-    }
-    gtk_widget_set_sensitive (extract_button, TRUE);
-    return;
+  GtkWidget *dialog;
+  int result;
+  dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
+                                   GTK_DIALOG_DESTROY_WITH_PARENT,
+                                   GTK_MESSAGE_INFO,
+                                   GTK_BUTTONS_NONE,
+                                   /* TODO: need to have a better message here */
+                                   _("The tracks have been copied successfully."));
+  gtk_dialog_add_buttons (GTK_DIALOG (dialog),
+                          GTK_STOCK_OPEN, 1,
+                          GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+                          NULL);
+  result = gtk_dialog_run (GTK_DIALOG (dialog));
+  gtk_widget_destroy (dialog);
+  if (result == 1) {
+    char *base, *command;
+    base = NULL;
+    /* Find the deepest common directory. */
+    g_list_foreach (paths, (GFunc)base_finder, &base);
+    /* Construct a Nautilus command line */
+    /* TODO: don't think I need --no-desktop here */
+    command = g_strdup_printf ("nautilus --no-desktop \"%s\"", base);
+    g_spawn_command_line_async (command, NULL);
+    g_free (base);
+    g_free (command);
   }
-
-  track = pending->data;
-  pending = g_list_remove (pending, track);
-
-  left = total_ripping - (g_list_length (pending) + 1); /* +1 as we've popped already */
-  gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress), (float)left/(float)total_ripping);
-
-  track_duration = track->duration;
-
-  gtk_label_set_text (GTK_LABEL (progress_label), g_strdup_printf (_("Extracting '%s'"), track->title));
-
-  file_path = build_filename (track);
-
-  /* Build the directory structure */
-  directory = g_path_get_dirname (file_path);
-  if (!g_file_test (directory, G_FILE_TEST_IS_DIR)) {
-    GError *error = NULL;
-    mkdir_recursive (directory, 0750, &error);
-    if (error) {
-      g_warning (_("mkdir() failed: %s"), error->message);
-      g_error_free (error);
-      return;
-    }
-  }
-  paths = g_list_append (paths, g_strdup (directory));
-  g_free (directory);
-
-  /* See if the file exists */
-  if (!check_for_file(file_path)) {
-    current_duration += track->duration;
-    pop_and_rip ();
-    return;
-  }
-
-  extracting = TRUE;
-  sj_extractor_extract_track (extractor, track, file_path, &error);
-  if (error) {
-    g_print ("Error extracting: %s\n", error->message);
-    g_error_free (error);
-    return;
-  }
-  g_free (file_path);
-  return;
-}
-
-/**
- * Cancel in the progress dialog clicked
- * or progress dialog has been closed
- */
-void on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
-{
-  sj_extractor_cancel_extract (extractor);
-  /* Clean up the pending list */
-  /* TODO: free elements? Argh! */
-  g_list_free (pending);
-  pending = NULL;
-  gtk_widget_hide (progress_dialog);
-  gtk_widget_set_sensitive (extract_button, TRUE);
-  extracting = FALSE;
-}
-
-/**
- * Called for every selected track when ripping
- */
-static gboolean rip_track_foreach_cb (GtkTreeModel *model,
-                                      GtkTreePath *path,
-                                      GtkTreeIter *iter,
-                                      gpointer data)
-{
-  gboolean extract;
-  TrackDetails *track;
-
-  gtk_tree_model_get (model, iter,
-                      COLUMN_EXTRACT, &extract,
-                      COLUMN_DETAILS, &track,
-                      -1);
-  if (!extract) return FALSE;
-  pending = g_list_append (pending, track);
-  ++total_ripping;
-  total_duration += track->duration;
-  return FALSE;
-}
-
-/**
- * Callback from SjExtractor to report progress
- */
-static void on_progress_cb (SjExtractor *extractor, const int seconds, gpointer data)
-{
-  float duration;
-
-  if (track_duration != 0) {
-    duration = CLAMP ((float)seconds/(float)track_duration, 0, 1);
-    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), duration);
-  } else {
-    gtk_progress_bar_pulse (GTK_PROGRESS_BAR (track_progress));
-  }
-
-  if (total_duration != 0) {
-    duration = CLAMP ((float)(current_duration + seconds)/(float)total_duration, 0, 1);
-    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress), duration);
-  }
-
-  return;
 }
 
 /**
  * Callback from SjExtractor to report completion.
  */
-static void on_completion_cb (SjExtractor *extractor, gpointer data)
+static void
+on_completion_cb (SjExtractor *extractor, gpointer data)
 {
-  extracting = FALSE;
-  /* TODO: uncheck the Extract check box */
-  current_duration += sj_extractor_get_track_details (extractor)->duration;
-  pop_and_rip ();
-  return;
+  /* TODO: uncheck the relevant check box */
+  if (pending == NULL) {
+    gtk_widget_hide (progress_dialog);
+    show_finished_dialog ();
+    cleanup ();
+    extracting = FALSE;
+  } else {
+    /* Increment the duration */
+    current_duration += track->duration;
+    /* And go and do it all again */
+    pop_and_extract ();
+  }
 }
 
 /**
- * Callback from SjExtractor to report errors
+ * Callback from SjExtractor to report errors.
  */
-static void on_error_cb (SjExtractor *extractor, GError *error, gpointer data)
+static void
+on_error_cb (SjExtractor *extractor, GError *error, gpointer data)
 {
   GtkWidget *dialog;
-  extracting = FALSE;
-  /* TODO: free elements? Argh! */
-  g_list_free (pending);
-  pending = NULL;
-  /* TODO: cleanup. Must refactor this code. */
+  /* We've come to a screeching halt... */
+  gtk_widget_hide (progress_dialog);
+  /* Display a nice dialog */
   dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
                                    GTK_MESSAGE_ERROR,
                                    GTK_BUTTONS_CLOSE,
                                    g_strdup_printf ("Sound Juicer could not extract this CD.\nReason: %s", error->message));
   gtk_dialog_run (GTK_DIALOG (dialog));
   g_error_free (error);
-  return;
+  cleanup ();
+  extracting = FALSE;
 }
 
 /**
- * Clicked on Extract in the UI
+ * Cancel in the progress dialog clicked or progress dialog has been closed.
  */
-void on_extract_activate (GtkWidget *button, gpointer user_data)
+void
+on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
 {
-  extract_button = button;
-  gtk_widget_set_sensitive (extract_button, FALSE);
+  sj_extractor_cancel_extract (extractor);
+  cleanup ();
+  gtk_widget_hide (progress_dialog);
+  extracting = FALSE;
+}
 
-  if (progress_dialog == NULL) {
+/**
+ * Entry point from the interface.
+ */
+void
+on_extract_activate (GtkWidget *button, gpointer user_data)
+{
+  /* Populate the pending list */
+  pending = NULL;
+  total_extracting = 0;
+  current_duration = total_duration = 0;
+  gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), extract_track_foreach_cb, NULL);
+  /* If the pending list is still empty, return */
+  if (pending == NULL) {
+    g_print ("No tracks selected for extracting\n");
+    /* TODO: display a dialog */
+    return;
+  }
+
+  /* Initialise ourself */
+  if (!initialised) {
+    /* Connect to the SjExtractor signals */
+    g_signal_connect (extractor, "progress", G_CALLBACK (on_progress_cb), NULL);
+    g_signal_connect (extractor, "completion", G_CALLBACK (on_completion_cb), NULL);
+    g_signal_connect (extractor, "error", G_CALLBACK (on_error_cb), NULL);
+
+    /* Get the progress dialog */
     progress_dialog = glade_xml_get_widget (glade, "progress_dialog");
+    g_assert (progress_dialog != NULL);
     gtk_window_set_transient_for (GTK_WINDOW (progress_dialog), GTK_WINDOW (main_window));
     track_progress = glade_xml_get_widget (glade, "track_progress");
     album_progress = glade_xml_get_widget (glade, "album_progress");
     progress_label = glade_xml_get_widget (glade, "progress_label");
-    g_assert (progress_dialog != NULL);
+    extract_button = glade_xml_get_widget (glade, "extract_button");
     /* TODO : this callback should be in the glade file */
-    g_signal_connect (progress_dialog, "delete-event", G_CALLBACK(on_progress_cancel_clicked), NULL);
+    g_signal_connect (progress_dialog, "delete-event", G_CALLBACK (on_progress_cancel_clicked), NULL);
+
+    initialised = TRUE;
   }
 
+  /* Reset the progress dialog */
   gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), 0);
   gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress), 0);
-
   gtk_widget_show_all (progress_dialog);
 
-  /* Fill pending with a list of all tracks to rip */
-  total_ripping = 0;
-  total_duration = 0;
-  current_duration = 0;
-
-  g_signal_connect (extractor, "progress", G_CALLBACK(on_progress_cb), NULL);
-  g_signal_connect (extractor, "completion", G_CALLBACK(on_completion_cb), NULL);
-  g_signal_connect (extractor, "error", G_CALLBACK(on_error_cb), NULL);
-
-  gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), rip_track_foreach_cb, NULL);
-  pop_and_rip();
+  /* Start the extracting */
+  extracting = TRUE;
+  pop_and_extract ();
 }
 
 /*
+ * TODO: These should be moved somewhere else, probably with build_pattern at
+ * the top, into sj-patterns.[ch] or something.
+ */
+
+/**
  * Perform magic on a path to make it safe.
  *
  * This will always replace '/' with ' ', and optionally make the file
@@ -382,10 +476,11 @@ void on_extract_activate (GtkWidget *button, gpointer user_data)
  * This function manipulates the string in-place, so g_strdup()
  * anything you want to keep safe!
  */
-static char* sanitize_path (char* s)
+static char*
+sanitize_path (char* s)
 {
   /* Replace path seperators with whitespace */
-  g_strdelimit  (s, "/", ' ');
+  g_strdelimit (s, "/", ' ');
   if (strip_chars) {
     g_strdelimit (s, "\\*?&!:", ' ');
     g_strdelimit (s, " ", '_'); /* TODO: use a different function */
@@ -394,7 +489,8 @@ static char* sanitize_path (char* s)
 }
 
 /**
- * Parse a filename pattern and replace markers with values from a TrackDetails structure.
+ * Parse a filename pattern and replace markers with values from a TrackDetails
+ * structure.
  *
  * Valid markers so far are:
  * %at -- album title
@@ -411,7 +507,7 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
   const char *p, *i;
   /* string is the output string, s is the iterator, t is a general string */
   char *string, *s, *temp;
-  s = string = g_new0(char, 256); /* TODO: bad hardcoding */
+  s = string = g_new0 (char, 256); /* TODO: bad hardcoding */
 
   p = pattern;
   while (*p) {
@@ -440,20 +536,20 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
         g_free (temp);
         break;
       case 'T':
-	i = temp = sanitize_path (g_utf8_strdown (track->album->title, -1));
-	while (*i) *s++ = *i++;
-	g_free (temp);
-	break;
+        i = temp = sanitize_path (g_utf8_strdown (track->album->title, -1));
+        while (*i) *s++ = *i++;
+        g_free (temp);
+        break;
       case 'a':
         i = temp = sanitize_path (g_strdup (track->album->artist));
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
       case 'A':
-	i = temp = sanitize_path (g_utf8_strdown (track->album->artist, -1));
-	while (*i) *s++ = *i++;
-	g_free (temp);
-	break;
+        i = temp = sanitize_path (g_utf8_strdown (track->album->artist, -1));
+        while (*i) *s++ = *i++;
+        g_free (temp);
+        break;
       default:
         *s++ = '%'; *s++ = 'a'; *s++ = *p;
       }
@@ -469,20 +565,20 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
         g_free (temp);
         break;
       case 'T':
-	i = temp = sanitize_path (g_utf8_strdown (track->title, -1));
-	while (*i) *s++ = *i++;
-	g_free (temp);
-	break;
+        i = temp = sanitize_path (g_utf8_strdown (track->title, -1));
+        while (*i) *s++ = *i++;
+        g_free (temp);
+        break;
       case 'a':
         i = temp = sanitize_path (g_strdup (track->artist));
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
       case 'A':
-	i = temp = sanitize_path (g_utf8_strdown (track->artist, -1));
-	while (*i) *s++ = *i++;
-	g_free (temp);
-	break;
+        i = temp = sanitize_path (g_utf8_strdown (track->artist, -1));
+        while (*i) *s++ = *i++;
+        g_free (temp);
+        break;
       case 'n':
         /* Track number */
         i = temp = g_strdup_printf ("%d", track->number);

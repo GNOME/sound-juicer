@@ -58,8 +58,8 @@ const char *base_path, *path_pattern, *file_pattern;
 static const char *device = NULL;
 gboolean strip_chars;
 gboolean extracting = FALSE;
-gboolean tray_opened = FALSE;
-guint poll_id = 0;
+static gboolean tray_opened = FALSE;
+static guint poll_id = 0;
 
 static AlbumDetails *current_album;
 
@@ -886,9 +886,9 @@ int main (int argc, char **argv)
     gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_column_set_cell_data_func (column, text_renderer, duration_cell_data_cb, NULL, NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
-
   }
 
+  update_ui_for_album (NULL);
   gtk_widget_show_all (main_window);
 
   http_proxy_setup (gconf_client);

@@ -77,7 +77,6 @@ struct SjExtractorPrivate {
   int paranoia_mode;
   int track_start;
   int seconds;
-  const TrackDetails *track_details;
   GError *construct_error;
 };
 
@@ -444,9 +443,6 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
     }
   }
 
-  /* Save a pointer to the track details */
-  priv->track_details = track;
-
   /* Set the output filename */
   gst_element_set_state (priv->filesink, GST_STATE_NULL);
   g_object_set (G_OBJECT (priv->filesink), "location", path, NULL);
@@ -508,13 +504,6 @@ void sj_extractor_cancel_extract (SjExtractor *extractor)
    * it will call gst_bin_iterate(), which sees that it is PAUSED,
    * will return FALSE as it did nothing, and be removed. Correct?
    */
-}
-
-const TrackDetails *sj_extractor_get_track_details (SjExtractor *extractor)
-{
-  g_return_val_if_fail (extractor != NULL, NULL);
-  g_return_val_if_fail (SJ_IS_EXTRACTOR (extractor), NULL);
-  return extractor->priv->track_details;
 }
 
 gboolean sj_extractor_supports_encoding (GError **error)

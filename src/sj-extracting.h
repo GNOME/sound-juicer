@@ -24,6 +24,7 @@
 #define SJ_EXTRACTING_H
 
 #include <gtk/gtkwidget.h>
+#include "sj-structures.h"
 
 void on_extract_activate (GtkWidget *button, gpointer user_data);
 char *filepath_parse_pattern (const char* pattern, const TrackDetails *track);
