@@ -246,9 +246,11 @@ static GstElement* build_encoder (SjExtractor *extractor)
     }
     break;
   case FLAC:
+    element = gst_element_factory_make ("flacenc", "encoder");
     priv->encoder_name = "flacenc";
     break;
   case WAVE:
+    element = gst_element_factory_make ("wavenc", "encoder");
     priv->encoder_name = "wavenc";
     break;
   default:
