@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-04-22 22:58+0200\n"
+"POT-Creation-Date: 2003-04-10 18:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,19 +20,19 @@ msgid "<b>Album Progress</b>"
 msgstr ""
 
 #: data/sound-juicer.glade.h:2
-msgid "<b>CD Drive</b>"
+msgid "<b>Artist:</b>"
 msgstr ""
 
 #: data/sound-juicer.glade.h:3
-msgid "<b>CD Info</b>"
+msgid "<b>CD Drive</b>"
 msgstr ""
 
 #: data/sound-juicer.glade.h:4
-msgid "<b>Current Action</b>"
+msgid "<b>CD Info</b>"
 msgstr ""
 
 #: data/sound-juicer.glade.h:5
-msgid "<b>Output Folder</b>"
+msgid "<b>Duration:</b>"
 msgstr ""
 
 #: data/sound-juicer.glade.h:6
@@ -44,15 +44,15 @@ msgid "<b>Output Name</b>"
 msgstr ""
 
 #: data/sound-juicer.glade.h:8
-msgid "<b>Track Progress</b>"
+msgid "<b>Output Path</b>"
 msgstr ""
 
 #: data/sound-juicer.glade.h:9
-msgid "Artist:"
+msgid "<b>Title:</b>"
 msgstr ""
 
 #: data/sound-juicer.glade.h:10
-msgid "Duration:"
+msgid "<b>Track Progress</b>"
 msgstr ""
 
 #: data/sound-juicer.glade.h:11
@@ -85,51 +85,47 @@ msgstr ""
 
 #: data/sound-juicer.glade.h:18
 msgid ""
-"The album information aquired for this CD is not unambiguous.\n"
-"Please select below which album it is and press <i>Continue</i>."
+"This CD could be more than one album. Please select which album it is below "
+"and press <i>Continue</i>."
 msgstr ""
 
-#: data/sound-juicer.glade.h:20
-msgid "Title:"
-msgstr ""
-
-#: data/sound-juicer.glade.h:21
+#: data/sound-juicer.glade.h:19
 msgid "Wave"
 msgstr ""
 
-#: data/sound-juicer.glade.h:22
+#: data/sound-juicer.glade.h:20
 msgid "_Browse..."
 msgstr ""
 
-#: data/sound-juicer.glade.h:23
-msgid "_CD"
-msgstr ""
-
-#: data/sound-juicer.glade.h:24
+#: data/sound-juicer.glade.h:21
 msgid "_Continue"
 msgstr ""
 
-#: data/sound-juicer.glade.h:25
+#: data/sound-juicer.glade.h:22
 msgid "_Extract"
 msgstr ""
 
-#: data/sound-juicer.glade.h:26
+#: data/sound-juicer.glade.h:23
 msgid "_Re-read"
 msgstr ""
 
-#: data/sound-juicer.glade.h:27
+#: data/sound-juicer.glade.h:24
 msgid "label"
 msgstr ""
 
 #: data/sound-juicer.desktop.in.h:1
+msgid "CD Ripper"
+msgstr ""
+
+#: data/sound-juicer.desktop.in.h:2
 msgid "Rip music from your CDs"
 msgstr ""
 
-#: data/sound-juicer.desktop.in.h:2 src/sj-main.c:417
-msgid "Sound Juicer CD Ripper"
+#: data/sound-juicer.schemas.in.h:1
+msgid "TODO: describe valid symbols"
 msgstr ""
 
-#: data/sound-juicer.schemas.in.h:1
+#: data/sound-juicer.schemas.in.h:2
 msgid "The filename pattern to write to."
 msgstr ""
 
@@ -193,10 +189,6 @@ msgstr ""
 msgid "Could not create file sink element"
 msgstr ""
 
-#: src/sj-extractor.c:246
-msgid "Could not get current track position"
-msgstr ""
-
 #: src/sj-extractor.c:311
 msgid "Ripped with Sound Juicer"
 msgstr ""
@@ -205,26 +197,22 @@ msgstr ""
 msgid "Could not seek to track"
 msgstr ""
 
-#: src/sj-extractor.c:330
-msgid "Could not get track start position"
-msgstr ""
-
 #: src/sj-util.c:63
 #, c-format
 msgid "Could not create directory %s: %s"
+msgstr ""
+
+#: src/sj-about.c:50
+msgid "Copyright (C) 2003 Ross Burton"
 msgstr ""
 
 #: src/sj-about.c:51
 msgid "A CD Ripper"
 msgstr ""
 
-#: src/sj-prefs.c:80
-msgid "Select Output Folder"
-msgstr ""
-
 #: src/sj-extracting.c:62
 #, c-format
-msgid "Extracting '%s'"
+msgid "Currently extracting '%s'"
 msgstr ""
 
 #: src/sj-extracting.c:69
@@ -232,68 +220,63 @@ msgstr ""
 msgid "mkdir() failed: %s"
 msgstr ""
 
-#: src/sj-main.c:82
+#: src/sj-main.c:79
 msgid "You are currently extracting a CD. Do you want to quit now or contine?"
 msgstr ""
 
-#: src/sj-main.c:84
+#: src/sj-main.c:81
 msgid "Continue"
 msgstr ""
 
-#: src/sj-main.c:130 src/sj-main.c:180
+#: src/sj-main.c:127 src/sj-main.c:177
 msgid "(unknown)"
 msgstr ""
 
-#: src/sj-main.c:222 src/sj-main.c:477
+#: src/sj-main.c:219 src/sj-main.c:457
 msgid "Title"
 msgstr ""
 
-#: src/sj-main.c:228 src/sj-main.c:485
+#: src/sj-main.c:225 src/sj-main.c:465
 msgid "Artist"
 msgstr ""
 
-#: src/sj-main.c:294
+#: src/sj-main.c:287
 #, c-format
-msgid ""
-"<b>Could not read CD</b>\n"
-"\n"
-"Sound Juicer could not read the track listing on this CD.\n"
-"Reason: %s"
+msgid "Cannot list albums: %s\n"
 msgstr ""
 
-#: src/sj-main.c:328
+#: src/sj-main.c:316
 msgid ""
 "<b>No CD-ROMs found</b>\n"
 "\n"
 "Sound Juicer could not find any CD-ROM drives to read."
 msgstr ""
 
-#: src/sj-main.c:343
-#, c-format
-msgid ""
-"<b>Could not access CD-ROM</b>\n"
-"\n"
-"Sound Juicer could not access the CD-ROM device '%s'.\n"
-"Reason: %s"
-msgstr ""
-
-#: src/sj-main.c:386
+#: src/sj-main.c:361
 #, c-format
 msgid "Unknown format '%s'"
 msgstr ""
 
-#: src/sj-main.c:425
-msgid "Could not create GConf client.\n"
+#: src/sj-main.c:392
+msgid "Sound Juicer CD Ripper"
 msgstr ""
 
-#: src/sj-main.c:462
+#: src/sj-main.c:403
+#, c-format
+msgid ""
+"Sound-Juicer couln't initialise the \n"
+"configuration engine:\n"
+"%s"
+msgstr ""
+
+#: src/sj-main.c:442
 msgid "Extract?"
 msgstr ""
 
-#: src/sj-main.c:469
+#: src/sj-main.c:449
 msgid "Track"
 msgstr ""
 
-#: src/sj-main.c:493
+#: src/sj-main.c:473
 msgid "Duration"
 msgstr ""
