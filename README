@@ -8,19 +8,21 @@ src/ contains the code sort of works.
 
 test/ is where I've been trying out code and ideas.
 
-Currently test/glade-test.c is the "application". Once it managed to
-rip two tracks of a CD I considered it "working", but it needs
-testing...
+Currently test/glade-test.c is the "application". I has ripped entire
+albums, so it should work for you.
 
 CVS GStreamer is required for the Ogg tagging to work correctly --
 you'll get invalid tag messages with 0.6.0.
 
-Yes Kris, it could encode to mp3s.  Fiddle around in sj-gstreamer.c
-and rewrite the pipeline. This may become an option in the future.
-
-I will replace the function pointers in src/sj-gstreamer.c with GLib
-signals, but as I said, this is all in flux at the moment. I'm still
-undecided about the exact API for the ripper. I'll probably make it a
-GObject or something.
+I will replace the function pointers in src/sj-gstreamer.c. I'll turn
+it into a GObject with signals and properties and stuff. I'll do this
+like in DevHelp so the actually code can be changed at compile
+time. Sort out how to configure the encoder. GObject properties? maybe
+a gtype enum of valid encodings. Or a method returning a GtkWidget*?
 
 I must also create a GConf schema file.
+
+Must decide if the refresh button should is "Re-read" or "Refresh"
+
+I'd like to be able to check for cdparanoia, vorbisenc, etc GST
+plugins at configure time. Anyone know how I do this?

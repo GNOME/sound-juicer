@@ -12,12 +12,19 @@ static GstFormat track_format;
 GstPad *source_pad;
 static int track_start;
 
-typedef void (*progress_cb_t) (int seconds);
-typedef void (*completion_cb_t) (void);
-
 progress_cb_t progress_cb;
 completion_cb_t completion_cb;
+static gint seconds; /* number of seconds into the stream */
 
+/*
+ * TODO: coolness. when setting the format, if the stream is stopped,
+ * just rebuild. if its playing, attach to the eos signal and rebuild
+ * the pipeline then. Cunning, eh? :)
+ */
+
+/**
+ * End of stream callback. Stop the pipeline and tell the world.
+ */
 static void eos_cb (GstElement *gstelement, gpointer user_data)
 {
   gst_element_set_state (pipeline, GST_STATE_READY);
@@ -88,8 +95,6 @@ void sj_gstreamer_set_cdrom (const char* device)
 
   g_object_set (G_OBJECT (cdparanoia), "location", device, NULL);
 }
-
-static gint seconds;
 
 static gboolean tick_timeout_cb(gpointer user_data)
 {
@@ -172,4 +177,18 @@ void sj_gstreamer_extract_track (const TrackDetails *track, const char* path, GE
   gst_element_set_state (pipeline, GST_STATE_PLAYING);
   g_idle_add ((GSourceFunc)gst_bin_iterate, pipeline);
   g_timeout_add (200, (GSourceFunc)tick_timeout_cb, NULL);
+}
+
+void sj_gstreamer_cancel_extract (void)
+{
+  g_return_if_fail (pipeline != NULL);
+  if (gst_element_get_state (pipeline) != GST_STATE_PLAYING) {
+    return;
+  }
+  gst_element_set_state (pipeline, GST_STATE_PAUSED);
+  /*
+   * TODO: I don't think I need to remove gst from the idle loop, as
+   * it will call gst_bin_iterate(), which sees that it is PAUSED,
+   * will return FALSE as it did nothing, and be removed. Correct?
+   */
 }
