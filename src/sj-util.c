@@ -80,7 +80,16 @@ mkdir_recursive (const char *path, mode_t permission_bits, GError **error)
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
+
+#ifdef __FreeBSD__
+#include <sys/cdio.h>
+#define CDROMEJECT CDIOCEJECT
+#endif /* __FreeBSD__ */
+
+#ifdef __linux__
 #include <linux/cdrom.h>
+#endif /* __linux__ */
+
 #include <gtk/gtkmessagedialog.h>
 #include <gtk/gtklabel.h>
 
