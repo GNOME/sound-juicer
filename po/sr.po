@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
-"POT-Creation-Date: 2003-09-02 17:20+0200\n"
-"PO-Revision-Date: 2003-09-02 17:20+0200\n"
+"POT-Creation-Date: 2003-09-06 16:00+0200\n"
+"PO-Revision-Date: 2003-09-06 16:00+0200\n"
 "Last-Translator: Дејан Матијевић <dejan@ns.sympatico.ca>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -108,7 +108,7 @@ msgstr "Напредовање"
 msgid "Raw audio"
 msgstr "Необрађени звук"
 
-#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:720
+#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:762
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -136,7 +136,7 @@ msgstr "_CD"
 msgid "_Contents"
 msgstr "_Садржај"
 
-#: data/sound-juicer.glade.h:30 src/sj-main.c:105
+#: data/sound-juicer.glade.h:30 src/sj-main.c:128
 msgid "_Continue"
 msgstr "_Настави"
 
@@ -179,21 +179,28 @@ msgstr "Sound Juicer CD преузимање"
 #: data/sound-juicer.schemas.in.h:2
 #, no-c-format
 msgid ""
-"%at -- album title %aa -- album artist %tt -- track title %ta -- track artist"
+"%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
+"album artist (lowercase) %tt -- track title %tT -- track title (lowercase) %"
+"ta -- track artist %tA -- track artist (lowercase)"
 msgstr ""
-"%at -- наслов албума %aa -- извођач албума %tt -- наслов песме %ta -- "
-"извођач песме"
+"%at — наслов албума %aT — наслов албума (малим словима) %aa — извођач албума "
+"%aA — извођач албума (малим словима) %tt — наслов песме %tT — наслов песме "
+"(малим словима) %ta — извођач песме %tA — извођач песме (малим словима)"
 
 #: data/sound-juicer.schemas.in.h:4
 #, no-c-format
 msgid ""
-"Do not specify an extension. %at -- album title %aa -- album artist %tn -- "
-"track number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track "
-"title %ta -- track artist"
+"Do not specify an extension. %at -- album title %aT -- album title "
+"(lowercase) %aa -- album artist %aA -- album artist (lowercase) %tn -- track "
+"number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
+"tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
+"(lowercase)"
 msgstr ""
-"Немој одредити додатке. %at -- наслов албума %aa -- извођач албума %tn -- "
-"број песме (нпр. 8) %tN -- број песме, са нулом (нпр. 08) %tt -- нслов песме "
-"%ta -- извођач песме"
+"Не наводи екстензију. %at — наслов албума %aT — наслов албума (малим "
+"словима) %aa — извођач албума %aA — извођач албума (малим словима) %tn — "
+"број песме (нпр. 8) %tN — број песме, попуњен нулама (нпр. 08) %tt — наслов "
+"песме %tT — наслов песме (малим словима) %ta — извођач песме %tA — извођач "
+"песме (малим словима)"
 
 #: data/sound-juicer.schemas.in.h:5
 msgid ""
@@ -244,57 +251,6 @@ msgstr "Не именовани CDROM"
 msgid "Select the drive"
 msgstr "Одабери драјв"
 
-#: src/sj-metadata-musicbrainz.c:82
-msgid "Cannot create MusicBrainz client"
-msgstr "Не може направити MusicBrainz клијент"
-
-#: src/sj-metadata-musicbrainz.c:174 src/sj-metadata-musicbrainz.c:282
-#, c-format
-msgid "Cannot read CD: %s"
-msgstr "Не може да чита CD: %s"
-
-#: src/sj-metadata-musicbrainz.c:181
-msgid "Unknown Artist"
-msgstr "Непознати извођач"
-
-#: src/sj-metadata-musicbrainz.c:182
-msgid "Unknown Title"
-msgstr "Непознат наслов"
-
-#: src/sj-metadata-musicbrainz.c:187
-#, c-format
-msgid "Track %d"
-msgstr "Стаза %d"
-
-#: src/sj-metadata-musicbrainz.c:207
-msgid ""
-"MusicBrainz metadata object is not valid. This is bad, check your console "
-"for errors."
-msgstr ""
-"MusicBrainz објекат са метаподацима није одговарајућ. То је лоше, проверите "
-"своју конзолу за грешке."
-
-#: src/sj-metadata-musicbrainz.c:276
-#, c-format
-msgid "Device '%s' does not contain a media"
-msgstr "Уређај „%s“ не садржи медиј"
-
-#: src/sj-metadata-musicbrainz.c:279
-#, c-format
-msgid ""
-"Device '%s' could not be opened. Check the access permissions on the device."
-msgstr ""
-"Не могу да отворим уређај „%s“. Проверите приступна овлашћења за уређај."
-
-#: src/sj-metadata-musicbrainz.c:290
-#, c-format
-msgid "This CD could not be queried: %s\n"
-msgstr "Овај CD не може да буде захтеван: %s\n"
-
-#: src/sj-metadata-musicbrainz.c:296
-msgid "This CD was not found.\n"
-msgstr "Овај CD није пронађен.\n"
-
 #: src/sj-extractor.c:135
 msgid "Encoding format"
 msgstr "Облик врсте записа"
@@ -339,17 +295,17 @@ msgstr "Не може да потражи стазу"
 msgid "Could not get track start position"
 msgstr "Не може да добије стартну позицију стазе"
 
-#: src/sj-util.c:64
+#: src/sj-util.c:65
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Нисам могао да направим директоријум %s: %s"
 
-#: src/sj-util.c:101 src/sj-util.c:116
+#: src/sj-util.c:111 src/sj-util.c:126
 msgid "Could not eject the CD"
 msgstr "Не може да избаци CD"
 
-#: src/sj-util.c:102 src/sj-util.c:117 src/sj-main.c:71 src/sj-main.c:398
-#: src/sj-main.c:468
+#: src/sj-util.c:112 src/sj-util.c:127 src/sj-main.c:76 src/sj-main.c:435
+#: src/sj-main.c:507
 msgid "Reason"
 msgstr "Разлог"
 
@@ -433,71 +389,71 @@ msgstr "Извлачење „%s“"
 msgid "mkdir() failed: %s"
 msgstr "mkdir() није успео: %s"
 
-#: src/sj-main.c:70
+#: src/sj-main.c:75
 msgid "Could not start Sound Juicer"
 msgstr "Не може да покрене Sound Juicer"
 
-#: src/sj-main.c:73
+#: src/sj-main.c:78
 msgid "Please consult the documentation for assistance."
 msgstr "Погледајте документацију за помоћ."
 
-#: src/sj-main.c:103
+#: src/sj-main.c:126
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr ""
 "Ви тренутно извлачите са CD-a.  Да ли хоћете да сада прекинете или да "
 "наставите?"
 
-#: src/sj-main.c:149 src/sj-main.c:207
+#: src/sj-main.c:179 src/sj-main.c:237
 msgid "(unknown)"
 msgstr "(непознато)"
 
-#: src/sj-main.c:249 src/sj-main.c:799
+#: src/sj-main.c:279 src/sj-main.c:841
 msgid "Title"
 msgstr "Наслов"
 
-#: src/sj-main.c:255 src/sj-main.c:807
+#: src/sj-main.c:285 src/sj-main.c:849
 msgid "Artist"
 msgstr "Извођач"
 
-#: src/sj-main.c:396 src/sj-main.c:466
+#: src/sj-main.c:433 src/sj-main.c:505
 msgid "Could not read the CD"
 msgstr "Не може читати CD"
 
-#: src/sj-main.c:397
+#: src/sj-main.c:434
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer неможе да чита стазу листе са овог CD-a."
 
-#: src/sj-main.c:449
+#: src/sj-main.c:486
 msgid "No CD-ROM drives found"
 msgstr "Ниједан CD-ROM уређај није нађен"
 
-#: src/sj-main.c:450
+#: src/sj-main.c:487
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer неможе да наће ниједан CD-ROM уређај да чита."
 
-#: src/sj-main.c:460
+#: src/sj-main.c:499
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer неможе да приступи CD-ROM уређај '%s'"
 
-#: src/sj-main.c:522
+#: src/sj-main.c:564
 msgid "Cannot find any suitable encoders"
 msgstr "Не могу да нађем пригодне врсте записа"
 
-#: src/sj-main.c:537
+#: src/sj-main.c:579
 msgid "The currently selected encoder is not available on your installation."
 msgstr "Тренутно изабрана врста записа није доступна на вашем систему."
 
-#: src/sj-main.c:539
+#: src/sj-main.c:581
 msgid "Change the encoder"
 msgstr "Измени врсту записа"
 
-#: src/sj-main.c:649
+#: src/sj-main.c:691
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Непознатa колона %d је промењена"
 
-#: src/sj-main.c:696
+#: src/sj-main.c:738
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -506,21 +462,79 @@ msgstr ""
 "Не може да прикаже помоћ за Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:738
+#: src/sj-main.c:780
 msgid "Could not create GConf client.\n"
 msgstr "Не може да направи GConf клијент.\n"
 
-#: src/sj-main.c:780
+#: src/sj-main.c:822
 msgid "Extract?"
 msgstr "Извадити?"
 
-#: src/sj-main.c:788
+#: src/sj-main.c:830
 msgid "Track"
 msgstr "Стаза"
 
-#: src/sj-main.c:817
+#: src/sj-main.c:859
 msgid "Duration"
 msgstr "Трајање"
+
+#: src/sj-metadata-musicbrainz.c:82
+msgid "Cannot create MusicBrainz client"
+msgstr "Не може направити MusicBrainz клијент"
+
+#: src/sj-metadata-musicbrainz.c:174 src/sj-metadata-musicbrainz.c:282
+#, c-format
+msgid "Cannot read CD: %s"
+msgstr "Не може да чита CD: %s"
+
+#: src/sj-metadata-musicbrainz.c:181
+msgid "Unknown Artist"
+msgstr "Непознати извођач"
+
+#: src/sj-metadata-musicbrainz.c:182
+msgid "Unknown Title"
+msgstr "Непознат наслов"
+
+#: src/sj-metadata-musicbrainz.c:187
+#, c-format
+msgid "Track %d"
+msgstr "Стаза %d"
+
+#: src/sj-metadata-musicbrainz.c:207
+msgid ""
+"MusicBrainz metadata object is not valid. This is bad, check your console "
+"for errors."
+msgstr ""
+"MusicBrainz објекат са метаподацима није одговарајућ. То је лоше, проверите "
+"своју конзолу за грешке."
+
+#: src/sj-metadata-musicbrainz.c:276
+#, c-format
+msgid "Device '%s' does not contain a media"
+msgstr "Уређај „%s“ не садржи медиј"
+
+#: src/sj-metadata-musicbrainz.c:279
+#, c-format
+msgid ""
+"Device '%s' could not be opened. Check the access permissions on the device."
+msgstr ""
+"Не могу да отворим уређај „%s“. Проверите приступна овлашћења за уређај."
+
+#: src/sj-metadata-musicbrainz.c:290
+#, c-format
+msgid "This CD could not be queried: %s\n"
+msgstr "Овај CD не може да буде захтеван: %s\n"
+
+#: src/sj-metadata-musicbrainz.c:296
+msgid "This CD was not found.\n"
+msgstr "Овај CD није пронађен.\n"
+
+#~ msgid ""
+#~ "%at -- album title %aa -- album artist %tt -- track title %ta -- track "
+#~ "artist"
+#~ msgstr ""
+#~ "%at -- наслов албума %aa -- извођач албума %tt -- наслов песме %ta -- "
+#~ "извођач песме"
 
 # src/sj-main.c:459
 # src/sj-prefs.c:195
