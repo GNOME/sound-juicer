@@ -366,11 +366,21 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
+      case 'T':
+	i = temp = sanitize_path (g_utf8_strdown (track->album->title, -1));
+	while (*i) *s++ = *i++;
+	g_free (temp);
+	break;
       case 'a':
         i = temp = sanitize_path (g_strdup (track->album->artist));
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
+      case 'A':
+	i = temp = sanitize_path (g_utf8_strdown (track->album->artist, -1));
+	while (*i) *s++ = *i++;
+	g_free (temp);
+	break;
       default:
         *s++ = '%'; *s++ = 'a'; *s++ = *p;
       }
@@ -385,11 +395,21 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
+      case 'T':
+	i = temp = sanitize_path (g_utf8_strdown (track->title, -1));
+	while (*i) *s++ = *i++;
+	g_free (temp);
+	break;
       case 'a':
         i = temp = sanitize_path (g_strdup (track->artist));
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
+      case 'A':
+	i = temp = sanitize_path (g_utf8_strdown (track->artist, -1));
+	while (*i) *s++ = *i++;
+	g_free (temp);
+	break;
       case 'n':
         /* Track number */
         i = temp = g_strdup_printf ("%d", track->number);
