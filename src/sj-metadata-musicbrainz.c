@@ -78,7 +78,7 @@ sj_metadata_musicbrainz_instance_init (GTypeInstance *instance, gpointer g_class
   self->priv = g_new0 (SjMetadataMusicbrainzPrivate, 1);
   self->priv->construct_error = NULL;
   self->priv->mb = mb_New ();
-  // TODO
+  /* TODO: something. :/ */
   if (!self->priv->mb) {
     g_set_error (&self->priv->construct_error,
                  SJ_ERROR, SJ_ERROR_CD_LOOKUP_ERROR,
@@ -86,7 +86,7 @@ sj_metadata_musicbrainz_instance_init (GTypeInstance *instance, gpointer g_class
     return;
   }
   mb_UseUTF8 (self->priv->mb, TRUE);
-  //mb_SetDepth (self->priv->mb, 1);
+  /* TODO: optimal setting? mb_SetDepth (self->priv->mb, 1); */
   if (g_getenv("MUSICBRAINZ_DEBUG")) {
     mb_SetDebug (self->priv->mb, TRUE);
   }
@@ -268,19 +268,21 @@ mb_set_proxy_port (SjMetadata *metadata, const int port)
 static gpointer
 lookup_cd (SjMetadata *metadata)
 {
+  /** The size of the buffer used in MusicBrainz lookups */
+#define MB_BUFFER_SIZE 256
   SjMetadataMusicbrainzPrivate *priv;
   GList *albums = NULL;
   GList *al, *tl;
-  char data[256];
+  char data[MB_BUFFER_SIZE];
   int num_albums, i, j;
   CDMediaType type;
 
-  // TODO: fire error signal
+  /* TODO: fire error signal */
   g_return_val_if_fail (metadata != NULL, NULL);
   g_return_val_if_fail (SJ_IS_METADATA_MUSICBRAINZ (metadata), NULL);
   priv = SJ_METADATA_MUSICBRAINZ (metadata)->priv;
   g_return_val_if_fail (priv->cdrom != NULL, NULL);
-  priv->error = NULL; // TODO: hack
+  priv->error = NULL; /* TODO: hack */
 
   type = guess_media_type (priv->cdrom);
   if (type == CD_MEDIA_TYPE_ERROR) {
@@ -303,8 +305,8 @@ lookup_cd (SjMetadata *metadata)
   }
 
   if (!mb_Query (priv->mb, MBQ_GetCDInfo)) {
-    mb_GetQueryError (priv->mb, data, 256);
-    g_print(_("This CD could not be queried: %s\n"), data);
+    mb_GetQueryError (priv->mb, data, MB_BUFFER_SIZE);
+    g_print (_("This CD could not be queried: %s\n"), data);
     priv->albums = get_offline_track_listing (metadata, &(priv->error));
     g_idle_add ((GSourceFunc)fire_signal_idle, metadata);
     return priv->albums;
@@ -312,7 +314,7 @@ lookup_cd (SjMetadata *metadata)
 
   num_albums = mb_GetResultInt(priv->mb, MBE_GetNumAlbums);
   if (num_albums < 1) {
-    g_print(_("This CD was not found.\n"));
+    g_print (_("This CD was not found.\n"));
     priv->albums = get_offline_track_listing (metadata, &(priv->error));
     g_idle_add ((GSourceFunc)fire_signal_idle, metadata);
     return albums;
@@ -325,19 +327,23 @@ lookup_cd (SjMetadata *metadata)
     mb_Select1(priv->mb, MBS_SelectAlbum, i);
     album = g_new0 (AlbumDetails, 1);
 
-    mb_GetResultData(priv->mb, MBE_AlbumGetAlbumName, data, 256);
+    mb_GetResultData(priv->mb, MBE_AlbumGetAlbumName, data, MB_BUFFER_SIZE);
+    /* TODO: handle failure */
     album->title = g_strdup (data);
 
-    mb_GetResultData (priv->mb, MBE_AlbumGetAlbumArtistId, data, 256);
-    mb_GetIDFromURL (priv->mb, data, data, 256);
+    mb_GetResultData (priv->mb, MBE_AlbumGetAlbumArtistId, data, MB_BUFFER_SIZE);
+    /* TODO: handle failure */
+    mb_GetIDFromURL (priv->mb, data, data, MB_BUFFER_SIZE);
     if (g_ascii_strncasecmp (MBI_VARIOUS_ARTIST_ID, data, 64) == 0) {
       album->artist = g_strdup (_("Various"));
     } else {
-      mb_GetResultData1(priv->mb, MBE_AlbumGetArtistName, data, 256, 1);
+      mb_GetResultData1(priv->mb, MBE_AlbumGetArtistName, data, MB_BUFFER_SIZE, 1);
+      /* TODO: handle failure */
       album->artist = g_strdup (data);
     }
 
     num_tracks = mb_GetResultInt(priv->mb, MBE_AlbumGetNumTracks);
+    /* TODO: handle failure */
 
     for (j = 1; j <= num_tracks; j++) {
       TrackDetails *track;
@@ -347,15 +353,15 @@ lookup_cd (SjMetadata *metadata)
 
       track->number = j; /* replace with number lookup? */
 
-      if (mb_GetResultData1(priv->mb, MBE_AlbumGetTrackName, data, 256, j)) {
+      if (mb_GetResultData1(priv->mb, MBE_AlbumGetTrackName, data, MB_BUFFER_SIZE, j)) {
         track->title = g_strdup (data);
       }
 
-      if (mb_GetResultData1(priv->mb, MBE_AlbumGetArtistName, data, 256, j)) {
+      if (mb_GetResultData1(priv->mb, MBE_AlbumGetArtistName, data, MB_BUFFER_SIZE, j)) {
         track->artist = g_strdup (data);
       }
 
-      if (mb_GetResultData1(priv->mb, MBE_AlbumGetTrackDuration, data, 256, j)) {
+      if (mb_GetResultData1(priv->mb, MBE_AlbumGetTrackDuration, data, MB_BUFFER_SIZE, j)) {
         track->duration = atoi (data) / 1000;
       }
 
@@ -398,8 +404,10 @@ mb_list_albums (SjMetadata *metadata, GError **error)
   g_return_if_fail (SJ_IS_METADATA_MUSICBRAINZ (metadata));
 
   thread = g_thread_create ((GThreadFunc)lookup_cd, metadata, TRUE, error);
-  //FIXME show a proper error
   if (thread == NULL) {
-    g_warning ("Error creating the thread");
+    g_set_error (error,
+                 SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
+                 _("Could not create CD lookup thread"));
+    return;
   }
 }
