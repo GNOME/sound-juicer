@@ -35,7 +35,7 @@ extern GtkWidget *main_window;
 
 /* Store the toggle buttons pertaining to the format */
 static GtkWidget *format_widgets[SJ_NUMBER_FORMATS];
-static GtkWidget *cd_option, *path_option, *file_option, *basepath_label, *check_strip;
+static GtkWidget *cd_option, *path_option, *file_option, *basepath_label, *check_strip, *check_eject;
 static GtkWidget *path_example_label;
 
 typedef struct {
@@ -87,6 +87,16 @@ const char* prefs_get_default_device ()
 void prefs_cdrom_changed_cb (GtkWidget *widget, const char* device)
 {
   gconf_client_set_string (gconf_client, GCONF_DEVICE, device, NULL);
+}
+
+/**
+ * The Eject when Finished check was toggled.
+ */
+void prefs_eject_toggled (GtkToggleButton *togglebutton, gpointer user_data)
+{
+  gconf_client_set_bool (gconf_client, GCONF_EJECT,
+                         gtk_toggle_button_get_active (togglebutton),
+                         NULL);
 }
 
 /**
@@ -245,27 +255,21 @@ static void strip_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *en
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check_strip), value);
 }
 
+static void eject_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+{
+  gboolean value = FALSE;
+  g_assert (strcmp (entry->key, GCONF_EJECT) == 0);
+  if (entry->value != NULL) {
+    value = gconf_value_get_bool (entry->value);
+  }
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check_eject), value);
+}
+
 static void pattern_label_update (void)
 {
   char *file_pattern, *path_pattern;
   char *file_value, *path_value, *example;
   gboolean strip;
-#if 0
-  static TrackDetails *sample_track;
-  static AlbumDetails *sample_album;
-
-  if (sample_track == NULL) {
-    sample_album = g_new0 (AlbumDetails, 1);
-    sample_album->title = N_("Album Title");
-    sample_album->artist = N_("Album Artist");
-    sample_album->tracks = NULL; /* A little cheat */
-    sample_track = g_new0 (TrackDetails, 1);
-    sample_track->album = sample_album;
-    sample_track->number = 9;
-    sample_track->title = N_("Track Title");
-    sample_track->artist = N_("Track Artist");
-  }
-#else
   static AlbumDetails sample_album = {
     N_("Album Title"),
     N_("Album Artist"),
@@ -279,7 +283,6 @@ static void pattern_label_update (void)
     N_("Track Artist"),
     60
   };
-#endif
   /* TODO: sucky. Replace with get-gconf-key-with-default mojo */
   file_pattern = gconf_client_get_string (gconf_client, GCONF_FILE_PATTERN, NULL);
   if (file_pattern == NULL) {
@@ -377,6 +380,7 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     format_widgets[SJ_FORMAT_FLAC] = glade_xml_get_widget (glade, "format_flac");
     format_widgets[SJ_FORMAT_WAVE] = glade_xml_get_widget (glade, "format_wave");
     check_strip = glade_xml_get_widget (glade, "check_strip");
+    check_eject = glade_xml_get_widget (glade, "check_eject");
     path_example_label = glade_xml_get_widget (glade, "path_example_label");
 
     gtk_option_menu_set_menu (GTK_OPTION_MENU (path_option), generate_pattern_menu (path_patterns));
@@ -389,6 +393,7 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     gconf_client_notify_add (gconf_client, GCONF_BASEPATH, basepath_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_FORMAT, format_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_STRIP, strip_changed_cb, NULL, NULL, NULL);
+    gconf_client_notify_add (gconf_client, GCONF_EJECT, eject_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_PATH_PATTERN, path_pattern_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_FILE_PATTERN, file_pattern_changed_cb, NULL, NULL, NULL);
   }
@@ -396,6 +401,7 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
   device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), NULL);
   format_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FORMAT, NULL, TRUE, NULL), NULL);
   strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);
+  eject_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_EJECT, NULL, TRUE, NULL), NULL);
   file_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL), NULL);
   path_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL), NULL);
 

@@ -60,8 +60,9 @@ static GtkWidget *extract_menuitem, *select_all_menuitem, *deselect_all_menuitem
 GtkListStore *track_store;
 
 const char *base_path, *path_pattern, *file_pattern;
-static const char *device = NULL;
+const char *device = NULL;
 gboolean strip_chars;
+gboolean eject_finished;
 gboolean extracting = FALSE;
 static gboolean tray_opened = FALSE;
 static guint poll_id = 0;
@@ -401,6 +402,19 @@ void strip_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gp
     strip_chars = FALSE;
   } else {
     strip_chars = gconf_value_get_bool (entry->value);
+  }
+}
+
+/**
+ * The GConf key for the eject when finished option changed
+ */
+void eject_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+{
+  g_assert (strcmp (entry->key, GCONF_EJECT) == 0);
+  if (entry->value == NULL) {
+    eject_finished = FALSE;
+  } else {
+    eject_finished = gconf_value_get_bool (entry->value);
   }
 }
 

@@ -78,6 +78,11 @@ typedef enum {
 extern GtkListStore *track_store;
 
 /**
+ * The device we are extracting from.
+ */
+extern const char *device;
+
+/**
  * The root path to write files too
  */
 extern const char *base_path;
@@ -98,6 +103,11 @@ extern const char *file_pattern;
 extern gboolean strip_chars;
 
 /**
+ * If the CD-ROM should be ejected when it has been extracted.
+ */
+extern gboolean eject_finished;
+
+/**
  * If we are in auto-start mode
  */
 extern gboolean autostart;
@@ -107,6 +117,7 @@ extern gboolean autostart;
  */
 #define GCONF_ROOT "/apps/sound-juicer"
 #define GCONF_DEVICE GCONF_ROOT "/device"
+#define GCONF_EJECT GCONF_ROOT "/eject"
 #define GCONF_BASEPATH GCONF_ROOT "/base_path"
 #define GCONF_FILE_PATTERN GCONF_ROOT "/file_pattern"
 #define GCONF_PATH_PATTERN GCONF_ROOT "/path_pattern"
