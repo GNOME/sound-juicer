@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-07-01 05:19+0200\n"
-"PO-Revision-Date: 2003-07-01 09:49+0200\n"
+"POT-Creation-Date: 2003-07-03 05:18+0200\n"
+"PO-Revision-Date: 2003-07-03 10:09+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -59,50 +59,54 @@ msgid "E_ject"
 msgstr "_Vysunout"
 
 #: data/sound-juicer.glade.h:12
+msgid "Example Path:"
+msgstr "Příklad cesty:"
+
+#: data/sound-juicer.glade.h:13
 msgid "Excellent quality lossless compression"
 msgstr "Bezztrátová komprese s výbornou kvalitou"
 
-#: data/sound-juicer.glade.h:13
+#: data/sound-juicer.glade.h:14
 msgid "FLAC"
 msgstr "FLAC"
 
-#: data/sound-juicer.glade.h:14
+#: data/sound-juicer.glade.h:15
 msgid "Good quality lossy compression"
 msgstr "Ztrátová komprese s dobrou kvalitou"
 
-#: data/sound-juicer.glade.h:15
+#: data/sound-juicer.glade.h:16
 msgid "High quality lossy compression"
 msgstr "Bezztrátová komprese s vysokou kvalitou"
 
-#: data/sound-juicer.glade.h:16
+#: data/sound-juicer.glade.h:17
 msgid "MP3"
 msgstr "MP3"
 
-#: data/sound-juicer.glade.h:17
+#: data/sound-juicer.glade.h:18
 msgid "Multiple Albums Found"
 msgstr "Nalezeno více alb"
 
-#: data/sound-juicer.glade.h:18
+#: data/sound-juicer.glade.h:19
 msgid "Ogg Vorbis"
 msgstr "Ogg Vorbis"
 
-#: data/sound-juicer.glade.h:19
+#: data/sound-juicer.glade.h:20
 msgid "Preferences"
 msgstr "Nastavení"
 
-#: data/sound-juicer.glade.h:20
+#: data/sound-juicer.glade.h:21
 msgid "Progress"
 msgstr "Průběh"
 
-#: data/sound-juicer.glade.h:21
+#: data/sound-juicer.glade.h:22
 msgid "Raw audio"
 msgstr "Přímý zvuk"
 
-#: data/sound-juicer.glade.h:22 src/sj-about.c:49 src/sj-main.c:602
+#: data/sound-juicer.glade.h:23 src/sj-about.c:49 src/sj-main.c:596
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
-#: data/sound-juicer.glade.h:23
+#: data/sound-juicer.glade.h:24
 msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
@@ -110,45 +114,49 @@ msgstr ""
 "Toto CD může být více než jedno album. Vyberte prosím, které album to je, "
 "níže a stiskněte <i>Pokračovat</i>."
 
-#: data/sound-juicer.glade.h:24
+#: data/sound-juicer.glade.h:25
 msgid "Wave"
 msgstr "Wave"
 
-#: data/sound-juicer.glade.h:25
+#: data/sound-juicer.glade.h:26
 msgid "_Browse..."
 msgstr "_Proházet..."
 
-#: data/sound-juicer.glade.h:26
+#: data/sound-juicer.glade.h:27
 msgid "_CD"
 msgstr "_CD"
 
-#: data/sound-juicer.glade.h:27
+#: data/sound-juicer.glade.h:28
 msgid "_Continue"
 msgstr "_Pokračovat"
 
-#: data/sound-juicer.glade.h:28
+#: data/sound-juicer.glade.h:29
 msgid "_Deselect All"
 msgstr "Zrušit _výběr všeho"
 
-#: data/sound-juicer.glade.h:29
+#: data/sound-juicer.glade.h:30
 msgid "_Extract"
 msgstr "_Extrahovat"
 
-#: data/sound-juicer.glade.h:30
+#: data/sound-juicer.glade.h:31
 msgid "_File Name"
 msgstr "Název _souboru"
 
-#: data/sound-juicer.glade.h:31
+#: data/sound-juicer.glade.h:32
 msgid "_Re-read"
 msgstr "_Znovu načíst"
 
-#: data/sound-juicer.glade.h:32
+#: data/sound-juicer.glade.h:33
 msgid "_Strip special characters"
 msgstr "_Odstranit speciální znaky"
 
-#: data/sound-juicer.glade.h:33
+#: data/sound-juicer.glade.h:34
 msgid "label"
 msgstr "jmenovka"
+
+#: data/sound-juicer.glade.h:35
+msgid "path_example_label"
+msgstr "path_example_label"
 
 #: data/sound-juicer.desktop.in.h:1
 msgid "CD Ripper"
@@ -300,53 +308,74 @@ msgstr "Nemohu se posunout na stopu"
 msgid "Could not get track start position"
 msgstr "Nemohu získat počáteční pozici stopy"
 
-#: src/sj-util.c:63
+#: src/sj-util.c:64
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Nemohu vytvořit adresář %s: %s"
+
+#: src/sj-util.c:101 src/sj-util.c:116
+msgid "Could not eject the CD"
+msgstr "Nemohu vysunout CD"
+
+#: src/sj-util.c:102 src/sj-util.c:117 src/sj-main.c:377 src/sj-main.c:430
+#: src/sj-main.c:577
+msgid "Reason"
+msgstr "Důvod"
 
 #: src/sj-about.c:51
 msgid "A CD Ripper"
 msgstr "CD Ripper"
 
-#: src/sj-prefs.c:44
+#: src/sj-prefs.c:46
 msgid "Album Artist, Album Title"
 msgstr "Umělec alba, název alba"
 
-#: src/sj-prefs.c:45
+#: src/sj-prefs.c:47
 msgid "Track Artist, Album Title"
 msgstr "Umělec stopy, název alba"
 
-#: src/sj-prefs.c:46
+#: src/sj-prefs.c:48 src/sj-prefs.c:258 src/sj-prefs.c:269
 msgid "Album Title"
 msgstr "Název alba"
 
-#: src/sj-prefs.c:47
+#: src/sj-prefs.c:49 src/sj-prefs.c:259 src/sj-prefs.c:270
 msgid "Album Artist"
 msgstr "Umělec alba"
 
-#: src/sj-prefs.c:52
+#: src/sj-prefs.c:50
+msgid "Album Artist - Album Title"
+msgstr "Umělec alba - název alba"
+
+#: src/sj-prefs.c:55
 msgid "Number - Title"
 msgstr "Číslo - název"
 
-#: src/sj-prefs.c:53
+#: src/sj-prefs.c:56 src/sj-prefs.c:264 src/sj-prefs.c:276
 msgid "Track Title"
 msgstr "Název stopy"
 
-#: src/sj-prefs.c:54
+#: src/sj-prefs.c:57
 msgid "Track Artist - Track Title"
 msgstr "Umělec stopy - název stopy"
 
-#: src/sj-prefs.c:94
+#: src/sj-prefs.c:58
+msgid "Number. Track Artist - Track Title"
+msgstr "Číslo. stopy umělec - název stopy"
+
+#: src/sj-prefs.c:98
 msgid "Select Output Location"
 msgstr "Vyberte umístění výstupu"
 
-#: src/sj-prefs.c:191 src/sj-main.c:465
+#: src/sj-prefs.c:195 src/sj-main.c:459
 #, c-format
 msgid "Unknown format %s"
 msgstr "Neznámý formát %s"
 
-#: src/sj-extracting.c:120
+#: src/sj-prefs.c:265 src/sj-prefs.c:277
+msgid "Track Artist"
+msgstr "Umělec stopy"
+
+#: src/sj-extracting.c:118
 #, c-format
 msgid ""
 "A file called '%s' exists, size %ldK.\n"
@@ -355,100 +384,96 @@ msgstr ""
 "Soubor pojmenovaný '%s' existuje, velikost %ldK.\n"
 "Chcete tuto stopu přeskočit nebo jej přepsat?"
 
-#: src/sj-extracting.c:122
+#: src/sj-extracting.c:120
 msgid "_Skip"
 msgstr "Pře_skočit"
 
-#: src/sj-extracting.c:123
+#: src/sj-extracting.c:121
 msgid "Overwrite"
 msgstr "Přepsat"
 
 #. TODO: need to have a better message here
-#: src/sj-extracting.c:149
+#: src/sj-extracting.c:147
 msgid "The tracks have been copied successfully."
 msgstr "Stopy byly úspěšně zkopírovány."
 
-#: src/sj-extracting.c:170
+#: src/sj-extracting.c:168
 #, c-format
 msgid "Extracting '%s'"
 msgstr "Extrahuji '%s'"
 
-#: src/sj-extracting.c:180
+#: src/sj-extracting.c:178
 #, c-format
 msgid "mkdir() failed: %s"
 msgstr "mkdir() selhalo: %s"
 
-#: src/sj-main.c:89
+#: src/sj-main.c:83
 msgid "You are currently extracting a CD. Do you want to quit now or contine?"
 msgstr "Momentálně extrahujete CD. Chcete hned skončit nebo pokračovat?"
 
-#: src/sj-main.c:91
+#: src/sj-main.c:85
 msgid "Continue"
 msgstr "Pokračovat"
 
-#: src/sj-main.c:139 src/sj-main.c:192
+#: src/sj-main.c:133 src/sj-main.c:186
 msgid "(unknown)"
 msgstr "(neznámé)"
 
-#: src/sj-main.c:234 src/sj-main.c:680
+#: src/sj-main.c:228 src/sj-main.c:674
 msgid "Title"
 msgstr "Název"
 
-#: src/sj-main.c:240 src/sj-main.c:688
+#: src/sj-main.c:234 src/sj-main.c:682
 msgid "Artist"
 msgstr "Umělec"
 
-#: src/sj-main.c:381 src/sj-main.c:434
+#: src/sj-main.c:375 src/sj-main.c:428
 msgid "Could not read the CD"
 msgstr "Nemohu číst CD"
 
-#: src/sj-main.c:382
+#: src/sj-main.c:376
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer nemohl přečíst seznam stop tohoto CD."
 
-#: src/sj-main.c:383 src/sj-main.c:436 src/sj-main.c:583
-msgid "Reason"
-msgstr "Důvod"
-
-#: src/sj-main.c:417
+#: src/sj-main.c:411
 msgid "No CD-ROM drives found"
 msgstr "Nenalezena mechanika CD-ROM"
 
-#: src/sj-main.c:418
+#: src/sj-main.c:412
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer nemohl najít mechaniku CD-ROM, ze které číst."
 
-#: src/sj-main.c:429
+#: src/sj-main.c:423
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer nemohl přistupovat k zařízení CD-ROM '%s'"
 
-#: src/sj-main.c:568
+#: src/sj-main.c:562
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Byl upraven neznámý sloupec %d"
 
-#: src/sj-main.c:582
+#: src/sj-main.c:576
 msgid "Could not start Sound Juicer"
 msgstr "Nemohu spustit Sound Juicer"
 
-#: src/sj-main.c:585
+#: src/sj-main.c:579
 msgid "Please consult the documentation for assistance."
 msgstr "Pro pomoc si prosím přečtěte dokumentaci."
 
-#: src/sj-main.c:619
+#: src/sj-main.c:613
 msgid "Could not create GConf client.\n"
 msgstr "Nemohu vytvořit klienta GConf.\n"
 
-#: src/sj-main.c:661
+#: src/sj-main.c:655
 msgid "Extract?"
 msgstr "Extrahovat?"
 
-#: src/sj-main.c:669
+#: src/sj-main.c:663
 msgid "Track"
 msgstr "Stopa"
 
-#: src/sj-main.c:698
+#: src/sj-main.c:692
 msgid "Duration"
 msgstr "Trvání"
 
