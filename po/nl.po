@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sound-juicer cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-30 15:32+0100\n"
-"PO-Revision-Date: 2003-10-30 19:14+0100\n"
+"POT-Creation-Date: 2003-11-14 04:45+0100\n"
+"PO-Revision-Date: 2003-11-14 13:16+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "<b>CD _speler</b>"
 
 #: data/sound-juicer.glade.h:5
 msgid "<b>Duration:</b>"
-msgstr "<b>Duur:</b>"
+msgstr "<b>Lengte:</b>"
 
 #: data/sound-juicer.glade.h:6
 msgid "<b>Output Name</b>"
@@ -59,15 +59,15 @@ msgstr "<b>_Uitvoerformaat</b>"
 
 #: data/sound-juicer.glade.h:11
 msgid "D_irectory Hierarchy"
-msgstr "Mappenhiërarchie"
+msgstr "_Mappenhiërarchie"
 
 #: data/sound-juicer.glade.h:12
 msgid "E_ject"
-msgstr "Uit_werpen"
+msgstr "_Uitwerpen"
 
 #: data/sound-juicer.glade.h:13
 msgid "Example Path:"
-msgstr "Voorbeeld pad:"
+msgstr "Voorbeeldpad:"
 
 #: data/sound-juicer.glade.h:14
 msgid "Excellent quality lossless compression"
@@ -79,11 +79,11 @@ msgstr "FLAC"
 
 #: data/sound-juicer.glade.h:16
 msgid "Good quality lossy compression"
-msgstr "Goede kwaliteit, verliesgevende compressie"
+msgstr "Goede kwaliteit, compressie met verlies"
 
 #: data/sound-juicer.glade.h:17
 msgid "High quality lossy compression"
-msgstr "Hoge kwaliteit, verliesgevende compressie"
+msgstr "Hoge kwaliteit, compressie met verlies"
 
 #: data/sound-juicer.glade.h:18
 msgid "MP3"
@@ -109,7 +109,7 @@ msgstr "Voortgang"
 msgid "Raw audio"
 msgstr "Ruwe audio"
 
-#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:785
+#: data/sound-juicer.glade.h:24 src/sj-about.c:55 src/sj-main.c:848
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -118,9 +118,10 @@ msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
 msgstr ""
-"Deze CD zou meer kunnen zijn dan één album. Selecteer a.u.b. welk album het "
-"is, en druk op <i>Doorgaan</i>."
+"Er zijn meerdere albums die met deze CD overeenkomen. Selecteer het juiste "
+"album en klik op <i>Doorgaan</i>."
 
+# MS wav
 #: data/sound-juicer.glade.h:26
 msgid "Wave"
 msgstr "Wave"
@@ -137,7 +138,7 @@ msgstr "_CD"
 msgid "_Contents"
 msgstr "_Inhoud"
 
-#: data/sound-juicer.glade.h:30 src/sj-main.c:128
+#: data/sound-juicer.glade.h:30 src/sj-main.c:134
 msgid "_Continue"
 msgstr "_Doorgaan"
 
@@ -260,64 +261,75 @@ msgstr "Coderingsformaat"
 msgid "The format to write the encoded audio in"
 msgstr "Het formaat waarin de gecodeerde audio moet worden geschreven"
 
-#: src/sj-extractor.c:300
+#: src/sj-extractor.c:297
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "Kon geen GStreamer cdparanoia lezer maken"
 
-#: src/sj-extractor.c:319
+#: src/sj-extractor.c:316
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
 msgstr "Kon geen GStreamer encoder maken (%s)"
 
-#: src/sj-extractor.c:330
+#: src/sj-extractor.c:327
 msgid "Could not create GStreamer file output"
 msgstr "Kon geen GStreamer bestanduitvoer maken"
 
-#: src/sj-extractor.c:360
+#: src/sj-extractor.c:357
 msgid "Could not get current track position"
 msgstr "Kon huidige positie in het nummer niet verkrijgen"
 
-#: src/sj-extractor.c:389
+#: src/sj-extractor.c:386
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Uitpakobject is onjuist. Dit is slecht, controleer uw console voor fouten."
 
-#: src/sj-extractor.c:461
+#: src/sj-extractor.c:458
 msgid "Ripped with Sound Juicer"
 msgstr "Geript met Sound Juicer"
 
-#: src/sj-extractor.c:475
+#: src/sj-extractor.c:472
 msgid "Could not seek to track"
 msgstr "Kon niet zoeken in het nummer"
 
-#: src/sj-extractor.c:480
+#: src/sj-extractor.c:477
 msgid "Could not get track start position"
 msgstr "Kon beginpositie van het nummer niet verkrijgen"
 
-#: src/sj-extractor.c:516
+#: src/sj-extractor.c:513
 msgid "The plugin necessary for CD access was not found"
 msgstr "De benodigde plugin voor CD-toegang is niet gevonden"
 
-#: src/sj-extractor.c:524
+#: src/sj-extractor.c:521
 msgid "The plugin necessary for file access was not found"
 msgstr "De benodigde plugin voor bestandstoegang is niet gevonden"
 
-#: src/sj-util.c:65
+#: src/sj-util.c:64
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Kon directory %s niet maken: %s"
 
-#: src/sj-util.c:111 src/sj-util.c:126
+#: src/sj-util.c:110 src/sj-util.c:125
 msgid "Could not eject the CD"
 msgstr "Kon CD niet uitwerpen"
 
-#: src/sj-util.c:112 src/sj-util.c:127 src/sj-main.c:76 src/sj-main.c:412
-#: src/sj-main.c:480 src/sj-main.c:530
+#: src/sj-util.c:111 src/sj-util.c:126 src/sj-main.c:82 src/sj-main.c:422
+#: src/sj-main.c:496 src/sj-main.c:546
 msgid "Reason"
 msgstr "Reden"
 
-#: src/sj-about.c:52
+#.
+#. * Note to translators: put here your name and email so it will show
+#. * up in the "about" box
+#.
+#: src/sj-about.c:45
+msgid "translator_credits"
+msgstr ""
+"Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>\n"
+"Elros Cyriatan <cyriatan@fastmail.fm>\n"
+"Tino Meinen <a.t.meinen@chello.nl>"
+
+#: src/sj-about.c:57
 msgid "A CD Ripper"
 msgstr "Een CD ripper"
 
@@ -330,11 +342,11 @@ msgstr "Album artiest, Album titel"
 msgid "Track Artist, Album Title"
 msgstr "Nummer artiest, Album titel"
 
-#: src/sj-prefs.c:49 src/sj-prefs.c:258 src/sj-prefs.c:269
+#: src/sj-prefs.c:49 src/sj-prefs.c:259 src/sj-prefs.c:270
 msgid "Album Title"
 msgstr "Album titel"
 
-#: src/sj-prefs.c:50 src/sj-prefs.c:259 src/sj-prefs.c:270
+#: src/sj-prefs.c:50 src/sj-prefs.c:260 src/sj-prefs.c:271
 msgid "Album Artist"
 msgstr "Album artiest"
 
@@ -342,127 +354,126 @@ msgstr "Album artiest"
 msgid "Album Artist - Album Title"
 msgstr "Album artiest - Album titel"
 
-#: src/sj-prefs.c:56
+#: src/sj-prefs.c:52
+msgid "[none]"
+msgstr "[geen]"
+
+#: src/sj-prefs.c:57
 msgid "Number - Title"
 msgstr "Getal - Titel"
 
 # de titel van het nummer, hoe het nummer heet
-#: src/sj-prefs.c:57 src/sj-prefs.c:264 src/sj-prefs.c:277
+#: src/sj-prefs.c:58 src/sj-prefs.c:265 src/sj-prefs.c:278
 msgid "Track Title"
 msgstr "Nummer titel"
 
-#: src/sj-prefs.c:58
+#: src/sj-prefs.c:59
 msgid "Track Artist - Track Title"
 msgstr "Nummer artiest - Nummer titel"
 
-#: src/sj-prefs.c:59
+#: src/sj-prefs.c:60
 msgid "Number. Track Artist - Track Title"
 msgstr "Getal. Nummer artiest - Nummer titel"
 
-#: src/sj-prefs.c:99
+#: src/sj-prefs.c:100
 msgid "Select Output Location"
 msgstr "Selecteer uitvoerlokatie"
 
-#: src/sj-prefs.c:265 src/sj-prefs.c:278
+#: src/sj-prefs.c:266 src/sj-prefs.c:279
 msgid "Track Artist"
 msgstr "Nummer artiest"
 
-#: src/sj-extracting.c:172
+#: src/sj-extracting.c:175
 #, c-format
 msgid ""
-"A file called '%s' exists, size %luK.\n"
+"A file called '%s' exists, size %luKB.\n"
 "Do you want to skip this track or overwrite it?"
 msgstr ""
-"Er bestaat een bestand genaamd '%s', met grootte %luK.\n"
-"Wilt u dit nummer overslaan of wilt u het bestand overschrijven?"
+"Er is al een bestand genaamd '%s', met grootte %luKB.\n"
+"Wilt u het nummer overslaan of wilt u het bestand overschrijven?"
 
-#: src/sj-extracting.c:174
+#: src/sj-extracting.c:177
 msgid "_Skip"
 msgstr "_Overslaan"
 
-#: src/sj-extracting.c:175
+#: src/sj-extracting.c:178
 msgid "_Overwrite"
 msgstr "Overschrijven"
 
-#: src/sj-extracting.c:198
-#, c-format
-msgid "mkdir() failed: %s"
-msgstr "mkdir() mislukt: %s"
-
-#: src/sj-extracting.c:239
+#: src/sj-extracting.c:252
 #, c-format
 msgid "Extracting '%s'"
 msgstr "Bezig met uitpakken '%s'"
 
 #. TODO: need to have a better message here
-#: src/sj-extracting.c:343
+#: src/sj-extracting.c:363
 msgid "The tracks have been copied successfully."
 msgstr "De sporen zijn succesvol gekopieerd."
 
-#: src/sj-main.c:75
+#: src/sj-main.c:81
 msgid "Could not start Sound Juicer"
 msgstr "Kon Sound Juicer niet starten"
 
-#: src/sj-main.c:78
+#: src/sj-main.c:84
 msgid "Please consult the documentation for assistance."
 msgstr "Raadpleeg a.u.b. de documentatie voor hulp."
 
-#: src/sj-main.c:126
+#: src/sj-main.c:132
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "U bent nu een CD aan het uitpakken. Wilt u nu afsluiten of doorgaan?"
 
-#: src/sj-main.c:179 src/sj-main.c:237
+#: src/sj-main.c:189 src/sj-main.c:247
 msgid "(unknown)"
 msgstr "(onbekend)"
 
-#: src/sj-main.c:279 src/sj-main.c:865
+#: src/sj-main.c:289 src/sj-main.c:927
 msgid "Title"
 msgstr "Titel"
 
-#: src/sj-main.c:285 src/sj-main.c:873
+#: src/sj-main.c:295 src/sj-main.c:935
 msgid "Artist"
 msgstr "Artiest"
 
-#: src/sj-main.c:410 src/sj-main.c:478 src/sj-main.c:528
+#: src/sj-main.c:420 src/sj-main.c:494 src/sj-main.c:544
 msgid "Could not read the CD"
 msgstr "Kon CD niet lezen"
 
-#: src/sj-main.c:411 src/sj-main.c:479
+#: src/sj-main.c:421 src/sj-main.c:495
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer kon de sporenlijst van deze CD niet lezen."
 
-#: src/sj-main.c:509
+#: src/sj-main.c:525
 msgid "No CD-ROM drives found"
 msgstr "Geen CD-Rom spelers gevonden"
 
-#: src/sj-main.c:510
+#: src/sj-main.c:526
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer kon geen CD-Rom spelers vinden om te lezen."
 
-#: src/sj-main.c:522
+#: src/sj-main.c:538
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer kon geen toegang krijgen tot CD-Rom apparaat '%s'"
 
-#: src/sj-main.c:587
+#: src/sj-main.c:603
 msgid "Cannot find any suitable encoders"
 msgstr "Kon geen geschikte encoder vinden"
 
 # beter?: niet op uw systeem geinstalleerd?
-#: src/sj-main.c:602
+#: src/sj-main.c:618
 msgid "The currently selected encoder is not available on your installation."
 msgstr "De huidige geselecteerde encoder is niet beschikbaar op uw systeem."
 
-#: src/sj-main.c:604
+#: src/sj-main.c:620
 msgid "Change the encoder"
 msgstr "Een andere encoder gebruiken"
 
-#: src/sj-main.c:714
+#: src/sj-main.c:770
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Onbekende kolom %d is bewerkt"
 
-#: src/sj-main.c:761
+#: src/sj-main.c:818
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -471,19 +482,19 @@ msgstr ""
 "Kon hulp niet weergeven voor Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:804
+#: src/sj-main.c:867
 msgid "Could not create GConf client.\n"
 msgstr "Kon geen GConf client maken.\n"
 
-#: src/sj-main.c:846
+#: src/sj-main.c:908
 msgid "Extract?"
 msgstr "Uitpakken?"
 
-#: src/sj-main.c:854
+#: src/sj-main.c:916
 msgid "Track"
 msgstr "Nummer"
 
-#: src/sj-main.c:883
+#: src/sj-main.c:945
 msgid "Duration"
 msgstr "Tijdsduur"
 
@@ -491,7 +502,7 @@ msgstr "Tijdsduur"
 msgid "Cannot create MusicBrainz client"
 msgstr "Kan geen MusicBrainz client maken"
 
-#: src/sj-metadata-musicbrainz.c:178 src/sj-metadata-musicbrainz.c:297
+#: src/sj-metadata-musicbrainz.c:178 src/sj-metadata-musicbrainz.c:299
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Kan CD niet lezen: %s"
@@ -517,13 +528,13 @@ msgstr ""
 "MusicBrainz metadata-object is ongeldig. Dit is foute boel, bekijk de "
 "foutmeldingen in uw terminalvenster."
 
-#: src/sj-metadata-musicbrainz.c:291
+#: src/sj-metadata-musicbrainz.c:293
 #, c-format
 msgid "Device '%s' does not contain a media"
 msgstr "Apparaat '%s' bevat geen mediadrager"
 
 # vrij vertaald
-#: src/sj-metadata-musicbrainz.c:294
+#: src/sj-metadata-musicbrainz.c:296
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
@@ -531,15 +542,19 @@ msgstr ""
 "Apparaat '%s' kon niet worden geopend. Controleer of u het apparaat wel mag "
 "openen."
 
-#: src/sj-metadata-musicbrainz.c:307
+#: src/sj-metadata-musicbrainz.c:309
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "Kon deze CD niet opvragen: %s\n"
 
-#: src/sj-metadata-musicbrainz.c:315
+#: src/sj-metadata-musicbrainz.c:317
 msgid "This CD was not found.\n"
 msgstr "Deze CD is niet gevonden.\n"
 
-#: src/sj-metadata-musicbrainz.c:334
+#: src/sj-metadata-musicbrainz.c:338
 msgid "Various"
 msgstr "Overige"
+
+#: src/sj-metadata-musicbrainz.c:410
+msgid "Could not create CD lookup thread"
+msgstr "Kon de 'thread' voor het opzoeken van de CD niet aanmaken"
