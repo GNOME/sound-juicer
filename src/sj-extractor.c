@@ -420,16 +420,17 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   g_object_set (G_OBJECT (priv->filesink), "location", path, NULL);
 
   /* Set the metadata */
-  /* TODO; this works with Vorbis and will work with FLAC when the
-     property is added. Wave and MP3... news not so good. */
+  /* TODO; this works with Vorbis and MP3 and will work with FLAC when the
+     property is added. Wave ... news not so good. */
   tracknumber = g_strdup_printf("%d", track->number);
   caps = GST_CAPS_NEW ("soundjuicer_metadata", 
                        "application/x-gst-metadata",
-                       "TITLE", GST_PROPS_STRING (track->title),
-                       "ARTIST", GST_PROPS_STRING (track->artist),
-                       "TRACKNUMBER", GST_PROPS_STRING (tracknumber),
-                       "ALBUM", GST_PROPS_STRING (track->album->title),
-                       "COMMENT", GST_PROPS_STRING(_("Ripped with Sound Juicer"))
+                       "title", GST_PROPS_STRING (track->title),
+                       "artist", GST_PROPS_STRING (track->artist),
+                       "tracknum", GST_PROPS_STRING (tracknumber),
+                       "tracknumber", GST_PROPS_STRING (tracknumber),
+                       "album", GST_PROPS_STRING (track->album->title),
+                       "comment", GST_PROPS_STRING(_("Ripped with Sound Juicer"))
                        );
   g_object_set (G_OBJECT (priv->encoder), "metadata", caps, NULL);
   g_free (tracknumber);

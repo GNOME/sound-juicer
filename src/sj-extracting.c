@@ -240,14 +240,18 @@ static gboolean rip_track_foreach_cb (GtkTreeModel *model,
  */
 static void on_progress_cb (SjExtractor *extractor, const int seconds, gpointer data)
 {
+  float duration;
+
   if (track_duration != 0) {
-    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), (float)seconds/(float)track_duration);
+    duration = CLAMP ((float)seconds/(float)track_duration, 0, 1);
+    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), duration);
   } else {
     gtk_progress_bar_pulse (GTK_PROGRESS_BAR (track_progress));
   }
 
   if (total_duration != 0) {
-    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress), (float)(current_duration + seconds)/(float)total_duration);
+    duration = CLAMP ((float)(current_duration + seconds)/(float)total_duration, 0, 1);
+    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress), duration);
   }
 
   return;
