@@ -122,7 +122,7 @@ static void sj_extractor_class_init (SjExtractorClass *klass)
 
   /* Properties */
   g_object_class_install_property (object_class, PROP_PROFILE,
-				   g_param_spec_pointer("profile", _("Gnome Audio Profile"), _("The Gnome Audio Profile used for encoding audio"), G_PARAM_READWRITE));
+				   g_param_spec_pointer("profile", _("GNOME Audio Profile"), _("The GNOME Audio Profile used for encoding audio"), G_PARAM_READWRITE));
 							
   /* Signals */
   sje_table_signals[PROGRESS] =
