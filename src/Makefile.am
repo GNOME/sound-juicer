@@ -13,7 +13,7 @@ AM_CPPFLAGS = \
 	-DPIXMAPDIR=\""$(datadir)/pixmaps"\" \
 	-DPKGDATADIR=\""$(datadir)/sound-juicer"\" \
 	@MUSICBRAINZ_CFLAGS@ @GSTREAMER_CFLAGS@ \
-	@LIBGLADE_CFLAGS@  @GNOME_CFLAGS@
+	@UI_CFLAGS@
 
 
 # We always build Sound Juicer
@@ -43,7 +43,7 @@ sound_juicer_SOURCES = \
 	$(BACONFILES) \
 	$(MARSHALFILES)
 
-sound_juicer_LDFLAGS = @MUSICBRAINZ_LIBS@ @GSTREAMER_LIBS@ @LIBGLADE_LIBS@ @GNOME_LIBS@
+sound_juicer_LDFLAGS = @MUSICBRAINZ_LIBS@ @GSTREAMER_LIBS@ @UI_LIBS@
 
 
 #

@@ -5,7 +5,7 @@ AM_CPPFLAGS = \
 	-DG_DISABLE_DEPRECATED=1 \
 	-I$(top_srcdir)/src \
 	@MUSICBRAINZ_CFLAGS@ @GSTREAMER_CFLAGS@ \
-	@LIBGLADE_CFLAGS@ @GNOME_CFLAGS@
+	@UI_CFLAGS@
 
 AM_CFLAGS = -g -Wall -export-dynamic -Wunused
 
@@ -21,4 +21,4 @@ mb_test_SOURCES = \
 	$(top_srcdir)/src/transport.hxx \
 	$(top_srcdir)/src/dvd_plus_rw_utils.cpp
 
-mb_test_LDADD = @GLIB_LIBS@ @MUSICBRAINZ_LIBS@
+mb_test_LDADD = @UI_LIBS@ @MUSICBRAINZ_LIBS@
