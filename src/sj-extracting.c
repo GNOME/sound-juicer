@@ -187,7 +187,7 @@ static void pop_and_rip (void)
     gtk_widget_destroy (finished_dialog);
     if (result == 1) {
       char *base = find_common_base (paths);
-      char *command = g_strdup_printf ("nautilus --no-desktop %s", base);
+      char *command = g_strdup_printf ("nautilus --no-desktop \"%s\"", base);
       g_spawn_command_line_async (command, NULL);
       g_free (base);
       g_free (command);
