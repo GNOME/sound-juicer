@@ -81,11 +81,15 @@ no)  ENABLE_HAL=no ;;
 esac],
 [ENABLE_HAL=no]) dnl Default value
 
+AC_MSG_CHECKING([whether to use HAL])
 if test "x$ENABLE_HAL" = "xyes"; then
+        AC_MSG_RESULT([yes])
        AC_DEFINE([USE_HAL], 1, [Use the HAL library])
        PKG_CHECK_MODULES(HAL, hal >= $HAL_REQUIRED)
        AC_SUBST(HAL_CFLAGS)
        AC_SUBST(HAL_LIBS)
+else
+        AC_MSG_RESULT([no. Pass --enable-hal to use HAL.])
 fi
 
 
