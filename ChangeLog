@@ -1,3 +1,30 @@
+2003-09-01  Bastien Nocera  <hadess@hadess.net>
+
+	* src/bacon-cd-selection.h:
+	* src/cd-drive.c: (linux_bsd_media_type):
+	* src/cd-drive.h: updated from libbacon
+	* src/sj-error.h: added more fine-grained errors
+	* src/sj-extracting.c: (build_filename):
+	* src/sj-extractor.c: (encoding_format_get_type),
+	(sj_extractor_instance_init), (sj_extractor_finalize),
+	(build_encoder), (build_pipeline), (sj_extractor_set_device),
+	(sj_extractor_set_paranoia), (sj_extractor_supports_format):
+	* src/sj-extractor.h:
+	* src/sj-main.c: (error_on_start), (on_destory_event), (reread_cd),
+	(device_changed_cb), (format_changed_cb), (on_reread_activate),
+	(main):
+	* src/sj-musicbrainz.c: (sj_musicbrainz_list_albums):
+	* src/sj-prefs.c: (on_format_toggled), (format_changed_cb),
+	(on_edit_preferences_cb):
+	* src/sj-prefs.h:
+	* tests/Makefile.am:
+	Added more fine-grained errors in the enum, Do not warn
+	about CD not being present in the drive on startup, Prefix encoding
+	formats with SJ_FORMAT_, Check which encoders are available on startup
+	and when changing the preferences, warn if the selected encoder isn't
+	available, or there aren't any decoders available, Don't use the
+	mpegaudio plugin to encode MPEG, mp2 files suck
+
 2003-09-01  Metin Amiroff  <metin@karegen.com>
 
 	configure.in: Added "az" in ALL_LINGUAS.

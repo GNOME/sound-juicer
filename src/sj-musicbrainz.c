@@ -29,9 +29,12 @@
 #include <musicbrainz/queries.h>
 #include <musicbrainz/mb_c.h>
 #include <stdlib.h>
+#include <unistd.h>
+
 #include "sj-musicbrainz.h"
 #include "sj-structures.h"
 #include "sj-error.h"
+#include "cd-drive.h"
 
 static musicbrainz_t mb;
 static char* cdrom;
@@ -133,8 +136,28 @@ GList* sj_musicbrainz_list_albums(GError **error) {
   GList *al, *tl;
   char data[256];
   int num_albums, i, j;
+  CDMediaType type;
 
   g_return_val_if_fail (mb != NULL, NULL);
+  g_return_val_if_fail (cdrom != NULL, NULL);
+
+  type = guess_media_type (cdrom);
+  if (type == CD_MEDIA_TYPE_ERROR) {
+    char *msg;
+    SjError err;
+
+    if (access (cdrom, W_OK) == 0) {
+      msg = g_strdup_printf (_("Device '%s' does not contain a media"), cdrom);
+      err = SJ_ERROR_CD_NO_MEDIA;
+    } else {
+      msg = g_strdup_printf (_("Device '%s' could not be opened. Check the access permissions on the device."), cdrom);
+      err = SJ_ERROR_CD_PERMISSION_ERROR;
+    }
+    g_set_error (error, SJ_ERROR, err, _("Cannot read CD: %s"), msg);
+    g_free (msg);
+
+    return NULL;
+  }
 
   if (!mb_Query (mb, MBQ_GetCDInfo)) {
     mb_GetQueryError (mb, data, 256);

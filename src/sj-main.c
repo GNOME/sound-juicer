@@ -58,6 +58,21 @@ static AlbumDetails *current_album;
 
 #define DEFAULT_PARANOIA 4
 
+static void error_on_start (GError *error)
+{
+  GtkWidget *dialog;
+  dialog = gtk_message_dialog_new (NULL, 0,
+                                   GTK_MESSAGE_ERROR,
+                                   GTK_BUTTONS_CLOSE,
+                                   g_strdup_printf ("<b>%s</b>\n\n%s: %s.\n%s",
+                                                    _("Could not start Sound Juicer"),
+                                                    _("Reason"),
+                                                    error->message,
+                                                    _("Please consult the documentation for assistance.")));
+  gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
+  gtk_dialog_run (GTK_DIALOG (dialog));
+}
+
 /**
  * Clicked Quit
  */
@@ -86,12 +101,8 @@ gboolean on_destory_event (GtkWidget *widget, GdkEvent *event, gpointer user_dat
                                      _("You are currently extracting a CD. Do you want to quit now or continue?"));
     gtk_dialog_add_button (GTK_DIALOG (dialog), "gtk-quit", GTK_RESPONSE_ACCEPT);
     gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Continue"), GTK_RESPONSE_REJECT);
-    g_signal_connect_swapped (GTK_OBJECT (dialog), 
-                              "response", 
-                              G_CALLBACK (gtk_widget_destroy),
-                              GTK_OBJECT (dialog));
-    gtk_widget_show_all (dialog);
     response = gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_widget_destroy (dialog);
     return response != GTK_RESPONSE_ACCEPT;
   }
   return FALSE;
@@ -353,7 +364,7 @@ void strip_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gp
 /**
  * Utility function to reread a CD
  */
-void reread_cd (void)
+void reread_cd (gboolean ignore_no_media)
 {
   GList *albums;
   GError *error = NULL;
@@ -374,7 +385,7 @@ void reread_cd (void)
   if (realized)
     gdk_window_set_cursor (main_window->window, NULL);
   
-  if (error) {
+  if (error && !(error->code == SJ_ERROR_CD_NO_MEDIA && ignore_no_media)) {
     GtkWidget *dialog;
     dialog = gtk_message_dialog_new (realized ? GTK_WINDOW (main_window) : NULL, 0,
                                      GTK_MESSAGE_ERROR,
@@ -421,6 +432,7 @@ void reread_cd (void)
 void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   g_assert (strcmp (entry->key, GCONF_DEVICE) == 0);
+  gboolean ignore_no_media = GPOINTER_TO_INT (user_data);
 
   if (entry->value == NULL) {
     device = prefs_get_default_device();
@@ -464,7 +476,7 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
   sj_musicbrainz_set_cdrom (device);
   sj_extractor_set_device (extractor, device);
 
-  reread_cd();
+  reread_cd (ignore_no_media);
 }
 
 /**
@@ -474,18 +486,64 @@ void format_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
 {
   char* value;
   GEnumValue* enumvalue;
+  int i;
+  int format;
+  gboolean any_support = FALSE;
+  gboolean supported[SJ_NUMBER_FORMATS];
+
   g_assert (strcmp (entry->key, GCONF_FORMAT) == 0);
   if (!entry->value) return;
   value = g_ascii_strup (gconf_value_get_string (entry->value), -1);
   /* TODO: this line is pretty convoluted */
   enumvalue = g_enum_get_value_by_name (g_type_class_peek (encoding_format_get_type()), value);
   if (enumvalue == NULL) {
-    g_warning (_("Unknown format %s"), value);
-    g_free (value);
-    return;
+    /* g_warning (_("Unknown format %s"), value); */
+    format = 0;
+  } else {
+    format = enumvalue->value;
   }
-  g_object_set (extractor, "format", enumvalue->value, NULL);
   g_free (value);
+
+  g_object_set (extractor, "format", format, NULL);
+
+  for (i = 0; i < SJ_NUMBER_FORMATS; i++) {
+    supported[i] = sj_extractor_supports_format (i);
+    if (supported[i]) {
+       any_support = TRUE;
+    }
+  }
+
+  if (any_support == FALSE) {
+    GError *err = NULL;
+
+    g_set_error (&err, SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
+		    _("Cannot find any suitable encoders"));
+    error_on_start (err);
+    exit (1);
+  }
+
+  /* Popup the prefs for the user to change the encoder */
+  for (i = 0; i <= SJ_NUMBER_FORMATS; i++) {
+    if (supported[i] == FALSE && format == i) {
+      GtkWidget *dialog;
+      int response;
+
+      dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
+		      		       GTK_DIALOG_MODAL,
+				       GTK_MESSAGE_QUESTION,
+				       GTK_BUTTONS_NONE,
+				       _("The currently selected encoder is not available on your installation."));
+      gtk_dialog_add_button (GTK_DIALOG (dialog), "gtk-quit", GTK_RESPONSE_REJECT);
+      gtk_dialog_add_button (GTK_DIALOG (dialog), _("Change the encoder"), GTK_RESPONSE_ACCEPT);
+      response = gtk_dialog_run (GTK_DIALOG (dialog));
+      if (response == GTK_RESPONSE_REJECT) {
+        exit (1);
+      } else {
+        on_edit_preferences_cb (NULL, NULL);
+      }
+      gtk_widget_destroy (dialog);
+    }
+  }
 }
 
 /**
@@ -543,7 +601,7 @@ void http_proxy_port_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry 
  */
 void on_reread_activate (GtkWidget *button, gpointer user_data)
 {
-  reread_cd ();
+  reread_cd (FALSE);
 }
 
 /**
@@ -642,21 +700,6 @@ void on_contents_activate(GtkWidget *button, gpointer user_data) {
     gtk_widget_show (dialog);
     g_error_free (error);
   }
-}
-
-static void error_on_start (GError *error)
-{
-  GtkWidget *dialog;
-  dialog = gtk_message_dialog_new (NULL, 0,
-                                   GTK_MESSAGE_ERROR,
-                                   GTK_BUTTONS_CLOSE,
-                                   g_strdup_printf ("<b>%s</b>\n\n%s: %s.\n%s",
-                                                    _("Could not start Sound Juicer"),
-                                                    _("Reason"),
-                                                    error->message,
-                                                    _("Please consult the documentation for assistance.")));
-  gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
-  gtk_dialog_run (GTK_DIALOG (dialog));
 }
 
 int main (int argc, char **argv)
@@ -777,17 +820,17 @@ int main (int argc, char **argv)
 
   }
 
-  /* YUCK. As bad as Baldrick's trousers */
+  gtk_widget_show_all (main_window);
+
   http_proxy_setup (gconf_client);
   basepath_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEPATH, NULL, TRUE, NULL), NULL);
   path_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL), NULL);
   file_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL), NULL);
-  device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), NULL);
+  device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), GINT_TO_POINTER (TRUE));
   format_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FORMAT, NULL, TRUE, NULL), NULL);
   paranoia_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PARANOIA, NULL, TRUE, NULL), NULL);
   strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);
 
-  gtk_widget_show_all (main_window);
   gtk_main ();
   g_object_unref (extractor);
   g_object_unref (gconf_client);

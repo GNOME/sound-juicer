@@ -11,7 +11,7 @@ AM_CFLAGS = -g -Wall -export-dynamic -Wunused
 
 noinst_PROGRAMS = mb-test
 
-mb_test_SOURCES = mb-test.c $(top_srcdir)/src/sj-musicbrainz.c $(top_srcdir)/src/sj-error.c
+mb_test_SOURCES = mb-test.c $(top_srcdir)/src/sj-musicbrainz.c $(top_srcdir)/src/sj-error.c $(top_srcdir)/src/cd-drive.c $(top_srcdir)/src/transport.hxx $(top_srcdir)/src/dvd_plus_rw_utils.cpp
 mb_test_LDADD = @GLIB_LIBS@ @MUSICBRAINZ_LIBS@
 
 enum.c: enum.h

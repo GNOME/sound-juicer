@@ -86,7 +86,7 @@ linux_bsd_media_type (const char *device)
 
 	fd = open (device, O_RDONLY);
 	if (fd < 0) {
-		return CD_MEDIA_TYPE_UNKNOWN;
+		return CD_MEDIA_TYPE_ERROR;
 	}
 
 	mmc_profile = get_mmc_profile ((void *)fd);

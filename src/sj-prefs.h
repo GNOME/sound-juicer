@@ -24,5 +24,6 @@
 #define SJ_PREFS_H
 
 extern const char* prefs_get_default_device ();
+void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data);
 
 #endif /* SJ_PREFS_H */

@@ -29,14 +29,12 @@
 
 G_BEGIN_DECLS
 
-/*
- * TODO: prefix with ENCODER_FORMAT_
- */
 typedef enum {
-  VORBIS,
-  MPEG,
-  FLAC,
-  WAVE
+  SJ_FORMAT_VORBIS,
+  SJ_FORMAT_MPEG,
+  SJ_FORMAT_FLAC,
+  SJ_FORMAT_WAVE,
+  SJ_NUMBER_FORMATS
 } EncoderFormat;
 
 GType encoding_format_get_type (void);
@@ -80,6 +78,8 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
 void sj_extractor_cancel_extract (SjExtractor *extractor);
 
 const TrackDetails *sj_extractor_get_track_details (SjExtractor *extractor);
+
+gboolean sj_extractor_supports_format (EncoderFormat format);
 
 G_END_DECLS
 

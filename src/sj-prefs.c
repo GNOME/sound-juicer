@@ -33,7 +33,8 @@
 extern GladeXML *glade;
 extern GtkWidget *main_window;
 
-static GtkWidget *format_vorbis, *format_mpeg, *format_flac, *format_wave;
+/* Store the toggle buttons pertaining to the format */
+static GtkWidget *format_widgets[SJ_NUMBER_FORMATS];
 static GtkWidget *cd_option, *path_option, *file_option, *basepath_label, *check_strip;
 static GtkWidget *path_example_label;
 
@@ -155,13 +156,13 @@ void on_format_toggled (GtkToggleButton *togglebutton,
   if (!gtk_toggle_button_get_active (togglebutton)) {
     return;
   }
-  if (GTK_WIDGET (togglebutton) == format_vorbis) {
+  if (GTK_WIDGET (togglebutton) == format_widgets[SJ_FORMAT_VORBIS]) {
     format = "vorbis";
-  } else if (GTK_WIDGET(togglebutton) == format_mpeg) {
+  } else if (GTK_WIDGET(togglebutton) == format_widgets[SJ_FORMAT_MPEG]) {
     format = "mpeg";
-  } else if (GTK_WIDGET(togglebutton) == format_flac) {
+  } else if (GTK_WIDGET(togglebutton) == format_widgets[SJ_FORMAT_FLAC]) {
     format = "flac";
-  } else if (GTK_WIDGET(togglebutton) == format_wave) {
+  } else if (GTK_WIDGET(togglebutton) == format_widgets[SJ_FORMAT_WAVE]) {
     format = "wave";
   } else {
     return;
@@ -186,31 +187,30 @@ static void format_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *e
 {
   char* value;
   GEnumValue* enumvalue;
+  int format;
+  int i;
   g_assert (strcmp (entry->key, GCONF_FORMAT) == 0);
   if (!entry->value) return;
   value = g_ascii_strup (gconf_value_get_string (entry->value), -1);
   /* TODO: this line is pretty convoluted */
   enumvalue = g_enum_get_value_by_name (g_type_class_peek (encoding_format_get_type()), value);
+  /* Fallback on vorbis if it's not found */
   if (enumvalue == NULL) {
-    g_warning (_("Unknown format %s"), value);
-    g_free (value);
-    return;
-  }
-  switch (enumvalue->value) {
-  case VORBIS:
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (format_vorbis), TRUE);
-    break;
-  case MPEG:
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (format_mpeg), TRUE);
-    break;
-  case FLAC:
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (format_flac), TRUE);
-    break;
-  case WAVE:
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (format_wave), TRUE);
-    break;
+    /* g_warning (_("Unknown format %s"), value); */
+    format = 0;
+  } else {
+    format = enumvalue->value;
   }
   g_free (value);
+
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (format_widgets[format]), TRUE);
+
+  for (i = 0; i < SJ_NUMBER_FORMATS; i++) {
+    gboolean supported;
+
+    supported = sj_extractor_supports_format (i);
+    gtk_widget_set_sensitive (format_widgets[i], supported);
+  }
 }
 
 static void basepath_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
@@ -371,10 +371,10 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     basepath_label = glade_xml_get_widget (glade, "path_label");
     path_option = glade_xml_get_widget (glade, "path_option");
     file_option = glade_xml_get_widget (glade, "file_option");
-    format_vorbis = glade_xml_get_widget (glade, "format_vorbis");
-    format_mpeg = glade_xml_get_widget (glade, "format_mpeg");
-    format_flac = glade_xml_get_widget (glade, "format_flac");
-    format_wave = glade_xml_get_widget (glade, "format_wave");
+    format_widgets[SJ_FORMAT_VORBIS] = glade_xml_get_widget (glade, "format_vorbis");
+    format_widgets[SJ_FORMAT_MPEG] = glade_xml_get_widget (glade, "format_mpeg");
+    format_widgets[SJ_FORMAT_FLAC] = glade_xml_get_widget (glade, "format_flac");
+    format_widgets[SJ_FORMAT_WAVE] = glade_xml_get_widget (glade, "format_wave");
     check_strip = glade_xml_get_widget (glade, "check_strip");
     path_example_label = glade_xml_get_widget (glade, "path_example_label");
 

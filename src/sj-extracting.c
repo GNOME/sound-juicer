@@ -64,16 +64,16 @@ static char* build_filename(const TrackDetails *track)
   realfile = filepath_parse_pattern (file_pattern, track);
   g_object_get (extractor, "format", &format, NULL);
   switch (format) {
-  case VORBIS:
+  case SJ_FORMAT_VORBIS:
     extension = ".ogg";
     break;
-  case MPEG:
+  case SJ_FORMAT_MPEG:
     extension = ".mp3";
     break;
-  case FLAC:
+  case SJ_FORMAT_FLAC:
     extension = ".flac";
     break;
-  case WAVE:
+  case SJ_FORMAT_WAVE:
     extension = ".wav";
     break;
   default:

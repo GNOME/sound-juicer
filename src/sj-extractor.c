@@ -36,10 +36,10 @@ encoding_format_get_type (void)
   static GType etype = 0;
   if (etype == 0) {
     static const GEnumValue values[] = {
-      { VORBIS, "VORBIS", "Ogg Vorbis" },
-      { MPEG, "MPEG", "MPEG" },
-      { FLAC, "FLAC", "FLAC" },
-      { WAVE, "WAVE", "Wave" },
+      { SJ_FORMAT_VORBIS, "VORBIS", "Ogg Vorbis" },
+      { SJ_FORMAT_MPEG, "MPEG", "MPEG" },
+      { SJ_FORMAT_FLAC, "FLAC", "FLAC" },
+      { SJ_FORMAT_WAVE, "WAVE", "Wave" },
       { 0, NULL, NULL }
     };
     etype = g_enum_register_static ("EncodingFormat", values);
@@ -62,7 +62,7 @@ enum {
 
 static int sje_table_signals[LAST_SIGNAL] = { 0 };
 
-#define DEFAULT_ENCODING_FORMAT VORBIS
+#define DEFAULT_ENCODING_FORMAT SJ_FORMAT_VORBIS
 
 struct SjExtractorPrivate {
   EncoderFormat format;
@@ -72,6 +72,8 @@ struct SjExtractorPrivate {
   GstFormat track_format;
   GstPad *source_pad;
   const char *encoder_name;
+  char *device_path;
+  int paranoia_mode;
   int track_start;
   int seconds;
   const TrackDetails *track_details;
@@ -162,7 +164,6 @@ static void sj_extractor_instance_init (SjExtractor *extractor)
   extractor->priv = g_new0 (SjExtractorPrivate, 1);
   extractor->priv->format = DEFAULT_ENCODING_FORMAT;
   extractor->priv->rebuild_pipeline = TRUE;
-  build_pipeline(extractor);
 }
 
 static void sj_extractor_set_property (GObject *object, guint property_id,
@@ -195,7 +196,8 @@ static void sj_extractor_get_property (GObject *object, guint property_id,
 static void sj_extractor_finalize (GObject *object)
 {
   SjExtractor *extractor = (SjExtractor *)object;
-  gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
+  if (extractor->priv->pipeline)
+    gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
   /* TODO: free the members of priv */
   g_free (extractor->priv);
   /* TODO: SJ_EXTRACTOR_GET_CLASS (extractor)->parent_class->finalize (object);*/
@@ -231,25 +233,20 @@ static GstElement* build_encoder (SjExtractor *extractor)
   g_return_val_if_fail (SJ_IS_EXTRACTOR (extractor), NULL);
   priv = (SjExtractorPrivate*)extractor->priv;
   switch (priv->format) {
-  case VORBIS:
+  case SJ_FORMAT_VORBIS:
     element = gst_element_factory_make ("vorbisenc", "encoder");
     g_object_set (G_OBJECT (element), "quality", 0.6, NULL);
     priv->encoder_name = "vorbis";
     break;
-  case MPEG:
+  case SJ_FORMAT_MPEG:
     element = gst_element_factory_make ("lame", "encoder");
-    if (!element) {
-      element = gst_element_factory_make ("mpegaudio", "encoder");
-      priv->encoder_name = "mpegaudio";
-    } else {
-      priv->encoder_name = "lame";
-    }
+    priv->encoder_name = "lame";
     break;
-  case FLAC:
+  case SJ_FORMAT_FLAC:
     element = gst_element_factory_make ("flacenc", "encoder");
     priv->encoder_name = "flacenc";
     break;
-  case WAVE:
+  case SJ_FORMAT_WAVE:
     element = gst_element_factory_make ("wavenc", "encoder");
     priv->encoder_name = "wavenc";
     break;
@@ -281,6 +278,9 @@ static void build_pipeline (SjExtractor *extractor)
                  _("Could not create GStreamer cdparanoia reader"));
     return;
   }
+
+  g_object_set (G_OBJECT (priv->cdparanoia), "location", priv->device_path, NULL);
+  g_object_set (G_OBJECT (priv->cdparanoia), "paranoia-mode", priv->paranoia_mode, NULL);
 
   /* Get the track format for seeking later */
   priv->track_format = gst_format_get_by_nick ("track");
@@ -375,7 +375,11 @@ void sj_extractor_set_device (SjExtractor *extractor, const char* device)
   g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
   g_return_if_fail (device != NULL);
 
-  g_object_set (G_OBJECT (extractor->priv->cdparanoia), "location", device, NULL);
+  g_free (extractor->priv->device_path);
+  extractor->priv->device_path = g_strdup (device);
+
+  if (extractor->priv->cdparanoia != NULL)
+    g_object_set (G_OBJECT (extractor->priv->cdparanoia), "location", device, NULL);
 }
 
 void sj_extractor_set_paranoia (SjExtractor *extractor, const int paranoia_mode)
@@ -383,7 +387,9 @@ void sj_extractor_set_paranoia (SjExtractor *extractor, const int paranoia_mode)
   g_return_if_fail (extractor != NULL);
   g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
 
-  g_object_set (G_OBJECT (extractor->priv->cdparanoia), "paranoia-mode", paranoia_mode, NULL);
+  extractor->priv->paranoia_mode = paranoia_mode;
+  if (extractor->priv->cdparanoia != NULL)
+    g_object_set (G_OBJECT (extractor->priv->cdparanoia), "paranoia-mode", paranoia_mode, NULL);
 }
 
 void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, const char* path, GError **error)
@@ -483,3 +489,33 @@ const TrackDetails *sj_extractor_get_track_details (SjExtractor *extractor)
   g_return_val_if_fail (SJ_IS_EXTRACTOR (extractor), NULL);
   return extractor->priv->track_details;
 }
+
+gboolean sj_extractor_supports_format (EncoderFormat format)
+{
+  GstElement *element = NULL;
+
+  switch (format) {
+    case SJ_FORMAT_VORBIS:
+      element = gst_element_factory_make ("vorbisenc", "encoder");
+      break;
+    case SJ_FORMAT_MPEG:
+      element = gst_element_factory_make ("lame", "encoder");
+      break;
+    case SJ_FORMAT_FLAC:
+      element = gst_element_factory_make ("flacenc", "encoder");
+      break;
+    case SJ_FORMAT_WAVE:
+      element = gst_element_factory_make ("wavenc", "encoder");
+      break;
+    default:
+      g_return_val_if_reached (FALSE);
+  }
+
+  if (element) {
+    g_object_unref (element);
+    return TRUE;
+  }
+
+  return FALSE;
+}
+
