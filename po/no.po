@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer 0.5.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-16 16:06+0200\n"
-"PO-Revision-Date: 2004-04-16 16:06+0200\n"
+"POT-Creation-Date: 2004-06-09 01:46+0200\n"
+"PO-Revision-Date: 2004-06-09 01:58+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -73,8 +73,8 @@ msgid "<i>Coming soon!</i>"
 msgstr "<i>Kommer snart!</i>"
 
 #: data/sound-juicer.glade.h:13
-msgid "D_irectory Hierarchy"
-msgstr "Katalogh_irerarki"
+msgid "D_irectory Hierarchy:"
+msgstr "Katalogh_irerarki:"
 
 #: data/sound-juicer.glade.h:14
 msgid "E_ject"
@@ -128,7 +128,7 @@ msgstr "Fremgang"
 msgid "Raw audio"
 msgstr "Rå lyd"
 
-#: data/sound-juicer.glade.h:27 src/sj-about.c:56 src/sj-main.c:875
+#: data/sound-juicer.glade.h:27 src/sj-about.c:56 src/sj-main.c:876
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -177,8 +177,8 @@ msgid "_Extract"
 msgstr "_Hent ut"
 
 #: data/sound-juicer.glade.h:38
-msgid "_File Name"
-msgstr "_Filnavn"
+msgid "_File Name:"
+msgstr "_Filnavn:"
 
 #: data/sound-juicer.glade.h:39
 msgid "_Re-read"
@@ -305,7 +305,7 @@ msgid "_Overwrite"
 msgstr "_Overskriv"
 
 #. Display a nice dialog
-#: src/sj-extracting.c:245 src/sj-extracting.c:283 src/sj-extracting.c:495
+#: src/sj-extracting.c:248 src/sj-extracting.c:285 src/sj-extracting.c:497
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -314,24 +314,28 @@ msgstr ""
 "Sound Juicer kunne ikke hente ut denne CDen.\n"
 "Årsak: %s"
 
-#: src/sj-extracting.c:273
+#: src/sj-extracting.c:275
 #, c-format
 msgid "Extracting '%s'"
 msgstr "Henter ut «%s»"
 
-#: src/sj-extracting.c:335
+#: src/sj-extracting.c:337
 #, c-format
 msgid "%d:%02d (at %0.1fx)"
 msgstr "%d:%02d (med %0.1fx)"
 
-#: src/sj-extracting.c:337
+#: src/sj-extracting.c:339
 msgid "Unknown (at 0.0x)"
 msgstr "Ukjent (med 0.0x)"
 
 #. TODO: need to have a better message here
-#: src/sj-extracting.c:432
+#: src/sj-extracting.c:434
 msgid "The tracks have been copied successfully."
 msgstr "Kopiering av spor fullført."
+
+#: src/sj-extracting.c:439
+msgid "_Eject"
+msgstr "_Løs ut"
 
 #: src/sj-extractor.c:140
 msgid "Encoding format"
@@ -388,8 +392,8 @@ msgstr "Tillegg som kreves for filaksess ble ikke funnet"
 msgid "Could not start Sound Juicer"
 msgstr "Kunne ikke starte Sound Juicer"
 
-#: src/sj-main.c:84 src/sj-main.c:439 src/sj-main.c:514 src/sj-main.c:572
-#: src/sj-util.c:108 src/sj-util.c:128
+#: src/sj-main.c:84 src/sj-main.c:439 src/sj-main.c:514 src/sj-main.c:573
+#: src/sj-util.c:110 src/sj-util.c:130
 msgid "Reason"
 msgstr "Årsak"
 
@@ -405,15 +409,15 @@ msgstr "Du holder på å rippe en CD. Vil du avslutte nå eller fortsette?"
 msgid "(unknown)"
 msgstr "(ukjent)"
 
-#: src/sj-main.c:291 src/sj-main.c:955
+#: src/sj-main.c:291 src/sj-main.c:958
 msgid "Title"
 msgstr "Tittel"
 
-#: src/sj-main.c:297 src/sj-main.c:963
+#: src/sj-main.c:297 src/sj-main.c:966
 msgid "Artist"
 msgstr "Artist"
 
-#: src/sj-main.c:437 src/sj-main.c:512 src/sj-main.c:570
+#: src/sj-main.c:437 src/sj-main.c:512 src/sj-main.c:571
 msgid "Could not read the CD"
 msgstr "Kunne ikke lese CDen"
 
@@ -426,37 +430,37 @@ msgstr "Sound Juicer kunne ikke lese sporlisten på denne CDen."
 msgid "Retrieving track listing...please wait."
 msgstr "Henter sporliste...vennligst vent."
 
-#: src/sj-main.c:551
+#: src/sj-main.c:552
 msgid "No CD-ROM drives found"
 msgstr "Ingen CD-ROM-enheter funnet"
 
-#: src/sj-main.c:552
+#: src/sj-main.c:553
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer kunne ikke finne noen CD-ROM-enheter å lese fra."
 
-#: src/sj-main.c:564
+#: src/sj-main.c:565
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer kunne ikke aksessere CD-ROM-enhet «%s»"
 
-#: src/sj-main.c:629
+#: src/sj-main.c:630
 msgid "Cannot find any suitable encoders"
 msgstr "Kan ikke finne noen passende kodere"
 
-#: src/sj-main.c:644
+#: src/sj-main.c:645
 msgid "The currently selected encoder is not available on your installation."
 msgstr "Valgt koder er ikke tilgjengelig i din installasjon."
 
-#: src/sj-main.c:646
+#: src/sj-main.c:647
 msgid "_Change the encoder"
 msgstr "_Endre koding"
 
-#: src/sj-main.c:796
+#: src/sj-main.c:797
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Ukjent kolonne %d ble redigert"
 
-#: src/sj-main.c:844 src/sj-prefs.c:118
+#: src/sj-main.c:845 src/sj-prefs.c:125
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -465,19 +469,19 @@ msgstr ""
 "Kunne ikke vise hjelp for Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:894
+#: src/sj-main.c:895
 msgid "Could not create GConf client.\n"
 msgstr "Kunne ikke opprette GConf-klient.\n"
 
-#: src/sj-main.c:936
+#: src/sj-main.c:939
 msgid "Extract"
 msgstr "Hent ut"
 
-#: src/sj-main.c:944
+#: src/sj-main.c:947
 msgid "Track"
 msgstr "Spor"
 
-#: src/sj-main.c:973
+#: src/sj-main.c:976
 msgid "Duration"
 msgstr "Varighet"
 
@@ -539,59 +543,63 @@ msgstr "Forskjellig"
 msgid "Could not create CD lookup thread"
 msgstr "Kunne ikke opprette tråd for CD-oppslag"
 
-#: src/sj-prefs.c:49
+#: src/sj-prefs.c:50
 msgid "Album Artist, Album Title"
 msgstr "Album Artist, Album Tittel"
 
-#: src/sj-prefs.c:50
+#: src/sj-prefs.c:51
 msgid "Track Artist, Album Title"
 msgstr "Spor Artist, Album Tittel"
 
-#: src/sj-prefs.c:51 src/sj-prefs.c:301
+#: src/sj-prefs.c:52 src/sj-prefs.c:308
 msgid "Album Title"
 msgstr "Album Tittel"
 
-#: src/sj-prefs.c:52 src/sj-prefs.c:302
+#: src/sj-prefs.c:53 src/sj-prefs.c:309
 msgid "Album Artist"
 msgstr "Album Artist"
 
-#: src/sj-prefs.c:53
+#: src/sj-prefs.c:54
 msgid "Album Artist - Album Title"
 msgstr "Album Artist - Album Tittel"
 
-#: src/sj-prefs.c:54
+#: src/sj-prefs.c:55
 msgid "[none]"
 msgstr "[ingen]"
 
-#: src/sj-prefs.c:59
+#: src/sj-prefs.c:60
 msgid "Number - Title"
 msgstr "Nummer - Tittel"
 
-#: src/sj-prefs.c:60 src/sj-prefs.c:309
+#: src/sj-prefs.c:61 src/sj-prefs.c:316
 msgid "Track Title"
 msgstr "Spor Tittel"
 
-#: src/sj-prefs.c:61
+#: src/sj-prefs.c:62
 msgid "Track Artist - Track Title"
 msgstr "Spor Artist - Spor Tittel"
 
-#: src/sj-prefs.c:62
+#: src/sj-prefs.c:63
 msgid "Number. Track Artist - Track Title"
 msgstr "Nummer. Spor Artist - Spor Tittel"
 
-#: src/sj-prefs.c:137
+#: src/sj-prefs.c:64
+msgid "Number-Track Artist-Track Title (lowercase)"
+msgstr "Nummer-Spor Artist-Spor Tittel (små bokstaver)"
+
+#: src/sj-prefs.c:144
 msgid "Select Output Location"
 msgstr "Velg plassering for utdata"
 
-#: src/sj-prefs.c:310
+#: src/sj-prefs.c:317
 msgid "Track Artist"
 msgstr "Spor Artist"
 
-#: src/sj-util.c:64
+#: src/sj-util.c:65
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Kunne ikke opprette katalog %s: %s"
 
-#: src/sj-util.c:107 src/sj-util.c:127
+#: src/sj-util.c:109 src/sj-util.c:129
 msgid "Could not eject the CD"
 msgstr "Kunne ikke løse ut CDen"
