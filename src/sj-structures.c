@@ -1,7 +1,7 @@
 /* 
  * Copyright (C) 2003 Ross Burton <ross@burtonini.com>
  *
- * Sound Juicer - sj-structures.h
+ * Sound Juicer - sj-structures.c
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,30 +20,30 @@
  * Authors: Ross Burton <ross@burtonini.com>
  */
 
-#ifndef SJ_STRUCTURES_H
-#define SJ_STRUCTURES_H
-
+#include "sj-structures.h"
+#include <glib/gmessages.h>
 #include <glib/glist.h>
 
-typedef struct _AlbumDetails AlbumDetails;
-typedef struct _TrackDetails TrackDetails;
+/**
+ * Free a TrackDetails*
+ */
+void track_details_free(TrackDetails *track)
+{
+  g_return_if_fail (track != NULL);
+  g_free (track->title);
+  g_free (track->artist);
+  g_free (track);
+}
 
-
-struct _TrackDetails {
-  AlbumDetails *album;
-  int number; /* track number */
-  char *title;
-  char *artist;
-  int duration; /* seconds */
-};
-
-struct _AlbumDetails {
-  char* title;
-  char* artist;
-  GList* tracks;
-};
-
-void album_details_free(AlbumDetails *album);
-void track_details_free(TrackDetails *track);
-
-#endif
+/**
+ * Free a AlbumDetails*
+ */
+void album_details_free(AlbumDetails *album)
+{
+  g_return_if_fail (album != NULL);
+  g_free (album->title);
+  g_free (album->artist);
+  g_list_foreach (album->tracks, (GFunc)track_details_free, NULL);
+  g_list_free (album->tracks);
+  g_free (album);
+}
