@@ -26,5 +26,6 @@
 #include <gtk/gtkwidget.h>
 
 void on_extract_activate (GtkWidget *button, gpointer user_data);
+char *filepath_parse_pattern (const char* pattern, const TrackDetails *track);
 
 #endif /* SJ_EXTRACTING_H */

@@ -36,6 +36,7 @@
 #include <gtk/gtkprogressbar.h>
 #include <gtk/gtklabel.h>
 #include <glade/glade-xml.h>
+#include "sj-extracting.h"
 #include "sj-util.h"
 
 static GList *pending = NULL; /* a GList of TrackDetails* to rip */
@@ -48,9 +49,6 @@ static GtkWidget *track_progress, *album_progress;
 static GtkWidget *progress_label;
 static GtkWidget *extract_button;
 
-/* Declare this now so I can hide it at the end of the file */
-static char* parse_pattern (const char* pattern, const TrackDetails *track);
-
 /**
  * Build the absolute filename for the specified track.
  *
@@ -62,8 +60,8 @@ static char* build_filename(const TrackDetails *track)
 {
   char *realfile, *realpath, *filename, *extension, *path;
   EncoderFormat format;
-  realpath = parse_pattern (path_pattern, track);
-  realfile = parse_pattern (file_pattern, track);
+  realpath = filepath_parse_pattern (path_pattern, track);
+  realfile = filepath_parse_pattern (file_pattern, track);
   g_object_get (extractor, "format", &format, NULL);
   switch (format) {
   case VORBIS:
@@ -329,8 +327,8 @@ static char* sanitize_path (char* s)
  * %tt -- track title
  * %ta -- track artist
  */
-static char*
-parse_pattern (const char* pattern, const TrackDetails *track)
+char*
+filepath_parse_pattern (const char* pattern, const TrackDetails *track)
 {
   /* p is the pattern iterator, i is a general purpose iterator */
   const char *p, *i;

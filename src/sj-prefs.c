@@ -26,6 +26,7 @@
 #include <gtk/gtk.h>
 #include <glade/glade-xml.h>
 #include <gconf/gconf-client.h>
+#include "sj-extracting.h"
 #include "cd-drive.h"
 #include "bacon-cd-selection.h"
 
@@ -34,6 +35,7 @@ extern GtkWidget *main_window;
 
 static GtkWidget *format_vorbis, *format_mpeg, *format_flac, *format_wave;
 static GtkWidget *cd_option, *path_option, *file_option, *basepath_label, *check_strip;
+static GtkWidget *path_example_label;
 
 typedef struct {
   char* name;
@@ -45,6 +47,7 @@ static FilePattern path_patterns[] = {
   {N_("Track Artist, Album Title"), "%ta/%at"},
   {N_("Album Title"), "%at"},
   {N_("Album Artist"), "%aa"},
+  {N_("Album Artist - Album Title"), "%aa - %at"},
   {NULL, NULL}
 };
 
@@ -52,6 +55,7 @@ static FilePattern file_patterns[] = {
   {N_("Number - Title"), "%tN - %tt"},
   {N_("Track Title"), "%tt"},
   {N_("Track Artist - Track Title"), "%ta - %tt"},
+  {N_("Number. Track Artist - Track Title"), "%tN. %ta - %tt"},
   {NULL, NULL}
 };
 
@@ -226,7 +230,7 @@ static void basepath_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry 
     base_path = gconf_value_get_string (entry->value);
   }
   /* TODO: sanity check the path somewhat */
-  /* TODO: use an elipsising label? */
+  /* TODO: use an ellipsising label? */
   gtk_label_set_text (GTK_LABEL (basepath_label), base_path);
 }
 
@@ -238,6 +242,56 @@ static void strip_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *en
     value = gconf_value_get_bool (entry->value);
   }
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check_strip), value);
+}
+
+static void pattern_label_update (void)
+{
+  const char *file_pattern, *path_pattern;
+  char *file_value, *path_value, *example;
+  gboolean strip;
+#if 0
+  static TrackDetails *sample_track;
+  static AlbumDetails *sample_album;
+
+  if (sample_track == NULL) {
+    sample_album = g_new0 (AlbumDetails, 1);
+    sample_album->title = N_("Album Title");
+    sample_album->artist = N_("Album Artist");
+    sample_album->tracks = NULL; /* A little cheat */
+    sample_track = g_new0 (TrackDetails, 1);
+    sample_track->album = sample_album;
+    sample_track->number = 9;
+    sample_track->title = N_("Track Title");
+    sample_track->artist = N_("Track Artist");
+  }
+#else
+  static AlbumDetails sample_album = {
+    N_("Album Title"),
+    N_("Album Artist"),
+    NULL
+  };
+  static TrackDetails sample_track = {
+    &sample_album,
+    9,
+    N_("Track Title"),
+    N_("Track Artist"),
+    60
+  };
+#endif
+
+  file_pattern = gconf_client_get_string (gconf_client, GCONF_FILE_PATTERN, NULL);
+  path_pattern = gconf_client_get_string (gconf_client, GCONF_PATH_PATTERN, NULL);
+  strip = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_strip));
+
+  file_value = filepath_parse_pattern (file_pattern, &sample_track);
+  path_value = filepath_parse_pattern (path_pattern, &sample_track);
+
+  example = g_build_filename (G_DIR_SEPARATOR_S, path_value, file_value, NULL);
+  g_free (file_value);
+  g_free (path_value);
+
+  gtk_label_set_text (GTK_LABEL (path_example_label), example+1);
+  g_free (example);
 }
 
 static void path_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
@@ -255,6 +309,7 @@ static void path_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
   }
   g_free (value);
   gtk_option_menu_set_history (GTK_OPTION_MENU (path_option), i);
+  pattern_label_update ();
 }
 
 static void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
@@ -272,6 +327,7 @@ static void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
   }
   g_free (value);
   gtk_option_menu_set_history (GTK_OPTION_MENU (file_option), i);
+  pattern_label_update ();
 }
 
 /**
@@ -311,6 +367,7 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     format_flac = glade_xml_get_widget (glade, "format_flac");
     format_wave = glade_xml_get_widget (glade, "format_wave");
     check_strip = glade_xml_get_widget (glade, "check_strip");
+    path_example_label = glade_xml_get_widget (glade, "path_example_label");
 
     gtk_option_menu_set_menu (GTK_OPTION_MENU (path_option), generate_pattern_menu (path_patterns));
     g_signal_connect (path_option, "changed", G_CALLBACK (prefs_path_option_changed), NULL);
