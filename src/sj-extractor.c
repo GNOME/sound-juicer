@@ -215,7 +215,7 @@ static void eos_cb (GstElement *gstelement, SjExtractor *extractor)
                  0);
 }
 
-static const char* get_encoder_name(SjExtractor *extractor)
+static const char* get_encoder_name (SjExtractor *extractor)
 {
   SjExtractorPrivate *priv;
   g_return_val_if_fail (SJ_IS_EXTRACTOR (extractor), NULL);
@@ -232,6 +232,29 @@ static const char* get_encoder_name(SjExtractor *extractor)
   default:
     g_return_val_if_reached (NULL);
   }
+}
+
+static GstElement* build_encoder (SjExtractor *extractor)
+{
+  SjExtractorPrivate *priv;
+  GstElement *element;
+  g_return_val_if_fail (SJ_IS_EXTRACTOR (extractor), NULL);
+  priv = (SjExtractorPrivate*)extractor->priv;
+  element = gst_element_factory_make (get_encoder_name (extractor), "encoder");
+  switch (priv->format) {
+  case VORBIS:
+    g_object_set (G_OBJECT (element), "quality", 0.6, NULL);
+    break;
+  case MPEG:
+    break;
+  case FLAC:
+    break;
+  case WAVE:
+    break;
+  default:
+    g_return_val_if_reached (NULL);
+  }
+  return element;
 }
 
 static void build_pipeline (SjExtractor *extractor)
@@ -262,7 +285,7 @@ static void build_pipeline (SjExtractor *extractor)
   g_assert (priv->source_pad); /* TODO: GError */
 
   /* Encode */
-  priv->encoder = gst_element_factory_make (get_encoder_name (extractor), "encoder");
+  priv->encoder = build_encoder (extractor);
   if (priv->encoder == NULL) {
     g_set_error (&priv->construct_error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
@@ -391,7 +414,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   /* TODO; this works with Vorbis and will work with FLAC when the
      property is added. Wave and MP3... news not so good. */
   tracknumber = g_strdup_printf("%d", track->number);
-  caps = GST_CAPS_NEW ("vorbisenc_metadata", 
+  caps = GST_CAPS_NEW ("soundjuicer_metadata", 
                        "application/x-gst-metadata",
                        "title", GST_PROPS_STRING (track->title),
                        "artist", GST_PROPS_STRING (track->artist),

@@ -45,7 +45,7 @@ GConfClient *gconf_client;
 GtkWidget *main_window;
 static GtkWidget *title_label, *artist_label, *duration_label;
 static GtkWidget *track_listview, *reread_button, *extract_button;
-static GtkWidget *extract_menuitem, *select_all_menuitem;
+static GtkWidget *extract_menuitem, *select_all_menuitem, *deselect_all_menuitem;
 GtkListStore *track_store;
 
 const char *base_path, *path_pattern, *file_pattern;
@@ -145,12 +145,14 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (extract_button, FALSE);
     gtk_widget_set_sensitive (extract_menuitem, FALSE);
     gtk_widget_set_sensitive (select_all_menuitem, FALSE);
+    gtk_widget_set_sensitive (deselect_all_menuitem, FALSE);
   } else {
     gtk_label_set_text (GTK_LABEL (title_label), album->title);
     gtk_label_set_text (GTK_LABEL (artist_label), album->artist);
     gtk_widget_set_sensitive (extract_button, TRUE);
     gtk_widget_set_sensitive (extract_menuitem, TRUE);
     gtk_widget_set_sensitive (select_all_menuitem, TRUE);
+    gtk_widget_set_sensitive (deselect_all_menuitem, TRUE);
     
     gtk_list_store_clear (track_store);
     for (l = album->tracks; l; l=g_list_next (l)) {
@@ -376,7 +378,7 @@ void reread_cd (void)
 
   /* If there is more than one album... */
   if (g_list_next (albums)) {
-    update_ui_for_album(multiple_album_dialog (albums));
+    update_ui_for_album (multiple_album_dialog (albums));
   } else {
     update_ui_for_album (albums ? albums->data : NULL);
   }
@@ -601,6 +603,7 @@ int main (int argc, char **argv)
   gtk_window_set_icon_from_file (GTK_WINDOW (main_window), PIXMAPDIR"/sound-juicer.png", NULL);
 
   select_all_menuitem = glade_xml_get_widget (glade, "select_all");
+  deselect_all_menuitem = glade_xml_get_widget (glade, "deselect_all");
   extract_menuitem = glade_xml_get_widget (glade, "extract_menuitem");
   title_label = glade_xml_get_widget (glade, "title_label");
   artist_label = glade_xml_get_widget (glade, "artist_label");
