@@ -202,6 +202,7 @@ static void pop_and_rip (void)
 
 /**
  * Cancel in the progress dialog clicked
+ * or progress dialog has been closed
  */
 void on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
 {
@@ -285,6 +286,8 @@ void on_extract_activate (GtkWidget *button, gpointer user_data)
     album_progress = glade_xml_get_widget (glade, "album_progress");
     progress_label = glade_xml_get_widget (glade, "progress_label");
     g_assert (progress_dialog != NULL);
+    /* TODO : this callback should be in the glade file */
+    g_signal_connect (progress_dialog, "delete-event", G_CALLBACK(on_progress_cancel_clicked), NULL);
   }
 
   gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), 0);
