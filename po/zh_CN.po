@@ -1,20 +1,29 @@
 # traditional Chinese translation of sound-juicer.
 # convert to Simp. Chinese translation By Mai haohui
 # Copyright (C) 2003 Free Software Foundation, Inc.
+# Funda Wang <fundawang@linux.net.cn>, 2004
 # Abel Cheung <maddog@linux.org.hk>, 2003.
 # Mai Haohui <maihaohui@hotmail.com>, 2003
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
-"POT-Creation-Date: 2003-08-30 04:47+0200\n"
-"PO-Revision-Date: 2003-08-30 21:04+0800\n"
-"Last-Translator: Mai Hao Hui <mhh@ricetons.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-12-20 04:45+0100\n"
+"PO-Revision-Date: 2004-12-20 15:14+0800\n"
+"Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
+
+#: data/sound-juicer.desktop.in.h:1
+msgid "Extract music from your CDs"
+msgstr "从您的 CD 中提取音乐"
+
+#: data/sound-juicer.desktop.in.h:2
+msgid "Sound Juicer CD Ripper"
+msgstr "Sound Juicer CD 抓取器"
 
 #: data/sound-juicer.glade.h:1
 msgid "*"
@@ -26,435 +35,729 @@ msgstr "<b>专辑进度</b>"
 
 #: data/sound-juicer.glade.h:3
 msgid "<b>Artist:</b>"
-msgstr "<b>艺术家：</b>"
+msgstr "<b>艺人：</b>"
 
 #: data/sound-juicer.glade.h:4
 msgid "<b>CD _Drive</b>"
-msgstr "<b>CD驱动器</b>(_D)"
+msgstr "<b>CD 驱动器(_D)</b>"
 
 #: data/sound-juicer.glade.h:5
 msgid "<b>Duration:</b>"
 msgstr "<b>长度：</b>"
 
 #: data/sound-juicer.glade.h:6
-msgid "<b>Output Name</b>"
-msgstr "<b>输出名称</b>"
+msgid "<b>Genre:</b>"
+msgstr "<b>流派：</b>"
 
 #: data/sound-juicer.glade.h:7
-msgid "<b>Output Path</b>"
-msgstr "<b>输出文件路径</b>"
+msgid "<b>Music Folder</b>"
+msgstr "<b>音乐文件夹</b>"
 
 #: data/sound-juicer.glade.h:8
 msgid "<b>Title:</b>"
 msgstr "<b>标题：</b>"
 
 #: data/sound-juicer.glade.h:9
-msgid "<b>Track Progress</b>"
-msgstr "<b>轨道进度</b>"
+msgid "<b>Track Names</b>"
+msgstr "<b>音轨名称</b>"
 
 #: data/sound-juicer.glade.h:10
-msgid "<b>_Output Format</b>"
-msgstr "<b>输出格式</b>(_O)"
+msgid "<b>Track Progress</b>"
+msgstr "<b>音轨进度</b>"
 
 #: data/sound-juicer.glade.h:11
-msgid "D_irectory Hierarchy"
-msgstr "目录结构(_I)"
+msgid "<b>_Format</b>"
+msgstr "<b>格式(_F)</b>"
 
 #: data/sound-juicer.glade.h:12
+msgid "D_irectory Hierarchy:"
+msgstr "目录层次(_I)："
+
+#: data/sound-juicer.glade.h:13
 msgid "E_ject"
 msgstr "弹出(_J)"
 
-#: data/sound-juicer.glade.h:13
+#: data/sound-juicer.glade.h:14
+msgid "E_xtract"
+msgstr "提取(_X)"
+
+#: data/sound-juicer.glade.h:15
+msgid "Estimated time left:"
+msgstr "预计剩余时间："
+
+#: data/sound-juicer.glade.h:16
 msgid "Example Path:"
 msgstr "范例路径："
 
-#: data/sound-juicer.glade.h:14
-msgid "Excellent quality lossless compression"
-msgstr "极高品质的无损压缩"
-
-#: data/sound-juicer.glade.h:15
-msgid "FLAC"
-msgstr "FLAC"
-
-#: data/sound-juicer.glade.h:16
-msgid "Good quality lossy compression"
-msgstr "普通品质有损压缩"
-
 #: data/sound-juicer.glade.h:17
-msgid "High quality lossy compression"
-msgstr "高品质的有损压缩"
-
-#: data/sound-juicer.glade.h:18
-msgid "MP3"
-msgstr "MP3"
-
-#: data/sound-juicer.glade.h:19
 msgid "Multiple Albums Found"
 msgstr "找到多张专辑"
 
-#: data/sound-juicer.glade.h:20
-msgid "Ogg Vorbis"
-msgstr "Ogg Vorbis"
-
-#: data/sound-juicer.glade.h:21
+#: data/sound-juicer.glade.h:18
 msgid "Preferences"
 msgstr "首选项"
 
-#: data/sound-juicer.glade.h:22
+#: data/sound-juicer.glade.h:19
 msgid "Progress"
 msgstr "进度"
 
-#: data/sound-juicer.glade.h:23
-msgid "Raw audio"
-msgstr "原始音频数据"
-
-#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:675
+#: data/sound-juicer.glade.h:20 src/sj-about.c:56 src/sj-extractor.c:442
+#: src/sj-main.c:908
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
-#: data/sound-juicer.glade.h:25
+#: data/sound-juicer.glade.h:21
 msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
-msgstr "这张CD可能有多于一张的专辑。请在下面选择专辑，并按 <i>继续</i>。"
+msgstr "这张 CD 可能有多于一张的专辑。请在下面选择专辑，并按 <i>继续</i>。"
 
-#: data/sound-juicer.glade.h:26
-msgid "Wave"
-msgstr "波形"
+#: data/sound-juicer.glade.h:22
+msgid "Unknown"
+msgstr "未知"
 
-#: data/sound-juicer.glade.h:27
+#: data/sound-juicer.glade.h:23
 msgid "_Browse..."
 msgstr "浏览(_B)..."
 
-#: data/sound-juicer.glade.h:28
+#: data/sound-juicer.glade.h:24
 msgid "_CD"
 msgstr "_CD"
 
-#: data/sound-juicer.glade.h:29
+#: data/sound-juicer.glade.h:25
 msgid "_Contents"
-msgstr "内容(_C)"
+msgstr "目录(_C)"
 
-#: data/sound-juicer.glade.h:30 src/sj-main.c:88
+#: data/sound-juicer.glade.h:26 src/sj-main.c:142
 msgid "_Continue"
 msgstr "继续(_C)"
 
-#: data/sound-juicer.glade.h:31
+#: data/sound-juicer.glade.h:27
 msgid "_Deselect All"
 msgstr "全部不选(_D)"
 
-#: data/sound-juicer.glade.h:32
+#: data/sound-juicer.glade.h:28
+msgid "_Eject when finished"
+msgstr "完成后弹出(_E)"
+
+#: data/sound-juicer.glade.h:29
 msgid "_Extract"
 msgstr "提取(_E)"
 
-#: data/sound-juicer.glade.h:33
-msgid "_File Name"
-msgstr "文件名(_F)"
+#: data/sound-juicer.glade.h:30
+msgid "_File Name:"
+msgstr "文件名(_F)："
 
-#: data/sound-juicer.glade.h:34
+#: data/sound-juicer.glade.h:31
 msgid "_Re-read"
 msgstr "重新读取(_R)"
 
-#: data/sound-juicer.glade.h:35
+#: data/sound-juicer.glade.h:32
 msgid "_Strip special characters"
 msgstr "去除特殊字符(_S)"
 
-#: data/sound-juicer.glade.h:36
+#: data/sound-juicer.glade.h:33
 msgid "label"
 msgstr "标签"
 
-#: data/sound-juicer.glade.h:37
+#: data/sound-juicer.glade.h:34
 msgid "path_example_label"
 msgstr "路径范例标签"
-
-#: data/sound-juicer.desktop.in.h:1
-msgid "Rip music from your CDs"
-msgstr "从您的CD中提取音乐"
-
-#: data/sound-juicer.desktop.in.h:2
-msgid "Sound Juicer CD Ripper"
-msgstr "Sound Juicer CD 抓取器"
 
 #: data/sound-juicer.schemas.in.h:2
 #, no-c-format
 msgid ""
-"%at -- album title %aa -- album artist %tt -- track title %ta -- track artist"
+"%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
+"album artist (lowercase) %tt -- track title %tT -- track title (lowercase) %"
+"ta -- track artist %tA -- track artist (lowercase)"
 msgstr ""
-"%at -- 专辑 标题 %aa -- 专辑 艺术家 %tt -- 轨道 标题 %ta -- 轨道 艺术家"
+"%at -- 专辑标题，%aT -- 专辑标题(小写)，%aa -- 专辑艺人，%aA -- "
+"专辑艺人(小写)，%tt -- 音轨标题，%tT -- 音轨标题(小写)，%"
+"ta -- 音轨艺人，%tA -- 音轨艺人(小写)"
 
-#: data/sound-juicer.schemas.in.h:4
-#, no-c-format
-msgid ""
-"Do not specify an extension. %at -- album title %aa -- album artist %tn -- "
-"track number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track "
-"title %ta -- track artist"
-msgstr ""
-"不要指定扩展名。%at -- 专辑 标题 %aa -- 专辑 艺术家 %tn -- 轨道编号(例如8) %"
-"tN -- 轨道编号, 带零(例如08) %tt -- 轨道 标题 %ta -- 轨道 艺术家"
+#: data/sound-juicer.schemas.in.h:3
+msgid "Audio Profile to encode with"
+msgstr "用于编码的音频配置文件"
 
 #: data/sound-juicer.schemas.in.h:5
+#, no-c-format
+msgid ""
+"Do not specify an extension. %at -- album title %aT -- album title "
+"(lowercase) %aa -- album artist %aA -- album artist (lowercase) %tn -- track "
+"number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
+"tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
+"(lowercase)"
+msgstr ""
+"不要指定扩展名。"
+"%at -- 专辑标题，%aT -- 专辑标题(小写)，%aa -- 专辑艺人，%aA -- "
+"专辑艺人(小写)，%tn -- 音轨编号(如 8)，%tN -- 带前导零的音轨编号(如 08)，"
+"%tt -- 音轨标题，%tT -- 音轨标题(小写)，%ta -- 音轨艺人，%tA -- 音轨艺人(小写)"
+
+#: data/sound-juicer.schemas.in.h:6
 msgid ""
 "If enabled, special characters such as space, wildcards and backslashes will "
 "be removed from the output filename."
 msgstr ""
 "如选用本选项，输出文件名的名称中的特殊字符 (空格、通配符、反斜号)会被去除。"
 
-#: data/sound-juicer.schemas.in.h:6
+#: data/sound-juicer.schemas.in.h:7
+msgid "If specified, this value will override the default MusicBrainz server."
+msgstr ""
+
+#: data/sound-juicer.schemas.in.h:8
 msgid "If to strip special characters from filenames"
 msgstr "决定文件名是否去除特殊字符"
 
-#: data/sound-juicer.schemas.in.h:7
+#: data/sound-juicer.schemas.in.h:9
 msgid ""
 "Paranoia mode, 3 settings: 0 (no paranoia), 4 (cdda2wav-style overlap "
 "checking) and 255 (full paranoia)"
 msgstr ""
 "Paranoia模式, 3种设置：0(不用)，4(cdda2wav方式的重叠检查)和 255(完全paranoia)"
 
-#: data/sound-juicer.schemas.in.h:8
+#: data/sound-juicer.schemas.in.h:10
+msgid "The GNOME Audio Profile to encode the audio with."
+msgstr "用于编码音频的 GNOME 音频配置文件。"
+
+#: data/sound-juicer.schemas.in.h:11
+msgid "The MusicBrainz server to use"
+msgstr "要使用的 MusicBrainz 服务器"
+
+#: data/sound-juicer.schemas.in.h:12
 msgid "The directory structure for the files"
 msgstr "文件的目录结构"
 
-#: data/sound-juicer.schemas.in.h:9
+#: data/sound-juicer.schemas.in.h:13
 msgid "The name pattern for files"
-msgstr "文件名模板"
+msgstr "文件名模式"
 
-#: data/sound-juicer.schemas.in.h:10
+#: data/sound-juicer.schemas.in.h:14
 msgid "The paranoia mode to use"
-msgstr "使用的paranoia模式"
+msgstr "使用的 paranoia 模式"
 
-# c-format
-#: src/cd-drive.c:362
-#, c-format
-msgid "Unnamed SCSI CD-ROM (%s)"
-msgstr "未命名的 SCSI 光驱 (%s)"
+#: data/sound-juicer.schemas.in.h:15
+msgid "Whether to eject the CD when finished extracting."
+msgstr "提取完成后是否弹出 CD。"
 
-#: src/cd-drive.c:815
-msgid "File image"
-msgstr "映像文件"
-
-#: src/bacon-cd-selection.c:234
+#: src/bacon-cd-selection.c:170
 msgid "Unnamed CDROM"
 msgstr "未命名的光驱"
 
-#: src/bacon-cd-selection.c:276
-msgid "Select the drive"
-msgstr "选取光驱"
-
-#: src/sj-musicbrainz.c:46
-msgid "Cannot create MusicBrainz client"
-msgstr "无法创建 MusicBrainz 客户"
-
-#: src/sj-musicbrainz.c:108
+# c-format
+#: src/cd-drive.c:855
 #, c-format
-msgid "Cannot read CD: %s"
-msgstr "无法读取光盘：%s"
+msgid "Unnamed SCSI Drive (%s)"
+msgstr "未命名的 SCSI 光驱 (%s)"
 
-#: src/sj-musicbrainz.c:115
-msgid "Unknown Artist"
-msgstr "未知的艺术家"
+#: src/cd-drive.c:1415
+msgid "File image"
+msgstr "映像文件"
 
-#: src/sj-musicbrainz.c:116
-msgid "Unknown Title"
-msgstr "未知的标题"
+#.
+#. * Note to translators: put here your name and email so it will show
+#. * up in the "about" box
+#.
+#: src/sj-about.c:46
+msgid "translator-credits"
+msgstr "开源软件国际化之 GNOME 简体中文组"
 
-#: src/sj-musicbrainz.c:121
-#, c-format
-msgid "Track %d"
-msgstr "第 %d 条轨道"
+#: src/sj-about.c:58
+msgid "An Audio CD Extractor"
+msgstr "音频 CD 提取器"
 
-#: src/sj-musicbrainz.c:141
-#, c-format
-msgid "This CD could not be queried: %s\n"
-msgstr "无法查询此CD：%s\n"
-
-#: src/sj-musicbrainz.c:147
-msgid "This CD was not found.\n"
-msgstr "没有找到此CD。\n"
-
-#: src/sj-extractor.c:133
-msgid "Encoding format"
-msgstr "编码格式"
-
-#: src/sj-extractor.c:133
-msgid "The format to write the encoded audio in"
-msgstr "写入声音数据时使用的编码"
-
-#: src/sj-extractor.c:281
-msgid "Could not create GStreamer cdparanoia reader"
-msgstr "无法创建 GStreamer cdparanoia 读取器"
-
-#: src/sj-extractor.c:297
-#, c-format
-msgid "Could not create GStreamer encoder (%s)"
-msgstr "无法创建 GStreamer 编码器 (%s)"
-
-#: src/sj-extractor.c:308
-msgid "Could not create GStreamer file output"
-msgstr "无法创建 GStreamer 文件输出"
-
-#: src/sj-extractor.c:337
-msgid "Could not get current track position"
-msgstr "无法获得当前轨道位置"
-
-#: src/sj-extractor.c:366
-msgid ""
-"Extractor object is not valid. This is bad, check your console for errors."
-msgstr "提取器对象无效。在您的控制台上查看错误信息。"
-
-# Don't translate, this is likely ID3 info or something similar -- Abel
-#: src/sj-extractor.c:435
-msgid "Ripped with Sound Juicer"
-msgstr "Ripped with Sound Juicer"
-
-#: src/sj-extractor.c:449
-msgid "Could not seek to track"
-msgstr "无法寻找到轨道"
-
-#: src/sj-extractor.c:454
-msgid "Could not get track start position"
-msgstr "无法取得轨道起始位置"
-
-#: src/sj-util.c:64
-#, c-format
-msgid "Could not create directory %s: %s"
-msgstr "无法创建 %s 目录：%s"
-
-#: src/sj-util.c:101 src/sj-util.c:116
-msgid "Could not eject the CD"
-msgstr "无法弹出光盘"
-
-#: src/sj-util.c:102 src/sj-util.c:117 src/sj-main.c:385 src/sj-main.c:454
-#: src/sj-main.c:655
-msgid "Reason"
-msgstr "原因"
-
-#: src/sj-about.c:52
-msgid "A CD Ripper"
-msgstr "CD抓取器"
-
-#: src/sj-prefs.c:46
-msgid "Album Artist, Album Title"
-msgstr "专辑 艺术家, 专辑 标题"
-
-#: src/sj-prefs.c:47
-msgid "Track Artist, Album Title"
-msgstr "轨道 艺术家, 专辑 标题"
-
-#: src/sj-prefs.c:48 src/sj-prefs.c:258 src/sj-prefs.c:269
-msgid "Album Title"
-msgstr "专辑 标题"
-
-#: src/sj-prefs.c:49 src/sj-prefs.c:259 src/sj-prefs.c:270
-msgid "Album Artist"
-msgstr "专辑 艺术家"
-
-#: src/sj-prefs.c:50
-msgid "Album Artist - Album Title"
-msgstr "专辑 艺术家 - 专辑 标题"
-
-#: src/sj-prefs.c:55
-msgid "Number - Title"
-msgstr "编号 - 标题"
-
-#: src/sj-prefs.c:56 src/sj-prefs.c:264 src/sj-prefs.c:277
-msgid "Track Title"
-msgstr "轨道 标题"
-
-#: src/sj-prefs.c:57
-msgid "Track Artist - Track Title"
-msgstr "轨道 艺术家 - 轨道 标题"
-
-#: src/sj-prefs.c:58
-msgid "Number. Track Artist - Track Title"
-msgstr "编号. 轨道 艺术家 - 轨道 标题"
-
-#: src/sj-prefs.c:98
-msgid "Select Output Location"
-msgstr "选择输出位置"
-
-#: src/sj-prefs.c:195 src/sj-main.c:483
-#, c-format
-msgid "Unknown format %s"
-msgstr "未知的格式 %s"
-
-#: src/sj-prefs.c:265 src/sj-prefs.c:278
-msgid "Track Artist"
-msgstr "轨道 艺术家"
-
-#: src/sj-extracting.c:118
+#: src/sj-extracting.c:191
 #, c-format
 msgid ""
-"A file called '%s' exists, size %ldK.\n"
+"A file called '%s' exists, size %lu kB.\n"
 "Do you want to skip this track or overwrite it?"
 msgstr ""
-"文件“%s”已存在，大小为 %ldK。\n"
-"您想跳过这个轨道，还是覆盖文件？"
+"文件“%s”已存在，大小为 %lu kB。\n"
+"您想跳过这个音轨，还是覆盖文件？"
 
-#: src/sj-extracting.c:120
+#: src/sj-extracting.c:194
 msgid "_Skip"
 msgstr "跳过(_S)"
 
-#: src/sj-extracting.c:121
+#: src/sj-extracting.c:195
 msgid "_Overwrite"
 msgstr "覆盖(_O)"
 
-#. TODO: need to have a better message here
-#: src/sj-extracting.c:147
-msgid "The tracks have been copied successfully."
-msgstr "已经成功提取轨道。"
+#. Display a nice dialog
+#: src/sj-extracting.c:250 src/sj-extracting.c:287 src/sj-extracting.c:504
+#, c-format
+msgid ""
+"Sound Juicer could not extract this CD.\n"
+"Reason: %s"
+msgstr "Sound Juicer 无法提取此 CD。\n原因：%s"
 
-#: src/sj-extracting.c:168
+#: src/sj-extracting.c:277
 #, c-format
 msgid "Extracting '%s'"
 msgstr "正在提取 “%s”中"
 
-#: src/sj-extracting.c:178
+#: src/sj-extracting.c:339
 #, c-format
-msgid "mkdir() failed: %s"
-msgstr "mkdir() 失败：%s"
+msgid "%d:%02d (at %0.1fx)"
+msgstr "%d:%02d (at %0.1fx)"
 
-#: src/sj-main.c:86
+#: src/sj-extracting.c:341
+msgid "Unknown (at 0.0x)"
+msgstr "未知 (0.0x)"
+
+#. TODO: need to have a better message here
+#: src/sj-extracting.c:446
+msgid "The tracks have been copied successfully."
+msgstr "已经成功提取音轨。"
+
+#: src/sj-extracting.c:451
+msgid "_Eject"
+msgstr "弹出(_E)"
+
+#: src/sj-extractor.c:125
+msgid "Gnome Audio Profile"
+msgstr "Gnome 音频配置文件"
+
+#: src/sj-extractor.c:125
+msgid "The Gnome Audio Profile used for encoding audio"
+msgstr "编码音频所用的 Gnome 音频配置文件"
+
+#: src/sj-extractor.c:268
+msgid "Could not create GStreamer cdparanoia reader"
+msgstr "无法创建 GStreamer cdparanoia 读取器"
+
+#: src/sj-extractor.c:287
+#, c-format
+msgid "Could not create GStreamer encoder (%s)"
+msgstr "无法创建 GStreamer 编码器 (%s)"
+
+#: src/sj-extractor.c:298
+msgid "Could not create GStreamer file output"
+msgstr "无法创建 GStreamer 文件输出"
+
+#: src/sj-extractor.c:328
+msgid "Could not get current track position"
+msgstr "无法获得当前音轨位置"
+
+#: src/sj-extractor.c:361
+msgid ""
+"Extractor object is not valid. This is bad, check your console for errors."
+msgstr "提取器对象无效。在您的控制台上查看错误信息。"
+
+#: src/sj-extractor.c:469
+msgid "Could not seek to track"
+msgstr "无法寻找到音轨"
+
+#: src/sj-extractor.c:474
+msgid "Could not get track start position"
+msgstr "无法取得音轨起始位置"
+
+#: src/sj-extractor.c:511
+msgid "The plugin necessary for CD access was not found"
+msgstr "CD 访问所需的插件未找到"
+
+#: src/sj-extractor.c:519
+msgid "The plugin necessary for file access was not found"
+msgstr "文件访问所需的插件未找到"
+
+#: src/sj-genres.c:37
+msgid "Blues"
+msgstr ""
+
+#: src/sj-genres.c:39
+msgid "Classic Rock"
+msgstr ""
+
+#: src/sj-genres.c:41
+msgid "Country"
+msgstr ""
+
+#: src/sj-genres.c:43
+msgid "Dance"
+msgstr ""
+
+#: src/sj-genres.c:45
+msgid "Disco"
+msgstr ""
+
+#: src/sj-genres.c:47
+msgid "Funk"
+msgstr ""
+
+#: src/sj-genres.c:49
+msgid "Grunge"
+msgstr ""
+
+#: src/sj-genres.c:51
+msgid "Hip-Hop"
+msgstr ""
+
+#: src/sj-genres.c:53
+msgid "Jazz"
+msgstr ""
+
+#: src/sj-genres.c:55
+msgid "Metal"
+msgstr ""
+
+#: src/sj-genres.c:57
+msgid "New Age"
+msgstr ""
+
+#: src/sj-genres.c:59
+msgid "Oldies"
+msgstr ""
+
+#: src/sj-genres.c:61
+msgid "Other"
+msgstr ""
+
+#: src/sj-genres.c:63
+msgid "Pop"
+msgstr ""
+
+#: src/sj-genres.c:65
+msgid "R&B"
+msgstr ""
+
+#: src/sj-genres.c:67
+msgid "Rap"
+msgstr ""
+
+#: src/sj-genres.c:69
+msgid "Reggae"
+msgstr ""
+
+#: src/sj-genres.c:71
+msgid "Rock"
+msgstr ""
+
+#: src/sj-genres.c:73
+msgid "Techno"
+msgstr ""
+
+#: src/sj-genres.c:75
+msgid "Industrial"
+msgstr ""
+
+#: src/sj-genres.c:77
+msgid "Alternative"
+msgstr ""
+
+#: src/sj-genres.c:79
+msgid "Ska"
+msgstr ""
+
+#: src/sj-genres.c:81
+msgid "Death Metal"
+msgstr ""
+
+#: src/sj-genres.c:83
+msgid "Pranks"
+msgstr ""
+
+#: src/sj-genres.c:85
+msgid "Soundtrack"
+msgstr ""
+
+#: src/sj-genres.c:87
+msgid "Euro-Techno"
+msgstr ""
+
+#: src/sj-genres.c:89
+msgid "Ambient"
+msgstr ""
+
+#: src/sj-genres.c:91
+msgid "Trip-Hop"
+msgstr ""
+
+#: src/sj-genres.c:93
+msgid "Vocal"
+msgstr ""
+
+#: src/sj-genres.c:95
+msgid "Jazz+Funk"
+msgstr ""
+
+#: src/sj-genres.c:97
+msgid "Fusion"
+msgstr ""
+
+#: src/sj-genres.c:99
+#, fuzzy
+msgid "Trance"
+msgstr "音轨"
+
+#: src/sj-genres.c:101
+msgid "Classical"
+msgstr ""
+
+#: src/sj-genres.c:103
+msgid "Instrumental"
+msgstr ""
+
+#: src/sj-genres.c:105
+msgid "Acid"
+msgstr ""
+
+#: src/sj-genres.c:107
+msgid "House"
+msgstr ""
+
+#: src/sj-genres.c:109
+msgid "Game"
+msgstr ""
+
+#: src/sj-genres.c:111
+#, fuzzy
+msgid "Sound Clip"
+msgstr "Sound Juicer"
+
+#: src/sj-genres.c:113
+msgid "Gospel"
+msgstr ""
+
+#: src/sj-genres.c:115
+msgid "Noise"
+msgstr ""
+
+#: src/sj-genres.c:117
+msgid "AlternRock"
+msgstr ""
+
+#: src/sj-genres.c:119
+msgid "Bass"
+msgstr ""
+
+#: src/sj-genres.c:121
+msgid "Soul"
+msgstr ""
+
+#: src/sj-genres.c:123
+msgid "Punk"
+msgstr ""
+
+#: src/sj-genres.c:125
+msgid "Space"
+msgstr ""
+
+#: src/sj-genres.c:127
+msgid "Meditative"
+msgstr ""
+
+#: src/sj-genres.c:129
+msgid "Instrumental Pop"
+msgstr ""
+
+#: src/sj-genres.c:131
+msgid "Instrumental Rock"
+msgstr ""
+
+#: src/sj-genres.c:133
+msgid "Ethnic"
+msgstr ""
+
+#: src/sj-genres.c:135
+msgid "Gothic"
+msgstr ""
+
+#: src/sj-genres.c:137
+msgid "Darkwave"
+msgstr ""
+
+#: src/sj-genres.c:139
+msgid "Techno-Industrial"
+msgstr ""
+
+#: src/sj-genres.c:141
+msgid "Electronic"
+msgstr ""
+
+#: src/sj-genres.c:143
+msgid "Pop-Folk"
+msgstr ""
+
+#: src/sj-genres.c:145
+msgid "Eurodance"
+msgstr ""
+
+#: src/sj-genres.c:147
+msgid "Dream"
+msgstr ""
+
+#: src/sj-genres.c:149
+msgid "Southern Rock"
+msgstr ""
+
+#: src/sj-genres.c:151
+msgid "Comedy"
+msgstr ""
+
+#: src/sj-genres.c:153
+msgid "Cult"
+msgstr ""
+
+#: src/sj-genres.c:155
+msgid "Gangsta"
+msgstr ""
+
+#: src/sj-genres.c:157
+msgid "Top 40"
+msgstr ""
+
+#: src/sj-genres.c:159
+msgid "Christian Rap"
+msgstr ""
+
+#: src/sj-genres.c:161
+msgid "Pop/Funk"
+msgstr ""
+
+#: src/sj-genres.c:163
+msgid "Jungle"
+msgstr ""
+
+#: src/sj-genres.c:165
+msgid "Native American"
+msgstr ""
+
+#: src/sj-genres.c:167
+msgid "Cabaret"
+msgstr ""
+
+#: src/sj-genres.c:169
+#, fuzzy
+msgid "New Wave"
+msgstr "波形"
+
+#: src/sj-genres.c:171
+msgid "Psychadelic"
+msgstr ""
+
+#: src/sj-genres.c:173
+#, fuzzy
+msgid "Rave"
+msgstr "波形"
+
+#: src/sj-genres.c:175
+msgid "Showtunes"
+msgstr ""
+
+#: src/sj-genres.c:177
+#, fuzzy
+msgid "Trailer"
+msgstr "标题"
+
+#: src/sj-genres.c:179
+msgid "Lo-Fi"
+msgstr ""
+
+#: src/sj-genres.c:181
+msgid "Tribal"
+msgstr ""
+
+#: src/sj-genres.c:183
+msgid "Acid Punk"
+msgstr ""
+
+#: src/sj-genres.c:185
+msgid "Acid Jazz"
+msgstr ""
+
+#: src/sj-genres.c:187
+msgid "Polka"
+msgstr ""
+
+#: src/sj-genres.c:189
+msgid "Retro"
+msgstr ""
+
+#: src/sj-genres.c:191
+msgid "Musical"
+msgstr ""
+
+#: src/sj-genres.c:193
+msgid "Rock & Roll"
+msgstr ""
+
+#: src/sj-genres.c:195
+msgid "Hard Rock"
+msgstr ""
+
+#: src/sj-genres.c:197
+msgid "[unknown genre]"
+msgstr "[未知流派]"
+
+#: src/sj-main.c:89
+msgid "Could not start Sound Juicer"
+msgstr "无法启动 Sound Juicer"
+
+#: src/sj-main.c:90 src/sj-main.c:454 src/sj-main.c:529 src/sj-main.c:588
+#: src/sj-util.c:110 src/sj-util.c:130
+msgid "Reason"
+msgstr "原因"
+
+#: src/sj-main.c:92
+msgid "Please consult the documentation for assistance."
+msgstr "请参考文档获得帮助。"
+
+#: src/sj-main.c:140
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
-msgstr "您现在正在提取CD数据。您想退出程序或者是继续？"
+msgstr "您现在正在提取 CD。您想退出程序或者是继续？"
 
-#: src/sj-main.c:136 src/sj-main.c:194
+#: src/sj-main.c:197 src/sj-main.c:264
 msgid "(unknown)"
 msgstr "(未知)"
 
-#: src/sj-main.c:236 src/sj-main.c:753
+#: src/sj-main.c:306 src/sj-main.c:1002
 msgid "Title"
 msgstr "标题"
 
-#: src/sj-main.c:242 src/sj-main.c:761
+#: src/sj-main.c:312 src/sj-main.c:1011
 msgid "Artist"
-msgstr "艺术家"
+msgstr "艺人"
 
-#: src/sj-main.c:383 src/sj-main.c:452
+#: src/sj-main.c:452 src/sj-main.c:527 src/sj-main.c:586
 msgid "Could not read the CD"
-msgstr "无法读取光盘"
+msgstr "无法读取 CD"
 
-#: src/sj-main.c:384
+#: src/sj-main.c:453 src/sj-main.c:528
 msgid "Sound Juicer could not read the track listing on this CD."
-msgstr "Sound Juicer 无法读取此CD的轨道列表。"
+msgstr "Sound Juicer 无法读取此 CD 的音轨列表。"
 
-#: src/sj-main.c:435
+#. Set statusbar message
+#: src/sj-main.c:512
+msgid "Retrieving track listing...please wait."
+msgstr "正在获取音轨列表...请稍候。"
+
+#: src/sj-main.c:567
 msgid "No CD-ROM drives found"
 msgstr "找不到光驱"
 
-#: src/sj-main.c:436
+#: src/sj-main.c:568
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer 找不到任何可以读取数据的光驱。"
 
-#: src/sj-main.c:446
+#: src/sj-main.c:580
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer 无法访问光盘驱动器“%s”"
 
-#: src/sj-main.c:589
+#: src/sj-main.c:625
+msgid ""
+"The currently selected audio profile is not available on your installation."
+msgstr ""
+
+#: src/sj-main.c:627
+msgid "_Change Profile"
+msgstr "更改配置文件(_C)"
+
+#: src/sj-main.c:776
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "未知的列 %d 已被修改"
 
-#: src/sj-main.c:636
+#: src/sj-main.c:839 src/sj-prefs.c:136
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -463,26 +766,140 @@ msgstr ""
 "无法显示 Sound Juicer 的帮助\n"
 "%s"
 
-#: src/sj-main.c:654
-msgid "Could not start Sound Juicer"
-msgstr "无法启动 Sound Juicer"
-
-#: src/sj-main.c:657
-msgid "Please consult the documentation for assistance."
-msgstr "请参考文档获得帮助。"
-
-#: src/sj-main.c:692
+#: src/sj-main.c:927
 msgid "Could not create GConf client.\n"
 msgstr "无法创建 GConf 客户。\n"
 
-#: src/sj-main.c:734
-msgid "Extract?"
-msgstr "提取吗？"
+#: src/sj-main.c:983
+msgid "Extract"
+msgstr "提取"
 
-#: src/sj-main.c:742
+#: src/sj-main.c:991
 msgid "Track"
-msgstr "轨道"
+msgstr "音轨"
 
-#: src/sj-main.c:771
+#: src/sj-main.c:1022
 msgid "Duration"
 msgstr "长度"
+
+#: src/sj-metadata-musicbrainz.c:90
+msgid "Cannot create MusicBrainz client"
+msgstr "无法创建 MusicBrainz 客户"
+
+#: src/sj-metadata-musicbrainz.c:195 src/sj-metadata-musicbrainz.c:317
+#, c-format
+msgid "Cannot read CD: %s"
+msgstr "无法读取 CD：%s"
+
+#: src/sj-metadata-musicbrainz.c:202 src/sj-metadata-musicbrainz.c:363
+msgid "Unknown Artist"
+msgstr "未知艺人"
+
+#: src/sj-metadata-musicbrainz.c:203 src/sj-metadata-musicbrainz.c:351
+msgid "Unknown Title"
+msgstr "未知标题"
+
+#: src/sj-metadata-musicbrainz.c:208
+#, c-format
+msgid "Track %d"
+msgstr "第 %d 条音轨"
+
+#: src/sj-metadata-musicbrainz.c:237
+msgid ""
+"MusicBrainz metadata object is not valid. This is bad, check your console "
+"for errors."
+msgstr "MusicBrainz 元数据对象无效。请在您的控制台上查看错误信息。"
+
+#: src/sj-metadata-musicbrainz.c:311
+#, c-format
+msgid "Device '%s' does not contain a media"
+msgstr "设备“%s”不包含介质"
+
+#: src/sj-metadata-musicbrainz.c:314
+#, c-format
+msgid ""
+"Device '%s' could not be opened. Check the access permissions on the device."
+msgstr ""
+
+#: src/sj-metadata-musicbrainz.c:327
+#, c-format
+msgid "This CD could not be queried: %s\n"
+msgstr "无法查询此 CD：%s\n"
+
+#: src/sj-metadata-musicbrainz.c:335
+msgid "This CD was not found.\n"
+msgstr "没有找到此 CD。\n"
+
+#: src/sj-metadata-musicbrainz.c:358
+msgid "Various"
+msgstr ""
+
+#: src/sj-metadata-musicbrainz.c:372
+msgid "Incomplete metadata for this CD.\n"
+msgstr ""
+
+#: src/sj-metadata-musicbrainz.c:442
+msgid "Could not create CD lookup thread"
+msgstr "无法创建 CD 查阅线程"
+
+#: src/sj-prefs.c:50
+msgid "Album Artist, Album Title"
+msgstr "专辑艺人, 专辑标题"
+
+#: src/sj-prefs.c:51
+msgid "Track Artist, Album Title"
+msgstr "音轨艺人, 专辑标题"
+
+#: src/sj-prefs.c:52 src/sj-prefs.c:279
+msgid "Album Title"
+msgstr "专辑标题"
+
+#: src/sj-prefs.c:53 src/sj-prefs.c:280
+msgid "Album Artist"
+msgstr "专辑艺人"
+
+#: src/sj-prefs.c:54
+msgid "Album Artist - Album Title"
+msgstr "专辑艺人 - 专辑标题"
+
+#: src/sj-prefs.c:55
+msgid "[none]"
+msgstr "[无]"
+
+#: src/sj-prefs.c:60
+msgid "Number - Title"
+msgstr "编号 - 标题"
+
+#: src/sj-prefs.c:61 src/sj-prefs.c:287
+msgid "Track Title"
+msgstr "音轨标题"
+
+#: src/sj-prefs.c:62
+msgid "Track Artist - Track Title"
+msgstr "音轨艺人 - 音轨标题"
+
+#: src/sj-prefs.c:63
+msgid "Number. Track Artist - Track Title"
+msgstr "编号. 音轨艺人 - 音轨标题"
+
+#: src/sj-prefs.c:64
+msgid "Number-Track Artist-Track Title (lowercase)"
+msgstr "编号-音轨艺人-音轨标题(小写)"
+
+#: src/sj-prefs.c:153
+msgid "Select Output Location"
+msgstr "选择输出位置"
+
+#: src/sj-prefs.c:288
+msgid "Track Artist"
+msgstr "音轨 艺人"
+
+#: src/sj-util.c:65
+#, c-format
+msgid "Could not create directory %s: %s"
+msgstr "无法创建 %s 目录：%s"
+
+#: src/sj-util.c:109 src/sj-util.c:129
+msgid "Could not eject the CD"
+msgstr "无法弹出光盘"
+
