@@ -10,6 +10,7 @@ static GstElement *pipeline;
 static GstElement *cdparanoia, *vorbisenc, *filesink;
 static GstFormat track_format;
 GstPad *source_pad;
+static int track_start;
 
 typedef void (*progress_cb_t) (int seconds);
 typedef void (*completion_cb_t) (void);
@@ -108,7 +109,7 @@ static gboolean tick_timeout_cb(gpointer user_data)
   secs = nanos / GST_SECOND;
   if (secs != seconds) {
     seconds = secs;
-    progress_cb(seconds);
+    progress_cb(seconds - track_start);
   }
   return TRUE;
 }
@@ -124,6 +125,8 @@ void sj_gstreamer_extract_track (const TrackDetails *track, const char* path, GE
   GstEvent *event;
   GstCaps *caps;
   char *tracknumber;
+  static GstFormat format = GST_FORMAT_TIME;
+  gint64 nanos;
 
   g_return_if_fail (pipeline != NULL);
   g_return_if_fail (path != NULL);
@@ -159,7 +162,13 @@ void sj_gstreamer_extract_track (const TrackDetails *track, const char* path, GE
                  _("Could not seek to track"));
     return;
   }
-  
+
+  if (!gst_pad_query (source_pad, GST_QUERY_POSITION, &format, &nanos)) {
+    g_print ("pad_query failed!\n");
+    return TRUE;
+  }
+  track_start = nanos / GST_SECOND;
+
   gst_element_set_state (pipeline, GST_STATE_PLAYING);
   g_idle_add ((GSourceFunc)gst_bin_iterate, pipeline);
   g_timeout_add (200, (GSourceFunc)tick_timeout_cb, NULL);

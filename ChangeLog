@@ -1,5 +1,12 @@
 2003-04-01  Ross Burton  <ross@burtonini.com>
 
+	* src/sj-gstreamer.c: Take into account the track starting
+	position when reporting progress callbacks.
+	* tests/glade-test.c: Fix an Obi-Wan in the album progress bar,
+	and record the track duration correctly.
+
+2003-04-01  Ross Burton  <ross@burtonini.com>
+
 	* README: Update to reflect new state -- it works!
 
 	* data/sound-juicer.desktop.in: Added.
@@ -22,6 +29,12 @@
 	renamed some control.s
 	* tests/glade-test.c: Implemented Select All, the album duration
 	display, album extract progress, i18nized more strings...
+
+2003-03-31  Ross Burton  <ross@burtonini.com>
+
+	* tests/glade-test.c: Pass a GError to the extract code, and set
+	the progress dialog as a transient.
+	* src/sj-gstreamer.c: State and callback fixing. Now works!
 
 2003-03-31  Ross Burton  <ross@burtonini.com>
 

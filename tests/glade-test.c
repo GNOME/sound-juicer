@@ -362,8 +362,10 @@ static void pop_and_rip (void)
   track = pending->data;
   pending = g_list_next (pending);
 
-  left = total_ripping - g_list_length (pending);
+  left = total_ripping - g_list_length (pending) + 1; /* +1 as we've popped already */
   gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress), (float)left/(float)total_ripping);
+
+  track_duration = track->duration;
 
   gtk_label_set_text (GTK_LABEL (progress_label), g_strdup_printf (_("Currently extracting '%s'"), track->title));
   file_path = g_strdup_printf("%s/%s/%s.ogg", base_path, track->album->title, track->title); /* TODO: CRAP */
@@ -477,6 +479,7 @@ static void on_progress_cb (int seconds)
 static void on_completion_cb (void)
 {
   ripping = FALSE;
+  /* TODO: uncheck the Extract? check box */
   pop_and_rip ();
   return;
 }
