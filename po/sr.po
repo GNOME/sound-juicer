@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-11 19:00+0100\n"
-"PO-Revision-Date: 2003-12-11 19:03+0100\n"
+"POT-Creation-Date: 2004-01-05 23:30+0100\n"
+"PO-Revision-Date: 2004-01-05 23:30+0100\n"
 "Last-Translator: Данило Шеган <dsegan@gmx.net>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -126,7 +126,7 @@ msgid "Raw audio"
 msgstr "Необрађени звук"
 
 # Соковник за звук = Звуковник
-#: data/sound-juicer.glade.h:26 src/sj-about.c:56 src/sj-main.c:868
+#: data/sound-juicer.glade.h:26 src/sj-about.c:56 src/sj-main.c:874
 msgid "Sound Juicer"
 msgstr "Звуковник"
 
@@ -302,65 +302,75 @@ msgstr "Пре_скочи"
 msgid "_Overwrite"
 msgstr "_Пресними"
 
-#: src/sj-extracting.c:256
+#. Display a nice dialog
+#: src/sj-extracting.c:234 src/sj-extracting.c:272 src/sj-extracting.c:443
+#, c-format
+msgid ""
+"Sound Juicer could not extract this CD.\n"
+"Reason: %s"
+msgstr ""
+"Звуковник не може да извуче песме са овог ЦД-а.\n"
+"Разлог: %s"
+
+#: src/sj-extracting.c:262
 #, c-format
 msgid "Extracting '%s'"
 msgstr "Извлачење „%s“"
 
 #. TODO: need to have a better message here
-#: src/sj-extracting.c:367
+#: src/sj-extracting.c:380
 msgid "The tracks have been copied successfully."
 msgstr "Датотеке су успешно копиране."
 
-#: src/sj-extractor.c:135
+#: src/sj-extractor.c:139
 msgid "Encoding format"
 msgstr "Облик врсте записа"
 
-#: src/sj-extractor.c:135
+#: src/sj-extractor.c:139
 msgid "The format to write the encoded audio in"
 msgstr "Облик за писање начина тонског записа у"
 
-#: src/sj-extractor.c:297
+#: src/sj-extractor.c:301
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "Не може да створи ГСтримеров читач cdparanoia"
 
-#: src/sj-extractor.c:316
+#: src/sj-extractor.c:320
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
 msgstr "Не може да направи ГСтримеров енкодер (%s)"
 
-#: src/sj-extractor.c:327
+#: src/sj-extractor.c:331
 msgid "Could not create GStreamer file output"
 msgstr "Не може да направи ГСтримерову излазну датотеку"
 
-#: src/sj-extractor.c:357
+#: src/sj-extractor.c:361
 msgid "Could not get current track position"
 msgstr "Не може да добије тренутну позицију стазе"
 
-#: src/sj-extractor.c:386
+#: src/sj-extractor.c:390
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Извучени објекат није одговарајућ. То је лоше, проверите своју конзолу за "
 "грашкама."
 
-#: src/sj-extractor.c:461 src/sj-extractor.c:475
+#: src/sj-extractor.c:465 src/sj-extractor.c:479
 msgid "Ripped with Sound Juicer"
 msgstr "Извучен помоћу Звуковника"
 
-#: src/sj-extractor.c:490
+#: src/sj-extractor.c:494
 msgid "Could not seek to track"
 msgstr "Не може да потражи стазу"
 
-#: src/sj-extractor.c:495
+#: src/sj-extractor.c:499
 msgid "Could not get track start position"
 msgstr "Не може да добије стартну позицију стазе"
 
-#: src/sj-extractor.c:531
+#: src/sj-extractor.c:535
 msgid "The plugin necessary for CD access was not found"
 msgstr "Додатак неопходан за приступ ЦД-у није нађен"
 
-#: src/sj-extractor.c:539
+#: src/sj-extractor.c:543
 msgid "The plugin necessary for file access was not found"
 msgstr "Додатак неопходан за приступ датотеци није нађен"
 
@@ -368,8 +378,8 @@ msgstr "Додатак неопходан за приступ датотеци �
 msgid "Could not start Sound Juicer"
 msgstr "Не могу да покренем Звуковник"
 
-#: src/sj-main.c:84 src/sj-main.c:439 src/sj-main.c:516 src/sj-main.c:566
-#: src/sj-util.c:111 src/sj-util.c:126
+#: src/sj-main.c:84 src/sj-main.c:439 src/sj-main.c:514 src/sj-main.c:572
+#: src/sj-util.c:108 src/sj-util.c:128
 msgid "Reason"
 msgstr "Разлог"
 
@@ -387,19 +397,19 @@ msgstr ""
 msgid "(unknown)"
 msgstr "(непознато)"
 
-#: src/sj-main.c:291 src/sj-main.c:948
+#: src/sj-main.c:291 src/sj-main.c:954
 msgid "Title"
 msgstr "Наслов"
 
-#: src/sj-main.c:297 src/sj-main.c:956
+#: src/sj-main.c:297 src/sj-main.c:962
 msgid "Artist"
 msgstr "Извођач"
 
-#: src/sj-main.c:437 src/sj-main.c:514 src/sj-main.c:564
+#: src/sj-main.c:437 src/sj-main.c:512 src/sj-main.c:570
 msgid "Could not read the CD"
 msgstr "Не могу да читам ЦД"
 
-#: src/sj-main.c:438 src/sj-main.c:515
+#: src/sj-main.c:438 src/sj-main.c:513
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Звуковник не може да чита списак песама са овог ЦД-а."
 
@@ -408,37 +418,37 @@ msgstr "Звуковник не може да чита списак песама
 msgid "Retrieving track listing...please wait."
 msgstr "Преузимам списак песама... причекајте."
 
-#: src/sj-main.c:545
+#: src/sj-main.c:551
 msgid "No CD-ROM drives found"
 msgstr "Ниједан ЦД уређај није нађен"
 
-#: src/sj-main.c:546
+#: src/sj-main.c:552
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Звуковник не може да наће ниједан ЦД уређај да чита."
 
-#: src/sj-main.c:558
+#: src/sj-main.c:564
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Звуковник не може да приступи ЦД уређају „%s“"
 
-#: src/sj-main.c:623
+#: src/sj-main.c:629
 msgid "Cannot find any suitable encoders"
 msgstr "Не могу да нађем пригодне врсте записа"
 
-#: src/sj-main.c:638
+#: src/sj-main.c:644
 msgid "The currently selected encoder is not available on your installation."
 msgstr "Тренутно изабрана врста записа није доступна на вашем систему."
 
-#: src/sj-main.c:640
+#: src/sj-main.c:646
 msgid "Change the encoder"
 msgstr "Измени врсту записа"
 
-#: src/sj-main.c:790
+#: src/sj-main.c:796
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Непознатa колона %d је промењена"
 
-#: src/sj-main.c:838
+#: src/sj-main.c:844
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -447,19 +457,19 @@ msgstr ""
 "Не може да прикаже помоћ за Звуковника\n"
 "%s"
 
-#: src/sj-main.c:887
+#: src/sj-main.c:893
 msgid "Could not create GConf client.\n"
 msgstr "Не може да направи ГКонф клијент.\n"
 
-#: src/sj-main.c:929
+#: src/sj-main.c:935
 msgid "Extract"
 msgstr "Извуци"
 
-#: src/sj-main.c:937
+#: src/sj-main.c:943
 msgid "Track"
 msgstr "Стаза"
 
-#: src/sj-main.c:966
+#: src/sj-main.c:972
 msgid "Duration"
 msgstr "Трајање"
 
@@ -575,7 +585,7 @@ msgstr "Извођач стазе"
 msgid "Could not create directory %s: %s"
 msgstr "Нисам могао да направим директоријум %s: %s"
 
-#: src/sj-util.c:110 src/sj-util.c:125
+#: src/sj-util.c:107 src/sj-util.c:127
 msgid "Could not eject the CD"
 msgstr "Не може да избаци ЦД"
 
