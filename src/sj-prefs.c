@@ -317,6 +317,15 @@ static void pattern_label_update (void)
     N_("Track Artist"),
     60
   };
+  /* Magic to i18n-ize the sample strings. */
+  static gboolean been_here = FALSE;
+  if (!been_here) {
+    sample_album.title = _(sample_album.title);
+    sample_album.artist = _(sample_album.artist);
+    sample_track.title = _(sample_track.title);
+    sample_track.artist = _(sample_track.artist);
+    been_here = TRUE;
+  }
   /* TODO: sucky. Replace with get-gconf-key-with-default mojo */
   file_pattern = gconf_client_get_string (gconf_client, GCONF_FILE_PATTERN, NULL);
   if (file_pattern == NULL) {
