@@ -117,6 +117,7 @@ int get_dvd_r_rw_profile (const char *name)
       /* fprintf(stderr,"GET CONFIGURATION failed with "
 		      "SK=%xh/ASC=%02xh/ASCQ=%02xh\n",
 		      sense[2]&0xF,sense[12],sense[13]); */
+      delete list;
       goto bail;
     }
 
@@ -124,6 +125,7 @@ int get_dvd_r_rw_profile (const char *name)
     {
       /* fprintf(stderr, "GET CONFIGURATION with len %d, and list[11] %d\n",
                          len, list[11]); */
+      delete list;
       goto bail;
     }
 
@@ -146,6 +148,7 @@ int get_dvd_r_rw_profile (const char *name)
           retval = 1;
       }
     }
+    delete list;
   }
 
 bail:
@@ -496,7 +499,10 @@ int get_read_write_speed (int fd, int *read_speed, int *write_speed)
     *write_speed = p[28] << 8 | p[29];
   }
 
-  *read_speed = p[8] << 8 | p[9];
+  if (len >= hlen+9)
+    *read_speed = p[8] << 8 | p[9];
+  else
+    *read_speed = 0;
 
   return 0;
 

@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* 
- * Copyright (C) 2002 Bastien Nocera <hadess@hadess.net>
+ * Copyright (C) 2002-2004 Bastien Nocera <hadess@hadess.net>
  *
  * bacon-cd-selection.c
  *
@@ -126,45 +126,13 @@ bacon_cd_selection_class_init (BaconCdSelectionClass *klass)
 }
 
 static void
-bacon_cd_selection_init (BaconCdSelection *bcs)
-{
-	bcs->priv = g_new0 (BaconCdSelectionPrivate, 1);
-}
-
-static void
-bacon_cd_selection_finalize (GObject *object)
-{
-	GList *l;
-	BaconCdSelection *bcs = (BaconCdSelection *) object;
-
-	g_return_if_fail (bcs != NULL);
-	g_return_if_fail (BACON_IS_CD_SELECTION (bcs));
-
-	l = bcs->priv->cdroms;
-	while (l != NULL)
-	{
-		CDDrive *cdrom = l->data;
-
-		l = g_list_remove (l, cdrom);
-		cd_drive_free (cdrom);
-	}
-
-	g_free (bcs->priv);
-	bcs->priv = NULL;
-
-	if (G_OBJECT_CLASS (parent_class)->finalize != NULL) {
-		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
-	}
-}
-
-static void
 combo_device_changed (GtkComboBox *combo, gpointer user_data)
 {
 	BaconCdSelection *bcs = (BaconCdSelection *) user_data;
 	CDDrive *drive;
 	int i;
 
-	i = gtk_combo_box_get_active (combo);
+	i = gtk_combo_box_get_active (GTK_COMBO_BOX (bcs));
 	/* No selection */
 	if (i < 0) {
 		g_signal_emit (G_OBJECT (bcs),
@@ -173,6 +141,8 @@ combo_device_changed (GtkComboBox *combo, gpointer user_data)
 		return;
 	}
 	drive = get_drive (bcs, i);
+	if (drive == NULL)
+		return;
 
 	g_signal_emit (G_OBJECT (bcs),
 		       bcs_table_signals[DEVICE_CHANGED],
@@ -206,34 +176,60 @@ cdrom_combo_box (BaconCdSelection *bcs, gboolean show_recorders_only, gboolean s
 	}
 }
 
-GtkWidget *
-bacon_cd_selection_new (void)
+static void
+bacon_cd_selection_init (BaconCdSelection *bcs)
 {
-	GtkWidget *widget;
-	BaconCdSelection *bcs;
+	bcs->priv = g_new0 (BaconCdSelectionPrivate, 1);
+  
 	GtkCellRenderer *cell;
 	GtkListStore *store;
 
-	widget = GTK_WIDGET
-		(g_object_new (bacon_cd_selection_get_type (), NULL));
-
-	store = gtk_list_store_new (1, G_TYPE_STRING);
-	gtk_combo_box_set_model (GTK_COMBO_BOX (widget),
+  store = gtk_list_store_new (1, G_TYPE_STRING);
+	gtk_combo_box_set_model (GTK_COMBO_BOX (bcs),
 			GTK_TREE_MODEL (store));
 
 	cell = gtk_cell_renderer_text_new ();
-	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (widget), cell, TRUE);
-	gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (widget), cell,
+	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (bcs), cell, TRUE);
+	gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (bcs), cell,
 			"text", 0,
 			NULL);
 
-	bcs = BACON_CD_SELECTION (widget);
 	cdrom_combo_box (bcs, FALSE, FALSE);
 
 	g_signal_connect (G_OBJECT (bcs), "changed",
 			G_CALLBACK (combo_device_changed), bcs);
+}
 
-	return widget;
+static void
+bacon_cd_selection_finalize (GObject *object)
+{
+	GList *l;
+	BaconCdSelection *bcs = (BaconCdSelection *) object;
+
+	g_return_if_fail (bcs != NULL);
+	g_return_if_fail (BACON_IS_CD_SELECTION (bcs));
+
+	l = bcs->priv->cdroms;
+	while (l != NULL)
+	{
+		CDDrive *cdrom = l->data;
+
+		l = g_list_remove (l, cdrom);
+		cd_drive_free (cdrom);
+	}
+
+	g_free (bcs->priv);
+	bcs->priv = NULL;
+
+	if (G_OBJECT_CLASS (parent_class)->finalize != NULL) {
+		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
+	}
+}
+
+GtkWidget *
+bacon_cd_selection_new (void)
+{
+  return GTK_WIDGET(g_object_new (bacon_cd_selection_get_type (), NULL));
 }
 
 static void
@@ -309,6 +305,9 @@ bacon_cd_selection_set_recorders_only (BaconCdSelection *bcs,
 	if (bcs->priv->show_recorders_only == recorders_only)
 		return;
 
+	g_signal_handlers_block_by_func (G_OBJECT (bcs),
+			combo_device_changed, bcs);
+
 	if (recorders_only == TRUE) {
 		GList *l = g_list_last (bcs->priv->cdroms);
 		int i = g_list_length (bcs->priv->cdroms);
@@ -330,6 +329,13 @@ bacon_cd_selection_set_recorders_only (BaconCdSelection *bcs,
 			}
 
 			l = prev;
+		}
+
+		/* Removing entries from the combo box may have invalidated
+		 * the currently selected one 
+		 */
+		if (gtk_combo_box_get_active (GTK_COMBO_BOX (bcs)) == -1) {
+			gtk_combo_box_set_active (GTK_COMBO_BOX (bcs), 0);
 		}
 	} else {
 		GList *drives = scan_for_cdroms (recorders_only, bcs->priv->have_file_image);
@@ -359,6 +365,12 @@ bacon_cd_selection_set_recorders_only (BaconCdSelection *bcs,
 		}
 		g_list_free (drives);
 	}
+
+	g_signal_handlers_unblock_by_func (G_OBJECT (bcs),
+			combo_device_changed, bcs);
+
+	/* Force a signal out */
+	combo_device_changed (NULL, (gpointer) bcs);
 
 	bcs->priv->show_recorders_only = recorders_only;
 }
