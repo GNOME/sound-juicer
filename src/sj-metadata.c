@@ -34,7 +34,6 @@ sj_metadata_base_init (gpointer g_class)
 {
   static gboolean initialized = FALSE;
   if (!initialized) {
-    // Construct signal
     signals[METADATA] = g_signal_new ("metadata",
                                       G_TYPE_FROM_CLASS (g_class),
                                       G_SIGNAL_RUN_LAST,
