@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
-"POT-Creation-Date: 2003-10-27 01:26+0100\n"
-"PO-Revision-Date: 2003-10-27 01:26+0100\n"
+"POT-Creation-Date: 2003-11-01 23:21+0100\n"
+"PO-Revision-Date: 2003-11-01 23:22+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -107,7 +107,7 @@ msgstr "Förlopp"
 msgid "Raw audio"
 msgstr "Rått ljud"
 
-#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:785
+#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:832
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -301,17 +301,17 @@ msgstr "Insticksmodulen som är nödvändig för cd-åtkomst hittades inte"
 msgid "The plugin necessary for file access was not found"
 msgstr "Insticksmodulen som är nödvändig för filåtkomst hittades inte"
 
-#: src/sj-util.c:65
+#: src/sj-util.c:64
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Kunde inte skapa katalogen %s. %s"
 
-#: src/sj-util.c:111 src/sj-util.c:126
+#: src/sj-util.c:110 src/sj-util.c:125
 msgid "Could not eject the CD"
 msgstr "Kunde inte mata ut cd-skivan"
 
-#: src/sj-util.c:112 src/sj-util.c:127 src/sj-main.c:76 src/sj-main.c:412
-#: src/sj-main.c:480 src/sj-main.c:530
+#: src/sj-util.c:111 src/sj-util.c:126 src/sj-main.c:76 src/sj-main.c:416
+#: src/sj-main.c:486 src/sj-main.c:536
 msgid "Reason"
 msgstr "Orsak"
 
@@ -363,35 +363,30 @@ msgstr "Välj utdataplats"
 msgid "Track Artist"
 msgstr "Spårartist"
 
-#: src/sj-extracting.c:172
+#: src/sj-extracting.c:174
 #, c-format
 msgid ""
-"A file called '%s' exists, size %luK.\n"
+"A file called '%s' exists, size %luKB.\n"
 "Do you want to skip this track or overwrite it?"
 msgstr ""
 "En fil med namnet \"%s\" finns, storlek %lu kB.\n"
 "Vill du hoppa över detta spår eller skriva över det?"
 
-#: src/sj-extracting.c:174
+#: src/sj-extracting.c:176
 msgid "_Skip"
 msgstr "_Hoppa över"
 
-#: src/sj-extracting.c:175
+#: src/sj-extracting.c:177
 msgid "_Overwrite"
 msgstr "Skriv _över"
 
-#: src/sj-extracting.c:198
-#, c-format
-msgid "mkdir() failed: %s"
-msgstr "mkdir() misslyckades: %s"
-
-#: src/sj-extracting.c:239
+#: src/sj-extracting.c:251
 #, c-format
 msgid "Extracting '%s'"
 msgstr "Extraherar \"%s\""
 
 #. TODO: need to have a better message here
-#: src/sj-extracting.c:343
+#: src/sj-extracting.c:362
 msgid "The tracks have been copied successfully."
 msgstr "Spåren har kopierats utan problem."
 
@@ -408,58 +403,58 @@ msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr ""
 "Du håller på att extrahera en cd-skiva. Vill du avsluta nu eller fortsätta?"
 
-#: src/sj-main.c:179 src/sj-main.c:237
+#: src/sj-main.c:183 src/sj-main.c:241
 msgid "(unknown)"
 msgstr "(okänd)"
 
-#: src/sj-main.c:279 src/sj-main.c:865
+#: src/sj-main.c:283 src/sj-main.c:911
 msgid "Title"
 msgstr "Titel"
 
-#: src/sj-main.c:285 src/sj-main.c:873
+#: src/sj-main.c:289 src/sj-main.c:919
 msgid "Artist"
 msgstr "Artist"
 
-#: src/sj-main.c:410 src/sj-main.c:478 src/sj-main.c:528
+#: src/sj-main.c:414 src/sj-main.c:484 src/sj-main.c:534
 msgid "Could not read the CD"
 msgstr "Kunde inte läsa cd-skivan"
 
-#: src/sj-main.c:411 src/sj-main.c:479
+#: src/sj-main.c:415 src/sj-main.c:485
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer kunde inte läsa spårlistan på denna cd-skiva."
 
-#: src/sj-main.c:509
+#: src/sj-main.c:515
 msgid "No CD-ROM drives found"
 msgstr "Inga cd-romenheter hittades"
 
-#: src/sj-main.c:510
+#: src/sj-main.c:516
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer kunde inte hitta några cd-romenheter att läsa."
 
-#: src/sj-main.c:522
+#: src/sj-main.c:528
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer kunde inte komma åt cd-romenheten \"%s\""
 
-#: src/sj-main.c:587
+#: src/sj-main.c:593
 msgid "Cannot find any suitable encoders"
 msgstr "Kan inte hitta några lämpliga kodare"
 
-#: src/sj-main.c:602
+#: src/sj-main.c:608
 msgid "The currently selected encoder is not available on your installation."
 msgstr ""
 "Den för tillfället valda kodaren är inte tillgänglig i din installation."
 
-#: src/sj-main.c:604
+#: src/sj-main.c:610
 msgid "Change the encoder"
 msgstr "Byt kodare"
 
-#: src/sj-main.c:714
+#: src/sj-main.c:760
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Okänd kolumn %d redigerades"
 
-#: src/sj-main.c:761
+#: src/sj-main.c:808
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -468,19 +463,19 @@ msgstr ""
 "Kunde inte visa hjälp för Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:804
+#: src/sj-main.c:851
 msgid "Could not create GConf client.\n"
 msgstr "Kunde inte skapa GConf-klient.\n"
 
-#: src/sj-main.c:846
+#: src/sj-main.c:892
 msgid "Extract?"
 msgstr "Extrahera?"
 
-#: src/sj-main.c:854
+#: src/sj-main.c:900
 msgid "Track"
 msgstr "Spår"
 
-#: src/sj-main.c:883
+#: src/sj-main.c:929
 msgid "Duration"
 msgstr "Varaktighet"
 
@@ -488,7 +483,7 @@ msgstr "Varaktighet"
 msgid "Cannot create MusicBrainz client"
 msgstr "Kan inte skapa MusicBrainz-klient"
 
-#: src/sj-metadata-musicbrainz.c:178 src/sj-metadata-musicbrainz.c:297
+#: src/sj-metadata-musicbrainz.c:178 src/sj-metadata-musicbrainz.c:299
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Kan inte läsa cd-skiva: %s"
@@ -514,12 +509,12 @@ msgstr ""
 "MusicBrainz-metadataobjekt är inte giltigt. Detta är illa. Kontrollera "
 "eventuella fel på din konsoll."
 
-#: src/sj-metadata-musicbrainz.c:291
+#: src/sj-metadata-musicbrainz.c:293
 #, c-format
 msgid "Device '%s' does not contain a media"
 msgstr "Enheten \"%s\" innehåller inget medium"
 
-#: src/sj-metadata-musicbrainz.c:294
+#: src/sj-metadata-musicbrainz.c:296
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
@@ -527,18 +522,46 @@ msgstr ""
 "Enheten \"%s\" kunde inte öppnas. Kontrollera åtkomsträttigheterna för "
 "enheten."
 
-#: src/sj-metadata-musicbrainz.c:307
+#: src/sj-metadata-musicbrainz.c:309
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "Denna cd-skiva kunde inte undersökas: %s\n"
 
-#: src/sj-metadata-musicbrainz.c:315
+#: src/sj-metadata-musicbrainz.c:317
 msgid "This CD was not found.\n"
 msgstr "Denna cd-skiva hittades inte.\n"
 
-#: src/sj-metadata-musicbrainz.c:334
+#: src/sj-metadata-musicbrainz.c:338
 msgid "Various"
 msgstr "Diverse"
+
+#: src/sj-metadata-musicbrainz.c:410
+msgid "Could not create CD lookup thread"
+msgstr "Kunde inte skapa cd-uppslagningstråd"
+
+#~ msgid ""
+#~ "A file called '%s' exists, size %lu KB.\n"
+#~ "Do you want to skip this track or overwrite it?"
+#~ msgstr ""
+#~ "En fil med namnet \"%s\" finns, storlek %lu kB.\n"
+#~ "Vill du hoppa över detta spår eller skriva över det?"
+
+#~ msgid ""
+#~ "A file called '%s' exists, size %lukB.\n"
+#~ "Do you want to skip this track or overwrite it?"
+#~ msgstr ""
+#~ "En fil med namnet \"%s\" finns, storlek %lu kB.\n"
+#~ "Vill du hoppa över detta spår eller skriva över det?"
+
+#~ msgid ""
+#~ "A file called '%s' exists, size %lu kB.\n"
+#~ "Do you want to skip this track or overwrite it?"
+#~ msgstr ""
+#~ "En fil med namnet \"%s\" finns, storlek %lu kB.\n"
+#~ "Vill du hoppa över detta spår eller skriva över det?"
+
+#~ msgid "mkdir() failed: %s"
+#~ msgstr "mkdir() misslyckades: %s"
 
 #~ msgid ""
 #~ "%at -- album title %aa -- album artist %tt -- track title %ta -- track "
