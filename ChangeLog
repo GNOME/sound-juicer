@@ -1,5 +1,14 @@
 2003-10-31  Ross Burton  <ross@burtonini.com>
 
+	* src/sj-extracting.c:
+	Return an GError in create_directory_for(), and display error
+	dialogs if the directory cannot be created.  Clamp the progress
+	bar value (hides #125850). Show an error dialog if the extractor
+	returns an error. Do more cleanups. Use different quotes when
+	calling Nautilus on a hunch. I was busy last night...
+
+2003-10-31  Ross Burton  <ross@burtonini.com>
+
 	* src/sj-metadata-musicbrainz.c:
 	Remove the magic buffer size and use a #define instead. Remove C++
 	comments. Return an error if the thread cannot be created.

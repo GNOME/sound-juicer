@@ -185,18 +185,15 @@ check_for_file (const char* filename)
  * directory.
  */
 static char*
-create_directory_for (const char* filename)
+create_directory_for (const char* filename, GError **error)
 {
   char *directory;
   g_return_val_if_fail (filename != NULL, NULL);
 
   directory = g_path_get_dirname (filename);
   if (!g_file_test (directory, G_FILE_TEST_IS_DIR)) {
-    GError *error = NULL;
-    mkdir_recursive (directory, 0750, &error);
+    mkdir_recursive (directory, 0750, error);
     if (error) {
-      g_warning (_("mkdir() failed: %s"), error->message);
-      g_error_free (error);
       return NULL;
     }
   }
@@ -222,7 +219,18 @@ pop_and_extract (void)
     /* Build the filename for this track */
     file_path = build_filename (track);
     /* And create the directory it lives in */
-    directory = create_directory_for (file_path);
+    directory = create_directory_for (file_path, &error);
+    if (error) {
+      GtkWidget *dialog;
+      dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
+                                       GTK_MESSAGE_ERROR,
+                                       GTK_BUTTONS_CLOSE,
+                                       g_strdup_printf ("Sound Juicer could not extract this CD.\nReason: %s", error->message));
+      gtk_dialog_run (GTK_DIALOG (dialog));
+      g_error_free (error);
+      cleanup ();
+      return;
+    }
     /* Save the directory name for later */
     paths = g_list_append (paths, directory);
     /* See if the file exists */
@@ -235,15 +243,20 @@ pop_and_extract (void)
     /* Update the progress bars */
     gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), 0);
     gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress),
-                                   1.0 - ((g_list_length (pending) + 1)  / (float)total_extracting));
+                                   CLAMP (1.0 - ((g_list_length (pending) + 1)  / (float)total_extracting), 0.0, 1.0));
     gtk_label_set_text (GTK_LABEL (progress_label), g_strdup_printf (_("Extracting '%s'"), track->title));
 
     /* Now actually do the extraction */
     sj_extractor_extract_track (extractor, track, file_path, &error);
     if (error) {
-      g_print ("Error extracting: %s\n", error->message);
-      // TODO: dialog
+      GtkWidget *dialog;
+      dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
+                                       GTK_MESSAGE_ERROR,
+                                       GTK_BUTTONS_CLOSE,
+                                       g_strdup_printf ("Sound Juicer could not extract this CD.\nReason: %s", error->message));
+      gtk_dialog_run (GTK_DIALOG (dialog));
       g_error_free (error);
+      cleanup ();
       return;
     }
     g_free (file_path);
@@ -354,7 +367,7 @@ show_finished_dialog (void)
     g_list_foreach (paths, (GFunc)base_finder, &base);
     /* Construct a Nautilus command line */
     /* TODO: don't think I need --no-desktop here */
-    command = g_strdup_printf ("nautilus --no-desktop \"%s\"", base);
+    command = g_strdup_printf ("nautilus --no-desktop \'%s\'", base);
     g_spawn_command_line_async (command, NULL);
     g_free (base);
     g_free (command);
@@ -426,8 +439,8 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), extract_track_foreach_cb, NULL);
   /* If the pending list is still empty, return */
   if (pending == NULL) {
-    g_print ("No tracks selected for extracting\n");
-    /* TODO: display a dialog */
+    /* Should never reach here */
+    g_warning ("No tracks selected for extracting\n");
     return;
   }
 
