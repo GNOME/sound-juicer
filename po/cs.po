@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-02 15:35+0100\n"
-"PO-Revision-Date: 2003-11-02 19:00+0100\n"
+"POT-Creation-Date: 2003-11-18 04:35+0100\n"
+"PO-Revision-Date: 2003-11-18 12:53+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -106,7 +106,7 @@ msgstr "Průběh"
 msgid "Raw audio"
 msgstr "Přímý zvuk"
 
-#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:832
+#: data/sound-juicer.glade.h:24 src/sj-about.c:55 src/sj-main.c:848
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -134,7 +134,7 @@ msgstr "_CD"
 msgid "_Contents"
 msgstr "O_bsah"
 
-#: data/sound-juicer.glade.h:30 src/sj-main.c:128
+#: data/sound-juicer.glade.h:30 src/sj-main.c:134
 msgid "_Continue"
 msgstr "_Pokračovat"
 
@@ -257,47 +257,47 @@ msgstr "Formát kódování"
 msgid "The format to write the encoded audio in"
 msgstr "Formát, ve kterém zapisova kódovaný zvuk"
 
-#: src/sj-extractor.c:300
+#: src/sj-extractor.c:297
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "Nemohu vytvořit GStreamer čteč cdparanoia "
 
-#: src/sj-extractor.c:319
+#: src/sj-extractor.c:316
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
 msgstr "Nemohu vytvořit GStreamer enkodér (%s)"
 
-#: src/sj-extractor.c:330
+#: src/sj-extractor.c:327
 msgid "Could not create GStreamer file output"
 msgstr "Nemohu vytvořit GStreamer výstup do souboru"
 
-#: src/sj-extractor.c:360
+#: src/sj-extractor.c:357
 msgid "Could not get current track position"
 msgstr "Nemohu získat aktuální pozici stopy"
 
-#: src/sj-extractor.c:389
+#: src/sj-extractor.c:386
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Objekt extraktoru není platný. To je špatné, přečtěte si chyby na své "
 "konzole."
 
-#: src/sj-extractor.c:461
+#: src/sj-extractor.c:458
 msgid "Ripped with Sound Juicer"
 msgstr "Ripováno pomocí Sound Juicer"
 
-#: src/sj-extractor.c:475
+#: src/sj-extractor.c:472
 msgid "Could not seek to track"
 msgstr "Nemohu se posunout na stopu"
 
-#: src/sj-extractor.c:480
+#: src/sj-extractor.c:477
 msgid "Could not get track start position"
 msgstr "Nemohu získat počáteční pozici stopy"
 
-#: src/sj-extractor.c:516
+#: src/sj-extractor.c:513
 msgid "The plugin necessary for CD access was not found"
 msgstr "Nebyl nalezen zásuvný modul potřebný pro přístup k CD"
 
-#: src/sj-extractor.c:524
+#: src/sj-extractor.c:521
 msgid "The plugin necessary for file access was not found"
 msgstr "Nebyl nalezen zásuvný modul potřebný pro přístup k souborům"
 
@@ -310,12 +310,20 @@ msgstr "Nemohu vytvořit adresář %s: %s"
 msgid "Could not eject the CD"
 msgstr "Nemohu vysunout CD"
 
-#: src/sj-util.c:111 src/sj-util.c:126 src/sj-main.c:76 src/sj-main.c:416
-#: src/sj-main.c:486 src/sj-main.c:536
+#: src/sj-util.c:111 src/sj-util.c:126 src/sj-main.c:82 src/sj-main.c:422
+#: src/sj-main.c:496 src/sj-main.c:546
 msgid "Reason"
 msgstr "Důvod"
 
-#: src/sj-about.c:52
+#.
+#. * Note to translators: put here your name and email so it will show
+#. * up in the "about" box
+#.
+#: src/sj-about.c:45
+msgid "translator_credits"
+msgstr "Miloslav Trmač <mitr@volny.cz>"
+
+#: src/sj-about.c:57
 msgid "A CD Ripper"
 msgstr "CD Ripper"
 
@@ -327,11 +335,11 @@ msgstr "Umělec alba, název alba"
 msgid "Track Artist, Album Title"
 msgstr "Umělec stopy, název alba"
 
-#: src/sj-prefs.c:49 src/sj-prefs.c:258 src/sj-prefs.c:269
+#: src/sj-prefs.c:49 src/sj-prefs.c:259 src/sj-prefs.c:270
 msgid "Album Title"
 msgstr "Název alba"
 
-#: src/sj-prefs.c:50 src/sj-prefs.c:259 src/sj-prefs.c:270
+#: src/sj-prefs.c:50 src/sj-prefs.c:260 src/sj-prefs.c:271
 msgid "Album Artist"
 msgstr "Umělec alba"
 
@@ -339,120 +347,124 @@ msgstr "Umělec alba"
 msgid "Album Artist - Album Title"
 msgstr "Umělec alba - název alba"
 
-#: src/sj-prefs.c:56
+#: src/sj-prefs.c:52
+msgid "[none]"
+msgstr "[žádný]"
+
+#: src/sj-prefs.c:57
 msgid "Number - Title"
 msgstr "Číslo - název"
 
-#: src/sj-prefs.c:57 src/sj-prefs.c:264 src/sj-prefs.c:277
+#: src/sj-prefs.c:58 src/sj-prefs.c:265 src/sj-prefs.c:278
 msgid "Track Title"
 msgstr "Název stopy"
 
-#: src/sj-prefs.c:58
+#: src/sj-prefs.c:59
 msgid "Track Artist - Track Title"
 msgstr "Umělec stopy - název stopy"
 
-#: src/sj-prefs.c:59
+#: src/sj-prefs.c:60
 msgid "Number. Track Artist - Track Title"
 msgstr "Číslo. stopy umělec - název stopy"
 
-#: src/sj-prefs.c:99
+#: src/sj-prefs.c:100
 msgid "Select Output Location"
 msgstr "Vyberte umístění výstupu"
 
-#: src/sj-prefs.c:265 src/sj-prefs.c:278
+#: src/sj-prefs.c:266 src/sj-prefs.c:279
 msgid "Track Artist"
 msgstr "Umělec stopy"
 
-#: src/sj-extracting.c:174
+#: src/sj-extracting.c:175
 #, c-format
 msgid ""
-"A file called '%s' exists, size %luKB.\n"
+"A file called '%s' exists, size %lu KB.\n"
 "Do you want to skip this track or overwrite it?"
 msgstr ""
-"Soubor pojmenovaný '%s' existuje, velikost %luKB.\n"
+"Soubor pojmenovaný '%s' existuje, velikost %lu KB.\n"
 "Chcete tuto stopu přeskočit nebo jej přepsat?"
 
-#: src/sj-extracting.c:176
+#: src/sj-extracting.c:177
 msgid "_Skip"
 msgstr "Pře_skočit"
 
-#: src/sj-extracting.c:177
+#: src/sj-extracting.c:178
 msgid "_Overwrite"
 msgstr "_Přepsat"
 
-#: src/sj-extracting.c:251
+#: src/sj-extracting.c:252
 #, c-format
 msgid "Extracting '%s'"
 msgstr "Extrahuji '%s'"
 
 #. TODO: need to have a better message here
-#: src/sj-extracting.c:362
+#: src/sj-extracting.c:363
 msgid "The tracks have been copied successfully."
 msgstr "Stopy byly úspěšně zkopírovány."
 
-#: src/sj-main.c:75
+#: src/sj-main.c:81
 msgid "Could not start Sound Juicer"
 msgstr "Nemohu spustit Sound Juicer"
 
-#: src/sj-main.c:78
+#: src/sj-main.c:84
 msgid "Please consult the documentation for assistance."
 msgstr "Pro pomoc si prosím přečtěte dokumentaci."
 
-#: src/sj-main.c:126
+#: src/sj-main.c:132
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Momentálně extrahujete CD. Chcete hned skončit nebo pokračovat?"
 
-#: src/sj-main.c:183 src/sj-main.c:241
+#: src/sj-main.c:189 src/sj-main.c:247
 msgid "(unknown)"
 msgstr "(neznámé)"
 
-#: src/sj-main.c:283 src/sj-main.c:911
+#: src/sj-main.c:289 src/sj-main.c:927
 msgid "Title"
 msgstr "Název"
 
-#: src/sj-main.c:289 src/sj-main.c:919
+#: src/sj-main.c:295 src/sj-main.c:935
 msgid "Artist"
 msgstr "Umělec"
 
-#: src/sj-main.c:414 src/sj-main.c:484 src/sj-main.c:534
+#: src/sj-main.c:420 src/sj-main.c:494 src/sj-main.c:544
 msgid "Could not read the CD"
 msgstr "Nemohu číst CD"
 
-#: src/sj-main.c:415 src/sj-main.c:485
+#: src/sj-main.c:421 src/sj-main.c:495
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer nemohl přečíst seznam stop tohoto CD."
 
-#: src/sj-main.c:515
+#: src/sj-main.c:525
 msgid "No CD-ROM drives found"
 msgstr "Nenalezena mechanika CD-ROM"
 
-#: src/sj-main.c:516
+#: src/sj-main.c:526
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer nemohl najít mechaniku CD-ROM, ze které číst."
 
-#: src/sj-main.c:528
+#: src/sj-main.c:538
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer nemohl přistupovat k zařízení CD-ROM '%s'"
 
-#: src/sj-main.c:593
+#: src/sj-main.c:603
 msgid "Cannot find any suitable encoders"
 msgstr "Nemohu najít vhodný enkodér"
 
-#: src/sj-main.c:608
+#: src/sj-main.c:618
 msgid "The currently selected encoder is not available on your installation."
 msgstr "Aktuálně vybraný enkodér není ve vaší instalaci k dispozici."
 
-#: src/sj-main.c:610
+#: src/sj-main.c:620
 msgid "Change the encoder"
 msgstr "Změnit enkodér"
 
-#: src/sj-main.c:760
+#: src/sj-main.c:770
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Byl upraven neznámý sloupec %d"
 
-#: src/sj-main.c:808
+#: src/sj-main.c:818
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -461,19 +473,19 @@ msgstr ""
 "Nemohu zobrazit nápovědu pro Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:851
+#: src/sj-main.c:867
 msgid "Could not create GConf client.\n"
 msgstr "Nemohu vytvořit klienta GConf.\n"
 
-#: src/sj-main.c:892
+#: src/sj-main.c:908
 msgid "Extract?"
 msgstr "Extrahovat?"
 
-#: src/sj-main.c:900
+#: src/sj-main.c:916
 msgid "Track"
 msgstr "Stopa"
 
-#: src/sj-main.c:929
+#: src/sj-main.c:945
 msgid "Duration"
 msgstr "Trvání"
 
