@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-05 12:48+0200\n"
-"PO-Revision-Date: 2003-09-05 14:42+0200\n"
+"POT-Creation-Date: 2003-09-08 21:01+0200\n"
+"PO-Revision-Date: 2003-09-09 23:12+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -177,20 +177,20 @@ msgstr "Ripper CD Sound Juicer"
 #: data/sound-juicer.schemas.in.h:2
 #, no-c-format
 msgid ""
-"%at -- album title %aa -- album artist %tt -- track title %ta -- track artist"
-msgstr ""
-"%at -- název alba %aa -- umělec alba %tt -- název stopy %ta -- umělec stopy"
+"%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
+"album artist (lowercase) %tt -- track title %tT -- track title (lowercase) %"
+"ta -- track artist %tA -- track artist (lowercase)"
+msgstr "%at -- název alba %aT -- název alba (malými písmeny) %aa -- umělec alba %aA -- umělec alba (malými písmeny) %tt -- název stopy %tT -- název stopy (malými písmeny) %ta -- umělec stopy %tA -- umělec stopy (malými písmeny)"
 
 #: data/sound-juicer.schemas.in.h:4
 #, no-c-format
 msgid ""
-"Do not specify an extension. %at -- album title %aa -- album artist %tn -- "
-"track number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track "
-"title %ta -- track artist"
-msgstr ""
-"Nezadávejte příponu.. %at -- název alba %aa -- umělec alba %tn -- číslo "
-"stopy (např. 8) %tN -- číslo stopy, doplněné nulami (např. 08) %tt -- název "
-"stopy %ta -- umělec stopy"
+"Do not specify an extension. %at -- album title %aT -- album title "
+"(lowercase) %aa -- album artist %aA -- album artist (lowercase) %tn -- track "
+"number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
+"tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
+"(lowercase)"
+msgstr "Nezadávejte příponu. %at -- název alba %aT -- název alba (malými písmeny) %aa -- umělec alba %aA -- umělec alba (malými písmeny) %tn -- číslo stopy (např. 8) %tN -- číslo stopy, doplněné nulami (např. 08) %tt -- název stopy %tT -- název stopy (malými písmeny) %ta -- umělec stopy %tA -- umělec stopy (malými písmeny)"
 
 #: data/sound-juicer.schemas.in.h:5
 msgid ""
@@ -240,57 +240,6 @@ msgstr "Nepojmenovaná CDROM"
 #: src/bacon-cd-selection.c:276
 msgid "Select the drive"
 msgstr "Vybrat mechaniku"
-
-#: src/sj-metadata-musicbrainz.c:82
-msgid "Cannot create MusicBrainz client"
-msgstr "Nemohu vytvořit klienta MusicBrainz"
-
-#: src/sj-metadata-musicbrainz.c:174 src/sj-metadata-musicbrainz.c:282
-#, c-format
-msgid "Cannot read CD: %s"
-msgstr "Nemohu číst CD: %s"
-
-#: src/sj-metadata-musicbrainz.c:181
-msgid "Unknown Artist"
-msgstr "Neznámý umělec"
-
-#: src/sj-metadata-musicbrainz.c:182
-msgid "Unknown Title"
-msgstr "Neznámý název"
-
-#: src/sj-metadata-musicbrainz.c:187
-#, c-format
-msgid "Track %d"
-msgstr "Stopa %d"
-
-#: src/sj-metadata-musicbrainz.c:207
-msgid ""
-"MusicBrainz metadata object is not valid. This is bad, check your console "
-"for errors."
-msgstr ""
-"Objekt metadat MusicBrainz není platný. To je špatné, přečtěte si chyby na "
-"své konzole."
-
-#: src/sj-metadata-musicbrainz.c:276
-#, c-format
-msgid "Device '%s' does not contain a media"
-msgstr "Zařízení '%s' neobsahuje médium"
-
-#: src/sj-metadata-musicbrainz.c:279
-#, c-format
-msgid ""
-"Device '%s' could not be opened. Check the access permissions on the device."
-msgstr ""
-"Nelze otevřít zařízení '%s'. Zkontrolujte oprávnění k přístupu k zařízení."
-
-#: src/sj-metadata-musicbrainz.c:290
-#, c-format
-msgid "This CD could not be queried: %s\n"
-msgstr "Nemohu se dotázat na toto CD: %s\n"
-
-#: src/sj-metadata-musicbrainz.c:296
-msgid "This CD was not found.\n"
-msgstr "Toto CD nebylo nalezeno.\n"
 
 #: src/sj-extractor.c:135
 msgid "Encoding format"
@@ -516,6 +465,64 @@ msgstr "Stopa"
 #: src/sj-main.c:859
 msgid "Duration"
 msgstr "Trvání"
+
+#: src/sj-metadata-musicbrainz.c:82
+msgid "Cannot create MusicBrainz client"
+msgstr "Nemohu vytvořit klienta MusicBrainz"
+
+#: src/sj-metadata-musicbrainz.c:174 src/sj-metadata-musicbrainz.c:282
+#, c-format
+msgid "Cannot read CD: %s"
+msgstr "Nemohu číst CD: %s"
+
+#: src/sj-metadata-musicbrainz.c:181
+msgid "Unknown Artist"
+msgstr "Neznámý umělec"
+
+#: src/sj-metadata-musicbrainz.c:182
+msgid "Unknown Title"
+msgstr "Neznámý název"
+
+#: src/sj-metadata-musicbrainz.c:187
+#, c-format
+msgid "Track %d"
+msgstr "Stopa %d"
+
+#: src/sj-metadata-musicbrainz.c:207
+msgid ""
+"MusicBrainz metadata object is not valid. This is bad, check your console "
+"for errors."
+msgstr ""
+"Objekt metadat MusicBrainz není platný. To je špatné, přečtěte si chyby na "
+"své konzole."
+
+#: src/sj-metadata-musicbrainz.c:276
+#, c-format
+msgid "Device '%s' does not contain a media"
+msgstr "Zařízení '%s' neobsahuje médium"
+
+#: src/sj-metadata-musicbrainz.c:279
+#, c-format
+msgid ""
+"Device '%s' could not be opened. Check the access permissions on the device."
+msgstr ""
+"Nelze otevřít zařízení '%s'. Zkontrolujte oprávnění k přístupu k zařízení."
+
+#: src/sj-metadata-musicbrainz.c:290
+#, c-format
+msgid "This CD could not be queried: %s\n"
+msgstr "Nemohu se dotázat na toto CD: %s\n"
+
+#: src/sj-metadata-musicbrainz.c:296
+msgid "This CD was not found.\n"
+msgstr "Toto CD nebylo nalezeno.\n"
+
+#~ msgid ""
+#~ "%at -- album title %aa -- album artist %tt -- track title %ta -- track "
+#~ "artist"
+#~ msgstr ""
+#~ "%at -- název alba %aa -- umělec alba %tt -- název stopy %ta -- umělec "
+#~ "stopy"
 
 #~ msgid "Unknown format %s"
 #~ msgstr "Neznámý formát %s"
