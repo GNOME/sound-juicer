@@ -178,14 +178,14 @@ get_offline_track_listing(SjMetadata *metadata, GError **error)
   num_tracks = mb_GetResultInt (priv->mb, MBE_TOCGetLastTrack);
 
   album = g_new0 (AlbumDetails, 1);
-  album->artist = _("Unknown Artist");
-  album->title = _("Unknown Title");
+  album->artist = g_strdup (_("Unknown Artist"));
+  album->title = g_strdup (_("Unknown Title"));
   for (i = 1; i <= num_tracks; i++) {
     track = g_new0 (TrackDetails, 1);
     track->album = album;
     track->number = i;
-    track->title = g_strdup_printf (_("Track %d"), i);
-    track->artist = album->artist;
+    track->title = g_strdup_printf (g_strdup (_("Track %d"), i));
+    track->artist = g_strdup (album->artist);
     track->duration = get_duration_from_sectors (mb_GetResultInt1 (priv->mb, MBE_TOCGetTrackNumSectors, i+1));
     album->tracks = g_list_append (album->tracks, track);
     album->number++;
