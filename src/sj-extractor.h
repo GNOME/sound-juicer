@@ -61,6 +61,11 @@ GType sj_extractor_get_type (void);
 /* TODO: should this call gst_init? How to pass arg[cv]? */
 GObject *sj_extractor_new (void);
 
+/**
+ * Call after _new() to see if an GError was created
+ */
+GError *sj_extractor_get_new_error (SjExtractor *extractor);
+
 void sj_extractor_set_device (SjExtractor *extractor, const char* device);
 
 void sj_extractor_set_paranoia (SjExtractor *extractor, const gint paranoia_mode);

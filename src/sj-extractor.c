@@ -28,6 +28,7 @@
 #include "sj-extractor.h"
 #include "sj-structures.h"
 #include "sj-error.h"
+#include "sj-util.h"
 
 /* Signals */
 enum {
@@ -46,9 +47,10 @@ struct SjExtractorPrivate {
   int track_start;
   int seconds;
   const TrackDetails *track_details;
+  GError *construct_error;
 };
 
-static void build_pipeline (SjExtractor *extractor, GError **error);
+static void build_pipeline (SjExtractor *extractor);
 
 /*
  * GObject methods
@@ -133,13 +135,8 @@ static void sj_extractor_class_init (SjExtractorClass *klass)
 
 static void sj_extractor_instance_init (SjExtractor *extractor)
 {
-  GError *error = NULL;
-  extractor->priv = g_new0 (SjExtractorPrivate, 1);  
-  build_pipeline(extractor, &error);
-  if (error) {
-    g_error (_("Could not create pipeline: %s"), error->message);
-    g_error_free (error);
-  }
+  extractor->priv = g_new0 (SjExtractorPrivate, 1);
+  build_pipeline(extractor);
 }
 
 #if 0
@@ -173,7 +170,7 @@ static void eos_cb (GstElement *gstelement, SjExtractor *extractor)
                  0);
 }
 
-static void build_pipeline (SjExtractor *extractor, GError **error)
+static void build_pipeline (SjExtractor *extractor)
 {
   SjExtractorPrivate *priv;
 
@@ -187,9 +184,9 @@ static void build_pipeline (SjExtractor *extractor, GError **error)
   /* Read from CD */
   priv->cdparanoia = gst_element_factory_make ("cdparanoia", "cdparanoia");
   if (priv->cdparanoia == NULL) {
-    g_set_error (error,
+    g_set_error (&priv->construct_error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-                 _("Could not create cdparanoia element"));
+                 _("Could not create GStreamer cdparanoia reader"));
     return;
   }
 
@@ -203,9 +200,9 @@ static void build_pipeline (SjExtractor *extractor, GError **error)
   /* Encode to Ogg Vorbis */
   priv->vorbisenc = gst_element_factory_make ("vorbisenc", "vorbisenc");
   if (priv->vorbisenc == NULL) {
-    g_set_error (error,
+    g_set_error (&priv->construct_error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-                 _("Could not create Vorbis encoding element"));
+                 _("Could not create GStreamer Ogg Vorbis encoder"));
     return;
   }
   /* Connect to the eos so we know when its finished */
@@ -214,9 +211,9 @@ static void build_pipeline (SjExtractor *extractor, GError **error)
   /* Write to disk */
   priv->filesink = gst_element_factory_make ("filesink", "filesink");
   if (priv->filesink == NULL) {
-    g_set_error (error,
+    g_set_error (&priv->construct_error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-                 _("Could not create file sink element"));
+                 _("Could not create GStreamer file output"));
     return;
   }
 
@@ -266,6 +263,18 @@ GObject *sj_extractor_new (void)
   return g_object_new (sj_extractor_get_type (), NULL);
 }
 
+GError *sj_extractor_get_new_error (SjExtractor *extractor)
+{
+  GError *error;
+  if (extractor == NULL || extractor->priv == NULL) {
+    g_set_error (&error,
+                 SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
+                 _("Extractor object is not valid. This is bad, check your console for errors."));
+    return error;
+  }
+  return extractor->priv->construct_error;
+}
+
 void sj_extractor_set_device (SjExtractor *extractor, const char* device)
 {
   g_return_if_fail (extractor != NULL);
@@ -279,7 +288,6 @@ void sj_extractor_set_paranoia (SjExtractor *extractor, const gint paranoia_mode
 {
   g_return_if_fail (extractor != NULL);
   g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
-  g_return_if_fail (paranoia_mode != NULL);
 
   g_object_set (G_OBJECT (extractor->priv->cdparanoia), "paranoia-mode", paranoia_mode, NULL);
 }
