@@ -7,7 +7,7 @@ Licensed under the GPL, version 2 or greater.
 This is Sound Juicer, a CD ripping tool using GTK+ and GStreamer.
 
 Requirements:
-* GNOME 2.2 Platform (libgnomeui, gconf, libglade)
+* GNOME 2.10 Platform (libgnomeui, gconf, libglade)
 * GStreamer 0.8.1 and above
 
 Do the usual configure/make/make install malarky, and run "sound-juicer" in
@@ -21,17 +21,26 @@ will show the chat between Sound Juicer and the MusicBrainz servers.
 Common Problems
 ===============
 
+"Sound Juicer can't see my CD drive!"
+
+Sound Juicer queries the kernel for CD drives, so you don't need to know the
+device name.  For this to work you'll need some kernel modules loaded: either
+ide-cd (for IDE drives) or sg (for SCSI drives).
+
+
 "Sound Juicer doesn't start, it can't find a plugin to access the CD drive!"
 
 You need the GStreamer cdparanoia plugin.  Most distributions should ship this
 with GStreamer, if you built it youself check you have the cdparanoia headers
 installed.
 
+
 "I cannot encode to MP3!"
 
 To encode to MP3 you need the GStreamer Lame plugin.  Most distributions don't
 ship this due to patents and licence fees, so you will have to build lame
 yourself, and then rebuild gstreamer-plugins.
+
 
 "It won't rip my CD!"
 
@@ -40,6 +49,7 @@ these work it is possible to rip the CD so file a bug with Sound Juicer.  If
 none of these work, you've probably got a copy protected CD which your drive
 won't read.  If it does work, try different output formats in Sound Juicer and
 if some work while others don't, file a bug explaining what happens.
+
 
 Known Issues
 ============
