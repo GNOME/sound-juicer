@@ -1,6 +1,20 @@
 2005-02-16  Ross Burton  <ross@burtonini.com>
 
 	* configure.in:
+	Depend on gnomevfs 2.9.
+
+	* src/sj-profile-chooser.[ch]:
+	* src/Makefile.am:
+	Added a clone of the gnome-media profile chooser, which also
+	displays the output format type. Inspired by patches from Raj
+	Madhan.
+
+	* data/sound-juicer.glade:
+	Use the new widget.
+
+2005-02-16  Ross Burton  <ross@burtonini.com>
+
+	* configure.in:
 	Depend on GTK+ 2.6.
 
 	* src/sj-about.c:
