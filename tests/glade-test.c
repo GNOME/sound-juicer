@@ -1,19 +1,15 @@
 #include "config.h"
 #include <string.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <errno.h>
 #include <gtk/gtk.h>
 #include <glade/glade-xml.h>
 #include <gconf/gconf-client.h>
 #include <libgnome/gnome-i18n.h>
 #include <libgnomeui/gnome-about.h>
-#include <libgnomeui/gnome-file-entry.h>
-#include "bacon-cd-selection.h"
 #include "sj-musicbrainz.h"
 #include "sj-extractor.h"
 #include "sj-structures.h"
 #include "sj-error.h"
+#include "sj-util.h"
 
 GladeXML *glade;
 
@@ -22,8 +18,8 @@ SjExtractor *extractor;
 GConfClient *gconf_client;
 
 GtkWidget *main_window, *progress_dialog = NULL;
-GtkWidget *title_label, *artist_label, *duration_label, *basepath_label;
-GtkWidget *track_listview, *cd_option, *reread_button, *extract_button;
+GtkWidget *title_label, *artist_label, *duration_label;
+GtkWidget *track_listview, *reread_button, *extract_button;
 GtkWidget *extract_menuitem, *select_all_menuitem;
 GtkWidget *progress_label, *track_progress, *album_progress;
 GtkListStore *track_store;
@@ -37,6 +33,9 @@ gboolean ripping = FALSE;
 
 GList *pending = NULL; /* a GList of TrackDetails* to rip */
 int total_ripping; /* the number of tracks to rip, not decremented */
+
+/* TODO header file */
+extern const char* prefs_get_default_device ();
 
 #define GCONF_ROOT "/apps/sound-juicer"
 #define GCONF_DEVICE GCONF_ROOT "/device"
@@ -58,16 +57,24 @@ enum {
  */
 void on_about_activate (GtkMenuItem *item, gpointer user_data)
 {
-  GtkWidget *dialog;
+  static GtkWidget *dialog;
+  if (dialog != NULL) {
+    gtk_window_present (GTK_WINDOW (dialog));
+    return;
+  }
+  /* TODO: GError anad path */
+  GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file ("../data/orange-slice.png", NULL);
   const char* authors[] = {"Ross Burton <ross@burtonini.com>", NULL};
   dialog = gnome_about_new (_("Sound Juicer"),
                             VERSION,
                             _("Copyright (C) 2003 Ross Burton"),
                             _("A CD ripper"),
                             authors,
-                            NULL, NULL, NULL);
+                            NULL, NULL, pixbuf);
   gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (main_window));
-  gtk_dialog_run (GTK_DIALOG (dialog));
+  gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog), TRUE);
+  g_object_add_weak_pointer (G_OBJECT (dialog), (gpointer) &dialog);
+  gtk_window_present (GTK_WINDOW (dialog));  
 }
 
 /**
@@ -283,7 +290,6 @@ void basepath_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry,
     base_path = gconf_value_get_string (entry->value);
   }
   /* TODO: sanity check the path somewhat */
-  gtk_label_set_text (GTK_LABEL (basepath_label), base_path);
 }
 
 /**
@@ -317,7 +323,7 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
   g_assert (strcmp (entry->key, GCONF_DEVICE) == 0);
 
   if (entry->value == NULL) {
-    device = bacon_cd_selection_get_device (BACON_CD_SELECTION (cd_option));
+    device = prefs_get_default_device();
     if (device == NULL) {
 #if 0
       GtkWidget *dialog;
@@ -362,48 +368,6 @@ static gboolean rip_track_foreach_cb (GtkTreeModel *model,
   return FALSE;
 }
 
-/**
- * Stolen from gnome-vfs
- */
-static void
-mkdir_recursive (const char *path, mode_t permission_bits, GError **error)
-{
-  struct stat stat_buffer;
-  const char *dir_separator_scanner;
-  char *current_path;
-  
-  /* try creating a director for each level */
-  for (dir_separator_scanner = path;; dir_separator_scanner++) {
-    /* advance to the next directory level */
-    for (;;dir_separator_scanner++) {
-      if (!*dir_separator_scanner) {
-        break;
-      }	
-      if (*dir_separator_scanner == G_DIR_SEPARATOR) {
-        break;
-      }
-    }
-    if (dir_separator_scanner - path > 0) {
-      current_path = g_strndup (path, dir_separator_scanner - path);
-      mkdir (current_path, permission_bits);
-      if (stat (current_path, &stat_buffer) != 0) {
-        /* we failed to create a directory and it wasn't there already;
-         * bail
-         */
-        g_free (current_path);
-        g_set_error (error,
-                     SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-                     _("Could not create directory %s: %s"), path, strerror (errno));
-        return;
-      }
-      g_free (current_path);
-    }
-    if (!*dir_separator_scanner) {
-      break;
-    }	
-  }
-  return;
-}
 
 static void pop_and_rip (void)
 {
@@ -480,22 +444,6 @@ void on_reread_activate (GtkWidget *button, gpointer user_data)
 }
 
 /**
- * Changed the CD-ROM device in the prefs dialog
- */
-void prefs_cdrom_changed_cb (GtkWidget *widget, const char* device)
-{
-  gconf_client_set_string (gconf_client, "/apps/sound-juicer/device", device, NULL);
-}
-
-/**
- * Clicked on Browse in the Prefs dialog
- */
-void prefs_browse_clicked (GtkButton *button, gpointer user_data)
-{
-  g_print ("%s: TODO\n", __FUNCTION__);
-}
-
-/**
  * Cancel in the progress dialog clicked
  */
 void on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
@@ -504,28 +452,7 @@ void on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
   gtk_widget_hide (progress_dialog);
 }
 
-static GtkWidget *format_vorbis, *format_mpeg, *format_flac, *format_wave;
 
-/**
- * Clicked on Preferences in the UI
- */
-void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
-{
-  static GtkWidget *dialog;
-  if (dialog == NULL) {
-    dialog = glade_xml_get_widget (glade, "prefs_dialog");
-    g_assert (dialog != NULL);
-    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (main_window));
-    /* Maybe connect a GConf notify to the base_path key here to update the label... */
-    format_vorbis = glade_xml_get_widget (glade, "format_vorbis");
-    format_mpeg = glade_xml_get_widget (glade, "format_mpeg");
-    format_flac = glade_xml_get_widget (glade, "format_flac");
-    format_wave = glade_xml_get_widget (glade, "format_wave");
-  }
-  gtk_widget_show_all (dialog);
-  gtk_dialog_run (GTK_DIALOG (dialog));
-  gtk_widget_hide (dialog);
-}
 
 /**
  * The /apps/sound-juicer/format key has changed. Argh where to put
@@ -548,31 +475,6 @@ void format_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
   } else {
     g_warning (_("Unknown format '%s'"), value);
   }
-}
-
-/**
- * One of the format toggle buttons in the prefs dialog has been
- * toggled.
- */
-void on_format_toggled (GtkToggleButton *togglebutton,
-                               gpointer user_data)
-{
-  const char* format;
-  if (!gtk_toggle_button_get_active (togglebutton)) {
-    return;
-  }
-  if (GTK_WIDGET (togglebutton) == format_vorbis) {
-    format = "vorbis";
-  } else if (GTK_WIDGET(togglebutton) == format_mpeg) {
-    format = "mpeg";
-  } else if (GTK_WIDGET(togglebutton) == format_flac) {
-    format = "flac";
-  } else if (GTK_WIDGET(togglebutton) == format_wave) {
-    format = "wave";
-  } else {
-    return;
-  }
-  gconf_client_set_string (gconf_client, GCONF_FORMAT, format, NULL); /* TODO: GError */
 }
 
 /**
@@ -605,7 +507,7 @@ static void on_progress_cb (SjExtractor *extractor, int seconds)
 static void on_completion_cb (SjExtractor *extractor)
 {
   ripping = FALSE;
-  /* TODO: uncheck the Extract? check box */
+  /* TODO: uncheck the Extract check box */
   pop_and_rip ();
   return;
 }
@@ -637,9 +539,7 @@ int main (int argc, char **argv)
   title_label = glade_xml_get_widget (glade, "title_label");
   artist_label = glade_xml_get_widget (glade, "artist_label");
   duration_label = glade_xml_get_widget (glade, "duration_label");
-  basepath_label = glade_xml_get_widget (glade, "path_label"); /* TODO: from prefs, urgh. gconf it separately */
   track_listview = glade_xml_get_widget (glade, "track_listview");
-  cd_option = glade_xml_get_widget (glade, "cd_option"); /* also from prefs, urgh */
   extract_button = glade_xml_get_widget (glade, "extract_button");
   reread_button = glade_xml_get_widget (glade, "reread_button");
 

@@ -2,7 +2,7 @@ INCLUDES = -I../src/ @LIBGLADE_CFLAGS@ @GSTREAMER_CFLAGS@ @MUSICBRAINZ_CFLAGS@ @
 AM_CFLAGS = -g -Wall -export-dynamic -Wunused
 DEFS = -DGNOME_DISABLE_DEPRECATED=1
 
-noinst_PROGRAMS = data-test glade-test gst-test mb-test
+noinst_PROGRAMS = glade-test mb-test
 
 mb_test_SOURCES = mb-test.c  ../src/sj-musicbrainz.c
 mb_test_LDADD = @GLIB_LIBS@ @MUSICBRAINZ_LIBS@

@@ -1,0 +1,135 @@
+#include "config.h"
+#include <string.h>
+#include <gtk/gtk.h>
+#include <glade/glade-xml.h>
+#include <gconf/gconf-client.h>
+#include <libgnome/gnome-i18n.h>
+#include "bacon-cd-selection.h"
+
+#define GCONF_ROOT "/apps/sound-juicer"
+#define GCONF_DEVICE GCONF_ROOT "/device"
+#define GCONF_BASEPATH GCONF_ROOT "/base_path"
+#define GCONF_FORMAT GCONF_ROOT "/format"
+
+extern GladeXML *glade;
+extern GtkWidget *main_window;
+
+static GConfClient *gconf_client;
+static GtkWidget *format_vorbis, *format_mpeg, *format_flac, *format_wave;
+static GtkWidget *cd_option, *basepath_label;
+
+const char* prefs_get_default_device ()
+{
+  g_return_val_if_fail (cd_option != NULL, NULL);
+  return bacon_cd_selection_get_device (BACON_CD_SELECTION (cd_option));
+}
+
+/**
+ * Changed the CD-ROM device in the prefs dialog
+ */
+void prefs_cdrom_changed_cb (GtkWidget *widget, const char* device)
+{
+  gconf_client_set_string (gconf_client, GCONF_DEVICE, device, NULL);
+}
+
+/**
+ * Clicked on Browse in the Prefs dialog
+ */
+void prefs_browse_clicked (GtkButton *button, gpointer user_data)
+{
+  g_print ("%s: TODO\n", __FUNCTION__);
+}
+
+
+/**
+ * One of the format toggle buttons in the prefs dialog has been
+ * toggled.
+ */
+void on_format_toggled (GtkToggleButton *togglebutton,
+                               gpointer user_data)
+{
+  const char* format;
+  if (!gtk_toggle_button_get_active (togglebutton)) {
+    return;
+  }
+  if (GTK_WIDGET (togglebutton) == format_vorbis) {
+    format = "vorbis";
+  } else if (GTK_WIDGET(togglebutton) == format_mpeg) {
+    format = "mpeg";
+  } else if (GTK_WIDGET(togglebutton) == format_flac) {
+    format = "flac";
+  } else if (GTK_WIDGET(togglebutton) == format_wave) {
+    format = "wave";
+  } else {
+    return;
+  }
+  gconf_client_set_string (gconf_client, GCONF_FORMAT, format, NULL); /* TODO: GError */
+}
+
+static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+{
+  g_assert (strcmp (entry->key, GCONF_DEVICE) == 0);
+
+  if (entry->value == NULL) {
+    bacon_cd_selection_set_device (BACON_CD_SELECTION (cd_option),
+                                   bacon_cd_selection_get_default_device (BACON_CD_SELECTION (cd_option)));
+  } else {
+    bacon_cd_selection_set_device (BACON_CD_SELECTION (cd_option),
+                                   gconf_value_get_string (entry->value));
+  }
+}
+
+static void format_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+{
+  g_assert (strcmp (entry->key, GCONF_FORMAT) == 0);
+  g_message ("TODO: update UI");
+}
+
+static void basepath_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+{
+  /*
+   * The conflict between separation of the prefs and the main window,
+   * and the problem of duplication, is very clear here. This code is
+   * identical to the code in the main key listener, but modifying the
+   * prefs window from the main is ugly. Maybe put the validation code
+   * into sj-utils?
+   */
+  const char* base_path;
+  g_assert (strcmp (entry->key, GCONF_BASEPATH) == 0);
+  if (entry->value == NULL) {
+    base_path = g_strdup (g_get_home_dir ());
+  } else {
+    base_path = gconf_value_get_string (entry->value);
+  }
+  /* TODO: sanity check the path somewhat */
+  gtk_label_set_text (GTK_LABEL (basepath_label), base_path);
+}
+
+/**
+ * Clicked on Preferences in the UI
+ */
+void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
+{
+  static GtkWidget *dialog;
+  if (dialog == NULL) {
+    dialog = glade_xml_get_widget (glade, "prefs_dialog");
+    g_assert (dialog != NULL);
+    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (main_window));
+
+    cd_option = glade_xml_get_widget (glade, "cd_option");
+    basepath_label = glade_xml_get_widget (glade, "path_label");
+    format_vorbis = glade_xml_get_widget (glade, "format_vorbis");
+    format_mpeg = glade_xml_get_widget (glade, "format_mpeg");
+    format_flac = glade_xml_get_widget (glade, "format_flac");
+    format_wave = glade_xml_get_widget (glade, "format_wave");
+
+    /* Connect to GConf to update the UI */
+    gconf_client = gconf_client_get_default ();
+    gconf_client_notify_add (gconf_client, GCONF_DEVICE, device_changed_cb, NULL, NULL, NULL);
+    gconf_client_notify_add (gconf_client, GCONF_BASEPATH, basepath_changed_cb, NULL, NULL, NULL);
+    gconf_client_notify_add (gconf_client, GCONF_FORMAT, format_changed_cb, NULL, NULL, NULL);
+  }
+  gtk_widget_show_all (dialog);
+  gtk_dialog_run (GTK_DIALOG (dialog));
+  gtk_widget_hide (dialog);
+}
