@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-08 10:43+0200\n"
-"PO-Revision-Date: 2005-02-08 10:46+0200\n"
+"POT-Creation-Date: 2005-02-09 10:30+0200\n"
+"PO-Revision-Date: 2005-02-09 10:29+0200\n"
 "Last-Translator: Tommi Vainikainen <Tommi.Vainikainen@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -116,12 +116,16 @@ msgstr "Asetukset"
 msgid "Progress"
 msgstr "Edistyminen"
 
-#: ../data/sound-juicer.glade.h:23 ../src/sj-about.c:56
+#: ../data/sound-juicer.glade.h:23
+msgid "Select A Folder"
+msgstr "Valitse kansio"
+
+#: ../data/sound-juicer.glade.h:24 ../src/sj-about.c:56
 #: ../src/sj-extractor.c:444 ../src/sj-main.c:936
 msgid "Sound Juicer"
 msgstr "Musiikkimaija"
 
-#: ../data/sound-juicer.glade.h:24
+#: ../data/sound-juicer.glade.h:25
 msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
@@ -129,13 +133,9 @@ msgstr ""
 "Tämä CD voi olla jokin seuraavista levyistä. Valitse alta mikä levy on "
 "kyseessä ja paina <i>Jatka</i>."
 
-#: ../data/sound-juicer.glade.h:25
+#: ../data/sound-juicer.glade.h:26
 msgid "Unknown"
 msgstr "Tuntematon"
-
-#: ../data/sound-juicer.glade.h:26
-msgid "_Browse..."
-msgstr "S_elaa..."
 
 #: ../data/sound-juicer.glade.h:27
 msgid "_CD"
@@ -166,22 +166,26 @@ msgid "_Extract"
 msgstr "_Kopioi"
 
 #: ../data/sound-juicer.glade.h:34
+msgid "_Folder:"
+msgstr "_Kansio:"
+
+#: ../data/sound-juicer.glade.h:35
 msgid "_Help"
 msgstr "O_hje"
 
-#: ../data/sound-juicer.glade.h:35
+#: ../data/sound-juicer.glade.h:36
 msgid "_Re-read"
 msgstr "Lue _uudelleen"
 
-#: ../data/sound-juicer.glade.h:36
+#: ../data/sound-juicer.glade.h:37
 msgid "_Select All"
 msgstr "Valitse _kaikki"
 
-#: ../data/sound-juicer.glade.h:37
+#: ../data/sound-juicer.glade.h:38
 msgid "_Strip special characters"
 msgstr "_Poista erikoismerkit"
 
-#: ../data/sound-juicer.glade.h:38
+#: ../data/sound-juicer.glade.h:39
 msgid "label"
 msgstr "nimiö"
 
@@ -867,11 +871,11 @@ msgstr "Levyn esittäjä, Levyn nimi"
 msgid "Track Artist, Album Title"
 msgstr "Raidan esittäjä, Levyn nimi"
 
-#: ../src/sj-prefs.c:54 ../src/sj-prefs.c:291
+#: ../src/sj-prefs.c:54 ../src/sj-prefs.c:280
 msgid "Album Title"
 msgstr "Levyn nimi"
 
-#: ../src/sj-prefs.c:55 ../src/sj-prefs.c:292
+#: ../src/sj-prefs.c:55 ../src/sj-prefs.c:281
 msgid "Album Artist"
 msgstr "Levyn esittäjä"
 
@@ -887,7 +891,7 @@ msgstr "[ei mitään]"
 msgid "Number - Title"
 msgstr "Numero - Nimi"
 
-#: ../src/sj-prefs.c:63 ../src/sj-prefs.c:299
+#: ../src/sj-prefs.c:63 ../src/sj-prefs.c:288
 msgid "Track Title"
 msgstr "Raidan nimi"
 
@@ -903,11 +907,7 @@ msgstr "Numero. Raidan esittäjä - Raidan nimi"
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Numero-Raidan esittäjä-Raidan nimi (pienaakkosin)"
 
-#: ../src/sj-prefs.c:155
-msgid "Select Output Location"
-msgstr "Valitse kohdesijainti"
-
-#: ../src/sj-prefs.c:300
+#: ../src/sj-prefs.c:289
 msgid "Track Artist"
 msgstr "Raidan esittäjä"
 
@@ -920,8 +920,11 @@ msgstr "Hakemistoa %s ei voitu luoda: %s"
 msgid "Could not eject the CD"
 msgstr "CD-levyä ei voitu poistaa"
 
-#~ msgid "*"
-#~ msgstr "*"
+#~ msgid "_Browse..."
+#~ msgstr "S_elaa..."
+
+#~ msgid "Select Output Location"
+#~ msgstr "Valitse kohdesijainti"
 
 #~ msgid "Unnamed CDROM"
 #~ msgstr "Nimetön CD-ROM"
