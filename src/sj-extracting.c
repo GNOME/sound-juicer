@@ -67,7 +67,7 @@ static GList *pending;
  * A list of paths we have extracted music into. Contains allocated items, free
  * the data and the list when finished.
  */
-static GList *paths;
+static GList *paths = NULL;
 
 /**
  * The total number of tracks we are extracting.
@@ -137,6 +137,7 @@ cleanup (void)
   /* Free the used data */
   if (paths) {
     g_list_deep_free (paths, NULL);
+    paths = NULL;
   }
   g_list_free (pending);
   pending = NULL;

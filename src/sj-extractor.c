@@ -265,7 +265,7 @@ static GstElement* build_encoder (SjExtractor *extractor)
 static void error_cb (GstElement *element, GObject *arg, gchar *arg2, gpointer user_data)
 {
   SjExtractor *extractor = SJ_EXTRACTOR (user_data);
-  GError *error;
+  GError *error = NULL;
   g_set_error (&error,
                SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
                arg2);
