@@ -7,6 +7,7 @@ INTLTOOL_BUILT = \
 
 EXTRA_DIST = \
 	autogen.sh \
+	sound-juicer.spec \
 	$(INTLTOOL_BUILT:=.in)
 
 CLEANFILES = $(INTLTOOL_BUILT)
