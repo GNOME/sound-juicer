@@ -2,7 +2,7 @@
 # Copyright (C) 2003-2004 Ross Burton.
 # This file is distributed under the same license as the sound-juicer package.
 # Christian Neumair <chris@gnome-de.org>, 2003, 2004.
-# Hendrik Richter <hendrik@gnome-de.org>, 2004.
+# Hendrik Richter <hendrik@gnome-de.org>, 2004, 2005.
 # Hendrik Brandt <heb@gnome-de.org>, 2004.
 # 
 # 
@@ -11,13 +11,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-18 15:14+0100\n"
-"PO-Revision-Date: 2004-12-18 15:18+0100\n"
-"Last-Translator: Hendrik Brandt <heb@gnome-de.org>\n"
+"POT-Creation-Date: 2005-01-16 18:34+0100\n"
+"PO-Revision-Date: 2005-01-16 18:35+0100\n"
+"Last-Translator: Hendrik Richter <hendrik@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: data/sound-juicer.desktop.in.h:1
 msgid "Extract music from your CDs"
@@ -228,7 +228,9 @@ msgstr ""
 
 #: data/sound-juicer.schemas.in.h:10
 msgid "The GNOME Audio Profile to encode the audio with."
-msgstr "Das GNOME-Audio-Profil welches zum Kodieren von Audiodaten verwendet werden soll."
+msgstr ""
+"Das GNOME-Audio-Profil welches zum Kodieren von Audiodaten verwendet werden "
+"soll."
 
 #: data/sound-juicer.schemas.in.h:11
 msgid "The MusicBrainz server to use"
@@ -254,12 +256,12 @@ msgstr "Soll die CD nach dem erfolgreichen Auslesen ausgeworfen werden?"
 msgid "Unnamed CDROM"
 msgstr "Namenloses CD-ROM-Laufwerk"
 
-#: src/cd-drive.c:855
+#: src/cd-drive.c:846
 #, c-format
 msgid "Unnamed SCSI Drive (%s)"
 msgstr "Namenloses SCSI-Laufwerk (%s)"
 
-#: src/cd-drive.c:1415
+#: src/cd-drive.c:1406
 msgid "File image"
 msgstr "Datei-Image"
 
@@ -275,7 +277,7 @@ msgstr "Christian Neumair <chris@gnome-de.org>"
 msgid "An Audio CD Extractor"
 msgstr "Eine Anwendung zum Auslesen von Audio-CDs"
 
-#: src/sj-extracting.c:191
+#: src/sj-extracting.c:199
 #, c-format
 msgid ""
 "A file called '%s' exists, size %lu kB.\n"
@@ -284,16 +286,16 @@ msgstr ""
 "Eine Datei namens »%s« der Größe %lu KB existiert.\n"
 "Wollen Sie diesen Titel überspringen oder überschreiben?"
 
-#: src/sj-extracting.c:194
+#: src/sj-extracting.c:202
 msgid "_Skip"
 msgstr "Übers_pringen"
 
-#: src/sj-extracting.c:195
+#: src/sj-extracting.c:203
 msgid "_Overwrite"
 msgstr "Über_schreiben"
 
 #. Display a nice dialog
-#: src/sj-extracting.c:250 src/sj-extracting.c:287 src/sj-extracting.c:504
+#: src/sj-extracting.c:258 src/sj-extracting.c:295 src/sj-extracting.c:512
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -302,45 +304,46 @@ msgstr ""
 "Sound Juicer konnte diese CD nicht auslesen.\n"
 "Grund: %s"
 
-#: src/sj-extracting.c:277
+#: src/sj-extracting.c:285
 #, c-format
 msgid "Extracting '%s'"
 msgstr "»%s« wird ausgelesen"
 
-#: src/sj-extracting.c:339
+#: src/sj-extracting.c:347
 #, c-format
 msgid "%d:%02d (at %0.1fx)"
 msgstr "%d:%02d (mit %0.1fx)"
 
-#: src/sj-extracting.c:341
+#: src/sj-extracting.c:349
 msgid "Unknown (at 0.0x)"
 msgstr "Unbekannt (mit 0.0x)"
 
 #. TODO: need to have a better message here
-#: src/sj-extracting.c:446
+#: src/sj-extracting.c:454
 msgid "The tracks have been copied successfully."
 msgstr "Die Titel wurden erfolgreich kopiert."
 
-#: src/sj-extracting.c:451
+#: src/sj-extracting.c:459
 msgid "_Eject"
 msgstr "Aus_werfen"
 
 #: src/sj-extractor.c:125
-msgid "Gnome Audio Profile"
-msgstr "Gnome-Audio-Profil"
+msgid "GNOME Audio Profile"
+msgstr "GNOME-Audio-Profil"
 
 #: src/sj-extractor.c:125
-msgid "The Gnome Audio Profile used for encoding audio"
-msgstr "Das Gnome-Audio-Profil welches zum Kodieren von Audiodaten verwendet werden soll"
+msgid "The GNOME Audio Profile used for encoding audio"
+msgstr ""
+"Das GNOME-Audio-Profil das zum Kodieren von Audiodaten verwendet werden soll"
 
 #: src/sj-extractor.c:268
 msgid "Could not create GStreamer cdparanoia reader"
-msgstr "Gstreamer-cdparanoia-Leser konnte nicht angelegt werden"
+msgstr "GStreamer-cdparanoia-Leser konnte nicht angelegt werden"
 
 #: src/sj-extractor.c:287
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
-msgstr "GStreaner-Kodierer konnte nicht angelegt werden (%s)"
+msgstr "GStreamer-Kodierer konnte nicht angelegt werden (%s)"
 
 #: src/sj-extractor.c:298
 msgid "Could not create GStreamer file output"
@@ -760,7 +763,8 @@ msgstr "Sound Juicer konnte nicht auf das CD-ROM-Lauferk »%s« zugreifen"
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr ""
-"Das momentan ausgewählte Audio-Profil ist auf Ihrer Installation nicht verfügbar."
+"Das momentan ausgewählte Audio-Profil ist auf Ihrer Installation nicht "
+"verfügbar."
 
 #: src/sj-main.c:627
 msgid "_Change Profile"
@@ -920,4 +924,3 @@ msgstr "Verzeichnis %s konnte nicht angelegt werden: %s"
 #: src/sj-util.c:109 src/sj-util.c:129
 msgid "Could not eject the CD"
 msgstr "Die CD konnte nicht ausgeworfen werden"
-
