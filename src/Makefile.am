@@ -52,7 +52,7 @@ sound_juicer_LDFLAGS = @MUSICBRAINZ_LIBS@ @GSTREAMER_LIBS@ @UI_LIBS@
 # Update the libbacon files
 #
 
-BACONDIR=$(srcdir)/../../libbacon/src/
+BACONDIR=$(srcdir)/../../nautilus-cd-burner/
 BACONFILES=cd-drive.c cd-drive.h bacon-cd-selection.c bacon-cd-selection.h dvd_plus_rw_utils.cpp transport.hxx
 
 regenerate-built-sources:

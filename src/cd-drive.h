@@ -43,6 +43,10 @@ typedef enum {
 	CD_MEDIA_TYPE_DVD_PLUS_RW,
 } CDMediaType;
 
+#define CD_MEDIA_SIZE_UNKNOWN -1
+#define CD_MEDIA_SIZE_NA      -2
+#define CD_MEDIA_SIZE_BUSY    -3
+
 typedef enum {
 	CDDRIVE_TYPE_FILE                   = 1 << 0,
 	CDDRIVE_TYPE_CD_RECORDER            = 1 << 1,
@@ -56,10 +60,7 @@ typedef enum {
 	CDDRIVE_TYPE_DVD_DRIVE              = 1 << 8,
 } CDDriveType;
 
-typedef enum {
-	CD_PROTOCOL_IDE,
-	CD_PROTOCOL_SCSI,
-} CDProtocolType;
+typedef struct CDDrivePriv CDDrivePriv;
 
 typedef struct {
 	CDDriveType type;
@@ -68,12 +69,18 @@ typedef struct {
 	int max_speed_read;
 	char *cdrecord_id;
 	char *device;
-	CDProtocolType protocol;
+	CDDrivePriv *priv;
 } CDDrive;
+
+#define SIZE_TO_TIME(size) (size > 0 ? (int) (((size / 1024 / 1024) - 1) * 48 / 7): 0)
 
 /* Returns a list of CDDrive structs */
 GList *scan_for_cdroms (gboolean recorder_only, gboolean add_image);
 void cd_drive_free (CDDrive *drive);
-CDMediaType guess_media_type (const char *device_path);
+CDMediaType cd_drive_get_media_type (CDDrive *drive);
+CDMediaType cd_drive_get_media_type_from_path (const char *device_path);
+gint64 cd_drive_get_media_size (CDDrive *drive);
+gint64 cd_drive_get_media_size_from_path (const char *device_path);
+CDDrive *cd_drive_get_file_image (void);
 
 #endif

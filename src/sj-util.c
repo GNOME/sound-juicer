@@ -172,7 +172,7 @@ gboolean is_audio_cd (const char *device)
   CDMediaType type;
   int fd, status;
 
-  type = guess_media_type (device);
+  type = cd_drive_get_media_type_from_path (device);
   switch (type) {
     case CD_MEDIA_TYPE_CD:
     case CD_MEDIA_TYPE_CDR:

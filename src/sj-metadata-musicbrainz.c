@@ -286,7 +286,7 @@ lookup_cd (SjMetadata *metadata)
   g_return_val_if_fail (priv->cdrom != NULL, NULL);
   priv->error = NULL; /* TODO: hack */
 
-  type = guess_media_type (priv->cdrom);
+  type = cd_drive_get_media_type_from_path (priv->cdrom);
   if (type == CD_MEDIA_TYPE_ERROR) {
     char *msg;
     SjError err;
