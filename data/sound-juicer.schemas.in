@@ -111,5 +111,20 @@
       </locale>
     </schema>
 
+    <schema>
+      <key>/schemas/apps/sound-juicer/musicbrainz_server</key>
+      <applyto>/apps/sound-juicer/musicbrainz_server</applyto>
+      <type>string</type>
+      <owner>sound-juicer</owner>
+      <!-- No default, NULL will use library default -->
+      <locale name="C">
+        <short>The MusicBrainz server to use</short>
+        <long>
+          If specified, this value will override the default MusicBrainz
+          server.
+        </long>
+      </locale>
+    </schema>
+
   </schemalist>
 </gconfschemafile>

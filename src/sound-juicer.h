@@ -124,6 +124,7 @@ extern gboolean autostart;
 #define GCONF_FORMAT GCONF_ROOT "/format"
 #define GCONF_PARANOIA GCONF_ROOT "/paranoia"
 #define GCONF_STRIP GCONF_ROOT "/strip-special"
+#define GCONF_MUSICBRAINZ_SERVER GCONF_ROOT "/musicbrainz_server"
 
 #define GCONF_PROXY_ROOT "/system/http_proxy"
 #define GCONF_HTTP_PROXY_ENABLE GCONF_PROXY_ROOT "/use_http_proxy"

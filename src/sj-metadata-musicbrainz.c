@@ -20,6 +20,7 @@
 
 #include "sound-juicer.h"
 
+#include <string.h>
 #include <glib-object.h>
 #include <glib/gerror.h>
 #include <glib/glist.h>
@@ -75,6 +76,8 @@ sj_metadata_musicbrainz_finalize (GObject *object)
 static void
 sj_metadata_musicbrainz_instance_init (GTypeInstance *instance, gpointer g_class)
 {
+  GConfClient *gconf_client;
+  char *server_name = NULL;
   SjMetadataMusicbrainz *self = (SjMetadataMusicbrainz*)instance;
   self->priv = g_new0 (SjMetadataMusicbrainzPrivate, 1);
   self->priv->construct_error = NULL;
@@ -87,6 +90,16 @@ sj_metadata_musicbrainz_instance_init (GTypeInstance *instance, gpointer g_class
     return;
   }
   mb_UseUTF8 (self->priv->mb, TRUE);
+
+  gconf_client = gconf_client_get_default ();
+  server_name = gconf_client_get_string (gconf_client, GCONF_MUSICBRAINZ_SERVER, NULL);
+  g_strstrip (server_name);
+  if (server_name && strcmp (server_name, "") != 0) {
+    mb_SetServer (self->priv->mb, server_name, 80);
+    g_free (server_name);
+  }
+  g_object_unref (gconf_client);
+
   /* TODO: optimal setting? mb_SetDepth (self->priv->mb, 1); */
   if (g_getenv("MUSICBRAINZ_DEBUG")) {
     mb_SetDebug (self->priv->mb, TRUE);
