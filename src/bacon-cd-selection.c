@@ -92,6 +92,7 @@ bacon_cd_selection_get_type (void)
 			sizeof (BaconCdSelection),
 			0 /* n_preallocs */,
 			(GInstanceInitFunc) bacon_cd_selection_instance_init,
+			NULL
 		};
 
 		bacon_cd_selection_type = g_type_register_static
@@ -348,7 +349,6 @@ bacon_cd_selection_get_default_device (BaconCdSelection *bcs)
 
 	l = bcs->priv->cdroms;
 	if (bcs->priv->cdroms == NULL)
-          /* TODO: not sure about this. if this is NULL, there are no devices present, so return NULL? */
 		return "/dev/cdrom";
 
 	drive = l->data;

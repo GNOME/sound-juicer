@@ -1,3 +1,19 @@
+2003-05-12  Ross Burton  <ross@burtonini.com>
+
+	* configure.in: 
+	Depend on GStreamer 0.6.1 for correct Ogg tagging.
+
+	* src/sj-main.c:
+	Remove a call to set the SjExtractor format, it was a test. Also
+	change the application name slightly.
+
+	* src/Makefile.am (AM_CFLAGS): 
+	Be even meaner about code warnings, and fix the bacon copy code.
+
+	* src/cd-drive.c:
+	* bacon-cd-selection.c:
+	Updated from libbacon, lots of fixed.
+
 2003-05-08  Ross Burton  <ross@burtonini.com>
 
 	* src/sj-main.c (device_changed_cb):

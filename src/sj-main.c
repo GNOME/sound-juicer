@@ -524,8 +524,7 @@ int main (int argc, char **argv)
 		      VERSION, LIBGNOMEUI_MODULE,
 		      argc, argv,
 		      NULL);
-
-  g_set_application_name (_("Sound Juicer CD Ripper"));
+  g_set_application_name (_("Sound Juicer"));
 
   sj_musicbrainz_init ();
 
@@ -544,7 +543,6 @@ int main (int argc, char **argv)
     gtk_dialog_run (GTK_DIALOG (dialog));
     exit (1);
   }
-  g_object_set (extractor, "format", VORBIS, NULL);
 
   gconf_client = gconf_client_get_default ();
   if (gconf_client == NULL) {
@@ -562,7 +560,6 @@ int main (int argc, char **argv)
   gconf_client_add_dir (gconf_client, GCONF_PROXY_ROOT, GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
   gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY, http_proxy_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY_PORT, http_proxy_port_changed_cb, NULL, NULL, NULL);
-
 
   glade_init ();
   glade = glade_xml_new (DATADIR"/sound-juicer.glade", NULL, NULL);

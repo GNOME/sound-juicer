@@ -1,4 +1,4 @@
-AM_CFLAGS = -Wall -Werror -export-dynamic
+AM_CFLAGS = -Wall -Werror -export-dynamic -W -Wno-unused-parameter
 
 AM_CPPFLAGS = \
 	-DGNOME_DISABLE_DEPRECATED=1 \
@@ -47,4 +47,4 @@ BACONDIR=$(srcdir)/../../libbacon/src/
 BACONFILES=cd-drive.c cd-drive.h bacon-cd-selection.c bacon-cd-selection.h
 
 regenerate-built-sources:
-	BACONFILES="$(BACONFILES)" BACONDIR="$(BACONDIR)" $(srcdir)/src/update-from-bacon.sh
+	BACONFILES="$(BACONFILES)" BACONDIR="$(BACONDIR)" $(top_srcdir)/src/update-from-bacon.sh
