@@ -1,6 +1,5 @@
 #include <glib.h>
 #include "sj-structures.h"
-#include "sj-musicbrainz.h"
 #include "sj-metadata.h"
 #include "sj-metadata-musicbrainz.h"
 
