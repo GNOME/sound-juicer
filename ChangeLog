@@ -1,5 +1,11 @@
 2003-07-30  Ross Burton  <ross@burtonini.com>
 
+	* src/sj-extractor.c:
+	On End Of Stream, set the pipe line to NULL instead of READY so
+	that all of the data is flushed. I hope.
+	
+2003-07-30  Ross Burton  <ross@burtonini.com>
+
 	* src/sj-main.c:
 	When editing the album name/title, propogate the change to the
 	tracks. Thanks to Mike Hearn again.

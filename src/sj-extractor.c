@@ -210,7 +210,7 @@ static void sj_extractor_finalize (GObject *object)
 static void eos_cb (GstElement *gstelement, SjExtractor *extractor)
 {
   g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
-  gst_element_set_state (extractor->priv->pipeline, GST_STATE_READY);
+  gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
   g_signal_emit (G_OBJECT (extractor),
                  sje_table_signals[COMPLETION],
                  0);
