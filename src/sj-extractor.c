@@ -106,7 +106,8 @@ GType sj_extractor_get_type (void)
       NULL /* class_data */,
       sizeof (SjExtractor),
       0 /* n_preallocs */,
-      (GInstanceInitFunc) sj_extractor_instance_init
+      (GInstanceInitFunc) sj_extractor_instance_init,
+      NULL
     };
     
     sj_extractor_type = g_type_register_static (G_TYPE_OBJECT,
@@ -214,6 +215,25 @@ static void eos_cb (GstElement *gstelement, SjExtractor *extractor)
                  0);
 }
 
+static const char* get_encoder_name(SjExtractor *extractor)
+{
+  SjExtractorPrivate *priv;
+  g_return_val_if_fail (SJ_IS_EXTRACTOR (extractor), NULL);
+  priv = (SjExtractorPrivate*)extractor->priv;
+  switch (priv->format) {
+  case VORBIS:
+    return "vorbisenc";
+  case MPEG:
+    return "mpegaudio";
+  case FLAC:
+    return "flacenc";
+  case WAVE:
+    return "wavenc";
+  default:
+    g_return_val_if_reached (NULL);
+  }
+}
+
 static void build_pipeline (SjExtractor *extractor)
 {
   SjExtractorPrivate *priv;
@@ -241,12 +261,12 @@ static void build_pipeline (SjExtractor *extractor)
   priv->source_pad = gst_element_get_pad (priv->cdparanoia, "src");
   g_assert (priv->source_pad); /* TODO: GError */
 
-  /* Encode to Ogg Vorbis */
-  priv->encoder = gst_element_factory_make ("vorbisenc", "vorbisenc");
+  /* Encode */
+  priv->encoder = gst_element_factory_make (get_encoder_name (extractor), "encoder");
   if (priv->encoder == NULL) {
     g_set_error (&priv->construct_error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-                 _("Could not create GStreamer Ogg Vorbis encoder"));
+                 _("Could not create GStreamer encoder (%s)"), get_encoder_name (extractor));
     return;
   }
   /* Connect to the eos so we know when its finished */
@@ -368,7 +388,8 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   g_object_set (G_OBJECT (priv->filesink), "location", path, NULL);
 
   /* Set the Ogg metadata */
-  /* Requires gst 0.6.1 to work correctly */
+  /* TODO; this works with Vorbis and will work with FLAC when the
+     property is added. Wave and MP3... news not so good. */
   tracknumber = g_strdup_printf("%d", track->number);
   caps = GST_CAPS_NEW ("vorbisenc_metadata", 
                        "application/x-gst-metadata",
