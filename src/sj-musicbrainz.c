@@ -123,6 +123,7 @@ static GList* get_offline_track_listing(musicbrainz_t mb, GError **error)
     track->duration = sj_get_duration_from_sectors
       (mb_GetResultInt1 (mb, MBE_TOCGetTrackNumSectors, i+1));
     album->tracks = g_list_append (album->tracks, track);
+    album->number++;
   }
   return g_list_append (list, album);
 }
@@ -183,6 +184,7 @@ GList* sj_musicbrainz_list_albums(GError **error) {
       }
 
       album->tracks = g_list_append (album->tracks, track);
+      album->number++;
     }
 
     albums = g_list_append (albums, album);

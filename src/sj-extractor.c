@@ -424,7 +424,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   /* Set the metadata */
   /* TODO; this works with Vorbis and MP3 and will work with FLAC when the
      property is added. Wave ... news not so good. */
-  tracknumber = g_strdup_printf("%d", track->number);
+  tracknumber = g_strdup_printf("%d/%d", track->number, track->album->number);
   caps = GST_CAPS_NEW ("soundjuicer_metadata", 
                        "application/x-gst-metadata",
                        "title", GST_PROPS_STRING (track->title),

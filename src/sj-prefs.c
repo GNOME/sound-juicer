@@ -268,6 +268,7 @@ static void pattern_label_update (void)
   static AlbumDetails sample_album = {
     N_("Album Title"),
     N_("Album Artist"),
+    0,
     NULL
   };
   static TrackDetails sample_track = {

@@ -40,6 +40,7 @@ struct _TrackDetails {
 struct _AlbumDetails {
   char* title;
   char* artist;
+  int   number; /* number of tracks in the album */
   GList* tracks;
 };
 
