@@ -160,6 +160,8 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (select_all_menuitem, FALSE);
     gtk_widget_set_sensitive (deselect_all_menuitem, FALSE);
   } else {
+    gtk_list_store_clear (track_store);
+
     gtk_entry_set_text (GTK_ENTRY (title_entry), album->title);
     gtk_entry_set_text (GTK_ENTRY (artist_entry), album->artist);
     gtk_widget_set_sensitive (title_entry, TRUE);
@@ -169,7 +171,6 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (select_all_menuitem, TRUE);
     gtk_widget_set_sensitive (deselect_all_menuitem, TRUE);
     
-    gtk_list_store_clear (track_store);
     for (l = album->tracks; l; l=g_list_next (l)) {
       GtkTreeIter iter;
       TrackDetails *track = (TrackDetails*)l->data;

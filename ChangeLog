@@ -1,3 +1,9 @@
+2003-08-15  Ross Burton  <ross@burtonini.com>
+
+	* src/sj-main.c:
+	Clear the tree model first, to avoid crashing when Reread is
+	pressed, fixing #119890.
+
 2003-08-13  Bastien Nocera  <hadess@hadess.net>
 
 	* src/cd-drive.c: (linux_bsd_media_type), (get_device_max_speed),
