@@ -158,7 +158,7 @@ GList* sj_musicbrainz_list_albums(GError **error) {
         track->title = g_strdup (data);
       }
 
-      if (mb_GetResultData1(mb, MBE_AlbumGetArtistName, data, 256, i)) {
+      if (mb_GetResultData1(mb, MBE_AlbumGetArtistName, data, 256, j)) {
         track->artist = g_strdup (data);
       }
 
