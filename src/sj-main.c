@@ -60,8 +60,6 @@ gboolean extracting = FALSE;
  */
 void on_quit_activate (GtkMenuItem *item, gpointer user_data)
 {
-  g_object_unref (extractor);
-  g_object_unref (gconf_client);
   gtk_main_quit ();
 }
 
@@ -527,9 +525,23 @@ static void on_cell_edited (GtkCellRendererText *renderer,
   return;
 }
 
+static void error_on_start (GError *error)
+{
+  GtkWidget *dialog;
+  dialog = gtk_message_dialog_new (NULL, 0,
+                                   GTK_MESSAGE_ERROR,
+                                   GTK_BUTTONS_CLOSE,
+                                   _("<b>Could not start Sound Juicer</b>\n\n"
+                                     "The error message is '%s'. "
+                                     "Please consult the <tt>README</tt> for assistance."),
+                                   error->message);
+  gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
+  gtk_dialog_run (GTK_DIALOG (dialog));
+}
+
 int main (int argc, char **argv)
 {
-  GError *error;
+  GError *error = NULL;
 
   bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -541,21 +553,16 @@ int main (int argc, char **argv)
 		      NULL);
   g_set_application_name (_("Sound Juicer"));
 
-  sj_musicbrainz_init ();
+  sj_musicbrainz_init (&error);
+  if (error) {
+    error_on_start (error);
+    exit (1);
+  }
 
   extractor = SJ_EXTRACTOR (sj_extractor_new());
   error = sj_extractor_get_new_error (extractor);
   if (error) {
-    GtkWidget *dialog;
-    dialog = gtk_message_dialog_new (NULL, 0,
-                                     GTK_MESSAGE_ERROR,
-                                     GTK_BUTTONS_CLOSE,
-                                     _("<b>Could not start Sound Juicer</b>\n\n"
-                                       "The error message is '%s'. "
-                                       "Please consult the <tt>README</tt> for assistance."),
-                                     error->message);
-    gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
-    gtk_dialog_run (GTK_DIALOG (dialog));
+    error_on_start (error);
     exit (1);
   }
 
@@ -660,5 +667,8 @@ int main (int argc, char **argv)
 
   gtk_widget_show_all (main_window);
   gtk_main ();
+  g_object_unref (extractor);
+  g_object_unref (gconf_client);
+  sj_musicbrainz_destroy ();
   return 0;
 }

@@ -14,23 +14,9 @@ magicdev keys?)
 
 Watch the CD drive so the UI updates when a disk is inserted/removed.
 
-Now I do the sensible thing and select all tracks by default, do I need Select All?
-
-Depend on gstreamer 0.6.1
-
-Handle libmusicbrainz 2.0.0 by looking for the headers manually.
-
-See if I use the new features of libmusicbrainz 2, or if 1.10 is enough.
-
 Write some user documentation.
 
 Remove every g_print and replace with groovy dialogs.
-
-Find out why when an error dialog pops up before the main window, I get:
-  (sound-juicer:28417): Gtk-CRITICAL **: file gtkwindow.c: line 2426
-  (gtk_window_realize_icon): assertion `info->icon_pixmap == NULL'
-  failed
-when the main window appears unless I can gtk_widget_realize(main_window) first?
 
 Make the progress dialog modal, or disable the Extract button when ripping
 

@@ -73,7 +73,7 @@ GError *sj_extractor_get_new_error (SjExtractor *extractor);
 
 void sj_extractor_set_device (SjExtractor *extractor, const char* device);
 
-void sj_extractor_set_paranoia (SjExtractor *extractor, const gint paranoia_mode);
+void sj_extractor_set_paranoia (SjExtractor *extractor, const int paranoia_mode);
 
 void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, const char* path, GError **error);
 

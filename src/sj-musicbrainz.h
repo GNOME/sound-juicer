@@ -26,7 +26,8 @@
 #include <glib/glist.h>
 #include <glib/gerror.h>
 
-void sj_musicbrainz_init (void);
+void sj_musicbrainz_init (GError **error);
+void sj_musicbrainz_destroy (void);
 void sj_musicbrainz_set_cdrom (const char* device);
 void sj_musicbrainz_set_proxy (const char* proxy);
 void sj_musicbrainz_set_proxy_port (int proxy_port);

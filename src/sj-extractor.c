@@ -129,7 +129,7 @@ static void sj_extractor_class_init (SjExtractorClass *klass)
 
   /* Properties */
   g_object_class_install_property (object_class, PROP_FORMAT,
-                                   g_param_spec_enum ("format", NULL /*nick*/, NULL /*blurb*/,
+                                   g_param_spec_enum ("format", _("Encoding format"), _("The format to write the encoded audio in"),
                                                       encoding_format_get_type(),
                                                       DEFAULT_ENCODING_FORMAT, G_PARAM_READWRITE));
 
@@ -350,7 +350,7 @@ void sj_extractor_set_device (SjExtractor *extractor, const char* device)
   g_object_set (G_OBJECT (extractor->priv->cdparanoia), "location", device, NULL);
 }
 
-void sj_extractor_set_paranoia (SjExtractor *extractor, const gint paranoia_mode)
+void sj_extractor_set_paranoia (SjExtractor *extractor, const int paranoia_mode)
 {
   g_return_if_fail (extractor != NULL);
   g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
@@ -387,7 +387,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   gst_element_set_state (priv->filesink, GST_STATE_NULL);
   g_object_set (G_OBJECT (priv->filesink), "location", path, NULL);
 
-  /* Set the Ogg metadata */
+  /* Set the metadata */
   /* TODO; this works with Vorbis and will work with FLAC when the
      property is added. Wave and MP3... news not so good. */
   tracknumber = g_strdup_printf("%d", track->number);

@@ -33,30 +33,54 @@
 #include "sj-structures.h"
 #include "sj-error.h"
 
+static musicbrainz_t mb;
 static char* cdrom;
 static char* http_proxy;
 static int http_proxy_port;
 
-void sj_musicbrainz_init (void) {
-  cdrom = g_strdup ("/dev/cdrom");
+void sj_musicbrainz_init (GError **error) {
+  mb = mb_New ();
+  if (!mb) {
+    g_set_error (error,
+                 SJ_ERROR, SJ_ERROR_CD_LOOKUP_ERROR,
+                 _("Cannot create MusicBrainz client"));
+    return;
+  }
+  mb_UseUTF8 (mb, TRUE);
+  if (g_getenv("MUSICBRAINZ_DEBUG")) {
+    mb_SetDebug (mb, TRUE);
+  }
+}
+
+void sj_musicbrainz_destroy() {
+  g_return_if_fail (mb != NULL);
+  mb_Delete (mb);
 }
 
 void sj_musicbrainz_set_cdrom(const char* device) {
+  g_return_if_fail (mb != NULL);
   g_return_if_fail (device != NULL);
-  g_free (cdrom);
+  if (cdrom) {
+    g_free (cdrom);
+  }
   cdrom = g_strdup (device);
+  mb_SetDevice (mb, cdrom);
 }
 
 void sj_musicbrainz_set_proxy (const char* proxy) {
+  g_return_if_fail (mb != NULL);
   g_return_if_fail (proxy != NULL);
   if (http_proxy) {
     g_free (http_proxy);
   }
   http_proxy = g_strdup (proxy);
+  mb_SetProxy (mb, http_proxy, http_proxy_port);
 }
 
 void sj_musicbrainz_set_proxy_port (int proxy_port) {
+  g_return_if_fail (mb != NULL);
   http_proxy_port = proxy_port;
+  mb_SetProxy (mb, http_proxy, http_proxy_port);
 }
 
 static GList* get_offline_track_listing(musicbrainz_t mb, GError **error)
@@ -92,22 +116,10 @@ static GList* get_offline_track_listing(musicbrainz_t mb, GError **error)
 
 GList* sj_musicbrainz_list_albums(GError **error) {
   GList *albums = NULL;
-  musicbrainz_t mb;
   char data[256];
   int num_albums, i, j;
 
-  mb = mb_New ();
-  if (!mb) {
-    g_set_error (error,
-                 SJ_ERROR, SJ_ERROR_CD_LOOKUP_ERROR,
-                 _("Cannot create MusicBrainz client"));
-    return NULL;
-  }
-  mb_SetDevice (mb, cdrom);
-
-  if (http_proxy) {
-    mb_SetProxy (mb, http_proxy, http_proxy_port);
-  }
+  g_return_val_if_fail (mb != NULL, NULL);
 
   if (!mb_Query (mb, MBQ_GetCDInfo)) {
     return get_offline_track_listing (mb, error);
@@ -140,7 +152,7 @@ GList* sj_musicbrainz_list_albums(GError **error) {
 
       track->album = album;
 
-      track->number = j; /* TODO: replace with number lookup */
+      track->number = j; /* replace with number lookup? */
 
       if (mb_GetResultData1(mb, MBE_AlbumGetTrackName, data, 256, j)) {
         track->title = g_strdup (data);
@@ -159,6 +171,5 @@ GList* sj_musicbrainz_list_albums(GError **error) {
 
     albums = g_list_append (albums, album);
   }
-  mb_Delete (mb);
   return albums;
 }

@@ -1,3 +1,21 @@
+2003-05-14  Ross Burton  <ross@burtonini.com>
+
+	* README:
+	* TODO:
+	Updated
+
+	* src/sj-musicbrainz.[ch]:
+	Re-arrange slightly so a single Musicbrainz object is used all the
+	time, instead of re-creating it.
+
+	* src/sj-extractor.[ch]:
+	Change set_paranoia() to take an int, and add blurb to the format
+	property.
+	
+	* src/sj-main.c:
+	Pull the error message out, re-arrange the unrefing cleanup code,
+	and check for errors when starting MusicBrainz.
+
 2003-05-14  Christian Rose  <menthos@menthos.com>
 
 	* configure.in: Added "sv" to ALL_LINGUAS.
