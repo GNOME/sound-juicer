@@ -26,10 +26,12 @@
 #include <sys/stat.h>
 #include <unistd.h> 
 #include <errno.h>
+#include <stdlib.h>
 
 #include <glib/glist.h>
 #include <gtk/gtkwidget.h>
 #include <gtk/gtkwindow.h>
+#include <gtk/gtkstock.h>
 #include <gtk/gtkmessagedialog.h>
 #include <gtk/gtkprogressbar.h>
 #include <gtk/gtklabel.h>
@@ -134,7 +136,25 @@ static void pop_and_rip (void)
   int left;
 
   if (pending == NULL) {
+    GtkWidget *finished_dialog;
+    int result;
+    
     gtk_widget_hide (progress_dialog);
+    
+    finished_dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
+                                              GTK_DIALOG_DESTROY_WITH_PARENT,
+                                              GTK_MESSAGE_INFO,
+                                              GTK_BUTTONS_NONE,
+                                              /* TODO: need to have a better message here */
+                                              _("The tracks have been copied successfully."));
+    gtk_dialog_add_buttons (GTK_DIALOG (finished_dialog), GTK_STOCK_OPEN, 1, GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE, NULL);
+    result = gtk_dialog_run (GTK_DIALOG (finished_dialog));
+    gtk_widget_destroy (finished_dialog);
+    if (result == 1) {
+      char *command = g_strdup_printf ("nautilus --no-desktop %s", base_path);
+      g_spawn_command_line_async (command, NULL);
+      g_free (command);
+    }
     gtk_widget_set_sensitive (extract_button, TRUE);
     return;
   }
