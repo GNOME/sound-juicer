@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-14 12:37+0100\n"
-"PO-Revision-Date: 2005-01-14 17:28+0100\n"
+"POT-Creation-Date: 2005-02-20 14:41+0100\n"
+"PO-Revision-Date: 2005-02-20 19:05+0100\n"
 "Last-Translator: Laszlo Dvornik <dvornik@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
@@ -25,24 +25,24 @@ msgid "Sound Juicer CD Ripper"
 msgstr "Sound Juicer CD-grabbelő"
 
 #: data/sound-juicer.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: data/sound-juicer.glade.h:2
 msgid "<b>Album Progress</b>"
 msgstr "<b>Album grabbelésének állapota</b>"
 
-#: data/sound-juicer.glade.h:3
+#: data/sound-juicer.glade.h:2
 msgid "<b>Artist:</b>"
 msgstr "<b>Előadó:</b>"
 
-#: data/sound-juicer.glade.h:4
-msgid "<b>CD _Drive</b>"
-msgstr "<b>CD-_meghajtó</b>"
+#: data/sound-juicer.glade.h:3
+msgid "<b>Device</b>"
+msgstr "<b>Eszköz</b>"
 
-#: data/sound-juicer.glade.h:5
+#: data/sound-juicer.glade.h:4
 msgid "<b>Duration:</b>"
 msgstr "<b>Időtartam:</b>"
+
+#: data/sound-juicer.glade.h:5
+msgid "<b>Format</b>"
+msgstr "<b>Formátum</b>"
 
 #: data/sound-juicer.glade.h:6
 msgid "<b>Genre:</b>"
@@ -65,12 +65,12 @@ msgid "<b>Track Progress</b>"
 msgstr "<b>Szám grabbelésének állapota</b>"
 
 #: data/sound-juicer.glade.h:11
-msgid "<b>_Format</b>"
-msgstr "<b>_Formátum</b>"
+msgid "<i>path_example_label</i>"
+msgstr "<i>útvonal_példa_címke</i>"
 
 #: data/sound-juicer.glade.h:12
-msgid "D_irectory Hierarchy:"
-msgstr "_Könyvtár hierarchia:"
+msgid "CD _drive:"
+msgstr "CD-_meghajtó:"
 
 #: data/sound-juicer.glade.h:13
 msgid "E_ject"
@@ -89,23 +89,39 @@ msgid "Example Path:"
 msgstr "Példa útvonal:"
 
 #: data/sound-juicer.glade.h:17
+msgid "File _name:"
+msgstr "Fájl_név:"
+
+#: data/sound-juicer.glade.h:18
+msgid "Folder hie_rarchy:"
+msgstr "Mappa hie_rarchia:"
+
+#: data/sound-juicer.glade.h:19
 msgid "Multiple Albums Found"
 msgstr "Több album is található"
 
-#: data/sound-juicer.glade.h:18
+#: data/sound-juicer.glade.h:20
+msgid "O_utput:"
+msgstr "_Kimenet:"
+
+#: data/sound-juicer.glade.h:21
 msgid "Preferences"
 msgstr "Beállítások"
 
-#: data/sound-juicer.glade.h:19
+#: data/sound-juicer.glade.h:22
 msgid "Progress"
 msgstr "Folyamat"
 
-#: data/sound-juicer.glade.h:20 src/sj-about.c:56 src/sj-extractor.c:442
-#: src/sj-main.c:908
+#: data/sound-juicer.glade.h:23
+msgid "Select A Folder"
+msgstr "Válasszon ki egy mappát"
+
+#: data/sound-juicer.glade.h:24 src/sj-about.c:52 src/sj-extractor.c:444
+#: src/sj-main.c:936
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
-#: data/sound-juicer.glade.h:21
+#: data/sound-juicer.glade.h:25
 msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
@@ -113,57 +129,61 @@ msgstr ""
 "Ez a CD több albumnak is megfelel. Kérem válassza ki a megfelelő albumot és "
 "kattintson a <i>Folytatás</i> gombra."
 
-#: data/sound-juicer.glade.h:22
+#: data/sound-juicer.glade.h:26
 msgid "Unknown"
 msgstr "Ismeretlen"
 
-#: data/sound-juicer.glade.h:23
-msgid "_Browse..."
-msgstr "_Tallózás..."
-
-#: data/sound-juicer.glade.h:24
+#: data/sound-juicer.glade.h:27
 msgid "_CD"
 msgstr "_CD"
 
-#: data/sound-juicer.glade.h:25
+#: data/sound-juicer.glade.h:28
 msgid "_Contents"
 msgstr "_Tartalom"
 
-#: data/sound-juicer.glade.h:26 src/sj-main.c:142
+#: data/sound-juicer.glade.h:29 src/sj-main.c:147
 msgid "_Continue"
 msgstr "_Folytatás"
 
-#: data/sound-juicer.glade.h:27
+#: data/sound-juicer.glade.h:30
 msgid "_Deselect All"
 msgstr "_Kijelölés megszüntetése"
 
-#: data/sound-juicer.glade.h:28
+#: data/sound-juicer.glade.h:31
+msgid "_Edit"
+msgstr "S_zerkesztés"
+
+#: data/sound-juicer.glade.h:32
 msgid "_Eject when finished"
 msgstr "_Befejezéskor kiadás"
 
-#: data/sound-juicer.glade.h:29
+#: data/sound-juicer.glade.h:33
 msgid "_Extract"
 msgstr "_Grabbelés"
 
-#: data/sound-juicer.glade.h:30
-msgid "_File Name:"
-msgstr "_Fájlnév:"
+#: data/sound-juicer.glade.h:34
+msgid "_Folder:"
+msgstr "_Mappa:"
 
-#: data/sound-juicer.glade.h:31
+#: data/sound-juicer.glade.h:35
+msgid "_Help"
+msgstr "_Súgó"
+
+#: data/sound-juicer.glade.h:36
 msgid "_Re-read"
 msgstr "_Újraolvasás"
 
-#: data/sound-juicer.glade.h:32
+#: data/sound-juicer.glade.h:37
+msgid "_Select All"
+msgstr "_Mindent kijelöl"
+
+#: data/sound-juicer.glade.h:38
 msgid "_Strip special characters"
 msgstr "_Speciális karakterek eltávolítása"
 
-#: data/sound-juicer.glade.h:33
+#: data/sound-juicer.glade.h:39
 msgid "label"
 msgstr "címke"
-
-#: data/sound-juicer.glade.h:34
-msgid "path_example_label"
-msgstr "útvonal_példa_címke"
 
 #: data/sound-juicer.schemas.in.h:2
 #, no-c-format
@@ -246,32 +266,19 @@ msgstr "A használandó paranoia mód"
 msgid "Whether to eject the CD when finished extracting."
 msgstr "Kiadja-e a CD-t a grabbelés befejezésekor."
 
-#: src/bacon-cd-selection.c:170
-msgid "Unnamed CDROM"
-msgstr "Névtelen CD-ROM"
-
-#: src/cd-drive.c:846
-#, c-format
-msgid "Unnamed SCSI Drive (%s)"
-msgstr "Névtelen SCSI-meghajtó (%s)"
-
-#: src/cd-drive.c:1406
-msgid "File image"
-msgstr "Lemezképfájl"
+#: src/sj-about.c:53
+msgid "An Audio CD Extractor"
+msgstr "Egy audio CD-grabbelő"
 
 #.
 #. * Note to translators: put here your name and email so it will show
 #. * up in the "about" box
 #.
-#: src/sj-about.c:46
+#: src/sj-about.c:62
 msgid "translator-credits"
 msgstr ""
 "Dvornik László <dvornik@gnome.hu>\n"
 "Kelemen Gábor <kelemeng@gnome.hu>"
-
-#: src/sj-about.c:58
-msgid "An Audio CD Extractor"
-msgstr "Egy audio CD-grabbelő"
 
 #: src/sj-extracting.c:199
 #, c-format
@@ -291,7 +298,7 @@ msgid "_Overwrite"
 msgstr "_Felülírás"
 
 #. Display a nice dialog
-#: src/sj-extracting.c:258 src/sj-extracting.c:295 src/sj-extracting.c:512
+#: src/sj-extracting.c:258 src/sj-extracting.c:295 src/sj-extracting.c:511
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -331,43 +338,43 @@ msgstr "GNOME audioprofil"
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "A hang tömörítéséhez használt GNOME audioprofil"
 
-#: src/sj-extractor.c:268
+#: src/sj-extractor.c:270
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "Nem lehet létrehozni a GStreamer cdparanoia olvasót"
 
-#: src/sj-extractor.c:287
+#: src/sj-extractor.c:289
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
 msgstr "Nem lehet létrehozni a GStreamer tömörítőt (%s)"
 
-#: src/sj-extractor.c:298
+#: src/sj-extractor.c:300
 msgid "Could not create GStreamer file output"
 msgstr "Nem lehet létrehozni a GStreamer fájlkimenetet"
 
-#: src/sj-extractor.c:328
+#: src/sj-extractor.c:330
 msgid "Could not get current track position"
 msgstr "Nem lehet megszerezni a jelenlegi szám pozícióját"
 
-#: src/sj-extractor.c:361
+#: src/sj-extractor.c:363
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "A grabbelő objektum érvénytelen. Ez baj, a hibák megtekintéséhez nézze meg a "
 "konzolt."
 
-#: src/sj-extractor.c:469
+#: src/sj-extractor.c:471
 msgid "Could not seek to track"
 msgstr "Nem lehet pozicionálni a sávra"
 
-#: src/sj-extractor.c:474
+#: src/sj-extractor.c:476
 msgid "Could not get track start position"
 msgstr "Nem lehet megszerezni a szám kezdőpozícióját"
 
-#: src/sj-extractor.c:511
+#: src/sj-extractor.c:513
 msgid "The plugin necessary for CD access was not found"
 msgstr "A CD-hozzáféréshez szükséges bővítmény nem található"
 
-#: src/sj-extractor.c:519
+#: src/sj-extractor.c:521
 msgid "The plugin necessary for file access was not found"
 msgstr "A fájlhozzáféréshez szükséges bővítmény nem található"
 
@@ -695,76 +702,76 @@ msgstr "Hard Rock"
 msgid "[unknown genre]"
 msgstr "[ismeretlen műfaj]"
 
-#: src/sj-main.c:89
+#: src/sj-main.c:92
 msgid "Could not start Sound Juicer"
 msgstr "Nem lehet elindítani a Sound Juicer-t"
 
-#: src/sj-main.c:90 src/sj-main.c:454 src/sj-main.c:529 src/sj-main.c:588
+#: src/sj-main.c:93 src/sj-main.c:469 src/sj-main.c:544 src/sj-main.c:603
 #: src/sj-util.c:110 src/sj-util.c:130
 msgid "Reason"
 msgstr "Ok"
 
-#: src/sj-main.c:92
+#: src/sj-main.c:95
 msgid "Please consult the documentation for assistance."
 msgstr "Segítségért tekintse meg a dokumentációt."
 
-#: src/sj-main.c:140
+#: src/sj-main.c:145
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Ön jelenleg grabbel egy CD-t. Kilép vagy folytatja?"
 
-#: src/sj-main.c:197 src/sj-main.c:264
+#: src/sj-main.c:208 src/sj-main.c:279
 msgid "(unknown)"
 msgstr "(ismeretlen)"
 
-#: src/sj-main.c:306 src/sj-main.c:1002
+#: src/sj-main.c:321 src/sj-main.c:1030
 msgid "Title"
 msgstr "Cím"
 
-#: src/sj-main.c:312 src/sj-main.c:1011
+#: src/sj-main.c:327 src/sj-main.c:1039
 msgid "Artist"
 msgstr "Előadó"
 
-#: src/sj-main.c:452 src/sj-main.c:527 src/sj-main.c:586
+#: src/sj-main.c:467 src/sj-main.c:542 src/sj-main.c:601
 msgid "Could not read the CD"
 msgstr "Nem lehet olvasni a CD-t"
 
-#: src/sj-main.c:453 src/sj-main.c:528
+#: src/sj-main.c:468 src/sj-main.c:543
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "A Sound Juicer nem tudta beolvasni a CD számlistáját."
 
 #. Set statusbar message
-#: src/sj-main.c:512
+#: src/sj-main.c:527
 msgid "Retrieving track listing...please wait."
 msgstr "Számlista betöltése...kérem várjon."
 
-#: src/sj-main.c:567
+#: src/sj-main.c:582
 msgid "No CD-ROM drives found"
 msgstr "CD-ROM nem található"
 
-#: src/sj-main.c:568
+#: src/sj-main.c:583
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "A Sound Juicer nem talált olvasható CD-ROM meghajtót."
 
-#: src/sj-main.c:580
+#: src/sj-main.c:595
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "A Sound Juicer nem tudott hozzáférni a(z) '%s' CD-ROM meghajtóhoz"
 
-#: src/sj-main.c:625
+#: src/sj-main.c:640
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "A jelenleg kiválasztott audioprofil nem érhető el a rendszeren."
 
-#: src/sj-main.c:627
+#: src/sj-main.c:642
 msgid "_Change Profile"
 msgstr "Profil _megváltoztatása"
 
-#: src/sj-main.c:776
+#: src/sj-main.c:804
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "%d. ismeretlen oszlop szerkesztve"
 
-#: src/sj-main.c:839 src/sj-prefs.c:136
+#: src/sj-main.c:867 src/sj-prefs.c:141
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -773,19 +780,19 @@ msgstr ""
 "Nem lehet megjeleníteni súgót a Sound Juicer-hez\n"
 "%s"
 
-#: src/sj-main.c:927
+#: src/sj-main.c:955
 msgid "Could not create GConf client.\n"
 msgstr "Nem lehet létrehozni a GConf-klienst.\n"
 
-#: src/sj-main.c:983
+#: src/sj-main.c:1011
 msgid "Extract"
 msgstr "Grabbelés"
 
-#: src/sj-main.c:991
+#: src/sj-main.c:1019
 msgid "Track"
 msgstr "Szám"
 
-#: src/sj-main.c:1022
+#: src/sj-main.c:1050
 msgid "Duration"
 msgstr "Időtartam"
 
@@ -853,55 +860,51 @@ msgstr "Érvénytelen metaadat ehhez a CD-hez.\n"
 msgid "Could not create CD lookup thread"
 msgstr "Nem lehet létrehozni a CD lekérdező szálat"
 
-#: src/sj-prefs.c:50
+#: src/sj-prefs.c:52
 msgid "Album Artist, Album Title"
 msgstr "Album előadója, album címe"
 
-#: src/sj-prefs.c:51
+#: src/sj-prefs.c:53
 msgid "Track Artist, Album Title"
 msgstr "Szám előadója, album címe"
 
-#: src/sj-prefs.c:52 src/sj-prefs.c:279
+#: src/sj-prefs.c:54 src/sj-prefs.c:280
 msgid "Album Title"
 msgstr "Album címe"
 
-#: src/sj-prefs.c:53 src/sj-prefs.c:280
+#: src/sj-prefs.c:55 src/sj-prefs.c:281
 msgid "Album Artist"
 msgstr "Album előadója"
 
-#: src/sj-prefs.c:54
+#: src/sj-prefs.c:56
 msgid "Album Artist - Album Title"
 msgstr "Album előadója - album címe"
 
-#: src/sj-prefs.c:55
+#: src/sj-prefs.c:57
 msgid "[none]"
 msgstr "[nincs]"
 
-#: src/sj-prefs.c:60
+#: src/sj-prefs.c:62
 msgid "Number - Title"
 msgstr "Sorszám - cím"
 
-#: src/sj-prefs.c:61 src/sj-prefs.c:287
+#: src/sj-prefs.c:63 src/sj-prefs.c:288
 msgid "Track Title"
 msgstr "Szám címe"
 
-#: src/sj-prefs.c:62
+#: src/sj-prefs.c:64
 msgid "Track Artist - Track Title"
 msgstr "Szám előadója - szám címe"
 
-#: src/sj-prefs.c:63
+#: src/sj-prefs.c:65
 msgid "Number. Track Artist - Track Title"
 msgstr "Sorszám. szám előadója - szám címe"
 
-#: src/sj-prefs.c:64
+#: src/sj-prefs.c:66
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Sorszám-szám előadója-szám címe (kisbetűs)"
 
-#: src/sj-prefs.c:153
-msgid "Select Output Location"
-msgstr "Kimeneti hely kiválasztása"
-
-#: src/sj-prefs.c:288
+#: src/sj-prefs.c:289
 msgid "Track Artist"
 msgstr "Szám előadója"
 
