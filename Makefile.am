@@ -12,9 +12,8 @@ EXTRA_DIST = \
 	omf.make \
 	$(INTLTOOL_BUILT:=.in)
 
-CLEANFILES = $(INTLTOOL_BUILT)
-
-DISTCLEANFILES = po/.intltool-merge-cache
+DISTCLEANFILES = po/.intltool-merge-cache \
+		 $(INTLTOOL_BUILT)
 
 distuninstallcheck_listfiles = \
 	find -path ./var/scrollkeeper/\* -prune -or -type f -print
