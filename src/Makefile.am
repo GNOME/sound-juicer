@@ -12,6 +12,7 @@ AM_CPPFLAGS = \
 	-DLIBDIR=\""$(libdir)"\" \
 	-DSYSCONFDIR=\""$(sysconfdir)"\" \
 	-DPIXMAPDIR=\""$(datadir)/pixmaps"\" \
+	-DPKGDATADIR=\""$(datadir)/sound-juicer"\" \
 	@MUSICBRAINZ_CFLAGS@ @GSTREAMER_CFLAGS@ \
 	@LIBGLADE_CFLAGS@  @GNOME_CFLAGS@
 
