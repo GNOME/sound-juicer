@@ -196,6 +196,7 @@ struct scsi_unit {
 };
 
 struct cdrom_unit {
+	CDProtocolType protocol;
 	char *device;
 	char *display_name;
 	int speed;
@@ -420,11 +421,12 @@ cdrom_get_name (struct cdrom_unit *cdrom, struct scsi_unit *scsi_units, int n_sc
 		return NULL;
 	}
 	if (i == 2) {
+		g_free (cdrom->device);
 		cdrom->device = g_strdup(devfsname);
 	}
 	stdname[3] = '\0'; devfsname[14] = '\0'; /* just in case */
 	
-	if (stdname[0] == 's') {
+	if (cdrom->protocol == CD_PROTOCOL_SCSI) {
 		get_cd_scsi_id (cdrom->device, &bus, &id, &lun);
 		retval = get_scsi_cd_name (bus, id, lun, cdrom->device, scsi_units,
 			   n_scsi_units);
@@ -465,7 +467,8 @@ add_linux_cd_recorder (GList *cdroms,
 	cdrom->type = CDDRIVE_TYPE_CD_DRIVE;
 	cdrom->display_name = g_strdup (cdrom_s->display_name);
 
-	if (cdrom_s->device[0] == 's') {
+	if (cdrom_s->protocol == CD_PROTOCOL_SCSI) {
+		cdrom->protocol = CD_PROTOCOL_SCSI;
 		if (!get_cd_scsi_id (cdrom_s->device, &bus, &id, &lun)) {
 			g_free (cdrom->display_name);
 			g_free (cdrom);
@@ -474,6 +477,7 @@ add_linux_cd_recorder (GList *cdroms,
 		cdrom->cdrecord_id = g_strdup_printf ("%d,%d,%d",
 				bus, id, lun);
 	} else {
+		cdrom->protocol = CD_PROTOCOL_IDE;
 		/* kernel >=2.5 can write cd w/o ide-scsi */
 		cdrom->cdrecord_id = g_strdup_printf ("/dev/%s",
 				cdrom_s->device);
@@ -508,9 +512,8 @@ add_linux_cd_recorder (GList *cdroms,
 	}
 	if (cdrom_s->can_read_dvd) {
 		cdrom->type |= CDDRIVE_TYPE_DVD_DRIVE;
+		add_dvd_plus (cdrom);
 	}
-
-	add_dvd_plus (cdrom);
 
 	return g_list_append (cdroms, cdrom);
 }
@@ -597,6 +600,8 @@ linux_scan (gboolean recorder_only)
 			*t = 0;
 		}
 		cdroms[j].device = get_cd_device_file (p);
+		/* Assume its an IDE device for now */
+		cdroms[j].protocol = CD_PROTOCOL_IDE;
 		if (t != NULL) {
 			p = t + 1;
 		}
@@ -609,6 +614,7 @@ linux_scan (gboolean recorder_only)
 	n_scsi_units = 0;
 	for (i = 0; i < n_cdroms; i++) {
 		if (cdroms[i].device[0] == 's') {
+			cdroms[i].protocol = CD_PROTOCOL_SCSI;
 			n_scsi_units++;
 		}
 	}
@@ -724,8 +730,11 @@ linux_scan (gboolean recorder_only)
 	cdroms_list = NULL;
 	for (i = n_cdroms - 1, j = 0; i >= 0; i--, j++) {
 		if (have_devfs) {
-			cdroms[i].device = g_strdup_printf("%s cdroms/cdrom%d",
+			char *s;
+			s = g_strdup_printf("%s cdroms/cdrom%d",
 					cdroms[i].device,  j);
+			g_free (cdroms[i].device);
+			cdroms[i].device = s;
 		}
 		cdroms[i].display_name = cdrom_get_name (&cdroms[i],
 				scsi_units, n_scsi_units);
@@ -735,7 +744,7 @@ linux_scan (gboolean recorder_only)
 		    cdroms[i].can_write_cdrw ||
 		    cdroms[i].can_write_dvdr ||
 		    cdroms[i].can_write_dvdram) &&
-			(cdroms[i].device[0] == 's' ||
+			(cdroms[i].protocol == CD_PROTOCOL_SCSI ||
 			(maj > 2) || (maj == 2 && min >= 5))) {
 			cdroms_list = add_linux_cd_recorder (cdroms_list,
 					recorder_only, &cdroms[i],
@@ -748,10 +757,16 @@ linux_scan (gboolean recorder_only)
 
 	for (i = n_cdroms - 1; i >= 0; i--) {
 		g_free (cdroms[i].display_name);
+		g_free (cdroms[i].device);
 	}
-
-	g_free (scsi_units);
 	g_free (cdroms);
+
+	for (i = n_scsi_units - 1; i >= 0; i--) {
+		g_free (scsi_units[i].vendor);
+		g_free (scsi_units[i].model);
+		g_free (scsi_units[i].rev);
+	}
+	g_free (scsi_units);
 
 	return cdroms_list;
 }
@@ -874,6 +889,7 @@ cd_drive_free (CDDrive *drive)
 	g_free (drive->display_name);
 	g_free (drive->cdrecord_id);
 	g_free (drive->device);
+	g_free (drive);
 }
 
 CDMediaType
