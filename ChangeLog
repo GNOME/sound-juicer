@@ -1,3 +1,43 @@
+2003-04-11  Ross Burton  <ross@burtonini.com>
+
+	* acinclude.m4:
+	Copy the GStreamer element check macro from GStreamer CVS until
+	0.6.1 is released.
+	* configure.in:
+	Check for the elements we use.
+
+	* data/sound-juicer.schemas.in:
+	Add a GConf schemas file.
+	* data/Makefile.am:
+	Install the GConf schemas.
+
+	* Makefile.am (SUBDIRS):
+	Mention the po/ directory, and hack in the removal of the intltool
+	cache (should be done in intltool I guess).
+
+	* po/POTFILES.in:
+	Update for new sources.
+
+	* src/sj-gstreamer-fake.c:
+	Remove old code.
+
+	* src/sj-main.c:
+	Remove the gconf_init() call as it is deprecated.
+	Add an access check for the selected CD-ROM device.
+	Realize the main window when setting the window icon so it works
+	when a dialog pops up. Odd.
+
+	* src/sj-extractor.c:
+	Use g_warning instead of g_print, and clean the messages.
+
+	* tests/Makefile.am:
+	Use $(top_srcdir) so that out-of-source builds (and thus
+	distcheck) work.
+
+	* README:
+	* TODO:
+	Updated.
+	
 2003-04-10  Frederic Crozat  <fcrozat@mandrakesoft.com>
 
 	* data/sound-juicer.glade:

@@ -21,6 +21,9 @@ AM_PROG_CC_STDC
 AC_HEADER_STDC
 AC_PROG_INTLTOOL([0.20])
 
+ALL_LINGUAS="ca"
+AM_GLIB_GNU_GETTEXT dnl TODO: is this still required?
+
 PKG_CHECK_MODULES(GLIB, glib-2.0)
 AC_SUBST(GLIB_CFLAGS)
 AC_SUBST(GLIB_LIBS)
@@ -52,8 +55,9 @@ if test x"$GCONFTOOL" = xno; then
 fi
 AM_GCONF_SOURCE_2
 
-ALL_LINGUAS="ca"
-AM_GLIB_GNU_GETTEXT
+AM_GST_ELEMENT_CHECK(cdparanoia,,AC_MSG_ERROR([The 'cdparanoa' element was not found. This will cause Sound Juicer to fail at runtime.]))
+AM_GST_ELEMENT_CHECK(vorbisenc,,AC_MSG_ERROR([The 'vorbisenc' element was not found. This will cause Sound Juicer to fail at runtime.]))
+AM_GST_ELEMENT_CHECK(filesink,,AC_MSG_WARN([The 'filesink' element was not found. This will cause Sound Juicer to fail at runtime.]))
 
 AC_OUTPUT([
 Makefile

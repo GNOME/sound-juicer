@@ -2,7 +2,6 @@
 <!DOCTYPE glade-interface SYSTEM "http://glade.gnome.org/glade-2.0.dtd">
 
 <glade-interface>
-<requires lib="gnome"/>
 
 <widget class="GtkWindow" id="main_window">
   <property name="width_request">350</property>
@@ -28,8 +27,8 @@
 
 	  <child>
 	    <widget class="GtkMenuItem" id="menuitem1">
-   	      <property name="visible">True</property>
-	      <property name="stock_item">GNOMEUIINFO_MENU_FILES_TREE</property>
+	      <property name="visible">True</property>
+	      <property name="stock_item">GNOMEUIINFO_MENU_FILE_TREE</property>
 
 	      <child>
 		<widget class="GtkMenu" id="menuitem1_menu">
@@ -43,7 +42,7 @@
 		      <accelerator key="E" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image53">
+			<widget class="GtkImage" id="image54">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-cdrom</property>
 			  <property name="icon_size">1</property>
@@ -65,7 +64,7 @@
 		      <accelerator key="R" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image54">
+			<widget class="GtkImage" id="image55">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-refresh</property>
 			  <property name="icon_size">1</property>
@@ -133,7 +132,7 @@
 	  <child>
 	    <widget class="GtkMenuItem" id="menuitem4">
 	      <property name="visible">True</property>
-              <property name="stock_item">GNOMEUIINFO_MENU_HELP_TREE</property>
+	      <property name="stock_item">GNOMEUIINFO_MENU_HELP_TREE</property>
 
 	      <child>
 		<widget class="GtkMenu" id="menuitem4_menu">

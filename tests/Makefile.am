@@ -1,10 +1,10 @@
-INCLUDES = -I../src/ @LIBGLADE_CFLAGS@ @GSTREAMER_CFLAGS@ @MUSICBRAINZ_CFLAGS@ @GNOME_CFLAGS@
+INCLUDES = -I$(top_srcdir)/src @LIBGLADE_CFLAGS@ @GSTREAMER_CFLAGS@ @MUSICBRAINZ_CFLAGS@ @GNOME_CFLAGS@
 AM_CFLAGS = -g -Wall -export-dynamic -Wunused
 AM_DEFS = -DGNOME_DISABLE_DEPRECATED=1 -DGTK_DISABLE_DEPRECATED=1 -DGDK_DISABLE_DEPRECATED=1 -DG_DISABLE_DEPRECATED=1
 
 noinst_PROGRAMS = mb-test
 
-mb_test_SOURCES = mb-test.c  ../src/sj-musicbrainz.c ../src/sj-error.c
+mb_test_SOURCES = mb-test.c $(top_srcdir)/src/sj-musicbrainz.c $(top_srcdir)/src/sj-error.c
 mb_test_LDADD = @GLIB_LIBS@ @MUSICBRAINZ_LIBS@
 
 enum.c: enum.h

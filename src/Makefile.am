@@ -14,6 +14,8 @@ INCLUDES = @LIBGLADE_CFLAGS@ @GSTREAMER_CFLAGS@ @MUSICBRAINZ_CFLAGS@ @GNOME_CFLA
 bin_PROGRAMS = sound-juicer
 
 sound_juicer_SOURCES = \
+	sound-juicer.h \
+	sj-structures.h \
 	sj-main.c \
 	sj-prefs.h \
 	sj-prefs.c \

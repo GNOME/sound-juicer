@@ -23,6 +23,7 @@
 #include "sound-juicer.h"
 
 #include <string.h>
+#include <unistd.h>
 #include <gnome.h>
 #include <gtk/gtk.h>
 #include <glade/glade.h>
@@ -64,6 +65,7 @@ gboolean extracting = FALSE;
 void on_quit_activate (GtkMenuItem *item, gpointer user_data)
 {
   g_object_unref (extractor);
+  g_object_unref (gconf_client);
   gtk_main_quit ();
 }
 
@@ -160,7 +162,8 @@ static void update_ui_for_album (AlbumDetails *album)
       album_duration += track->duration;
       gtk_list_store_append (track_store, &iter);
       gtk_list_store_set (track_store, &iter,
-                          COLUMN_NUMBER, track->number, 
+                          COLUMN_EXTRACT, TRUE,
+                          COLUMN_NUMBER, track->number,
                           COLUMN_TITLE, track->title,
                           COLUMN_ARTIST, track->artist,
                           COLUMN_DURATION, track->duration,
@@ -283,7 +286,16 @@ void reread_cd (void)
 
   albums = sj_musicbrainz_list_albums(&error);
   if (error) {
-    g_print (_("Cannot list albums: %s\n"), error->message);
+    GtkWidget *dialog;
+    dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
+                                     GTK_MESSAGE_ERROR,
+                                     GTK_BUTTONS_CLOSE,
+                                     _("<b>Could not read CD</b>\n\n"
+                                       "Sound Juicer could not read the track listing on this CD.\n"
+                                       "Reason: %s"), error->message);
+    gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
+    gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_widget_destroy (dialog);
     g_error_free (error);
     update_ui_for_album (NULL);
     return;
@@ -309,7 +321,7 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
     if (device == NULL) {
 #if 0
       GtkWidget *dialog;
-      dialog = gtk_message_dialog_new (NULL, 0,
+      dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
                                        GTK_MESSAGE_ERROR,
                                        GTK_BUTTONS_CLOSE,
                                        _("<b>No CD-ROMs found</b>\n\n"
@@ -322,7 +334,20 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
     }
   } else {
     device = gconf_value_get_string (entry->value);
-    /* TODO: sanity check device */
+    if (access (device, R_OK) != 0) {
+      GtkWidget *dialog;
+      dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
+                                       GTK_MESSAGE_ERROR,
+                                       GTK_BUTTONS_CLOSE,
+                                       _("<b>Could not access CD-ROM</b>\n\n"
+                                         "Sound Juicer could not access the CD-ROM device '%s'.\n"
+                                         "Reason: %s"), device, strerror (errno));
+      gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
+      gtk_dialog_run (GTK_DIALOG (dialog));
+      gtk_widget_destroy (dialog);
+      /* Set a null device */
+      device = NULL;
+    }
   }
   sj_musicbrainz_set_cdrom (device);
   sj_extractor_set_device (extractor, device);
@@ -377,8 +402,6 @@ static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
 
 int main (int argc, char **argv)
 {
-  GError *err = NULL;
-
   bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
@@ -394,19 +417,11 @@ int main (int argc, char **argv)
 
   extractor = SJ_EXTRACTOR (sj_extractor_new());
 
-  gconf_init (argc, argv, &err);
-  if (err != NULL || (gconf_client = gconf_client_get_default ()) == NULL)
-    {
-      char *str;
-      
-      str = g_strdup_printf (_("Sound-Juicer couln't initialise the \n"
-			       "configuration engine:\n%s"),
-			     err->message);
-      g_error_free (err);
-      g_free (str);
-      exit (1);
-    }
-
+  gconf_client = gconf_client_get_default ();
+  if (gconf_client == NULL) {
+    g_print (_("Could not create GConf client.\n"));
+    exit (1);
+  }
 
   gconf_client_add_dir (gconf_client, GCONF_ROOT, GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
   gconf_client_notify_add (gconf_client, GCONF_DEVICE, device_changed_cb, NULL, NULL, NULL);
@@ -419,6 +434,9 @@ int main (int argc, char **argv)
   glade_xml_signal_autoconnect (glade);
 
   main_window = glade_xml_get_widget (glade, "main_window");
+  /* TODO: weird. Need this here so that the icon is displayed when an
+     error dialog pops up first. */
+  gtk_widget_realize (main_window);
   gtk_window_set_icon_from_file (GTK_WINDOW (main_window), PIXMAPDIR"/sound-juicer.png", NULL);
 
   select_all_menuitem = glade_xml_get_widget (glade, "select_all");

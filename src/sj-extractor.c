@@ -243,7 +243,7 @@ static gboolean tick_timeout_cb(SjExtractor *extractor)
   }
 
   if (!gst_pad_query (extractor->priv->source_pad, GST_QUERY_POSITION, &format, &nanos)) {
-    g_print ("pad_query failed!\n");
+    g_warning (_("Could not get current track position"));
     return TRUE;
   }
 
@@ -327,7 +327,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   }
 
   if (!gst_pad_query (priv->source_pad, GST_QUERY_POSITION, &format, &nanos)) {
-    g_print ("pad_query failed!\n");
+    g_warning (_("Could not get track start position"));
     return;
   }
   priv->track_start = nanos / GST_SECOND;

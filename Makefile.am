@@ -1,4 +1,4 @@
-SUBDIRS = data src tests
+SUBDIRS = po data src tests
 
 INTLTOOL_BUILT = \
         intltool-extract \
@@ -10,3 +10,5 @@ EXTRA_DIST = \
 	$(INTLTOOL_BUILT:=.in)
 
 CLEANFILES = $(INTLTOOL_BUILT)
+
+DISTCLEANFILES = po/.intltool-merge-cache

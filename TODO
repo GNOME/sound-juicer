@@ -1,9 +1,3 @@
-Create a GConf schema file.
-
-I'd like to be able to check for cdparanoia, vorbisenc, etc GST
-plugins at configure time. Get the m4 macro to do this from
-gst-plugins.
-
 Do a CD lookup using gnome-media's CDDB library
 
 GObjectify the CD lookup code.
@@ -18,7 +12,32 @@ For the future, add a button to submit the current titles
 Play/stop track. Not a full CD player, but simple play/stop should be
 enough.
 
+Maybe add a button to start the users CD player (as determined by
+magicdev?)
+
 SjExtractor's constructor wants to return a GError if it fails. How do
 I do this with GObject?
 
 Watch the CD drive so the UI updates when a disk is inserted/removed.
+
+Now I do the sensible thing and select all tracks by default, do I need Select All?
+
+Depend on gstreamer 0.6.1
+
+UI to set base path
+
+UI to set filename format
+
+Handle libmusicbrainz 2.0.0 by looking for the headers manually.
+
+See if I use the new features of libmusicbrainz 2, or if 1.10 is enough.
+
+Write some user documentation.
+
+Remove every g_print and replace with groovy dialogs.
+
+Find out why when an error dialog pops up before the main window, I get:
+  (sound-juicer:28417): Gtk-CRITICAL **: file gtkwindow.c: line 2426
+  (gtk_window_realize_icon): assertion `info->icon_pixmap == NULL'
+  failed
+when the main window appears unless I can gtk_widget_realize(main_window) first?

@@ -254,7 +254,7 @@ if $want_gettext; then
     require_m4macro gettext.m4
 fi
 
-if $want_glib_gettextize; then
+if $want_glib_gettext; then
     version_check glib-gettext GLIB_GETTEXTIZE glib-gettextize $REQUIRED_GLIB_GETTEXT_VERSION \
         "ftp://ftp.gtk.org/pub/gtk/v2.2/glib-$REQUIRED_GLIB_GETTEXT_VERSION.tar.gz" || DIE=1
     require_m4macro glib-gettext.m4
