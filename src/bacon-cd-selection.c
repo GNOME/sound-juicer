@@ -20,10 +20,33 @@
  * Authors: Bastien Nocera <hadess@hadess.net>
  */
 
-#include <config.h>
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
 
 #include <string.h>
+#ifndef HAVE_GTK_ONLY
 #include <gnome.h>
+#else
+#include <gtk/gtkmenu.h>
+#include <gtk/gtkoptionmenu.h>
+#include <gtk/gtkmenuitem.h>
+#endif /* !HAVE_GTK_ONLY */
+
+#ifdef HAVE_GTK_ONLY
+#ifdef ENABLE_NLS
+#include <libintl.h>
+#define _(String) dgettext(GETTEXT_PACKAGE,String)
+#ifdef gettext_noop
+#define N_(String) gettext_noop(String)
+#else
+#define N_(String) (String)
+#endif /* gettext_noop */
+#else
+#define _(String) (String)
+#define N_(String) (String)
+#endif /* ENABLE_NLS */
+#endif /* HAVE_GTK_ONLY */
 
 #include "bacon-cd-selection.h"
 #include "cd-drive.h"
@@ -38,14 +61,12 @@ enum {
 enum {
 	PROP_0,
 	PROP_DEVICE,
-	PROP_RECORDERS_ONLY,
 };
 
 struct BaconCdSelectionPrivate {
 	gboolean is_entry;
 	GtkWidget *widget;
 	GList *cdroms;
-	gboolean recorders_only;
 };
 
 
@@ -60,10 +81,6 @@ static void bacon_cd_selection_get_property (GObject *object, guint property_id,
 static void bacon_cd_selection_realize (GtkWidget *widget);
 static void bacon_cd_selection_unrealize (GtkWidget *widget);
 static void bacon_cd_selection_finalize (GObject *object);
-
-static void on_combo_entry_changed (GnomeFileEntry *entry, gpointer user_data);
-static GtkWidget * cdrom_option_menu (BaconCdSelection *bcs);
-static void option_menu_device_changed (GtkOptionMenu *option_menu, gpointer user_data);
 
 static GtkWidgetClass *parent_class = NULL;
 
@@ -133,11 +150,7 @@ bacon_cd_selection_class_init (BaconCdSelectionClass *klass)
 	/* Properties */
 	g_object_class_install_property (object_class, PROP_DEVICE,
 			g_param_spec_string ("device", NULL, NULL,
-				NULL, G_PARAM_READWRITE));
-
-	g_object_class_install_property (object_class, PROP_RECORDERS_ONLY,
-			g_param_spec_boolean ("recorders-only", NULL, NULL,
-				FALSE, G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+				FALSE, G_PARAM_READWRITE));
 
 	/* Signals */
 	bcs_table_signals[DEVICE_CHANGED] =
@@ -163,33 +176,6 @@ bacon_cd_selection_instance_init (BaconCdSelection *bcs)
 #endif
 
 	bcs->priv->cdroms = NULL;
-
-	if (bcs->priv->is_entry)
-	{
-		bcs->priv->widget = gnome_file_entry_new (NULL,
-					_("Select the drive"));
-		g_signal_connect (G_OBJECT (bcs->priv->widget), "changed",
-				G_CALLBACK (on_combo_entry_changed), bcs);
-
-		gtk_box_pack_start (GTK_BOX (bcs),
-				bcs->priv->widget,
-				TRUE,       /* expand */
-				TRUE,       /* fill */
-				0);         /* padding */
-	} else {
-		bcs->priv->widget = cdrom_option_menu (bcs);
-
-		g_signal_connect (bcs->priv->widget, "changed",
-				(GCallback)option_menu_device_changed, bcs);
-
-		gtk_box_pack_start (GTK_BOX (bcs),
-				bcs->priv->widget,
-				TRUE,       /* expand */
-				TRUE,       /* fill */
-				0);         /* padding */
-	}
-
-	gtk_widget_show_all (bcs->priv->widget);
 }
 
 static void
@@ -254,7 +240,7 @@ cdrom_option_menu (BaconCdSelection *bcs)
 	GtkWidget *option_menu, *menu, *item;
 	CDDrive *cdrom;
 
-	bcs->priv->cdroms = scan_for_cdroms (bcs->priv->recorders_only, FALSE);
+	bcs->priv->cdroms = scan_for_cdroms (FALSE, FALSE);
 
 	menu = gtk_menu_new();
 	gtk_widget_show(menu);
@@ -282,6 +268,7 @@ cdrom_option_menu (BaconCdSelection *bcs)
 	return option_menu;
 }
 
+#ifndef HAVE_GTK_ONLY
 static void
 on_combo_entry_changed (GnomeFileEntry *entry, gpointer user_data)
 {
@@ -296,26 +283,51 @@ on_combo_entry_changed (GnomeFileEntry *entry, gpointer user_data)
 			bcs_table_signals[DEVICE_CHANGED],
 			0, str);
 }
+#endif /* !HAVE_GTK_ONLY */
 
-/**
- * Create a new CD selection.
- * This simply calls #bacon_cd_selection_new_with_drives (FALSE).
- */
 GtkWidget *
 bacon_cd_selection_new (void)
 {
-	return GTK_WIDGET (g_object_new (bacon_cd_selection_get_type (), NULL));
-}
+	GtkWidget *widget;
+	BaconCdSelection *bcs;
 
-/**
- * Create a new CD selection.
- */
-GtkWidget *
-bacon_cd_selection_new_with_drives (gboolean recorders_only)
-{
-	return GTK_WIDGET (g_object_new (bacon_cd_selection_get_type (),
-					 "recorders-only", recorders_only,
-					 NULL));
+	widget = GTK_WIDGET
+		(g_object_new (bacon_cd_selection_get_type (), NULL));
+	bcs = BACON_CD_SELECTION (widget);
+
+#ifndef HAVE_GTK_ONLY
+	if (bcs->priv->is_entry)
+	{
+		bcs->priv->widget = gnome_file_entry_new (NULL,
+					_("Select the drive"));
+		g_object_set (G_OBJECT (bcs->priv->widget),
+				"use_filechooser", TRUE, NULL);
+		g_signal_connect (G_OBJECT (bcs->priv->widget), "changed",
+				G_CALLBACK (on_combo_entry_changed), bcs);
+
+		gtk_box_pack_start (GTK_BOX (widget),
+				bcs->priv->widget,
+				TRUE,       /* expand */
+				TRUE,       /* fill */
+				0);         /* padding */
+	} else
+#endif /* !HAVE_GTK_ONLY */
+	{
+		bcs->priv->widget = cdrom_option_menu (bcs);
+
+		g_signal_connect (bcs->priv->widget, "changed",
+				(GCallback)option_menu_device_changed, bcs);
+
+		gtk_box_pack_start (GTK_BOX (widget),
+				bcs->priv->widget,
+				TRUE,       /* expand */
+				TRUE,       /* fill */
+				0);         /* padding */
+	}
+
+	gtk_widget_show_all (bcs->priv->widget);
+
+	return widget;
 }
 
 /* Properties */
@@ -333,9 +345,6 @@ bacon_cd_selection_set_property (GObject *object, guint property_id,
 	{
 	case PROP_DEVICE:
 		bacon_cd_selection_set_device (bcs, g_value_get_string (value));
-		break;
-	case PROP_RECORDERS_ONLY:
-		bcs->priv->recorders_only = g_value_get_boolean (value);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -356,9 +365,6 @@ bacon_cd_selection_get_property (GObject *object, guint property_id,
 	{
 	case PROP_DEVICE:
 		g_value_set_string (value, bacon_cd_selection_get_device (bcs));
-		break;
-	case PROP_RECORDERS_ONLY:
-		g_value_set_boolean (value, bcs->priv->recorders_only);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -383,7 +389,6 @@ bacon_cd_selection_get_default_device (BaconCdSelection *bcs)
 void
 bacon_cd_selection_set_device (BaconCdSelection *bcs, const char *device)
 {
-	GtkWidget *entry;
 	GList *l;
 	CDDrive *drive;
 	gboolean found;
@@ -392,12 +397,17 @@ bacon_cd_selection_set_device (BaconCdSelection *bcs, const char *device)
 	g_return_if_fail (bcs != NULL);
 	g_return_if_fail (BACON_IS_CD_SELECTION (bcs));
 
-	if (bcs->priv->is_entry == TRUE)
+#ifndef HAVE_GTK_ONLY
+	if (bcs->priv->is_entry != FALSE)
 	{
+		GtkWidget *entry;
+
 		entry = gnome_file_entry_gtk_entry
 			(GNOME_FILE_ENTRY (bcs->priv->widget));
 		gtk_entry_set_text (GTK_ENTRY (entry), device);
-	} else {
+	} else
+#endif /* !HAVE_GTK_ONLY */
+	{
 		i = -1;
 		found = FALSE;
 
@@ -438,19 +448,23 @@ bacon_cd_selection_set_device (BaconCdSelection *bcs, const char *device)
 const char *
 bacon_cd_selection_get_device (BaconCdSelection *bcs)
 {
-	GtkWidget *entry;
 	CDDrive *drive;
 	int i;
 
 	g_return_val_if_fail (bcs != NULL, NULL);
 	g_return_val_if_fail (BACON_IS_CD_SELECTION (bcs), NULL);
 
-	if (bcs->priv->is_entry == TRUE)
+#ifndef HAVE_GTK_ONLY
+	if (bcs->priv->is_entry != FALSE)
 	{
+		GtkWidget *entry;
+
 		entry = gnome_file_entry_gtk_entry
 			(GNOME_FILE_ENTRY (bcs->priv->widget));
 		return gtk_entry_get_text (GTK_ENTRY (entry));
-	} else {
+	} else
+#endif /* !HAVE_GTK_ONLY */
+	{
 		i = gtk_option_menu_get_history (GTK_OPTION_MENU
 				(bcs->priv->widget));
 		drive = get_drive (bcs, i);
@@ -470,7 +484,7 @@ bacon_cd_selection_get_cdrom (BaconCdSelection *bcs)
 	g_return_val_if_fail (bcs != NULL, NULL);
 	g_return_val_if_fail (BACON_IS_CD_SELECTION (bcs), NULL);
 
-	if (bcs->priv->is_entry == TRUE)
+	if (bcs->priv->is_entry != FALSE)
 	{
 		return NULL;
 	} else {

@@ -21,7 +21,7 @@
 #ifndef HAVE_BACON_CD_SELECTION_H
 #define HAVE_BACON_CD_SELECTION_H
 
-#include <gtk/gtkwidget.h>
+#include <gtk/gtkvbox.h>
 #include <cd-drive.h>
 
 G_BEGIN_DECLS
@@ -45,7 +45,6 @@ typedef struct {
 
 GtkType bacon_cd_selection_get_type              (void);
 GtkWidget *bacon_cd_selection_new                (void);
-GtkWidget *bacon_cd_selection_new_with_drives    (gboolean recorders_only);
 
 void bacon_cd_selection_set_device		 (BaconCdSelection *bcs,
 						  const char *device);
