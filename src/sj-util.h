@@ -25,7 +25,10 @@
 
 #include <sys/types.h>
 #include <glib/gerror.h>
+#include <gtk/gtkwindow.h>
 
 void mkdir_recursive (const char *path, mode_t permission_bits, GError **error);
+
+void eject_cdrom (const char* device, GtkWindow *parent);
 
 #endif /* SJ_UTIL_H */

@@ -25,6 +25,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <glib/gutils.h>
+#include <glib/gstrfuncs.h>
 #include <libgnome/gnome-i18n.h>
 #include "sj-error.h"
 #include "sj-util.h"
@@ -60,7 +61,7 @@ mkdir_recursive (const char *path, mode_t permission_bits, GError **error)
         g_free (current_path);
         g_set_error (error,
                      SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-                     _("Could not create directory %s: %s"), path, strerror (errno));
+                     _("Could not create directory %s: %s"), path, g_strerror (errno));
         return;
       }
       g_free (current_path);
@@ -68,6 +69,56 @@ mkdir_recursive (const char *path, mode_t permission_bits, GError **error)
     if (!*dir_separator_scanner) {
       break;
     }	
+  }
+  return;
+}
+
+/*
+ * Totally linux-centric. Non-linux people send patches! :)
+ */
+#include <fcntl.h>
+#include <sys/ioctl.h>
+#include <linux/cdrom.h>
+#include <gtk/gtkmessagedialog.h>
+#include <gtk/gtklabel.h>
+
+/**
+ * Eject a CD-ROM, displaying any errors in a dialog.
+ */
+void
+eject_cdrom (const char* device, GtkWindow *parent)
+{
+  int fd, result;
+  g_return_if_fail (device != NULL);
+  fd = open (device, O_RDONLY | O_NONBLOCK);
+  if (fd == -1) {
+    GtkWidget *dialog;
+    dialog = gtk_message_dialog_new (GTK_WINDOW (parent), GTK_DIALOG_MODAL,
+                                     GTK_MESSAGE_ERROR,
+                                     GTK_BUTTONS_CLOSE,
+                                     g_strdup_printf ("<b>%s</b>\n\n%s: %s",
+                                                      _("Could not eject the CD"),
+                                                      _("Reason"),
+                                                      g_strerror (errno)));
+    gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
+    gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_widget_destroy (dialog);
+    return;
+  }
+  result = ioctl (fd, CDROMEJECT);
+  if (result == -1) {
+    GtkWidget *dialog;
+    dialog = gtk_message_dialog_new (GTK_WINDOW (parent), GTK_DIALOG_MODAL,
+                                     GTK_MESSAGE_ERROR,
+                                     GTK_BUTTONS_CLOSE,
+                                     g_strdup_printf ("<b>%s</b>\n\n%s: %s",
+                                                      _("Could not eject the CD"),
+                                                      _("Reason"),
+                                                      g_strerror (errno)));
+    gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
+    gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_widget_destroy (dialog);
+    return;
   }
   return;
 }
