@@ -23,6 +23,7 @@
 #include "sound-juicer.h"
 
 #include <libgnomeui/gnome-about.h>
+#include <string.h>
 
 void on_about_activate (void)
 {
@@ -37,7 +38,11 @@ void on_about_activate (void)
     "Mike Hearn <mike@theoretic.com>",
     NULL
   };
-  const gchar *translator_credits = NULL;
+  /*
+   * Note to translators: put here your name and email so it will show
+   * up in the "about" box
+   */
+  gchar *translator_credits = _("translator_credits");
   
   if (win != NULL) {
     gtk_window_present (GTK_WINDOW (win));
@@ -50,7 +55,10 @@ void on_about_activate (void)
   win = gnome_about_new (_("Sound Juicer"), VERSION,
                          "Copyright \xc2\xa9 2003 Ross Burton",
                          _("A CD Ripper"),
-                         authors, documentors, translator_credits, pixbuf);
+                         authors,
+                         documentors,
+                         strcmp (translator_credits, "translator_credits") != 0 ? translator_credits : NULL,
+                         pixbuf);
   gtk_window_set_icon_from_file (GTK_WINDOW (win), PIXMAPDIR"/sound-juicer.png", NULL);
   gtk_window_set_transient_for (GTK_WINDOW (win), GTK_WINDOW (main_window));
   gtk_window_set_destroy_with_parent (GTK_WINDOW (win), TRUE);
