@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-14 15:02+0300\n"
-"PO-Revision-Date: 2004-09-14 15:02+0300\n"
+"POT-Creation-Date: 2004-09-29 14:20+0300\n"
+"PO-Revision-Date: 2004-09-29 14:22+0300\n"
 "Last-Translator: Tommi Vainikainen <Tommi.Vainikainen@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -239,10 +239,14 @@ msgstr ""
 "poistetaan tulostetiedoston nimestä."
 
 #: data/sound-juicer.schemas.in.h:6
+msgid "If specified, this value will override the default MusicBrainz server."
+msgstr "Jos määritetty niin tämä arvo korvaa MusicBrainz-oletuspalvelimen."
+
+#: data/sound-juicer.schemas.in.h:7
 msgid "If to strip special characters from filenames"
 msgstr "Jos niin tiedostonimistä poistetaan erikoismerkit"
 
-#: data/sound-juicer.schemas.in.h:7
+#: data/sound-juicer.schemas.in.h:8
 msgid ""
 "Paranoia mode, 3 settings: 0 (no paranoia), 4 (cdda2wav-style overlap "
 "checking) and 255 (full paranoia)"
@@ -250,32 +254,36 @@ msgstr ""
 "Paranoia-tapa, 3 vaihtoehtoa: 0 (ei vainoharhaisuutta), 4 (cdd2wav-tyylinen "
 "limittäisyyden tarkistus) ja 255 (täysin vainoharhainen)"
 
-#: data/sound-juicer.schemas.in.h:8
+#: data/sound-juicer.schemas.in.h:9
+msgid "The MusicBrainz server to use"
+msgstr "Käytettävä MusicBrainz-palvelin"
+
+#: data/sound-juicer.schemas.in.h:10
 msgid "The directory structure for the files"
 msgstr "Hakemistorakenne tiedostoille"
 
-#: data/sound-juicer.schemas.in.h:9
+#: data/sound-juicer.schemas.in.h:11
 msgid "The name pattern for files"
 msgstr "Nimikaava tiedostoille"
 
-#: data/sound-juicer.schemas.in.h:10
+#: data/sound-juicer.schemas.in.h:12
 msgid "The paranoia mode to use"
 msgstr "Käytettävä paranoia-tapa"
 
-#: data/sound-juicer.schemas.in.h:11
+#: data/sound-juicer.schemas.in.h:13
 msgid "Whether to eject the CD when finished extracting."
 msgstr "Poista CD-levy kopioinnin päätyttyä."
 
-#: src/bacon-cd-selection.c:187
+#: src/bacon-cd-selection.c:200
 msgid "Unnamed CDROM"
 msgstr "Nimetön CD-ROM"
 
-#: src/cd-drive.c:744
+#: src/cd-drive.c:837
 #, c-format
 msgid "Unnamed SCSI Drive (%s)"
 msgstr "Nimetön SCSI-asema (%s)"
 
-#: src/cd-drive.c:1304
+#: src/cd-drive.c:1397
 msgid "File image"
 msgstr "Tiedostokuva"
 
@@ -746,7 +754,7 @@ msgstr "(tuntematon)"
 msgid "Title"
 msgstr "Kappale"
 
-#: src/sj-main.c:302 src/sj-main.c:1014
+#: src/sj-main.c:302 src/sj-main.c:1015
 msgid "Artist"
 msgstr "Esittäjä"
 
@@ -814,33 +822,33 @@ msgstr "Kopioi"
 msgid "Track"
 msgstr "Raita"
 
-#: src/sj-main.c:1024
+#: src/sj-main.c:1026
 msgid "Duration"
 msgstr "Kesto"
 
-#: src/sj-metadata-musicbrainz.c:86
+#: src/sj-metadata-musicbrainz.c:89
 msgid "Cannot create MusicBrainz client"
 msgstr "MusicBrainz-asiakasta ei voi luoda"
 
-#: src/sj-metadata-musicbrainz.c:179 src/sj-metadata-musicbrainz.c:301
+#: src/sj-metadata-musicbrainz.c:194 src/sj-metadata-musicbrainz.c:316
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "CD:tä ei voi lukea: %s"
 
-#: src/sj-metadata-musicbrainz.c:186
+#: src/sj-metadata-musicbrainz.c:201
 msgid "Unknown Artist"
 msgstr "Tuntematon esittäjä"
 
-#: src/sj-metadata-musicbrainz.c:187
+#: src/sj-metadata-musicbrainz.c:202
 msgid "Unknown Title"
 msgstr "Tuntematon kappale"
 
-#: src/sj-metadata-musicbrainz.c:192
+#: src/sj-metadata-musicbrainz.c:207
 #, c-format
 msgid "Track %d"
 msgstr "Raita %d"
 
-#: src/sj-metadata-musicbrainz.c:221
+#: src/sj-metadata-musicbrainz.c:236
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
@@ -848,31 +856,31 @@ msgstr ""
 "MusicBrainz-metadata-objekti on virheellinen. Tämä ei näytä hyvältä, "
 "tarkista päätteeltäsi virheet."
 
-#: src/sj-metadata-musicbrainz.c:295
+#: src/sj-metadata-musicbrainz.c:310
 #, c-format
 msgid "Device '%s' does not contain a media"
 msgstr "Laite \"%s\" ei sisällä mediaa"
 
-#: src/sj-metadata-musicbrainz.c:298
+#: src/sj-metadata-musicbrainz.c:313
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "Laitetta \"%s\" ei voitu avata. Tarkista laitteen käyttöoikeudet."
 
-#: src/sj-metadata-musicbrainz.c:311
+#: src/sj-metadata-musicbrainz.c:326
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "Tätä CD:tä ei voitu kysyä: %s\n"
 
-#: src/sj-metadata-musicbrainz.c:319
+#: src/sj-metadata-musicbrainz.c:334
 msgid "This CD was not found.\n"
 msgstr "Tätä CD:tä ei löytynyt.\n"
 
-#: src/sj-metadata-musicbrainz.c:340
+#: src/sj-metadata-musicbrainz.c:355
 msgid "Various"
 msgstr "Useita"
 
-#: src/sj-metadata-musicbrainz.c:414
+#: src/sj-metadata-musicbrainz.c:429
 msgid "Could not create CD lookup thread"
 msgstr "CD-hakusäiettä ei voitu luoda"
 
