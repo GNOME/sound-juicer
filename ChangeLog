@@ -1,3 +1,25 @@
+2003-06-30  Ross Burton  <ross@burtonini.com>
+
+	* src/sj-extractor.c:
+	Free the old pipeline.
+
+2003-06-29  Bastien Nocera  <hadess@hadess.net>
+
+	* configure.in:
+	Removed build-time checks for MP3 encoders.
+
+	* src/sj-extractor.c:
+	Do a run-time check on the MPEG encoder.
+	
+	* src/sound-juicer.h: added a define for the use_http_proxy entryy
+	* src/sj-main.c:
+	Fix the proxy settings not being used for the first time, fix
+	use_http_proxy being ignored.
+	
+	* src/sj-musicbrainz.c:
+	Fix disabling proxies the settings, added an error message in
+	sj_musicbrainz_list_albums().
+
 2003-06-29  Christophe Merlet  <redfox@redfoxcenter.org>
 
 	* configure.in: Added fr to ALL_LINGUAS.

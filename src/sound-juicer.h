@@ -110,6 +110,7 @@ extern gboolean strip_chars;
 #define GCONF_STRIP GCONF_ROOT "/strip-special"
 
 #define GCONF_PROXY_ROOT "/system/http_proxy"
+#define GCONF_HTTP_PROXY_ENABLE GCONF_PROXY_ROOT "/use_http_proxy"
 #define GCONF_HTTP_PROXY GCONF_PROXY_ROOT "/host"
 #define GCONF_HTTP_PROXY_PORT GCONF_PROXY_ROOT "/port"
 

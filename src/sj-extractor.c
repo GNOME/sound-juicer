@@ -71,6 +71,7 @@ struct SjExtractorPrivate {
   GstElement *cdparanoia, *encoder, *filesink;
   GstFormat track_format;
   GstPad *source_pad;
+  const char *encoder_name;
   int track_start;
   int seconds;
   const TrackDetails *track_details;
@@ -220,43 +221,35 @@ static const char* get_encoder_name (SjExtractor *extractor)
   SjExtractorPrivate *priv;
   g_return_val_if_fail (SJ_IS_EXTRACTOR (extractor), NULL);
   priv = (SjExtractorPrivate*)extractor->priv;
-  switch (priv->format) {
-  case VORBIS:
-    return "vorbisenc";
-  case MPEG:
-#if HAVE_LAME
-    return "lame";
-#elif HAVE_MPEGAUDIO
-    return "mpegaudio";
-#else
-    g_warning (_("MPEG encoder not available"));
-    return NULL;
-#endif
-  case FLAC:
-    return "flacenc";
-  case WAVE:
-    return "wavenc";
-  default:
-    g_return_val_if_reached (NULL);
-  }
+  return priv->encoder_name;
 }
 
 static GstElement* build_encoder (SjExtractor *extractor)
 {
   SjExtractorPrivate *priv;
-  GstElement *element;
+  GstElement *element = NULL;
   g_return_val_if_fail (SJ_IS_EXTRACTOR (extractor), NULL);
   priv = (SjExtractorPrivate*)extractor->priv;
-  element = gst_element_factory_make (get_encoder_name (extractor), "encoder");
   switch (priv->format) {
   case VORBIS:
+    element = gst_element_factory_make ("vorbisenc", "encoder");
     g_object_set (G_OBJECT (element), "quality", 0.6, NULL);
+    priv->encoder_name = "vorbis";
     break;
   case MPEG:
+    element = gst_element_factory_make ("lame", "encoder");
+    if (!element) {
+      element = gst_element_factory_make ("mpegaudio", "encoder");
+      priv->encoder_name = "mpegaudio";
+    } else {
+      priv->encoder_name = "lame";
+    }
     break;
   case FLAC:
+    priv->encoder_name = "flacenc";
     break;
   case WAVE:
+    priv->encoder_name = "wavenc";
     break;
   default:
     g_return_val_if_reached (NULL);
@@ -273,6 +266,9 @@ static void build_pipeline (SjExtractor *extractor)
 
   priv = extractor->priv;
 
+  if (priv->pipeline != NULL) {
+    gst_object_unref (GST_OBJECT (priv->pipeline));
+  }
   priv->pipeline = gst_pipeline_new ("pipeline");
 
   /* Read from CD */
@@ -408,6 +404,12 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   /* See if we need to rebuild the pipeline */
   if (priv->rebuild_pipeline) {
     build_pipeline (extractor);
+    if (priv->construct_error != NULL) {
+      *error = g_error_copy (priv->construct_error);
+      g_error_free (priv->construct_error);
+      priv->construct_error = NULL;
+      return;
+    }
   }
 
   /* Save a pointer to the track details */

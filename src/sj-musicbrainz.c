@@ -69,7 +69,9 @@ void sj_musicbrainz_set_cdrom(const char* device) {
 
 void sj_musicbrainz_set_proxy (const char* proxy) {
   g_return_if_fail (mb != NULL);
-  g_return_if_fail (proxy != NULL);
+  if (!proxy) {
+    proxy = "";
+  }
   if (http_proxy) {
     g_free (http_proxy);
   }
@@ -122,6 +124,8 @@ GList* sj_musicbrainz_list_albums(GError **error) {
   g_return_val_if_fail (mb != NULL, NULL);
 
   if (!mb_Query (mb, MBQ_GetCDInfo)) {
+    mb_GetQueryError (mb, data, 256);
+    g_print(_("This CD could not be queried: %s\n"), data);
     return get_offline_track_listing (mb, error);
   }
 

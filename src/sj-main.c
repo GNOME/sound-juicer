@@ -470,16 +470,41 @@ void format_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
   g_free (value);
 }
 
+void
+http_proxy_setup (GConfClient *client)
+{
+  if (!gconf_client_get_bool (client, GCONF_HTTP_PROXY_ENABLE, NULL))
+  {
+    sj_musicbrainz_set_proxy (NULL);
+  } else {
+    const char *host;
+    int port;
+
+    host = gconf_client_get_string (client, GCONF_HTTP_PROXY, NULL);
+    sj_musicbrainz_set_proxy (host);
+    port = gconf_client_get_int (client, GCONF_HTTP_PROXY_PORT, NULL);
+    sj_musicbrainz_set_proxy_port (port);
+  }
+}
+
+/**
+ * The GConf key for the HTTP proxy being enabled changed.
+ */
+void http_proxy_enable_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+{
+  g_assert (strcmp (entry->key, GCONF_HTTP_PROXY_ENABLE) == 0);
+  if (entry->value == NULL) return;
+  http_proxy_setup (client);
+}
+
 /**
  * The GConf key for the HTTP proxy changed.
  */
 void http_proxy_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
-  const char* value;
   g_assert (strcmp (entry->key, GCONF_HTTP_PROXY) == 0);
   if (entry->value == NULL) return;
-  value = gconf_value_get_string (entry->value);
-  sj_musicbrainz_set_proxy (value);
+  http_proxy_setup (client);
 }
 
 /**
@@ -487,11 +512,9 @@ void http_proxy_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entr
  */
 void http_proxy_port_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
-  int value;
   g_assert (strcmp (entry->key, GCONF_HTTP_PROXY_PORT) == 0);
   if (entry->value == NULL) return;
-  value = gconf_value_get_int (entry->value);
-  sj_musicbrainz_set_proxy_port (value);
+  http_proxy_setup (client);
 }
 
 /**
@@ -605,6 +628,7 @@ int main (int argc, char **argv)
   gconf_client_notify_add (gconf_client, GCONF_PATH_PATTERN, path_pattern_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_FILE_PATTERN, file_pattern_changed_cb, NULL, NULL, NULL);
   gconf_client_add_dir (gconf_client, GCONF_PROXY_ROOT, GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
+  gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY_ENABLE, http_proxy_enable_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY, http_proxy_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY_PORT, http_proxy_port_changed_cb, NULL, NULL, NULL);
 
@@ -681,6 +705,7 @@ int main (int argc, char **argv)
   }
 
   /* YUCK. As bad as Baldrick's trousers */
+  http_proxy_setup (gconf_client);
   basepath_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEPATH, NULL, TRUE, NULL), NULL);
   path_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL), NULL);
   file_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL), NULL);
@@ -688,8 +713,6 @@ int main (int argc, char **argv)
   format_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FORMAT, NULL, TRUE, NULL), NULL);
   paranoia_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PARANOIA, NULL, TRUE, NULL), NULL);
   strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);
-  http_proxy_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_HTTP_PROXY, NULL, TRUE, NULL), NULL);
-  http_proxy_port_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_HTTP_PROXY_PORT, NULL, TRUE, NULL), NULL);
 
   gtk_widget_show_all (main_window);
   gtk_main ();
