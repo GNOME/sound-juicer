@@ -210,6 +210,51 @@ bail:
 }
 
 extern "C"
+int get_disc_status (int fd, int *empty, int *is_rewritable)
+{
+  Scsi_Command cmd(fd);
+  int retval = -1;
+  unsigned char page[32];
+  unsigned char *sense=cmd.sense();
+  int i;
+
+  *empty = 0;
+  *is_rewritable = 0;
+
+  /* For valgrind */
+  memset (&page, 0, sizeof (page));
+
+  cmd[0]=0x51;
+  cmd[8]=32;
+  cmd[9]=0;
+  if (cmd.transport(READ,page,32))
+  {     
+    if (((sense[2]&0xF) == 2) && 
+	(sense[12] == 0x3a)) {
+      /* MEDIUM NOT PRESENT */
+      *empty = 1;
+      return 0;
+    }
+
+    /*if (sense[0]==0) perror("Unable to ioctl");
+    else             fprintf(stderr,"READ DISC INFORMATION failed with "
+			     "SK=%xh/ASC=%02xh/ASCQ=%02xh\n",
+			     sense[2]&0xF,sense[12],sense[13]); */
+    goto bail;
+  }
+  
+  *is_rewritable = (page[2] & 0x10) != 0;
+
+  return 0;
+
+bail:
+
+  return retval;
+
+}
+
+
+extern "C"
 int get_disc_size_cd (int fd)
 {
   Scsi_Command cmd(fd);

@@ -196,6 +196,7 @@ int get_mmc_profile (int fd);
 int get_disc_size_cd (int fd);
 gint64 get_disc_size_dvd (int fd, int mmc_profile);
 int get_read_write_speed (int fd, int *read_speed, int *write_speed);
+int get_disc_status (int fd, int *empty, int *is_rewritable);
 
 
 static void
@@ -227,7 +228,6 @@ cd_drive_door_open (gboolean mmc_profile, int fd)
 		int status;
 
 		status = ioctl (fd, CDROM_DRIVE_STATUS, CDSL_CURRENT);
-		close (fd);
 		if (status < 0) {
 			return FALSE;
 		}
@@ -243,15 +243,13 @@ cd_drive_door_open (gboolean mmc_profile, int fd)
 #endif
 }
 
-CDMediaType
-cd_drive_get_media_type_from_path (const char *device)
+static CDMediaType
+cd_drive_get_media_type_from_path_full (const char *device, gboolean *is_rewritable)
 {
 	int fd;
 	int mmc_profile;
 
 	g_return_val_if_fail (device != NULL, CD_MEDIA_TYPE_ERROR);
-
-	/* FIXME get media type from HAL if it's there BZ 145196 */
 
 	fd = open (device, O_RDONLY|O_EXCL|O_NONBLOCK);
 	if (fd < 0) {
@@ -264,15 +262,25 @@ cd_drive_get_media_type_from_path (const char *device)
 	mmc_profile = get_mmc_profile (fd);
 
 	/* Couldn't get the data about the media */
-	if (mmc_profile <= 0) {
+	if (mmc_profile < 0) {
 		gboolean opened;
 
 		opened = cd_drive_door_open (mmc_profile, fd);
-		close (fd);
 
 		if (opened != FALSE) {
+			close (fd);
 			return CD_MEDIA_TYPE_ERROR;
 		} else {
+			int rewrite, empty;
+			if (get_disc_status (fd, &empty, &rewrite) == 0) {
+				close (fd);
+				*is_rewritable = rewrite;
+				if (empty)
+					return CD_MEDIA_TYPE_ERROR;
+				else
+					return CD_MEDIA_TYPE_UNKNOWN;
+			}
+			close (fd);
 			return CD_MEDIA_TYPE_UNKNOWN;
 		}
 	}
@@ -282,11 +290,14 @@ cd_drive_get_media_type_from_path (const char *device)
 	switch (mmc_profile) {
 	case -1:
 		g_assert_not_reached ();
+	case 0:		/* No Media */
+		return CD_MEDIA_TYPE_ERROR;
 	case 0x8:	/* Commercial CDs and Audio CD	*/
 		return CD_MEDIA_TYPE_CD;
 	case 0x9:	/* CD-R                         */
 		return CD_MEDIA_TYPE_CDR;
 	case 0xa:	/* CD-RW			*/
+		*is_rewritable = TRUE;
 		return CD_MEDIA_TYPE_CDRW;
 	case 0x10:	/* Commercial DVDs		*/
 		return CD_MEDIA_TYPE_DVD;
@@ -294,10 +305,12 @@ cd_drive_get_media_type_from_path (const char *device)
 		return CD_MEDIA_TYPE_DVDR;
 	case 0x13:      /* DVD-RW Restricted Overwrite  */
 	case 0x14:      /* DVD-RW Sequential            */
+		*is_rewritable = TRUE;
 		return CD_MEDIA_TYPE_DVDRW;
 	case 0x1B:      /* DVD+R                        */
 		return CD_MEDIA_TYPE_DVD_PLUS_R;
 	case 0x1A:      /* DVD+RW                       */
+		*is_rewritable = TRUE;
 		return CD_MEDIA_TYPE_DVD_PLUS_RW;
 	case 0x12:      /* DVD-RAM                      */
 		return CD_MEDIA_TYPE_DVD_RAM;
@@ -306,12 +319,108 @@ cd_drive_get_media_type_from_path (const char *device)
 	}
 }
 
+
+CDMediaType
+cd_drive_get_media_type_from_path (const char *device)
+{
+	gboolean is_rewritable;
+	
+	return cd_drive_get_media_type_from_path_full (device, &is_rewritable);
+}
+
+
 CDMediaType
 cd_drive_get_media_type (CDDrive *cdrom)
 {
+	gboolean is_rewritable;
+	
+	return cd_drive_get_media_type_and_rewritable (cdrom, &is_rewritable);
+}
+
+CDMediaType
+cd_drive_get_media_type_and_rewritable (CDDrive *cdrom, gboolean *is_rewritable)
+{
 	g_return_val_if_fail (cdrom != NULL, CD_MEDIA_TYPE_ERROR);
 
-	return cd_drive_get_media_type_from_path (cdrom->device);
+	*is_rewritable = FALSE;
+
+#ifdef USE_HAL
+	if (cdrom->priv != NULL && cdrom->priv->udi != NULL) {
+		LibHalContext *ctx;
+		char** device_names;
+		int num_devices;
+		CDMediaType type;
+		char *hal_type;
+		LibHalFunctions hal_functions = {
+			NULL, /* mainloop integration */
+			NULL, /* device_added */
+			NULL, /* device_removed */
+			NULL, /* device_new_capability */
+			NULL, /* property_modified */
+			NULL, /* device_condition */
+		};
+		
+		ctx = hal_initialize (&hal_functions, FALSE);
+		if (ctx != NULL) {
+			device_names = hal_manager_find_device_string_match (ctx, 
+									     "info.parent",
+									     cdrom->priv->udi,
+									     &num_devices);
+			if (num_devices == 0) {
+				return CD_MEDIA_TYPE_ERROR;
+			}
+
+			/* just look at the first child */
+			if (hal_device_get_property_bool (ctx, 
+							  device_names[0],
+							  "volume.is_mounted")) {
+				type = CD_MEDIA_TYPE_BUSY;
+			} else {		    
+				*is_rewritable = hal_device_get_property_bool (ctx, 
+									       device_names[0],
+									       "volume.disc.is_rewritable");
+				type = CD_MEDIA_TYPE_BUSY;
+				hal_type = hal_device_get_property_string (ctx, 
+									   device_names[0],
+									   "volume.disc.type");
+				if (hal_type == NULL || strcmp (hal_type, "unknown") == 0) {
+					type = CD_MEDIA_TYPE_UNKNOWN;
+				} else if (strcmp (hal_type, "cd_rom") == 0) {
+					type = CD_MEDIA_TYPE_CD;
+				} else if (strcmp (hal_type, "cd_r") == 0) {
+					type = CD_MEDIA_TYPE_CDR;
+				} else if (strcmp (hal_type, "cd_rw") == 0) {
+					type = CD_MEDIA_TYPE_CDRW;
+				} else if (strcmp (hal_type, "dvd_rom") == 0) {
+					type = CD_MEDIA_TYPE_DVD;
+				} else if (strcmp (hal_type, "dvd_r") == 0) {
+					type = CD_MEDIA_TYPE_DVDR;
+				} else if (strcmp (hal_type, "dvd_ram") == 0) {
+					type = CD_MEDIA_TYPE_DVD_RAM;
+				} else if (strcmp (hal_type, "dvd_rw") == 0) {
+					type = CD_MEDIA_TYPE_DVDRW;
+				} else if (strcmp (hal_type, "dvd_plus_rw") == 0) {
+					type = CD_MEDIA_TYPE_DVD_PLUS_RW;
+				} else if (strcmp (hal_type, "dvd_plus_r") == 0) {
+					type = CD_MEDIA_TYPE_DVD_PLUS_R;
+				} else {
+					type = CD_MEDIA_TYPE_UNKNOWN;
+				}
+				
+				if (hal_type != NULL)
+					hal_free_string (hal_type);
+			}
+
+			hal_free_string_array (device_names);
+
+			hal_shutdown (ctx);
+
+			return type;
+		}
+	}
+#endif
+
+	return cd_drive_get_media_type_from_path_full (cdrom->device, is_rewritable);
 }
 
 gint64
@@ -474,7 +583,7 @@ hal_scan (gboolean recorder_only)
 		cdrom->priv->udi = g_strdup (device_names[i]);
 	}
 
-	g_strfreev (device_names);
+	hal_free_string_array (device_names);
 	hal_shutdown (ctx);
 
 	cdroms = g_list_reverse (cdroms);

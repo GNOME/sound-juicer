@@ -78,6 +78,7 @@ typedef struct {
 GList *scan_for_cdroms (gboolean recorder_only, gboolean add_image);
 void cd_drive_free (CDDrive *drive);
 CDMediaType cd_drive_get_media_type (CDDrive *drive);
+CDMediaType cd_drive_get_media_type_and_rewritable (CDDrive *drive, gboolean *is_rewritable);
 CDMediaType cd_drive_get_media_type_from_path (const char *device_path);
 gint64 cd_drive_get_media_size (CDDrive *drive);
 gint64 cd_drive_get_media_size_from_path (const char *device_path);
