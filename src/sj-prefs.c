@@ -61,6 +61,7 @@ static FilePattern file_patterns[] = {
   {N_("Track Title"), "%tt"},
   {N_("Track Artist - Track Title"), "%ta - %tt"},
   {N_("Number. Track Artist - Track Title"), "%tN. %ta - %tt"},
+  {N_("Number-Track Artist-Track Title (lowercase)"), "%tN-%tA-%tT"},
   {NULL, NULL}
 };
 
