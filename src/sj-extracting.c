@@ -118,7 +118,7 @@ static gboolean check_for_file (const char* filename)
                                    _("A file called '%s' exists, size %ldK.\nDo you want to skip this track or overwrite it?"),
                                    filename, (unsigned long)(stats.st_size / 1024));
     gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Skip"), GTK_RESPONSE_CANCEL);
-    gtk_dialog_add_button (GTK_DIALOG (dialog), _("Overwrite"), GTK_RESPONSE_ACCEPT);
+    gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Overwrite"), GTK_RESPONSE_ACCEPT);
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_ACCEPT);
     gtk_widget_show_all (dialog);
     ret = gtk_dialog_run (GTK_DIALOG (dialog));
