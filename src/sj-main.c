@@ -840,7 +840,6 @@ void on_artist_edit_changed(GtkEditable *widget, gpointer user_data) {
     gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, COLUMN_DETAILS, &track, -1);
     g_free (track->artist);
     track->artist = g_strdup (current_album->artist);
-    /* TODO: should I g_strdup(->artist) here or does _set do that? */
     gtk_list_store_set (track_store, &iter, COLUMN_ARTIST, track->artist, -1);
   } while (gtk_tree_model_iter_next (GTK_TREE_MODEL(track_store), &iter));
 }
