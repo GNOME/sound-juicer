@@ -208,6 +208,7 @@ void on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
   sj_extractor_cancel_extract(extractor);
   /* Clean up the pending list */
   g_list_free (pending);
+  pending = NULL;
   gtk_widget_hide (progress_dialog);
   gtk_widget_set_sensitive (extract_button, TRUE);
   extracting = FALSE;
@@ -285,6 +286,10 @@ void on_extract_activate (GtkWidget *button, gpointer user_data)
     progress_label = glade_xml_get_widget (glade, "progress_label");
     g_assert (progress_dialog != NULL);
   }
+
+  gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), 0);
+  gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress), 0);
+
   gtk_widget_show_all (progress_dialog);
 
   /* Fill pending with a list of all tracks to rip */

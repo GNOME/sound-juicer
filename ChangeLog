@@ -1,5 +1,12 @@
 2003-09-26  Frederic Crozat  <fcrozat@mandrakesoft.com>
 
+	* src/sj-extracting.c: (on_progress_cancel_clicked),
+	(on_extract_activate):
+	Fix crash when ripping after cancelling.
+	Set progress bar to 0 before showing progress dialog.
+
+2003-09-26  Frederic Crozat  <fcrozat@mandrakesoft.com>
+
 	* src/cd-drive.c: (linux_scan):
 	Fix devfs detection.
 
