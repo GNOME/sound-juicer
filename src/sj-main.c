@@ -34,6 +34,7 @@
 #include <gst/gst.h>
 
 #include "sj-about.h"
+#include "sj-genres.h"
 #include "sj-metadata.h"
 #include "sj-metadata-musicbrainz.h"
 #include "sj-extractor.h"
@@ -53,7 +54,7 @@ SjExtractor *extractor;
 GConfClient *gconf_client;
 
 GtkWidget *main_window;
-static GtkWidget *title_entry, *artist_entry, *duration_label;
+static GtkWidget *title_entry, *artist_entry, *duration_label, *genre_combo;
 static GtkWidget *track_listview, *extract_button;
 static GtkWidget *status_bar;
 static GtkWidget *extract_menuitem, *select_all_menuitem, *deselect_all_menuitem;
@@ -210,6 +211,7 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_label_set_text (GTK_LABEL (duration_label), "");
     gtk_widget_set_sensitive (title_entry, FALSE);
     gtk_widget_set_sensitive (artist_entry, FALSE);
+    gtk_widget_set_sensitive (genre_combo, FALSE);
     gtk_widget_set_sensitive (extract_button, FALSE);
     gtk_widget_set_sensitive (extract_menuitem, FALSE);
     gtk_widget_set_sensitive (select_all_menuitem, FALSE);
@@ -221,6 +223,7 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_entry_set_text (GTK_ENTRY (artist_entry), album->artist);
     gtk_widget_set_sensitive (title_entry, TRUE);
     gtk_widget_set_sensitive (artist_entry, TRUE);
+    gtk_widget_set_sensitive (genre_combo, TRUE);
     gtk_widget_set_sensitive (extract_button, TRUE);
     gtk_widget_set_sensitive (extract_menuitem, TRUE);
     gtk_widget_set_sensitive (select_all_menuitem, TRUE);
@@ -831,6 +834,22 @@ void on_artist_edit_changed(GtkEditable *widget, gpointer user_data) {
   } while (gtk_tree_model_iter_next (GTK_TREE_MODEL(track_store), &iter));
 }
 
+static gboolean genre_foreach (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer data) {
+  TrackDetails *track;
+  gtk_tree_model_get (model, iter, COLUMN_DETAILS, &track, -1);
+  track->genre = GPOINTER_TO_INT(data);
+  return FALSE;
+}
+
+void on_genre_combo_changed(GtkComboBox *combo, gpointer user_data) {
+  GtkTreeIter iter;
+  if (gtk_combo_box_get_active_iter (combo, &iter)) {
+    int num;
+    gtk_tree_model_get (gtk_combo_box_get_model (combo), &iter, 0, &num, -1);
+    gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), (GtkTreeModelForeachFunc)genre_foreach, GINT_TO_POINTER(num));
+  }
+}
+
 void on_contents_activate(GtkWidget *button, gpointer user_data) {
   GError *error = NULL;
 
@@ -851,6 +870,24 @@ void on_contents_activate(GtkWidget *button, gpointer user_data) {
     gtk_widget_show (dialog);
     g_error_free (error);
   }
+}
+
+static GtkTreeModel* populate_genre_list(void) {
+  GtkListStore *store;
+  GenreMap *p;
+
+  store = gtk_list_store_new (2, G_TYPE_INT, G_TYPE_STRING);
+  p = genremap;
+
+  while (p->genre != LAST_GENRE) {
+    GtkTreeIter iter;
+    if (p->genre == p->canonical) {
+      gtk_list_store_append(store, &iter);
+      gtk_list_store_set (store, &iter, 0, p->canonical, 1, sj_genre_name(p->canonical), -1);
+    }
+    ++p;
+  }
+  return GTK_TREE_MODEL(store);
 }
 
 int main (int argc, char **argv)
@@ -924,9 +961,18 @@ int main (int argc, char **argv)
   title_entry = glade_xml_get_widget (glade, "title_entry");
   artist_entry = glade_xml_get_widget (glade, "artist_entry");
   duration_label = glade_xml_get_widget (glade, "duration_label");
+  genre_combo = glade_xml_get_widget (glade, "genre_combo");
   track_listview = glade_xml_get_widget (glade, "track_listview");
   extract_button = glade_xml_get_widget (glade, "extract_button");
   status_bar = glade_xml_get_widget (glade, "status_bar");
+
+  gtk_combo_box_set_model (GTK_COMBO_BOX (genre_combo), populate_genre_list ());
+  {
+    GtkCellRenderer *renderer;
+    renderer = gtk_cell_renderer_text_new ();
+    gtk_cell_layout_pack_start (GTK_CELL_LAYOUT(genre_combo), renderer, TRUE);
+    gtk_cell_layout_add_attribute(GTK_CELL_LAYOUT(genre_combo), renderer, "text", 1);
+  }
 
   track_store = gtk_list_store_new (COLUMN_TOTAL, G_TYPE_BOOLEAN, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_POINTER);
   gtk_tree_view_set_model (GTK_TREE_VIEW (track_listview), GTK_TREE_MODEL (track_store));

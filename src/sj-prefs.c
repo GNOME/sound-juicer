@@ -327,7 +327,8 @@ static void pattern_label_update (void)
     9,
     N_("Track Title"),
     N_("Track Artist"),
-    60
+    60,
+    LAST_GENRE
   };
   /* Magic to i18n-ize the sample strings. */
   static gboolean been_here = FALSE;

@@ -25,6 +25,8 @@
 
 #include <glib/glist.h>
 
+#include "sj-genres.h"
+
 typedef struct _AlbumDetails AlbumDetails;
 typedef struct _TrackDetails TrackDetails;
 
@@ -35,6 +37,7 @@ struct _TrackDetails {
   char *title;
   char *artist;
   int duration; /* seconds */
+  SjGenre genre; /* ID3 genre list */
 };
 
 struct _AlbumDetails {

@@ -479,6 +479,13 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
                         GST_TAG_ALBUM, track->album->title,
                         GST_TAG_COMMENT, _("Ripped with Sound Juicer"),
                         NULL);
+    if (track->genre != LAST_GENRE) {
+      gst_tag_setter_add (GST_TAG_SETTER (priv->encoder),   
+                          /* TODO: is APPEND right? */
+                          GST_TAG_MERGE_APPEND,
+                          GST_TAG_GENRE, sj_genre_name (track->genre),
+                          NULL);
+    }
   } else {
     g_warning ("The current encoding element doesn't have tag support");
   }

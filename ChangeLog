@@ -1,3 +1,29 @@
+2004-08-26  Ross Burton  <ross@burtonini.com>
+
+	* data/sound-juicer.glade:
+	Add a genre combo.
+
+	* src/sj-genres.[ch]:
+	Add a genre enum, map and name functions.
+
+	* src/Makefile.am:
+	Added sj-genres.[ch]
+	
+	* src/sj-structures.h:
+	Add a genre field.
+
+	* src/sj-metadata-musicbrainz.c:
+	Initialise the genre field.
+	
+	* src/sj-main.c:
+	Populate the genre map and set the genre field.
+
+	* src/sj-prefs.c:
+	Set the genre field in the sample track.
+	
+	* src/sj-extractor.c:
+	Write the genre field, if set.
+
 2004-08-25  Ross Burton  <ross@burtonini.com>
 
 	* src/sj-prefs.c:
