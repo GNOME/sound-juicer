@@ -29,17 +29,11 @@
 #include "cd-drive.h"
 #include "bacon-cd-selection.h"
 
-#define GCONF_ROOT "/apps/sound-juicer"
-#define GCONF_DEVICE GCONF_ROOT "/device"
-#define GCONF_BASEPATH GCONF_ROOT "/base_path"
-#define GCONF_FORMAT GCONF_ROOT "/format"
-
 extern GladeXML *glade;
 extern GtkWidget *main_window;
 
-static GConfClient *gconf_client;
 static GtkWidget *format_vorbis, *format_mpeg, *format_flac, *format_wave;
-static GtkWidget *cd_option, *basepath_label;
+static GtkWidget *cd_option, *path_option, *file_option, *basepath_label;
 
 const char* prefs_get_default_device ()
 {
@@ -88,12 +82,43 @@ void prefs_browse_clicked (GtkButton *button, gpointer user_data)
     char *path;
     filename = gtk_file_selection_get_filename(GTK_FILE_SELECTION(filesel));
     path = g_filename_to_utf8 (filename, -1, NULL, NULL, NULL); /* TODO: GError */
-    gconf_client_set_string (gconf_client, GCONF_BASEPATH, path, NULL); /* TODO: GError */
+    gconf_client_set_string (gconf_client, GCONF_BASEPATH, path, NULL);
     g_free (path);
   }
   gtk_widget_destroy (filesel);
 }
 
+void prefs_path_option_changed (GtkOptionMenu *optionmenu, gpointer user_data)
+{
+  const char* pattern;
+  GtkMenuShell *menu = GTK_MENU_SHELL (gtk_option_menu_get_menu (optionmenu));
+  /* TODO: foul. Maybe implement a data structure */
+  pattern = g_object_get_data (G_OBJECT(g_list_nth (menu->children, gtk_option_menu_get_history (optionmenu))->data), "pattern");
+  if (pattern) {
+    gconf_client_set_string (gconf_client, GCONF_PATH_PATTERN, pattern, NULL);
+  }
+}
+
+void prefs_file_option_changed (GtkOptionMenu *optionmenu, gpointer user_data)
+{
+  const char* pattern;
+  GtkMenuShell *menu = GTK_MENU_SHELL (gtk_option_menu_get_menu (optionmenu));
+  /* TODO: foul. Maybe implement a data structure */
+  pattern = g_object_get_data (G_OBJECT(g_list_nth (menu->children, gtk_option_menu_get_history (optionmenu))->data), "pattern");
+  if (pattern) {
+    gconf_client_set_string (gconf_client, GCONF_FILE_PATTERN, pattern, NULL);
+  }
+}
+
+/**
+ * The Strip Special Characters check was toggled.
+ */
+void prefs_strip_toggled (GtkToggleButton *togglebutton, gpointer user_data)
+{
+  gconf_client_set_bool (gconf_client, GCONF_STRIP,
+                         gtk_toggle_button_get_active (togglebutton),
+                         NULL);
+}
 
 /**
  * One of the format toggle buttons in the prefs dialog has been
@@ -136,7 +161,6 @@ static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *e
 static void format_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   g_assert (strcmp (entry->key, GCONF_FORMAT) == 0);
-  g_message ("%s\n", __FUNCTION__);
 }
 
 static void basepath_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
@@ -173,13 +197,56 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
 
     cd_option = glade_xml_get_widget (glade, "cd_option");
     basepath_label = glade_xml_get_widget (glade, "path_label");
+    path_option = glade_xml_get_widget (glade, "path_option");
+    file_option = glade_xml_get_widget (glade, "file_option");
     format_vorbis = glade_xml_get_widget (glade, "format_vorbis");
     format_mpeg = glade_xml_get_widget (glade, "format_mpeg");
     format_flac = glade_xml_get_widget (glade, "format_flac");
     format_wave = glade_xml_get_widget (glade, "format_wave");
 
+    {
+      GtkWidget *menu, *item;
+      menu = gtk_menu_new ();
+
+      item = gtk_menu_item_new_with_label (_("Album Artist, Album Title"));
+      g_object_set_data (G_OBJECT (item), "pattern", "%aa/%at");
+      gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+
+      item = gtk_menu_item_new_with_label (_("Track Artist, Album Title"));
+      g_object_set_data (G_OBJECT (item), "pattern", "%ta/%at");
+      gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+
+      item = gtk_menu_item_new_with_label (_("Album Title"));
+      g_object_set_data (G_OBJECT (item), "pattern", "%at");
+      gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+
+      item = gtk_menu_item_new_with_label (_("Album Artist"));
+      g_object_set_data (G_OBJECT (item), "pattern", "%aa");
+      gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+
+      gtk_option_menu_set_menu (GTK_OPTION_MENU (path_option), menu);
+    }
+
+    {
+      GtkWidget *menu, *item;
+      menu = gtk_menu_new ();
+
+      item = gtk_menu_item_new_with_label (_("Number - Title"));
+      g_object_set_data (G_OBJECT (item), "pattern", "%tn - %tt");
+      gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+
+      item = gtk_menu_item_new_with_label (_("Track Title"));
+      g_object_set_data (G_OBJECT (item), "pattern", "%tt");
+      gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+
+      item = gtk_menu_item_new_with_label (_("Track Artist - Track Title"));
+      g_object_set_data (G_OBJECT (item), "pattern", "%ta - %tt");
+      gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+
+      gtk_option_menu_set_menu (GTK_OPTION_MENU (file_option), menu);
+    }
+
     /* Connect to GConf to update the UI */
-    gconf_client = gconf_client_get_default ();
     gconf_client_notify_add (gconf_client, GCONF_DEVICE, device_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_BASEPATH, basepath_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_FORMAT, format_changed_cb, NULL, NULL, NULL);

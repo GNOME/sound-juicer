@@ -51,16 +51,18 @@ static char* parse_pattern (const char* pattern, const TrackDetails *track);
  */
 static char* build_filename(const TrackDetails *track)
 {
-  char *basefile, *filename;
-  basefile = parse_pattern (file_pattern, track);
+  char *realfile, *realpath, *filename;
+  realpath = parse_pattern (path_pattern, track);
+  realfile = parse_pattern (file_pattern, track);
   switch (encoding_format) {
   case VORBIS:
-    filename = g_strconcat (base_path, basefile, ".ogg", NULL);
+    filename = g_strconcat (base_path, realpath, realfile, ".ogg", NULL);
     break;
   default:
     g_return_val_if_reached (NULL);
   }
-  g_free (basefile);
+  g_free (realpath);
+  g_free (realfile);
   return filename;
 }
 
@@ -84,7 +86,7 @@ static void pop_and_rip (void)
 
   track_duration = track->duration;
 
-  gtk_label_set_text (GTK_LABEL (progress_label), g_strdup_printf (_("Currently extracting '%s'"), track->title));
+  gtk_label_set_text (GTK_LABEL (progress_label), g_strdup_printf (_("Extracting '%s'"), track->title));
 
   file_path = build_filename (track);
 
@@ -215,7 +217,7 @@ static char* sanitize_path (char* s)
 {
   /* Replace path seperators with whitespace */
   g_strdelimit  (s, "/", ' ');
-  if (shell_names) {
+  if (strip_chars) {
     g_strdelimit (s, "\\*?&!", ' ');
     g_strdelimit (s, " ", '_'); /* TODO: use a different function */
   }

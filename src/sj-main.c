@@ -40,7 +40,7 @@ GladeXML *glade;
 
 SjExtractor *extractor;
 
-static GConfClient *gconf_client;
+GConfClient *gconf_client;
 
 GtkWidget *main_window;
 static GtkWidget *title_label, *artist_label, *duration_label;
@@ -50,20 +50,12 @@ GtkListStore *track_store;
 
 EncoderFormat encoding_format = VORBIS;
 
-const char *base_path;
-const char* file_pattern;
+const char *base_path, *path_pattern, *file_pattern;
 static const char *device;
-gboolean shell_names = FALSE;
+gboolean strip_chars;
 gboolean extracting = FALSE;
 
 #define DEFAULT_PARANOIA 4
-
-#define GCONF_ROOT "/apps/sound-juicer"
-#define GCONF_DEVICE GCONF_ROOT "/device"
-#define GCONF_BASEPATH GCONF_ROOT "/base_path"
-#define GCONF_PATTERN GCONF_ROOT "/pattern"
-#define GCONF_FORMAT GCONF_ROOT "/format"
-#define GCONF_PARANOIA GCONF_ROOT "/paranoia"
 
 /**
  * Clicked Quit
@@ -283,13 +275,27 @@ void basepath_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry,
 }
 
 /**
+ * The GConf key for the directory pattern changed
+ */
+void path_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+{
+  g_assert (strcmp (entry->key, GCONF_PATH_PATTERN) == 0);
+  if (entry->value == NULL) {
+    path_pattern = g_strdup ("%aa/%at");
+  } else {
+    path_pattern = gconf_value_get_string (entry->value);
+  }
+  /* TODO: sanity check the pattern */
+}
+
+/**
  * The GConf key for the filename pattern changed
  */
-void pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
-  g_assert (strcmp (entry->key, GCONF_PATTERN) == 0);
+  g_assert (strcmp (entry->key, GCONF_FILE_PATTERN) == 0);
   if (entry->value == NULL) {
-    file_pattern = g_strdup ("%aa/%at/%tt");
+    file_pattern = g_strdup ("%tn-%tt");
   } else {
     file_pattern = gconf_value_get_string (entry->value);
   }
@@ -309,6 +315,19 @@ void paranoia_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry,
     if (value == 0 || value == 4 || value == 255) {
       sj_extractor_set_paranoia (extractor, value);
     }
+  }
+}
+
+/**
+ * The GConf key for the strip characters option changed
+ */
+void strip_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+{
+  g_assert (strcmp (entry->key, GCONF_STRIP) == 0);
+  if (entry->value == NULL) {
+    strip_chars = FALSE;
+  } else {
+    strip_chars = gconf_value_get_bool (entry->value);
   }
 }
 
@@ -438,6 +457,8 @@ static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
 
 int main (int argc, char **argv)
 {
+  GError *error;
+
   bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
@@ -452,6 +473,20 @@ int main (int argc, char **argv)
   sj_musicbrainz_init ();
 
   extractor = SJ_EXTRACTOR (sj_extractor_new());
+  error = sj_extractor_get_new_error (extractor);
+  if (error) {
+    GtkWidget *dialog;
+    dialog = gtk_message_dialog_new (NULL, 0,
+                                     GTK_MESSAGE_ERROR,
+                                     GTK_BUTTONS_CLOSE,
+                                     _("<b>Could not start Sound Juicer</b>\n\n"
+                                       "The error message is '%s'. "
+                                       "Please consult the <tt>README</tt> for assistance."),
+                                     error->message);
+    gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
+    gtk_dialog_run (GTK_DIALOG (dialog));
+    exit (1);
+  }
 
   gconf_client = gconf_client_get_default ();
   if (gconf_client == NULL) {
@@ -534,11 +569,12 @@ int main (int argc, char **argv)
 
   /* YUCK. As bad as Baldrick's trousers */
   basepath_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEPATH, NULL, TRUE, NULL), NULL);
-  pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATTERN, NULL, TRUE, NULL), NULL);
+  path_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL), NULL);
+  file_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL), NULL);
   device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), NULL);
   format_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FORMAT, NULL, TRUE, NULL), NULL);
   paranoia_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PARANOIA, NULL, TRUE, NULL), NULL);
-  
+  strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);
     
   gtk_widget_show_all (main_window);
   gtk_main ();

@@ -28,15 +28,21 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <libgnome/gnome-i18n.h>
+#include <gconf/gconf-client.h>
 #include <glade/glade-xml.h>
 #include <gtk/gtkwidget.h>
 #include <gtk/gtkliststore.h>
 #include "sj-extractor.h"
 
 /**
+ * A GConf client
+ */
+extern GConfClient *gconf_client;
+
+/**
  * The main window
  */
-extern GtkWidget * main_window;
+extern GtkWidget *main_window;
 
 /**
  * The Glade UI file
@@ -77,6 +83,11 @@ extern GtkListStore *track_store;
 extern const char *base_path;
 
 /**
+ * The pattern to expand when naming folders
+ */
+extern const char *path_pattern;
+
+/**
  * The pattern to expand when naming files
  */
 extern const char *file_pattern;
@@ -89,6 +100,18 @@ extern EncoderFormat encoding_format;
 /**
  * If file names should be shell-friendly (i.e no [ /&*?\] characters
  */
-extern gboolean shell_names;
+extern gboolean strip_chars;
+
+/**
+ * GConf key names
+ */
+#define GCONF_ROOT "/apps/sound-juicer"
+#define GCONF_DEVICE GCONF_ROOT "/device"
+#define GCONF_BASEPATH GCONF_ROOT "/base_path"
+#define GCONF_FILE_PATTERN GCONF_ROOT "/file_pattern"
+#define GCONF_PATH_PATTERN GCONF_ROOT "/path_pattern"
+#define GCONF_FORMAT GCONF_ROOT "/format"
+#define GCONF_PARANOIA GCONF_ROOT "/paranoia"
+#define GCONF_STRIP GCONF_ROOT "/strip-special"
 
 #endif /* SOUND_JUICER_H */

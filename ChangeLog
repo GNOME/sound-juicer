@@ -1,5 +1,30 @@
 2003-04-25  Ross Burton  <ross@burtonini.com>
 
+	* data/sound-juicer.glade:
+	Add a Strip Special Characters option, split the filename pattern
+	into path and filename. Then did some UI tweaks suggested by
+	Christian Neumair.
+	
+	* data/sound-juicer.schemas.in:
+	Declare the strip_special, path_pattern and file_pattern
+	keys. Remove pattern as it was never used. Add a default for the
+	paranoia key.
+
+	* src/Makefile.am:
+	Turn on -Werror.
+
+	* src/sj-main.c:
+	Check SjExtractor was created OK, and monitor strip_special,
+	file_pattern and path_pattern keys.
+
+	* src/sj-extracting.c:
+	Update for small changes, and use the path/file patterns.
+
+	* src/sj-prefs:
+	Initial code for setting the path and file patterns.
+
+2003-04-25  Ross Burton  <ross@burtonini.com>
+
 	* src/sj-extractor.[ch]:
 	Added sj_extractor_get_new_error() to see if the construction of
 	SjExtractor worked or failed.

@@ -1,4 +1,4 @@
-AM_CFLAGS = -Wall -export-dynamic
+AM_CFLAGS = -Wall -Werror -export-dynamic
 
 AM_CPPFLAGS = \
 	-DGNOME_DISABLE_DEPRECATED=1 \

@@ -26,12 +26,28 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/sound-juicer/format</key>
-      <applyto>/apps/sound-juicer/format</applyto>
+      <key>/schemas/apps/sound-juicer/path_pattern</key>
+      <applyto>/apps/sound-juicer/path_pattern</applyto>
       <type>string</type>
       <owner>sound-juicer</owner>
       <locale name="C">
-        <short>The filename pattern to write to.</short>
+        <short>The directory structure for the files</short>
+        <long>
+        %at -- album title
+        %aa -- album artist
+        %tt -- track title
+         %ta -- track artist
+        </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/sound-juicer/file_pattern</key>
+      <applyto>/apps/sound-juicer/file_pattern</applyto>
+      <type>string</type>
+      <owner>sound-juicer</owner>
+      <locale name="C">
+        <short>The name pattern for files</short>
         <long>
         Do not specify an extension.
         %at -- album title
@@ -49,11 +65,27 @@
       <applyto>/apps/sound-juicer/paranoia</applyto>
       <type>int</type>
       <owner>sound-juicer</owner>
+      <default>4</default>
       <locale name="C">
         <short>The paranoia mode to use</short>
         <long>
           Paranoia mode, 3 settings: 0 (no paranoia), 4
           (cdda2wav-style overlap checking) and 255 (full paranoia)
+        </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/sound-juicer/strip-special</key>
+      <applyto>/apps/sound-juicer/strip-special</applyto>
+      <type>bool</type>
+      <owner>sound-juicer</owner>
+      <default>false</default>
+      <locale name="C">
+        <short>If to strip special characters from filenames</short>
+        <long>
+          If enabled, special characters such as space, wildcards and
+          backslashes will be removed from the output filename.
         </long>
       </locale>
     </schema>
