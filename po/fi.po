@@ -4,12 +4,16 @@
 # Tommi Vainikainen <Tommi.Vainikainen@iki.fi>, 2004.
 # Ilkka Tuohela <hile@iki.fi>, 2004.
 #
+# Sanastoa:
+# title = nimi (Huom: voi olla levyn tai raidan)
+# album title = levyn nimi
+# track title = raidan nimi
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-29 14:20+0300\n"
-"PO-Revision-Date: 2004-09-29 14:22+0300\n"
+"POT-Creation-Date: 2004-12-06 19:52+0200\n"
+"PO-Revision-Date: 2004-12-06 19:56+0200\n"
 "Last-Translator: Tommi Vainikainen <Tommi.Vainikainen@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -54,7 +58,7 @@ msgstr "<b>Musiikkihakemisto</b>"
 
 #: data/sound-juicer.glade.h:8
 msgid "<b>Title:</b>"
-msgstr "<b>Kappale:</b>"
+msgstr "<b>Nimi:</b>"
 
 #: data/sound-juicer.glade.h:9
 msgid "<b>Track Names</b>"
@@ -136,7 +140,7 @@ msgstr "Edistyminen"
 msgid "Raw audio"
 msgstr "Raaka ääni"
 
-#: data/sound-juicer.glade.h:29 src/sj-about.c:56 src/sj-main.c:915
+#: data/sound-juicer.glade.h:29 src/sj-about.c:56 src/sj-main.c:943
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -168,7 +172,7 @@ msgstr "_CD"
 msgid "_Contents"
 msgstr "_Sisältö"
 
-#: data/sound-juicer.glade.h:36 src/sj-main.c:137
+#: data/sound-juicer.glade.h:36 src/sj-main.c:141
 msgid "_Continue"
 msgstr "_Jatka"
 
@@ -274,16 +278,16 @@ msgstr "Käytettävä paranoia-tapa"
 msgid "Whether to eject the CD when finished extracting."
 msgstr "Poista CD-levy kopioinnin päätyttyä."
 
-#: src/bacon-cd-selection.c:200
+#: src/bacon-cd-selection.c:170
 msgid "Unnamed CDROM"
 msgstr "Nimetön CD-ROM"
 
-#: src/cd-drive.c:837
+#: src/cd-drive.c:855
 #, c-format
 msgid "Unnamed SCSI Drive (%s)"
 msgstr "Nimetön SCSI-asema (%s)"
 
-#: src/cd-drive.c:1397
+#: src/cd-drive.c:1415
 msgid "File image"
 msgstr "Tiedostokuva"
 
@@ -303,7 +307,7 @@ msgstr ""
 msgid "An Audio CD Extractor"
 msgstr "Ääni-CD:n kopioitsin"
 
-#: src/sj-extracting.c:194
+#: src/sj-extracting.c:208
 #, c-format
 msgid ""
 "A file called '%s' exists, size %lu kB.\n"
@@ -312,16 +316,16 @@ msgstr ""
 "Tiedosto \"%s\" on jo olemassa (koko %lu kt).\n"
 "Haluatko ohittaa tämän raidan vai ylikirjoittaa tiedoston?"
 
-#: src/sj-extracting.c:197
+#: src/sj-extracting.c:211
 msgid "_Skip"
 msgstr "_Ohita"
 
-#: src/sj-extracting.c:198
+#: src/sj-extracting.c:212
 msgid "_Overwrite"
 msgstr "_Ylikirjoita"
 
 #. Display a nice dialog
-#: src/sj-extracting.c:253 src/sj-extracting.c:290 src/sj-extracting.c:506
+#: src/sj-extracting.c:267 src/sj-extracting.c:304 src/sj-extracting.c:521
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -330,26 +334,26 @@ msgstr ""
 "Sound Juicer ei voinut kopioida tätä CD:tä.\n"
 "Syy: %s"
 
-#: src/sj-extracting.c:280
+#: src/sj-extracting.c:294
 #, c-format
 msgid "Extracting '%s'"
 msgstr "Kopioidaan \"%s\""
 
-#: src/sj-extracting.c:342
+#: src/sj-extracting.c:356
 #, c-format
 msgid "%d:%02d (at %0.1fx)"
 msgstr "%d:%02d (nopeudella %0.1fx)"
 
-#: src/sj-extracting.c:344
+#: src/sj-extracting.c:358
 msgid "Unknown (at 0.0x)"
 msgstr "Tuntematon (nopeudella 0.0x)"
 
 #. TODO: need to have a better message here
-#: src/sj-extracting.c:448
+#: src/sj-extracting.c:463
 msgid "The tracks have been copied successfully."
 msgstr "Raitojen kopiointi onnistui."
 
-#: src/sj-extracting.c:453
+#: src/sj-extracting.c:468
 msgid "_Eject"
 msgstr "_Poista levy"
 
@@ -361,47 +365,47 @@ msgstr "Pakkausmuoto"
 msgid "The format to write the encoded audio in"
 msgstr "Muoto, johon pakattu ääni kirjoitetaan"
 
-#: src/sj-extractor.c:312
+#: src/sj-extractor.c:314
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "Ei voitu luoda GStreamer-cdparanoia-lukijaa"
 
-#: src/sj-extractor.c:331
+#: src/sj-extractor.c:333
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
 msgstr "Ei voitu luoda GStreamer-pakkainta (%s)"
 
-#: src/sj-extractor.c:342
+#: src/sj-extractor.c:344
 msgid "Could not create GStreamer file output"
 msgstr "Ei voitu luoda GStreamer-tiedostoulostuloa"
 
-#: src/sj-extractor.c:372
+#: src/sj-extractor.c:374
 msgid "Could not get current track position"
 msgstr "Ei saatu nykyistä raidan sijaintia"
 
-#: src/sj-extractor.c:405
+#: src/sj-extractor.c:407
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Kopiointi-objekti on virheellinen.  Tämä ei näytä hyvältä, tarkista "
 "päätteeltäsi virheet."
 
-#: src/sj-extractor.c:480 src/sj-extractor.c:501
+#: src/sj-extractor.c:485 src/sj-extractor.c:506
 msgid "Ripped with Sound Juicer"
 msgstr "Kopioitu Sound Juicerilla"
 
-#: src/sj-extractor.c:516
+#: src/sj-extractor.c:521
 msgid "Could not seek to track"
 msgstr "Ei voitu hakea raitaa"
 
-#: src/sj-extractor.c:521
+#: src/sj-extractor.c:526
 msgid "Could not get track start position"
 msgstr "Ei saatu raidan lähtösijaintia"
 
-#: src/sj-extractor.c:558
+#: src/sj-extractor.c:563
 msgid "The plugin necessary for CD access was not found"
 msgstr "CD-pääsyyn tarvittavaa liitännäistä ei löytynyt"
 
-#: src/sj-extractor.c:566
+#: src/sj-extractor.c:571
 msgid "The plugin necessary for file access was not found"
 msgstr "Tiedoston käsittelyyn tarvittavaa liitännäistä ei löytynyt"
 
@@ -729,79 +733,79 @@ msgstr "Hard rock"
 msgid "[unknown genre]"
 msgstr "[tuntematon tyyli]"
 
-#: src/sj-main.c:84
+#: src/sj-main.c:88
 msgid "Could not start Sound Juicer"
 msgstr "Sound Juiceria ei voitu käynnistää"
 
-#: src/sj-main.c:85 src/sj-main.c:444 src/sj-main.c:519 src/sj-main.c:578
+#: src/sj-main.c:89 src/sj-main.c:453 src/sj-main.c:528 src/sj-main.c:587
 #: src/sj-util.c:110 src/sj-util.c:130
 msgid "Reason"
 msgstr "Syy"
 
-#: src/sj-main.c:87
+#: src/sj-main.c:91
 msgid "Please consult the documentation for assistance."
 msgstr "Katso ohjeista neuvoja."
 
-#: src/sj-main.c:135
+#: src/sj-main.c:139
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Olet juuri nyt kopioimassa CD:tä. Haluatko lopettaa nyt vaiko jatkaa?"
 
-#: src/sj-main.c:192 src/sj-main.c:254
+#: src/sj-main.c:196 src/sj-main.c:263
 msgid "(unknown)"
 msgstr "(tuntematon)"
 
-#: src/sj-main.c:296 src/sj-main.c:1006
+#: src/sj-main.c:305 src/sj-main.c:1034
 msgid "Title"
-msgstr "Kappale"
+msgstr "Nimi"
 
-#: src/sj-main.c:302 src/sj-main.c:1015
+#: src/sj-main.c:311 src/sj-main.c:1043
 msgid "Artist"
 msgstr "Esittäjä"
 
-#: src/sj-main.c:442 src/sj-main.c:517 src/sj-main.c:576
+#: src/sj-main.c:451 src/sj-main.c:526 src/sj-main.c:585
 msgid "Could not read the CD"
 msgstr "CD:tä ei voitu lukea"
 
-#: src/sj-main.c:443 src/sj-main.c:518
+#: src/sj-main.c:452 src/sj-main.c:527
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer ei voinut lukea raitaluetteloa tältä CD:ltä."
 
 #. Set statusbar message
-#: src/sj-main.c:502
+#: src/sj-main.c:511
 msgid "Retrieving track listing...please wait."
 msgstr "Noudetaan raitaluetteloa...odota."
 
-#: src/sj-main.c:557
+#: src/sj-main.c:566
 msgid "No CD-ROM drives found"
 msgstr "CD-ROM-asemia ei löytynyt"
 
-#: src/sj-main.c:558
+#: src/sj-main.c:567
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer ei löytänyt yhtään CD-ROM-asemaa luettavaksi."
 
-#: src/sj-main.c:570
+#: src/sj-main.c:579
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer ei voinut käsitellä CD-ROM-laitetta \"%s\""
 
-#: src/sj-main.c:635
+#: src/sj-main.c:644
 msgid "Cannot find any suitable encoders"
 msgstr "Yhtään sopivaa pakkainta ei löytynyt"
 
-#: src/sj-main.c:650
+#: src/sj-main.c:659
 msgid "The currently selected encoder is not available on your installation."
 msgstr "Tällä hetkellä valittua pakkainta ei ole saatavilla asennuksessasi."
 
-#: src/sj-main.c:652
+#: src/sj-main.c:661
 msgid "_Change the encoder"
 msgstr "_Vaihda pakkainta"
 
-#: src/sj-main.c:802
+#: src/sj-main.c:811
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Tuntematonta saraketta %d muokattiin"
 
-#: src/sj-main.c:866 src/sj-prefs.c:128
+#: src/sj-main.c:874 src/sj-prefs.c:128
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -810,45 +814,45 @@ msgstr ""
 "Sound Juicerin ohjetta ei voitu näyttää\n"
 "%s"
 
-#: src/sj-main.c:934
+#: src/sj-main.c:962
 msgid "Could not create GConf client.\n"
 msgstr "GConf-asiakasta ei voitu luoda.\n"
 
-#: src/sj-main.c:987
+#: src/sj-main.c:1015
 msgid "Extract"
 msgstr "Kopioi"
 
-#: src/sj-main.c:995
+#: src/sj-main.c:1023
 msgid "Track"
 msgstr "Raita"
 
-#: src/sj-main.c:1026
+#: src/sj-main.c:1054
 msgid "Duration"
 msgstr "Kesto"
 
-#: src/sj-metadata-musicbrainz.c:89
+#: src/sj-metadata-musicbrainz.c:90
 msgid "Cannot create MusicBrainz client"
 msgstr "MusicBrainz-asiakasta ei voi luoda"
 
-#: src/sj-metadata-musicbrainz.c:194 src/sj-metadata-musicbrainz.c:316
+#: src/sj-metadata-musicbrainz.c:195 src/sj-metadata-musicbrainz.c:317
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "CD:tä ei voi lukea: %s"
 
-#: src/sj-metadata-musicbrainz.c:201
+#: src/sj-metadata-musicbrainz.c:202 src/sj-metadata-musicbrainz.c:363
 msgid "Unknown Artist"
 msgstr "Tuntematon esittäjä"
 
-#: src/sj-metadata-musicbrainz.c:202
+#: src/sj-metadata-musicbrainz.c:203 src/sj-metadata-musicbrainz.c:351
 msgid "Unknown Title"
-msgstr "Tuntematon kappale"
+msgstr "Tuntematon levy"
 
-#: src/sj-metadata-musicbrainz.c:207
+#: src/sj-metadata-musicbrainz.c:208
 #, c-format
 msgid "Track %d"
 msgstr "Raita %d"
 
-#: src/sj-metadata-musicbrainz.c:236
+#: src/sj-metadata-musicbrainz.c:237
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
@@ -856,31 +860,35 @@ msgstr ""
 "MusicBrainz-metadata-objekti on virheellinen. Tämä ei näytä hyvältä, "
 "tarkista päätteeltäsi virheet."
 
-#: src/sj-metadata-musicbrainz.c:310
+#: src/sj-metadata-musicbrainz.c:311
 #, c-format
 msgid "Device '%s' does not contain a media"
 msgstr "Laite \"%s\" ei sisällä mediaa"
 
-#: src/sj-metadata-musicbrainz.c:313
+#: src/sj-metadata-musicbrainz.c:314
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "Laitetta \"%s\" ei voitu avata. Tarkista laitteen käyttöoikeudet."
 
-#: src/sj-metadata-musicbrainz.c:326
+#: src/sj-metadata-musicbrainz.c:327
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "Tätä CD:tä ei voitu kysyä: %s\n"
 
-#: src/sj-metadata-musicbrainz.c:334
+#: src/sj-metadata-musicbrainz.c:335
 msgid "This CD was not found.\n"
 msgstr "Tätä CD:tä ei löytynyt.\n"
 
-#: src/sj-metadata-musicbrainz.c:355
+#: src/sj-metadata-musicbrainz.c:358
 msgid "Various"
 msgstr "Useita"
 
-#: src/sj-metadata-musicbrainz.c:429
+#: src/sj-metadata-musicbrainz.c:372
+msgid "Incomplete metadata for this CD.\n"
+msgstr "Tämän CD:n metatiedot eivät ole täydellisiä.\n"
+
+#: src/sj-metadata-musicbrainz.c:442
 msgid "Could not create CD lookup thread"
 msgstr "CD-hakusäiettä ei voitu luoda"
 
@@ -910,7 +918,7 @@ msgstr "[ei mitään]"
 
 #: src/sj-prefs.c:60
 msgid "Number - Title"
-msgstr "Numero - Kappale"
+msgstr "Numero - Nimi"
 
 #: src/sj-prefs.c:61 src/sj-prefs.c:328
 msgid "Track Title"
