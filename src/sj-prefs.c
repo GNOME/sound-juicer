@@ -82,6 +82,9 @@ gboolean cd_drive_exists (const char *device)
 {
   GList *l;
   if (device == NULL) return FALSE;
+  if (cdroms == NULL) {
+    cdroms = scan_for_cdroms (FALSE, FALSE);
+  }
   for (l = cdroms; l != NULL; l = l->next) {
     if (strcmp (((CDDrive *) (l->data))->device, device) == 0)
       return TRUE;
