@@ -77,6 +77,7 @@ mkdir_recursive (const char *path, mode_t permission_bits, GError **error)
  * Totally linux-centric. Non-linux people send patches! :)
  */
 #include <fcntl.h>
+#include <unistd.h>
 #include <sys/ioctl.h>
 #include <linux/cdrom.h>
 #include <gtk/gtkmessagedialog.h>
@@ -103,7 +104,7 @@ eject_cdrom (const char* device, GtkWindow *parent)
     gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
-    return;
+    goto done;
   }
   result = ioctl (fd, CDROMEJECT);
   if (result == -1) {
@@ -118,7 +119,9 @@ eject_cdrom (const char* device, GtkWindow *parent)
     gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
-    return;
+    goto done;
   }
+ done:
+  close (fd);
   return;
 }
