@@ -368,7 +368,7 @@ void reread_cd (void)
     gdk_display_sync (gdk_drawable_get_display (main_window->window));
   }
   
-  albums = sj_musicbrainz_list_albums(&error);
+  albums = sj_musicbrainz_list_albums (&error);
 
   if (realized)
     gdk_window_set_cursor (main_window->window, NULL);
@@ -392,11 +392,25 @@ void reread_cd (void)
   }
 
   /* If there is more than one album... */
-  if (g_list_next (albums)) {
+  if (current_album != NULL) {
+    album_details_free (current_album);
+  }
+  if (albums == NULL) {
+    current_album = NULL;
+  } else if (g_list_next (albums)) {
     current_album = multiple_album_dialog (albums);
   } else {
-    current_album = albums ? albums->data : NULL;
+    current_album = albums->data;
   }
+#if 0
+  /* Free the list */
+  /* TODO
+   * Need to have a deep copy first so we can extract the album and
+   * track details safely
+   */
+  g_list_foreach (albums, album_details_free, NULL);
+  g_list_free (albums);
+#endif
   update_ui_for_album (current_album);
 }
 
