@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-14 15:22+0200\n"
-"PO-Revision-Date: 2003-10-17 23:29+0200\n"
+"POT-Creation-Date: 2003-10-27 21:34+0100\n"
+"PO-Revision-Date: 2003-10-28 03:02+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -249,55 +249,55 @@ msgstr "Vybrat mechaniku"
 msgid "Unnamed CDROM"
 msgstr "Nepojmenovaná CDROM"
 
-#: src/sj-extractor.c:136
+#: src/sj-extractor.c:135
 msgid "Encoding format"
 msgstr "Formát kódování"
 
-#: src/sj-extractor.c:136
+#: src/sj-extractor.c:135
 msgid "The format to write the encoded audio in"
 msgstr "Formát, ve kterém zapisova kódovaný zvuk"
 
-#: src/sj-extractor.c:301
+#: src/sj-extractor.c:300
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "Nemohu vytvořit GStreamer čteč cdparanoia "
 
-#: src/sj-extractor.c:320
+#: src/sj-extractor.c:319
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
 msgstr "Nemohu vytvořit GStreamer enkodér (%s)"
 
-#: src/sj-extractor.c:331
+#: src/sj-extractor.c:330
 msgid "Could not create GStreamer file output"
 msgstr "Nemohu vytvořit GStreamer výstup do souboru"
 
-#: src/sj-extractor.c:361
+#: src/sj-extractor.c:360
 msgid "Could not get current track position"
 msgstr "Nemohu získat aktuální pozici stopy"
 
-#: src/sj-extractor.c:390
+#: src/sj-extractor.c:389
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Objekt extraktoru není platný. To je špatné, přečtěte si chyby na své "
 "konzole."
 
-#: src/sj-extractor.c:465
+#: src/sj-extractor.c:461
 msgid "Ripped with Sound Juicer"
 msgstr "Ripováno pomocí Sound Juicer"
 
-#: src/sj-extractor.c:479
+#: src/sj-extractor.c:475
 msgid "Could not seek to track"
 msgstr "Nemohu se posunout na stopu"
 
-#: src/sj-extractor.c:484
+#: src/sj-extractor.c:480
 msgid "Could not get track start position"
 msgstr "Nemohu získat počáteční pozici stopy"
 
-#: src/sj-extractor.c:527
+#: src/sj-extractor.c:516
 msgid "The plugin necessary for CD access was not found"
 msgstr "Nebyl nalezen zásuvný modul potřebný pro přístup k CD"
 
-#: src/sj-extractor.c:535
+#: src/sj-extractor.c:524
 msgid "The plugin necessary for file access was not found"
 msgstr "Nebyl nalezen zásuvný modul potřebný pro přístup k souborům"
 
@@ -363,37 +363,37 @@ msgstr "Vyberte umístění výstupu"
 msgid "Track Artist"
 msgstr "Umělec stopy"
 
-#: src/sj-extracting.c:121
+#: src/sj-extracting.c:172
 #, c-format
 msgid ""
-"A file called '%s' exists, size %ldK.\n"
+"A file called '%s' exists, size %luK.\n"
 "Do you want to skip this track or overwrite it?"
 msgstr ""
-"Soubor pojmenovaný '%s' existuje, velikost %ldK.\n"
+"Soubor pojmenovaný '%s' existuje, velikost %luK.\n"
 "Chcete tuto stopu přeskočit nebo jej přepsat?"
 
-#: src/sj-extracting.c:123
+#: src/sj-extracting.c:174
 msgid "_Skip"
 msgstr "Pře_skočit"
 
-#: src/sj-extracting.c:124
+#: src/sj-extracting.c:175
 msgid "_Overwrite"
 msgstr "_Přepsat"
 
-#. TODO: need to have a better message here
-#: src/sj-extracting.c:186
-msgid "The tracks have been copied successfully."
-msgstr "Stopy byly úspěšně zkopírovány."
+#: src/sj-extracting.c:198
+#, c-format
+msgid "mkdir() failed: %s"
+msgstr "mkdir() selhalo: %s"
 
-#: src/sj-extracting.c:210
+#: src/sj-extracting.c:239
 #, c-format
 msgid "Extracting '%s'"
 msgstr "Extrahuji '%s'"
 
-#: src/sj-extracting.c:220
-#, c-format
-msgid "mkdir() failed: %s"
-msgstr "mkdir() selhalo: %s"
+#. TODO: need to have a better message here
+#: src/sj-extracting.c:343
+msgid "The tracks have been copied successfully."
+msgstr "Stopy byly úspěšně zkopírovány."
 
 #: src/sj-main.c:75
 msgid "Could not start Sound Juicer"
