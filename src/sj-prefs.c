@@ -48,7 +48,7 @@ typedef struct {
   char* pattern;
 } FilePattern;
 
-static FilePattern path_patterns[] = {
+static const FilePattern path_patterns[] = {
   {N_("Album Artist, Album Title"), "%aa/%at"},
   {N_("Track Artist, Album Title"), "%ta/%at"},
   {N_("Album Title"), "%at"},
@@ -58,7 +58,7 @@ static FilePattern path_patterns[] = {
   {NULL, NULL}
 };
 
-static FilePattern file_patterns[] = {
+static const FilePattern file_patterns[] = {
   {N_("Number - Title"), "%tN - %tt"},
   {N_("Track Title"), "%tt"},
   {N_("Track Artist - Track Title"), "%ta - %tt"},
@@ -116,7 +116,7 @@ void prefs_profile_changed (GtkWidget *widget, gpointer user_data)
 {
   GMAudioProfile *profile;
   /* Handle the change being to unselect a profile */
-  if (gtk_combo_box_get_active (widget) != -1) {
+  if (gtk_combo_box_get_active (GTK_COMBO_BOX (widget)) != -1) {
     profile = gm_audio_profile_choose_get_active (widget);
     gconf_client_set_string (gconf_client, GCONF_AUDIO_PROFILE,  
                              gm_audio_profile_get_id (profile), NULL);
@@ -211,14 +211,13 @@ static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *e
 static void audio_profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   const char *value;
-  GMAudioProfile *profile;
   g_return_if_fail (strcmp (entry->key, GCONF_AUDIO_PROFILE) == 0);
   if (!entry->value) return;
   value = gconf_value_get_string (entry->value);
   
   /* If the value is empty, unset the combo. Otherwise try and set it. */
   if (strcmp (value, "") == 0) {
-    gtk_combo_box_set_active (audio_profile, -1);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (audio_profile), -1);
   } else {
     gm_audio_profile_choose_set_active (audio_profile, value);
   }
@@ -372,7 +371,7 @@ static void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
 /**
  * Given a FilePattern array, populate the combo box.
  */
-static void populate_pattern_combo (GtkComboBox *combo, FilePattern *patterns)
+static void populate_pattern_combo (GtkComboBox *combo, const FilePattern *patterns)
 {
   GtkListStore *store;
   int i;

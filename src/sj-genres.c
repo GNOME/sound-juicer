@@ -198,10 +198,10 @@ sj_genre_name (SjGenre genre)
   }
 }
 
-/**tho
+/**
  * The map of all genres => entry in short genre list.
  */
-GenreMap genremap[] = {
+const GenreMap genremap[] = {
 {ACID, OTHER},
 {ACID_JAZZ, JAZZ},
 {ACID_PUNK, ROCK},

@@ -119,6 +119,6 @@ typedef struct {
 } GenreMap;
 
 /* TODO: a little crappy. have an accessor? */
-GenreMap genremap[81];
+const GenreMap genremap[81];
 
 #endif /* SJ_GENRES_H */

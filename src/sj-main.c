@@ -893,7 +893,7 @@ static int genre_cmp (gconstpointer a, gconstpointer b)
 
 static GtkTreeModel* populate_genre_list(void) {
   GtkListStore *store;
-  GenreMap *p;
+  const GenreMap *p;
   GList *genres;
   GList *g;
 
