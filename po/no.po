@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer 0.5.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-09 15:48+0100\n"
-"PO-Revision-Date: 2004-03-09 15:49+0100\n"
+"POT-Creation-Date: 2004-04-16 16:06+0200\n"
+"PO-Revision-Date: 2004-04-16 16:06+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -258,20 +258,20 @@ msgstr "Paranoiamodus som skal brukes"
 msgid "Whether to eject the CD when finished extracting."
 msgstr "Om CDen skal løses ut når uthenting av sanger er fullført."
 
-#: src/bacon-cd-selection.c:170
-msgid "Select the drive"
-msgstr "Velg stasjon"
-
-#: src/bacon-cd-selection.c:271
+#: src/bacon-cd-selection.c:257
 msgid "Unnamed CDROM"
 msgstr "CD-ROM uten navn"
 
-#: src/cd-drive.c:404
+#: src/bacon-cd-selection.c:302
+msgid "Select the drive"
+msgstr "Velg stasjon"
+
+#: src/cd-drive.c:573
 #, c-format
 msgid "Unnamed SCSI CD-ROM (%s)"
 msgstr "SCSI CD-ROM uten navn (%s)"
 
-#: src/cd-drive.c:976
+#: src/cd-drive.c:1151
 msgid "File image"
 msgstr "Filbilde"
 
@@ -341,46 +341,46 @@ msgstr "Kodingsformat"
 msgid "The format to write the encoded audio in"
 msgstr "Format som kodet lyd skal skrives med"
 
-#: src/sj-extractor.c:302
+#: src/sj-extractor.c:312
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "Kunne ikke opprette cdparanoia-leser for GStreamer"
 
-#: src/sj-extractor.c:321
+#: src/sj-extractor.c:331
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
 msgstr "Kunne ikke opprette GStreamer-koder (%s)"
 
-#: src/sj-extractor.c:332
+#: src/sj-extractor.c:342
 msgid "Could not create GStreamer file output"
 msgstr "Kunne ikke opprette GStreamer utdata for fil"
 
-#: src/sj-extractor.c:362
+#: src/sj-extractor.c:372
 msgid "Could not get current track position"
 msgstr "Kunne ikke finne posisjon i aktivt spor"
 
-#: src/sj-extractor.c:391
+#: src/sj-extractor.c:401
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Ekstraktobjektet er ikke gyldig. Dette er ikke bra. Sjekk konsollet for feil."
 
-#: src/sj-extractor.c:466 src/sj-extractor.c:480
+#: src/sj-extractor.c:476 src/sj-extractor.c:490
 msgid "Ripped with Sound Juicer"
 msgstr "Rippet med Sound Juicer"
 
-#: src/sj-extractor.c:495
+#: src/sj-extractor.c:505
 msgid "Could not seek to track"
 msgstr "Kunne ikke søke til spor"
 
-#: src/sj-extractor.c:500
+#: src/sj-extractor.c:510
 msgid "Could not get track start position"
 msgstr "Kunne ikke finne startposisjon for spor"
 
-#: src/sj-extractor.c:537
+#: src/sj-extractor.c:547
 msgid "The plugin necessary for CD access was not found"
 msgstr "Tillegg som kreves for aksess til CD ble ikke funnet"
 
-#: src/sj-extractor.c:545
+#: src/sj-extractor.c:555
 msgid "The plugin necessary for file access was not found"
 msgstr "Tillegg som kreves for filaksess ble ikke funnet"
 
@@ -448,15 +448,15 @@ msgid "The currently selected encoder is not available on your installation."
 msgstr "Valgt koder er ikke tilgjengelig i din installasjon."
 
 #: src/sj-main.c:646
-msgid "Change the encoder"
-msgstr "Endre koder"
+msgid "_Change the encoder"
+msgstr "_Endre koding"
 
 #: src/sj-main.c:796
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Ukjent kolonne %d ble redigert"
 
-#: src/sj-main.c:844
+#: src/sj-main.c:844 src/sj-prefs.c:118
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -539,51 +539,51 @@ msgstr "Forskjellig"
 msgid "Could not create CD lookup thread"
 msgstr "Kunne ikke opprette tråd for CD-oppslag"
 
-#: src/sj-prefs.c:47
+#: src/sj-prefs.c:49
 msgid "Album Artist, Album Title"
 msgstr "Album Artist, Album Tittel"
 
-#: src/sj-prefs.c:48
+#: src/sj-prefs.c:50
 msgid "Track Artist, Album Title"
 msgstr "Spor Artist, Album Tittel"
 
-#: src/sj-prefs.c:49 src/sj-prefs.c:273
+#: src/sj-prefs.c:51 src/sj-prefs.c:301
 msgid "Album Title"
 msgstr "Album Tittel"
 
-#: src/sj-prefs.c:50 src/sj-prefs.c:274
+#: src/sj-prefs.c:52 src/sj-prefs.c:302
 msgid "Album Artist"
 msgstr "Album Artist"
 
-#: src/sj-prefs.c:51
+#: src/sj-prefs.c:53
 msgid "Album Artist - Album Title"
 msgstr "Album Artist - Album Tittel"
 
-#: src/sj-prefs.c:52
+#: src/sj-prefs.c:54
 msgid "[none]"
 msgstr "[ingen]"
 
-#: src/sj-prefs.c:57
+#: src/sj-prefs.c:59
 msgid "Number - Title"
 msgstr "Nummer - Tittel"
 
-#: src/sj-prefs.c:58 src/sj-prefs.c:281
+#: src/sj-prefs.c:60 src/sj-prefs.c:309
 msgid "Track Title"
 msgstr "Spor Tittel"
 
-#: src/sj-prefs.c:59
+#: src/sj-prefs.c:61
 msgid "Track Artist - Track Title"
 msgstr "Spor Artist - Spor Tittel"
 
-#: src/sj-prefs.c:60
+#: src/sj-prefs.c:62
 msgid "Number. Track Artist - Track Title"
 msgstr "Nummer. Spor Artist - Spor Tittel"
 
-#: src/sj-prefs.c:109
+#: src/sj-prefs.c:137
 msgid "Select Output Location"
 msgstr "Velg plassering for utdata"
 
-#: src/sj-prefs.c:282
+#: src/sj-prefs.c:310
 msgid "Track Artist"
 msgstr "Spor Artist"
 
