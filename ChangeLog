@@ -1,3 +1,18 @@
+2003-07-30  Ross Burton  <ross@burtonini.com>
+
+	* data/sound-juicer.glade:
+	Make the album title and artist fields GtkEntrys
+
+	* src/sj-main.c:
+	Handle editing the album title and artist fields. If the artist is
+	changed, change the track artists too.
+
+	Thanks to Mike Hearn for doing this patch.
+
+	* Makefile.am:
+	Ignore the scrollkeeper files left after uninstall so that
+	distcheck works.
+
 2003-07-29  Ross Burton  <ross@burtonini.com>
 
 	* help/*:

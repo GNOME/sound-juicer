@@ -15,3 +15,6 @@ EXTRA_DIST = \
 CLEANFILES = $(INTLTOOL_BUILT)
 
 DISTCLEANFILES = po/.intltool-merge-cache
+
+distuninstallcheck_listfiles = \
+	find -path ./var/scrollkeeper/\* -prune -or -type f -print

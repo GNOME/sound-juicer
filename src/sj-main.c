@@ -44,7 +44,7 @@ SjExtractor *extractor;
 GConfClient *gconf_client;
 
 GtkWidget *main_window;
-static GtkWidget *title_label, *artist_label, *duration_label;
+static GtkWidget *title_entry, *artist_entry, *duration_label;
 static GtkWidget *track_listview, *reread_button, *extract_button;
 static GtkWidget *extract_menuitem, *select_all_menuitem, *deselect_all_menuitem;
 GtkListStore *track_store;
@@ -53,6 +53,8 @@ const char *base_path, *path_pattern, *file_pattern;
 static const char *device;
 gboolean strip_chars;
 gboolean extracting = FALSE;
+
+static AlbumDetails *current_album;
 
 #define DEFAULT_PARANOIA 4
 
@@ -147,17 +149,21 @@ static void update_ui_for_album (AlbumDetails *album)
   char* duration_text;
 
   if (album == NULL) {
-    gtk_label_set_text (GTK_LABEL (title_label), "");
-    gtk_label_set_text (GTK_LABEL (artist_label), "");
+    gtk_entry_set_text (GTK_ENTRY (title_entry), "");
+    gtk_entry_set_text (GTK_ENTRY (artist_entry), "");
     gtk_label_set_text (GTK_LABEL (duration_label), "");
     gtk_list_store_clear (track_store);
+    gtk_widget_set_sensitive (title_entry, FALSE);
+    gtk_widget_set_sensitive (artist_entry, FALSE);
     gtk_widget_set_sensitive (extract_button, FALSE);
     gtk_widget_set_sensitive (extract_menuitem, FALSE);
     gtk_widget_set_sensitive (select_all_menuitem, FALSE);
     gtk_widget_set_sensitive (deselect_all_menuitem, FALSE);
   } else {
-    gtk_label_set_text (GTK_LABEL (title_label), album->title);
-    gtk_label_set_text (GTK_LABEL (artist_label), album->artist);
+    gtk_entry_set_text (GTK_ENTRY (title_entry), album->title);
+    gtk_entry_set_text (GTK_ENTRY (artist_entry), album->artist);
+    gtk_widget_set_sensitive (title_entry, TRUE);
+    gtk_widget_set_sensitive (artist_entry, TRUE);
     gtk_widget_set_sensitive (extract_button, TRUE);
     gtk_widget_set_sensitive (extract_menuitem, TRUE);
     gtk_widget_set_sensitive (select_all_menuitem, TRUE);
@@ -387,10 +393,11 @@ void reread_cd (void)
 
   /* If there is more than one album... */
   if (g_list_next (albums)) {
-    update_ui_for_album (multiple_album_dialog (albums));
+    current_album = multiple_album_dialog (albums);
   } else {
-    update_ui_for_album (albums ? albums->data : NULL);
+    current_album = albums ? albums->data : NULL;
   }
+  update_ui_for_album (current_album);
 }
 
 /**
@@ -405,7 +412,8 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
     if (device == NULL) {
 #ifndef IGNORE_MISSING_CD
       GtkWidget *dialog;
-      dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
+      dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
+                                       GTK_DIALOG_DESTROY_WITH_PARENT,
                                        GTK_MESSAGE_ERROR,
                                        GTK_BUTTONS_CLOSE,
                                        g_strdup_printf ("<b>%s</b>\n\n%s",
@@ -422,7 +430,8 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
       GtkWidget *dialog;
       char *message;
       message = g_strdup_printf (_("Sound Juicer could not access the CD-ROM device '%s'"), device);
-      dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
+      dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
+                                       GTK_DIALOG_DESTROY_WITH_PARENT,
                                        GTK_MESSAGE_ERROR,
                                        GTK_BUTTONS_CLOSE,
                                        g_strdup_printf ("<b>%s</b>\n\n%s\n%s: %s",
@@ -465,6 +474,9 @@ void format_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
   g_free (value);
 }
 
+/**
+ * Configure the http proxy
+ */
 void
 http_proxy_setup (GConfClient *client)
 {
@@ -566,6 +578,22 @@ static void on_cell_edited (GtkCellRendererText *renderer,
   g_free (title);
   return;
 }
+ 
+void on_title_edit_changed(GtkEditable *widget, gpointer user_data) {
+  g_return_if_fail (current_album != NULL);
+  if (current_album->title) {
+    g_free (current_album->title);
+  }
+  current_album->title = gtk_editable_get_chars (widget, 0, -1); /* get all the characters */
+}
+
+void on_artist_edit_changed(GtkEditable *widget, gpointer user_data) {
+  g_return_if_fail (current_album != NULL);
+  if (current_album->artist) {
+    g_free (current_album->artist);
+  }
+  current_album->artist = gtk_editable_get_chars (widget, 0, -1); /* get all the characters */
+}
 
 void on_contents_activate(GtkWidget *button, gpointer user_data) {
   GError *error = NULL;
@@ -575,15 +603,15 @@ void on_contents_activate(GtkWidget *button, gpointer user_data) {
     GtkWidget *dialog;
 
     dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
-				     0,
-				     GTK_MESSAGE_ERROR,
-				     GTK_BUTTONS_CLOSE,
-				     _("Could not display help for Sound Juicer\n"
-							   "%s"),
-				     error->message);
+                                     GTK_DIALOG_DESTROY_WITH_PARENT,
+                                     GTK_MESSAGE_ERROR,
+                                     GTK_BUTTONS_CLOSE,
+                                     _("Could not display help for Sound Juicer\n"
+                                       "%s"),
+                                     error->message);
     g_signal_connect_swapped (dialog, "response",
-			      G_CALLBACK (gtk_widget_destroy),
-			      dialog);
+                              G_CALLBACK (gtk_widget_destroy),
+                              dialog);
     gtk_widget_show (dialog);
     g_error_free (error);
   }
@@ -660,8 +688,8 @@ int main (int argc, char **argv)
   select_all_menuitem = glade_xml_get_widget (glade, "select_all");
   deselect_all_menuitem = glade_xml_get_widget (glade, "deselect_all");
   extract_menuitem = glade_xml_get_widget (glade, "extract_menuitem");
-  title_label = glade_xml_get_widget (glade, "title_label");
-  artist_label = glade_xml_get_widget (glade, "artist_label");
+  title_entry = glade_xml_get_widget (glade, "title_entry");
+  artist_entry = glade_xml_get_widget (glade, "artist_entry");
   duration_label = glade_xml_get_widget (glade, "duration_label");
   track_listview = glade_xml_get_widget (glade, "track_listview");
   extract_button = glade_xml_get_widget (glade, "extract_button");
