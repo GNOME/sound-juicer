@@ -426,6 +426,15 @@ show_finished_dialog (void)
 {
   GtkWidget *dialog;
   int result;
+  char *base;
+
+  base = NULL;
+  /* Find the deepest common directory. */
+  g_list_foreach (paths, (GFunc)base_finder, &base);
+
+  cleanup ();
+  extracting = FALSE;
+
   dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
                                    GTK_DIALOG_DESTROY_WITH_PARENT,
                                    GTK_MESSAGE_INFO,
@@ -445,19 +454,16 @@ show_finished_dialog (void)
   result = gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_destroy (dialog);
   if (result == 1) {
-    char *base, *command;
-    base = NULL;
-    /* Find the deepest common directory. */
-    g_list_foreach (paths, (GFunc)base_finder, &base);
+    char *command;
     /* Construct a Nautilus command line */
     /* TODO: don't think I need --no-desktop here */
     command = g_strdup_printf ("nautilus --no-desktop \'%s\'", base);
     g_spawn_command_line_async (command, NULL);
-    g_free (base);
     g_free (command);
   } else if (result == 2) {
     eject_cdrom (device, GTK_WINDOW (main_window));
   }
+  g_free (base);
 }
 
 /**
@@ -470,8 +476,6 @@ on_completion_cb (SjExtractor *extractor, gpointer data)
   if (pending == NULL) {
     gtk_widget_hide (progress_dialog);
     show_finished_dialog ();
-    cleanup ();
-    extracting = FALSE;
     if (autostart) {
       gtk_main_quit ();
     }
