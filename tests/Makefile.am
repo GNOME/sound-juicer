@@ -1,5 +1,5 @@
 INCLUDES = -I../src/ @LIBGLADE_CFLAGS@ @GSTREAMER_CFLAGS@ @MUSICBRAINZ_CFLAGS@ @GNOME_CFLAGS@
-AM_CFLAGS = -g -Wall
+AM_CFLAGS = -g -Wall -export-dynamic
 DEFS = -DGNOME_DISABLE_DEPRECATED=1
 
 noinst_PROGRAMS = data-test glade-test gst-test mb-test
