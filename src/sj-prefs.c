@@ -41,6 +41,8 @@ static GtkWidget *cd_option, *path_option, *file_option, *basepath_label, *check
 static GtkWidget *path_example_label;
 static GList *cdroms = NULL;
 
+#define DEFAULT_AUDIO_PROFILE_NAME "cdlossy"
+
 typedef struct {
   char* name;
   char* pattern;
@@ -217,10 +219,20 @@ static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *e
 static void audio_profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   const char *value;
+  GMAudioProfile *profile;
   g_return_if_fail (strcmp (entry->key, GCONF_AUDIO_PROFILE) == 0);
   if (!entry->value) return;
   value = gconf_value_get_string (entry->value);
-  gm_audio_profile_choose_set_active (audio_profile, value);
+  
+  if (strcmp (value, "") == 0) {
+    /* If there is a current profile use it otherwise use the default */
+    profile = gm_audio_profile_choose_get_active (audio_profile);
+    if (profile == NULL) {
+      gm_audio_profile_choose_set_active (audio_profile, DEFAULT_AUDIO_PROFILE_NAME);
+    }
+  } else {
+    gm_audio_profile_choose_set_active (audio_profile, value);
+  }
 }
 
 static void basepath_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
