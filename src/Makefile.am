@@ -1,6 +1,21 @@
 # General compiler flags
 AM_CFLAGS = -Wall -Werror -export-dynamic -W -Wno-unused-parameter
 
+# General CPP flags. When I can demand automake 1.8, this can become
+# sound_juicer_CPPFLAGS.
+AM_CPPFLAGS = \
+	@DISABLE_DEPRECATED_CFLAGS@ \
+	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"  \
+	-DDATADIR=\""$(datadir)"\" \
+	-DPREFIX=\""$(prefix)"\" \
+	-DLIBDIR=\""$(libdir)"\" \
+	-DSYSCONFDIR=\""$(sysconfdir)"\" \
+	-DPIXMAPDIR=\""$(datadir)/pixmaps"\" \
+	-DPKGDATADIR=\""$(datadir)/sound-juicer"\" \
+	@MUSICBRAINZ_CFLAGS@ @GSTREAMER_CFLAGS@ \
+	@LIBGLADE_CFLAGS@  @GNOME_CFLAGS@
+
+
 # We always build Sound Juicer
 bin_PROGRAMS = sound-juicer
 
@@ -27,18 +42,6 @@ sound_juicer_SOURCES = \
 	sj-extracting.c \
 	$(BACONFILES) \
 	$(MARSHALFILES)
-
-sound_juicer_CPPFLAGS = \
-	@DISABLE_DEPRECATED_CFLAGS@ \
-	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"  \
-	-DDATADIR=\""$(datadir)"\" \
-	-DPREFIX=\""$(prefix)"\" \
-	-DLIBDIR=\""$(libdir)"\" \
-	-DSYSCONFDIR=\""$(sysconfdir)"\" \
-	-DPIXMAPDIR=\""$(datadir)/pixmaps"\" \
-	-DPKGDATADIR=\""$(datadir)/sound-juicer"\" \
-	@MUSICBRAINZ_CFLAGS@ @GSTREAMER_CFLAGS@ \
-	@LIBGLADE_CFLAGS@  @GNOME_CFLAGS@
 
 sound_juicer_LDFLAGS = @MUSICBRAINZ_LIBS@ @GSTREAMER_LIBS@ @LIBGLADE_LIBS@ @GNOME_LIBS@
 
