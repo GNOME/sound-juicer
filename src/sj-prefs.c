@@ -160,23 +160,23 @@ void prefs_browse_clicked (GtkButton *button, gpointer user_data)
   gtk_widget_destroy (dialog);
 }
 
-void prefs_path_option_changed (GtkOptionMenu *optionmenu, gpointer user_data)
+void prefs_path_option_changed (GtkComboBox *combo, gpointer user_data)
 {
-  int history;
+  gint active;
   const char* pattern;
-  history = gtk_option_menu_get_history (optionmenu);
-  pattern = path_patterns[history].pattern;
+  active = gtk_combo_box_get_active (combo);
+  pattern = path_patterns[active].pattern;
   if (pattern) {
     gconf_client_set_string (gconf_client, GCONF_PATH_PATTERN, pattern, NULL);
   }
 }
 
-void prefs_file_option_changed (GtkOptionMenu *optionmenu, gpointer user_data)
+void prefs_file_option_changed (GtkComboBox *combo, gpointer user_data)
 {
-  int history;
+  gint active;
   const char* pattern;
-  history = gtk_option_menu_get_history (optionmenu);
-  pattern = file_patterns[history].pattern;
+  active = gtk_combo_box_get_active (combo);
+  pattern = file_patterns[active].pattern;
   if (pattern) {
     gconf_client_set_string (gconf_client, GCONF_FILE_PATTERN, pattern, NULL);
   }
@@ -379,7 +379,7 @@ static void path_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
     i++;
   }
   g_free (value);
-  gtk_option_menu_set_history (GTK_OPTION_MENU (path_option), i);
+  gtk_combo_box_set_active (GTK_COMBO_BOX (path_option), i);
   pattern_label_update ();
 }
 
@@ -400,25 +400,25 @@ static void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
     i++;
   }
   g_free (value);
-  gtk_option_menu_set_history (GTK_OPTION_MENU (file_option), i);
+  gtk_combo_box_set_active (GTK_COMBO_BOX (file_option), i);
   pattern_label_update ();
 }
 
 /**
- * Given a FilePattern array, generate a menu of them items
+ * Given a FilePattern array, populate the combo box.
  */
-static GtkWidget *generate_pattern_menu (FilePattern *patterns)
+static void populate_pattern_combo (GtkComboBox *combo, FilePattern *patterns)
 {
+  GtkListStore *store;
   int i;
-  GtkWidget *menu, *item;
-  menu = gtk_menu_new ();
   
+  store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
   for (i = 0; patterns[i].pattern; ++i) {
-    item = gtk_menu_item_new_with_label (_(patterns[i].name));
-    g_object_set_data (G_OBJECT (item), "pattern", patterns[i].pattern);
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+    GtkTreeIter iter;
+    gtk_list_store_append (store, &iter);
+    gtk_list_store_set (store, &iter, 0, _(patterns[i].name), 1, patterns[i].pattern, -1);
   }
-  return menu;
+  gtk_combo_box_set_model (combo, GTK_TREE_MODEL (store));
 }
 
 /**
@@ -446,9 +446,9 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     check_eject = glade_xml_get_widget (glade, "check_eject");
     path_example_label = glade_xml_get_widget (glade, "path_example_label");
 
-    gtk_option_menu_set_menu (GTK_OPTION_MENU (path_option), generate_pattern_menu (path_patterns));
+    populate_pattern_combo (GTK_COMBO_BOX (path_option), path_patterns);
     g_signal_connect (path_option, "changed", G_CALLBACK (prefs_path_option_changed), NULL);
-    gtk_option_menu_set_menu (GTK_OPTION_MENU (file_option), generate_pattern_menu (file_patterns));
+    populate_pattern_combo (GTK_COMBO_BOX (file_option), file_patterns);
     g_signal_connect (file_option, "changed", G_CALLBACK (prefs_file_option_changed), NULL);
 
     /* Connect to GConf to update the UI */
