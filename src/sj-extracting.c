@@ -219,6 +219,7 @@ pop_and_extract (void)
   } else {
     char *file_path, *directory;
     GError *error = NULL;
+    char *text;
     
     /* Pop the next track to extract */
     track = pending->data;
@@ -230,10 +231,14 @@ pop_and_extract (void)
     if (error) {
       GtkWidget *dialog;
       gtk_widget_hide (progress_dialog);
+      text = g_strdup_printf (_("Sound Juicer could not extract this CD.\nReason: %s"), error->message);
+
       dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
                                        GTK_MESSAGE_ERROR,
                                        GTK_BUTTONS_CLOSE,
-                                       g_strdup_printf ("Sound Juicer could not extract this CD.\nReason: %s", error->message));
+                                       text);
+      g_free (text);
+
       gtk_dialog_run (GTK_DIALOG (dialog));
       gtk_widget_destroy (dialog);
       g_error_free (error);
@@ -253,17 +258,25 @@ pop_and_extract (void)
     gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), 0);
     gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress),
                                    CLAMP (1.0 - ((g_list_length (pending) + 1)  / (float)total_extracting), 0.0, 1.0));
-    gtk_label_set_text (GTK_LABEL (progress_label), g_strdup_printf (_("Extracting '%s'"), track->title));
+
+    text = g_strdup_printf (_("Extracting '%s'"), track->title);
+    gtk_label_set_text (GTK_LABEL (progress_label), text);
+    g_free (text);
 
     /* Now actually do the extraction */
     sj_extractor_extract_track (extractor, track, file_path, &error);
     if (error) {
       GtkWidget *dialog;
       gtk_widget_hide (progress_dialog);
+
+      text = g_strdup_printf (_("Sound Juicer could not extract this CD.\nReason: %s"), error->message);
+
       dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
                                        GTK_MESSAGE_ERROR,
                                        GTK_BUTTONS_CLOSE,
-                                       g_strdup_printf ("Sound Juicer could not extract this CD.\nReason: %s", error->message));
+                                       text);
+      g_free (text);
+
       gtk_dialog_run (GTK_DIALOG (dialog));
       gtk_widget_destroy (dialog);
       g_error_free (error);
@@ -423,13 +436,18 @@ static void
 on_error_cb (SjExtractor *extractor, GError *error, gpointer data)
 {
   GtkWidget *dialog;
+  char *text;
   /* We've come to a screeching halt... */
   gtk_widget_hide (progress_dialog);
   /* Display a nice dialog */
+  text = g_strdup_printf (_("Sound Juicer could not extract this CD.\nReason: %s"), error->message);
+
   dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
                                    GTK_MESSAGE_ERROR,
                                    GTK_BUTTONS_CLOSE,
-                                   g_strdup_printf ("Sound Juicer could not extract this CD.\nReason: %s", error->message));
+                                   text);
+  g_free (text);
+
   gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_destroy (dialog);
   
@@ -464,7 +482,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   /* If the pending list is still empty, return */
   if (pending == NULL) {
     /* Should never reach here */
-    g_warning ("No tracks selected for extracting\n");
+    g_warning ("No tracks selected for extracting");
     return;
   }
 

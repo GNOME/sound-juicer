@@ -461,7 +461,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
                         GST_TAG_COMMENT, _("Ripped with Sound Juicer"),
                         NULL);
   } else {
-    g_warning ("The current encoding element doesn't have tag support\n");
+    g_warning ("The current encoding element doesn't have tag support");
   }
 #else
   tracknumber = g_strdup_printf("%d/%d", track->number, track->album->number);

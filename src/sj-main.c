@@ -508,14 +508,19 @@ static void reread_cd (gboolean ignore_no_media)
 
   if (error && !(error->code == SJ_ERROR_CD_NO_MEDIA && ignore_no_media)) {
     GtkWidget *dialog;
+    char *text = g_strdup_printf ("<b>%s</b>\n\n%s\n%s: %s",
+                                  _("Could not read the CD"),
+                                  _("Sound Juicer could not read the track listing on this CD."),
+                                  _("Reason"),
+                                  error->message);
+
     dialog = gtk_message_dialog_new (realized ? GTK_WINDOW (main_window) : NULL, 0,
                                      GTK_MESSAGE_ERROR,
                                      GTK_BUTTONS_CLOSE,
-                                     g_strdup_printf ("<b>%s</b>\n\n%s\n%s: %s",
-                                                     _("Could not read the CD"),
-                                                     _("Sound Juicer could not read the track listing on this CD."),
-                                                     _("Reason"),
-                                                     error->message));
+                                     text);
+
+    g_free (text);
+
     gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);

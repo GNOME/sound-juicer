@@ -236,7 +236,7 @@ static void basepath_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry 
   const char* base_path;
   g_assert (strcmp (entry->key, GCONF_BASEPATH) == 0);
   if (entry->value == NULL) {
-    base_path = g_strdup (g_get_home_dir ());
+    base_path = g_get_home_dir ();
   } else {
     base_path = gconf_value_get_string (entry->value);
   }
