@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer 0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-07-31 23:54+0200\n"
-"PO-Revision-Date: 2003-07-31 23:50+0200\n"
+"POT-Creation-Date: 2003-08-07 23:29+0200\n"
+"PO-Revision-Date: 2003-08-07 23:18+0200\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr "<b>Artiste :</b>"
 
 #: data/sound-juicer.glade.h:4
 msgid "<b>CD _Drive</b>"
-msgstr "<b>_Lecteur de CD</b>"
+msgstr "<b>_Lecteur CD</b>"
 
 #: data/sound-juicer.glade.h:5
 msgid "<b>Duration:</b>"
@@ -54,11 +54,11 @@ msgstr "<b>Progression de la piste</b>"
 
 #: data/sound-juicer.glade.h:10
 msgid "<b>_Output Format</b>"
-msgstr "<b>F_ormat de destination</b>"
+msgstr "<b>_Format de destination</b>"
 
 #: data/sound-juicer.glade.h:11
 msgid "D_irectory Hierarchy"
-msgstr "_Hiérarchie de dossiers"
+msgstr "A_rborescence des dossiers"
 
 #: data/sound-juicer.glade.h:12
 msgid "E_ject"
@@ -108,7 +108,7 @@ msgstr "Progression"
 msgid "Raw audio"
 msgstr "Audio brut"
 
-#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:660
+#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:674
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -117,8 +117,8 @@ msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
 msgstr ""
-"Ce CD contient plus d'un album. Veuillez sélectionner l'album ci-dessous et "
-"presser le bouton <i>Continuer</i>."
+"Ce CD audio contient plus d'un album. Veuillez sélectionner l'album ci-"
+"dessous et presser le bouton <i>Continuer</i>."
 
 #: data/sound-juicer.glade.h:26
 msgid "Wave"
@@ -130,7 +130,7 @@ msgstr "_Parcourir..."
 
 #: data/sound-juicer.glade.h:28
 msgid "_CD"
-msgstr "_CD"
+msgstr "_CD Audio"
 
 #: data/sound-juicer.glade.h:29
 msgid "_Contents"
@@ -150,7 +150,7 @@ msgstr "E_xtraire"
 
 #: data/sound-juicer.glade.h:33
 msgid "_File Name"
-msgstr "_Nom du fichier"
+msgstr "_Nom des fichiers"
 
 #: data/sound-juicer.glade.h:34
 msgid "_Re-read"
@@ -174,7 +174,7 @@ msgstr "Extrait la musique de vos CDs audio"
 
 #: data/sound-juicer.desktop.in.h:2
 msgid "Sound Juicer CD Ripper"
-msgstr "Extracteur de CD Sound Juicer"
+msgstr "Extracteur de CDs audio Sound Juicer"
 
 #: data/sound-juicer.schemas.in.h:2
 #, no-c-format
@@ -231,7 +231,7 @@ msgstr "Le mode de CDParanoia à utiliser"
 #: src/cd-drive.c:347
 #, c-format
 msgid "Unnamed SCSI CDROM (%s)"
-msgstr "CDROM SCSI inconnu (%s)"
+msgstr "Lecteur CD-ROM SCSI inconnu (%s)"
 
 #: src/cd-drive.c:792
 msgid "File image"
@@ -239,7 +239,7 @@ msgstr "Fichier image"
 
 #: src/bacon-cd-selection.c:234
 msgid "Unnamed CDROM"
-msgstr "CDROM inconnu"
+msgstr "Lecteur CD-ROM inconnu"
 
 #: src/bacon-cd-selection.c:276
 msgid "Select the drive"
@@ -270,11 +270,11 @@ msgstr "Piste %d"
 #: src/sj-musicbrainz.c:140
 #, c-format
 msgid "This CD could not be queried: %s\n"
-msgstr "Ce CD ne peut être interrogé : %s\n"
+msgstr "Ce CD audio ne peut être interrogé : %s\n"
 
 #: src/sj-musicbrainz.c:146
 msgid "This CD was not found.\n"
-msgstr "Ce CD n'a pas été trouvé.\n"
+msgstr "Ce CD audio n'a pas été trouvé.\n"
 
 #: src/sj-extractor.c:133
 msgid "Encoding format"
@@ -308,15 +308,15 @@ msgstr ""
 "L'objet d'extraction n'est pas valide. Relancez l'application en mode "
 "console et vérifiez les erreurs."
 
-#: src/sj-extractor.c:432
+#: src/sj-extractor.c:433
 msgid "Ripped with Sound Juicer"
 msgstr "Extrait avec Sound Juicer"
 
-#: src/sj-extractor.c:446
+#: src/sj-extractor.c:447
 msgid "Could not seek to track"
 msgstr "Ne peut se positionner sur la piste"
 
-#: src/sj-extractor.c:451
+#: src/sj-extractor.c:452
 msgid "Could not get track start position"
 msgstr "Ne peut obtenir le début de la piste"
 
@@ -327,16 +327,16 @@ msgstr "Ne peut créer le dossier %s : %s"
 
 #: src/sj-util.c:101 src/sj-util.c:116
 msgid "Could not eject the CD"
-msgstr "Ne peut éjecter le CD"
+msgstr "Ne peut éjecter le CD audio"
 
-#: src/sj-util.c:102 src/sj-util.c:117 src/sj-main.c:384 src/sj-main.c:440
-#: src/sj-main.c:641
+#: src/sj-util.c:102 src/sj-util.c:117 src/sj-main.c:384 src/sj-main.c:454
+#: src/sj-main.c:655
 msgid "Reason"
 msgstr "Raison"
 
 #: src/sj-about.c:52
 msgid "A CD Ripper"
-msgstr "Un extracteur de CD"
+msgstr "Un extracteur de CDs audio."
 
 #: src/sj-prefs.c:46
 msgid "Album Artist, Album Title"
@@ -376,9 +376,9 @@ msgstr "Numéro. Artiste de la piste - Titre de la piste"
 
 #: src/sj-prefs.c:98
 msgid "Select Output Location"
-msgstr "Sélectionner le dossier de destination"
+msgstr "Sélectionnez le dossier de destination"
 
-#: src/sj-prefs.c:195 src/sj-main.c:469
+#: src/sj-prefs.c:195 src/sj-main.c:483
 #, c-format
 msgid "Unknown format %s"
 msgstr "Format inconnu %s"
@@ -393,7 +393,7 @@ msgid ""
 "A file called '%s' exists, size %ldK.\n"
 "Do you want to skip this track or overwrite it?"
 msgstr ""
-"Un fichier nommé « %s » de %ldK existe déjà.\n"
+"Un fichier nommé « %s » de %ld ko existe déjà.\n"
 "Voulez-vous ignorer cette piste ou écraser le fichier ?"
 
 #: src/sj-extracting.c:120
@@ -422,22 +422,22 @@ msgstr "La commande mkdir() a échoué : %s"
 #: src/sj-main.c:86
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr ""
-"Vous êtes actuellement en train d'extraire un CD. Voulez-vous quitter "
+"Vous êtes actuellement en train d'extraire un CD audio. Voulez-vous quitter "
 "maintenant ou continuer ?"
 
 #: src/sj-main.c:136 src/sj-main.c:193
 msgid "(unknown)"
 msgstr "(inconnu)"
 
-#: src/sj-main.c:235 src/sj-main.c:738
+#: src/sj-main.c:235 src/sj-main.c:752
 msgid "Title"
 msgstr "Titre"
 
-#: src/sj-main.c:241 src/sj-main.c:746
+#: src/sj-main.c:241 src/sj-main.c:760
 msgid "Artist"
 msgstr "Artiste"
 
-#: src/sj-main.c:382 src/sj-main.c:438
+#: src/sj-main.c:382 src/sj-main.c:452
 msgid "Could not read the CD"
 msgstr "Ne peut lire le CD"
 
@@ -445,25 +445,25 @@ msgstr "Ne peut lire le CD"
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer ne peut lire les pistes de ce CD."
 
-#: src/sj-main.c:420
+#: src/sj-main.c:434
 msgid "No CD-ROM drives found"
-msgstr "Aucun lecteur de CD-ROM trouvé"
+msgstr "Aucun lecteur CD-ROM trouvé"
 
-#: src/sj-main.c:421
+#: src/sj-main.c:435
 msgid "Sound Juicer could not find any CD-ROM drives to read."
-msgstr "Sound Juicer n'a pas pu trouver un CD-ROM à lire."
+msgstr "Sound Juicer n'a pas pu trouver de lecteur CD-ROM à lire."
 
-#: src/sj-main.c:432
+#: src/sj-main.c:446
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
-msgstr "Sound Juicer n'a pas pu accéder au lecteur de CD-ROM « %s »"
+msgstr "Sound Juicer n'a pas pu accéder au lecteur CD-ROM « %s »"
 
-#: src/sj-main.c:575
+#: src/sj-main.c:589
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "La colonne inconnue %d a été éditée"
 
-#: src/sj-main.c:622
+#: src/sj-main.c:636
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -472,27 +472,27 @@ msgstr ""
 "Ne peut afficher l'aide de Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:640
+#: src/sj-main.c:654
 msgid "Could not start Sound Juicer"
 msgstr "Ne peut démarrer Sound Juicer"
 
-#: src/sj-main.c:643
+#: src/sj-main.c:657
 msgid "Please consult the documentation for assistance."
 msgstr "Veuillez consulter la documentation pour plus d'aide."
 
-#: src/sj-main.c:677
+#: src/sj-main.c:691
 msgid "Could not create GConf client.\n"
 msgstr "Ne peut créer le client GConf.\n"
 
-#: src/sj-main.c:719
+#: src/sj-main.c:733
 msgid "Extract?"
 msgstr "Extraire ?"
 
-#: src/sj-main.c:727
+#: src/sj-main.c:741
 msgid "Track"
 msgstr "Piste"
 
-#: src/sj-main.c:756
+#: src/sj-main.c:770
 msgid "Duration"
 msgstr "Durée"
 
