@@ -93,7 +93,9 @@ sj_metadata_musicbrainz_instance_init (GTypeInstance *instance, gpointer g_class
 
   gconf_client = gconf_client_get_default ();
   server_name = gconf_client_get_string (gconf_client, GCONF_MUSICBRAINZ_SERVER, NULL);
-  g_strstrip (server_name);
+  if (server_name) {
+    g_strstrip (server_name);
+  }
   if (server_name && strcmp (server_name, "") != 0) {
     mb_SetServer (self->priv->mb, server_name, 80);
     g_free (server_name);
