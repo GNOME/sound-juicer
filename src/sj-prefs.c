@@ -37,7 +37,7 @@ extern GtkWidget *main_window;
 
 static GtkWidget *audio_profile;
 static GtkWidget *prefs_dialog;
-static GtkWidget *cd_option, *path_option, *file_option, *basepath_label, *check_strip, *check_eject;
+static GtkWidget *cd_option, *path_option, *file_option, *basepath_fcb, *check_strip, *check_eject;
 static GtkWidget *path_example_label;
 static GList *cdroms = NULL;
 
@@ -147,27 +147,16 @@ void show_help ()
 }
 
 /**
- * Clicked on Browse in the Prefs dialog
+ * Changed folder in the Prefs dialog
  */
-void prefs_browse_clicked (GtkButton *button, gpointer user_data)
+void prefs_base_folder_changed (GtkWidget *chooser, gpointer user_data)
 {
-  GtkWidget *dialog;
-  dialog = gtk_file_chooser_dialog_new (_("Select Output Location"),
-                                        GTK_WINDOW (main_window),
-                                        GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
-                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                        GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
-                                        NULL);
-  gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog), base_path);
-  if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
-    char *filename, *path;
-    filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
-    path = g_filename_to_utf8 (filename, -1, NULL, NULL, NULL); /* TODO: GError */
-    gconf_client_set_string (gconf_client, GCONF_BASEPATH, path, NULL);
-    g_free (path);
-    g_free (filename);
-  }
-  gtk_widget_destroy (dialog);
+  char *filename, *path;
+  filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (chooser));
+  path = g_filename_to_utf8 (filename, -1, NULL, NULL, NULL); /* TODO: GError */
+  gconf_client_set_string (gconf_client, GCONF_BASEPATH, path, NULL);
+  g_free (path);
+  g_free (filename);
 }
 
 void prefs_path_option_changed (GtkComboBox *combo, gpointer user_data)
@@ -248,14 +237,14 @@ static void basepath_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry 
   g_return_if_fail (strcmp (entry->key, GCONF_BASEPATH) == 0);
 
   if (entry->value == NULL) {
-    base_path = g_get_home_dir ();
+    gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (basepath_fcb), g_get_home_dir());
   } else {
     g_return_if_fail (entry->value->type == GCONF_VALUE_STRING);
     base_path = gconf_value_get_string (entry->value);
+    if (strcmp (gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (basepath_fcb)), base_path) != 0) { 
+           gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (basepath_fcb), base_path);
+    }
   }
-  /* TODO: sanity check the path somewhat */
-  /* TODO: use an ellipsising label? */
-  gtk_label_set_text (GTK_LABEL (basepath_label), base_path);
 }
 
 static void strip_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
@@ -285,7 +274,7 @@ static void eject_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *en
 static void pattern_label_update (void)
 {
   char *file_pattern, *path_pattern;
-  char *file_value, *path_value, *example;
+  char *file_value, *path_value, *example, *format;
   gboolean strip;
   static AlbumDetails sample_album = {
     N_("Album Title"),
@@ -330,8 +319,11 @@ static void pattern_label_update (void)
   g_free (path_value);
   g_free (path_pattern);
 
-  gtk_label_set_text (GTK_LABEL (path_example_label), example+1);
+  format = g_strconcat ("<i><small>", example, "</small></i>", NULL);
   g_free (example);
+  
+  gtk_label_set_markup (GTK_LABEL (path_example_label), format);
+  g_free (format);
 }
 
 static void path_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
@@ -408,7 +400,7 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
 
 
     cd_option = glade_xml_get_widget (glade, "cd_option");
-    basepath_label = glade_xml_get_widget (glade, "path_label");
+    basepath_fcb = glade_xml_get_widget (glade, "path_chooser");
     path_option = glade_xml_get_widget (glade, "path_option");
     file_option = glade_xml_get_widget (glade, "file_option");
     audio_profile = glade_xml_get_widget (glade, "audio_profile");
