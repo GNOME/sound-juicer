@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-06 20:04+0200\n"
-"PO-Revision-Date: 2004-12-06 19:59+0200\n"
+"POT-Creation-Date: 2005-01-05 11:57+0200\n"
+"PO-Revision-Date: 2005-01-05 11:58+0200\n"
 "Last-Translator: Tommi Vainikainen <Tommi.Vainikainen@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr "Kopioi musiikkia CD:iltäsi"
 
 #: data/sound-juicer.desktop.in.h:2
 msgid "Sound Juicer CD Ripper"
-msgstr "Sound Juicer - CD-kopiointi"
+msgstr "Musiikkimaija - CD-kopiointi"
 
 #: data/sound-juicer.glade.h:1
 msgid "*"
@@ -107,7 +107,7 @@ msgstr "Edistyminen"
 #: data/sound-juicer.glade.h:20 src/sj-about.c:56 src/sj-extractor.c:442
 #: src/sj-main.c:908
 msgid "Sound Juicer"
-msgstr "Sound Juicer"
+msgstr "Musiikkimaija"
 
 #: data/sound-juicer.glade.h:21
 msgid ""
@@ -182,7 +182,7 @@ msgstr ""
 
 #: data/sound-juicer.schemas.in.h:3
 msgid "Audio Profile to encode with"
-msgstr "Ääniprofiili, jolla pakataan"
+msgstr "Ääniprofiili, jolla koodataan"
 
 #: data/sound-juicer.schemas.in.h:5
 #, no-c-format
@@ -225,7 +225,7 @@ msgstr ""
 
 #: data/sound-juicer.schemas.in.h:10
 msgid "The GNOME Audio Profile to encode the audio with."
-msgstr "Gnomen ääniprofiili, jolla ääni pakataan."
+msgstr "Gnomen ääniprofiili, jolla ääni koodataan."
 
 #: data/sound-juicer.schemas.in.h:11
 msgid "The MusicBrainz server to use"
@@ -251,12 +251,12 @@ msgstr "Poista CD-levy kopioinnin päätyttyä."
 msgid "Unnamed CDROM"
 msgstr "Nimetön CD-ROM"
 
-#: src/cd-drive.c:855
+#: src/cd-drive.c:846
 #, c-format
 msgid "Unnamed SCSI Drive (%s)"
 msgstr "Nimetön SCSI-asema (%s)"
 
-#: src/cd-drive.c:1415
+#: src/cd-drive.c:1406
 msgid "File image"
 msgstr "Tiedostokuva"
 
@@ -300,7 +300,7 @@ msgid ""
 "Sound Juicer could not extract this CD.\n"
 "Reason: %s"
 msgstr ""
-"Sound Juicer ei voinut kopioida tätä CD:tä.\n"
+"Musiikkimaija ei voinut kopioida tätä CD:tä.\n"
 "Syy: %s"
 
 #: src/sj-extracting.c:277
@@ -327,12 +327,12 @@ msgid "_Eject"
 msgstr "_Poista levy"
 
 #: src/sj-extractor.c:125
-msgid "Gnome Audio Profile"
+msgid "GNOME Audio Profile"
 msgstr "Gnome-ääniprofiili"
 
 #: src/sj-extractor.c:125
-msgid "The Gnome Audio Profile used for encoding audio"
-msgstr "Gnome-ääniprofiili, jota äänen pakkaamisessa käytetään"
+msgid "The GNOME Audio Profile used for encoding audio"
+msgstr "Gnome-ääniprofiili, jota äänen koodaamisessa käytetään"
 
 #: src/sj-extractor.c:268
 msgid "Could not create GStreamer cdparanoia reader"
@@ -341,7 +341,7 @@ msgstr "Ei voitu luoda GStreamer-cdparanoia-lukijaa"
 #: src/sj-extractor.c:287
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
-msgstr "Ei voitu luoda GStreamer-pakkainta (%s)"
+msgstr "Ei voitu luoda GStreamer-kooderia (%s)"
 
 #: src/sj-extractor.c:298
 msgid "Could not create GStreamer file output"
@@ -700,7 +700,7 @@ msgstr "[tuntematon tyyli]"
 
 #: src/sj-main.c:89
 msgid "Could not start Sound Juicer"
-msgstr "Sound Juiceria ei voitu käynnistää"
+msgstr "Musiikkimaijaa ei voitu käynnistää"
 
 #: src/sj-main.c:90 src/sj-main.c:454 src/sj-main.c:529 src/sj-main.c:588
 #: src/sj-util.c:110 src/sj-util.c:130
@@ -733,7 +733,7 @@ msgstr "CD:tä ei voitu lukea"
 
 #: src/sj-main.c:453 src/sj-main.c:528
 msgid "Sound Juicer could not read the track listing on this CD."
-msgstr "Sound Juicer ei voinut lukea raitaluetteloa tältä CD:ltä."
+msgstr "Musiikkimaija ei voinut lukea raitaluetteloa tältä CD:ltä."
 
 #. Set statusbar message
 #: src/sj-main.c:512
@@ -746,12 +746,12 @@ msgstr "CD-ROM-asemia ei löytynyt"
 
 #: src/sj-main.c:568
 msgid "Sound Juicer could not find any CD-ROM drives to read."
-msgstr "Sound Juicer ei löytänyt yhtään CD-ROM-asemaa luettavaksi."
+msgstr "Musiikkimaija ei löytänyt yhtään CD-ROM-asemaa luettavaksi."
 
 #: src/sj-main.c:580
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
-msgstr "Sound Juicer ei voinut käsitellä CD-ROM-laitetta \"%s\""
+msgstr "Musiikkimaija ei voinut käsitellä CD-ROM-laitetta \"%s\""
 
 #: src/sj-main.c:625
 msgid ""
@@ -774,7 +774,7 @@ msgid ""
 "Could not display help for Sound Juicer\n"
 "%s"
 msgstr ""
-"Sound Juicerin ohjetta ei voitu näyttää\n"
+"Musiikkimaijan ohjetta ei voitu näyttää\n"
 "%s"
 
 #: src/sj-main.c:927
@@ -922,17 +922,8 @@ msgstr "CD-levyä ei voitu poistaa"
 #~ msgid "<i>Coming soon!</i>"
 #~ msgstr "<i>Tulossa pian!</i>"
 
-#~ msgid "Excellent quality lossless compression"
-#~ msgstr "Erinomaisen laadukas häviötön pakkaus"
-
 #~ msgid "FLAC"
 #~ msgstr "FLAC"
-
-#~ msgid "Good quality lossy compression"
-#~ msgstr "Hyvälaatuinen häviöllinen pakkaus"
-
-#~ msgid "High quality lossy compression"
-#~ msgstr "Korkealaatuinen häviöllinen pakkaus"
 
 #~ msgid "MP3"
 #~ msgstr "MP3"
@@ -948,9 +939,6 @@ msgstr "CD-levyä ei voitu poistaa"
 
 #~ msgid "Encoding format"
 #~ msgstr "Pakkausmuoto"
-
-#~ msgid "Ripped with Sound Juicer"
-#~ msgstr "Kopioitu Sound Juicerilla"
 
 #~ msgid "Cannot find any suitable encoders"
 #~ msgstr "Yhtään sopivaa pakkainta ei löytynyt"
