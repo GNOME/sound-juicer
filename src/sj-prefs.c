@@ -26,6 +26,7 @@
 #include <gtk/gtk.h>
 #include <glade/glade-xml.h>
 #include <gconf/gconf-client.h>
+#include <libgnome/gnome-help.h>
 #include "sj-extracting.h"
 #include "cd-drive.h"
 #include "bacon-cd-selection.h"
@@ -35,6 +36,7 @@ extern GtkWidget *main_window;
 
 /* Store the toggle buttons pertaining to the format */
 static GtkWidget *format_widgets[SJ_NUMBER_FORMATS];
+static GtkWidget *prefs_dialog;
 static GtkWidget *cd_option, *path_option, *file_option, *basepath_label, *check_strip, *check_eject;
 static GtkWidget *path_example_label;
 
@@ -96,6 +98,32 @@ void prefs_eject_toggled (GtkToggleButton *togglebutton, gpointer user_data)
   gconf_client_set_bool (gconf_client, GCONF_EJECT,
                          gtk_toggle_button_get_active (togglebutton),
                          NULL);
+}
+
+/**
+ * Show the gnome help browser
+ */
+void show_help ()
+{
+  GError *error = NULL;
+
+  gnome_help_display ("sound-juicer", "preferences", &error);
+  if (error) {
+    GtkWidget *dialog;
+
+    dialog = gtk_message_dialog_new (GTK_WINDOW (prefs_dialog),
+                                     GTK_DIALOG_DESTROY_WITH_PARENT,
+                                     GTK_MESSAGE_ERROR,
+                                     GTK_BUTTONS_CLOSE,
+                                     _("Could not display help for Sound Juicer\n"
+                                       "%s"),
+                                     error->message);
+
+    gtk_widget_show_all (dialog);
+    gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_widget_destroy(dialog);
+    g_error_free (error);
+  }
 }
 
 /**
@@ -364,11 +392,13 @@ static GtkWidget *generate_pattern_menu (FilePattern *patterns)
  */
 void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
 {
-  static GtkWidget *dialog;
-  if (dialog == NULL) {
-    dialog = glade_xml_get_widget (glade, "prefs_dialog");
-    g_assert (dialog != NULL);
-    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (main_window));
+  int rc;
+
+  if (prefs_dialog == NULL) {
+    prefs_dialog = glade_xml_get_widget (glade, "prefs_dialog");
+    g_assert (prefs_dialog != NULL);
+    gtk_window_set_transient_for (GTK_WINDOW (prefs_dialog), GTK_WINDOW (main_window));
+
 
     cd_option = glade_xml_get_widget (glade, "cd_option");
     basepath_label = glade_xml_get_widget (glade, "path_label");
@@ -404,7 +434,16 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
   file_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL), NULL);
   path_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL), NULL);
 
-  gtk_widget_show_all (dialog);
-  gtk_dialog_run (GTK_DIALOG (dialog));
-  gtk_widget_hide (dialog);
+  gtk_widget_show_all (prefs_dialog);
+
+  while (1) {
+      rc = gtk_dialog_run (GTK_DIALOG (prefs_dialog));
+
+      if (rc == GTK_RESPONSE_HELP)
+	  show_help();
+      else if (rc == GTK_RESPONSE_CLOSE)
+	  break;
+      }
+      
+  gtk_widget_hide (prefs_dialog);
 }
