@@ -1,6 +1,7 @@
 #include <glib/gerror.h>
 #include <glib/gtypes.h>
 #include <gst/gst.h>
+#include <libgnome/gnome-i18n.h>
 #include "sj-structures.h"
 #include "sj-gstreamer.h"
 #include "sj-error.h"
@@ -9,9 +10,6 @@ static GstElement *pipeline;
 static GstElement *cdparanoia, *vorbisenc, *filesink;
 static GstFormat track_format;
 GstPad *source_pad;
-
-#define THREADED 0
-#define MAINLOOP 1
 
 typedef void (*progress_cb_t) (int seconds);
 typedef void (*completion_cb_t) (void);
@@ -29,18 +27,14 @@ void sj_gstreamer_init (int argc, char **argv, GError **error)
 {
   gst_init (&argc, &argv);
 
-#if THREADED
-  pipeline = gst_thread_new ("pipeline");
-#else
   pipeline = gst_pipeline_new ("pipeline");
-#endif
 
   /* Read from CD */
   cdparanoia = gst_element_factory_make ("cdparanoia", "cdparanoia");
   if (cdparanoia == NULL) {
     g_set_error (error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-                 "Could not create cdparanoia element");
+                 _("Could not create cdparanoia element"));
     return;
   }
   g_object_set (G_OBJECT (cdparanoia), "paranoia_mode", 0, NULL);
@@ -56,18 +50,18 @@ void sj_gstreamer_init (int argc, char **argv, GError **error)
   if (vorbisenc == NULL) {
     g_set_error (error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-                 "Could not create Vorbis encoding element");
+                 _("Could not create Vorbis encoding element"));
     return;
   }
   /* Connect to the eos so we know when its finished */
-  g_signal_connect (vorbisenc, "eos", eos_cb, NULL);
+  g_signal_connect (vorbisenc, "eos", G_CALLBACK (eos_cb), NULL);
 
   /* Write to disk */
   filesink = gst_element_factory_make ("filesink", "filesink");
   if (filesink == NULL) {
     g_set_error (error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-                 "Could not create file sink element");
+                 _("Could not create file sink element"));
     return;
   }
 
@@ -148,7 +142,7 @@ void sj_gstreamer_extract_track (const TrackDetails *track, const char* path, GE
                        "artist", GST_PROPS_STRING (track->artist),
                        "tracknumber", GST_PROPS_STRING (tracknumber),
                        "album", GST_PROPS_STRING (track->album->title),
-                       "comment", GST_PROPS_STRING("Ripped with Sound Juicer")
+                       "comment", GST_PROPS_STRING(_("Ripped with Sound Juicer"))
                        );
   g_object_set (G_OBJECT (vorbisenc), "metadata", caps, NULL);
   g_free (tracknumber);
@@ -162,17 +156,11 @@ void sj_gstreamer_extract_track (const TrackDetails *track, const char* path, GE
   if (!gst_pad_send_event (source_pad, event)) {
     g_set_error (error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-                 "Could not seek to track");
+                 _("Could not seek to track"));
     return;
   }
   
   gst_element_set_state (pipeline, GST_STATE_PLAYING);
-#if MAINLOOP
   g_idle_add ((GSourceFunc)gst_bin_iterate, pipeline);
   g_timeout_add (200, (GSourceFunc)tick_timeout_cb, NULL);
-#else
-  while (gst_bin_iterate (GST_BIN (pipeline))) {
-    g_print(".");
-  }
-#endif
 }

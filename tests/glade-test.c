@@ -4,6 +4,7 @@
 #include <gtk/gtk.h>
 #include <glade/glade-xml.h>
 #include <gconf/gconf-client.h>
+#include <libgnome/gnome-i18n.h>
 #include <libgnomeui/gnome-about.h>
 #include <libgnomeui/gnome-file-entry.h>
 #include "bacon-cd-selection.h"
@@ -16,17 +17,19 @@ GladeXML *glade;
 GConfClient *gconf_client;
 
 GtkWidget *main_window, *progress_dialog = NULL;
-GtkWidget *title_label, *artist_label, *basepath_label;
+GtkWidget *title_label, *artist_label, *duration_label, *basepath_label;
 GtkWidget *track_listview, *cd_option, *reread_button, *extract_button;
-GtkWidget *progress_label, *track_progress;
+GtkWidget *extract_menuitem, *select_all_menuitem;
+GtkWidget *progress_label, *track_progress, *album_progress;
 GtkListStore *track_store;
 
 const char *base_path;
 const char *device;
-int duration; /* duration of current track for progress dialog */
+int track_duration; /* duration of current track for progress dialog */
 gboolean ripping = FALSE;
 
 GList *pending = NULL; /* a GList of TrackDetails* to rip */
+int total_ripping; /* the number of tracks to rip, not decremented */
 
 #define GCONF_ROOT "/apps/sound-juicer"
 #define GCONF_DEVICE GCONF_ROOT "/device"
@@ -49,10 +52,10 @@ void on_about_activate (GtkMenuItem *item, gpointer user_data)
 {
   GtkWidget *dialog = NULL;
   const char* authors[] = {"Ross Burton <ross@burtonini.com>", NULL};
-  dialog = gnome_about_new ("Sound Juicer",
+  dialog = gnome_about_new (_("Sound Juicer"),
                             VERSION,
-                            "Copyright (C) 2003 Ross Burton",
-                            "A CD ripper",
+                            _("Copyright (C) 2003 Ross Burton"),
+                            _("A CD ripper"),
                             authors,
                             NULL, NULL, NULL);
   gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (main_window));
@@ -77,14 +80,28 @@ gboolean on_destory_event (GtkWidget *widget, GdkEvent *event, gpointer user_dat
     dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), GTK_DIALOG_MODAL,
                                      GTK_MESSAGE_QUESTION,
                                      GTK_BUTTONS_NONE,
-                                     "You are currently ripping a CD. Do you want to quit now or contine ripping?");
+                                     _("You are currently ripping a CD. Do you want to quit now or contine ripping?"));
     gtk_dialog_add_button (GTK_DIALOG (dialog), "gtk-quit", GTK_RESPONSE_ACCEPT);
-    gtk_dialog_add_button (GTK_DIALOG (dialog), "Continue", GTK_RESPONSE_REJECT);
+    gtk_dialog_add_button (GTK_DIALOG (dialog), _("Continue"), GTK_RESPONSE_REJECT);
     gtk_widget_show_all (dialog);
     response = gtk_dialog_run (GTK_DIALOG (dialog));
     return response != GTK_RESPONSE_ACCEPT;
   }
   return FALSE;
+}
+
+static gboolean select_all_foreach_cb (GtkTreeModel *model,
+                                      GtkTreePath *path,
+                                      GtkTreeIter *iter,
+                                      gpointer data)
+{
+  gtk_list_store_set (track_store, iter, COLUMN_EXTRACT, TRUE, -1);
+  return FALSE;
+}
+
+void on_select_all_activate (GtkMenuItem *item, gpointer user_data)
+{
+  gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), select_all_foreach_cb, NULL);  
 }
 
 /**
@@ -104,7 +121,11 @@ static void duration_cell_data_cb (GtkTreeViewColumn *tree_column,
 
   g_value_unset (&v);
   g_value_init(&v, G_TYPE_STRING);  
-  g_value_set_string (&v, g_strdup_printf("%d:%02d", duration / 60, duration % 60));
+  if (duration) {
+    g_value_set_string (&v, g_strdup_printf("%d:%02d", duration / 60, duration % 60));
+  } else {
+    g_value_set_string (&v, _("(unknown)"));
+  }
   g_object_set_property (G_OBJECT (cell), "text", &v);
 }
 
@@ -114,20 +135,29 @@ static void duration_cell_data_cb (GtkTreeViewColumn *tree_column,
 static void update_ui_for_album (AlbumDetails *album)
 {
   GList *l;
+  int album_duration = 0;
+  char* duration_text;
+
   if (album == NULL) {
     gtk_label_set_text (GTK_LABEL (title_label), "");
     gtk_label_set_text (GTK_LABEL (artist_label), "");
+    gtk_label_set_text (GTK_LABEL (duration_label), "");
     gtk_list_store_clear (track_store);
     gtk_widget_set_sensitive (extract_button, FALSE);
+    gtk_widget_set_sensitive (extract_menuitem, FALSE);
+    gtk_widget_set_sensitive (select_all_menuitem, FALSE);
   } else {
     gtk_label_set_text (GTK_LABEL (title_label), album->title);
     gtk_label_set_text (GTK_LABEL (artist_label), album->artist);
     gtk_widget_set_sensitive (extract_button, TRUE);
+    gtk_widget_set_sensitive (extract_menuitem, TRUE);
+    gtk_widget_set_sensitive (select_all_menuitem, TRUE);
     
     gtk_list_store_clear (track_store);
     for (l = album->tracks; l; l=g_list_next (l)) {
       GtkTreeIter iter;
       TrackDetails *track = (TrackDetails*)l->data;
+      album_duration += track->duration;
       gtk_list_store_append (track_store, &iter);
       gtk_list_store_set (track_store, &iter,
                           COLUMN_NUMBER, track->number, 
@@ -136,6 +166,14 @@ static void update_ui_for_album (AlbumDetails *album)
                           COLUMN_DURATION, track->duration,
                           COLUMN_DETAILS, track,
                           -1);
+    }
+    /* Some albums don't have track durations :( */
+    if (album_duration) {
+      duration_text = g_strdup_printf("%d:%02d", album_duration / 60, album_duration % 60);
+      gtk_label_set_text (GTK_LABEL (duration_label), duration_text);
+      g_free (duration_text);
+    } else {
+      gtk_label_set_text (GTK_LABEL (duration_label), _("(unknown)"));
     }
   }
 }
@@ -177,13 +215,13 @@ AlbumDetails* multiple_album_dialog(GList *albums)
     g_signal_connect (albums_listview, "row-activated", G_CALLBACK (album_row_activated), dialog);
 
     albums_store = gtk_list_store_new (3, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
-    column = gtk_tree_view_column_new_with_attributes ("Title",
+    column = gtk_tree_view_column_new_with_attributes (_("Title"),
                                                        text_renderer,
                                                        "text", 0,
                                                        NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (albums_listview), column);
 
-    column = gtk_tree_view_column_new_with_attributes ("Artist",
+    column = gtk_tree_view_column_new_with_attributes (_("Artist"),
                                                        text_renderer,
                                                        "text", 1,
                                                        NULL);
@@ -243,7 +281,7 @@ void reread_cd (void)
 
   albums = sj_musicbrainz_list_albums(&error);
   if (error) {
-    g_print ("Cannot list albums: %s\n", error->message);
+    g_print (_("Cannot list albums: %s\n"), error->message);
     g_error_free (error);
     return;
   }
@@ -271,8 +309,8 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
       dialog = gtk_message_dialog_new (NULL, 0,
                                        GTK_MESSAGE_ERROR,
                                        GTK_BUTTONS_CLOSE,
-                                       "<b>No CD-ROMs found</b>\n\n"
-                                       "Sound Juicer could not find any CD-ROM drives to read.");
+                                       _("<b>No CD-ROMs found</b>\n\n"
+                                       "Sound Juicer could not find any CD-ROM drives to read."));
       gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
       gtk_dialog_run (GTK_DIALOG (dialog));
       exit(1); /* TODO: fix */
@@ -305,6 +343,7 @@ static gboolean rip_track_foreach_cb (GtkTreeModel *model,
                       -1);
   if (!extract) return FALSE;
   pending = g_list_append (pending, track);
+  ++total_ripping;
   return FALSE;
 }
 
@@ -313,6 +352,7 @@ static void pop_and_rip (void)
   TrackDetails *track;
   char *file_path, *directory;
   GError *error = NULL;
+  int left;
 
   if (pending == NULL) {
     gtk_widget_hide (progress_dialog);
@@ -322,9 +362,12 @@ static void pop_and_rip (void)
   track = pending->data;
   pending = g_list_next (pending);
 
-  gtk_label_set_text (GTK_LABEL (progress_label), g_strdup_printf ("Currently extracting '%s'", track->title));
+  left = total_ripping - g_list_length (pending);
+  gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress), (float)left/(float)total_ripping);
+
+  gtk_label_set_text (GTK_LABEL (progress_label), g_strdup_printf (_("Currently extracting '%s'"), track->title));
   file_path = g_strdup_printf("%s/%s/%s.ogg", base_path, track->album->title, track->title); /* TODO: CRAP */
-  /* TODO: create the folder */
+  /* TODO: create the folder, recurse */
   directory = g_path_get_dirname (file_path);
   if (!g_file_test (directory, G_FILE_TEST_IS_DIR)) {
     int res;
@@ -356,6 +399,7 @@ void on_extract_activate (GtkWidget *button, gpointer user_data)
     progress_dialog = glade_xml_get_widget (glade, "progress_dialog");
     gtk_window_set_transient_for (GTK_WINDOW (progress_dialog), GTK_WINDOW (main_window));
     track_progress = glade_xml_get_widget (glade, "track_progress");
+    album_progress = glade_xml_get_widget (glade, "album_progress");
     progress_label = glade_xml_get_widget (glade, "progress_label");
     g_assert (progress_dialog != NULL);
   }
@@ -363,6 +407,7 @@ void on_extract_activate (GtkWidget *button, gpointer user_data)
 
   /* Fill pending with a list of all tracks to rip */
   g_list_free (pending);
+  total_ripping = 0;
   gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), rip_track_foreach_cb, NULL);
   pop_and_rip();
 }
@@ -421,9 +466,8 @@ static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
 
 static void on_progress_cb (int seconds)
 {
-  g_print ("Callback: %d\n", seconds);
-  if (duration != 0) {
-    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), (float)seconds/(float)duration);
+  if (track_duration != 0) {
+    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), (float)seconds/(float)track_duration);
   } else {
     gtk_progress_bar_pulse (GTK_PROGRESS_BAR (track_progress));
   }
@@ -432,7 +476,6 @@ static void on_progress_cb (int seconds)
 
 static void on_completion_cb (void)
 {
-  g_print ("Callback complete\n");
   ripping = FALSE;
   pop_and_rip ();
   return;
@@ -457,11 +500,14 @@ int main (int argc, char **argv)
   glade_xml_signal_autoconnect (glade);
 
   main_window = glade_xml_get_widget (glade, "main_window");
+  select_all_menuitem = glade_xml_get_widget (glade, "select_all");
+  extract_menuitem = glade_xml_get_widget (glade, "extract_menuitem");
   title_label = glade_xml_get_widget (glade, "title_label");
   artist_label = glade_xml_get_widget (glade, "artist_label");
-  basepath_label = glade_xml_get_widget (glade, "path_label"); /* from prefs, urgh */
+  duration_label = glade_xml_get_widget (glade, "duration_label");
+  basepath_label = glade_xml_get_widget (glade, "path_label"); /* TODO: from prefs, urgh. gconf it separately */
   track_listview = glade_xml_get_widget (glade, "track_listview");
-  cd_option = glade_xml_get_widget (glade, "cd_option"); /* hmm */
+  cd_option = glade_xml_get_widget (glade, "cd_option"); /* also from prefs, urgh */
   extract_button = glade_xml_get_widget (glade, "extract_button");
   reread_button = glade_xml_get_widget (glade, "reread_button");
 
@@ -473,32 +519,32 @@ int main (int argc, char **argv)
     
     toggle_renderer = gtk_cell_renderer_toggle_new ();
     g_signal_connect (toggle_renderer, "toggled", G_CALLBACK (on_extract_toggled), NULL);
-    column = gtk_tree_view_column_new_with_attributes ("Extract?",
+    column = gtk_tree_view_column_new_with_attributes (_("Extract?"),
                                                        toggle_renderer,
                                                        "active", COLUMN_EXTRACT,
                                                        NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
     text_renderer = gtk_cell_renderer_text_new (); /* TODO: is this cheating? */
-    column = gtk_tree_view_column_new_with_attributes ("Track",
+    column = gtk_tree_view_column_new_with_attributes (_("Track"),
                                                        text_renderer,
                                                        "text", COLUMN_NUMBER,
                                                        NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
-    column = gtk_tree_view_column_new_with_attributes ("Title",
+    column = gtk_tree_view_column_new_with_attributes (_("Title"),
                                                        text_renderer,
                                                        "text", COLUMN_TITLE,
                                                        NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
-    column = gtk_tree_view_column_new_with_attributes ("Artist",
+    column = gtk_tree_view_column_new_with_attributes (_("Artist"),
                                                        text_renderer,
                                                        "text", COLUMN_ARTIST,
                                                        NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
     
-    column = gtk_tree_view_column_new_with_attributes ("Duration",
+    column = gtk_tree_view_column_new_with_attributes (_("Duration"),
                                                        text_renderer,
                                                        NULL);
     gtk_tree_view_column_set_cell_data_func (column, text_renderer, duration_cell_data_cb, NULL, NULL);

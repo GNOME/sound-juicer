@@ -1,3 +1,28 @@
+2003-04-01  Ross Burton  <ross@burtonini.com>
+
+	* README: Update to reflect new state -- it works!
+
+	* data/sound-juicer.desktop.in: Added.
+	* src/sound-juicer.png: Renamed from grip-48.png
+	* data/Makefile.am: Added, install data files.
+	* src/Makefile.am: Added, all it does at the moment it automake
+	the libbacon updates.
+	* Makefile.am: Go into src/ and data/, and remove NOTES as it
+	doesn't exist any more.
+
+	* src/sj-gstreamer.c:Markup translatable strings, and remove #if'd
+	out code.
+	* src/sj-musicbrainz.c: Markup translatable strings
+
+	* po/POTFILES.in: Update
+	
+	* src/sj-gstreamer.c: Remove a compile warning.
+
+	* data/sound-juicer.glade: Added a Select All menu item, and
+	renamed some control.s
+	* tests/glade-test.c: Implemented Select All, the album duration
+	display, album extract progress, i18nized more strings...
+
 2003-03-31  Ross Burton  <ross@burtonini.com>
 
 	* src/sj-gstreamer.c: Cleansups.

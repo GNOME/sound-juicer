@@ -1,4 +1,4 @@
-SUBDIRS = tests
+SUBDIRS = data src tests
 
 INTLTOOL_BUILT = \
         intltool-extract \
@@ -7,7 +7,6 @@ INTLTOOL_BUILT = \
 
 EXTRA_DIST = \
 	autogen.sh \
-	$(INTLTOOL_BUILT:=.in) \
-	NOTES
+	$(INTLTOOL_BUILT:=.in)
 
 CLEANFILES = $(INTLTOOL_BUILT)

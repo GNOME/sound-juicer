@@ -2,6 +2,7 @@
 #include <glib/glist.h>
 #include <glib/gstrfuncs.h>
 #include <glib/gmessages.h>
+#include <libgnome/gnome-i18n.h>
 #include <musicbrainz/queries.h>
 #include <musicbrainz/mb_c.h>
 #include <stdlib.h>
@@ -30,19 +31,19 @@ static GList* get_offline_track_listing(musicbrainz_t mb, GError **error)
   if (!mb_Query (mb, MBQ_GetCDTOC)) {
     char error[255];
     mb_GetQueryError (mb, error, 255);
-    g_print("Cannot read CD: %s\n", error);
+    g_print(_("Cannot read CD: %s\n"), error);
     return NULL; /* TODO: GError */
   }
   num_tracks = mb_GetResultInt (mb, MBE_TOCGetLastTrack);
 
   album = g_new0 (AlbumDetails, 1);
-  album->artist = "Unknown Artist";
-  album->title = "Unknown Title";
+  album->artist = _("Unknown Artist");
+  album->title = _("Unknown Title");
   for (i = 1; i <= num_tracks; i++) {
     track = g_new0 (TrackDetails, 1);
     track->album = album;
     track->number = i;
-    track->title = g_strdup_printf ("Track %d", i);
+    track->title = g_strdup_printf (_("Track %d"), i);
     track->artist = album->artist;
     /* TODO: track duration */
     album->tracks = g_list_append (album->tracks, track);
@@ -59,7 +60,7 @@ GList* sj_musicbrainz_list_albums(GError **error) {
 
   mb = mb_New ();
   if (!mb) {
-    g_print ("Cannot get MusicBrainz connection\n");
+    g_print (_("Cannot get MusicBrainz connection\n"));
     return NULL; /* TODO: GError */
   }
   mb_SetDevice (mb, cdrom);
@@ -67,13 +68,13 @@ GList* sj_musicbrainz_list_albums(GError **error) {
   if (!mb_Query (mb, MBQ_GetCDInfo)) {
     char error[255];
     mb_GetQueryError (mb, error, 255);
-    g_print("Cannot lookup CD: %s\n", error);
+    g_print(_("Cannot lookup CD: %s\n"), error);
     return get_offline_track_listing (mb, NULL);
   }
 
   num_albums = mb_GetResultInt(mb, MBE_GetNumAlbums);
   if (num_albums < 1) {
-    g_print("This CD was not found.\n");
+    g_print(_("This CD was not found.\n"));
     return NULL;
   }
 

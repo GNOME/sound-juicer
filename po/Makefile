@@ -24,7 +24,7 @@ top_srcdir = ..
 top_builddir = ..
 
 
-prefix = /usr/local
+prefix = /home/users/ross/bin/gnome2
 exec_prefix = ${prefix}
 datadir = ${prefix}/share
 libdir = ${exec_prefix}/lib
@@ -62,7 +62,12 @@ DISTFILES = ChangeLog Makefile.in.in POTFILES.in $(GETTEXT_PACKAGE).pot \
 $(POFILES) $(GMOFILES) $(SOURCES)
 
 POTFILES = \
-	../data/sound-juicer.glade
+	../data/sound-juicer.glade \
+	../data/sound-juicer.desktop.in \
+	../src/cd-drive.c \
+	../src/bacon-cd-selection.c \
+	../src/sj-musicbrainz.c \
+	../src/sj-gstreamer.c
 
 CATALOGS = 
 CATOBJEXT = .gmo
