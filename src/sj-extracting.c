@@ -436,7 +436,7 @@ show_finished_dialog (void)
   if (eject_finished) {
     eject_cdrom (device, GTK_WINDOW (main_window));
   } else {
-    gtk_dialog_add_buttons (GTK_DIALOG (dialog), "_Eject", 2, NULL);
+    gtk_dialog_add_buttons (GTK_DIALOG (dialog), _("_Eject"), 2, NULL);
   }
   gtk_dialog_add_buttons (GTK_DIALOG (dialog),
                           GTK_STOCK_OPEN, 1,
