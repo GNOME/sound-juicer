@@ -98,6 +98,11 @@ extern const char *file_pattern;
 extern gboolean strip_chars;
 
 /**
+ * If we are in auto-start mode
+ */
+extern gboolean autostart;
+
+/**
  * GConf key names
  */
 #define GCONF_ROOT "/apps/sound-juicer"

@@ -30,6 +30,7 @@
 
 #include <glib/glist.h>
 #include <gtk/gtklabel.h>
+#include <gtk/gtkmain.h>
 #include <gtk/gtkmessagedialog.h>
 #include <gtk/gtkprogressbar.h>
 #include <gtk/gtkstock.h>
@@ -392,6 +393,9 @@ on_completion_cb (SjExtractor *extractor, gpointer data)
     show_finished_dialog ();
     cleanup ();
     extracting = FALSE;
+    if (autostart) {
+      gtk_main_quit ();
+    }
   } else {
     /* Increment the duration */
     current_duration += track->duration;
@@ -416,7 +420,7 @@ on_error_cb (SjExtractor *extractor, GError *error, gpointer data)
                                    g_strdup_printf ("Sound Juicer could not extract this CD.\nReason: %s", error->message));
   gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_destroy (dialog);
-
+  
   g_error_free (error);
   cleanup ();
   extracting = FALSE;
@@ -509,8 +513,11 @@ sanitize_path (char* s)
   /* Replace path seperators with whitespace */
   g_strdelimit (s, "/", ' ');
   if (strip_chars) {
+    /* Mangle all weird characters to whitespace */
     g_strdelimit (s, "\\*?&!:", ' ');
-    g_strdelimit (s, " ", '_'); /* TODO: use a different function */
+    /* Replace all whitespace with underscores */
+    /* TODO: I'd like this to compress whitespace aswell */
+    g_strdelimit (s, "\t ", '_');
   }
   return s;
 }

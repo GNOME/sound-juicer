@@ -67,6 +67,8 @@ static guint poll_id = 0;
 
 static AlbumDetails *current_album;
 
+int autostart = FALSE;
+
 #define DEFAULT_PARANOIA 4
 
 static void error_on_start (GError *error)
@@ -449,6 +451,10 @@ metadata_cb (SjMetadata *m, GList *albums, GError *error)
     albums = NULL;
   }
   update_ui_for_album (current_album);
+  
+  if (autostart) {
+    g_signal_emit_by_name (extract_button, "activate", NULL);
+  }
 }
 
 /**
@@ -825,6 +831,7 @@ int main (int argc, char **argv)
   GError *error = NULL;
   struct poptOption options[] = {
     { NULL, '\0', POPT_ARG_INCLUDE_TABLE, NULL, 0, "GStreamer", NULL },
+    { "auto-start", 'a', POPT_ARG_NONE, &autostart, 0, "Start extracting immediately", NULL},
     POPT_TABLEEND
   };
 
@@ -950,10 +957,10 @@ int main (int argc, char **argv)
   basepath_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEPATH, NULL, TRUE, NULL), NULL);
   path_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL), NULL);
   file_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL), NULL);
-  device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), GINT_TO_POINTER (TRUE));
   format_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FORMAT, NULL, TRUE, NULL), NULL);
   paranoia_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PARANOIA, NULL, TRUE, NULL), NULL);
   strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);
+  device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), GINT_TO_POINTER (TRUE));
 
   if (sj_extractor_supports_encoding (&error) == FALSE) {
     error_on_start (error);
