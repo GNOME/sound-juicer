@@ -1,6 +1,8 @@
 #include "config.h"
 #include <string.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <errno.h>
 #include <gtk/gtk.h>
 #include <glade/glade-xml.h>
 #include <gconf/gconf-client.h>
@@ -11,6 +13,7 @@
 #include "sj-musicbrainz.h"
 #include "sj-gstreamer.h"
 #include "sj-structures.h"
+#include "sj-error.h"
 
 GladeXML *glade;
 
@@ -357,7 +360,7 @@ static gboolean rip_track_foreach_cb (GtkTreeModel *model,
   return FALSE;
 }
 
-static void mkdirs (const char* directory, mode_t mode, GError **error)
+static void mkdirs (const char *directory, mode_t mode, GError **error)
 {
   if (!mkdir (directory, mode)) {
     /* TODO: recurse to build all directories required */
@@ -393,11 +396,10 @@ static void pop_and_rip (void)
   /* TODO: create the folder, recurse */
   directory = g_path_get_dirname (file_path);
   if (!g_file_test (directory, G_FILE_TEST_IS_DIR)) {
-    int res;
     GError *error = NULL;
-    res = mkdirs (directory, 0750, &error);
+    mkdirs (directory, 0750, &error);
     if (error) {
-      g_warning ("mkdir() failed: %s"), error->message;
+      g_warning (_("mkdir() failed: %s"), error->message);
       g_error_free (error);
       return;
     }
