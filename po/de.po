@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer 0.5.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-29 15:54+0100\n"
-"PO-Revision-Date: 2003-11-29 15:44+0100\n"
+"POT-Creation-Date: 2003-12-16 16:11+0100\n"
+"PO-Revision-Date: 2003-12-16 16:11+0100\n"
 "Last-Translator: Christian Neumair <chris@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -44,28 +44,28 @@ msgid "<b>Duration:</b>"
 msgstr "<b>Dauer:</b>"
 
 #: data/sound-juicer.glade.h:6
-msgid "<b>Output Name</b>"
-msgstr "<b>Ausgabename</b>"
+msgid "<b>Music Folder</b>"
+msgstr "<b>Musikordner</b>"
 
 #: data/sound-juicer.glade.h:7
-msgid "<b>Output Path</b>"
-msgstr "<b>Ausgabepfad</b>"
-
-#: data/sound-juicer.glade.h:8
 msgid "<b>Title:</b>"
 msgstr "<b>Titel:</b>"
+
+#: data/sound-juicer.glade.h:8
+msgid "<b>Track Names</b>"
+msgstr "<b>Titel</b>"
 
 #: data/sound-juicer.glade.h:9
 msgid "<b>Track Progress</b>"
 msgstr "<b>Titelfortschritt</b>"
 
 #: data/sound-juicer.glade.h:10
-msgid "<b>_Output Format</b>"
-msgstr "<b>_Ausgabeformat</b>"
-
-#: data/sound-juicer.glade.h:11
 msgid "<b>_Quality</b>"
 msgstr "<b>_Qualität</b>"
+
+#: data/sound-juicer.glade.h:11
+msgid "<b>_Track Format</b>"
+msgstr "<b>_Titelformat</b>"
 
 #: data/sound-juicer.glade.h:12
 msgid "<i>Coming soon!</i>"
@@ -259,12 +259,12 @@ msgstr "Wählen Sie ein Laufwerk"
 msgid "Unnamed CDROM"
 msgstr "Namenloses CD-ROM-Laufwerk"
 
-#: src/cd-drive.c:399
+#: src/cd-drive.c:400
 #, c-format
 msgid "Unnamed SCSI CD-ROM (%s)"
 msgstr "Namenloses SCSI-CD-ROM (%s)"
 
-#: src/cd-drive.c:858
+#: src/cd-drive.c:873
 msgid "File image"
 msgstr "Datei-Image"
 
@@ -339,24 +339,24 @@ msgstr ""
 "Extrahierobjekt nicht gültig. Das ist schlecht, überprüfen Sie Ihre Konsole "
 "auf Fehler."
 
-#: src/sj-extractor.c:458
+#: src/sj-extractor.c:461 src/sj-extractor.c:475
 msgid "Ripped with Sound Juicer"
 msgstr "Gerippt mit Sound Juicer"
 
-#: src/sj-extractor.c:472
+#: src/sj-extractor.c:490
 msgid "Could not seek to track"
 msgstr "An Titelnummer konnte nicht gesprungen werden"
 
-#: src/sj-extractor.c:477
+#: src/sj-extractor.c:495
 msgid "Could not get track start position"
 msgstr "Anfangsposition der Titelnummer konnte nicht ermittelt werden"
 
-#: src/sj-extractor.c:513
+#: src/sj-extractor.c:531
 msgid "The plugin necessary for CD access was not found"
 msgstr ""
 "Das zum Zugriff auf die CD notwendige Plugin konnte nicht gefunden werden"
 
-#: src/sj-extractor.c:521
+#: src/sj-extractor.c:539
 msgid "The plugin necessary for file access was not found"
 msgstr ""
 "Das zum Zugriff auf die CD notwendige Plugin konnte nicht gefunden werden"
@@ -577,9 +577,3 @@ msgstr "Verzeichnis %s konnte nicht angelegt werden: %s"
 #: src/sj-util.c:110 src/sj-util.c:125
 msgid "Could not eject the CD"
 msgstr "Die CD konnte nicht ausgeworfen werden"
-
-#~ msgid "A CD Ripper"
-#~ msgstr "Ein CD-Ripper"
-
-#~ msgid "Extract?"
-#~ msgstr "Auslesen?"
