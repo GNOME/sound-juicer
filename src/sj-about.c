@@ -43,7 +43,7 @@ void on_about_activate (void)
    * Note to translators: put here your name and email so it will show
    * up in the "about" box
    */
-  gchar *translator_credits = _("translator_credits");
+  gchar *translator_credits = _("translator-credits");
   
   if (win != NULL) {
     gtk_window_present (GTK_WINDOW (win));
@@ -58,7 +58,7 @@ void on_about_activate (void)
                          _("An Audio CD Extractor"),
                          authors,
                          documentors,
-                         strcmp (translator_credits, "translator_credits") != 0 ? translator_credits : NULL,
+                         strcmp (translator_credits, "translator-credits") != 0 ? translator_credits : NULL,
                          pixbuf);
   gtk_window_set_icon_from_file (GTK_WINDOW (win), PIXMAPDIR"/sound-juicer.png", NULL);
   gtk_window_set_transient_for (GTK_WINDOW (win), GTK_WINDOW (main_window));
