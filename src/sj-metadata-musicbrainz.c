@@ -335,7 +335,7 @@ lookup_cd (SjMetadata *metadata)
     g_print (_("This CD was not found.\n"));
     priv->albums = get_offline_track_listing (metadata, &(priv->error));
     g_idle_add ((GSourceFunc)fire_signal_idle, metadata);
-    return albums;
+    return priv->albums;
   }
 
   for (i = 1; i <= num_albums; i++) {
@@ -345,9 +345,11 @@ lookup_cd (SjMetadata *metadata)
     mb_Select1(priv->mb, MBS_SelectAlbum, i);
     album = g_new0 (AlbumDetails, 1);
 
-    mb_GetResultData(priv->mb, MBE_AlbumGetAlbumName, data, MB_BUFFER_SIZE);
-    /* TODO: handle failure */
-    album->title = g_strdup (data);
+    if (mb_GetResultData(priv->mb, MBE_AlbumGetAlbumName, data, MB_BUFFER_SIZE)) {
+      album->title = g_strdup (data);
+    } else {
+      album->title = g_strdup (_("Unknown Title"));
+    }
 
     mb_GetResultData (priv->mb, MBE_AlbumGetAlbumArtistId, data, MB_BUFFER_SIZE);
     /* TODO: handle failure */
@@ -355,13 +357,23 @@ lookup_cd (SjMetadata *metadata)
     if (g_ascii_strncasecmp (MBI_VARIOUS_ARTIST_ID, data, 64) == 0) {
       album->artist = g_strdup (_("Various"));
     } else {
-      mb_GetResultData1(priv->mb, MBE_AlbumGetArtistName, data, MB_BUFFER_SIZE, 1);
-      /* TODO: handle failure */
-      album->artist = g_strdup (data);
+      if (data && mb_GetResultData1(priv->mb, MBE_AlbumGetArtistName, data, MB_BUFFER_SIZE, 1)) {
+        album->artist = g_strdup (data);
+      } else {
+        album->artist = g_strdup (_("Unknown Artist"));
+      }
     }
 
     num_tracks = mb_GetResultInt(priv->mb, MBE_AlbumGetNumTracks);
-    /* TODO: handle failure */
+    if (num_tracks < 1) {
+      g_free (album->artist);
+      g_free (album->title);
+      g_free (album);
+      g_print (_("Incomplete metadata for this CD.\n"));
+      priv->albums = get_offline_track_listing (metadata, &(priv->error));
+      g_idle_add ((GSourceFunc)fire_signal_idle, metadata);
+      return priv->albums;
+    }
 
     for (j = 1; j <= num_tracks; j++) {
       TrackDetails *track;
