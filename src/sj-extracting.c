@@ -199,7 +199,7 @@ create_directory_for (const char* filename, GError **error)
 
   directory = g_path_get_dirname (filename);
   if (!g_file_test (directory, G_FILE_TEST_IS_DIR)) {
-    mkdir_recursive (directory, 0750, error);
+    mkdir_recursive (directory, 0777, error);
     if (error) {
       return NULL;
     }
