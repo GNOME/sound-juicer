@@ -29,12 +29,17 @@
 
 G_BEGIN_DECLS
 
+/*
+ * TODO: prefix with ENCODER_FORMAT_
+ */
 typedef enum {
   VORBIS,
   MPEG,
   FLAC,
   WAVE
 } EncoderFormat;
+
+GType encoding_format_get_type (void);
 
 #define SJ_TYPE_EXTRACTOR              (sj_extractor_get_type ())
 #define SJ_EXTRACTOR(obj)              (G_TYPE_CHECK_INSTANCE_CAST ((obj), SJ_TYPE_EXTRACTOR, SjExtractor))

@@ -48,8 +48,6 @@ static GtkWidget *track_listview, *reread_button, *extract_button;
 static GtkWidget *extract_menuitem, *select_all_menuitem;
 GtkListStore *track_store;
 
-EncoderFormat encoding_format = VORBIS;
-
 const char *base_path, *path_pattern, *file_pattern;
 static const char *device;
 gboolean strip_chars;
@@ -420,21 +418,20 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
  */
 void format_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
-  const char* value;
+  char* value;
+  GEnumValue* enumvalue;
   g_assert (strcmp (entry->key, GCONF_FORMAT) == 0);
   if (!entry->value) return;
-  value = gconf_value_get_string (entry->value);
-  if (strcmp ("vorbis", value) == 0) {
-    encoding_format = VORBIS;
-  } else if (strcmp ("mpeg", value) == 0) {
-    encoding_format = MPEG;
-  } else if (strcmp ("flac", value) == 0) {
-    encoding_format = FLAC;
-  } else if (strcmp ("wave", value) == 0) {
-    encoding_format = WAVE;
-  } else {
-    g_warning (_("Unknown format '%s'"), value);
+  value = g_ascii_strup (gconf_value_get_string (entry->value), -1);
+  /* TODO: this line is pretty convoluted */
+  enumvalue = g_enum_get_value_by_name (g_type_class_peek (encoding_format_get_type()), value);
+  if (enumvalue == NULL) {
+    g_warning (_("Unknown format %s"), value);
+    g_free (value);
+    return;
   }
+  g_object_set (extractor, "format", enumvalue->value, NULL);
+  g_free (value);
 }
 
 /**
@@ -548,6 +545,7 @@ int main (int argc, char **argv)
     gtk_dialog_run (GTK_DIALOG (dialog));
     exit (1);
   }
+  g_object_set (extractor, "format", VORBIS, NULL);
 
   gconf_client = gconf_client_get_default ();
   if (gconf_client == NULL) {

@@ -180,7 +180,33 @@ static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *e
 
 static void format_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
+  char* value;
+  GEnumValue* enumvalue;
   g_assert (strcmp (entry->key, GCONF_FORMAT) == 0);
+  if (!entry->value) return;
+  value = g_ascii_strup (gconf_value_get_string (entry->value), -1);
+  /* TODO: this line is pretty convoluted */
+  enumvalue = g_enum_get_value_by_name (g_type_class_peek (encoding_format_get_type()), value);
+  if (enumvalue == NULL) {
+    g_warning (_("Unknown format %s"), value);
+    g_free (value);
+    return;
+  }
+  switch (enumvalue->value) {
+  case VORBIS:
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (format_vorbis), TRUE);
+    break;
+  case MPEG:
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (format_mpeg), TRUE);
+    break;
+  case FLAC:
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (format_flac), TRUE);
+    break;
+  case WAVE:
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (format_wave), TRUE);
+    break;
+  }
+  g_free (value);
 }
 
 static void basepath_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)

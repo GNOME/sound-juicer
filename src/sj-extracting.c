@@ -51,18 +51,30 @@ static char* parse_pattern (const char* pattern, const TrackDetails *track);
  */
 static char* build_filename(const TrackDetails *track)
 {
-  char *realfile, *realpath, *filename, *path;
+  char *realfile, *realpath, *filename, *extension, *path;
+  EncoderFormat format;
   realpath = parse_pattern (path_pattern, track);
   realfile = parse_pattern (file_pattern, track);
-  switch (encoding_format) {
+  g_object_get (extractor, "format", &format, NULL);
+  switch (format) {
   case VORBIS:
-    filename = g_strconcat (realfile, ".ogg", NULL);
+    extension = ".ogg";
+    break;
+  case MPEG:
+    extension = ".mp3";
+    break;
+  case FLAC:
+    extension = ".flac";
+    break;
+  case WAVE:
+    extension = ".wav";
     break;
   default:
     g_free (realpath);
     g_free (realfile);
-    g_return_val_if_reached (NULL);
+    g_return_val_if_reached(NULL);
   }
+  filename = g_strconcat (realfile, extension, NULL);
   path = g_build_filename (base_path, realpath, filename, NULL);
   g_free (realpath);
   g_free (realfile);

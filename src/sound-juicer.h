@@ -93,11 +93,6 @@ extern const char *path_pattern;
 extern const char *file_pattern;
 
 /**
- * The encoding format to use
- */
-extern EncoderFormat encoding_format;
-
-/**
  * If file names should be shell-friendly (i.e no [ /&*?\] characters
  */
 extern gboolean strip_chars;

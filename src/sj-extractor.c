@@ -30,6 +30,29 @@
 #include "sj-error.h"
 #include "sj-util.h"
 
+GType
+encoding_format_get_type (void)
+{
+  static GType etype = 0;
+  if (etype == 0) {
+    static const GEnumValue values[] = {
+      { VORBIS, "VORBIS", "Ogg Vorbis" },
+      { MPEG, "MPEG", "MPEG" },
+      { FLAC, "FLAC", "FLAC" },
+      { WAVE, "WAVE", "Wave" },
+      { 0, NULL, NULL }
+    };
+    etype = g_enum_register_static ("EncodingFormat", values);
+  }
+  return etype;
+}
+
+/* Properties */
+enum {
+	PROP_0,
+	PROP_FORMAT,
+};
+
 /* Signals */
 enum {
   PROGRESS,
@@ -39,9 +62,13 @@ enum {
 
 static int sje_table_signals[LAST_SIGNAL] = { 0 };
 
+#define DEFAULT_ENCODING_FORMAT VORBIS
+
 struct SjExtractorPrivate {
+  EncoderFormat format;
+  gboolean rebuild_pipeline;
   GstElement *pipeline;
-  GstElement *cdparanoia, *vorbisenc, *filesink;
+  GstElement *cdparanoia, *encoder, *filesink;
   GstFormat track_format;
   GstPad *source_pad;
   int track_start;
@@ -58,12 +85,10 @@ static void build_pipeline (SjExtractor *extractor);
 
 static void sj_extractor_class_init (SjExtractorClass *klass);
 static void sj_extractor_instance_init (SjExtractor *bcs);
-#if 0
 static void sj_extractor_set_property (GObject *object, guint property_id,
                                        const GValue *value, GParamSpec *pspec);
 static void sj_extractor_get_property (GObject *object, guint property_id,
                                        GValue *value, GParamSpec *pspec);
-#endif
 static void sj_extractor_finalize (GObject *object);
 
 
@@ -97,18 +122,15 @@ static void sj_extractor_class_init (SjExtractorClass *klass)
   object_class = (GObjectClass *) klass;
 
   /* GObject */
-#if 0
   object_class->set_property = sj_extractor_set_property;
   object_class->get_property = sj_extractor_get_property;
-#endif
   object_class->finalize = sj_extractor_finalize;
 
-#if 0
   /* Properties */
-  g_object_class_install_property (object_class, PROP_DEVICE,
-                                   g_param_spec_string ("device", NULL, NULL,
-                                                        FALSE, G_PARAM_READWRITE));
-#endif
+  g_object_class_install_property (object_class, PROP_FORMAT,
+                                   g_param_spec_enum ("format", NULL /*nick*/, NULL /*blurb*/,
+                                                      encoding_format_get_type(),
+                                                      DEFAULT_ENCODING_FORMAT, G_PARAM_READWRITE));
 
   /* Signals */
   sje_table_signals[PROGRESS] =
@@ -136,15 +158,37 @@ static void sj_extractor_class_init (SjExtractorClass *klass)
 static void sj_extractor_instance_init (SjExtractor *extractor)
 {
   extractor->priv = g_new0 (SjExtractorPrivate, 1);
+  extractor->priv->format = DEFAULT_ENCODING_FORMAT;
+  extractor->priv->rebuild_pipeline = TRUE;
   build_pipeline(extractor);
 }
 
-#if 0
 static void sj_extractor_set_property (GObject *object, guint property_id,
-                                       const GValue *value, GParamSpec *pspec);
+                                       const GValue *value, GParamSpec *pspec)
+{
+  SjExtractorPrivate *priv = (SjExtractorPrivate*)SJ_EXTRACTOR(object)->priv;
+  switch (property_id) {
+  case PROP_FORMAT:
+    priv->format = g_value_get_enum (value);
+    priv->rebuild_pipeline = TRUE;
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+  }
+}
+
 static void sj_extractor_get_property (GObject *object, guint property_id,
-                                       GValue *value, GParamSpec *pspec);
-#endif
+                                       GValue *value, GParamSpec *pspec)
+{
+  SjExtractorPrivate *priv = (SjExtractorPrivate*)SJ_EXTRACTOR(object)->priv;
+  switch (property_id) {
+  case PROP_FORMAT:
+    g_value_set_enum (value, priv->format);
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+  }
+}
 
 static void sj_extractor_finalize (GObject *object)
 {
@@ -198,15 +242,15 @@ static void build_pipeline (SjExtractor *extractor)
   g_assert (priv->source_pad); /* TODO: GError */
 
   /* Encode to Ogg Vorbis */
-  priv->vorbisenc = gst_element_factory_make ("vorbisenc", "vorbisenc");
-  if (priv->vorbisenc == NULL) {
+  priv->encoder = gst_element_factory_make ("vorbisenc", "vorbisenc");
+  if (priv->encoder == NULL) {
     g_set_error (&priv->construct_error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
                  _("Could not create GStreamer Ogg Vorbis encoder"));
     return;
   }
   /* Connect to the eos so we know when its finished */
-  g_signal_connect (priv->vorbisenc, "eos", G_CALLBACK (eos_cb), extractor);
+  g_signal_connect (priv->encoder, "eos", G_CALLBACK (eos_cb), extractor);
 
   /* Write to disk */
   priv->filesink = gst_element_factory_make ("filesink", "filesink");
@@ -219,11 +263,13 @@ static void build_pipeline (SjExtractor *extractor)
 
   /* Add the elements to the pipeline */
   gst_bin_add (GST_BIN (priv->pipeline), priv->cdparanoia);
-  gst_bin_add (GST_BIN (priv->pipeline), priv->vorbisenc);
+  gst_bin_add (GST_BIN (priv->pipeline), priv->encoder);
   gst_bin_add (GST_BIN (priv->pipeline), priv->filesink);
 
   /* Link it all together */
-  gst_element_link_many (priv->cdparanoia, priv->vorbisenc, priv->filesink, NULL);
+  gst_element_link_many (priv->cdparanoia, priv->encoder, priv->filesink, NULL);
+
+  priv->rebuild_pipeline = FALSE;
 }
 
 static gboolean tick_timeout_cb(SjExtractor *extractor)
@@ -308,6 +354,11 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   g_return_if_fail (track != NULL);
 
   priv = extractor->priv;
+
+  /* See if we need to rebuild the pipeline */
+  if (priv->rebuild_pipeline) {
+    build_pipeline (extractor);
+  }
 
   /* Save a pointer to the track details */
   priv->track_details = track;

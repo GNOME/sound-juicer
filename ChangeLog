@@ -1,3 +1,27 @@
+2003-05-08  Ross Burton  <ross@burtonini.com>
+
+	* data/sound-juicer.glade:
+	Enable the format radio buttons and add tooltips.
+
+	* src/sj-extractor.[ch]:
+	Add a "format" property, and rebuild the pipeline as required. It
+	is currently ignored however...
+
+	* src/sj-extracting.c:
+	Use the SjExtractor format property, and pull apart the extension
+	code.
+
+	* src/sj-prefs.c:
+	When the format GConf key is changed, update the radio buttons.
+	
+	* src/sj-main.c:
+	Remove encoding_format, and handle the format GConf key nicely
+	(using the g_enum* functions). Then set the format property of the
+	SjExtractor.
+	
+	* src/sound-juicer.h:
+	encoding_format no longer exists.
+
 2003-05-07  Ross Burton  <ross@burtonini.com>
 
 	* src/sj-main.c:
