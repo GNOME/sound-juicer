@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer VERSION\n"
-"POT-Creation-Date: 2003-05-23 12:50+0200\n"
-"PO-Revision-Date: 2003-05-23 13:54+0200\n"
+"POT-Creation-Date: 2003-06-04 13:18+0200\n"
+"PO-Revision-Date: 2003-06-04 15:19+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -203,12 +203,12 @@ msgstr "Vzor názvů souborů"
 msgid "The paranoia mode to use"
 msgstr "Režim paranoiy, který používat"
 
-#: src/cd-drive.c:279
+#: src/cd-drive.c:286
 #, c-format
 msgid "Unnamed SCSI CDROM (%s)"
 msgstr "Nepojmenovaná SCSI CDROM (%s)"
 
-#: src/cd-drive.c:619
+#: src/cd-drive.c:708
 msgid "File image"
 msgstr "Soubor obrazu"
 
@@ -254,39 +254,43 @@ msgstr "Formát kódování"
 msgid "The format to write the encoded audio in"
 msgstr "Formát, ve kterém zapisova kódovaný zvuk"
 
-#: src/sj-extractor.c:276
+#: src/sj-extractor.c:232
+msgid "MPEG encoder not available"
+msgstr "Enkodér MPEG není k dispozici"
+
+#: src/sj-extractor.c:283
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "Nemohu vytvořit GStreamer čteč cdparanoia "
 
-#: src/sj-extractor.c:292
+#: src/sj-extractor.c:299
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
 msgstr "Nemohu vytvořit GStreamer enkodér (%s)"
 
-#: src/sj-extractor.c:303
+#: src/sj-extractor.c:310
 msgid "Could not create GStreamer file output"
 msgstr "Nemohu vytvořit GStreamer výstup do souboru"
 
-#: src/sj-extractor.c:332
+#: src/sj-extractor.c:339
 msgid "Could not get current track position"
 msgstr "Nemohu získat aktuální pozici stopy"
 
-#: src/sj-extractor.c:361
+#: src/sj-extractor.c:368
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Objekt extraktoru není platný. To je špatné, přečtěte si chyby na své "
 "konzole."
 
-#: src/sj-extractor.c:423
+#: src/sj-extractor.c:430
 msgid "Ripped with Sound Juicer"
 msgstr "Ripováno pomocí Sound Juicer"
 
-#: src/sj-extractor.c:437
+#: src/sj-extractor.c:444
 msgid "Could not seek to track"
 msgstr "Nemohu se posunout na stopu"
 
-#: src/sj-extractor.c:442
+#: src/sj-extractor.c:449
 msgid "Could not get track start position"
 msgstr "Nemohu získat počáteční pozici stopy"
 
@@ -336,7 +340,7 @@ msgstr "Vyberte umístění výstupu"
 msgid "Unknown format %s"
 msgstr "Neznámý formát %s"
 
-#: src/sj-extracting.c:117
+#: src/sj-extracting.c:118
 #, c-format
 msgid ""
 "A file called '%s' exists, size %ldK.\n"
@@ -345,20 +349,20 @@ msgstr ""
 "Soubor pojmenovaný '%s' existuje, velikost %ldK.\n"
 "Chcete tuto stopu přeskočit nebo jej přepsat?"
 
-#: src/sj-extracting.c:119
+#: src/sj-extracting.c:120
 msgid "_Skip"
 msgstr "Pře_skočit"
 
-#: src/sj-extracting.c:120
+#: src/sj-extracting.c:121
 msgid "Overwrite"
 msgstr "Přepsat"
 
-#: src/sj-extracting.c:148
+#: src/sj-extracting.c:150
 #, c-format
 msgid "Extracting '%s'"
 msgstr "Extrahuji '%s'"
 
-#: src/sj-extracting.c:158
+#: src/sj-extracting.c:160
 #, c-format
 msgid "mkdir() failed: %s"
 msgstr "mkdir() selhalo: %s"
