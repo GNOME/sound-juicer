@@ -393,38 +393,16 @@ void strip_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gp
   }
 }
 
-/**
- * Utility function to reread a CD
- */
-static void reread_cd (gboolean ignore_no_media)
+static void
+metadata_cb (SjMetadata *m, GList *albums, GError *error)
 {
-  GList *albums;
-  GError *error = NULL;
-  GdkCursor *cursor;
   gboolean realized = GTK_WIDGET_REALIZED (main_window);
-  
-  /* Set watch cursor */
-  if (realized) {
-    cursor = gdk_cursor_new_for_display (gdk_drawable_get_display (main_window->window),
-					 GDK_WATCH);
-    gdk_window_set_cursor (main_window->window, cursor);
-    gdk_cursor_unref (cursor);
-    gdk_display_sync (gdk_drawable_get_display (main_window->window));
-  }
- 
-  if (!is_audio_cd (device)) {
-    update_ui_for_album (NULL);
-    if (realized)
-      gdk_window_set_cursor (main_window->window, NULL);
-    return;
-  }
-
-  albums = sj_metadata_list_albums (metadata, &error);
+  g_print("Albums: %d Error: %d\n", (int)albums, (int)error);
 
   if (realized)
     gdk_window_set_cursor (main_window->window, NULL);
-
-  if (error && !(error->code == SJ_ERROR_CD_NO_MEDIA && ignore_no_media)) {
+  
+  if (error && !(error->code == SJ_ERROR_CD_NO_MEDIA)) {
     GtkWidget *dialog;
     dialog = gtk_message_dialog_new (realized ? GTK_WINDOW (main_window) : NULL, 0,
                                      GTK_MESSAGE_ERROR,
@@ -463,6 +441,53 @@ static void reread_cd (gboolean ignore_no_media)
   g_list_free (albums);
 #endif
   update_ui_for_album (current_album);
+}
+
+/**
+ * Utility function to reread a CD
+ */
+static void reread_cd (gboolean ignore_no_media)
+{
+  // TODO: remove ignore_no_media?
+  GError *error = NULL;
+  GdkCursor *cursor;
+  gboolean realized = GTK_WIDGET_REALIZED (main_window);
+  
+  /* Set watch cursor */
+  if (realized) {
+    cursor = gdk_cursor_new_for_display (gdk_drawable_get_display (main_window->window),
+					 GDK_WATCH);
+    gdk_window_set_cursor (main_window->window, cursor);
+    gdk_cursor_unref (cursor);
+    gdk_display_sync (gdk_drawable_get_display (main_window->window));
+  }
+  
+  if (!is_audio_cd (device)) {
+    update_ui_for_album (NULL);
+    if (realized)
+      gdk_window_set_cursor (main_window->window, NULL);
+    return;
+  }
+  
+  sj_metadata_list_albums (metadata, &error);
+
+  if (error && !(error->code == SJ_ERROR_CD_NO_MEDIA && ignore_no_media)) {
+    GtkWidget *dialog;
+    dialog = gtk_message_dialog_new (realized ? GTK_WINDOW (main_window) : NULL, 0,
+                                     GTK_MESSAGE_ERROR,
+                                     GTK_BUTTONS_CLOSE,
+                                     g_strdup_printf ("<b>%s</b>\n\n%s\n%s: %s",
+                                                     _("Could not read the CD"),
+                                                     _("Sound Juicer could not read the track listing on this CD."),
+                                                     _("Reason"),
+                                                     error->message));
+    gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
+    gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_widget_destroy (dialog);
+    g_error_free (error);
+    update_ui_for_album (NULL);
+    return;
+  }
 }
 
 /**
@@ -767,6 +792,7 @@ int main (int argc, char **argv)
     error_on_start (error);
     exit (1);
   }
+  g_signal_connect (metadata, "metadata", G_CALLBACK (metadata_cb), NULL);
 
   extractor = SJ_EXTRACTOR (sj_extractor_new());
   error = sj_extractor_get_new_error (extractor);

@@ -41,13 +41,16 @@ struct SjMetadataMusicbrainzPrivate {
   char *http_proxy;
   int http_proxy_port;
   char *cdrom;
+  /* TODO: remove and use an async queue or something l33t */
+  GList *albums;
+  GError *error;
 };
 
 static GError* mb_get_new_error (SjMetadata *metadata);
 static void mb_set_cdrom (SjMetadata *metadata, const char* device);
 static void mb_set_proxy (SjMetadata *metadata, const char* proxy);
 static void mb_set_proxy_port (SjMetadata *metadata, const int port);
-static GList* mb_list_albums (SjMetadata *metadata, GError **error);
+static void mb_list_albums (SjMetadata *metadata, GError **error);
 
 /**
  * GObject methods
@@ -193,6 +196,14 @@ get_offline_track_listing(SjMetadata *metadata, GError **error)
   return g_list_append (list, album);
 }
 
+static gboolean
+fire_signal_idle (SjMetadataMusicbrainz *m)
+{
+  g_return_val_if_fail (SJ_IS_METADATA_MUSICBRAINZ (m), FALSE);
+  g_signal_emit_by_name (G_OBJECT (m), "metadata", m->priv->albums, m->priv->error);
+  return FALSE;
+}
+
 /**
  * Virtual methods
  */
@@ -200,7 +211,7 @@ get_offline_track_listing(SjMetadata *metadata, GError **error)
 static GError*
 mb_get_new_error (SjMetadata *metadata)
 {
-  GError *error;
+  GError *error = NULL;
   if (metadata == NULL || SJ_METADATA_MUSICBRAINZ (metadata)->priv == NULL) {
     g_set_error (&error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
@@ -253,8 +264,8 @@ mb_set_proxy_port (SjMetadata *metadata, const int port)
   mb_SetProxy (priv->mb, priv->http_proxy, priv->http_proxy_port);
 }
 
-static GList*
-mb_list_albums (SjMetadata *metadata, GError **error)
+static gpointer
+lookup_cd (SjMetadata *metadata)
 {
   SjMetadataMusicbrainzPrivate *priv;
   GList *albums = NULL;
@@ -263,9 +274,12 @@ mb_list_albums (SjMetadata *metadata, GError **error)
   int num_albums, i, j;
   CDMediaType type;
 
+  // TODO: fire error signal
   g_return_val_if_fail (metadata != NULL, NULL);
+  g_return_val_if_fail (SJ_IS_METADATA_MUSICBRAINZ (metadata), NULL);
   priv = SJ_METADATA_MUSICBRAINZ (metadata)->priv;
   g_return_val_if_fail (priv->cdrom != NULL, NULL);
+  priv->error = NULL; // TODO: hack
 
   type = guess_media_type (priv->cdrom);
   if (type == CD_MEDIA_TYPE_ERROR) {
@@ -279,22 +293,28 @@ mb_list_albums (SjMetadata *metadata, GError **error)
       msg = g_strdup_printf (_("Device '%s' could not be opened. Check the access permissions on the device."), priv->cdrom);
       err = SJ_ERROR_CD_PERMISSION_ERROR;
     }
-    g_set_error (error, SJ_ERROR, err, _("Cannot read CD: %s"), msg);
+    priv->error = g_error_new (SJ_ERROR, err, _("Cannot read CD: %s"), msg);
     g_free (msg);
 
+    priv->albums = NULL;
+    g_idle_add ((GSourceFunc)fire_signal_idle, metadata);
     return NULL;
   }
 
   if (!mb_Query (priv->mb, MBQ_GetCDInfo)) {
     mb_GetQueryError (priv->mb, data, 256);
     g_print(_("This CD could not be queried: %s\n"), data);
-    return get_offline_track_listing (metadata, error);
+    priv->albums = get_offline_track_listing (metadata, &(priv->error));
+    g_idle_add ((GSourceFunc)fire_signal_idle, metadata);
+    return priv->albums;
   }
 
   num_albums = mb_GetResultInt(priv->mb, MBE_GetNumAlbums);
   if (num_albums < 1) {
     g_print(_("This CD was not found.\n"));
-    return get_offline_track_listing (priv->mb, error);
+    priv->albums = get_offline_track_listing (priv->mb, &(priv->error));
+    g_idle_add ((GSourceFunc)fire_signal_idle, metadata);
+    return albums;
   }
 
   for (i = 1; i <= num_albums; i++) {
@@ -358,6 +378,14 @@ mb_list_albums (SjMetadata *metadata, GError **error)
       j++;
     }
   }
-  
+  priv->albums = albums;
+  g_print ("got metadata. albums: %d error: %d\n", (int)priv->albums, (int)priv->error);
+  g_idle_add ((GSourceFunc)fire_signal_idle, metadata);
   return albums;
+}
+
+static void
+mb_list_albums (SjMetadata *metadata, GError **error)
+{
+  lookup_cd (metadata);
 }

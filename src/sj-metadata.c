@@ -20,18 +20,28 @@
 
 #include <glib-object.h>
 #include "sj-metadata.h"
+#include "sj-metadata-marshal.h"
 
 enum {
   METADATA,
   LAST_SIGNAL
 };
 
+static int signals[LAST_SIGNAL] = { 0 };
+
 static void
 sj_metadata_base_init (gpointer g_class)
 {
   static gboolean initialized = FALSE;
   if (!initialized) {
-    // TODO: signals
+    // Construct signal
+    signals[METADATA] = g_signal_new ("metadata",
+                                      G_TYPE_FROM_CLASS (g_class),
+                                      G_SIGNAL_RUN_LAST,
+                                      G_STRUCT_OFFSET (SjMetadataClass, metadata),
+                                      NULL, NULL,
+                                      metadata_marshal_VOID__POINTER_POINTER,
+                                      G_TYPE_NONE, 2, G_TYPE_POINTER, G_TYPE_POINTER);
     initialized = TRUE;
   }
 }
@@ -84,8 +94,8 @@ sj_metadata_set_proxy_port (SjMetadata *metadata, const int proxy_port)
   SJ_METADATA_GET_CLASS (metadata)->set_proxy_port (metadata, proxy_port);
 }
 
-GList*
+void
 sj_metadata_list_albums (SjMetadata *metadata, GError **error)
 {
-  return SJ_METADATA_GET_CLASS (metadata)->list_albums (metadata, error);
+  SJ_METADATA_GET_CLASS (metadata)->list_albums (metadata, error);
 }

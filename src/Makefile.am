@@ -38,7 +38,8 @@ sound_juicer_SOURCES = \
 	sj-about.c \
 	sj-extracting.h \
 	sj-extracting.c \
-	$(BACONFILES)
+	$(BACONFILES) \
+	$(MARSHALFILES)
 
 sound_juicer_LDFLAGS = @MUSICBRAINZ_LIBS@ @GSTREAMER_LIBS@ @LIBGLADE_LIBS@ @GNOME_LIBS@
 
@@ -51,3 +52,28 @@ BACONFILES=cd-drive.c cd-drive.h bacon-cd-selection.c bacon-cd-selection.h dvd_p
 
 regenerate-built-sources:
 	BACONFILES="$(BACONFILES)" BACONDIR="$(BACONDIR)" $(top_srcdir)/src/update-from-bacon.sh
+
+
+#
+# Build the GValue marshals
+#
+
+MARSHALFILES = sj-metadata-marshal.h sj-metadata-marshal.c
+GLIB_GENMARSHAL =`pkg-config --variable=glib_genmarshal glib-2.0`
+
+sj-metadata-marshal.h: sj-metadata-marshal.list
+	( $(GLIB_GENMARSHAL) --prefix=metadata_marshal $< \
+	--header > marshal.tmp \
+	&& mv marshal.tmp $@ ) \
+	|| ( rm -f marshal.tmp && exit 1 )
+
+sj-metadata-marshal.c: sj-metadata-marshal.list
+	( $(GLIB_GENMARSHAL) --prefix=metadata_marshal $< \
+	--body > marshal.tmp \
+	&& echo "#include \"sj-metadata-marshal.h\"" > $@ \
+	&& cat marshal.tmp >> $@ \
+	&& rm -f marshal.tmp ) \
+	|| ( rm -f marshal.tmp && exit 1 )
+
+BUILT_SOURCES = $(MARSHALFILES)
+CLEANFILES = $(BUILT_SOURCES)
