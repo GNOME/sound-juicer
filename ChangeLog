@@ -1,5 +1,12 @@
 2004-05-07  Bastien Nocera  <hadess@hadess.net>
 
+	* src/sj-main.c: (device_changed_cb):
+	* src/sj-prefs.c: (prefs_get_default_device), (cd_drive_exists):
+	* src/sj-prefs.h: use existing CD drive if we can't find the one
+	specified in GConf (Closes: #130609)
+
+2004-05-07  Bastien Nocera  <hadess@hadess.net>
+
 	* src/sj-util.c: (mkdir_recursive): better error message when ripping
 	on a full disk (Closes: #140403)
 

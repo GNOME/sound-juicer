@@ -39,6 +39,7 @@ static GtkWidget *format_widgets[SJ_NUMBER_FORMATS];
 static GtkWidget *prefs_dialog;
 static GtkWidget *cd_option, *path_option, *file_option, *basepath_label, *check_strip, *check_eject;
 static GtkWidget *path_example_label;
+static GList *cdroms = NULL;
 
 typedef struct {
   char* name;
@@ -68,18 +69,23 @@ const char* prefs_get_default_device ()
   static const char* default_device = NULL;
   if (default_device == NULL) {
     CDDrive *cd;
-    GList *cdroms = NULL;
     cdroms = scan_for_cdroms (FALSE, FALSE);
     if (cdroms == NULL) return NULL;
     cd = cdroms->data;
-    default_device = g_strdup (cd->device);
-    while (cdroms != NULL) {
-      CDDrive *cdrom = cdroms->data;
-      cdroms = g_list_remove (cdroms, cdrom);
-      cd_drive_free (cdrom);
-    }
+    default_device = cd->device;
   }
   return default_device;
+}
+
+gboolean cd_drive_exists (const char *device)
+{
+  GList *l;
+  if (device == NULL) return FALSE;
+  for (l = cdroms; l != NULL; l = l->next) {
+    if (strcmp (((CDDrive *) (l->data))->device, device) == 0)
+      return TRUE;
+  }
+  return FALSE;
 }
 
 /**

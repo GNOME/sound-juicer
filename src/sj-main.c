@@ -538,7 +538,8 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
   g_assert (strcmp (entry->key, GCONF_DEVICE) == 0);
   gboolean ignore_no_media = GPOINTER_TO_INT (user_data);
 
-  if (entry->value == NULL) {
+  if (entry->value == NULL
+		  || !cd_drive_exists (gconf_value_get_string (entry->value))) {
     device = prefs_get_default_device();
     if (device == NULL) {
 #ifndef IGNORE_MISSING_CD
