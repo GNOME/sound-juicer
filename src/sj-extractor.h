@@ -57,6 +57,7 @@ typedef struct {
   GObjectClass parent_class;
   void (*progress) (SjExtractor *extractor, const int seconds);
   void (*completion) (SjExtractor *extractor);
+  void (*error) (SjExtractor *extractor, GError *error);
 } SjExtractorClass;
 
 GType sj_extractor_get_type (void);

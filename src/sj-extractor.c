@@ -57,6 +57,7 @@ enum {
 enum {
   PROGRESS,
   COMPLETION,
+  ERROR,
   LAST_SIGNAL
 };
 
@@ -152,6 +153,14 @@ static void sj_extractor_class_init (SjExtractorClass *klass)
                   G_STRUCT_OFFSET (SjExtractorClass, completion),
                   NULL, NULL,
                   g_cclosure_marshal_VOID__VOID,
+                  G_TYPE_NONE, 0);
+  sje_table_signals[ERROR] =
+    g_signal_new ("error",
+                  G_TYPE_FROM_CLASS (object_class),
+                  G_SIGNAL_RUN_LAST,
+                  G_STRUCT_OFFSET (SjExtractorClass, error),
+                  NULL, NULL,
+                  g_cclosure_marshal_VOID__POINTER,
                   G_TYPE_NONE, 0);
 
   /* TODO: should probably move this elsewhere */
@@ -258,7 +267,14 @@ static GstElement* build_encoder (SjExtractor *extractor)
 
 static void error_cb (GstElement *element, GObject *arg, gchar *arg2, gpointer user_data)
 {
-  g_warning ("Error from gstreamer: %s", arg2);
+  SjExtractor *extractor = SJ_EXTRACTOR (user_data);
+  GError *error;
+  g_set_error (&error,
+               SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
+               arg2);
+  g_signal_emit (G_OBJECT (extractor),
+                 sje_table_signals[ERROR],
+                 0, error);
 }
 
 static void build_pipeline (SjExtractor *extractor)
@@ -274,7 +290,7 @@ static void build_pipeline (SjExtractor *extractor)
     gst_object_unref (GST_OBJECT (priv->pipeline));
   }
   priv->pipeline = gst_pipeline_new ("pipeline");
-  g_signal_connect (G_OBJECT (priv->pipeline), "error", G_CALLBACK (error_cb), NULL);
+  g_signal_connect (G_OBJECT (priv->pipeline), "error", G_CALLBACK (error_cb), extractor);
 
   /* Read from CD */
   priv->cdparanoia = gst_element_factory_make ("cdparanoia", "cdparanoia");
