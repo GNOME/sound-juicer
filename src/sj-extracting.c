@@ -44,6 +44,7 @@ static int track_duration; /* duration of current track for progress dialog */
 static GtkWidget *progress_dialog;
 static GtkWidget *track_progress, *album_progress;
 static GtkWidget *progress_label;
+static GtkWidget *extract_button;
 
 /* Declare this now so I can hide it at the end of the file */
 static char* parse_pattern (const char* pattern, const TrackDetails *track);
@@ -134,6 +135,7 @@ static void pop_and_rip (void)
 
   if (pending == NULL) {
     gtk_widget_hide (progress_dialog);
+    gtk_widget_set_sensitive (extract_button, TRUE);
     return;
   }
 
@@ -189,6 +191,7 @@ void on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
   /* Clean up the pending list */
   g_list_free (pending);
   gtk_widget_hide (progress_dialog);
+  gtk_widget_set_sensitive (extract_button, TRUE);
   extracting = FALSE;
 }
 
@@ -249,8 +252,8 @@ static void on_completion_cb (SjExtractor *extractor, gpointer data)
  */
 void on_extract_activate (GtkWidget *button, gpointer user_data)
 {
-  /* TODO: this is bad, disable the buttons */
-  if (extracting) return;
+  extract_button = button;
+  gtk_widget_set_sensitive (extract_button, FALSE);
 
   if (progress_dialog == NULL) {
     progress_dialog = glade_xml_get_widget (glade, "progress_dialog");
