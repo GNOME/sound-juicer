@@ -16,7 +16,13 @@ schema_DATA = $(schema_in_files:.schemas.in=.schemas)
 
 install-data-local:
 	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) \
-	  gconftool-2 --makefile-install-rule $(schema_DATA)
+	  gconftool-2 --makefile-install-rule $(schema_DATA) || \
+                (echo ;\
+                echo "*****************************************************"; \
+                echo "Installation of schemas failed, install them manually"; \
+                echo "*****************************************************";)
+	@true
+
 
 CLEANFILES = \
 	$(desktop_DATA) \
