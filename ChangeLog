@@ -1,3 +1,13 @@
+2003-05-13  Anders Carlsson  <andersca@codefactory.se>
+
+	* src/sj-main.c: (reread_cd):
+	Add a watch cursor to the main window when re-reading CDs. Also
+	don't use the main window as a transient if it hasn't been realized 
+	yet.
+	
+	(main):
+	Remove call to gtk_widget_realize.
+
 2003-05-13  Ross Burton  <ross@burtonini.com>
 
 	* data/sound-juicer.glade:

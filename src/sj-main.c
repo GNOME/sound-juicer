@@ -341,11 +341,26 @@ void reread_cd (void)
 {
   GList *albums;
   GError *error = NULL;
-
+  GdkCursor *cursor;
+  gboolean realized = GTK_WIDGET_REALIZED (main_window);
+  
+  /* Set watch cursor */
+  if (realized) {
+    cursor = gdk_cursor_new_for_display (gdk_drawable_get_display (main_window->window),
+					 GDK_WATCH);
+    gdk_window_set_cursor (main_window->window, cursor);
+    gdk_cursor_unref (cursor);
+    gdk_display_sync (gdk_drawable_get_display (main_window->window));
+  }
+  
   albums = sj_musicbrainz_list_albums(&error);
+
+  if (realized)
+    gdk_window_set_cursor (main_window->window, NULL);
+  
   if (error) {
     GtkWidget *dialog;
-    dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
+    dialog = gtk_message_dialog_new (realized ? GTK_WINDOW (main_window) : NULL, 0,
                                      GTK_MESSAGE_ERROR,
                                      GTK_BUTTONS_CLOSE,
                                      _("<b>Could not read CD</b>\n\n"
@@ -567,9 +582,6 @@ int main (int argc, char **argv)
   glade_xml_signal_autoconnect (glade);
 
   main_window = glade_xml_get_widget (glade, "main_window");
-  /* TODO: weird. Need this here so that the icon is displayed when an
-     error dialog pops up first. */
-  gtk_widget_realize (main_window);
   gtk_window_set_icon_from_file (GTK_WINDOW (main_window), PIXMAPDIR"/sound-juicer.png", NULL);
 
   select_all_menuitem = glade_xml_get_widget (glade, "select_all");
