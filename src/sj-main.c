@@ -436,8 +436,7 @@ metadata_cb (SjMetadata *m, GList *albums, GError *error)
    * Need to have a deep copy first so we can extract the album and
    * track details safely
    */
-  g_list_foreach (albums, album_details_free, NULL);
-  g_list_free (albums);
+  g_list_deep_free (albums, album_details_free);
 #endif
   update_ui_for_album (current_album);
 }

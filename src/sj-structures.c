@@ -21,6 +21,7 @@
  */
 
 #include "sj-structures.h"
+#include "sj-util.h"
 #include <glib/gmessages.h>
 #include <glib/glist.h>
 
@@ -43,7 +44,6 @@ void album_details_free(AlbumDetails *album)
   g_return_if_fail (album != NULL);
   g_free (album->title);
   g_free (album->artist);
-  g_list_foreach (album->tracks, (GFunc)track_details_free, NULL);
-  g_list_free (album->tracks);
+  g_list_deep_free (album->tracks, (GFunc)track_details_free);
   g_free (album);
 }
