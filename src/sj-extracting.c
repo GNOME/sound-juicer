@@ -380,8 +380,8 @@ on_progress_cb (SjExtractor *extractor, const int seconds, gpointer data)
       ripped = current_duration + seconds - before.seconds;
       taken = time.tv_sec + (time.tv_usec / 1000000.0)
         - (before.time.tv_sec + (before.time.tv_usec / 1000000.0));
-      speed = (float) ripped / (float) taken;
       if (taken >= 4) {
+        speed = (float) ripped / (float) taken;
         update_speed_progress (extractor, speed, (int) ((total_duration - current_duration + seconds) / speed));
         before.seconds = current_duration + seconds;
         gettimeofday(&before.time, NULL);
