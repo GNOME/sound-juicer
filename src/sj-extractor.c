@@ -460,7 +460,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
                         GST_TAG_TITLE, track->title,
                         GST_TAG_ARTIST, track->artist,
                         GST_TAG_TRACK_NUMBER, track->number,
-                        GST_TAG_TRACK_COUNT, track->album->number
+                        GST_TAG_TRACK_COUNT, track->album->number,
                         GST_TAG_ALBUM, track->album->title,
                         GST_TAG_COMMENT, _("Ripped with Sound Juicer"),
                         NULL);
