@@ -160,7 +160,7 @@ static void sj_extractor_class_init (SjExtractorClass *klass)
                   G_STRUCT_OFFSET (SjExtractorClass, error),
                   NULL, NULL,
                   g_cclosure_marshal_VOID__POINTER,
-                  G_TYPE_NONE, 0);
+                  G_TYPE_NONE, 1, G_TYPE_POINTER);
 
   /* TODO: should probably move this elsewhere */
   gst_init (NULL, NULL);
