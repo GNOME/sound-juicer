@@ -1,14 +1,18 @@
 #include <glib.h>
 #include "sj-structures.h"
 #include "sj-musicbrainz.h"
+#include "sj-metadata.h"
+#include "sj-metadata-musicbrainz.h"
 
 int main (int argc, char** argv)
 {
   GList *albums;
+  SjMetadata *metadata;
 
-  sj_musicbrainz_init (NULL);
-  sj_musicbrainz_set_cdrom ("/dev/cdroms/cdrom1");
-  albums = sj_musicbrainz_list_albums(NULL);
+  g_type_init ();
+  metadata = (SjMetadata*)sj_metadata_musicbrainz_new ();
+  sj_metadata_set_cdrom (metadata, "/dev/cdroms/cdrom0");
+  albums = sj_metadata_list_albums (metadata, NULL);
 
   while (albums) {
     AlbumDetails *album;
@@ -21,6 +25,6 @@ int main (int argc, char** argv)
     }
     albums = g_list_next (albums);
   }
-  sj_musicbrainz_destroy ();
+  g_object_unref (metadata);
   return 0;
 }

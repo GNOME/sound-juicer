@@ -28,8 +28,10 @@ sound_juicer_SOURCES = \
 	sj-error.c \
 	sj-extractor.h \
 	sj-extractor.c \
-	sj-musicbrainz.h \
-	sj-musicbrainz.c \
+	sj-metadata.h \
+	sj-metadata.c \
+	sj-metadata-musicbrainz.h \
+	sj-metadata-musicbrainz.c \
 	sj-util.h \
 	sj-util.c \
 	sj-about.h \

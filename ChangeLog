@@ -1,3 +1,21 @@
+2003-09-02  Ross Burton  <ross@burtonini.com>
+
+	* src/sj-metadata.[ch]:
+	Added an abstract interface to the metadata lookup.
+	* src/sj-metadata-musicbrainz.[ch]:
+	Added a MusicBrainz implementation.
+	* src/sj-musicbrainz.[ch]:
+	Removed, deprecated by above changes.
+	* src/sj-main.c:
+	Use the new SjMetadata objects.
+
+	* tests/mb-test.c:
+	Updated code for new SjMetadata object.
+	
+	* src/Makefile.am:
+	* tests/Makefile.am:
+	Updated compile lines for new filenames.
+	
 2003-09-01  Bastien Nocera  <hadess@hadess.net>
 
 	* src/bacon-cd-selection.h:

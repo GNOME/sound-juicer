@@ -30,7 +30,8 @@
 #include <glade/glade.h>
 #include <gconf/gconf-client.h>
 #include "sj-about.h"
-#include "sj-musicbrainz.h"
+#include "sj-metadata.h"
+#include "sj-metadata-musicbrainz.h"
 #include "sj-extractor.h"
 #include "sj-structures.h"
 #include "sj-error.h"
@@ -39,6 +40,7 @@
 
 GladeXML *glade;
 
+SjMetadata *metadata;
 SjExtractor *extractor;
 
 GConfClient *gconf_client;
@@ -380,7 +382,7 @@ void reread_cd (gboolean ignore_no_media)
     gdk_display_sync (gdk_drawable_get_display (main_window->window));
   }
   
-  albums = sj_musicbrainz_list_albums (&error);
+  albums = sj_metadata_list_albums (metadata, &error);
 
   if (realized)
     gdk_window_set_cursor (main_window->window, NULL);
@@ -473,7 +475,7 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
       device = NULL;
     }
   }
-  sj_musicbrainz_set_cdrom (device);
+  sj_metadata_set_cdrom (metadata, device);
   sj_extractor_set_device (extractor, device);
 
   reread_cd (ignore_no_media);
@@ -554,15 +556,15 @@ http_proxy_setup (GConfClient *client)
 {
   if (!gconf_client_get_bool (client, GCONF_HTTP_PROXY_ENABLE, NULL))
   {
-    sj_musicbrainz_set_proxy (NULL);
+    sj_metadata_set_proxy (metadata, NULL);
   } else {
     const char *host;
     int port;
 
     host = gconf_client_get_string (client, GCONF_HTTP_PROXY, NULL);
-    sj_musicbrainz_set_proxy (host);
+    sj_metadata_set_proxy (metadata, host);
     port = gconf_client_get_int (client, GCONF_HTTP_PROXY_PORT, NULL);
-    sj_musicbrainz_set_proxy_port (port);
+    sj_metadata_set_proxy_port (metadata, port);
   }
 }
 
@@ -717,7 +719,8 @@ int main (int argc, char **argv)
                       NULL);
   g_set_application_name (_("Sound Juicer"));
 
-  sj_musicbrainz_init (&error);
+  metadata = SJ_METADATA (sj_metadata_musicbrainz_new ());
+  error = sj_metadata_get_new_error (metadata);
   if (error) {
     error_on_start (error);
     exit (1);
@@ -832,8 +835,8 @@ int main (int argc, char **argv)
   strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);
 
   gtk_main ();
+  g_object_unref (metadata);
   g_object_unref (extractor);
   g_object_unref (gconf_client);
-  sj_musicbrainz_destroy ();
   return 0;
 }
