@@ -1,3 +1,12 @@
+ 2003-09-02  Bastien Nocera  <hadess@hadess.net>
+  
+	* data/sound-juicer.glade: set the extract buttons to be disabled by default
+
+	* src/sj-main.c:
+	poll for tray_is_opened every 2 seconds, clear the list when the
+	tray gets opened, update the list when the tray closes (Closes:
+	#notting's wishlist)
+
 2003-09-02  Ross Burton  <ross@burtonini.com>
 
 	* src/sj-metadata.[ch]:

@@ -38,6 +38,9 @@
 #include "sj-util.h"
 #include "sj-prefs.h"
 
+static void reread_cd (gboolean ignore_no_media);
+static void update_ui_for_album (AlbumDetails *album);
+
 GladeXML *glade;
 
 SjMetadata *metadata;
@@ -52,9 +55,11 @@ static GtkWidget *extract_menuitem, *select_all_menuitem, *deselect_all_menuitem
 GtkListStore *track_store;
 
 const char *base_path, *path_pattern, *file_pattern;
-static const char *device;
+static const char *device = NULL;
 gboolean strip_chars;
 gboolean extracting = FALSE;
+gboolean tray_opened = FALSE;
+guint poll_id = 0;
 
 static AlbumDetails *current_album;
 
@@ -91,7 +96,25 @@ void on_eject_activate (GtkMenuItem *item, gpointer user_data)
   eject_cdrom (device, GTK_WINDOW (main_window));
 }
 
-gboolean on_destory_event (GtkWidget *widget, GdkEvent *event, gpointer user_data)
+gboolean poll_tray_opened (gpointer data)
+{
+  gboolean new_status;
+
+  if (extracting == TRUE)
+    return TRUE;
+
+  new_status = tray_is_opened (device);
+  if (new_status != tray_opened && new_status == FALSE) {
+    reread_cd (TRUE);
+  } else if (new_status != tray_opened && new_status == TRUE) {
+    update_ui_for_album (NULL);
+  }
+  tray_opened = new_status;
+
+  return TRUE;
+}
+
+gboolean on_destroy_event (GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
   if (extracting) {
     GtkWidget *dialog;
@@ -105,7 +128,14 @@ gboolean on_destory_event (GtkWidget *widget, GdkEvent *event, gpointer user_dat
     gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Continue"), GTK_RESPONSE_REJECT);
     response = gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
-    return response != GTK_RESPONSE_ACCEPT;
+    
+    if (response != GTK_RESPONSE_ACCEPT) {
+      if (poll_id > 0) {
+        g_source_remove (poll_id);
+      }
+      return FALSE;
+    } 
+    return TRUE;
   }
   return FALSE;
 }
@@ -366,7 +396,7 @@ void strip_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gp
 /**
  * Utility function to reread a CD
  */
-void reread_cd (gboolean ignore_no_media)
+static void reread_cd (gboolean ignore_no_media)
 {
   GList *albums;
   GError *error = NULL;
@@ -478,7 +508,10 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
   sj_metadata_set_cdrom (metadata, device);
   sj_extractor_set_device (extractor, device);
 
-  reread_cd (ignore_no_media);
+  tray_opened = tray_is_opened (device);
+  if (tray_opened == FALSE) {
+    reread_cd (ignore_no_media);
+  }
 }
 
 /**
@@ -833,6 +866,10 @@ int main (int argc, char **argv)
   format_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FORMAT, NULL, TRUE, NULL), NULL);
   paranoia_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PARANOIA, NULL, TRUE, NULL), NULL);
   strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);
+
+  /* Poke the CD drive every now and then */
+  tray_opened = tray_is_opened (device);
+  poll_id = g_timeout_add (2000, poll_tray_opened, NULL);
 
   gtk_main ();
   g_object_unref (metadata);

@@ -125,3 +125,24 @@ eject_cdrom (const char* device, GtkWindow *parent)
   close (fd);
   return;
 }
+
+gboolean
+tray_is_opened (const char *device)
+{
+  int fd, status;
+  
+  fd = open (device, O_RDONLY | O_NONBLOCK | O_EXCL);
+  if (fd < 0) {
+    return FALSE;
+  }
+  
+  status = ioctl (fd, CDROM_DRIVE_STATUS, CDSL_CURRENT);
+  if (status < 0) {
+    close (fd);
+    return FALSE;
+  }
+  
+  close (fd);
+  
+  return status == CDS_TRAY_OPEN;
+}
