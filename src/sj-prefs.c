@@ -246,7 +246,7 @@ static void strip_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *en
 
 static void pattern_label_update (void)
 {
-  const char *file_pattern, *path_pattern;
+  char *file_pattern, *path_pattern;
   char *file_value, *path_value, *example;
   gboolean strip;
 #if 0
@@ -278,9 +278,15 @@ static void pattern_label_update (void)
     60
   };
 #endif
-
+  /* TODO: sucky. Replace with get-gconf-key-with-default mojo */
   file_pattern = gconf_client_get_string (gconf_client, GCONF_FILE_PATTERN, NULL);
+  if (file_pattern == NULL) {
+    file_pattern = g_strdup(file_patterns[0].pattern);
+  }
   path_pattern = gconf_client_get_string (gconf_client, GCONF_PATH_PATTERN, NULL);
+  if (path_pattern == NULL) {
+    path_pattern = g_strdup(path_patterns[0].pattern);
+  }
   strip = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_strip));
 
   file_value = filepath_parse_pattern (file_pattern, &sample_track);
@@ -288,7 +294,9 @@ static void pattern_label_update (void)
 
   example = g_build_filename (G_DIR_SEPARATOR_S, path_value, file_value, NULL);
   g_free (file_value);
+  g_free (file_pattern);
   g_free (path_value);
+  g_free (path_pattern);
 
   gtk_label_set_text (GTK_LABEL (path_example_label), example+1);
   g_free (example);

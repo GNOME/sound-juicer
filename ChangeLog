@@ -1,3 +1,13 @@
+2003-08-05  Ross Burton  <ross@burtonini.com>
+
+	* data/sound-juicer.schemas.in:
+	Add defaults for the file and path patterns.
+
+	* src/sj-prefs.c:
+	If we get null for the file and path patterns, hack in a
+	default. Fixes a crash if the user hasn't set these preferences in
+	earlier versions... whoops.
+
 2003-08-04  Danilo Šegan  <dsegan@gmx.net>
 
 	* configure.in: Added "sr" and "sr@Latn" to ALL_LINGUAS.
