@@ -219,12 +219,13 @@ void on_format_toggled (GtkToggleButton *togglebutton,
 
 static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
-  g_assert (strcmp (entry->key, GCONF_DEVICE) == 0);
+  g_return_if_fail (strcmp (entry->key, GCONF_DEVICE) == 0);
 
   if (entry->value == NULL) {
     bacon_cd_selection_set_device (BACON_CD_SELECTION (cd_option),
                                    bacon_cd_selection_get_default_device (BACON_CD_SELECTION (cd_option)));
   } else {
+    g_return_if_fail (entry->value->type == GCONF_VALUE_STRING);
     bacon_cd_selection_set_device (BACON_CD_SELECTION (cd_option),
                                    gconf_value_get_string (entry->value));
   }
@@ -236,8 +237,11 @@ static void format_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *e
   GEnumValue* enumvalue;
   int format;
   int i;
-  g_assert (strcmp (entry->key, GCONF_FORMAT) == 0);
+
+  g_return_if_fail (strcmp (entry->key, GCONF_FORMAT) == 0);
+
   if (!entry->value) return;
+  g_return_if_fail (entry->value->type == GCONF_VALUE_STRING);
   value = g_ascii_strup (gconf_value_get_string (entry->value), -1);
   /* TODO: this line is pretty convoluted */
   enumvalue = g_enum_get_value_by_name (g_type_class_peek (encoding_format_get_type()), value);
@@ -270,10 +274,12 @@ static void basepath_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry 
    * into sj-utils?
    */
   const char* base_path;
-  g_assert (strcmp (entry->key, GCONF_BASEPATH) == 0);
+  g_return_if_fail (strcmp (entry->key, GCONF_BASEPATH) == 0);
+
   if (entry->value == NULL) {
     base_path = g_get_home_dir ();
   } else {
+    g_return_if_fail (entry->value->type == GCONF_VALUE_STRING);
     base_path = gconf_value_get_string (entry->value);
   }
   /* TODO: sanity check the path somewhat */
@@ -284,8 +290,10 @@ static void basepath_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry 
 static void strip_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   gboolean value = FALSE;
-  g_assert (strcmp (entry->key, GCONF_STRIP) == 0);
+  g_return_if_fail (strcmp (entry->key, GCONF_STRIP) == 0);
+
   if (entry->value != NULL) {
+    g_return_if_fail (entry->value->type == GCONF_VALUE_BOOL);
     value = gconf_value_get_bool (entry->value);
   }
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check_strip), value);
@@ -294,8 +302,10 @@ static void strip_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *en
 static void eject_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   gboolean value = FALSE;
-  g_assert (strcmp (entry->key, GCONF_EJECT) == 0);
+  g_return_if_fail (strcmp (entry->key, GCONF_EJECT) == 0);
+
   if (entry->value != NULL) {
+    g_return_if_fail (entry->value->type == GCONF_VALUE_BOOL);
     value = gconf_value_get_bool (entry->value);
   }
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check_eject), value);
@@ -356,7 +366,9 @@ static void path_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
 {
   char *value;
   int i = 0;
-  g_assert (strcmp (entry->key, GCONF_PATH_PATTERN) == 0);
+  g_return_if_fail (strcmp (entry->key, GCONF_PATH_PATTERN) == 0);
+  g_return_if_fail (entry->value->type == GCONF_VALUE_STRING);
+
   if (entry->value == NULL) {
     value = g_strdup (path_patterns[0].pattern);
   } else {
@@ -374,7 +386,10 @@ static void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
 {
   char *value;
   int i = 0;
-  g_assert (strcmp (entry->key, GCONF_FILE_PATTERN) == 0);
+
+  g_return_if_fail (strcmp (entry->key, GCONF_FILE_PATTERN) == 0);
+  g_return_if_fail (entry->value->type == GCONF_VALUE_STRING);
+
   if (entry->value == NULL) {
     value = g_strdup (file_patterns[0].pattern);
   } else {
