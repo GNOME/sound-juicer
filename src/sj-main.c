@@ -72,7 +72,8 @@ gboolean eject_finished;
 gboolean extracting = FALSE;
 static gboolean tray_opened = FALSE;
 static guint poll_id = 0;
-
+static gint total_no_of_tracks;
+static gint no_of_tracks_selected;
 static AlbumDetails *current_album;
 
 int autostart = FALSE;
@@ -169,6 +170,9 @@ void on_select_all_activate (GtkMenuItem *item, gpointer user_data)
   gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), select_all_foreach_cb, GINT_TO_POINTER (TRUE));
   gtk_widget_set_sensitive (extract_button, TRUE);
   gtk_widget_set_sensitive (extract_menuitem, TRUE);
+  gtk_widget_set_sensitive (select_all_menuitem, FALSE);
+  gtk_widget_set_sensitive (deselect_all_menuitem, TRUE);
+  no_of_tracks_selected = total_no_of_tracks;
 }
 
 void on_deselect_all_activate (GtkMenuItem *item, gpointer user_data)
@@ -176,6 +180,9 @@ void on_deselect_all_activate (GtkMenuItem *item, gpointer user_data)
   gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), select_all_foreach_cb, GINT_TO_POINTER (FALSE));
   gtk_widget_set_sensitive (extract_button, FALSE);
   gtk_widget_set_sensitive (extract_menuitem, FALSE);
+  gtk_widget_set_sensitive (deselect_all_menuitem, FALSE);
+  gtk_widget_set_sensitive (select_all_menuitem,TRUE);
+  no_of_tracks_selected = 0;
 }
 
 /**
@@ -208,6 +215,7 @@ static void update_ui_for_album (AlbumDetails *album)
   GList *l;
   int album_duration = 0;
   char* duration_text;
+  total_no_of_tracks=0;
 
   if (album == NULL) {
     gtk_list_store_clear (track_store);
@@ -221,7 +229,7 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (extract_button, FALSE);
     gtk_widget_set_sensitive (extract_menuitem, FALSE);
     gtk_widget_set_sensitive (select_all_menuitem, FALSE);
-    gtk_widget_set_sensitive (deselect_all_menuitem, FALSE);
+    gtk_widget_set_sensitive (deselect_all_menuitem, TRUE);
   } else {
     gtk_list_store_clear (track_store);
 
@@ -238,7 +246,7 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (genre_combo, TRUE);
     gtk_widget_set_sensitive (extract_button, TRUE);
     gtk_widget_set_sensitive (extract_menuitem, TRUE);
-    gtk_widget_set_sensitive (select_all_menuitem, TRUE);
+    gtk_widget_set_sensitive (select_all_menuitem, FALSE);
     gtk_widget_set_sensitive (deselect_all_menuitem, TRUE);
     
     for (l = album->tracks; l; l=g_list_next (l)) {
@@ -254,7 +262,10 @@ static void update_ui_for_album (AlbumDetails *album)
                           COLUMN_DURATION, track->duration,
                           COLUMN_DETAILS, track,
                           -1);
+     total_no_of_tracks++; 
     }
+no_of_tracks_selected=total_no_of_tracks;
+
     /* Some albums don't have track durations :( */
     if (album_duration) {
       duration_text = g_strdup_printf("%d:%02d", album_duration / 60, album_duration % 60);
@@ -641,8 +652,7 @@ void profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, 
 void
 http_proxy_setup (GConfClient *client)
 {
-  if (!gconf_client_get_bool (client, GCONF_HTTP_PROXY_ENABLE, NULL))
-  {
+  if (!gconf_client_get_bool (client, GCONF_HTTP_PROXY_ENABLE, NULL)) {
     sj_metadata_set_proxy (metadata, NULL);
   } else {
     const char *host;
@@ -728,18 +738,31 @@ static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
   /* extract is the old state here, so toggle */
   extract = !extract;
   gtk_list_store_set (track_store, &iter, COLUMN_EXTRACT, extract, -1);
-
+    
   /* Update the Extract buttons */
   if (extract) {
     /* If true, then we can extract */
     gtk_widget_set_sensitive (extract_button, TRUE);
     gtk_widget_set_sensitive (extract_menuitem, TRUE);
+    no_of_tracks_selected++;
   } else {
     /* Reuse the boolean extract */
     extract = FALSE;
     gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), (GtkTreeModelForeachFunc)extract_available_foreach, &extract);
     gtk_widget_set_sensitive (extract_button, extract);
-    gtk_widget_set_sensitive (extract_menuitem, extract);    
+    gtk_widget_set_sensitive (extract_menuitem, extract);   
+    no_of_tracks_selected--; 
+  }
+  /* Enable and disable the Select/Deselect All buttons */
+  if (no_of_tracks_selected == total_no_of_tracks) {
+    gtk_widget_set_sensitive(deselect_all_menuitem, TRUE);
+    gtk_widget_set_sensitive(select_all_menuitem, FALSE);
+  } else if (no_of_tracks_selected == 0) {
+    gtk_widget_set_sensitive(deselect_all_menuitem, FALSE);
+    gtk_widget_set_sensitive(select_all_menuitem, TRUE);
+  } else {
+    gtk_widget_set_sensitive(select_all_menuitem, TRUE);
+    gtk_widget_set_sensitive(deselect_all_menuitem, TRUE);
   }
 }
 
