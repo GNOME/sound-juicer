@@ -1,3 +1,14 @@
+2003-05-13  Ross Burton  <ross@burtonini.com>
+
+	* data/sound-juicer.glade:
+	Remove the changed callbacks from the file and path pattern option
+	menus.
+	
+	* src/sj-prefs.c:
+	Set the file and path option menus and then attach to the signals
+	(thus keeping the users existing setting). Also fire fake events
+	to set them to the correct values.
+	
 2003-05-12  Ross Burton  <ross@burtonini.com>
 
 	* src/sj-extractor.c:

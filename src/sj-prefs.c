@@ -313,8 +313,10 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     check_strip = glade_xml_get_widget (glade, "check_strip");
 
     gtk_option_menu_set_menu (GTK_OPTION_MENU (path_option), generate_pattern_menu (path_patterns));
+    g_signal_connect (path_option, "changed", G_CALLBACK (prefs_path_option_changed), NULL);
     gtk_option_menu_set_menu (GTK_OPTION_MENU (file_option), generate_pattern_menu (file_patterns));
-    
+    g_signal_connect (file_option, "changed", G_CALLBACK (prefs_file_option_changed), NULL);
+
     /* Connect to GConf to update the UI */
     gconf_client_notify_add (gconf_client, GCONF_DEVICE, device_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_BASEPATH, basepath_changed_cb, NULL, NULL, NULL);
@@ -323,15 +325,12 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     gconf_client_notify_add (gconf_client, GCONF_PATH_PATTERN, path_pattern_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_FILE_PATTERN, file_pattern_changed_cb, NULL, NULL, NULL);
   }
-  /*
-   * TODO: this is pretty sick. Need another way of doing this --
-   * maybe seperate the gconf callback from the actual key setting
-   * code?
-   */
   basepath_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEPATH, NULL, TRUE, NULL), NULL);
   device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), NULL);
   format_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FORMAT, NULL, TRUE, NULL), NULL);
   strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);
+  file_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL), NULL);
+  path_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL), NULL);
 
   gtk_widget_show_all (dialog);
   gtk_dialog_run (GTK_DIALOG (dialog));
