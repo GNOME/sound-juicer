@@ -72,6 +72,14 @@ GSTREAMER_DEPS="gstreamer-$GST_MAJORMINOR"
 AC_SUBST(GSTREAMER_CFLAGS)
 AC_SUBST(GSTREAMER_LIBS)
 
+dnl Check if the tagging API introduced after GStreamer 0.7.2 release 
+dnl is available
+CPPFLAGS_save="$CPPFLAGS"
+CPPFLAGS="$CPPFLAGS $GSTREAMER_CFLAGS"
+AC_CHECK_HEADERS(gst/gsttaginterface.h, [gst_tag_iface="yes"], [gst_tag_iface="no"])
+CPPFLAGS="$CPPFLAGS_save"
+
+
 PKG_CHECK_MODULES(MUSICBRAINZ, libmusicbrainz >= 2.0.0)
 AC_SUBST(MUSICBRAINZ_CFLAGS)
 AC_SUBST(MUSICBRAINZ_LIBS)

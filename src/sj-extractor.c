@@ -415,8 +415,10 @@ void sj_extractor_set_paranoia (SjExtractor *extractor, const int paranoia_mode)
 void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, const char* path, GError **error)
 {
   GstEvent *event;
+#ifndef HAVE_GST_GSTTAGINTERFACE_H 
   GstCaps *caps;
   char *tracknumber;
+#endif
   static GstFormat format = GST_FORMAT_TIME;
   gint64 nanos;
   SjExtractorPrivate *priv;
@@ -447,6 +449,21 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   /* Set the metadata */
   /* TODO; this works with Vorbis and MP3 and will work with FLAC when the
      property is added. Wave ... news not so good. */
+#ifdef HAVE_GST_GSTTAGINTERFACE_H 
+  if (GST_IS_TAG_SETTER (priv->encoder)) {
+    gst_tag_setter_add (GST_TAG_SETTER (priv->encoder),   
+                        GST_TAG_MERGE_REPLACE_ALL,
+                        GST_TAG_TITLE, track->title,
+                        GST_TAG_ARTIST, track->artist,
+                        GST_TAG_TRACK_NUMBER, track->number,
+                        GST_TAG_TRACK_COUNT, track->album->number
+                        GST_TAG_ALBUM, track->album->title,
+                        GST_TAG_COMMENT, _("Ripped with Sound Juicer"),
+                        NULL);
+  } else {
+    g_warning ("The current encoding element doesn't have tag support\n");
+  }
+#else
   tracknumber = g_strdup_printf("%d/%d", track->number, track->album->number);
   caps = GST_CAPS_NEW ("soundjuicer_metadata",
                        "application/x-gst-metadata",
@@ -459,7 +476,8 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
                        );
   g_object_set (G_OBJECT (priv->encoder), "metadata", caps, NULL);
   g_free (tracknumber);
-
+#endif /* HAVE_GST_GSTTAGINTERFACE_H */
+		      
   /* Let's get ready to rumble! */
   gst_element_set_state (priv->pipeline, GST_STATE_PAUSED);
 
