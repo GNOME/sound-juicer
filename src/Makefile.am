@@ -1,6 +1,6 @@
 AM_CFLAGS = -Wall -export-dynamic
 
-DEFS += \
+AM_CPPFLAGS = \
 	-DGNOME_DISABLE_DEPRECATED=1 \
 	-DGCONF_DISABLE_DEPRECATED=1 \
 	-DGTK_DISABLE_DEPRECATED=1 \
@@ -8,9 +8,9 @@ DEFS += \
 	-DG_DISABLE_DEPRECATED=1 \
 	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"  \
 	-DDATADIR=\""$(datadir)/sound-juicer"\" \
-	-DPIXMAPDIR=\""$(datadir)/pixmaps"\"
-
-INCLUDES = @LIBGLADE_CFLAGS@ @GSTREAMER_CFLAGS@ @MUSICBRAINZ_CFLAGS@ @GNOME_CFLAGS@
+	-DPIXMAPDIR=\""$(datadir)/pixmaps"\" \
+	@MUSICBRAINZ_CFLAGS@ @GSTREAMER_CFLAGS@ \
+	@LIBGLADE_CFLAGS@  @GNOME_CFLAGS@
 
 bin_PROGRAMS = sound-juicer
 
@@ -37,7 +37,7 @@ sound_juicer_SOURCES = \
 	cd-drive.h \
 	cd-drive.c
 
-sound_juicer_LDADD = @MUSICBRAINZ_LIBS@ @GSTREAMER_LIBS@ @LIBGLADE_LIBS@ @GNOME_LIBS@
+sound_juicer_LDFLAGS = @MUSICBRAINZ_LIBS@ @GSTREAMER_LIBS@ @LIBGLADE_LIBS@ @GNOME_LIBS@
 
 #
 # Update the libbacon files
