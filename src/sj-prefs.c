@@ -353,7 +353,7 @@ static GtkWidget *generate_pattern_menu (FilePattern *patterns)
   menu = gtk_menu_new ();
   
   for (i = 0; patterns[i].pattern; ++i) {
-    item = gtk_menu_item_new_with_label (patterns[i].name);
+    item = gtk_menu_item_new_with_label (_(patterns[i].name));
     g_object_set_data (G_OBJECT (item), "pattern", patterns[i].pattern);
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
   }
