@@ -25,10 +25,14 @@
 
 #include <string.h>
 #include <unistd.h>
-#include <gnome.h>
+
 #include <gtk/gtk.h>
 #include <glade/glade.h>
 #include <gconf/gconf-client.h>
+#include <libgnome/gnome-help.h>
+#include <libgnomeui/gnome-ui-init.h>
+#include <gst/gst.h>
+
 #include "sj-about.h"
 #include "sj-metadata.h"
 #include "sj-metadata-musicbrainz.h"
@@ -797,7 +801,7 @@ void on_artist_edit_changed(GtkEditable *widget, gpointer user_data) {
 void on_contents_activate(GtkWidget *button, gpointer user_data) {
   GError *error = NULL;
 
-  gnome_help_display("sound-juicer", NULL, &error);
+  gnome_help_display ("sound-juicer", NULL, &error);
   if (error) {
     GtkWidget *dialog;
 
@@ -819,15 +823,20 @@ void on_contents_activate(GtkWidget *button, gpointer user_data) {
 int main (int argc, char **argv)
 {
   GError *error = NULL;
-  
+  struct poptOption options[] = {
+    { NULL, '\0', POPT_ARG_INCLUDE_TABLE, NULL, 0, "GStreamer", NULL },
+    POPT_TABLEEND
+  };
+
   bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
   
+  options[0].arg = (void *) gst_init_get_popt_table ();
   gnome_program_init ("sound-juicer",
                       VERSION, LIBGNOMEUI_MODULE,
                       argc, argv,
-                      GNOME_PROGRAM_STANDARD_PROPERTIES,
+                      GNOME_PARAM_POPT_TABLE, options,
                       NULL);
   g_set_application_name (_("Sound Juicer"));
 
