@@ -34,6 +34,7 @@ void on_about_activate (void)
     NULL
   };
   const gchar *documentors[] = {
+    "Mike Hearn <mike@theoretic.com>",
     NULL
   };
   const gchar *translator_credits = NULL;

@@ -1,5 +1,27 @@
 2003-07-29  Ross Burton  <ross@burtonini.com>
 
+	* help/*:
+	Added online help files.
+
+	* Makefile.am:
+	* configure.in:
+	Include the help files in the build and dist.
+
+	* src/Makefile.am:
+	Add more path defines.
+	* src/sj-about.c:
+	Credit Mike Hearn for documentation.
+	* src/sj-main.c:
+	Add callback for Help, construct the GnomeProgram correctly and
+	fixup glade path.
+
+	* sound-juicer.spec.in:
+	Build-depend on ScrollKeeper.
+	
+	All of this is from Mike Hearn, closing #116914.
+
+2003-07-29  Ross Burton  <ross@burtonini.com>
+
 	* data/sound-juicer.desktop.in:
 	Add product name as per the HIG. Thanks to Mike Hearn for
 	noticing. Closes #116925.

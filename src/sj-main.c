@@ -18,6 +18,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
  * Authors: Ross Burton <ross@burtonini.com>
+ *          Mike Hearn  <mike@theoretic.com>
  */
 
 #include "sound-juicer.h"
@@ -566,6 +567,28 @@ static void on_cell_edited (GtkCellRendererText *renderer,
   return;
 }
 
+void on_contents_activate(GtkWidget *button, gpointer user_data) {
+  GError *error = NULL;
+
+  gnome_help_display("sound-juicer", NULL, &error);
+  if (error) {
+    GtkWidget *dialog;
+
+    dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
+				     0,
+				     GTK_MESSAGE_ERROR,
+				     GTK_BUTTONS_CLOSE,
+				     _("Could not display help for Sound Juicer\n"
+							   "%s"),
+				     error->message);
+    g_signal_connect_swapped (dialog, "response",
+			      G_CALLBACK (gtk_widget_destroy),
+			      dialog);
+    gtk_widget_show (dialog);
+    g_error_free (error);
+  }
+}
+
 static void error_on_start (GError *error)
 {
   GtkWidget *dialog;
@@ -592,7 +615,7 @@ int main (int argc, char **argv)
   gnome_program_init ("sound-juicer",
 		      VERSION, LIBGNOMEUI_MODULE,
 		      argc, argv,
-		      NULL);
+		      GNOME_PROGRAM_STANDARD_PROPERTIES, NULL);
   g_set_application_name (_("Sound Juicer"));
 
   sj_musicbrainz_init (&error);
@@ -627,7 +650,7 @@ int main (int argc, char **argv)
   gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY_PORT, http_proxy_port_changed_cb, NULL, NULL, NULL);
 
   glade_init ();
-  glade = glade_xml_new (DATADIR"/sound-juicer.glade", NULL, NULL);
+  glade = glade_xml_new (DATADIR"/sound-juicer/sound-juicer.glade", NULL, NULL);
   g_assert (glade != NULL);
   glade_xml_signal_autoconnect (glade);
 

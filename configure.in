@@ -13,6 +13,10 @@ GETTEXT_PACKAGE=sound-juicer
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [The name of the gettext package.])
 AC_SUBST(GETTEXT_PACKAGE)
 
+# user help
+SCROLLKEEPER_BUILD_REQUIRED=0.3.5
+AC_SUBST(SCROLLKEEPER_BUILD_REQUIRED)
+
 AM_MAINTAINER_MODE
 
 AC_ISC_POSIX
@@ -69,6 +73,9 @@ dnl TODO: display a message etc
 AC_OUTPUT([
 sound-juicer.spec
 Makefile
+help/Makefile
+help/sound-juicer/Makefile
+help/sound-juicer/C/Makefile
 data/Makefile
 po/Makefile.in
 src/Makefile

@@ -1,0 +1,360 @@
+<?xml version="1.0"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+  <!ENTITY legal SYSTEM "legal.xml">
+  <!ENTITY GFDL  SYSTEM "fdl-appendix.xml">
+  <!ENTITY app "Sound Juicer">
+  <!ENTITY appversion "0.4.2">
+  <!ENTITY manrevision "2.0">
+
+  <!ENTITY mike "Mike Hearn">
+  <!ENTITY mike-addr "mike@theoretic.com">
+]>
+<!--
+      (Do not remove this comment block.)
+  Template Maintained by the GNOME Documentation Project:
+	  http://developer.gnome.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Feb 12, 2002
+-->
+
+
+<!--
+      (Do not remove this comment block.)
+  Version: 0.0.1
+  Last modified: March 23, 2002
+  Maintainers:
+               Laszlo Kovacs  <laszlo.kovacs@sun.com>
+               Dan Mueth      <muet@alumni.uchicago.edu>
+  Translators:
+               (translators put your name and email here)
+-->
+
+
+
+<!-- =============Document Header ============================= -->
+<article id="index" lang="en">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+
+  <articleinfo>
+    <title>&app; Manual</title>
+    <copyright>
+      <year>2003</year>
+      <holder>&mike; (&mike-addr;)</holder>
+    </copyright>
+
+  <!-- translators: uncomment this:
+
+  <copyright>
+   <year>2000</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+  -->
+  
+<!-- An address can be added to the publisher information.  If a role is
+     not specified, the publisher/author is the same for all versions of the
+     document.  -->
+    <publisher>
+      <publishername> GNOME Documentation Project </publishername>
+    </publisher>
+
+   &legal;
+   <!-- This file  contains link to license for the documentation (GNU FDL), and
+        other legal stuff such as "NO WARRANTY" statement. Please do not change
+        any of this. -->
+
+    <authorgroup>
+      <author>
+        <firstname>Mike</firstname>
+        <surname>Hearn</surname>
+        <affiliation>
+          <address> <email>&mike-addr;</email> </address>
+        </affiliation>
+      </author>
+<!-- This is appropriate place for other contributors: translators,
+      maintainers,  etc. Commented out by default.
+       <othercredit role="translator">
+        <firstname>Latin</firstname>
+        <surname>Translator 1</surname>
+        <affiliation>
+          <orgname>Latin Translation Team</orgname>
+          <address> <email>translator@gnome.org</email> </address>
+        </affiliation>
+        <contrib>Latin translation</contrib>
+      </othercredit>
+-->
+    </authorgroup>
+
+<!-- According to GNU FDL, revision history is mandatory if you are -->
+<!-- modifying/reusing someone else's document.  If not, you can omit it. -->
+<!-- Remember to remove the &manrevision; entity from the revision entries other
+-->
+<!-- than the current revision. -->
+<!-- The revision numbering system for GNOME manuals is as follows: -->
+<!-- * the revision number consists of two components -->
+<!-- * the first component of the revision number reflects the release version of the GNOME desktop. -->
+<!-- * the second component of the revision number is a decimal unit that is incremented with each revision of the manual. -->
+<!-- For example, if the GNOME desktop release is V2.x, the first version of the manual that -->
+<!-- is written in that desktop timeframe is V2.0, the second version of the manual is V2.1, etc. -->
+<!-- When the desktop release version changes to V3.x, the revision number of the manual changes -->
+<!-- to V3.0, and so on. -->
+
+    <revhistory>
+      <revision>
+        <revnumber>&app; Manual V&manrevision;</revnumber>
+        <date>6th July 2003</date>
+        <revdescription>
+          <para role="author">&mike;
+            <email>&mike-addr;</email>
+          </para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+    </revhistory>
+
+<!-- Translators may also add here feedback address for translations -->
+  </articleinfo>
+
+ <!-- ============= Document Body ============================= -->
+ <!-- ============= Introduction ============================== -->
+ <sect1 id="intro">
+  <title>Introduction</title>
+
+  <sect2 id="aboutex">
+   <title>About &app;</title>
+   <indexterm>
+     <primary>Sound Juicer</primary>
+     <secondary>Manual</secondary>
+     <tertiary>sound-juicer</tertiary>
+   </indexterm>
+   <para>
+     &app; is a simple and clean CD ripper tool. It allows you to
+     extract the audio from audio compact discs and convert them into
+     a variety of audio formats your computer can understand and play.
+   </para>
+   <para>
+     It has several useful features, for instance it can look up the
+     titles and artists of the tracks on your CD from the internet,
+     using the freely available MusicBrainz service.
+   </para>
+  </sect2>
+
+  <sect2 id="notice">
+   <title>Notice</title>
+   <para>
+     &app; is currently in development, so this manual may not
+     reflect the program as you see it. If it doesn't, please file a
+     bug in Gnome bugzilla against sound-juicer, or email &mike-addr;
+   </para>
+  </sect2>
+ </sect1>
+
+
+ <sect1 id="using">
+   <title>Using &app;</title>
+   <para>
+     When you start &app;, it will examine the CD in the currently selected
+     drive, and try and locate information about its contents. It can
+     match against things like the serial number, but also the length
+     and positions of the tracks - this means that sometimes you may
+     get a false hit, and the details will be filled out
+     incorrectly. Don't worry though, they are easy to change.
+   </para>
+
+   <para>
+     This is what &app; typically looks like when first started:
+   </para>
+
+   <figure>
+     <title>&app; on startup</title>
+     <screenshot>
+       <mediaobject>
+	 <imageobject>
+           <imagedata fileref="figures/startup" format="PNG"/>
+	 </imageobject>
+	 <textobject>
+           <phrase>&app; at startup</phrase>
+	 </textobject>
+       </mediaobject>
+     </screenshot>
+   </figure>
+
+   <para>
+     At the top of the window there are a couple of entry boxes for
+     the disc artist and title. You should fill this out appropriately
+     for the disc currently in the drive. For instance, if the disc is
+     an album, put the artist and the name of the album in these
+     entry boxes. For a single, the name of the artist and the track
+     will do (as you can see in the above screenshot). If the disc
+     is by multiple artists, you can just put "Various" or leave it blank.
+   </para>
+
+   <para>
+     That information is placed in the resultant files so they can be
+     easily catalogued and searched by music playing software later,
+     so it's a good idea to try and fill it out accurately - it will
+     make finding and sorting them much easier.
+   </para>
+
+   <para>
+     Each track <emphasis>also</emphasis> has a title and artist
+     field, which should be set appropriately. Again, this
+     information will be encoded into the output files. You don't
+     have to extract every track on the CD, if you'd like to exclude
+     some, uncheck the box in the "Extract?" column. You can toggle
+     the status of all the tracks at once by using the Edit menu.
+   </para>
+   
+   <tip>
+     <para>
+       When you edit the disc artist field (at the top), all the
+       track artist fields are updated to reflect that. This saves
+       you a lot of typing - as most discs are by a single artist, it
+       means you only have to enter it once for the artist field to
+       be updated everywhere.
+     </para>
+   </tip>
+
+   <para>
+     The <guilabel>Duration</guilabel> field shows you the total
+     length of the CD in the current drive.
+   </para>
+
+   <para>
+     The <guibutton>Re-read</guibutton> button is useful for when you
+     change CDs but don't want to restart the program - pressing it
+     will cause &app; to update its list of tracks.
+   </para>
+
+   <para>
+     When things are set up to your liking, press
+     the <guibutton>Extract</guibutton> button, and &app; will begin
+     reading the audio from the CD and saving it to disk. By default,
+     this is the "~/Music" directory in your home directory, but you
+     can change it in the <interface>Preferences window</interface>.
+   </para>
+
+   <warning>
+     <para>
+       Extracting a CD can take a <emphasis>long time</emphasis>,
+       depending on the speed of your computer. By default &app;
+       compresses the audio at the same time as extracting it from
+       the CD so it takes less space on disk, however this is a time
+       consuming process. You don't have to sit and watch it though,
+       just minimize it, or move it to a different virtual desktop.
+     </para>
+   </warning>
+   
+ </sect1>
+
+
+ <sect1 id="preferences">
+   <title>Preferences</title>
+   <para>
+     The preferences window allows you to control:
+   </para>
+   
+   <itemizedlist>
+     <listitem><para> Which CD drive &app; uses if you have more than one</para></listitem>
+     
+     <listitem><para> Where the extracted audio is placed on disk</para></listitem>
+     
+     <listitem><para> Which file format/codec is used for the extracted audio</para></listitem>
+   </itemizedlist>
+
+   <figure>
+     <title>Preferences window</title>
+     <screenshot>
+       <mediaobject>
+	 <imageobject>
+           <imagedata fileref="figures/prefs" format="PNG"/>
+	 </imageobject>
+	 <textobject>
+           <phrase>Preferences window</phrase>
+	 </textobject>
+       </mediaobject>
+     </screenshot>
+   </figure>
+   
+   <para>
+     If you have multiple CD drives in your system, there is a drop
+     down list at the top which lets you choose the one to use by
+     default. You can also browse for a directory to place the audio
+     files in.
+   </para>
+
+   <para>
+     The <guilabel>Output Name</guilabel> section lets you control how
+     the audio files are layed out in your chosen directory. For
+     instance, in the default setup, the first track of my CD might be
+     extracted to "~/Music/iio/Rapture/01 - Rapture [Radio
+     Edit].ogg".
+   </para>
+
+   <para>
+     The <guibutton>Strip special characters</guibutton> checkbox
+     controls whether the file name should be made safe for the
+     command line. That involves removing characters like /, \, *, ?
+     and so on. It's probably a good idea to have this checked.
+   </para>
+
+   
+   <sect2>
+     <title>Output format</title>
+
+     <para>
+       Here you can choose which file format you want to save your
+       files to. The default is
+       <ulink type="http" url="http://www.vorbis.org/">Ogg
+	 Vorbis</ulink>, which is recommended due to its high in
+	 quality, low in size nature, as well as being an open format
+	 available to all. Ogg Vorbis can be played by virtually all
+	 Linux installations out of the box, and
+       <ulink type="http" 
+       url="http://www.nullsoft.com/">WinAmp</ulink>
+       for Windows also supports it.
+     </para>
+
+     <para>
+       Other formats are available however. The MP3 codec is widely
+       known and used, and has good hardware support. If you have a
+       portable MP3 player that doesn't accept Vorbis files, you may
+       wish to use this so you can upload it to the device.
+     </para>
+
+     <para>
+       FLAC is a lossless codec, as opposed to Vorbis and MP3 which
+       are lossy. Lossless codecs don't throw any information away at
+       all, which means you get a 100% faithful reproduction of the
+       original sound. Lossy codecs use complex mathematical
+       constructions, called psychoacoustic models, to eliminate
+       information that you cannot normally hear. The end result
+       sounds virtually identical to the original, even though it is
+       in reality substantially different.
+     </para>
+
+     <para>
+       If quality is of the highest concern to you, and you have lots
+       of disk space to burn, you might want to try FLAC. The WAV raw
+       audio format is the lowest common denominator format - it
+       isn't compressed at all, and will give the biggest files. It's
+       often useful for professional audio work, but for most uses
+       you won't want to choose this option.
+     </para>
+
+     <para>
+       Some of the options may be unavailable here. If that's the
+       case, you need to install support for the relevant formats
+       into GStreamer. The exact way you do this will depend on your setup.
+     </para>
+   </sect2>
+ </sect1>
+   
+ 
+&GFDL;
+
+</article>
+
+

@@ -1,4 +1,4 @@
-SUBDIRS = po data src tests
+SUBDIRS = po data src tests help
 
 INTLTOOL_BUILT = \
         intltool-extract \
@@ -8,6 +8,8 @@ INTLTOOL_BUILT = \
 EXTRA_DIST = \
 	autogen.sh \
 	sound-juicer.spec \
+	xmldocs.make \
+	omf.make \
 	$(INTLTOOL_BUILT:=.in)
 
 CLEANFILES = $(INTLTOOL_BUILT)

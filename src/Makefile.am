@@ -7,7 +7,10 @@ AM_CPPFLAGS = \
 	-DGDK_DISABLE_DEPRECATED=1 \
 	-DG_DISABLE_DEPRECATED=1 \
 	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"  \
-	-DDATADIR=\""$(datadir)/sound-juicer"\" \
+	-DDATADIR=\""$(datadir)"\" \
+	-DPREFIX=\""$(prefix)"\" \
+	-DLIBDIR=\""$(libdir)"\" \
+	-DSYSCONFDIR=\""$(sysconfdir)"\" \
 	-DPIXMAPDIR=\""$(datadir)/pixmaps"\" \
 	@MUSICBRAINZ_CFLAGS@ @GSTREAMER_CFLAGS@ \
 	@LIBGLADE_CFLAGS@  @GNOME_CFLAGS@
