@@ -184,7 +184,7 @@ get_offline_track_listing(SjMetadata *metadata, GError **error)
     track = g_new0 (TrackDetails, 1);
     track->album = album;
     track->number = i;
-    track->title = g_strdup_printf (g_strdup (_("Track %d"), i));
+    track->title = g_strdup_printf (_("Track %d"), i);
     track->artist = g_strdup (album->artist);
     track->duration = get_duration_from_sectors (mb_GetResultInt1 (priv->mb, MBE_TOCGetTrackNumSectors, i+1));
     album->tracks = g_list_append (album->tracks, track);
