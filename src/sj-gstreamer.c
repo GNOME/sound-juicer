@@ -21,6 +21,7 @@ completion_cb_t completion_cb;
 
 static void eos_cb (GstElement *gstelement, gpointer user_data)
 {
+  gst_element_set_state (pipeline, GST_STATE_READY);
   completion_cb();
 }
 
@@ -49,8 +50,6 @@ void sj_gstreamer_init (int argc, char **argv, GError **error)
   /* Get the source pad for seeking */
   source_pad = gst_element_get_pad (cdparanoia, "src");
   g_assert (source_pad); /* TODO: GError */
-  /* Connect to the eos so we know when its finished */
-  g_signal_connect (cdparanoia, "eos", eos_cb, NULL);
 
   /* Encode to Ogg Vorbis */
   vorbisenc = gst_element_factory_make ("vorbisenc", "vorbisenc");
@@ -60,6 +59,8 @@ void sj_gstreamer_init (int argc, char **argv, GError **error)
                  "Could not create Vorbis encoding element");
     return;
   }
+  /* Connect to the eos so we know when its finished */
+  g_signal_connect (vorbisenc, "eos", eos_cb, NULL);
 
   /* Write to disk */
   filesink = gst_element_factory_make ("filesink", "filesink");

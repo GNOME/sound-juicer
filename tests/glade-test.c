@@ -312,6 +312,7 @@ static void pop_and_rip (void)
 {
   TrackDetails *track;
   char *file_path, *directory;
+  GError *error = NULL;
 
   if (pending == NULL) {
     gtk_widget_hide (progress_dialog);
@@ -336,7 +337,12 @@ static void pop_and_rip (void)
   }
   g_free (directory);
   ripping = TRUE;
-  sj_gstreamer_extract_track (track, file_path, NULL);
+  sj_gstreamer_extract_track (track, file_path, &error);
+  if (error) {
+    g_print ("Error extracting: %s\n", error->message);
+    g_error_free (error);
+    return;
+  }
   g_free (file_path);
   return;
 }
@@ -348,6 +354,7 @@ void on_extract_activate (GtkWidget *button, gpointer user_data)
 {
   if (progress_dialog == NULL) {
     progress_dialog = glade_xml_get_widget (glade, "progress_dialog");
+    gtk_window_set_transient_for (GTK_WINDOW (progress_dialog), GTK_WINDOW (main_window));
     track_progress = glade_xml_get_widget (glade, "track_progress");
     progress_label = glade_xml_get_widget (glade, "progress_label");
     g_assert (progress_dialog != NULL);
