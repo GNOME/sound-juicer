@@ -1,5 +1,11 @@
 2005-04-04  Ross Burton  <ross@burtonini.com>
 
+	* src/sj-prefs.c:
+	Remove useless tests for entry->value->type which may crash if
+	entry is NULL.
+
+2005-04-04  Ross Burton  <ross@burtonini.com>
+
 	* src/sj-main.c:
 	Initialise the audio profiles before creating an SjExtractor.
 
