@@ -16,7 +16,7 @@ int main (int argc, char** argv)
     g_print ("'%s', by %s\n", album->title, album->artist);
     while (album->tracks) {
       TrackDetails *track = (TrackDetails*)album->tracks->data;
-      g_print (" Track %d; Title: %s; Artist: %s\n", track->number, track->title, track->artist);
+      g_print (" Track %d; Title: %s; Artist: %s Duration: %d sec\n", track->number, track->title, track->artist, track->duration);
       album->tracks = g_list_next (album->tracks);
     }
     albums = g_list_next (albums);

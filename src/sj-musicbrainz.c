@@ -85,6 +85,14 @@ void sj_musicbrainz_set_proxy_port (int proxy_port) {
   mb_SetProxy (mb, http_proxy, http_proxy_port);
 }
 
+#define BYTES_PER_SECTOR 2352
+#define BYTES_PER_SECOND (44100 / 8) / 16 / 2
+
+static int sj_get_duration_from_sectors (int sectors)
+{
+  return (sectors * BYTES_PER_SECTOR / BYTES_PER_SECOND);
+}
+
 static GList* get_offline_track_listing(musicbrainz_t mb, GError **error)
 {
   GList* list = NULL;
@@ -98,7 +106,9 @@ static GList* get_offline_track_listing(musicbrainz_t mb, GError **error)
     g_set_error (error,
                  SJ_ERROR, SJ_ERROR_CD_LOOKUP_ERROR,
                  _("Cannot read CD: %s"), message);
+    return NULL;
   }
+  
   num_tracks = mb_GetResultInt (mb, MBE_TOCGetLastTrack);
 
   album = g_new0 (AlbumDetails, 1);
@@ -110,7 +120,8 @@ static GList* get_offline_track_listing(musicbrainz_t mb, GError **error)
     track->number = i;
     track->title = g_strdup_printf (_("Track %d"), i);
     track->artist = album->artist;
-    /* TODO: track duration */
+    track->duration = sj_get_duration_from_sectors
+      (mb_GetResultInt1 (mb, MBE_TOCGetTrackNumSectors, i+1));
     album->tracks = g_list_append (album->tracks, track);
   }
   return g_list_append (list, album);
@@ -118,6 +129,7 @@ static GList* get_offline_track_listing(musicbrainz_t mb, GError **error)
 
 GList* sj_musicbrainz_list_albums(GError **error) {
   GList *albums = NULL;
+  GList *al, *tl;
   char data[256];
   int num_albums, i, j;
 
@@ -175,5 +187,26 @@ GList* sj_musicbrainz_list_albums(GError **error) {
 
     albums = g_list_append (albums, album);
   }
+
+  /* For each album, we need to insert the duration data if necessary
+   * We need to query this here because otherwise we would flush the
+   * data queried from the server */
+  mb_Query (mb, MBQ_GetCDTOC);
+  for (al = albums; al; al = al->next) {
+    AlbumDetails *album = al->data;
+
+    j = 1;
+    for (tl = album->tracks; tl; tl = tl->next) {
+      TrackDetails *track = tl->data;
+      int sectors;
+
+      if (track->duration == 0) {
+        sectors = mb_GetResultInt1 (mb, MBE_TOCGetTrackNumSectors, j+1);
+	track->duration = sj_get_duration_from_sectors (sectors);
+      }
+      j++;
+    }
+  }
+
   return albums;
 }
