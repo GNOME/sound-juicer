@@ -138,24 +138,23 @@ void show_help ()
  */
 void prefs_browse_clicked (GtkButton *button, gpointer user_data)
 {
-  GtkWidget *filesel;
-  int res;
-
-  filesel = gtk_file_selection_new(_("Select Output Location"));
-  gtk_file_selection_set_filename (GTK_FILE_SELECTION (filesel), base_path);
-  gtk_widget_show_all (filesel);
-  /* A little hacky, but it works :) */
-  gtk_widget_hide (gtk_widget_get_parent (GTK_FILE_SELECTION(filesel)->file_list));
-  res = gtk_dialog_run (GTK_DIALOG (filesel));
-  if (res == GTK_RESPONSE_OK) {
-    const char *filename;
-    char *path;
-    filename = gtk_file_selection_get_filename(GTK_FILE_SELECTION(filesel));
+  GtkWidget *dialog;
+  dialog = gtk_file_chooser_dialog_new (_("Select Output Location"),
+                                        GTK_WINDOW (main_window),
+                                        GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                        GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+                                        NULL);
+  gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog), base_path);
+  if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
+    char *filename, *path;
+    filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
     path = g_filename_to_utf8 (filename, -1, NULL, NULL, NULL); /* TODO: GError */
     gconf_client_set_string (gconf_client, GCONF_BASEPATH, path, NULL);
     g_free (path);
+    g_free (filename);
   }
-  gtk_widget_destroy (filesel);
+  gtk_widget_destroy (dialog);
 }
 
 void prefs_path_option_changed (GtkOptionMenu *optionmenu, gpointer user_data)
