@@ -1,13 +1,12 @@
 Sound Juicer
-Copyright (C) 2003 Ross Burton
+Copyright (C) 2003-4 Ross Burton
 Licensed under the GPL, version 2 or greater.
 
 This is Sound Juicer, a CD ripping tool using GTK+ and GStreamer.
 
 Requirements:
 * GNOME 2.2 Platform (libgnomeui, gconf, libglade)
-* GStreamer 0.6.x - and specifically the cdparanoia and vorbisenc
-  elements.
+* GStreamer 0.6.x and above
 
 Do the usual configure/make/make install malarky, and run
 "sound-juicer" in $(prefix)/bin or "CD Ripper" in Applications ->
@@ -17,7 +16,31 @@ If the CD lookup is returning weird data, export MUSICBRAINZ_DEBUG
 before running sound-juicer to turn debugging on in MusicBrainz. This
 will show the chat between Sound Juicer and the MusicBrainz servers.
 
-Known Issues:
+
+Common Problems
+===============
+
+"Sound Juicer doesn't start, it can't find a plugin to access the CD drive!"
+
+You need the GStreamer cdparanoia plugin.  Most distributions should ship this
+with GStreamer, if you built it youself check you have the cdparanoia headers
+installed.
+
+"I cannot encode to MP3!"
+
+To encode to MP3 you need the GStreamer Lame plugin.  Most distributions don't
+ship this due to patents and licence fees, so you will have to build lame
+yourself, and then rebuild gstreamer-plugins.
+
+"How do I set the quality?"
+
+Patience is a virtue.  One day, soon, I shall implement quality selection with
+the new Audio Profiles code in gnome-media 2.6. This will also remove the format
+checkboxes.
+
+
+Known Issues
+============
 
 For a complete To Do list, see the file TODO and the sound-juicer
 product in the GNOME Bugzilla at http://bugzilla.gnome.org./
@@ -28,7 +51,3 @@ error message, but the other fields are written correctly.
 
 Musicbrainz 2.0.1 is required. It should be a 10 minute hack to make
 it work for 2.0.0, and maybe even for 1.1.0.
-
-You need to have the 'cdparanoia' and 'vorbisenc' GStreamer elements
-installed. The configure script will look for these and issue a
-warning if they are not found.
