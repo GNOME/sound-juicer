@@ -52,16 +52,14 @@ HAVE_GSTREAMER=no
 dnl start with 0.7
 GST_MAJORMINOR=0.7
 PKG_CHECK_MODULES(GSTREAMER, \
-  gstreamer-$GST_MAJORMINOR gstreamer-libs-$GST_MAJORMINOR
-  gstreamer-control-$GST_MAJORMINOR gstreamer-gconf-$GST_MAJORMINOR,
+  gstreamer-$GST_MAJORMINOR,
 HAVE_GSTREAMER=yes,HAVE_GSTREAMER=no)
                                                                                 
 dnl if not try 0.6
     if test "x$HAVE_GSTREAMER" = "xno"; then
 GST_MAJORMINOR=0.6
 PKG_CHECK_MODULES(GSTREAMER, \
-    gstreamer-$GST_MAJORMINOR >= 0.6.0 gstreamer-libs-$GST_MAJORMINOR
-    gstreamer-control-$GST_MAJORMINOR gstreamer-gconf-$GST_MAJORMINOR,
+    gstreamer-$GST_MAJORMINOR >= 0.6.0,
  HAVE_GSTREAMER=yes,HAVE_GSTREAMER=no)
         fi
 dnl Give error and exit if we don't have gstreamer
