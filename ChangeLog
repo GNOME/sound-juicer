@@ -4,6 +4,9 @@
 	Ensure (De)Select All reflects the state of the selection (closes
 	#162830, thanks to Nirmal Kumar)
 
+	Use exit() in the "profile not found" dialog, it may be called
+	outside the main loop (closes #164092, thanks to Madhan Raj M)
+
 2005-01-05  Ross Burton  <ross@burtonini.com>
 
 	* src/sj-extracting.c:

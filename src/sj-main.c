@@ -641,7 +641,8 @@ void profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, 
       gtk_widget_destroy (dialog);
       on_edit_preferences_cb (NULL, NULL);
     } else {
-      gtk_main_quit ();
+      /* Can't use gtk_main_quit here, we may be outside the main loop */
+      exit(0);
     }
   }
 }
