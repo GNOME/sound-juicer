@@ -448,7 +448,7 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
 
       if (rc == GTK_RESPONSE_HELP)
 	  show_help();
-      else if (rc == GTK_RESPONSE_CLOSE)
+      else if (rc == GTK_RESPONSE_CLOSE || rc == GTK_RESPONSE_DELETE_EVENT)
 	  break;
       }
       
