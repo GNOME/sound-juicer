@@ -874,22 +874,42 @@ void on_contents_activate(GtkWidget *button, gpointer user_data) {
   }
 }
 
+static int genre_cmp (gconstpointer a, gconstpointer b)
+{
+  GenreMap *p1, *p2;
+  p1 = (GenreMap *)a;
+  p2 = (GenreMap *)b;
+  return strcmp (sj_genre_name (p1->canonical), sj_genre_name (p2->canonical));
+}
+
 static GtkTreeModel* populate_genre_list(void) {
   GtkListStore *store;
   GenreMap *p;
+  GList *genres;
+  GList *g;
 
   store = gtk_list_store_new (2, G_TYPE_INT, G_TYPE_STRING);
   p = genremap;
-
+  
+  genres = NULL;
   while (p->genre != LAST_GENRE) {
-    GtkTreeIter iter;
     if (p->genre == p->canonical) {
-      gtk_list_store_append(store, &iter);
-      gtk_list_store_set (store, &iter, 0, p->canonical, 1, sj_genre_name(p->canonical), -1);
+      genres = g_list_insert_sorted (genres, p, genre_cmp);
     }
     ++p;
   }
-  return GTK_TREE_MODEL(store);
+
+  g = genres;
+  while (g != NULL) {
+    GtkTreeIter iter;
+    p = (GenreMap *)g->data;
+    gtk_list_store_append (store, &iter);
+    gtk_list_store_set (store, &iter, 0, p->canonical, 1, sj_genre_name (p->canonical), -1);
+    g = g->next;
+  }
+  g_list_free (genres);
+
+  return GTK_TREE_MODEL (store);
 }
 
 int main (int argc, char **argv)
