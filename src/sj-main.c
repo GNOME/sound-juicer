@@ -588,11 +588,24 @@ void on_title_edit_changed(GtkEditable *widget, gpointer user_data) {
 }
 
 void on_artist_edit_changed(GtkEditable *widget, gpointer user_data) {
+  GtkTreeIter iter;
+  TrackDetails *track;
+
   g_return_if_fail (current_album != NULL);
   if (current_album->artist) {
     g_free (current_album->artist);
   }
   current_album->artist = gtk_editable_get_chars (widget, 0, -1); /* get all the characters */
+
+  /* Set the artist field in each tree row */
+  if (!gtk_tree_model_get_iter_first (GTK_TREE_MODEL (track_store), &iter)) return;
+  
+  do {
+    gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, COLUMN_DETAILS, &track, -1);
+    g_free (track->artist);
+    track->artist = g_strdup (current_album->artist);
+    gtk_list_store_set (track_store, &iter, COLUMN_ARTIST, current_album->artist, -1);
+  } while (gtk_tree_model_iter_next (GTK_TREE_MODEL(track_store), &iter));
 }
 
 void on_contents_activate(GtkWidget *button, gpointer user_data) {
