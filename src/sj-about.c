@@ -22,7 +22,7 @@
 
 #include "sound-juicer.h"
 
-#include <libgnomeui/gnome-about.h>
+#include <gtk/gtkaboutdialog.h>
 #include <string.h>
 
 void on_about_activate (void)
@@ -39,27 +39,33 @@ void on_about_activate (void)
     "Mike Hearn <mike@theoretic.com>",
     NULL
   };
-  /*
-   * Note to translators: put here your name and email so it will show
-   * up in the "about" box
-   */
-  gchar *translator_credits = _("translator-credits");
-  
+
   if (win != NULL) {
     gtk_window_present (GTK_WINDOW (win));
     return;
   }
   
-  /* TODO: I think this is leaking */
   /* TODO: pass a GError */
   pixbuf = gdk_pixbuf_new_from_file (PKGDATADIR"/orange-slice.png", NULL);
-  win = gnome_about_new (_("Sound Juicer"), VERSION,
-                         "Copyright \xc2\xa9 2003-2005 Ross Burton",
-                         _("An Audio CD Extractor"),
-                         authors,
-                         documentors,
-                         strcmp (translator_credits, "translator-credits") != 0 ? translator_credits : NULL,
-                         pixbuf);
+
+  win = g_object_new (GTK_TYPE_ABOUT_DIALOG,
+                      "name", _("Sound Juicer"),
+                      "comments", _("An Audio CD Extractor"),
+                      "version", VERSION,
+                      "copyright", "Copyright \xc2\xa9 2003-2005 Ross Burton",
+                      "authors", authors,
+                      "documenters", documentors,
+                      /*
+                       * Note to translators: put here your name and email so it will show
+                       * up in the "about" box
+                       */
+                      "translator-credits", _("translator-credits"),
+                      "logo", pixbuf,
+                      NULL);
+
+  g_object_unref (pixbuf);
+  
+  g_signal_connect (win, "response", G_CALLBACK (gtk_widget_destroy), NULL);
   gtk_window_set_icon_from_file (GTK_WINDOW (win), PIXMAPDIR"/sound-juicer.png", NULL);
   gtk_window_set_transient_for (GTK_WINDOW (win), GTK_WINDOW (main_window));
   gtk_window_set_destroy_with_parent (GTK_WINDOW (win), TRUE);
