@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: sound-juicer 2.6\n"
+"Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-07 04:08+0200\n"
-"PO-Revision-Date: 2004-04-07 10:35-0300\n"
+"POT-Creation-Date: 2004-04-09 04:05+0200\n"
+"PO-Revision-Date: 2004-04-09 11:12-0300\n"
 "Last-Translator: Raphael Higino <raphaelh@uai.com.br>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 
 #: data/sound-juicer.desktop.in.h:1
 msgid "Extract music from your CDs"
-msgstr "Extrair música dos seus CDs"
+msgstr "Extraia música dos seus CDs"
 
 #: data/sound-juicer.desktop.in.h:2
 msgid "Sound Juicer CD Ripper"
@@ -37,7 +37,7 @@ msgstr "<b>Artista:</b>"
 
 #: data/sound-juicer.glade.h:4
 msgid "<b>CD _Drive</b>"
-msgstr "<b>Drive de _CD</b>"
+msgstr "<b>_Drive de CD</b>"
 
 #: data/sound-juicer.glade.h:5
 msgid "<b>Duration:</b>"
@@ -201,7 +201,11 @@ msgid ""
 "%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
 "album artist (lowercase) %tt -- track title %tT -- track title (lowercase) %"
 "ta -- track artist %tA -- track artist (lowercase)"
-msgstr "%at -- título do álbum %aT -- título do álbum (minúsculas) %aa -- artista do álbum %aA -- artista do álbum (minúsculas) %tt -- título da faixa %tT -- título da faixa (minúsculas) %ta -- artista da faixa %tA -- artista da faixa (minúsculas)"
+msgstr ""
+"%at -- título do álbum %aT -- título do álbum (minúsculas) %aa -- artista do "
+"álbum %aA -- artista do álbum (minúsculas) %tt -- título da faixa %tT -- "
+"título da faixa (minúsculas) %ta -- artista da faixa %tA -- artista da faixa "
+"(minúsculas)"
 
 #: data/sound-juicer.schemas.in.h:4
 #, no-c-format
@@ -211,7 +215,12 @@ msgid ""
 "number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
 "tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
 "(lowercase)"
-msgstr "Não especifique uma extensão. %at -- título do álbum %aT -- título do álbum (minúsculas) %aa -- artista do álbum %aA -- artista do álbum (minúsculas) %tn -- número da faixa (p.ex. 8) %tN -- número da faixa, com zero (p.ex. 08) %tt -- título da faixa %tT -- título da faixa (minúsculas) %ta -- artista da faixa %tA -- artista da faixa (minúsculas)"
+msgstr ""
+"Não especifique uma extensão. %at -- título do álbum %aT -- título do álbum "
+"(minúsculas) %aa -- artista do álbum %aA -- artista do álbum (minúsculas) %"
+"tn -- número da faixa (p.ex. 8) %tN -- número da faixa, com zero (p.ex. 08) %"
+"tt -- título da faixa %tT -- título da faixa (minúsculas) %ta -- artista da "
+"faixa %tA -- artista da faixa (minúsculas)"
 
 #: data/sound-juicer.schemas.in.h:5
 msgid ""
@@ -229,9 +238,7 @@ msgstr "Se devem ser descartados caracteres especiais dos nomes de arquivos"
 msgid ""
 "Paranoia mode, 3 settings: 0 (no paranoia), 4 (cdda2wav-style overlap "
 "checking) and 255 (full paranoia)"
-msgstr ""
-"Modo paranóia, 3 configurações: 0 (sem paranóia), 4 (verificação de "
-"revestimento no estilo cdda2wav) e 255 (paranóico)"
+msgstr "Modo paranóia, 3 configurações: 0 (sem paranóia), 4 (verificação de sobreposição ao estilo cdda2wav) e 255 (paranóico)"
 
 #: data/sound-juicer.schemas.in.h:8
 msgid "The directory structure for the files"
@@ -276,7 +283,7 @@ msgstr "Raphael Higino <raphaelh@uai.com.br>"
 
 #: src/sj-about.c:58
 msgid "An Audio CD Extractor"
-msgstr "Um Extrator para CDs de Áudio"
+msgstr "Um Extrator de CDs de Áudio"
 
 #: src/sj-extracting.c:190
 #, c-format
@@ -285,11 +292,11 @@ msgid ""
 "Do you want to skip this track or overwrite it?"
 msgstr ""
 "Um arquivo chamado '%s' já existe, seu tamanho é %lu kB.\n"
-"Você deseja pular esta faixa ou sobrescrevê-la?"
+"Você deseja ignorar esta faixa ou sobrescrevê-la?"
 
 #: src/sj-extracting.c:192
 msgid "_Skip"
-msgstr "_Pular"
+msgstr "_Ignorar"
 
 #: src/sj-extracting.c:193
 msgid "_Overwrite"
@@ -433,11 +440,12 @@ msgstr "O Sound Juicer não pôde acessar o dispositivo de CD-ROM '%s'"
 
 #: src/sj-main.c:629
 msgid "Cannot find any suitable encoders"
-msgstr "Não foi possível encontrar nenhum codificador adequado"
+msgstr "Não foi possível encontrar codificadores adequados"
 
 #: src/sj-main.c:644
 msgid "The currently selected encoder is not available on your installation."
-msgstr "O codificador atualmente selecionado não está disponível na sua instalação."
+msgstr ""
+"O codificador atualmente selecionado não está disponível na sua instalação."
 
 #: src/sj-main.c:646
 msgid "_Change the encoder"
@@ -446,7 +454,7 @@ msgstr "Trocar o _codificador"
 #: src/sj-main.c:796
 #, c-format
 msgid "Unknown column %d was edited"
-msgstr "A coluna desconhecida %d foi editada"
+msgstr "A coluna %d desconhecida foi editada"
 
 #: src/sj-main.c:844
 #, c-format
@@ -575,7 +583,7 @@ msgstr "Número. Artista da Faixa - Título da Faixa"
 
 #: src/sj-prefs.c:109
 msgid "Select Output Location"
-msgstr "Selecione o local de saída"
+msgstr "Selecione o Local de Saída"
 
 #: src/sj-prefs.c:282
 msgid "Track Artist"
