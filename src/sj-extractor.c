@@ -378,7 +378,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
                        "album", GST_PROPS_STRING (track->album->title),
                        "comment", GST_PROPS_STRING(_("Ripped with Sound Juicer"))
                        );
-  g_object_set (G_OBJECT (priv->vorbisenc), "metadata", caps, NULL);
+  g_object_set (G_OBJECT (priv->encoder), "metadata", caps, NULL);
   g_free (tracknumber);
 
   /* Let's get ready to rumble! */
