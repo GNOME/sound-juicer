@@ -1,0 +1,26 @@
+Sound Juicer
+
+This is Sound Juicer, a CD ripping tool using GTK+ and GStreamer.
+
+It's not finished.
+
+src/ contains the code sort of works.
+
+test/ is where I've been trying out code and ideas.
+
+Currently test/glade-test.c is the "application" -- at the moment it
+will rip and single track and probably break in style if you try and
+rip more than one.  By setting MAINLOOP to 0 in src/sj-gstreamer.c it
+might rip an entire CD (it worked last night, but a lot has changed
+since then), but the interface will freeze.
+
+CVS GStreamer is required for the Ogg tagging to work correctly --
+you'll get invalid tag messages with 0.6.0.
+
+Yes Kris, it could encode to mp3s.  Fiddle around in sj-gstreamer.c
+and rewrite the pipeline. This may become an option in the future.
+
+I will replace the function pointers in src/sj-gstreamer.c with GLib
+signals, but as I said, this is all in flux at the moment. I'm still
+undecided about the exact API for the ripper. I'll probably make it a
+GObject or something just to be l33t.
