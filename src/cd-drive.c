@@ -2,7 +2,7 @@
 
    cd-drive.c: easy to use cd burner software
 
-   Copyright (C) 2002 Red Hat, Inc.
+   Copyright (C) 2002-2004 Red Hat, Inc.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -83,6 +83,28 @@ struct CDDrivePriv {
 };
 
 static CDDrive *cd_drive_new (void);
+
+#ifdef USE_HAL
+static LibHalContext *
+get_hal_context (void)
+{
+	static LibHalContext *ctx = NULL;
+	LibHalFunctions hal_functions = {
+		NULL, /* mainloop integration */
+		NULL, /* device_added */
+		NULL, /* device_removed */
+		NULL, /* device_new_capability */
+		NULL, /* property_modified */
+		NULL, /* device_condition */
+	};
+	
+	if (ctx == NULL)
+		ctx = hal_initialize (&hal_functions, FALSE);
+
+	return ctx;
+}
+#endif /* USE_HAL */
+
 
 /* Utility functions, be careful to have a match with what's use in the
  * different bits of code */
@@ -251,7 +273,7 @@ cd_drive_get_media_type_from_path_full (const char *device, gboolean *is_rewrita
 
 	g_return_val_if_fail (device != NULL, CD_MEDIA_TYPE_ERROR);
 
-	fd = open (device, O_RDONLY|O_EXCL|O_NONBLOCK);
+	fd = open (device, O_RDWR|O_EXCL|O_NONBLOCK);
 	if (fd < 0) {
 		if (errno == EBUSY) {
 			return CD_MEDIA_TYPE_BUSY;
@@ -352,7 +374,7 @@ cd_drive_get_media_type_and_rewritable (CDDrive *cdrom, gboolean *is_rewritable)
 		CDMediaType type;
 		char *hal_type;
 		
-		ctx = hal_initialize (NULL, FALSE);
+		ctx = get_hal_context ();
 		if (ctx != NULL) {
 			device_names = hal_manager_find_device_string_match (ctx, 
 									     "info.parent",
@@ -405,8 +427,6 @@ cd_drive_get_media_type_and_rewritable (CDDrive *cdrom, gboolean *is_rewritable)
 
 			hal_free_string_array (device_names);
 
-			hal_shutdown (ctx);
-
 			return type;
 		}
 	}
@@ -427,7 +447,7 @@ cd_drive_get_media_size_from_path (const char *device)
 
 	secs = 0;
 
-	fd = open (device, O_RDONLY|O_EXCL|O_NONBLOCK);
+	fd = open (device, O_RDWR|O_EXCL|O_NONBLOCK);
 	if (fd < 0) {
 		if (errno == EBUSY) {
 			return CD_MEDIA_SIZE_BUSY;
@@ -482,7 +502,7 @@ hal_scan (gboolean recorder_only)
 	char** device_names;
 	LibHalContext *ctx;
 
-	ctx = hal_initialize (NULL, FALSE);
+	ctx = get_hal_context ();
 	if (ctx == NULL) {
 		return NULL;
 	}
@@ -492,7 +512,6 @@ hal_scan (gboolean recorder_only)
 
 	if (device_names == NULL)
 	{
-		hal_shutdown (ctx);
 		return NULL;
 	}
 
@@ -568,7 +587,6 @@ hal_scan (gboolean recorder_only)
 	}
 
 	hal_free_string_array (device_names);
-	hal_shutdown (ctx);
 
 	cdroms = g_list_reverse (cdroms);
 
@@ -736,7 +754,7 @@ get_cd_scsi_id (const char *dev, int *bus, int *id, int *lun)
 	} m_idlun;
 	
 	devfile = g_strdup_printf ("/dev/%s", dev);
-	fd = open(devfile, O_RDONLY | O_NONBLOCK);
+	fd = open(devfile, O_RDWR | O_NONBLOCK);
 	g_free (devfile);
 
 	/* Avoid problems with Valgrind */
@@ -792,7 +810,7 @@ get_device_max_read_speed (char *device)
 
 	max_speed = -1;
 
-	fd = open (device, O_RDONLY|O_EXCL|O_NONBLOCK);
+	fd = open (device, O_RDWR|O_EXCL|O_NONBLOCK);
 	if (fd < 0) {
 		return -1;
 	}
@@ -814,7 +832,7 @@ get_device_max_write_speed (char *device)
 
 	max_speed = -1;
 
-	fd = open (device, O_RDONLY|O_EXCL|O_NONBLOCK);
+	fd = open (device, O_RDWR|O_EXCL|O_NONBLOCK);
 	if (fd < 0) {
 		return -1;
 	}
@@ -1058,7 +1076,7 @@ linux_scan (gboolean recorder_only)
 
 	if (n_scsi_units > 0) {
 		/* open /dev/sg0 to force loading of the sg module if not loaded yet */
-		fd = open ("/dev/sg0", O_RDONLY);
+		fd = open ("/dev/sg0", O_RDWR);
 		if (fd >= 0) {
 			close (fd);
 		}
@@ -1402,6 +1420,26 @@ cd_drive_get_file_image (void)
 	return cdrom;
 }
 
+/* This is used for testing different configurations */
+#if 0
+static GList*
+test_cdroms (void)
+{
+	GList *list = NULL;
+	CDDrive *drive = g_new0 (CDDrive, 1);
+	drive->type = CDDRIVE_TYPE_CD_DRIVE | CDDRIVE_TYPE_DVD_DRIVE;
+	drive->display_name = g_strdup ("HL-DT-STDVD-ROM");
+	drive->device = g_strdup ("/dev/hdc");
+	list = g_list_append (list, drive);
+	drive = g_new0 (CDDrive, 1);
+	drive->type = CDDRIVE_TYPE_CD_DRIVE | CDDRIVE_TYPE_DVD_DRIVE | CDDRIVE_TYPE_CD_RECORDER;
+	drive->display_name = g_strdup ("_NEC DVD_RW ND-2500A");
+	drive->device = g_strdup ("/dev/hdd");
+	list = g_list_append (list, drive);
+	return list;
+}
+#endif
+
 GList *
 scan_for_cdroms (gboolean recorder_only, gboolean add_image)
 {
@@ -1446,6 +1484,61 @@ cd_drive_free (CDDrive *drive)
 	g_free (drive);
 }
 
+gboolean
+cd_drive_lock (CDDrive *drive,
+	       const char *reason,
+	       char **reason_for_failure) 
+{
+	gboolean res;
+
+	if (reason_for_failure != NULL)
+		*reason_for_failure = NULL;
+
+	res = TRUE;
+#ifdef USE_HAL
+	if (drive->priv->udi != NULL) {
+		LibHalContext *ctx;
+		char *dbus_reason;
+		
+		ctx = get_hal_context ();
+		if (ctx != NULL) {
+			res = hal_device_lock (ctx, 
+					       drive->priv->udi,
+					       reason,
+					       &dbus_reason);
+			if (dbus_reason != NULL && 
+			    reason_for_failure != NULL)
+				*reason_for_failure = g_strdup (dbus_reason);
+			if (dbus_reason != NULL)
+				dbus_free (dbus_reason);
+		}
+	}
+#endif
+	return res;
+}
+
+
+gboolean 
+cd_drive_unlock (CDDrive *drive)
+{
+	gboolean res;
+
+	res = TRUE;
+#ifdef USE_HAL
+	if (drive->priv->udi != NULL) {
+		LibHalContext *ctx;
+
+		ctx = get_hal_context ();
+		if (ctx != NULL) {
+			res = hal_device_unlock (ctx, 
+						 drive->priv->udi);
+		}
+	}
+#endif
+	return res;
+}
+
+
 static CDDrive *
 cd_drive_new (void)
 {
@@ -1453,5 +1546,23 @@ cd_drive_new (void)
 
 	cdrom = g_new0 (CDDrive, 1);
 	cdrom->priv = g_new0 (CDDrivePriv, 1);
+	return cdrom;
+}
+
+CDDrive *
+cd_drive_copy (CDDrive *drive)
+{
+	CDDrive *cdrom;
+
+	cdrom = cd_drive_new ();
+	cdrom->type = drive->type;
+	cdrom->display_name = g_strdup (drive->display_name);
+	cdrom->max_speed_write = drive->max_speed_write;
+	cdrom->max_speed_read = drive->max_speed_read;
+	cdrom->cdrecord_id = g_strdup (drive->cdrecord_id);
+	cdrom->device = g_strdup (drive->device);
+	cdrom->priv->protocol = drive->priv->protocol;
+	cdrom->priv->udi = g_strdup (drive->priv->udi);
+
 	return cdrom;
 }

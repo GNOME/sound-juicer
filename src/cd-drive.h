@@ -2,7 +2,7 @@
 
    cd-drive.h: easy to use cd burner software
 
-   Copyright (C) 2002 Red Hat, Inc.
+   Copyright (C) 2002-2004 Red Hat, Inc.
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -27,6 +27,8 @@
 #define CD_DRIVE_H
 
 #include <glib.h>
+
+G_BEGIN_DECLS
 
 typedef enum {
 	CD_MEDIA_TYPE_BUSY,
@@ -77,11 +79,17 @@ typedef struct {
 /* Returns a list of CDDrive structs */
 GList *scan_for_cdroms (gboolean recorder_only, gboolean add_image);
 void cd_drive_free (CDDrive *drive);
+CDDrive *cd_drive_copy (CDDrive *drive);
 CDMediaType cd_drive_get_media_type (CDDrive *drive);
 CDMediaType cd_drive_get_media_type_and_rewritable (CDDrive *drive, gboolean *is_rewritable);
 CDMediaType cd_drive_get_media_type_from_path (const char *device_path);
 gint64 cd_drive_get_media_size (CDDrive *drive);
 gint64 cd_drive_get_media_size_from_path (const char *device_path);
 CDDrive *cd_drive_get_file_image (void);
+gboolean cd_drive_lock (CDDrive *drive, const char *reason,
+			char **reason_for_failure);
+gboolean cd_drive_unlock (CDDrive *drive);
+
+G_END_DECLS
 
 #endif
