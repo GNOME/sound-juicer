@@ -380,6 +380,10 @@ static gboolean tick_timeout_cb(SjExtractor *extractor)
                    sje_table_signals[PROGRESS],
                    0, secs - extractor->priv->track_start);
   }
+
+  /* Extra kick in the pants to keep things moving on a busy system */
+  gst_bin_iterate (extractor->priv->pipeline);
+  
   return TRUE;
 }
 
