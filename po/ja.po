@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-29 23:09+0900\n"
-"PO-Revision-Date: 2004-08-29 00:04+0900\n"
-"Last-Translator: Satoru SATOH <ss@gnome.gr.jp>\n"
+"POT-Creation-Date: 2004-10-05 19:22+0900\n"
+"PO-Revision-Date: 2004-10-05 19:21+0900\n"
+"Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,7 +137,7 @@ msgstr "進捗状況"
 msgid "Raw audio"
 msgstr "オーディオの生データです"
 
-#: data/sound-juicer.glade.h:29 src/sj-about.c:56 src/sj-main.c:913
+#: data/sound-juicer.glade.h:29 src/sj-about.c:56 src/sj-main.c:915
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -241,10 +241,15 @@ msgstr ""
 "するファイル名から削除します。"
 
 #: data/sound-juicer.schemas.in.h:6
+msgid "If specified, this value will override the default MusicBrainz server."
+msgstr ""
+"有効にすると、この値はデフォルトの MusicBrainz サーバに置き換えられます。"
+
+#: data/sound-juicer.schemas.in.h:7
 msgid "If to strip special characters from filenames"
 msgstr "ファイル名から特殊文字を切り捨てる"
 
-#: data/sound-juicer.schemas.in.h:7
+#: data/sound-juicer.schemas.in.h:8
 msgid ""
 "Paranoia mode, 3 settings: 0 (no paranoia), 4 (cdda2wav-style overlap "
 "checking) and 255 (full paranoia)"
@@ -252,36 +257,36 @@ msgstr ""
 "CD Paranoia のモードで三種類あり: 0 (Paranoia なし), 4 (cdda2wav 方式の重複"
 "チェックあり), 255 (全てのオプション)"
 
-#: data/sound-juicer.schemas.in.h:8
+#: data/sound-juicer.schemas.in.h:9
+msgid "The MusicBrainz server to use"
+msgstr "使用する MusicBrainz のサーバ"
+
+#: data/sound-juicer.schemas.in.h:10
 msgid "The directory structure for the files"
 msgstr "ファイルのディレクトリ構造"
 
-#: data/sound-juicer.schemas.in.h:9
+#: data/sound-juicer.schemas.in.h:11
 msgid "The name pattern for files"
 msgstr "ファイルの名前パターン"
 
-#: data/sound-juicer.schemas.in.h:10
+#: data/sound-juicer.schemas.in.h:12
 msgid "The paranoia mode to use"
 msgstr "使用する Paranoia のモード"
 
-#: data/sound-juicer.schemas.in.h:11
+#: data/sound-juicer.schemas.in.h:13
 msgid "Whether to eject the CD when finished extracting."
 msgstr "切り出しが完了したら CD をドライブから排出するかどうかを指定します。"
 
-#: src/bacon-cd-selection.c:257
+#: src/bacon-cd-selection.c:200
 msgid "Unnamed CDROM"
 msgstr "名前なしの CD-ROM"
 
-#: src/bacon-cd-selection.c:302
-msgid "Select the drive"
-msgstr "ドライブの選択"
-
-#: src/cd-drive.c:573
+#: src/cd-drive.c:837
 #, c-format
-msgid "Unnamed SCSI CD-ROM (%s)"
-msgstr "名前なしの SCSI CD-ROM (%s)"
+msgid "Unnamed SCSI Drive (%s)"
+msgstr "名前なしの SCSI ドライブ (%s)"
 
-#: src/cd-drive.c:1151
+#: src/cd-drive.c:1397
 msgid "File image"
 msgstr "ファイル・イメージ"
 
@@ -301,7 +306,7 @@ msgstr ""
 msgid "An Audio CD Extractor"
 msgstr "音楽 CD 切り出しツール (Extractor)"
 
-#: src/sj-extracting.c:193
+#: src/sj-extracting.c:194
 #, c-format
 msgid ""
 "A file called '%s' exists, size %lu kB.\n"
@@ -310,16 +315,16 @@ msgstr ""
 "ファイル '%s' は既に存在します (サイズ: %lu Kバイト)。\n"
 "このトラックをスキップしますか？ それとも上書きしますか？"
 
-#: src/sj-extracting.c:196
+#: src/sj-extracting.c:197
 msgid "_Skip"
 msgstr "スキップ(_S)"
 
-#: src/sj-extracting.c:197
+#: src/sj-extracting.c:198
 msgid "_Overwrite"
 msgstr "上書き(_O)"
 
 #. Display a nice dialog
-#: src/sj-extracting.c:252 src/sj-extracting.c:289 src/sj-extracting.c:505
+#: src/sj-extracting.c:253 src/sj-extracting.c:290 src/sj-extracting.c:506
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -328,28 +333,28 @@ msgstr ""
 "Sound Juicer はこの CD を切り出せませんでした。\n"
 "原因: %s"
 
-#: src/sj-extracting.c:279
+#: src/sj-extracting.c:280
 #, c-format
 msgid "Extracting '%s'"
 msgstr "'%s' の切り出し中"
 
-#: src/sj-extracting.c:341
+#: src/sj-extracting.c:342
 #, c-format
 msgid "%d:%02d (at %0.1fx)"
 msgstr "%d:%02d (%0.1fx)"
 
-#: src/sj-extracting.c:343
+#: src/sj-extracting.c:344
 msgid "Unknown (at 0.0x)"
 msgstr "不明 (0.0x)"
 
 #. TODO: need to have a better message here
-#: src/sj-extracting.c:447
+#: src/sj-extracting.c:448
 msgid "The tracks have been copied successfully."
 msgstr "トラックのコピーが完了しました。"
 
-#: src/sj-extracting.c:452
+#: src/sj-extracting.c:453
 msgid "_Eject"
-msgstr "取り出し(_E)"
+msgstr "取り出す(_E)"
 
 #: src/sj-extractor.c:140
 msgid "Encoding format"
@@ -405,338 +410,333 @@ msgstr "ファイルへのアクセスに必要なプラグインが見つかり
 
 #: src/sj-genres.c:37
 msgid "Blues"
-msgstr ""
+msgstr "ブルース"
 
 #: src/sj-genres.c:39
 msgid "Classic Rock"
-msgstr ""
+msgstr "クラシック・ロック"
 
 #: src/sj-genres.c:41
 msgid "Country"
-msgstr ""
+msgstr "カントリー"
 
 #: src/sj-genres.c:43
 msgid "Dance"
-msgstr ""
+msgstr "ダンス"
 
 #: src/sj-genres.c:45
 msgid "Disco"
-msgstr ""
+msgstr "ディスコ"
 
 #: src/sj-genres.c:47
 msgid "Funk"
-msgstr ""
+msgstr "ファンク"
 
 #: src/sj-genres.c:49
 msgid "Grunge"
-msgstr ""
+msgstr "グランジ"
 
 #: src/sj-genres.c:51
 msgid "Hip-Hop"
-msgstr ""
+msgstr "ヒップ・ホップ"
 
 #: src/sj-genres.c:53
 msgid "Jazz"
-msgstr ""
+msgstr "ジャズ"
 
 #: src/sj-genres.c:55
 msgid "Metal"
-msgstr ""
+msgstr "メタル"
 
 #: src/sj-genres.c:57
 msgid "New Age"
-msgstr ""
+msgstr "ニューエイジ"
 
 #: src/sj-genres.c:59
 msgid "Oldies"
-msgstr ""
+msgstr "オールディーズ"
 
 #: src/sj-genres.c:61
 msgid "Other"
-msgstr ""
+msgstr "その他"
 
 #: src/sj-genres.c:63
 msgid "Pop"
-msgstr ""
+msgstr "ポップ"
 
 #: src/sj-genres.c:65
 msgid "R&B"
-msgstr ""
+msgstr "R&B"
 
 #: src/sj-genres.c:67
 msgid "Rap"
-msgstr ""
+msgstr "ラップ"
 
 #: src/sj-genres.c:69
 msgid "Reggae"
-msgstr ""
+msgstr "レゲェ"
 
 #: src/sj-genres.c:71
 msgid "Rock"
-msgstr ""
+msgstr "ロック"
 
 #: src/sj-genres.c:73
 msgid "Techno"
-msgstr ""
+msgstr "テクノ"
 
 #: src/sj-genres.c:75
 msgid "Industrial"
-msgstr ""
+msgstr "インダストリアル"
 
 #: src/sj-genres.c:77
 msgid "Alternative"
-msgstr ""
+msgstr "Alternative"
 
 #: src/sj-genres.c:79
 msgid "Ska"
-msgstr ""
+msgstr "Ska"
 
 #: src/sj-genres.c:81
 msgid "Death Metal"
-msgstr ""
+msgstr "Death メタル"
 
 #: src/sj-genres.c:83
 msgid "Pranks"
-msgstr ""
+msgstr "Pranks"
 
 #: src/sj-genres.c:85
 msgid "Soundtrack"
-msgstr ""
+msgstr "サウンドトラック"
 
 #: src/sj-genres.c:87
 msgid "Euro-Techno"
-msgstr ""
+msgstr "ユーロ・テクノ"
 
 #: src/sj-genres.c:89
 msgid "Ambient"
-msgstr ""
+msgstr "アンビエント"
 
 #: src/sj-genres.c:91
 msgid "Trip-Hop"
-msgstr ""
+msgstr "トリップ・ホップ"
 
 #: src/sj-genres.c:93
 msgid "Vocal"
-msgstr ""
+msgstr "ヴォーカル"
 
 #: src/sj-genres.c:95
 msgid "Jazz+Funk"
-msgstr ""
+msgstr "ジャズ+ファンク"
 
 #: src/sj-genres.c:97
 msgid "Fusion"
-msgstr ""
+msgstr "フュージョン"
 
 #: src/sj-genres.c:99
-#, fuzzy
 msgid "Trance"
-msgstr "トラック"
+msgstr "トランス"
 
 #: src/sj-genres.c:101
 msgid "Classical"
-msgstr ""
+msgstr "クラシカル"
 
 #: src/sj-genres.c:103
 msgid "Instrumental"
-msgstr ""
+msgstr "インスツルメント"
 
 #: src/sj-genres.c:105
 msgid "Acid"
-msgstr ""
+msgstr "Acid"
 
 #: src/sj-genres.c:107
 msgid "House"
-msgstr ""
+msgstr "ハウス"
 
 #: src/sj-genres.c:109
 msgid "Game"
-msgstr ""
+msgstr "ゲーム"
 
 #: src/sj-genres.c:111
-#, fuzzy
 msgid "Sound Clip"
-msgstr "Sound Juicer"
+msgstr "サウンド・クリップ"
 
 #: src/sj-genres.c:113
 msgid "Gospel"
-msgstr ""
+msgstr "ゴスペル"
 
 #: src/sj-genres.c:115
 msgid "Noise"
-msgstr ""
+msgstr "Noise"
 
 #: src/sj-genres.c:117
 msgid "AlternRock"
-msgstr ""
+msgstr "AlternRock"
 
 #: src/sj-genres.c:119
 msgid "Bass"
-msgstr ""
+msgstr "Bass"
 
 #: src/sj-genres.c:121
 msgid "Soul"
-msgstr ""
+msgstr "ソウル"
 
 #: src/sj-genres.c:123
 msgid "Punk"
-msgstr ""
+msgstr "パンク"
 
 #: src/sj-genres.c:125
 msgid "Space"
-msgstr ""
+msgstr "Space"
 
 #: src/sj-genres.c:127
 msgid "Meditative"
-msgstr ""
+msgstr "Meditative"
 
 #: src/sj-genres.c:129
 msgid "Instrumental Pop"
-msgstr ""
+msgstr "インスツルメント・ポップ"
 
 #: src/sj-genres.c:131
 msgid "Instrumental Rock"
-msgstr ""
+msgstr "インスツルメント・ロック"
 
 #: src/sj-genres.c:133
 msgid "Ethnic"
-msgstr ""
+msgstr "エスニック"
 
 #: src/sj-genres.c:135
 msgid "Gothic"
-msgstr ""
+msgstr "ゴシック"
 
 #: src/sj-genres.c:137
 msgid "Darkwave"
-msgstr ""
+msgstr "Darkwave"
 
 #: src/sj-genres.c:139
 msgid "Techno-Industrial"
-msgstr ""
+msgstr "テクノ・インスツルメント"
 
 #: src/sj-genres.c:141
 msgid "Electronic"
-msgstr ""
+msgstr "エレクトロニック"
 
 #: src/sj-genres.c:143
 msgid "Pop-Folk"
-msgstr ""
+msgstr "ポップ・フォーク"
 
 #: src/sj-genres.c:145
 msgid "Eurodance"
-msgstr ""
+msgstr "ユーロダンス"
 
 #: src/sj-genres.c:147
 msgid "Dream"
-msgstr ""
+msgstr "Dream"
 
 #: src/sj-genres.c:149
 msgid "Southern Rock"
-msgstr ""
+msgstr "サザン・ロック"
 
 #: src/sj-genres.c:151
 msgid "Comedy"
-msgstr ""
+msgstr "コメディ"
 
 #: src/sj-genres.c:153
 msgid "Cult"
-msgstr ""
+msgstr "カルト"
 
 #: src/sj-genres.c:155
 msgid "Gangsta"
-msgstr ""
+msgstr "Gangsta Rap"
 
 #: src/sj-genres.c:157
 msgid "Top 40"
-msgstr ""
+msgstr "トップ 40"
 
 #: src/sj-genres.c:159
 msgid "Christian Rap"
-msgstr ""
+msgstr "クリスチャン・ラップ"
 
 #: src/sj-genres.c:161
 msgid "Pop/Funk"
-msgstr ""
+msgstr "ポップ/ファンキー"
 
 #: src/sj-genres.c:163
 msgid "Jungle"
-msgstr ""
+msgstr "ジャングル"
 
 #: src/sj-genres.c:165
 msgid "Native American"
-msgstr ""
+msgstr "ネィテイブ・アメリカン"
 
 #: src/sj-genres.c:167
 msgid "Cabaret"
-msgstr ""
+msgstr "Cabaret"
 
 #: src/sj-genres.c:169
-#, fuzzy
 msgid "New Wave"
-msgstr "Wave"
+msgstr "ニューウェーブ"
 
 #: src/sj-genres.c:171
 msgid "Psychadelic"
-msgstr ""
+msgstr "サイケデリック"
 
 #: src/sj-genres.c:173
-#, fuzzy
 msgid "Rave"
-msgstr "Wave"
+msgstr "レイブ"
 
 #: src/sj-genres.c:175
 msgid "Showtunes"
-msgstr ""
+msgstr "Showtunes"
 
 #: src/sj-genres.c:177
-#, fuzzy
 msgid "Trailer"
-msgstr "トラックのタイトル"
+msgstr "トレイラー"
 
 #: src/sj-genres.c:179
 msgid "Lo-Fi"
-msgstr ""
+msgstr "Lo-Fi"
 
 #: src/sj-genres.c:181
 msgid "Tribal"
-msgstr ""
+msgstr "Tribal"
 
 #: src/sj-genres.c:183
 msgid "Acid Punk"
-msgstr ""
+msgstr "Acid Punk"
 
 #: src/sj-genres.c:185
 msgid "Acid Jazz"
-msgstr ""
+msgstr "Acid Jazz"
 
 #: src/sj-genres.c:187
 msgid "Polka"
-msgstr ""
+msgstr "ポルカ"
 
 #: src/sj-genres.c:189
 msgid "Retro"
-msgstr ""
+msgstr "レトロ"
 
 #: src/sj-genres.c:191
 msgid "Musical"
-msgstr ""
+msgstr "ミュージカル"
 
 #: src/sj-genres.c:193
 msgid "Rock & Roll"
-msgstr ""
+msgstr "ロックンロール"
 
 #: src/sj-genres.c:195
 msgid "Hard Rock"
-msgstr ""
+msgstr "ハードロック"
 
 #: src/sj-genres.c:197
 msgid "[unknown genre]"
-msgstr ""
+msgstr "[ジャンル不明]"
 
 #: src/sj-main.c:84
 msgid "Could not start Sound Juicer"
 msgstr "Sound Juicer を起動できませんでした"
 
-#: src/sj-main.c:85 src/sj-main.c:442 src/sj-main.c:517 src/sj-main.c:576
+#: src/sj-main.c:85 src/sj-main.c:444 src/sj-main.c:519 src/sj-main.c:578
 #: src/sj-util.c:110 src/sj-util.c:130
 msgid "Reason"
 msgstr "原因"
@@ -751,63 +751,63 @@ msgstr ""
 "音楽 CD の切り出しが完了しました。今すぐ Sound Juicer を終了しますか？ または"
 "続行しますか？"
 
-#: src/sj-main.c:192 src/sj-main.c:252
+#: src/sj-main.c:192 src/sj-main.c:254
 msgid "(unknown)"
 msgstr "(不明)"
 
-#: src/sj-main.c:294 src/sj-main.c:1004
+#: src/sj-main.c:296 src/sj-main.c:1006
 msgid "Title"
 msgstr "タイトル"
 
-#: src/sj-main.c:300 src/sj-main.c:1012
+#: src/sj-main.c:302 src/sj-main.c:1015
 msgid "Artist"
 msgstr "アーティスト"
 
-#: src/sj-main.c:440 src/sj-main.c:515 src/sj-main.c:574
+#: src/sj-main.c:442 src/sj-main.c:517 src/sj-main.c:576
 msgid "Could not read the CD"
 msgstr "音楽 CD を読み込めませんでした"
 
-#: src/sj-main.c:441 src/sj-main.c:516
+#: src/sj-main.c:443 src/sj-main.c:518
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr ""
 "Sound Juicer はこの音楽 CD のトラック一覧を読み込むことができませんでした。"
 
 #. Set statusbar message
-#: src/sj-main.c:500
+#: src/sj-main.c:502
 msgid "Retrieving track listing...please wait."
 msgstr "トラック一覧の問い合わせ中...少々、お待ち下さい"
 
-#: src/sj-main.c:555
+#: src/sj-main.c:557
 msgid "No CD-ROM drives found"
 msgstr "CD-ROM のドライバが見つかりません"
 
-#: src/sj-main.c:556
+#: src/sj-main.c:558
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer は CD-ROM ドライバを見つけることができませんでした。"
 
-#: src/sj-main.c:568
+#: src/sj-main.c:570
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer は CD-ROM デバイス '%s' にアクセスできませんでした。"
 
-#: src/sj-main.c:633
+#: src/sj-main.c:635
 msgid "Cannot find any suitable encoders"
 msgstr "適切なエンコーダがありません"
 
-#: src/sj-main.c:648
+#: src/sj-main.c:650
 msgid "The currently selected encoder is not available on your installation."
 msgstr "お使いのシステムでは、現在選択中のエンコーダは利用できなません。"
 
-#: src/sj-main.c:650
+#: src/sj-main.c:652
 msgid "_Change the encoder"
 msgstr "エンコーダの変更(_C)"
 
-#: src/sj-main.c:800
+#: src/sj-main.c:802
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "不明なエントリ %d が変更されました"
 
-#: src/sj-main.c:864 src/sj-prefs.c:128
+#: src/sj-main.c:866 src/sj-prefs.c:128
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -816,45 +816,45 @@ msgstr ""
 "Sound Juicer のヘルプを表示できませんでした。\n"
 "%s"
 
-#: src/sj-main.c:932
+#: src/sj-main.c:934
 msgid "Could not create GConf client.\n"
 msgstr "GConf クライアントを生成できませんでした。\n"
 
-#: src/sj-main.c:985
+#: src/sj-main.c:987
 msgid "Extract"
 msgstr "切り出し"
 
-#: src/sj-main.c:993
+#: src/sj-main.c:995
 msgid "Track"
 msgstr "トラック"
 
-#: src/sj-main.c:1022
+#: src/sj-main.c:1026
 msgid "Duration"
 msgstr "演奏時間"
 
-#: src/sj-metadata-musicbrainz.c:86
+#: src/sj-metadata-musicbrainz.c:89
 msgid "Cannot create MusicBrainz client"
 msgstr "MusicBrainz クライアントを生成できません"
 
-#: src/sj-metadata-musicbrainz.c:179 src/sj-metadata-musicbrainz.c:301
+#: src/sj-metadata-musicbrainz.c:194 src/sj-metadata-musicbrainz.c:316
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "音楽 CD を読み込めません: %s"
 
-#: src/sj-metadata-musicbrainz.c:186
+#: src/sj-metadata-musicbrainz.c:201
 msgid "Unknown Artist"
 msgstr "不明なアーティスト"
 
-#: src/sj-metadata-musicbrainz.c:187
+#: src/sj-metadata-musicbrainz.c:202
 msgid "Unknown Title"
 msgstr "不明なタイトル"
 
-#: src/sj-metadata-musicbrainz.c:192
+#: src/sj-metadata-musicbrainz.c:207
 #, c-format
 msgid "Track %d"
 msgstr "トラック #%d"
 
-#: src/sj-metadata-musicbrainz.c:221
+#: src/sj-metadata-musicbrainz.c:236
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
@@ -862,12 +862,12 @@ msgstr ""
 "MusicBrainz メタデータ・'オブジェクトが不正です。この状態は最悪です。端末から"
 "エラーをチェックして下さい。"
 
-#: src/sj-metadata-musicbrainz.c:295
+#: src/sj-metadata-musicbrainz.c:310
 #, c-format
 msgid "Device '%s' does not contain a media"
 msgstr "デバイス '%s' にはメディアが挿入されていません"
 
-#: src/sj-metadata-musicbrainz.c:298
+#: src/sj-metadata-musicbrainz.c:313
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
@@ -875,20 +875,20 @@ msgstr ""
 "デバイス '%s' を開けませんでした。デバイスへのアクセス権限をチェックして下さ"
 "い。"
 
-#: src/sj-metadata-musicbrainz.c:311
+#: src/sj-metadata-musicbrainz.c:326
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "この音楽 CD を音楽 DB に問い合わせできませんでした: %s\n"
 
-#: src/sj-metadata-musicbrainz.c:319
+#: src/sj-metadata-musicbrainz.c:334
 msgid "This CD was not found.\n"
 msgstr "この音楽 CD が見つかりませんでした。\n"
 
-#: src/sj-metadata-musicbrainz.c:340
+#: src/sj-metadata-musicbrainz.c:355
 msgid "Various"
 msgstr "いろいろ"
 
-#: src/sj-metadata-musicbrainz.c:414
+#: src/sj-metadata-musicbrainz.c:429
 msgid "Could not create CD lookup thread"
 msgstr "音楽 CD の問い合わせスレッドを生成できませんでした"
 
@@ -951,4 +951,4 @@ msgstr "フォルダ %s を生成できませんでした: %s"
 
 #: src/sj-util.c:109 src/sj-util.c:129
 msgid "Could not eject the CD"
-msgstr "音楽 CD をイジェクトできませんでした"
+msgstr "音楽 CD を取り出せませんでした"
