@@ -27,7 +27,7 @@
 #include "config.h"
 #endif /* HAVE_CONFIG_H */
 
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 #include <gconf/gconf-client.h>
 #include <glade/glade-xml.h>
 #include <gtk/gtkwidget.h>

@@ -26,7 +26,7 @@
 #include <sys/types.h>
 #include <glib/gutils.h>
 #include <glib/gstrfuncs.h>
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 #include <nautilus-burn-drive.h>
 #include "sj-error.h"
 #include "sj-util.h"

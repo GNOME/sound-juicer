@@ -26,10 +26,10 @@
 
 #include <glib/gerror.h>
 #include <glib/gtypes.h>
+#include <glib/gi18n.h>
 #include <glib-object.h>
 #include <gst/gst.h>
 #include <gst/gconf/gconf.h>
-#include <libgnome/gnome-i18n.h>
 #include <profiles/gnome-media-profiles.h>
 #include "sj-extractor.h"
 #include "sj-structures.h"
