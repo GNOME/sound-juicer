@@ -169,6 +169,10 @@ tray_is_opened (const char *device)
 
 gboolean is_audio_cd (const char *device)
 {
+  /*
+   * TODO: remove this crack and replace with
+   * nautilus_burn_drive_get_media_type_full (see 137923)
+   */
   NautilusBurnMediaType type;
   int fd, status;
 
@@ -177,8 +181,6 @@ gboolean is_audio_cd (const char *device)
     case NAUTILUS_BURN_MEDIA_TYPE_CD:
     case NAUTILUS_BURN_MEDIA_TYPE_CDR:
     case NAUTILUS_BURN_MEDIA_TYPE_CDRW:
-      /* shut up gcc */
-      type = 0;
     case NAUTILUS_BURN_MEDIA_TYPE_UNKNOWN:
       /* Handle an unknown disk type by assuming its audio */
       return TRUE;
