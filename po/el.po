@@ -7,14 +7,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-15 23:52+0300\n"
-"PO-Revision-Date: 2003-09-15 23:43+0300\n"
-"Last-Translator: Kostas Papadimas <pkst@gmx.net>\n"
+"POT-Creation-Date: 2005-02-03 18:19+0200\n"
+"PO-Revision-Date: 2005-02-03 11:21+0200\n"
+"Last-Translator: Kostas <pkst@gmx.net>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0\n"
+
+#: data/sound-juicer.desktop.in.h:1
+msgid "Extract music from your CDs"
+msgstr "Εξαγωγή μουσικής από τα CD σας"
+
+#: data/sound-juicer.desktop.in.h:2
+msgid "Sound Juicer CD Ripper"
+msgstr "Sound Juicer CD Ripper"
 
 #: data/sound-juicer.glade.h:1
 msgid "*"
@@ -37,82 +44,67 @@ msgid "<b>Duration:</b>"
 msgstr "<b>Διάρκεια:</b>"
 
 #: data/sound-juicer.glade.h:6
-msgid "<b>Output Name</b>"
-msgstr "<b>Όνομα Εξόδου:</b>"
+msgid "<b>Genre:</b>"
+msgstr "<b>Είδος:</b>"
 
 #: data/sound-juicer.glade.h:7
-msgid "<b>Output Path</b>"
-msgstr "<b> Διαδρομή Εξόδου:</b>"
+msgid "<b>Music Folder</b>"
+msgstr "<b>Φάκελος μουσικής:</b>"
 
 #: data/sound-juicer.glade.h:8
 msgid "<b>Title:</b>"
 msgstr "<b>Τίτλος:</b>"
 
 #: data/sound-juicer.glade.h:9
+msgid "<b>Track Names</b>"
+msgstr "<b>Ονόματα κομματιών</b>"
+
+#: data/sound-juicer.glade.h:10
 msgid "<b>Track Progress</b>"
 msgstr "<b>Πρόοδος κομματιού</b>"
 
-#: data/sound-juicer.glade.h:10
-msgid "<b>_Output Format</b>"
-msgstr "<b>Μορφή Εξόδου:</b>"
-
 #: data/sound-juicer.glade.h:11
-msgid "D_irectory Hierarchy"
-msgstr "Ιεραρχία κα_ταλόγου"
+msgid "<b>_Format</b>"
+msgstr "<b>Μορ_φή </b>"
 
 #: data/sound-juicer.glade.h:12
+msgid "D_irectory Hierarchy:"
+msgstr "Ιεραρχία κα_ταλόγου:"
+
+#: data/sound-juicer.glade.h:13
 msgid "E_ject"
 msgstr "Αποβο_λή"
 
-#: data/sound-juicer.glade.h:13
+#: data/sound-juicer.glade.h:14
+msgid "E_xtract"
+msgstr "Ε_ξαγωγή"
+
+#: data/sound-juicer.glade.h:15
+msgid "Estimated time left:"
+msgstr "Χρόνος που απομένει:"
+
+#: data/sound-juicer.glade.h:16
 msgid "Example Path:"
 msgstr "Διαδρομή παραδείγματος:"
 
-#: data/sound-juicer.glade.h:14
-msgid "Excellent quality lossless compression"
-msgstr "Άριστη ποιότητα χωρίς απώλειες στην συμπίεση"
-
-#: data/sound-juicer.glade.h:15
-msgid "FLAC"
-msgstr "FLAC"
-
-#: data/sound-juicer.glade.h:16
-msgid "Good quality lossy compression"
-msgstr "Καλή ποιότητα με μικρές απώλειες στην συμπίεση"
-
 #: data/sound-juicer.glade.h:17
-msgid "High quality lossy compression"
-msgstr "Υψηλή ποιότητα με μικρές απώλειες στην συμπίεση"
-
-#: data/sound-juicer.glade.h:18
-msgid "MP3"
-msgstr "MP3"
-
-#: data/sound-juicer.glade.h:19
 msgid "Multiple Albums Found"
 msgstr "Βρέθηκαν πολλαπλά άλμπουμς"
 
-#: data/sound-juicer.glade.h:20
-msgid "Ogg Vorbis"
-msgstr "Ogg Vorbis"
-
-#: data/sound-juicer.glade.h:21
+#: data/sound-juicer.glade.h:18
 msgid "Preferences"
 msgstr "Προτιμήσεις"
 
-#: data/sound-juicer.glade.h:22
+#: data/sound-juicer.glade.h:19
 msgid "Progress"
 msgstr "Πρόοδος"
 
-#: data/sound-juicer.glade.h:23
-msgid "Raw audio"
-msgstr "Raw audio"
-
-#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:762
+#: data/sound-juicer.glade.h:20 src/sj-about.c:56 src/sj-extractor.c:442
+#: src/sj-main.c:936
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
-#: data/sound-juicer.glade.h:25
+#: data/sound-juicer.glade.h:21
 msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
@@ -120,61 +112,57 @@ msgstr ""
 "Αυτό το CD μπορεί να είναι περισότερορο από ένα άλμπουμ. Παρακαλώ επιλέξτε "
 "ποιό άλμπουμ είναι παρακάτω και πατήστε <i>Συνέχεια</i>."
 
-#: data/sound-juicer.glade.h:26
-msgid "Wave"
-msgstr "Wave"
+#: data/sound-juicer.glade.h:22
+msgid "Unknown"
+msgstr "Άγνωστο"
 
-#: data/sound-juicer.glade.h:27
+#: data/sound-juicer.glade.h:23
 msgid "_Browse..."
 msgstr "_Εξερεύνηση..."
 
-#: data/sound-juicer.glade.h:28
+#: data/sound-juicer.glade.h:24
 msgid "_CD"
 msgstr "_CD"
 
-#: data/sound-juicer.glade.h:29
+#: data/sound-juicer.glade.h:25
 msgid "_Contents"
 msgstr "_Περιεχόμενα"
 
-#: data/sound-juicer.glade.h:30 src/sj-main.c:128
+#: data/sound-juicer.glade.h:26 src/sj-main.c:147
 msgid "_Continue"
 msgstr "_Συνέχεια"
 
-#: data/sound-juicer.glade.h:31
+#: data/sound-juicer.glade.h:27
 msgid "_Deselect All"
 msgstr "Αποεπι_λογή όλων"
 
-#: data/sound-juicer.glade.h:32
+#: data/sound-juicer.glade.h:28
+msgid "_Eject when finished"
+msgstr "Απο_βολή κατά την ολοκλήρωση"
+
+#: data/sound-juicer.glade.h:29
 msgid "_Extract"
-msgstr "Απο_συμπίεση"
+msgstr "Ε_ξαγωγή"
 
-#: data/sound-juicer.glade.h:33
-msgid "_File Name"
-msgstr "Όνομα αρ_χείου"
+#: data/sound-juicer.glade.h:30
+msgid "_File Name:"
+msgstr "Όνομα αρ_χείου:"
 
-#: data/sound-juicer.glade.h:34
+#: data/sound-juicer.glade.h:31
 msgid "_Re-read"
 msgstr "Ε_πανάγνωση"
 
-#: data/sound-juicer.glade.h:35
+#: data/sound-juicer.glade.h:32
 msgid "_Strip special characters"
 msgstr "Α_φαίρεση ειδικών χαρακτήρων"
 
-#: data/sound-juicer.glade.h:36
+#: data/sound-juicer.glade.h:33
 msgid "label"
 msgstr "ετικέτα"
 
-#: data/sound-juicer.glade.h:37
+#: data/sound-juicer.glade.h:34
 msgid "path_example_label"
 msgstr "διαδρομή_ετικέτας_παραδείγματος"
-
-#: data/sound-juicer.desktop.in.h:1
-msgid "Rip music from your CDs"
-msgstr "Εξαγωγή μουσικής από τα CD σας"
-
-#: data/sound-juicer.desktop.in.h:2
-msgid "Sound Juicer CD Ripper"
-msgstr "Sound Juicer CD Ripper"
 
 #: data/sound-juicer.schemas.in.h:2
 #, no-c-format
@@ -187,7 +175,11 @@ msgstr ""
 "album artist (lowercase) %tt -- track title %tT -- track title (lowercase) %"
 "ta -- track artist %tA -- track artist (lowercase)"
 
-#: data/sound-juicer.schemas.in.h:4
+#: data/sound-juicer.schemas.in.h:3
+msgid "Audio Profile to encode with"
+msgstr "Προφίλ ήχου με το οποίο θα γίνει κωδικοποίηση"
+
+#: data/sound-juicer.schemas.in.h:5
 #, no-c-format
 msgid ""
 "Do not specify an extension. %at -- album title %aT -- album title "
@@ -202,7 +194,7 @@ msgstr ""
 "tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
 "(lowercase)"
 
-#: data/sound-juicer.schemas.in.h:5
+#: data/sound-juicer.schemas.in.h:6
 msgid ""
 "If enabled, special characters such as space, wildcards and backslashes will "
 "be removed from the output filename."
@@ -210,11 +202,17 @@ msgstr ""
 "Αν ενεργοποιηθεί, οι ειδικοί χαρακτήρες όπως διαστήματα, wildcards και "
 "backslashes θα αφαιρεθούν από το όνομα αρχείου εξόδου."
 
-#: data/sound-juicer.schemas.in.h:6
+#: data/sound-juicer.schemas.in.h:7
+msgid "If specified, this value will override the default MusicBrainz server."
+msgstr ""
+"Αν καθοριστεί, αυτή η τιμή θα αντικαταστήσει τον προεπιλεγμένο εξυπηρετητή "
+"MusicBrainz."
+
+#: data/sound-juicer.schemas.in.h:8
 msgid "If to strip special characters from filenames"
 msgstr "Αν θα αφαιρούνται ειδκοί χαρακτήρες από τα ονόματα αρχείων"
 
-#: data/sound-juicer.schemas.in.h:7
+#: data/sound-juicer.schemas.in.h:9
 msgid ""
 "Paranoia mode, 3 settings: 0 (no paranoia), 4 (cdda2wav-style overlap "
 "checking) and 255 (full paranoia)"
@@ -222,239 +220,554 @@ msgstr ""
 "Λειτουργία παράνοιας,  ρυθμίσεις 0 (όχι παράνοια), 4 (cdda2wav-style overlap "
 "checking) και 255 (πλήρης παράνοια)"
 
-#: data/sound-juicer.schemas.in.h:8
+#: data/sound-juicer.schemas.in.h:10
+msgid "The GNOME Audio Profile to encode the audio with."
+msgstr "Το προφίλ ήχου του GNOME που θα κωδικοποιείται ο ήχος"
+
+#: data/sound-juicer.schemas.in.h:11
+msgid "The MusicBrainz server to use"
+msgstr "Ο εξυπηρετητής  MusicBrainz για χρήση"
+
+#: data/sound-juicer.schemas.in.h:12
 msgid "The directory structure for the files"
 msgstr "Η δομή καταλόγου για τα αρχεία"
 
-#: data/sound-juicer.schemas.in.h:9
+#: data/sound-juicer.schemas.in.h:13
 msgid "The name pattern for files"
 msgstr "Το μοτίβο ονόματος για τα αρχεία"
 
-#: data/sound-juicer.schemas.in.h:10
+#: data/sound-juicer.schemas.in.h:14
 msgid "The paranoia mode to use"
 msgstr "Η κατάσταση παράνοιας για χρήση"
 
-#: src/cd-drive.c:362
-#, c-format
-msgid "Unnamed SCSI CD-ROM (%s)"
-msgstr "Ανώνυμο SCSI CDROM (%s)"
+#: data/sound-juicer.schemas.in.h:15
+msgid "Whether to eject the CD when finished extracting."
+msgstr "Αν θα αποβάλλεται το CD όταν τελειώσει η εξαγωγή."
 
-#: src/cd-drive.c:815
-msgid "File image"
-msgstr "Εικόνα αρχείου"
-
-#: src/bacon-cd-selection.c:234
+#: src/bacon-cd-selection.c:170
 msgid "Unnamed CDROM"
 msgstr "Ανώνυμο CDROM"
 
-#: src/bacon-cd-selection.c:276
-msgid "Select the drive"
-msgstr "Επιλογή του οδηγού"
+#: src/cd-drive.c:846
+#, c-format
+msgid "Unnamed SCSI Drive (%s)"
+msgstr "Ανώνυμος οδηγός SCSI (%s)"
 
-#: src/sj-extractor.c:135
-msgid "Encoding format"
-msgstr "Μορφή κωδικοποίησης"
+#: src/cd-drive.c:1406
+msgid "File image"
+msgstr "Εικόνα αρχείου"
 
-#: src/sj-extractor.c:135
-msgid "The format to write the encoded audio in"
-msgstr "Η μορφή εγγραφής που θα κωδικοποιείται ο ήχος"
+#.
+#. * Note to translators: put here your name and email so it will show
+#. * up in the "about" box
+#.
+#: src/sj-about.c:46
+msgid "translator-credits"
+msgstr "Κώστας Παπαδήμας <pkst@gnome.org>"
 
-#: src/sj-extractor.c:278
+#: src/sj-about.c:58
+msgid "An Audio CD Extractor"
+msgstr "Μια εφαρμογή εξαγωγής ήχου από CD"
+
+#: src/sj-extracting.c:199
+#, c-format
+msgid ""
+"A file called '%s' exists, size %lu kB.\n"
+"Do you want to skip this track or overwrite it?"
+msgstr ""
+"Ένα αρχείο με όνομα '%s' υπάρχει, μέγεθος %lu kB.\n"
+"Θέλετε να υπερπηδήσετε αυτό το κομμμάτι ή να το αντικαταστήσετε?"
+
+#: src/sj-extracting.c:202
+msgid "_Skip"
+msgstr "_Υπερπήδηση"
+
+#: src/sj-extracting.c:203
+msgid "_Overwrite"
+msgstr "_Αντικατάσταση"
+
+#. Display a nice dialog
+#: src/sj-extracting.c:258 src/sj-extracting.c:295 src/sj-extracting.c:513
+#, c-format
+msgid ""
+"Sound Juicer could not extract this CD.\n"
+"Reason: %s"
+msgstr ""
+"Ο Sound Juicer δεν μπορεί να εξάγει από αυτό το CD.\n"
+"Λόγος: %s"
+
+#: src/sj-extracting.c:285
+#, c-format
+msgid "Extracting '%s'"
+msgstr "Εξαγωγή '%s'"
+
+#: src/sj-extracting.c:347
+#, c-format
+msgid "%d:%02d (at %0.1fx)"
+msgstr "%d:%02d (se %0.1fx)"
+
+#: src/sj-extracting.c:349
+msgid "Unknown (at 0.0x)"
+msgstr "Άγνωστο (σε 0.0x)"
+
+#. TODO: need to have a better message here
+#: src/sj-extracting.c:454
+msgid "The tracks have been copied successfully."
+msgstr "Τα κομματια αντιγράφησαν με επιτυχία"
+
+#: src/sj-extracting.c:459
+msgid "_Eject"
+msgstr "Αποβο_λή"
+
+#: src/sj-extractor.c:125
+msgid "GNOME Audio Profile"
+msgstr "Προφίλ ήχου GNOME"
+
+#: src/sj-extractor.c:125
+msgid "The GNOME Audio Profile used for encoding audio"
+msgstr "Το ροφίλ ήχου GNOME που χρησιμοποιείται για την αποκωδικοποίηση ήχου"
+
+#: src/sj-extractor.c:268
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "Αδυναμία δημιουργίας αναγνώστη GStreamer cdparanoia "
 
-#: src/sj-extractor.c:297
+#: src/sj-extractor.c:287
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
 msgstr "Αδυναμία δημιουργίας κωδικοποιητή GStreamer (%s)"
 
-#: src/sj-extractor.c:308
+#: src/sj-extractor.c:298
 msgid "Could not create GStreamer file output"
 msgstr "Αδυναμία δημιουργίας αρχείου εξόδου GStreamer"
 
-#: src/sj-extractor.c:337
+#: src/sj-extractor.c:328
 msgid "Could not get current track position"
 msgstr "Αδυναμία λήψης τρέχουσας θέσης κομματιού"
 
-#: src/sj-extractor.c:366
+#: src/sj-extractor.c:361
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
-"Το αντικείμενο αποσυμπίεσης δεν είναι έγκυρο. Αυτό είναι κακό, ελέγξτε την "
+"Το αντικείμενο εξαγωγής δεν είναι έγκυρο. Αυτό είναι κακό, ελέγξτε την "
 "κονσόλα σας για σφάλματα."
 
-#: src/sj-extractor.c:441
-msgid "Ripped with Sound Juicer"
-msgstr "Εξάχθηκε με τον Sound Juicer"
-
-#: src/sj-extractor.c:455
+#: src/sj-extractor.c:469
 msgid "Could not seek to track"
 msgstr "Αδυναμία εύρεσης σε κομμάτι"
 
-#: src/sj-extractor.c:460
+#: src/sj-extractor.c:474
 msgid "Could not get track start position"
 msgstr "Αδυναμία λήψης θέσης εκκίνησης"
 
-#: src/sj-util.c:65
-#, c-format
-msgid "Could not create directory %s: %s"
-msgstr "Δεν ήταν δυνατή η δημιουργία του καταλόγου %s: %s"
-
-#: src/sj-util.c:111 src/sj-util.c:126
-msgid "Could not eject the CD"
-msgstr "Αδυναμία αποβολής του CD"
-
-#: src/sj-util.c:112 src/sj-util.c:127 src/sj-main.c:76 src/sj-main.c:435
-#: src/sj-main.c:507
-msgid "Reason"
-msgstr "Αιτία"
-
-#: src/sj-about.c:52
-msgid "A CD Ripper"
-msgstr "A CD Ripper"
-
-#: src/sj-prefs.c:47
-msgid "Album Artist, Album Title"
-msgstr "Καλλιτέχνης άλμπουμ, Τίτλος άλμπουμ"
-
-#: src/sj-prefs.c:48
-msgid "Track Artist, Album Title"
-msgstr "Καλλιτέχνης κομματιού, Τίτλος άλμπουμ"
-
-#: src/sj-prefs.c:49 src/sj-prefs.c:258 src/sj-prefs.c:269
-msgid "Album Title"
-msgstr "Τίτλος άλμπουμ"
-
-#: src/sj-prefs.c:50 src/sj-prefs.c:259 src/sj-prefs.c:270
-msgid "Album Artist"
-msgstr "Καλλιτέχνης άλμπουμ"
-
-#: src/sj-prefs.c:51
-msgid "Album Artist - Album Title"
-msgstr "Καλλιτέχνης άλμπουμ - Τίτλος άλμπουμ"
-
-#: src/sj-prefs.c:56
-msgid "Number - Title"
-msgstr "Αριθμός - Τίτλος"
-
-#: src/sj-prefs.c:57 src/sj-prefs.c:264 src/sj-prefs.c:277
-msgid "Track Title"
-msgstr "Τίτλος κομματιού"
-
-#: src/sj-prefs.c:58
-msgid "Track Artist - Track Title"
-msgstr "Καλλιτέχνης κομματιού - Τίτλος κομματιού"
-
-#: src/sj-prefs.c:59
-msgid "Number. Track Artist - Track Title"
-msgstr "Αριθμός. Καλλιτέχνης κομματιού - Τίτλος κομματιού"
-
-#: src/sj-prefs.c:99
-msgid "Select Output Location"
-msgstr "Επιλογή τοποθεσίας εξόδου:"
-
-#: src/sj-prefs.c:265 src/sj-prefs.c:278
-msgid "Track Artist"
-msgstr "Καλλιτέχνης κομματιού"
-
-#: src/sj-extracting.c:118
-#, c-format
-msgid ""
-"A file called '%s' exists, size %ldK.\n"
-"Do you want to skip this track or overwrite it?"
+#: src/sj-extractor.c:511
+msgid "The plugin necessary for CD access was not found"
 msgstr ""
-"Ένα αρχείο με όνομα '%s' υπάρχει, μέγεθος %ldK.\n"
-"Θέλετε να υπερπηδήσετε αυτό το κομμμάτι ή να το αντικαταστήσετε?"
+"Η πρόσθετη λειτουργία που είναι απαραίτητη για την πρόσβαση στο CD δεν "
+"βρέθηκε"
 
-#: src/sj-extracting.c:120
-msgid "_Skip"
-msgstr "_Υπερπήδηση"
+#: src/sj-extractor.c:519
+msgid "The plugin necessary for file access was not found"
+msgstr ""
+"Η πρόσθετη λειτουργία που είναι απαραίτητη για την πρόσβαση στο αρχείο δεν "
+"βρέθηκε"
 
-#: src/sj-extracting.c:121
-msgid "_Overwrite"
-msgstr "_Αντικατάσταση"
+#: src/sj-genres.c:37
+msgid "Blues"
+msgstr "Blues"
 
-#. TODO: need to have a better message here
-#: src/sj-extracting.c:147
-msgid "The tracks have been copied successfully."
-msgstr "Τα κομματια αντιγράφησαν με επιτυχία"
+#: src/sj-genres.c:39
+msgid "Classic Rock"
+msgstr "Classic Rock"
 
-#: src/sj-extracting.c:168
-#, c-format
-msgid "Extracting '%s'"
-msgstr "Αποσυμπίεση '%s'"
+#: src/sj-genres.c:41
+msgid "Country"
+msgstr "Country"
 
-#: src/sj-extracting.c:178
-#, c-format
-msgid "mkdir() failed: %s"
-msgstr "mkdir() απέτυχε: %s"
+#: src/sj-genres.c:43
+msgid "Dance"
+msgstr "Dance"
 
-#: src/sj-main.c:75
+#: src/sj-genres.c:45
+msgid "Disco"
+msgstr "Disco"
+
+#: src/sj-genres.c:47
+msgid "Funk"
+msgstr "Funk"
+
+#: src/sj-genres.c:49
+msgid "Grunge"
+msgstr "Grunge"
+
+#: src/sj-genres.c:51
+msgid "Hip-Hop"
+msgstr "Hip-Hop"
+
+#: src/sj-genres.c:53
+msgid "Jazz"
+msgstr "Jazz"
+
+#: src/sj-genres.c:55
+msgid "Metal"
+msgstr "Metal"
+
+#: src/sj-genres.c:57
+msgid "New Age"
+msgstr "New Age"
+
+#: src/sj-genres.c:59
+msgid "Oldies"
+msgstr "Oldies"
+
+#: src/sj-genres.c:61
+msgid "Other"
+msgstr "Άλλη"
+
+#: src/sj-genres.c:63
+msgid "Pop"
+msgstr "Ποπ"
+
+#: src/sj-genres.c:65
+msgid "R&B"
+msgstr "R&B"
+
+#: src/sj-genres.c:67
+msgid "Rap"
+msgstr "Ραπ"
+
+#: src/sj-genres.c:69
+msgid "Reggae"
+msgstr "Ρέγκε"
+
+#: src/sj-genres.c:71
+msgid "Rock"
+msgstr "Ροκ"
+
+#: src/sj-genres.c:73
+msgid "Techno"
+msgstr "Τέκνο"
+
+#: src/sj-genres.c:75
+msgid "Industrial"
+msgstr "Industrial"
+
+#: src/sj-genres.c:77
+msgid "Alternative"
+msgstr "Alternative"
+
+#: src/sj-genres.c:79
+msgid "Ska"
+msgstr "Ska"
+
+#: src/sj-genres.c:81
+msgid "Death Metal"
+msgstr "Death Metal"
+
+#: src/sj-genres.c:83
+msgid "Pranks"
+msgstr "Pranks"
+
+#: src/sj-genres.c:85
+msgid "Soundtrack"
+msgstr "Soundtrack"
+
+#: src/sj-genres.c:87
+msgid "Euro-Techno"
+msgstr "Euro-Techno"
+
+#: src/sj-genres.c:89
+msgid "Ambient"
+msgstr "Ambient"
+
+#: src/sj-genres.c:91
+msgid "Trip-Hop"
+msgstr "Trip-Hop"
+
+#: src/sj-genres.c:93
+msgid "Vocal"
+msgstr "Vocal"
+
+#: src/sj-genres.c:95
+msgid "Jazz+Funk"
+msgstr "Jazz+Funk"
+
+#: src/sj-genres.c:97
+msgid "Fusion"
+msgstr "Fusion"
+
+#: src/sj-genres.c:99
+msgid "Trance"
+msgstr "Trance"
+
+#: src/sj-genres.c:101
+msgid "Classical"
+msgstr "Κλασική"
+
+#: src/sj-genres.c:103
+msgid "Instrumental"
+msgstr "Instrumental"
+
+#: src/sj-genres.c:105
+msgid "Acid"
+msgstr "Acid"
+
+#: src/sj-genres.c:107
+msgid "House"
+msgstr "House"
+
+#: src/sj-genres.c:109
+msgid "Game"
+msgstr "Game"
+
+#: src/sj-genres.c:111
+msgid "Sound Clip"
+msgstr "Ηχητικό κλιπ"
+
+#: src/sj-genres.c:113
+msgid "Gospel"
+msgstr "Gospel"
+
+#: src/sj-genres.c:115
+msgid "Noise"
+msgstr "Noise"
+
+#: src/sj-genres.c:117
+msgid "AlternRock"
+msgstr "AlternRock"
+
+#: src/sj-genres.c:119
+msgid "Bass"
+msgstr "Bass"
+
+#: src/sj-genres.c:121
+msgid "Soul"
+msgstr "Soul"
+
+#: src/sj-genres.c:123
+msgid "Punk"
+msgstr "Punk"
+
+#: src/sj-genres.c:125
+msgid "Space"
+msgstr "Space"
+
+#: src/sj-genres.c:127
+msgid "Meditative"
+msgstr "Meditative"
+
+#: src/sj-genres.c:129
+msgid "Instrumental Pop"
+msgstr "Instrumental Pop"
+
+#: src/sj-genres.c:131
+msgid "Instrumental Rock"
+msgstr "Instrumental Rock"
+
+#: src/sj-genres.c:133
+msgid "Ethnic"
+msgstr "Ethnic"
+
+#: src/sj-genres.c:135
+msgid "Gothic"
+msgstr "Gothic"
+
+#: src/sj-genres.c:137
+msgid "Darkwave"
+msgstr "Darkwave"
+
+#: src/sj-genres.c:139
+msgid "Techno-Industrial"
+msgstr "Techno-Industrial"
+
+#: src/sj-genres.c:141
+msgid "Electronic"
+msgstr "Electronic"
+
+#: src/sj-genres.c:143
+msgid "Pop-Folk"
+msgstr "Pop-Folk"
+
+#: src/sj-genres.c:145
+msgid "Eurodance"
+msgstr "Eurodance"
+
+#: src/sj-genres.c:147
+msgid "Dream"
+msgstr "Dream"
+
+#: src/sj-genres.c:149
+msgid "Southern Rock"
+msgstr "Southern Rock"
+
+#: src/sj-genres.c:151
+msgid "Comedy"
+msgstr "Comedy"
+
+#: src/sj-genres.c:153
+msgid "Cult"
+msgstr "Cult"
+
+#: src/sj-genres.c:155
+msgid "Gangsta"
+msgstr "Gangsta"
+
+#: src/sj-genres.c:157
+msgid "Top 40"
+msgstr "Top 40"
+
+#: src/sj-genres.c:159
+msgid "Christian Rap"
+msgstr "Christian Rap"
+
+#: src/sj-genres.c:161
+msgid "Pop/Funk"
+msgstr "Pop/Funk"
+
+#: src/sj-genres.c:163
+msgid "Jungle"
+msgstr "Jungle"
+
+#: src/sj-genres.c:165
+msgid "Native American"
+msgstr "Native American"
+
+#: src/sj-genres.c:167
+msgid "Cabaret"
+msgstr "Cabaret"
+
+#: src/sj-genres.c:169
+msgid "New Wave"
+msgstr "New Wave"
+
+#: src/sj-genres.c:171
+msgid "Psychadelic"
+msgstr "Psychadelic"
+
+#: src/sj-genres.c:173
+msgid "Rave"
+msgstr "Rave"
+
+#: src/sj-genres.c:175
+msgid "Showtunes"
+msgstr "Showtunes"
+
+#: src/sj-genres.c:177
+msgid "Trailer"
+msgstr "Trailer"
+
+#: src/sj-genres.c:179
+msgid "Lo-Fi"
+msgstr "Lo-Fi"
+
+#: src/sj-genres.c:181
+msgid "Tribal"
+msgstr "Tribal"
+
+#: src/sj-genres.c:183
+msgid "Acid Punk"
+msgstr "Acid Punk"
+
+#: src/sj-genres.c:185
+msgid "Acid Jazz"
+msgstr "Acid Jazz"
+
+#: src/sj-genres.c:187
+msgid "Polka"
+msgstr "Polka"
+
+#: src/sj-genres.c:189
+msgid "Retro"
+msgstr "Retro"
+
+#: src/sj-genres.c:191
+msgid "Musical"
+msgstr "Musical"
+
+#: src/sj-genres.c:193
+msgid "Rock & Roll"
+msgstr "Rock & Roll"
+
+#: src/sj-genres.c:195
+msgid "Hard Rock"
+msgstr "Hard Rock"
+
+#: src/sj-genres.c:197
+msgid "[unknown genre]"
+msgstr "[άγνωστο είδος]"
+
+#: src/sj-main.c:92
 msgid "Could not start Sound Juicer"
 msgstr "Αδυναμία εκκίνησης Sound Juicer"
 
-#: src/sj-main.c:78
+#: src/sj-main.c:93 src/sj-main.c:469 src/sj-main.c:544 src/sj-main.c:603
+#: src/sj-util.c:110 src/sj-util.c:130
+msgid "Reason"
+msgstr "Αιτία"
+
+#: src/sj-main.c:95
 msgid "Please consult the documentation for assistance."
 msgstr "Παρακαλώ ανατρέξτε στην τεκμηρίωση για βοήθεια"
 
-#: src/sj-main.c:126
+#: src/sj-main.c:145
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr ""
-"Αυτή την στιγμή αποσυμπιέζεται ένα CD. Θέλετε να εγκαταλείψετε ή να "
+"Αυτή την στιγμή εξάγεται ήχος από ένα CD. Θέλετε να εγκαταλείψετε ή να "
 "συνεχίσετε? "
 
-#: src/sj-main.c:179 src/sj-main.c:237
+#: src/sj-main.c:208 src/sj-main.c:279
 msgid "(unknown)"
 msgstr "(άγνωστο)"
 
-#: src/sj-main.c:279 src/sj-main.c:841
+#: src/sj-main.c:321 src/sj-main.c:1030
 msgid "Title"
 msgstr "Τίτλος"
 
-#: src/sj-main.c:285 src/sj-main.c:849
+#: src/sj-main.c:327 src/sj-main.c:1039
 msgid "Artist"
 msgstr "Καλλιτέχνης"
 
-#: src/sj-main.c:433 src/sj-main.c:505
+#: src/sj-main.c:467 src/sj-main.c:542 src/sj-main.c:601
 msgid "Could not read the CD"
 msgstr "Αδυναμία ανάγνωσης του CD"
 
-#: src/sj-main.c:434
+#: src/sj-main.c:468 src/sj-main.c:543
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr ""
 "Ο Sound Juicer δεν μπορεί να διαβάσει την λίστα κομματιών από αυτό το CD."
 
-#: src/sj-main.c:486
+#. Set statusbar message
+#: src/sj-main.c:527
+msgid "Retrieving track listing...please wait."
+msgstr "Ανάκτηση λίστας κομματιών...παρακαλώ περιμένετε"
+
+#: src/sj-main.c:582
 msgid "No CD-ROM drives found"
 msgstr "Δεν βρέθηκαν οδηγοί CD-ROM"
 
-#: src/sj-main.c:487
+#: src/sj-main.c:583
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Ο Sound Juicer δεν μπόρεσε να βρεί οδηγούς CD-ROM για ανάγνωση."
 
-#: src/sj-main.c:499
+#: src/sj-main.c:595
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Ο Sound Juicer δεν μπόρεσε να έχει πρόσβαση στην συσκευή CD-ROM'%s'"
 
-#: src/sj-main.c:564
-msgid "Cannot find any suitable encoders"
-msgstr "Αδυναμία εύρεσης κατάλληλων αποκωδικοποιητών"
+#: src/sj-main.c:640
+msgid ""
+"The currently selected audio profile is not available on your installation."
+msgstr "Το επιλεγμένο προφίλ ήχου δεν είναι διαθέσιμο στο σύστημα σας."
 
-#: src/sj-main.c:579
-msgid "The currently selected encoder is not available on your installation."
-msgstr "Ο επιλεγμένος αποκωδικοποιητής δεν είναι διαθέσιμος στο σύστημα σας."
+#: src/sj-main.c:642
+msgid "_Change Profile"
+msgstr "Α_λλαγή προφίλ "
 
-#: src/sj-main.c:581
-msgid "Change the encoder"
-msgstr "Αλλαγή του αποκωδικοποιητή"
-
-#: src/sj-main.c:691
+#: src/sj-main.c:804
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Η άγνωστη στήλη  %d  άλλαξε"
 
-#: src/sj-main.c:738
+#: src/sj-main.c:867 src/sj-prefs.c:138
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -463,45 +776,45 @@ msgstr ""
 "Αδυναμία προβολής βοήθειας για τον Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:780
+#: src/sj-main.c:955
 msgid "Could not create GConf client.\n"
 msgstr "Αδυναμία δημιουργίας πελάτη GConf \n"
 
-#: src/sj-main.c:822
-msgid "Extract?"
-msgstr "Αποσυμπίεση?"
+#: src/sj-main.c:1011
+msgid "Extract"
+msgstr "Ε_ξαγωγή"
 
-#: src/sj-main.c:830
+#: src/sj-main.c:1019
 msgid "Track"
 msgstr "Κομμάτι"
 
-#: src/sj-main.c:859
+#: src/sj-main.c:1050
 msgid "Duration"
 msgstr "Διάρκεια"
 
-#: src/sj-metadata-musicbrainz.c:82
+#: src/sj-metadata-musicbrainz.c:90
 msgid "Cannot create MusicBrainz client"
 msgstr "Αδυναμία δημιουργίας πελάτη MusicBrainz"
 
-#: src/sj-metadata-musicbrainz.c:174 src/sj-metadata-musicbrainz.c:282
+#: src/sj-metadata-musicbrainz.c:195 src/sj-metadata-musicbrainz.c:317
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Αδυναμία ανάγνωσης CD: %s"
 
-#: src/sj-metadata-musicbrainz.c:181
+#: src/sj-metadata-musicbrainz.c:202 src/sj-metadata-musicbrainz.c:363
 msgid "Unknown Artist"
 msgstr "Άγνωστος Καλλιτέχνης"
 
-#: src/sj-metadata-musicbrainz.c:182
+#: src/sj-metadata-musicbrainz.c:203 src/sj-metadata-musicbrainz.c:351
 msgid "Unknown Title"
 msgstr "Άγνωστος τίτλος"
 
-#: src/sj-metadata-musicbrainz.c:187
+#: src/sj-metadata-musicbrainz.c:208
 #, c-format
 msgid "Track %d"
 msgstr "Κομμάτι %d"
 
-#: src/sj-metadata-musicbrainz.c:207
+#: src/sj-metadata-musicbrainz.c:237
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
@@ -509,12 +822,12 @@ msgstr ""
 "Το αντικείμενο MusicBrainz metadata δεν είναι έγκυρο. Ελέγξτε την κονσόλα "
 "σας για σφάλματα."
 
-#: src/sj-metadata-musicbrainz.c:276
+#: src/sj-metadata-musicbrainz.c:311
 #, c-format
 msgid "Device '%s' does not contain a media"
 msgstr "Η συσκευή '%s' δεν περιέχει ένα μέσο"
 
-#: src/sj-metadata-musicbrainz.c:279
+#: src/sj-metadata-musicbrainz.c:314
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
@@ -522,11 +835,84 @@ msgstr ""
 "Δεν είναι δυνατό το άνοιγμα της συσκευής '%s'. Ελέγξτε τα δικαιώματα "
 "πρόσβασης στην συσκευή."
 
-#: src/sj-metadata-musicbrainz.c:290
+#: src/sj-metadata-musicbrainz.c:327
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "Δεν είναι δυνατό το ερώτημα σε αυτό το CD: %s\n"
 
-#: src/sj-metadata-musicbrainz.c:296
+#: src/sj-metadata-musicbrainz.c:335
 msgid "This CD was not found.\n"
 msgstr "Το CD δεν βρέθηκε.\n"
+
+#: src/sj-metadata-musicbrainz.c:358
+msgid "Various"
+msgstr "Διάφορα"
+
+#: src/sj-metadata-musicbrainz.c:372
+msgid "Incomplete metadata for this CD.\n"
+msgstr "Μη ολοκληρωμένα μετα-δεδομένα για αυτό το CD.\n"
+
+#: src/sj-metadata-musicbrainz.c:442
+msgid "Could not create CD lookup thread"
+msgstr "Αδυναμία δημιουργίας CD lookup thread"
+
+#: src/sj-prefs.c:52
+msgid "Album Artist, Album Title"
+msgstr "Καλλιτέχνης άλμπουμ, Τίτλος άλμπουμ"
+
+#: src/sj-prefs.c:53
+msgid "Track Artist, Album Title"
+msgstr "Καλλιτέχνης κομματιού, Τίτλος άλμπουμ"
+
+#: src/sj-prefs.c:54 src/sj-prefs.c:291
+msgid "Album Title"
+msgstr "Τίτλος άλμπουμ"
+
+#: src/sj-prefs.c:55 src/sj-prefs.c:292
+msgid "Album Artist"
+msgstr "Καλλιτέχνης άλμπουμ"
+
+#: src/sj-prefs.c:56
+msgid "Album Artist - Album Title"
+msgstr "Καλλιτέχνης άλμπουμ - Τίτλος άλμπουμ"
+
+#: src/sj-prefs.c:57
+msgid "[none]"
+msgstr "[κανένα]"
+
+#: src/sj-prefs.c:62
+msgid "Number - Title"
+msgstr "Αριθμός - Τίτλος"
+
+#: src/sj-prefs.c:63 src/sj-prefs.c:299
+msgid "Track Title"
+msgstr "Τίτλος κομματιού"
+
+#: src/sj-prefs.c:64
+msgid "Track Artist - Track Title"
+msgstr "Καλλιτέχνης κομματιού - Τίτλος κομματιού"
+
+#: src/sj-prefs.c:65
+msgid "Number. Track Artist - Track Title"
+msgstr "Αριθμός. Καλλιτέχνης κομματιού - Τίτλος κομματιού"
+
+#: src/sj-prefs.c:66
+msgid "Number-Track Artist-Track Title (lowercase)"
+msgstr "Αριθμός - Καλλιτέχνης κομματιού - Τίτλος κομματιού (lowercase)"
+
+#: src/sj-prefs.c:155
+msgid "Select Output Location"
+msgstr "Επιλογή τοποθεσίας εξόδου:"
+
+#: src/sj-prefs.c:300
+msgid "Track Artist"
+msgstr "Καλλιτέχνης κομματιού"
+
+#: src/sj-util.c:65
+#, c-format
+msgid "Could not create directory %s: %s"
+msgstr "Δεν ήταν δυνατή η δημιουργία του καταλόγου %s: %s"
+
+#: src/sj-util.c:109 src/sj-util.c:129
+msgid "Could not eject the CD"
+msgstr "Αδυναμία αποβολής του CD"
