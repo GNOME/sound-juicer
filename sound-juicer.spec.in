@@ -11,7 +11,7 @@ Requires:	libgnomeui >= 2.0.0
 Requires:	glib2 >= 2.0.0
 Requires:	gstreamer >= 0.6.1
 Requires:	GConf2 >= 2.0.0
-Requires:	gstreamer-cdparanoia >= 0.6.1
+Requires:	gstreamer-plugins >= 0.6.2
 Requires:	gstreamer-vorbis >= 0.6.1
 BuildRequires:	libmusicbrainz-devel >= 2.0.1
 BuildRequires:	libgnomeui-devel >= 2.0.0
@@ -58,6 +58,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/sound-juicer.sc
 %{_localstatedir}/scrollkeeper
 
 %changelog
+* Fri Sep 27 2003 Christian Schaller <Uraeus@gnome.org>
+- Replace req of gst-cdpara with gst-plugins as we now use standard RH packaging
+
 * Tue Aug 26 2003 Christian Schaller <Uraeus@gnome.org>
 - Add docs
 
