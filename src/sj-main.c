@@ -95,13 +95,19 @@ static gboolean select_all_foreach_cb (GtkTreeModel *model,
                                       GtkTreeIter *iter,
                                       gpointer data)
 {
-  gtk_list_store_set (track_store, iter, COLUMN_EXTRACT, TRUE, -1);
+  gboolean b = (gboolean)GPOINTER_TO_INT (data);
+  gtk_list_store_set (track_store, iter, COLUMN_EXTRACT, b, -1);
   return FALSE;
 }
 
 void on_select_all_activate (GtkMenuItem *item, gpointer user_data)
 {
-  gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), select_all_foreach_cb, NULL);  
+  gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), select_all_foreach_cb, GINT_TO_POINTER (TRUE));
+}
+
+void on_deselect_all_activate (GtkMenuItem *item, gpointer user_data)
+{
+  gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), select_all_foreach_cb, GINT_TO_POINTER (FALSE));
 }
 
 /**
