@@ -462,6 +462,7 @@ show_finished_dialog (void)
                           GTK_STOCK_OPEN, 1,
                           GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
                           NULL);
+  gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_CLOSE);
   result = gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_destroy (dialog);
   if (result == 1) {
