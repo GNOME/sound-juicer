@@ -13,7 +13,7 @@ AM_CPPFLAGS = \
 	-DPIXMAPDIR=\""$(datadir)/pixmaps"\" \
 	-DPKGDATADIR=\""$(datadir)/sound-juicer"\" \
 	@MUSICBRAINZ_CFLAGS@ @GSTREAMER_CFLAGS@ \
-	@MEDIA_PROFILES_CFLAGS@ @BURN_CFLAGS@ @UI_CFLAGS@ @HAL_CFLAGS@
+	@MEDIA_PROFILES_CFLAGS@ @BURN_CFLAGS@ @UI_CFLAGS@
 
 
 # We always build Sound Juicer
@@ -44,7 +44,7 @@ sound_juicer_SOURCES = \
 	sj-extracting.c \
 	$(MARSHALFILES)
 
-sound_juicer_LDFLAGS = @MUSICBRAINZ_LIBS@ @MEDIA_PROFILES_LIBS@ @GSTREAMER_LIBS@ @BURN_LIBS@ @UI_LIBS@ @HAL_LIBS@
+sound_juicer_LDFLAGS = @MUSICBRAINZ_LIBS@ @MEDIA_PROFILES_LIBS@ @GSTREAMER_LIBS@ @BURN_LIBS@ @UI_LIBS@
 
 #
 # Build the GValue marshals
