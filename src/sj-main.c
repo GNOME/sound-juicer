@@ -532,13 +532,11 @@ static void on_cell_edited (GtkCellRendererText *renderer,
                       -1);
   switch (column) {
   case COLUMN_TITLE:
-    g_free (title);
     g_free (track->title);
     track->title = g_strdup (string);
     gtk_list_store_set (track_store, &iter, COLUMN_TITLE, track->title, -1);
     break;
   case COLUMN_ARTIST:
-    g_free (artist);
     g_free (track->artist);
     track->artist = g_strdup (string);
     gtk_list_store_set (track_store, &iter, COLUMN_ARTIST, track->artist, -1);
@@ -546,6 +544,8 @@ static void on_cell_edited (GtkCellRendererText *renderer,
   default:
     g_warning (_("Unknown column %d was edited"), column);
   }
+  g_free (artist);
+  g_free (title);
   return;
 }
 
