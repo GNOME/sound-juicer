@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
-"POT-Creation-Date: 2003-05-22 22:11+0200\n"
-"PO-Revision-Date: 2003-05-22 22:13+0200\n"
+"POT-Creation-Date: 2003-06-04 18:54+0200\n"
+"PO-Revision-Date: 2003-06-04 18:54+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -205,12 +205,12 @@ msgstr "Namnmönstret för filer"
 msgid "The paranoia mode to use"
 msgstr "Paranoialäget att använda"
 
-#: src/cd-drive.c:279
+#: src/cd-drive.c:286
 #, c-format
 msgid "Unnamed SCSI CDROM (%s)"
 msgstr "Namnlös SCSI-cd-rom (%s)"
 
-#: src/cd-drive.c:619
+#: src/cd-drive.c:708
 msgid "File image"
 msgstr "Filavbild"
 
@@ -256,39 +256,43 @@ msgstr "Kodningsformat"
 msgid "The format to write the encoded audio in"
 msgstr "Formatet som det kodade ljudet ska skrivas i"
 
-#: src/sj-extractor.c:276
+#: src/sj-extractor.c:232
+msgid "MPEG encoder not available"
+msgstr "MPEG-kodare inte tillgänglig"
+
+#: src/sj-extractor.c:283
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "Kunde inte skapa GStreamer cdparanoia-läsare"
 
-#: src/sj-extractor.c:292
+#: src/sj-extractor.c:299
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
 msgstr "Kunde inte skapa GStreamer-kodare (%s)"
 
-#: src/sj-extractor.c:303
+#: src/sj-extractor.c:310
 msgid "Could not create GStreamer file output"
 msgstr "Kunde inte skapa GStreamer-filutdata"
 
-#: src/sj-extractor.c:332
+#: src/sj-extractor.c:339
 msgid "Could not get current track position"
 msgstr "Kund einte få tag i aktuell spårposition"
 
-#: src/sj-extractor.c:361
+#: src/sj-extractor.c:368
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Extraktörsobjekt är inte giltigt. Detta är illa. Kontrollera eventuella fel "
 "på din konsoll."
 
-#: src/sj-extractor.c:423
+#: src/sj-extractor.c:430
 msgid "Ripped with Sound Juicer"
 msgstr "Rippad med Sound Juicer"
 
-#: src/sj-extractor.c:437
+#: src/sj-extractor.c:444
 msgid "Could not seek to track"
 msgstr "Kunde inte spola till nästa spår"
 
-#: src/sj-extractor.c:442
+#: src/sj-extractor.c:449
 msgid "Could not get track start position"
 msgstr "Kunde inte få tag i startposition"
 
@@ -338,7 +342,7 @@ msgstr "Välj utdataplats"
 msgid "Unknown format %s"
 msgstr "Okänt format %s"
 
-#: src/sj-extracting.c:117
+#: src/sj-extracting.c:118
 #, c-format
 msgid ""
 "A file called '%s' exists, size %ldK.\n"
@@ -347,20 +351,20 @@ msgstr ""
 "En fil med namnet \"%s\" finns redan med storleken %ld kB.\n"
 "Vill du hoppa över detta spår eller skriva över det?"
 
-#: src/sj-extracting.c:119
+#: src/sj-extracting.c:120
 msgid "_Skip"
 msgstr "_Hoppa över"
 
-#: src/sj-extracting.c:120
+#: src/sj-extracting.c:121
 msgid "Overwrite"
 msgstr "Skriv över"
 
-#: src/sj-extracting.c:148
+#: src/sj-extracting.c:150
 #, c-format
 msgid "Extracting '%s'"
 msgstr "Extraherar \"%s\""
 
-#: src/sj-extracting.c:158
+#: src/sj-extracting.c:160
 #, c-format
 msgid "mkdir() failed: %s"
 msgstr "mkdir() misslyckades: %s"
@@ -1242,9 +1246,6 @@ msgstr "Varaktighet"
 
 #~ msgid "Add Location"
 #~ msgstr "Lägg till plats"
-
-#~ msgid "No properties available."
-#~ msgstr "Inga egenskaper tillgängliga."
 
 #~ msgid "Audio-CD"
 #~ msgstr "Ljud-cd"
