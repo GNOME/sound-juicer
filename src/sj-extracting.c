@@ -85,9 +85,11 @@ static char* build_filename(const TrackDetails *track)
   filename = g_strconcat (realfile, extension, NULL);
   path = g_build_filename (base_path, realpath, filename, NULL);
   g_free (realpath);
+  realpath = g_filename_from_utf8 (path, -1, NULL, NULL, NULL);
+  g_free (path);
   g_free (realfile);
   g_free (filename);
-  return path;
+  return realpath;
 }
 
 /**
