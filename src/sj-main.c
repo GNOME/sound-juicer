@@ -50,7 +50,7 @@ GConfClient *gconf_client;
 
 GtkWidget *main_window;
 static GtkWidget *title_entry, *artist_entry, *duration_label;
-static GtkWidget *track_listview, *reread_button, *extract_button;
+static GtkWidget *track_listview, *extract_button;
 static GtkWidget *extract_menuitem, *select_all_menuitem, *deselect_all_menuitem;
 GtkListStore *track_store;
 
@@ -153,11 +153,15 @@ static gboolean select_all_foreach_cb (GtkTreeModel *model,
 void on_select_all_activate (GtkMenuItem *item, gpointer user_data)
 {
   gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), select_all_foreach_cb, GINT_TO_POINTER (TRUE));
+  gtk_widget_set_sensitive (extract_button, TRUE);
+  gtk_widget_set_sensitive (extract_menuitem, TRUE);
 }
 
 void on_deselect_all_activate (GtkMenuItem *item, gpointer user_data)
 {
   gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), select_all_foreach_cb, GINT_TO_POINTER (FALSE));
+  gtk_widget_set_sensitive (extract_button, FALSE);
+  gtk_widget_set_sensitive (extract_menuitem, FALSE);
 }
 
 /**
@@ -419,25 +423,27 @@ metadata_cb (SjMetadata *m, GList *albums, GError *error)
     return;
   }
 
-  /* If there is more than one album... */
+  /* Free old album details */
   if (current_album != NULL) {
     album_details_free (current_album);
+    current_album = NULL;
   }
+  /* Set the new current album pointer */
   if (albums == NULL) {
     current_album = NULL;
   } else if (g_list_next (albums)) {
     current_album = multiple_album_dialog (albums);
+    /* Concentrate here. We remove the album we want from the list, and then
+       deep-free the list. */
+    albums = g_list_remove (albums, current_album);
+    g_list_deep_free (albums, (GFunc)album_details_free);
+    albums = NULL;
   } else {
     current_album = albums->data;
+    /* current_album now owns ->data, so just free the list */
+    g_list_free (albums);
+    albums = NULL;
   }
-#if 0
-  /* Free the list */
-  /* TODO
-   * Need to have a deep copy first so we can extract the album and
-   * track details safely
-   */
-  g_list_deep_free (albums, album_details_free);
-#endif
   update_ui_for_album (current_album);
 }
 
@@ -446,7 +452,7 @@ metadata_cb (SjMetadata *m, GList *albums, GError *error)
  */
 static void reread_cd (gboolean ignore_no_media)
 {
-  // TODO: remove ignore_no_media?
+  /* TODO: remove ignore_no_media? */
   GError *error = NULL;
   GdkCursor *cursor;
   gboolean realized = GTK_WIDGET_REALIZED (main_window);
@@ -672,6 +678,27 @@ void on_reread_activate (GtkWidget *button, gpointer user_data)
 }
 
 /**
+ * Called in on_extract_toggled to see if there are selected tracks or not.
+ * extracting points to the boolean to set to if there are tracks to extract,
+ * and starts as false.
+ */
+static gboolean extract_available_foreach (GtkTreeModel *model,
+                                           GtkTreePath *path,
+                                           GtkTreeIter *iter,
+                                           gboolean *extracting)
+{
+  gboolean selected;
+  gtk_tree_model_get (GTK_TREE_MODEL (track_store), iter, COLUMN_EXTRACT, &selected, -1);
+  if (selected) {
+    *extracting = TRUE;
+    /* Don't bother walking the list more, we've found a track to be extracted. */
+    return TRUE;
+  } else {
+    return FALSE;
+  }
+}
+
+/**
  * Called when the user clicked on the Extract column check boxes
  */
 static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
@@ -682,9 +709,28 @@ static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
   GtkTreeIter iter;
   gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (track_store), &iter, path);
   gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, COLUMN_EXTRACT, &extract, -1);
-  gtk_list_store_set (track_store, &iter, COLUMN_EXTRACT, !extract, -1);
+  /* extract is the old state here, so toggle */
+  extract = !extract;
+  gtk_list_store_set (track_store, &iter, COLUMN_EXTRACT, extract, -1);
+
+  /* Update the Extract buttons */
+  if (extract) {
+    /* If true, then we can extract */
+    gtk_widget_set_sensitive (extract_button, TRUE);
+    gtk_widget_set_sensitive (extract_menuitem, TRUE);
+  } else {
+    /* Reuse the boolean extract */
+    extract = FALSE;
+    gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), (GtkTreeModelForeachFunc)extract_available_foreach, &extract);
+    gtk_widget_set_sensitive (extract_button, extract);
+    gtk_widget_set_sensitive (extract_menuitem, extract);    
+  }
 }
 
+/**
+ * Callback when the title or artist cells are edited in the list. column_data
+ * contains the column number in the model which was modified.
+ */
 static void on_cell_edited (GtkCellRendererText *renderer,
                  gchar *path, gchar *string,
                  gpointer column_data)
@@ -736,14 +782,15 @@ void on_artist_edit_changed(GtkEditable *widget, gpointer user_data) {
   }
   current_album->artist = gtk_editable_get_chars (widget, 0, -1); /* get all the characters */
 
-  /* Set the artist field in each tree row */
   if (!gtk_tree_model_get_iter_first (GTK_TREE_MODEL (track_store), &iter)) return;
   
+  /* Set the artist field in each tree row */
   do {
     gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, COLUMN_DETAILS, &track, -1);
     g_free (track->artist);
     track->artist = g_strdup (current_album->artist);
-    gtk_list_store_set (track_store, &iter, COLUMN_ARTIST, current_album->artist, -1);
+    /* TODO: should I g_strdup(->artist) here or does _set do that? */
+    gtk_list_store_set (track_store, &iter, COLUMN_ARTIST, track->artist, -1);
   } while (gtk_tree_model_iter_next (GTK_TREE_MODEL(track_store), &iter));
 }
 
@@ -801,7 +848,7 @@ int main (int argc, char **argv)
 
   gconf_client = gconf_client_get_default ();
   if (gconf_client == NULL) {
-    g_print (_("Could not create GConf client.\n"));
+    g_warning (_("Could not create GConf client.\n"));
     exit (1);
   }
 
@@ -833,8 +880,7 @@ int main (int argc, char **argv)
   duration_label = glade_xml_get_widget (glade, "duration_label");
   track_listview = glade_xml_get_widget (glade, "track_listview");
   extract_button = glade_xml_get_widget (glade, "extract_button");
-  reread_button = glade_xml_get_widget (glade, "reread_button");
-
+  
   track_store = gtk_list_store_new (COLUMN_TOTAL, G_TYPE_BOOLEAN, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_POINTER);
   gtk_tree_view_set_model (GTK_TREE_VIEW (track_listview), GTK_TREE_MODEL (track_store));
   {
