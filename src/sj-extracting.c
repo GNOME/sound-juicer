@@ -467,9 +467,7 @@ show_finished_dialog (void)
   gtk_widget_destroy (dialog);
   if (result == 1) {
     char *command;
-    /* Construct a Nautilus command line */
-    /* TODO: don't think I need --no-desktop here */
-    command = g_strdup_printf ("nautilus --no-desktop \'%s\'", base);
+    command = g_strdup_printf ("gnome-open \"%s\"", base);
     g_spawn_command_line_async (command, NULL);
     g_free (command);
   } else if (result == 2) {
