@@ -49,6 +49,7 @@ static FilePattern path_patterns[] = {
   {N_("Album Title"), "%at"},
   {N_("Album Artist"), "%aa"},
   {N_("Album Artist - Album Title"), "%aa - %at"},
+  {N_("[none]"), ""},
   {NULL, NULL}
 };
 
