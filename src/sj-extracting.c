@@ -170,7 +170,7 @@ check_for_file (const char* filename)
   struct stat stats;
   int ret;
   GtkWidget *dialog;
-  char *ut8_filename;
+  char *utf8_filename;
   
   ret = stat (filename, &stats);
   if (ret == -1) {
