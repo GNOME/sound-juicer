@@ -76,39 +76,13 @@ static void build_pipeline (SjExtractor *extractor);
  * GObject methods
  */
 
-static void sj_extractor_class_init (SjExtractorClass *klass);
-static void sj_extractor_instance_init (SjExtractor *bcs);
 static void sj_extractor_set_property (GObject *object, guint property_id,
                                        const GValue *value, GParamSpec *pspec);
 static void sj_extractor_get_property (GObject *object, guint property_id,
                                        GValue *value, GParamSpec *pspec);
 static void sj_extractor_finalize (GObject *object);
 
-
-GType sj_extractor_get_type (void)
-{
-  static GType sj_extractor_type = 0;
-  
-  if (!sj_extractor_type) {
-    static const GTypeInfo sj_extractor_info = {
-      sizeof (SjExtractorClass),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) sj_extractor_class_init,
-      (GClassFinalizeFunc) NULL,
-      NULL /* class_data */,
-      sizeof (SjExtractor),
-      0 /* n_preallocs */,
-      (GInstanceInitFunc) sj_extractor_instance_init,
-      NULL
-    };
-    
-    sj_extractor_type = g_type_register_static (G_TYPE_OBJECT,
-                                                "SjExtractor", &sj_extractor_info,
-                                                (GTypeFlags)0);
-  }
-  return sj_extractor_type;
-}
+G_DEFINE_TYPE(SjExtractor, sj_extractor, G_TYPE_OBJECT);
 
 static void sj_extractor_class_init (SjExtractorClass *klass)
 {
@@ -152,7 +126,7 @@ static void sj_extractor_class_init (SjExtractorClass *klass)
 }
 
 
-static void sj_extractor_instance_init (SjExtractor *extractor)
+static void sj_extractor_init (SjExtractor *extractor)
 {
   extractor->priv = g_new0 (SjExtractorPrivate, 1);
   extractor->priv->profile = gm_audio_profile_lookup(DEFAULT_AUDIO_PROFILE_NAME);
