@@ -49,6 +49,8 @@ void sj_gstreamer_init (int argc, char **argv, GError **error)
   /* Get the source pad for seeking */
   source_pad = gst_element_get_pad (cdparanoia, "src");
   g_assert (source_pad); /* TODO: GError */
+  /* Connect to the eos so we know when its finished */
+  g_signal_connect (cdparanoia, "eos", eos_cb, NULL);
 
   /* Encode to Ogg Vorbis */
   vorbisenc = gst_element_factory_make ("vorbisenc", "vorbisenc");
@@ -74,14 +76,7 @@ void sj_gstreamer_init (int argc, char **argv, GError **error)
   gst_bin_add (GST_BIN (pipeline), filesink);
 
   /* Link it all together */
-#if 0
-  gst_element_link_pads (cdparanoia, "src", vorbisenc, "sink");
-  gst_element_link_pads (vorbisenc, "src", filesink, "sink");
-#else
   gst_element_link_many (cdparanoia, vorbisenc, filesink, NULL);
-#endif
-
-  g_signal_connect (cdparanoia, "eos", eos_cb, NULL);
 }
 
 void sj_gstreamer_shutdown (void)
@@ -128,6 +123,7 @@ void sj_gstreamer_set_callbacks (progress_cb_t progress, completion_cb_t complet
   progress_cb = progress;
   completion_cb = completion;
 }
+
 void sj_gstreamer_extract_track (const TrackDetails *track, const char* path, GError **error)
 {
   GstEvent *event;
@@ -139,6 +135,7 @@ void sj_gstreamer_extract_track (const TrackDetails *track, const char* path, GE
   g_return_if_fail (track != NULL);
 
   /* Set the output filename */
+  gst_element_set_state (filesink, GST_STATE_NULL);
   g_object_set (G_OBJECT (filesink), "location", path, NULL);
 
   /* Set the Ogg metadata */
@@ -167,7 +164,7 @@ void sj_gstreamer_extract_track (const TrackDetails *track, const char* path, GE
                  "Could not seek to track");
     return;
   }
-
+  
   gst_element_set_state (pipeline, GST_STATE_PLAYING);
 #if MAINLOOP
   g_idle_add ((GSourceFunc)gst_bin_iterate, pipeline);
@@ -176,6 +173,5 @@ void sj_gstreamer_extract_track (const TrackDetails *track, const char* path, GE
   while (gst_bin_iterate (GST_BIN (pipeline))) {
     g_print(".");
   }
-  gst_element_set_state (pipeline, GST_STATE_NULL);
 #endif
 }

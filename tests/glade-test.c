@@ -26,6 +26,8 @@ const char *device;
 int duration; /* duration of current track for progress dialog */
 gboolean ripping = FALSE;
 
+GList *pending = NULL; /* a GList of TrackDetails* to rip */
+
 #define GCONF_ROOT "/apps/sound-juicer"
 #define GCONF_DEVICE GCONF_ROOT "/device"
 #define GCONF_BASEPATH GCONF_ROOT "/base_path"
@@ -294,23 +296,33 @@ static gboolean rip_track_foreach_cb (GtkTreeModel *model,
                                       GtkTreeIter *iter,
                                       gpointer data)
 {
-  /* Remember, FALSE to continue! */
-  TrackDetails *track;
   gboolean extract;
-  char *file_path, *directory;
-  int number;
-
-  gtk_tree_model_get (model, iter, COLUMN_EXTRACT, &extract, -1);
-  if (!extract) return FALSE;
+  TrackDetails *track;
 
   gtk_tree_model_get (model, iter,
-                      COLUMN_NUMBER, &number,
+                      COLUMN_EXTRACT, &extract,
                       COLUMN_DETAILS, &track,
-                      COLUMN_DURATION, &duration,
                       -1);
+  if (!extract) return FALSE;
+  pending = g_list_append (pending, track);
+  return FALSE;
+}
+
+static void pop_and_rip (void)
+{
+  TrackDetails *track;
+  char *file_path, *directory;
+
+  if (pending == NULL) {
+    gtk_widget_hide (progress_dialog);
+    return;
+  }
+
+  track = pending->data;
+  pending = g_list_next (pending);
 
   gtk_label_set_text (GTK_LABEL (progress_label), g_strdup_printf ("Currently extracting '%s'", track->title));
-  file_path = g_strdup_printf("%s/%s/%s/%s.ogg", base_path, track->artist, track->album->title, track->title); /* TODO: CRAP */
+  file_path = g_strdup_printf("%s/%s/%s.ogg", base_path, track->album->title, track->title); /* TODO: CRAP */
   /* TODO: create the folder */
   directory = g_path_get_dirname (file_path);
   if (!g_file_test (directory, G_FILE_TEST_IS_DIR)) {
@@ -319,15 +331,14 @@ static gboolean rip_track_foreach_cb (GtkTreeModel *model,
     if (res == -1) {
       /* TODO: handle errno, dialog etc */
       g_warning ("mkdir() failed");
-      return TRUE;
+      return;
     }
   }
   g_free (directory);
   ripping = TRUE;
   sj_gstreamer_extract_track (track, file_path, NULL);
   g_free (file_path);
-  /* Need to wait for completion */
-  return FALSE;
+  return;
 }
 
 /**
@@ -342,7 +353,11 @@ void on_extract_activate (GtkWidget *button, gpointer user_data)
     g_assert (progress_dialog != NULL);
   }
   gtk_widget_show_all (progress_dialog);
+
+  /* Fill pending with a list of all tracks to rip */
+  g_list_free (pending);
   gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), rip_track_foreach_cb, NULL);
+  pop_and_rip();
 }
 
 /**
@@ -400,15 +415,19 @@ static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
 static void on_progress_cb (int seconds)
 {
   g_print ("Callback: %d\n", seconds);
-  gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), (float)seconds/(float)duration);
+  if (duration != 0) {
+    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), (float)seconds/(float)duration);
+  } else {
+    gtk_progress_bar_pulse (GTK_PROGRESS_BAR (track_progress));
+  }
   return;
 }
 
 static void on_completion_cb (void)
 {
-  gtk_widget_hide (progress_dialog);
   g_print ("Callback complete\n");
   ripping = FALSE;
+  pop_and_rip ();
   return;
 }
 
