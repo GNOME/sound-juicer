@@ -1,21 +1,23 @@
+# translation of sound-juicer.HEAD.po to Spanish
 # translation of sound-juicer.HEAD.es.po to Spanish
 # Spanish translation for Sound Juicer.
 # Copyright (C) 2003 Free Software Foundation, Inc.
 # This file is distributed under the same license as the PACKAGE package.
 # Enrique Rodriguez <krm@futurnet.es>, 2003.
-# Francisco Javier F. Serrador <serrador@arrakis.es>, 2003
+# Francisco Javier F. Serrador <serrador@arrakis.es>, 2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: sound-juicer.HEAD.es\n"
+"Project-Id-Version: sound-juicer.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-04 12:54+0200\n"
-"PO-Revision-Date: 2003-09-04 16:36+0200\n"
+"POT-Creation-Date: 2003-09-09 13:08+0200\n"
+"PO-Revision-Date: 2003-09-09 19:41+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@arrakis.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0.2\n"
 
 #: data/sound-juicer.glade.h:1
 msgid "*"
@@ -180,20 +182,28 @@ msgstr "Sound Juicer CD Ripper"
 #: data/sound-juicer.schemas.in.h:2
 #, no-c-format
 msgid ""
-"%at -- album title %aa -- album artist %tt -- track title %ta -- track artist"
+"%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
+"album artist (lowercase) %tt -- track title %tT -- track title (lowercase) %"
+"ta -- track artist %tA -- track artist (lowercase)"
 msgstr ""
-"%at -- album title %aa -- album artist %tt -- track title %ta -- track artist"
+"%at -- album title %aT -- album title (minúsculas) %aa -- album artist %aA -- "
+"album artist (minúsculas) %tt -- track title %tT -- track title (minúsculas) %"
+"ta -- track artist %tA -- track artist (minúsculas)"
 
 #: data/sound-juicer.schemas.in.h:4
 #, no-c-format
 msgid ""
-"Do not specify an extension. %at -- album title %aa -- album artist %tn -- "
-"track number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track "
-"title %ta -- track artist"
+"Do not specify an extension. %at -- album title %aT -- album title "
+"(lowercase) %aa -- album artist %aA -- album artist (lowercase) %tn -- track "
+"number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
+"tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
+"(lowercase)"
 msgstr ""
-"No especifique una extensión. %at -- album title %aa -- album artist %tn -- "
-"track number (i.e 8) %tN -- track number, comenzando por cero (i.e 08) %tt "
-"-- track title %ta -- track artist"
+"No especifique una extensión. %at -- album title %aT -- album title "
+"(minúsculas) %aa -- album artist %aA -- album artist (minúsculas) %tn -- track "
+"number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
+"tT -- track title (minúsculas) %ta -- track artist %tA -- track artist "
+"(minúsculas)"
 
 #: data/sound-juicer.schemas.in.h:5
 msgid ""
@@ -205,16 +215,15 @@ msgstr ""
 
 #: data/sound-juicer.schemas.in.h:6
 msgid "If to strip special characters from filenames"
-msgstr ""
-"Indica si deben quitase los caracteres especiales de lo nombres de archivo"
+msgstr "Indica si deben quitase los caracteres especiales de lo nombres de archivo"
 
 #: data/sound-juicer.schemas.in.h:7
 msgid ""
 "Paranoia mode, 3 settings: 0 (no paranoia), 4 (cdda2wav-style overlap "
 "checking) and 255 (full paranoia)"
 msgstr ""
-"Modo Paranoia, 3 opciones: 0 (no paranoia), 4 (cdda2wav-style overlap "
-"chequeando) y 255 (full paranoia)"
+"Modo paranoia, 3 opciones: 0 (no paranoia), 4 (cdda2wav-style overlap "
+"checking) and 255 (full paranoia)"
 
 #: data/sound-juicer.schemas.in.h:8
 msgid "The directory structure for the files"
@@ -245,54 +254,6 @@ msgstr "CDROM sin nombre"
 msgid "Select the drive"
 msgstr "Seleccione la unidad"
 
-#: src/sj-metadata-musicbrainz.c:82
-msgid "Cannot create MusicBrainz client"
-msgstr "No se puede crear el cliente MusicBrainz"
-
-#: src/sj-metadata-musicbrainz.c:174 src/sj-metadata-musicbrainz.c:282
-#, c-format
-msgid "Cannot read CD: %s"
-msgstr "No se puede leer CD: %s"
-
-#: src/sj-metadata-musicbrainz.c:181
-msgid "Unknown Artist"
-msgstr "Artista desconocido"
-
-#: src/sj-metadata-musicbrainz.c:182
-msgid "Unknown Title"
-msgstr "Titulo desconocido"
-
-#: src/sj-metadata-musicbrainz.c:187
-#, c-format
-msgid "Track %d"
-msgstr "Pista %d"
-
-#: src/sj-metadata-musicbrainz.c:207
-msgid ""
-"MusicBrainz metadata object is not valid. This is bad, check your console "
-"for errors."
-msgstr " El objeto de matadatos MusicBrainz no es valido. Esto es malo, busque errores en su consola."
-
-#: src/sj-metadata-musicbrainz.c:276
-#, c-format
-msgid "Device '%s' does not contain a media"
-msgstr "El dispositivo «%s» no contiene un soporte"
-
-#: src/sj-metadata-musicbrainz.c:279
-#, c-format
-msgid ""
-"Device '%s' could not be opened. Check the access permissions on the device."
-msgstr " El dispositivo «%s» no se pudo abrir. Compruebe los permisos de acceso del dispositivo."
-
-#: src/sj-metadata-musicbrainz.c:290
-#, c-format
-msgid "This CD could not be queried: %s\n"
-msgstr "Este CD no pudo ser consultado: %s\n"
-
-#: src/sj-metadata-musicbrainz.c:296
-msgid "This CD was not found.\n"
-msgstr "No se encuentra este CD.\n"
-
 #: src/sj-extractor.c:135
 msgid "Encoding format"
 msgstr "Formato de codificación"
@@ -319,8 +280,7 @@ msgid "Could not get current track position"
 msgstr "No se pudo obtener la posición de la pista actual"
 
 #: src/sj-extractor.c:366
-msgid ""
-"Extractor object is not valid. This is bad, check your console for errors."
+msgid "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "El objeto extractor no es valido. Esto es malo, compruebe su consola de "
 "errores."
@@ -482,7 +442,9 @@ msgstr "No se pudo encontrar ningún codificador apropiado"
 
 #: src/sj-main.c:579
 msgid "The currently selected encoder is not available on your installation."
-msgstr "El codificador seleccionado actualmente no está disponible para su instalación."
+msgstr ""
+"El codificador seleccionado actualmente no está disponible para su "
+"instalación."
 
 #: src/sj-main.c:581
 msgid "Change the encoder"
@@ -518,6 +480,64 @@ msgstr "Pista"
 msgid "Duration"
 msgstr "Duración"
 
+#: src/sj-metadata-musicbrainz.c:82
+msgid "Cannot create MusicBrainz client"
+msgstr "No se puede crear el cliente MusicBrainz"
+
+#: src/sj-metadata-musicbrainz.c:174 src/sj-metadata-musicbrainz.c:282
+#, c-format
+msgid "Cannot read CD: %s"
+msgstr "No se puede leer CD: %s"
+
+#: src/sj-metadata-musicbrainz.c:181
+msgid "Unknown Artist"
+msgstr "Artista desconocido"
+
+#: src/sj-metadata-musicbrainz.c:182
+msgid "Unknown Title"
+msgstr "Titulo desconocido"
+
+#: src/sj-metadata-musicbrainz.c:187
+#, c-format
+msgid "Track %d"
+msgstr "Pista %d"
+
+#: src/sj-metadata-musicbrainz.c:207
+msgid ""
+"MusicBrainz metadata object is not valid. This is bad, check your console "
+"for errors."
+msgstr ""
+" El objeto de matadatos MusicBrainz no es valido. Esto es malo, busque "
+"errores en su consola."
+
+#: src/sj-metadata-musicbrainz.c:276
+#, c-format
+msgid "Device '%s' does not contain a media"
+msgstr "El dispositivo «%s» no contiene un soporte"
+
+#: src/sj-metadata-musicbrainz.c:279
+#, c-format
+msgid "Device '%s' could not be opened. Check the access permissions on the device."
+msgstr ""
+" El dispositivo «%s» no se pudo abrir. Compruebe los permisos de acceso del "
+"dispositivo."
+
+#: src/sj-metadata-musicbrainz.c:290
+#, c-format
+msgid "This CD could not be queried: %s\n"
+msgstr "Este CD no pudo ser consultado: %s\n"
+
+#: src/sj-metadata-musicbrainz.c:296
+msgid "This CD was not found.\n"
+msgstr "No se encuentra este CD.\n"
+
+#~ msgid ""
+#~ "%at -- album title %aa -- album artist %tt -- track title %ta -- track "
+#~ "artist"
+#~ msgstr ""
+#~ "%at -- album title %aa -- album artist %tt -- track title %ta -- track "
+#~ "artist"
+
 #~ msgid "Unknown format %s"
 #~ msgstr "Formato desconocido «%s»"
 
@@ -546,3 +566,4 @@ msgstr "Duración"
 #~ "\n"
 #~ "El mensaje de error es '%s'. Por favor consulte el <tt>README</tt> para "
 #~ "mas ayuda."
+
