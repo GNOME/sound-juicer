@@ -59,8 +59,20 @@ AM_GST_ELEMENT_CHECK(cdparanoia,,AC_MSG_WARN([The 'cdparanoia' element was not f
 AM_GST_ELEMENT_CHECK(vorbisenc,,AC_MSG_WARN([The 'vorbisenc' element was not found. This will cause encoding to Ogg Vorbis to fail.]))
 AM_GST_ELEMENT_CHECK(flacenc,,AC_MSG_WARN([The 'flacenc' element was not found. This will cause encoding to FLAC to fail.]))
 AM_GST_ELEMENT_CHECK(wavenc,,AC_MSG_WARN([The 'wavenc' element was not found. This will cause encoding to Wave to fail.]))
-AM_GST_ELEMENT_CHECK(mpegaudio,,AC_MSG_WARN([The 'mpegaudio' element was not found. This will cause encoding to MPEG to fail.]))
 AM_GST_ELEMENT_CHECK(filesink,,AC_MSG_WARN([The 'filesink' element was not found. This will cause Sound Juicer to fail at runtime.]))
+
+AM_GST_ELEMENT_CHECK(lameenc,have_lame=yes,have_lame=no)
+if test x"$have_lame" = xyes; then
+        AC_DEFINE(HAVE_LAME, 1, [The lame encoder is available])
+else
+        AM_GST_ELEMENT_CHECK(mpegaudio,have_mpegaudio=yes,have_mpegaudio=no)
+        if test x"$have_mpegaudio" = "xno"; then
+                AC_MSG_WARN([No MPEG encoder available. MPEG encoding will be disabled.])
+                dnl TODO: Should I disable MPEG encoding, or abort here and demand something
+        else
+                AC_DEFINE(HAVE_MPEGAUDIO, 1, [The mpegaudio encoder is available])
+        fi
+fi
 
 AC_ARG_ENABLE(ignore-missing-cd, [  --enable-ignore-missing-cd      Ignore missing CD-ROM],
         AC_DEFINE(IGNORE_MISSING_CD, 1, [Ignore missing CD-ROM drives]),)

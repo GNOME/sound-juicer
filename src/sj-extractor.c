@@ -224,7 +224,14 @@ static const char* get_encoder_name (SjExtractor *extractor)
   case VORBIS:
     return "vorbisenc";
   case MPEG:
+#if HAVE_LAME
+    return "lame";
+#elif HAVE_MPEGAUDIO
     return "mpegaudio";
+#else
+    g_warning (_("MPEG encoder not available"));
+    return NULL;
+#endif
   case FLAC:
     return "flacenc";
   case WAVE:
