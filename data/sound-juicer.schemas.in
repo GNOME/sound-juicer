@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<gconfschemafile>
+  <schemalist>
+
+    <schema>
+      <key>/schemas/apps/sound-juicer/device</key>
+      <applyto>/apps/sound-juicer/device</applyto>
+      <type>string</type>
+      <owner>sound-juicer</owner>
+      <locale name="C">
+        <!-- No default, NULL will query the machine -->
+        <short>The CD to extract from.</short>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/sound-juicer/base_path</key>
+      <applyto>/apps/sound-juicer/base_path</applyto>
+      <type>string</type>
+      <owner>sound-juicer</owner>
+      <locale name="C">
+        <!-- No default, NULL will use $HOME -->
+        <short>The directory to save the extracted music to.</short>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/sound-juicer/format</key>
+      <applyto>/apps/sound-juicer/format</applyto>
+      <type>string</type>
+      <owner>sound-juicer</owner>
+      <locale name="C">
+        <short>The filename pattern to write to.</short>
+        <long>
+          TODO: describe valid symbols
+        </long>
+      </locale>
+    </schema>
+
+  </schemalist>
+</gconfschemafile>
