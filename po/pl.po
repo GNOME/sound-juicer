@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-03 08:38+0200\n"
+"POT-Creation-Date: 2003-09-11 11:06+0200\n"
 "PO-Revision-Date: 2003-08-19 22:30+0100\n"
 "Last-Translator: Gnome PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -110,7 +110,7 @@ msgstr "Postęp"
 msgid "Raw audio"
 msgstr "Surowy dźwięk"
 
-#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:755
+#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:762
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -181,21 +181,29 @@ msgstr "Zgrywarka płyt CD Sound Juicer"
 #: data/sound-juicer.schemas.in.h:2
 #, no-c-format
 msgid ""
-"%at -- album title %aa -- album artist %tt -- track title %ta -- track artist"
+"%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
+"album artist (lowercase) %tt -- track title %tT -- track title (lowercase) %"
+"ta -- track artist %tA -- track artist (lowercase)"
 msgstr ""
-"%at -- tytuł albumu %aa -- artysta na albumie %tt -- tytuł ścieżki %ta -- "
-"artysta na ścieżce"
+"%at -- tytuł albumu %aT -- tytuł albumu (małymi literami) %aa -- artysta na "
+"albumie %aA -- artysta na albumie (małymi literami) %tt -- tytuł ścieżki  %"
+"tT -- tytuł ścieżki (małymi literami) %ta -- artysta na ścieżce %tA -- "
+"artysta na ścieżce (małymi literami)"
 
 #: data/sound-juicer.schemas.in.h:4
 #, no-c-format
 msgid ""
-"Do not specify an extension. %at -- album title %aa -- album artist %tn -- "
-"track number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track "
-"title %ta -- track artist"
+"Do not specify an extension. %at -- album title %aT -- album title "
+"(lowercase) %aa -- album artist %aA -- album artist (lowercase) %tn -- track "
+"number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
+"tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
+"(lowercase)"
 msgstr ""
-"Bez określania rozszerzenia. %at -- tytuł albumu %aa -- artysta na albumie %"
-"tn -- numer ścieżki (np. 8) %tN -- numer ścieżki, uzupełniany zerem (np. 08) "
-"%tt -- tytuł ścieżki %ta -- artysta na ścieżce"
+"Bez określania rozszerzenia. %at -- tytuł albumu %aT -- tytuł albumu (małymi "
+"literami) %aa -- artysta na albumie %aA -- artysta na albumie (małymi "
+"literami)%tn -- numer ścieżki (np. 8) %tN -- numer ścieżki, uzupełniany "
+"zerem (np. 08) %tt -- tytuł ścieżki %ta -- artysta na ścieżce %tA -- artysta "
+"na ścieżce (małymi literami)"
 
 #: data/sound-juicer.schemas.in.h:5
 msgid ""
@@ -246,58 +254,6 @@ msgstr "Nienazwany CDROM"
 msgid "Select the drive"
 msgstr "Wybierz napęd"
 
-#: src/sj-metadata-musicbrainz.c:82
-msgid "Cannot create MusicBrainz client"
-msgstr "Nie można utworzyć klienta MusicBrainz"
-
-#: src/sj-metadata-musicbrainz.c:174 src/sj-metadata-musicbrainz.c:282
-#, c-format
-msgid "Cannot read CD: %s"
-msgstr "Nie można odczytać CD: %s"
-
-#: src/sj-metadata-musicbrainz.c:181
-msgid "Unknown Artist"
-msgstr "Nieznany artysta"
-
-#: src/sj-metadata-musicbrainz.c:182
-msgid "Unknown Title"
-msgstr "Nieznany tytuł"
-
-#: src/sj-metadata-musicbrainz.c:187
-#, c-format
-msgid "Track %d"
-msgstr "Ścieżka %d"
-
-#: src/sj-metadata-musicbrainz.c:207
-msgid ""
-"MusicBrainz metadata object is not valid. This is bad, check your console "
-"for errors."
-msgstr ""
-"Obiekt metadanych MusicBrainz nie jest poprawny. To źle, sprawdź swoją "
-"konsolę, czy są tam wypisane błędy."
-
-#: src/sj-metadata-musicbrainz.c:276
-#, c-format
-msgid "Device '%s' does not contain a media"
-msgstr "Urządzenie \"%s\" nie zawiera nośnika"
-
-#: src/sj-metadata-musicbrainz.c:279
-#, c-format
-msgid ""
-"Device '%s' could not be opened. Check the access permissions on the device."
-msgstr ""
-"Nie można otworzyć urządzenia \"%s\". Sprawdź uprawnienia do dostępu do tego "
-"urządzenia."
-
-#: src/sj-metadata-musicbrainz.c:290
-#, c-format
-msgid "This CD could not be queried: %s\n"
-msgstr "Ta płyta CD nie może być przeglądana: %s\n"
-
-#: src/sj-metadata-musicbrainz.c:296
-msgid "This CD was not found.\n"
-msgstr "Nie znaleziono tej płyty CD.\n"
-
 #: src/sj-extractor.c:135
 msgid "Encoding format"
 msgstr "Format kodowania"
@@ -342,17 +298,17 @@ msgstr "Nie można przesunąć wskaźnika na ścieżkę"
 msgid "Could not get track start position"
 msgstr "Nie można pobrać pozycji początkowej ścieżki"
 
-#: src/sj-util.c:64
+#: src/sj-util.c:65
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Nie można utworzyć katalogu %s: %s"
 
-#: src/sj-util.c:101 src/sj-util.c:116
+#: src/sj-util.c:111 src/sj-util.c:126
 msgid "Could not eject the CD"
 msgstr "Nie można wysunąć płyty CD"
 
-#: src/sj-util.c:102 src/sj-util.c:117 src/sj-main.c:76 src/sj-main.c:428
-#: src/sj-main.c:500
+#: src/sj-util.c:112 src/sj-util.c:127 src/sj-main.c:76 src/sj-main.c:435
+#: src/sj-main.c:507
 msgid "Reason"
 msgstr "Powód"
 
@@ -454,54 +410,54 @@ msgstr ""
 msgid "(unknown)"
 msgstr "(nieznany)"
 
-#: src/sj-main.c:279 src/sj-main.c:834
+#: src/sj-main.c:279 src/sj-main.c:841
 msgid "Title"
 msgstr "Tytuł"
 
-#: src/sj-main.c:285 src/sj-main.c:842
+#: src/sj-main.c:285 src/sj-main.c:849
 msgid "Artist"
 msgstr "Artysta"
 
-#: src/sj-main.c:426 src/sj-main.c:498
+#: src/sj-main.c:433 src/sj-main.c:505
 msgid "Could not read the CD"
 msgstr "Nie można odczytać płyty CD"
 
-#: src/sj-main.c:427
+#: src/sj-main.c:434
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer nie może odczytać ścieżki wypisanej na tej płycie CD."
 
-#: src/sj-main.c:479
+#: src/sj-main.c:486
 msgid "No CD-ROM drives found"
 msgstr "Nie znaleziono napędu CD-ROM"
 
-#: src/sj-main.c:480
+#: src/sj-main.c:487
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr ""
 "Program Sound Juicer nie może znaleźć żadnego napędu CD-ROM do odczytu."
 
-#: src/sj-main.c:492
+#: src/sj-main.c:499
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Program Sound Juicer nie może uzyskać dostępu do napędu CD-ROM \"%s\""
 
-#: src/sj-main.c:557
+#: src/sj-main.c:564
 msgid "Cannot find any suitable encoders"
 msgstr "Nie można znaleźć żadnego odpowiedniego kodera"
 
-#: src/sj-main.c:572
+#: src/sj-main.c:579
 msgid "The currently selected encoder is not available on your installation."
 msgstr "Aktualnie wybrany koder jest niedostępny dla twojej instalacji."
 
-#: src/sj-main.c:574
+#: src/sj-main.c:581
 msgid "Change the encoder"
 msgstr "Zmień koder"
 
-#: src/sj-main.c:684
+#: src/sj-main.c:691
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Wyedytowano nieznaną kolumnę %d"
 
-#: src/sj-main.c:731
+#: src/sj-main.c:738
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -510,21 +466,80 @@ msgstr ""
 "Nie można wyświetlić pomocy dla programu Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:773
+#: src/sj-main.c:780
 msgid "Could not create GConf client.\n"
 msgstr "Nie można utworzyć klienta GConf.\n"
 
-#: src/sj-main.c:815
+#: src/sj-main.c:822
 msgid "Extract?"
 msgstr "Wydobyć?"
 
-#: src/sj-main.c:823
+#: src/sj-main.c:830
 msgid "Track"
 msgstr "Ścieżka"
 
-#: src/sj-main.c:852
+#: src/sj-main.c:859
 msgid "Duration"
 msgstr "Czas trwania"
+
+#: src/sj-metadata-musicbrainz.c:82
+msgid "Cannot create MusicBrainz client"
+msgstr "Nie można utworzyć klienta MusicBrainz"
+
+#: src/sj-metadata-musicbrainz.c:174 src/sj-metadata-musicbrainz.c:282
+#, c-format
+msgid "Cannot read CD: %s"
+msgstr "Nie można odczytać CD: %s"
+
+#: src/sj-metadata-musicbrainz.c:181
+msgid "Unknown Artist"
+msgstr "Nieznany artysta"
+
+#: src/sj-metadata-musicbrainz.c:182
+msgid "Unknown Title"
+msgstr "Nieznany tytuł"
+
+#: src/sj-metadata-musicbrainz.c:187
+#, c-format
+msgid "Track %d"
+msgstr "Ścieżka %d"
+
+#: src/sj-metadata-musicbrainz.c:207
+msgid ""
+"MusicBrainz metadata object is not valid. This is bad, check your console "
+"for errors."
+msgstr ""
+"Obiekt metadanych MusicBrainz nie jest poprawny. To źle, sprawdź swoją "
+"konsolę, czy są tam wypisane błędy."
+
+#: src/sj-metadata-musicbrainz.c:276
+#, c-format
+msgid "Device '%s' does not contain a media"
+msgstr "Urządzenie \"%s\" nie zawiera nośnika"
+
+#: src/sj-metadata-musicbrainz.c:279
+#, c-format
+msgid ""
+"Device '%s' could not be opened. Check the access permissions on the device."
+msgstr ""
+"Nie można otworzyć urządzenia \"%s\". Sprawdź uprawnienia do dostępu do tego "
+"urządzenia."
+
+#: src/sj-metadata-musicbrainz.c:290
+#, c-format
+msgid "This CD could not be queried: %s\n"
+msgstr "Ta płyta CD nie może być przeglądana: %s\n"
+
+#: src/sj-metadata-musicbrainz.c:296
+msgid "This CD was not found.\n"
+msgstr "Nie znaleziono tej płyty CD.\n"
+
+#~ msgid ""
+#~ "%at -- album title %aa -- album artist %tt -- track title %ta -- track "
+#~ "artist"
+#~ msgstr ""
+#~ "%at -- tytuł albumu %aa -- artysta na albumie %tt -- tytuł ścieżki %ta -- "
+#~ "artysta na ścieżce"
 
 #~ msgid "Unknown format %s"
 #~ msgstr "Nieznany format %s"
