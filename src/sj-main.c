@@ -1008,6 +1008,7 @@ int main (int argc, char **argv)
                                                        "text", COLUMN_TITLE,
                                                        NULL);
     gtk_tree_view_column_set_resizable (column, TRUE);
+    gtk_tree_view_column_set_expand (column, TRUE);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
     text_renderer = gtk_cell_renderer_text_new ();
@@ -1016,6 +1017,7 @@ int main (int argc, char **argv)
                                                        "text", COLUMN_ARTIST,
                                                        NULL);
     gtk_tree_view_column_set_resizable (column, TRUE);
+    gtk_tree_view_column_set_expand (column, TRUE);
     g_signal_connect (text_renderer, "edited", G_CALLBACK (on_cell_edited), GUINT_TO_POINTER (COLUMN_ARTIST));
     g_object_set (G_OBJECT (text_renderer), "editable", TRUE, NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
