@@ -82,6 +82,7 @@ struct SjExtractorPrivate {
   int track_start;
   int seconds;
   GError *construct_error;
+  guint idle_id;
 };
 
 static void build_pipeline (SjExtractor *extractor);
@@ -502,7 +503,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   priv->track_start = nanos / GST_SECOND;
 
   gst_element_set_state (priv->pipeline, GST_STATE_PLAYING);
-  g_idle_add ((GSourceFunc)gst_bin_iterate, priv->pipeline);
+  priv->idle_id = g_idle_add ((GSourceFunc)gst_bin_iterate, priv->pipeline);
   g_timeout_add (200, (GSourceFunc)tick_timeout_cb, extractor);
 }
 
@@ -515,6 +516,7 @@ void sj_extractor_cancel_extract (SjExtractor *extractor)
     return;
   }
   gst_element_set_state (extractor->priv->pipeline, GST_STATE_PAUSED);
+  g_source_remove (extractor->priv->idle_id);
 
   extractor->priv->rebuild_pipeline = TRUE;
 
