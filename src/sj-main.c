@@ -68,13 +68,7 @@ void on_quit_activate (GtkMenuItem *item, gpointer user_data)
  */
 void on_eject_activate (GtkMenuItem *item, gpointer user_data)
 {
-  char *command;
-  /*
-   * Hey, its a hack. But it is very portable :)
-   */
-  command = g_strdup_printf ("eject %s", device);
-  system (command);
-  g_free (command);
+  eject_cdrom (device, GTK_WINDOW (main_window));
 }
 
 gboolean on_destory_event (GtkWidget *widget, GdkEvent *event, gpointer user_data)

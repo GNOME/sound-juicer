@@ -1,5 +1,15 @@
 2003-07-02  Ross Burton  <ross@burtonini.com>
 
+	* src/sj-util.h:
+	* src/sj-util.c:
+	Added eject_cdrom(). Non-linux types please submit patches to make
+	this work for you!
+
+	* src/sj-main.c:
+	Use eject_cdrom() instead of running system("eject").
+
+2003-07-02  Ross Burton  <ross@burtonini.com>
+
 	* data/sound-juicer.glade:
 	Remove the use of frames as some themes insist on drawing the
 	lines. This patch mostly from Bastien Nocera, I just tweaked the
