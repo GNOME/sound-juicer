@@ -23,6 +23,8 @@ GtkWidget *extract_menuitem, *select_all_menuitem;
 GtkWidget *progress_label, *track_progress, *album_progress;
 GtkListStore *track_store;
 
+EncoderFormat encoding_format = VORBIS;
+
 const char *base_path;
 const char *device;
 int track_duration; /* duration of current track for progress dialog */
@@ -34,6 +36,7 @@ int total_ripping; /* the number of tracks to rip, not decremented */
 #define GCONF_ROOT "/apps/sound-juicer"
 #define GCONF_DEVICE GCONF_ROOT "/device"
 #define GCONF_BASEPATH GCONF_ROOT "/base_path"
+#define GCONF_FORMAT GCONF_ROOT "/format"
 
 enum {
   COLUMN_EXTRACT,
@@ -50,7 +53,7 @@ enum {
  */
 void on_about_activate (GtkMenuItem *item, gpointer user_data)
 {
-  GtkWidget *dialog = NULL;
+  GtkWidget *dialog;
   const char* authors[] = {"Ross Burton <ross@burtonini.com>", NULL};
   dialog = gnome_about_new (_("Sound Juicer"),
                             VERSION,
@@ -83,6 +86,10 @@ gboolean on_destory_event (GtkWidget *widget, GdkEvent *event, gpointer user_dat
                                      _("You are currently ripping a CD. Do you want to quit now or contine ripping?"));
     gtk_dialog_add_button (GTK_DIALOG (dialog), "gtk-quit", GTK_RESPONSE_ACCEPT);
     gtk_dialog_add_button (GTK_DIALOG (dialog), _("Continue"), GTK_RESPONSE_REJECT);
+    g_signal_connect_swapped (GTK_OBJECT (dialog), 
+                              "response", 
+                              G_CALLBACK (gtk_widget_destroy),
+                              GTK_OBJECT (dialog));
     gtk_widget_show_all (dialog);
     response = gtk_dialog_run (GTK_DIALOG (dialog));
     return response != GTK_RESPONSE_ACCEPT;
@@ -242,7 +249,10 @@ AlbumDetails* multiple_album_dialog(GList *albums)
                         2, album,
                         -1);
   }
-  /* TODO: focus is a little broken here */
+  /*
+   * TODO: focus is a little broken here. The first row should be
+   * selected, so just hitting return works.
+   */
   gtk_widget_grab_focus (albums_listview);
   gtk_widget_show_all (dialog);
   response = gtk_dialog_run (GTK_DIALOG (dialog));
@@ -347,6 +357,17 @@ static gboolean rip_track_foreach_cb (GtkTreeModel *model,
   return FALSE;
 }
 
+static void mkdirs (const char* directory, mode_t mode, GError **error)
+{
+  if (!mkdir (directory, mode)) {
+    /* TODO: recurse to build all directories required */
+    g_set_error (error,
+                 SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
+                 _("Could not create directory %s: %s"), directory, strerror (errno));
+    return;
+  }
+}
+
 static void pop_and_rip (void)
 {
   TrackDetails *track;
@@ -373,10 +394,11 @@ static void pop_and_rip (void)
   directory = g_path_get_dirname (file_path);
   if (!g_file_test (directory, G_FILE_TEST_IS_DIR)) {
     int res;
-    res = mkdir (directory, 0750);
-    if (res == -1) {
-      /* TODO: handle errno, dialog etc */
-      g_warning ("mkdir() failed");
+    GError *error = NULL;
+    res = mkdirs (directory, 0750, &error);
+    if (error) {
+      g_warning ("mkdir() failed: %s"), error->message;
+      g_error_free (error);
       return;
     }
   }
@@ -439,6 +461,17 @@ void prefs_browse_clicked (GtkButton *button, gpointer user_data)
 }
 
 /**
+ * Cancel in the progress dialog clicked
+ */
+void on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
+{
+  sj_gstreamer_cancel_extract();
+  gtk_widget_hide (progress_dialog);
+}
+
+static GtkWidget *format_vorbis, *format_mpeg, *format_flac, *format_wave;
+
+/**
  * Clicked on Preferences in the UI
  */
 void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
@@ -449,12 +482,67 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     g_assert (dialog != NULL);
     gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (main_window));
     /* Maybe connect a GConf notify to the base_path key here to update the label... */
+    format_vorbis = glade_xml_get_widget (glade, "format_vorbis");
+    format_mpeg = glade_xml_get_widget (glade, "format_mpeg");
+    format_flac = glade_xml_get_widget (glade, "format_flac");
+    format_wave = glade_xml_get_widget (glade, "format_wave");
   }
   gtk_widget_show_all (dialog);
   gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_hide (dialog);
 }
 
+/**
+ * The /apps/sound-juicer/format key has changed. Argh where to put
+ * this!
+ */
+void format_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+{
+  const char* value;
+  g_assert (strcmp (entry->key, GCONF_FORMAT) == 0);
+  if (!entry->value) return;
+  value = gconf_value_get_string (entry->value);
+  if (strcmp ("vorbis", value) == 0) {
+    encoding_format = VORBIS;
+  } else if (strcmp ("mpeg", value) == 0) {
+    encoding_format = MPEG;
+  } else if (strcmp ("flac", value) == 0) {
+    encoding_format = FLAC;
+  } else if (strcmp ("wave", value) == 0) {
+    encoding_format = WAVE;
+  } else {
+    g_warning (_("Unknown format '%s'"), value);
+  }
+}
+
+/**
+ * One of the format toggle buttons in the prefs dialog has been
+ * toggled.
+ */
+void on_format_toggled (GtkToggleButton *togglebutton,
+                               gpointer user_data)
+{
+  const char* format;
+  if (!gtk_toggle_button_get_active (togglebutton)) {
+    return;
+  }
+  if (GTK_WIDGET (togglebutton) == format_vorbis) {
+    format = "vorbis";
+  } else if (GTK_WIDGET(togglebutton) == format_mpeg) {
+    format = "mpeg";
+  } else if (GTK_WIDGET(togglebutton) == format_flac) {
+    format = "flac";
+  } else if (GTK_WIDGET(togglebutton) == format_wave) {
+    format = "wave";
+  } else {
+    return;
+  }
+  gconf_client_set_string (gconf_client, GCONF_FORMAT, format, NULL); /* TODO: GError */
+}
+
+/**
+ * Called when the user clicked on the Extract? column check boxes
+ */
 static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
                                 gchar *path,
                                 gpointer user_data)
@@ -466,6 +554,9 @@ static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
   gtk_list_store_set (track_store, &iter, COLUMN_EXTRACT, !extract, -1);
 }
 
+/**
+ * Called by sj-gstreamer to report progress
+ */
 static void on_progress_cb (int seconds)
 {
   if (track_duration != 0) {
@@ -497,6 +588,7 @@ int main (int argc, char **argv)
   gconf_client_add_dir (gconf_client, GCONF_ROOT, GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
   gconf_client_notify_add (gconf_client, GCONF_DEVICE, device_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_BASEPATH, basepath_changed_cb, NULL, NULL, NULL);
+  gconf_client_notify_add (gconf_client, GCONF_FORMAT, format_changed_cb, NULL, NULL, NULL);
 
   glade = glade_xml_new ("../data/sound-juicer.glade", NULL, NULL);
   g_assert (glade != NULL);
@@ -558,6 +650,7 @@ int main (int argc, char **argv)
   /* YUCK. As bad as Baldrick's trousers */
   basepath_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEPATH, NULL, TRUE, NULL), NULL);
   device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), NULL);
+  format_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FORMAT, NULL, TRUE, NULL), NULL);
     
   gtk_widget_show_all(main_window);
   gtk_main();
