@@ -312,7 +312,7 @@ lookup_cd (SjMetadata *metadata)
   num_albums = mb_GetResultInt(priv->mb, MBE_GetNumAlbums);
   if (num_albums < 1) {
     g_print(_("This CD was not found.\n"));
-    priv->albums = get_offline_track_listing (priv->mb, &(priv->error));
+    priv->albums = get_offline_track_listing (metadata, &(priv->error));
     g_idle_add ((GSourceFunc)fire_signal_idle, metadata);
     return albums;
   }
