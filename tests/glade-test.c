@@ -360,14 +360,42 @@ static gboolean rip_track_foreach_cb (GtkTreeModel *model,
   return FALSE;
 }
 
-static void mkdirs (const char *directory, mode_t mode, GError **error)
+/**
+ * Create a directory and all of its parents.
+ */
+static void mkdirs (const char* directory, mode_t mode, GError **error)
 {
-  if (!mkdir (directory, mode)) {
-    /* TODO: recurse to build all directories required */
-    g_set_error (error,
-                 SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-                 _("Could not create directory %s: %s"), directory, strerror (errno));
-    return;
+  /* TODO: this is vile */
+  gboolean last = FALSE;
+  char* dir = strdup (directory);
+  char* p = strchr (dir+1, '/');
+
+  if (p == NULL) {
+    if (mkdir (dir, mode) == -1) {
+      if (errno == EEXIST) return;
+      g_set_error (error,
+                   SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
+                   _("Could not create directory %s: %s"), directory, strerror (errno));
+      return;
+    }
+  }
+  
+  while (p && !last) {
+    *p = '\0';
+    if (mkdir (dir, mode) == -1) {
+      if (errno == EEXIST) goto next;
+      g_set_error (error,
+                   SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
+                   _("Could not create directory %s: %s"), directory, strerror (errno));
+      return;
+    }
+  next:
+    *p = '/';
+    p = strchr (p+1, '/');
+    if (p == NULL) {
+      p = dir;
+      last = TRUE;
+    }
   }
 }
 
