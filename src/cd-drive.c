@@ -723,6 +723,10 @@ linux_scan (gboolean recorder_only)
 
 	cdroms_list = NULL;
 	for (i = n_cdroms - 1, j = 0; i >= 0; i--, j++) {
+		if (have_devfs) {
+			cdroms[i].device = g_strdup_printf("%s cdroms/cdrom%d",
+					cdroms[i].device,  j);
+		}
 		cdroms[i].display_name = cdrom_get_name (&cdroms[i],
 				scsi_units, n_scsi_units);
 		add_whitelist (&cdroms[i], scsi_units, n_scsi_units);
@@ -733,18 +737,10 @@ linux_scan (gboolean recorder_only)
 		    cdroms[i].can_write_dvdram) &&
 			(cdroms[i].device[0] == 's' ||
 			(maj > 2) || (maj == 2 && min >= 5))) {
-			if (have_devfs) {
-				cdroms[i].device = g_strdup_printf("%s cdroms/cdrom%d",
-						cdroms[i].device,  j);
-			}
 			cdroms_list = add_linux_cd_recorder (cdroms_list,
 					recorder_only, &cdroms[i],
 					scsi_units, n_scsi_units);
 		} else if (!recorder_only) {
-			if (have_devfs) {
-				cdroms[i].device = g_strdup_printf("%s cdroms/cdrom%d",
-						cdroms[i].device,  j);
-			}
 			cdroms_list = add_linux_cd_drive (cdroms_list,
 					&cdroms[i], scsi_units, n_scsi_units);
 		}
