@@ -386,7 +386,7 @@ static void pop_and_rip (void)
   track = pending->data;
   pending = g_list_next (pending);
 
-  left = total_ripping - g_list_length (pending) + 1; /* +1 as we've popped already */
+  left = total_ripping - (g_list_length (pending) + 1); /* +1 as we've popped already */
   gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress), (float)left/(float)total_ripping);
 
   track_duration = track->duration;
