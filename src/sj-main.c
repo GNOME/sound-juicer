@@ -643,13 +643,13 @@ void format_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
 				       GTK_BUTTONS_NONE,
 				       _("The currently selected encoder is not available on your installation."));
       gtk_dialog_add_button (GTK_DIALOG (dialog), "gtk-quit", GTK_RESPONSE_REJECT);
-      gtk_dialog_add_button (GTK_DIALOG (dialog), _("Change the encoder"), GTK_RESPONSE_ACCEPT);
+      gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Change the encoder"), GTK_RESPONSE_ACCEPT);
       response = gtk_dialog_run (GTK_DIALOG (dialog));
-      if (response == GTK_RESPONSE_REJECT) {
-        gtk_main_quit ();
-      } else {
+      if (response == GTK_RESPONSE_ACCEPT) {
         gtk_widget_destroy (dialog);
         on_edit_preferences_cb (NULL, NULL);
+      } else {
+        gtk_main_quit ();
       }
     }
   }
