@@ -1,3 +1,21 @@
+Sound Juicer "Mr. Nitpicky? Mr. Patch Machine more like" 0.5.3
+==============================================================
+
+* Encode the total number of tracks on the album in the metadata (Bastien Nocera)
+* Rewrite MusicBrainz lookup so that metadata is returned in a signal.
+* Actually set the device to use when extracting (BN, but I don't think he knew it)
+* Don't warn when there is no CD in the drive on startup (BN)
+* Poll for a CD, instead of relying on the Reread button (BN)
+* Exit when no CD drives are detected
+* Don't crash when editing track names when lookup failed (Mike Hearn)
+* Add filename tags for lowercased forms of the title/artist/etc. (BN)
+* Warn when GStreamer plugins are not available (BN)
+* Never use mpegaudio plugin, as it is MPEG2 and sucks (BN)
+* Only display track listing for a audio CD (BN)
+* .desktop file specified Bugzilla information
+* Eject works on FreeBSD
+
+
 Sound Juicer "Who needs FLAC?" 0.5.2
 ====================================
 
