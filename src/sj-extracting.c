@@ -62,6 +62,9 @@ static GtkWidget *progress_label;
 /** The widgets in the main UI */
 static GtkWidget *extract_button, *reread_button, *title_entry, *artist_entry, *genre_combo, *track_listview;
 
+/** The menuitem in the main menu */
+static GtkWidget *extract_menuitem, *reread_menuitem, *select_all_menuitem, *deselect_all_menuitem;
+
 /** The current TrackDetails being extracted. */
 static TrackDetails *track;
 
@@ -156,6 +159,11 @@ cleanup (void)
   gtk_widget_set_sensitive (title_entry, TRUE);
   gtk_widget_set_sensitive (artist_entry, TRUE);
   gtk_widget_set_sensitive (genre_combo, TRUE);
+  /* Enabling the Menuitem */ 
+  gtk_widget_set_sensitive (extract_menuitem, TRUE);
+  gtk_widget_set_sensitive (reread_menuitem, TRUE);
+  gtk_widget_set_sensitive (select_all_menuitem, TRUE);
+  gtk_widget_set_sensitive (deselect_all_menuitem, TRUE);
 }
 
 /**
@@ -568,7 +576,13 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
     artist_entry = glade_xml_get_widget (glade, "artist_entry");
     genre_combo = glade_xml_get_widget (glade, "genre_combo");
     track_listview = glade_xml_get_widget (glade, "track_listview");
-    /* TODO : this callback should be in the glade file */
+    
+	extract_menuitem = glade_xml_get_widget (glade, "extract_menuitem");
+	reread_menuitem = glade_xml_get_widget (glade, "re-read");
+	select_all_menuitem = glade_xml_get_widget (glade, "select_all");
+	deselect_all_menuitem = glade_xml_get_widget (glade, "deselect_all");
+	
+	/* TODO : this callback should be in the glade file */
     g_signal_connect (progress_dialog, "delete-event", G_CALLBACK (on_progress_cancel_clicked), NULL);
 
     initialised = TRUE;
@@ -588,6 +602,12 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   gtk_widget_set_sensitive (genre_combo, FALSE);
   gtk_widget_set_sensitive (track_listview, FALSE);
 
+  /* Disable the menuitems in the main menu*/	
+  gtk_widget_set_sensitive (extract_menuitem, FALSE);
+  gtk_widget_set_sensitive (reread_menuitem, FALSE);
+  gtk_widget_set_sensitive (select_all_menuitem, FALSE);
+  gtk_widget_set_sensitive (deselect_all_menuitem, FALSE);
+  
   /* Start the extracting */
   extracting = TRUE;
   pop_and_extract ();
