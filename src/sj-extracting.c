@@ -24,6 +24,7 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/time.h>
 #include <unistd.h> 
 #include <errno.h>
 #include <stdlib.h>
@@ -38,6 +39,11 @@
 
 #include "sj-extracting.h"
 #include "sj-util.h"
+
+typedef struct {
+  int seconds;
+  struct timeval time;
+} Progress;
 
 /** If this module has been initialised yet. */
 static gboolean initialised = FALSE;
@@ -84,6 +90,11 @@ static int current_duration;
  * The total duration of the tracks we are ripping.
  */
 static int total_duration;
+
+/**
+ * Snapshots of the progress used to calculate the speed and the ETA
+ */
+static Progress before;
 
 /**
  * Build the absolute filename for the specified track.
@@ -310,6 +321,27 @@ extract_track_foreach_cb (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *i
 }
 
 /**
+ * Update the ETA and Speed labels
+ */
+static void
+update_speed_progress (SjExtractor *extractor, float speed, int eta)
+{
+  GtkWidget *eta_label;
+  char *eta_str;
+
+  eta_label = glade_xml_get_widget (glade, "eta_label");
+
+  if (eta >= 0) {
+    eta_str = g_strdup_printf (_("%d:%02d (at %0.1fx)"), eta / 60, eta % 60, speed);
+  } else {
+    eta_str = g_strdup (_("Unknown (at 0.0x)"));
+  }
+
+  gtk_label_set_label (GTK_LABEL (eta_label), eta_str);
+  g_free (eta_str);
+}
+
+/**
  * Callback from SjExtractor to report progress.
  */
 static void
@@ -329,6 +361,26 @@ on_progress_cb (SjExtractor *extractor, const int seconds, gpointer data)
     float percent;
     percent = CLAMP ((float)(current_duration + seconds) / (float)total_duration, 0, 1);
     gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress), percent);
+
+    if (before.seconds == -1) {
+      before.seconds = current_duration + seconds;
+      gettimeofday(&before.time, NULL);
+    } else {
+      struct timeval time;
+      int ripped, taken;
+      float speed;
+
+      gettimeofday(&time, NULL);
+      ripped = current_duration + seconds - before.seconds;
+      taken = time.tv_sec + (time.tv_usec / 1000000.0)
+        - (before.time.tv_sec + (before.time.tv_usec / 1000000.0));
+      speed = (float) ripped / (float) taken;
+      if (taken >= 4) {
+        update_speed_progress (extractor, speed, (int) ((total_duration - current_duration + seconds) / speed));
+        before.seconds = current_duration + seconds;
+        gettimeofday(&before.time, NULL);
+      }
+    }
   }
 }
 
@@ -478,6 +530,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   pending = NULL;
   total_extracting = 0;
   current_duration = total_duration = 0;
+  before.seconds = -1;
   gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), extract_track_foreach_cb, NULL);
   /* If the pending list is still empty, return */
   if (pending == NULL) {
@@ -514,6 +567,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   /* Reset the progress dialog */
   gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), 0);
   gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress), 0);
+  update_speed_progress (NULL, 0.0, -1);
   gtk_widget_show_all (progress_dialog);
 
   /* Disable the widgets in the main UI*/
