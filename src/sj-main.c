@@ -209,6 +209,7 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_entry_set_text (GTK_ENTRY (title_entry), "");
     gtk_entry_set_text (GTK_ENTRY (artist_entry), "");
     gtk_label_set_text (GTK_LABEL (duration_label), "");
+    gtk_combo_box_set_active (GTK_COMBO_BOX (genre_combo), -1);
     gtk_widget_set_sensitive (title_entry, FALSE);
     gtk_widget_set_sensitive (artist_entry, FALSE);
     gtk_widget_set_sensitive (genre_combo, FALSE);
@@ -221,6 +222,7 @@ static void update_ui_for_album (AlbumDetails *album)
 
     gtk_entry_set_text (GTK_ENTRY (title_entry), album->title);
     gtk_entry_set_text (GTK_ENTRY (artist_entry), album->artist);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (genre_combo), -1);
     gtk_widget_set_sensitive (title_entry, TRUE);
     gtk_widget_set_sensitive (artist_entry, TRUE);
     gtk_widget_set_sensitive (genre_combo, TRUE);
