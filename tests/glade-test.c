@@ -11,11 +11,13 @@
 #include <libgnomeui/gnome-file-entry.h>
 #include "bacon-cd-selection.h"
 #include "sj-musicbrainz.h"
-#include "sj-gstreamer.h"
+#include "sj-extractor.h"
 #include "sj-structures.h"
 #include "sj-error.h"
 
 GladeXML *glade;
+
+SjExtractor *extractor;
 
 GConfClient *gconf_client;
 
@@ -73,7 +75,7 @@ void on_about_activate (GtkMenuItem *item, gpointer user_data)
  */
 void on_quit_activate (GtkMenuItem *item, gpointer user_data)
 {
-  sj_gstreamer_shutdown ();
+  g_object_unref (extractor);
   gtk_main_quit ();
 }
 
@@ -334,7 +336,7 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
     /* TODO: sanity check device */
   }
   sj_musicbrainz_set_cdrom (device);
-  sj_gstreamer_set_cdrom (device);
+  sj_extractor_set_device (extractor, device);
 
   reread_cd();
 }
@@ -382,6 +384,7 @@ static void mkdirs (const char* directory, mode_t mode, GError **error)
   
   while (p && !last) {
     *p = '\0';
+    g_message(p);
     if (mkdir (dir, mode) == -1) {
       if (errno == EEXIST) goto next;
       g_set_error (error,
@@ -421,7 +424,6 @@ static void pop_and_rip (void)
 
   gtk_label_set_text (GTK_LABEL (progress_label), g_strdup_printf (_("Currently extracting '%s'"), track->title));
   file_path = g_strdup_printf("%s/%s/%s.ogg", base_path, track->album->title, track->title); /* TODO: CRAP */
-  /* TODO: create the folder, recurse */
   directory = g_path_get_dirname (file_path);
   if (!g_file_test (directory, G_FILE_TEST_IS_DIR)) {
     GError *error = NULL;
@@ -434,7 +436,7 @@ static void pop_and_rip (void)
   }
   g_free (directory);
   ripping = TRUE;
-  sj_gstreamer_extract_track (track, file_path, &error);
+  sj_extractor_extract_track (extractor, track, file_path, &error);
   if (error) {
     g_print ("Error extracting: %s\n", error->message);
     g_error_free (error);
@@ -495,7 +497,7 @@ void prefs_browse_clicked (GtkButton *button, gpointer user_data)
  */
 void on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
 {
-  sj_gstreamer_cancel_extract();
+  sj_extractor_cancel_extract(extractor);
   gtk_widget_hide (progress_dialog);
 }
 
@@ -587,7 +589,7 @@ static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
 /**
  * Called by sj-gstreamer to report progress
  */
-static void on_progress_cb (int seconds)
+static void on_progress_cb (SjExtractor *extractor, int seconds)
 {
   if (track_duration != 0) {
     gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), (float)seconds/(float)track_duration);
@@ -597,7 +599,7 @@ static void on_progress_cb (int seconds)
   return;
 }
 
-static void on_completion_cb (void)
+static void on_completion_cb (SjExtractor *extractor)
 {
   ripping = FALSE;
   /* TODO: uncheck the Extract? check box */
@@ -609,8 +611,10 @@ int main (int argc, char **argv)
 {
   gtk_init (&argc, &argv);
   sj_musicbrainz_init ();
-  sj_gstreamer_init (argc, argv, NULL);
-  sj_gstreamer_set_callbacks (on_progress_cb, on_completion_cb);
+
+  extractor = SJ_EXTRACTOR (sj_extractor_new());
+  g_signal_connect (extractor, "progress", G_CALLBACK(on_progress_cb), NULL);
+  g_signal_connect (extractor, "completion", G_CALLBACK(on_completion_cb), NULL);
 
   gconf_client = gconf_client_get_default();
   g_assert (gconf_client != NULL);

@@ -120,7 +120,7 @@ static void sj_extractor_class_init (SjExtractorClass *klass)
                   G_SIGNAL_RUN_LAST,
                   G_STRUCT_OFFSET (SjExtractorClass, completion),
                   NULL, NULL,
-                  g_cclosure_marshal_VOID__INT,
+                  g_cclosure_marshal_VOID__VOID,
                   G_TYPE_NONE, 0);
 
   /* TODO: should probably move this elsewhere */
@@ -244,7 +244,7 @@ static gboolean tick_timeout_cb(SjExtractor *extractor)
     extractor->priv->seconds = secs;
     g_signal_emit (G_OBJECT (extractor),
                    sje_table_signals[PROGRESS],
-                   0, secs);
+                   0, secs - extractor->priv->track_start);
   }
   return TRUE;
 }

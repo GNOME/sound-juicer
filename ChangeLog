@@ -1,6 +1,13 @@
 2003-04-03  Ross Burton  <ross@burtonini.com>
 
-	* src/sj-extractor.h:
+	* src/sj-extractor.h: Whoops, inherit from GObject not GObject*.
+	* src/sj-extractor.c: Signal fixes.
+
+	* tests/glade-test.c: Use SjExtractor.
+	* tests/Makefile.am: Update to use SjExtractor.
+
+2003-04-03  Ross Burton  <ross@burtonini.com>
+
 	* src/sj-extractor.c:
 	GObjectify the GStreamer code. Hopefully I'll remove
 	sj-gstreamer.[ch] later today.

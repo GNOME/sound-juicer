@@ -44,7 +44,7 @@ typedef enum {
 typedef struct SjExtractorPrivate SjExtractorPrivate;
 
 typedef struct {
-  GObject *object;
+  GObject object;
   SjExtractorPrivate *priv;
 } SjExtractor;
 
