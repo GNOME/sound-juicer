@@ -331,7 +331,7 @@
 	  older MP3 format, most music software can play Ogg Vorbis files,
 	  and many hardware players have incorporated support.</para>
 
-	  <para>Xiph.Org maintains lists of<ulink
+	  <para>Xiph.Org maintains lists of <ulink
 	  url="http://wiki.xiph.org/index.php/VorbisSoftwarePlayers">software
 	  players</ulink>, <ulink
 	  url="http://wiki.xiph.org/index.php/PortablePlayers">portable
@@ -363,6 +363,22 @@
 	</listitem>
       </varlistentry>
     </variablelist>
+      <tip>
+        <para>If you need to store tracks in the MP3 format (for example,
+        because your portable music player only supports MP3 and not Ogg
+        Vorbis), you will need to create a new profile.  To do this, run
+        <application>gnome-audio-profiles-properties</application>, press
+          <guibutton>New</guibutton> and name it <userinput>MP3</userinput>.
+          Then press <guibutton>Edit</guibutton> and set <guilabel>GStreamer
+            Pipeline</guilabel> to
+            <userinput>audio/x-raw-int,rate=44100,channels=2 ! lame
+            name=enc</userinput>, the
+          <guilabel>File Extenstion</guilabel> to <userinput>mp3</userinput>,
+          and check <guibutton>Active</guibutton>. Then start &application; and
+          select the <guilabel>MP3</guilabel> format.</para>
+        <para>This profile uses the <application>LAME</application> MP3 encoder,
+          so you will need to have the GStreamer LAME plugin installed.</para>
+      </tip>
   </section>
 </section>
 
