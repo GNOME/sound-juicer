@@ -41,27 +41,16 @@ AC_SUBST(UI_LIBS)
 HAVE_GSTREAMER=no
                                                                                 
 # Look for 0.8
-PKG_CHECK_MODULES(GSTREAMER, gstreamer-0.8, HAVE_GSTREAMER=yes, HAVE_GSTREAMER=no)
+PKG_CHECK_MODULES(GSTREAMER, gstreamer-0.8 gstreamer-gconf-0.8, HAVE_GSTREAMER=yes, HAVE_GSTREAMER=no)
 if test "x$HAVE_GSTREAMER" = "xyes"; then
         AC_DEFINE(GSTREAMER_0_8, 1, [GStreamer 0.8])
 else
-        PKG_CHECK_MODULES(GSTREAMER, gstreamer-0.6, HAVE_GSTREAMER=yes, HAVE_GSTREAMER=no)
-        if test "x$HAVE_GSTREAMER" = "xyes"; then
-                AC_DEFINE(GSTREAMER_0_6, 1, [GStreamer 0.6])
-        else
-                AC_MSG_ERROR([GStreamer not found, or too old version found])
-        fi
+        AC_MSG_ERROR([GStreamer 0.8 not found])
 fi
 
 # If we get here we found a GStreamer we can use
 AC_SUBST(GSTREAMER_CFLAGS)
 AC_SUBST(GSTREAMER_LIBS)
-
-# Check if the tagging API introduced after GStreamer 0.7.2 release is available
-CPPFLAGS_save="$CPPFLAGS"
-CPPFLAGS="$CPPFLAGS $GSTREAMER_CFLAGS"
-AC_CHECK_HEADERS(gst/gsttaginterface.h)
-CPPFLAGS="$CPPFLAGS_save"
 
 # Find the GStreamer elements we use, and warn if they are not present.
 AM_GST_ELEMENT_CHECK(cdparanoia,,AC_MSG_WARN([The 'cdparanoia' element was not found. This will cause Sound Juicer to fail at runtime.]))
@@ -92,6 +81,10 @@ else
         AC_MSG_RESULT([no. Pass --enable-hal to use HAL.])
 fi
 
+# Find GNOME Media Profiles
+PKG_CHECK_MODULES(MEDIA_PROFILES, gnome-media-profiles)
+AC_SUBST(MEDIA_PROFILES_CFLAGS)
+AC_SUBST(MEDIA_PROFILES_LIBS)
 
 # Find MusicBrainz
 PKG_CHECK_MODULES(MUSICBRAINZ, libmusicbrainz >= 2.0.0)

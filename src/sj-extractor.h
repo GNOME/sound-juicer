@@ -25,19 +25,10 @@
 
 #include <glib/gmacros.h>
 #include <glib-object.h>
+#include <profiles/audio-profile.h>
 #include "sj-structures.h"
 
 G_BEGIN_DECLS
-
-typedef enum {
-  SJ_FORMAT_VORBIS,
-  SJ_FORMAT_MPEG,
-  SJ_FORMAT_FLAC,
-  SJ_FORMAT_WAVE,
-  SJ_NUMBER_FORMATS
-} EncoderFormat;
-
-GType encoding_format_get_type (void);
 
 #define SJ_TYPE_EXTRACTOR              (sj_extractor_get_type ())
 #define SJ_EXTRACTOR(obj)              (G_TYPE_CHECK_INSTANCE_CAST ((obj), SJ_TYPE_EXTRACTOR, SjExtractor))
@@ -78,7 +69,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
 
 void sj_extractor_cancel_extract (SjExtractor *extractor);
 
-gboolean sj_extractor_supports_format (EncoderFormat format);
+gboolean sj_extractor_supports_profile (GMAudioProfile *profile);
 
 gboolean sj_extractor_supports_encoding (GError **error);
 

@@ -121,7 +121,7 @@ extern gboolean autostart;
 #define GCONF_BASEPATH GCONF_ROOT "/base_path"
 #define GCONF_FILE_PATTERN GCONF_ROOT "/file_pattern"
 #define GCONF_PATH_PATTERN GCONF_ROOT "/path_pattern"
-#define GCONF_FORMAT GCONF_ROOT "/format"
+#define GCONF_AUDIO_PROFILE GCONF_ROOT "/audio_profile"
 #define GCONF_PARANOIA GCONF_ROOT "/paranoia"
 #define GCONF_STRIP GCONF_ROOT "/strip-special"
 #define GCONF_MUSICBRAINZ_SERVER GCONF_ROOT "/musicbrainz_server"

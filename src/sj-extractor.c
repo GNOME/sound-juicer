@@ -28,33 +28,18 @@
 #include <glib/gtypes.h>
 #include <glib-object.h>
 #include <gst/gst.h>
+#include <gst/gconf/gconf.h>
 #include <libgnome/gnome-i18n.h>
+#include <profiles/gnome-media-profiles.h>
 #include "sj-extractor.h"
 #include "sj-structures.h"
 #include "sj-error.h"
 #include "sj-util.h"
 
-GType
-encoding_format_get_type (void)
-{
-  static GType etype = 0;
-  if (etype == 0) {
-    static const GEnumValue values[] = {
-      { SJ_FORMAT_VORBIS, "VORBIS", "Ogg Vorbis" },
-      { SJ_FORMAT_MPEG, "MPEG", "MPEG" },
-      { SJ_FORMAT_FLAC, "FLAC", "FLAC" },
-      { SJ_FORMAT_WAVE, "WAVE", "Wave" },
-      { 0, NULL, NULL }
-    };
-    etype = g_enum_register_static ("EncodingFormat", values);
-  }
-  return etype;
-}
-
 /* Properties */
 enum {
 	PROP_0,
-	PROP_FORMAT,
+	PROP_PROFILE,
 };
 
 /* Signals */
@@ -67,10 +52,10 @@ enum {
 
 static int sje_table_signals[LAST_SIGNAL] = { 0 };
 
-#define DEFAULT_ENCODING_FORMAT SJ_FORMAT_VORBIS
+#define DEFAULT_AUDIO_PROFILE_NAME "cdlossy"
 
 struct SjExtractorPrivate {
-  EncoderFormat format;
+  GMAudioProfile *profile;
   gboolean rebuild_pipeline;
   GstElement *pipeline;
   GstElement *cdparanoia, *encoder, *filesink;
@@ -136,11 +121,9 @@ static void sj_extractor_class_init (SjExtractorClass *klass)
   object_class->finalize = sj_extractor_finalize;
 
   /* Properties */
-  g_object_class_install_property (object_class, PROP_FORMAT,
-                                   g_param_spec_enum ("format", _("Encoding format"), _("The format to write the encoded audio in"),
-                                                      encoding_format_get_type(),
-                                                      DEFAULT_ENCODING_FORMAT, G_PARAM_READWRITE));
-
+  g_object_class_install_property (object_class, PROP_PROFILE,
+				   g_param_spec_pointer("profile", _("Gnome Audio Profile"), _("The Gnome Audio Profile used for encoding audio"), G_PARAM_READWRITE));
+							
   /* Signals */
   sje_table_signals[PROGRESS] =
     g_signal_new ("progress",
@@ -172,7 +155,7 @@ static void sj_extractor_class_init (SjExtractorClass *klass)
 static void sj_extractor_instance_init (SjExtractor *extractor)
 {
   extractor->priv = g_new0 (SjExtractorPrivate, 1);
-  extractor->priv->format = DEFAULT_ENCODING_FORMAT;
+  extractor->priv->profile = gm_audio_profile_lookup(DEFAULT_AUDIO_PROFILE_NAME);
   extractor->priv->rebuild_pipeline = TRUE;
 }
 
@@ -181,8 +164,8 @@ static void sj_extractor_set_property (GObject *object, guint property_id,
 {
   SjExtractorPrivate *priv = (SjExtractorPrivate*)SJ_EXTRACTOR(object)->priv;
   switch (property_id) {
-  case PROP_FORMAT:
-    priv->format = g_value_get_enum (value);
+  case PROP_PROFILE:
+    priv->profile = (GMAudioProfile *) g_value_get_pointer (value);
     priv->rebuild_pipeline = TRUE;
     break;
   default:
@@ -195,8 +178,8 @@ static void sj_extractor_get_property (GObject *object, guint property_id,
 {
   SjExtractorPrivate *priv = (SjExtractorPrivate*)SJ_EXTRACTOR(object)->priv;
   switch (property_id) {
-  case PROP_FORMAT:
-    g_value_set_enum (value, priv->format);
+  case PROP_PROFILE:
+    g_value_set_pointer (value, priv->profile);
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -243,33 +226,17 @@ static GstElement* build_encoder (SjExtractor *extractor)
 {
   SjExtractorPrivate *priv;
   GstElement *element = NULL;
+  char *pipeline;
+
   g_return_val_if_fail (SJ_IS_EXTRACTOR (extractor), NULL);
   priv = (SjExtractorPrivate*)extractor->priv;
-  switch (priv->format) {
-  case SJ_FORMAT_VORBIS:
-    element = gst_element_factory_make ("vorbisenc", "encoder");
-    g_object_set (G_OBJECT (element), "quality", 0.6, NULL);
-    priv->encoder_name = "vorbis";
-    break;
-  case SJ_FORMAT_MPEG:
-    element = gst_element_factory_make ("lame", "encoder");
-    priv->encoder_name = "lame";
-    break;
-  case SJ_FORMAT_FLAC:
-    element = gst_element_factory_make ("flacenc", "encoder");
-    priv->encoder_name = "flacenc";
-    break;
-  case SJ_FORMAT_WAVE:
-    element = gst_element_factory_make ("wavenc", "encoder");
-    priv->encoder_name = "wavenc";
-    break;
-  default:
-    g_return_val_if_reached (NULL);
-  }
+ 
+  pipeline = g_strdup_printf ("audioconvert ! %s", gm_audio_profile_get_pipeline (priv->profile));
+  element = gst_gconf_render_bin_from_description (pipeline);
+  g_free(pipeline);
   return element;
 }
 
-#if defined(GSTREAMER_0_8)
 static void error_cb (GstElement *element, GObject *arg, GError *err, gchar *arg2, gpointer user_data)
 {
   SjExtractor *extractor = SJ_EXTRACTOR (user_data);
@@ -277,19 +244,6 @@ static void error_cb (GstElement *element, GObject *arg, GError *err, gchar *arg
                  sje_table_signals[ERROR],
                  0, err);
 }
-#elif defined(GSTREAMER_0_6)
-static void error_cb (GstElement *element, GObject *arg, gchar *arg2, gpointer user_data)
-{
-  SjExtractor *extractor = SJ_EXTRACTOR (user_data);
-  GError *error = NULL;
-  g_set_error (&error,
-               SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-               arg2);
-  g_signal_emit (G_OBJECT (extractor),
-                 sje_table_signals[ERROR],
-                 0, error);
-}
-#endif
 
 static void build_pipeline (SjExtractor *extractor)
 {
@@ -436,10 +390,6 @@ void sj_extractor_set_paranoia (SjExtractor *extractor, const int paranoia_mode)
 void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, const char* path, GError **error)
 {
   GstEvent *event;
-#ifndef HAVE_GST_GSTTAGINTERFACE_H 
-  GstCaps *caps;
-  char *tracknumber;
-#endif
   static GstFormat format = GST_FORMAT_TIME;
   gint64 nanos;
   SjExtractorPrivate *priv;
@@ -471,43 +421,41 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   g_object_set (G_OBJECT (priv->filesink), "location", path, NULL);
 
   /* Set the metadata */
-  /* TODO; this works with Vorbis and MP3 and will work with FLAC when the
-     property is added. Wave ... news not so good. */
-#ifdef HAVE_GST_GSTTAGINTERFACE_H 
-  if (GST_IS_TAG_SETTER (priv->encoder)) {
-    gst_tag_setter_add (GST_TAG_SETTER (priv->encoder),   
-                        GST_TAG_MERGE_REPLACE_ALL,
-                        GST_TAG_TITLE, track->title,
-                        GST_TAG_ARTIST, track->artist,
-                        GST_TAG_TRACK_NUMBER, track->number,
-                        GST_TAG_TRACK_COUNT, track->album->number,
-                        GST_TAG_ALBUM, track->album->title,
-                        GST_TAG_COMMENT, _("Ripped with Sound Juicer"),
-                        NULL);
-    if (track->genre != LAST_GENRE) {
-      gst_tag_setter_add (GST_TAG_SETTER (priv->encoder),   
-                          /* TODO: is APPEND right? */
-                          GST_TAG_MERGE_APPEND,
-                          GST_TAG_GENRE, sj_genre_name (track->genre),
-                          NULL);
+  {
+    GList *elts = NULL, *elt = NULL;
+    gboolean taggable = FALSE;
+    if (GST_IS_BIN (priv->encoder)) {
+      elts = (GList *) gst_bin_get_list(GST_BIN (priv->encoder));
+    } else {
+      elts = g_list_append (elts, priv->encoder);
     }
-  } else {
-    g_warning ("The current encoding element doesn't have tag support");
+    
+    for (elt = elts; elt; elt = elt->next) {
+      if (GST_IS_TAG_SETTER (elt->data)) {
+        gst_tag_setter_add (GST_TAG_SETTER (elt->data),
+                            GST_TAG_MERGE_REPLACE_ALL,
+                            GST_TAG_TITLE, track->title,
+                            GST_TAG_ARTIST, track->artist,
+                            GST_TAG_TRACK_NUMBER, track->number,
+                            GST_TAG_TRACK_COUNT, track->album->number,
+                            GST_TAG_ALBUM, track->album->title,
+                            GST_TAG_ENCODER, _("Sound Juicer"),
+                            GST_TAG_ENCODER_VERSION, VERSION,
+                            NULL);
+        if (track->genre != LAST_GENRE) {
+          gst_tag_setter_add (GST_TAG_SETTER (elt->data),
+                              /* TODO: is APPEND right? */
+                              GST_TAG_MERGE_APPEND,
+                              GST_TAG_GENRE, sj_genre_name (track->genre),
+                              NULL);
+        }
+        taggable = TRUE;
+      }
+    }
+    if (!taggable) {
+      g_warning ("Couldn't find an encoding element with tag support");
+    }
   }
-#else
-  tracknumber = g_strdup_printf("%d/%d", track->number, track->album->number);
-  caps = GST_CAPS_NEW ("soundjuicer_metadata",
-                       "application/x-gst-metadata",
-                       "title", GST_PROPS_STRING (track->title),
-                       "artist", GST_PROPS_STRING (track->artist),
-                       "tracknum", GST_PROPS_STRING (tracknumber),
-                       "tracknumber", GST_PROPS_STRING (tracknumber),
-                       "album", GST_PROPS_STRING (track->album->title),
-                       "comment", GST_PROPS_STRING(_("Ripped with Sound Juicer"))
-                       );
-  g_object_set (G_OBJECT (priv->encoder), "metadata", caps, NULL);
-  g_free (tracknumber);
-#endif /* HAVE_GST_GSTTAGINTERFACE_H */
 		      
   /* Let's get ready to rumble! */
   gst_element_set_state (priv->pipeline, GST_STATE_PAUSED);
@@ -576,32 +524,21 @@ gboolean sj_extractor_supports_encoding (GError **error)
   return TRUE;
 }
 
-gboolean sj_extractor_supports_format (EncoderFormat format)
+gboolean sj_extractor_supports_profile (GMAudioProfile *profile)
 {
   GstElement *element = NULL;
-
-  switch (format) {
-    case SJ_FORMAT_VORBIS:
-      element = gst_element_factory_make ("vorbisenc", "encoder");
-      break;
-    case SJ_FORMAT_MPEG:
-      element = gst_element_factory_make ("lame", "encoder");
-      break;
-    case SJ_FORMAT_FLAC:
-      element = gst_element_factory_make ("flacenc", "encoder");
-      break;
-    case SJ_FORMAT_WAVE:
-      element = gst_element_factory_make ("wavenc", "encoder");
-      break;
-    default:
-      g_return_val_if_reached (FALSE);
-  }
-
+  GError *error = NULL;
+  char *pipeline;
+  
+  pipeline = g_strdup_printf ("audioconvert ! %s", gm_audio_profile_get_pipeline (profile));
+  element = gst_parse_launch (pipeline, &error);
+  /* TODO: check error */
+  g_free(pipeline);
   if (element) {
-    g_object_unref (element);
+    gst_object_unref (GST_OBJECT (element));
     return TRUE;
+  } else {
+    return FALSE;
   }
-
-  return FALSE;
 }
 

@@ -106,30 +106,13 @@ static Progress before;
 static char*
 build_filename (const TrackDetails *track)
 {
-  char *realfile, *realpath, *filename, *extension, *path;
-  EncoderFormat format;
+  char *realfile, *realpath, *filename, *path;
+  GMAudioProfile *profile;
   realpath = filepath_parse_pattern (path_pattern, track);
   realfile = filepath_parse_pattern (file_pattern, track);
-  g_object_get (extractor, "format", &format, NULL);
-  switch (format) {
-  case SJ_FORMAT_VORBIS:
-    extension = ".ogg";
-    break;
-  case SJ_FORMAT_MPEG:
-    extension = ".mp3";
-    break;
-  case SJ_FORMAT_FLAC:
-    extension = ".flac";
-    break;
-  case SJ_FORMAT_WAVE:
-    extension = ".wav";
-    break;
-  default:
-    g_free (realpath);
-    g_free (realfile);
-    g_return_val_if_reached (NULL);
-  }
-  filename = g_strconcat (realfile, extension, NULL);
+  g_object_get (extractor, "profile", &profile, NULL);
+  filename = g_strdup_printf("%s.%s", realfile, 
+			     gm_audio_profile_get_extension(profile));
   path = g_build_filename (base_path, realpath, filename, NULL);
   g_free (realpath);
   realpath = g_filename_from_utf8 (path, -1, NULL, NULL, NULL);

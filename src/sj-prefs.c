@@ -27,6 +27,7 @@
 #include <glade/glade-xml.h>
 #include <gconf/gconf-client.h>
 #include <libgnome/gnome-help.h>
+#include <profiles/gnome-media-profiles.h>
 #include "sj-extracting.h"
 #include "cd-drive.h"
 #include "bacon-cd-selection.h"
@@ -34,8 +35,7 @@
 extern GladeXML *glade;
 extern GtkWidget *main_window;
 
-/* Store the toggle buttons pertaining to the format */
-static GtkWidget *format_widgets[SJ_NUMBER_FORMATS];
+static GtkWidget *audio_profile;
 static GtkWidget *prefs_dialog;
 static GtkWidget *cd_option, *path_option, *file_option, *basepath_label, *check_strip, *check_eject;
 static GtkWidget *path_example_label;
@@ -108,6 +108,14 @@ void prefs_eject_toggled (GtkToggleButton *togglebutton, gpointer user_data)
   gconf_client_set_bool (gconf_client, GCONF_EJECT,
                          gtk_toggle_button_get_active (togglebutton),
                          NULL);
+}
+
+void prefs_profile_changed (GtkWidget *widget, gpointer user_data)
+{
+  GMAudioProfile *profile;
+  profile = gm_audio_profile_choose_get_active (widget);
+  gconf_client_set_string (gconf_client, GCONF_AUDIO_PROFILE,  
+			   gm_audio_profile_get_id (profile), NULL);
 }
 
 /**
@@ -192,31 +200,6 @@ void prefs_strip_toggled (GtkToggleButton *togglebutton, gpointer user_data)
                          NULL);
 }
 
-/**
- * One of the format toggle buttons in the prefs dialog has been
- * toggled.
- */
-void on_format_toggled (GtkToggleButton *togglebutton,
-                               gpointer user_data)
-{
-  const char* format;
-  if (!gtk_toggle_button_get_active (togglebutton)) {
-    return;
-  }
-  if (GTK_WIDGET (togglebutton) == format_widgets[SJ_FORMAT_VORBIS]) {
-    format = "vorbis";
-  } else if (GTK_WIDGET(togglebutton) == format_widgets[SJ_FORMAT_MPEG]) {
-    format = "mpeg";
-  } else if (GTK_WIDGET(togglebutton) == format_widgets[SJ_FORMAT_FLAC]) {
-    format = "flac";
-  } else if (GTK_WIDGET(togglebutton) == format_widgets[SJ_FORMAT_WAVE]) {
-    format = "wave";
-  } else {
-    return;
-  }
-  gconf_client_set_string (gconf_client, GCONF_FORMAT, format, NULL); /* TODO: GError */
-}
-
 static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   g_return_if_fail (strcmp (entry->key, GCONF_DEVICE) == 0);
@@ -231,37 +214,13 @@ static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *e
   }
 }
 
-static void format_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void audio_profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
-  char* value;
-  GEnumValue* enumvalue;
-  int format;
-  int i;
-
-  g_return_if_fail (strcmp (entry->key, GCONF_FORMAT) == 0);
-
+  const char *value;
+  g_return_if_fail (strcmp (entry->key, GCONF_AUDIO_PROFILE) == 0);
   if (!entry->value) return;
-  g_return_if_fail (entry->value->type == GCONF_VALUE_STRING);
-  value = g_ascii_strup (gconf_value_get_string (entry->value), -1);
-  /* TODO: this line is pretty convoluted */
-  enumvalue = g_enum_get_value_by_name (g_type_class_peek (encoding_format_get_type()), value);
-  /* Fallback on vorbis if it's not found */
-  if (enumvalue == NULL) {
-    /* g_warning (_("Unknown format %s"), value); */
-    format = 0;
-  } else {
-    format = enumvalue->value;
-  }
-  g_free (value);
-
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (format_widgets[format]), TRUE);
-
-  for (i = 0; i < SJ_NUMBER_FORMATS; i++) {
-    gboolean supported;
-
-    supported = sj_extractor_supports_format (i);
-    gtk_widget_set_sensitive (format_widgets[i], supported);
-  }
+  value = gconf_value_get_string (entry->value);
+  gm_audio_profile_choose_set_active (audio_profile, value);
 }
 
 static void basepath_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
@@ -368,6 +327,7 @@ static void path_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
   char *value;
   int i = 0;
   g_return_if_fail (strcmp (entry->key, GCONF_PATH_PATTERN) == 0);
+  g_return_if_fail (entry->value->type == GCONF_VALUE_STRING);
 
   if (entry->value == NULL) {
     value = g_strdup (path_patterns[0].pattern);
@@ -387,9 +347,10 @@ static void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
 {
   char *value;
   int i = 0;
-
+  
   g_return_if_fail (strcmp (entry->key, GCONF_FILE_PATTERN) == 0);
-
+  g_return_if_fail (entry->value->type == GCONF_VALUE_STRING);
+  
   if (entry->value == NULL) {
     value = g_strdup (file_patterns[0].pattern);
   } else if (entry->value->type == GCONF_VALUE_STRING) {
@@ -438,10 +399,7 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     basepath_label = glade_xml_get_widget (glade, "path_label");
     path_option = glade_xml_get_widget (glade, "path_option");
     file_option = glade_xml_get_widget (glade, "file_option");
-    format_widgets[SJ_FORMAT_VORBIS] = glade_xml_get_widget (glade, "format_vorbis");
-    format_widgets[SJ_FORMAT_MPEG] = glade_xml_get_widget (glade, "format_mpeg");
-    format_widgets[SJ_FORMAT_FLAC] = glade_xml_get_widget (glade, "format_flac");
-    format_widgets[SJ_FORMAT_WAVE] = glade_xml_get_widget (glade, "format_wave");
+    audio_profile = glade_xml_get_widget (glade, "audio_profile");
     check_strip = glade_xml_get_widget (glade, "check_strip");
     check_eject = glade_xml_get_widget (glade, "check_eject");
     path_example_label = glade_xml_get_widget (glade, "path_example_label");
@@ -454,7 +412,7 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     /* Connect to GConf to update the UI */
     gconf_client_notify_add (gconf_client, GCONF_DEVICE, device_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_BASEPATH, basepath_changed_cb, NULL, NULL, NULL);
-    gconf_client_notify_add (gconf_client, GCONF_FORMAT, format_changed_cb, NULL, NULL, NULL);
+    gconf_client_notify_add (gconf_client, GCONF_AUDIO_PROFILE, audio_profile_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_STRIP, strip_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_EJECT, eject_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_PATH_PATTERN, path_pattern_changed_cb, NULL, NULL, NULL);
@@ -462,7 +420,7 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
   }
   basepath_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEPATH, NULL, TRUE, NULL), NULL);
   device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), NULL);
-  format_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FORMAT, NULL, TRUE, NULL), NULL);
+  audio_profile_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_AUDIO_PROFILE, NULL, TRUE, NULL), NULL);
   strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);
   eject_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_EJECT, NULL, TRUE, NULL), NULL);
   file_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL), NULL);

@@ -31,6 +31,7 @@
 #include <gconf/gconf-client.h>
 #include <libgnome/gnome-help.h>
 #include <libgnomeui/gnome-ui-init.h>
+#include <profiles/gnome-media-profiles.h>
 #include <gst/gst.h>
 
 #include "sj-about.h"
@@ -603,69 +604,33 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
   }
 }
 
-/**
- * The /apps/sound-juicer/format key has changed.
- */
-void format_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+void profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
-  char* value;
-  GEnumValue* enumvalue;
-  int i;
-  int format;
-  gboolean any_support = FALSE;
-  gboolean supported[SJ_NUMBER_FORMATS];
-
-  g_assert (strcmp (entry->key, GCONF_FORMAT) == 0);
+  GMAudioProfile *profile;
+  
+  g_assert (strcmp (entry->key, GCONF_AUDIO_PROFILE) == 0);
   if (!entry->value) return;
-  value = g_ascii_strup (gconf_value_get_string (entry->value), -1);
-  /* TODO: this line is pretty convoluted */
-  enumvalue = g_enum_get_value_by_name (g_type_class_peek (encoding_format_get_type()), value);
-  if (enumvalue == NULL) {
-    /* g_warning (_("Unknown format %s"), value); */
-    format = 0;
-  } else {
-    format = enumvalue->value;
-  }
-  g_free (value);
+  profile = gm_audio_profile_lookup(gconf_value_get_string (entry->value));
+  if (profile != NULL)
+    g_object_set(extractor, "profile", profile, NULL);
 
-  g_object_set (extractor, "format", format, NULL);
-
-  for (i = 0; i < SJ_NUMBER_FORMATS; i++) {
-    supported[i] = sj_extractor_supports_format (i);
-    if (supported[i]) {
-       any_support = TRUE;
-    }
-  }
-
-  if (any_support == FALSE) {
-    GError *err = NULL;
-
-    g_set_error (&err, SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-		    _("Cannot find any suitable encoders"));
-    error_on_start (err);
-    exit (1);
-  }
-
-  /* Popup the prefs for the user to change the encoder */
-  for (i = 0; i <= SJ_NUMBER_FORMATS; i++) {
-    if (supported[i] == FALSE && format == i) {
-      GtkWidget *dialog;
-      int response;
-
-      dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
-		      		       GTK_DIALOG_MODAL,
-				       GTK_MESSAGE_QUESTION,
-				       GTK_BUTTONS_NONE,
-				       _("The currently selected encoder is not available on your installation."));
-      gtk_dialog_add_button (GTK_DIALOG (dialog), "gtk-quit", GTK_RESPONSE_REJECT);
-      gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Change the encoder"), GTK_RESPONSE_ACCEPT);
-      response = gtk_dialog_run (GTK_DIALOG (dialog));
-      if (response == GTK_RESPONSE_ACCEPT) {
-        gtk_widget_destroy (dialog);
-        on_edit_preferences_cb (NULL, NULL);
-      } else {
-        gtk_main_quit ();
-      }
+  if (profile == NULL || !sj_extractor_supports_profile(profile)) {
+    GtkWidget *dialog;
+    int response;
+    
+    dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
+				     GTK_DIALOG_MODAL,
+				     GTK_MESSAGE_QUESTION,
+				     GTK_BUTTONS_NONE,
+				     _("The currently selected audio profile is not available on your installation."));
+    gtk_dialog_add_button (GTK_DIALOG (dialog), "gtk-quit", GTK_RESPONSE_REJECT);
+    gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Change Profile"), GTK_RESPONSE_ACCEPT);
+    response = gtk_dialog_run (GTK_DIALOG (dialog));
+    if (response == GTK_RESPONSE_ACCEPT) {
+      gtk_widget_destroy (dialog);
+      on_edit_preferences_cb (NULL, NULL);
+    } else {
+      gtk_main_quit ();
     }
   }
 }
@@ -968,7 +933,7 @@ int main (int argc, char **argv)
   gconf_client_notify_add (gconf_client, GCONF_EJECT, eject_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_BASEPATH, basepath_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_STRIP, strip_changed_cb, NULL, NULL, NULL);
-  gconf_client_notify_add (gconf_client, GCONF_FORMAT, format_changed_cb, NULL, NULL, NULL);
+  gconf_client_notify_add (gconf_client, GCONF_AUDIO_PROFILE, profile_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_PARANOIA, paranoia_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_PATH_PATTERN, path_pattern_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_FILE_PATTERN, file_pattern_changed_cb, NULL, NULL, NULL);
@@ -976,6 +941,9 @@ int main (int argc, char **argv)
   gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY_ENABLE, http_proxy_enable_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY, http_proxy_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY_PORT, http_proxy_port_changed_cb, NULL, NULL, NULL);
+
+  /* init gnome-media-profiles */
+  gnome_media_profiles_init (NULL);
 
   glade_init ();
   glade = glade_xml_new (DATADIR"/sound-juicer/sound-juicer.glade", NULL, NULL);
@@ -1066,7 +1034,7 @@ int main (int argc, char **argv)
   basepath_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEPATH, NULL, TRUE, NULL), NULL);
   path_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL), NULL);
   file_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL), NULL);
-  format_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FORMAT, NULL, TRUE, NULL), NULL);
+  profile_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_AUDIO_PROFILE, NULL, TRUE, NULL), NULL);
   paranoia_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PARANOIA, NULL, TRUE, NULL), NULL);
   strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);
   eject_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_EJECT, NULL, TRUE, NULL), NULL);
