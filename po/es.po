@@ -9,14 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-08-10 20:59+0200\n"
-"PO-Revision-Date: 2003-08-11 04:07+0200\n"
+"POT-Creation-Date: 2003-09-04 12:54+0200\n"
+"PO-Revision-Date: 2003-09-04 16:36+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@arrakis.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.1\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: data/sound-juicer.glade.h:1
 msgid "*"
@@ -110,7 +109,7 @@ msgstr "Progreso"
 msgid "Raw audio"
 msgstr "Audio en bruto"
 
-#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:674
+#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:762
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -138,7 +137,7 @@ msgstr "_CD"
 msgid "_Contents"
 msgstr "_Contenidos"
 
-#: data/sound-juicer.glade.h:30 src/sj-main.c:88
+#: data/sound-juicer.glade.h:30 src/sj-main.c:128
 msgid "_Continue"
 msgstr "_Continuar"
 
@@ -180,8 +179,10 @@ msgstr "Sound Juicer CD Ripper"
 
 #: data/sound-juicer.schemas.in.h:2
 #, no-c-format
-msgid "%at -- album title %aa -- album artist %tt -- track title %ta -- track artist"
-msgstr "%at -- album title %aa -- album artist %tt -- track title %ta -- track artist"
+msgid ""
+"%at -- album title %aa -- album artist %tt -- track title %ta -- track artist"
+msgstr ""
+"%at -- album title %aa -- album artist %tt -- track title %ta -- track artist"
 
 #: data/sound-juicer.schemas.in.h:4
 #, no-c-format
@@ -204,7 +205,8 @@ msgstr ""
 
 #: data/sound-juicer.schemas.in.h:6
 msgid "If to strip special characters from filenames"
-msgstr "Indica si deben quitase los caracteres especiales de lo nombres de archivo"
+msgstr ""
+"Indica si deben quitase los caracteres especiales de lo nombres de archivo"
 
 #: data/sound-juicer.schemas.in.h:7
 msgid ""
@@ -226,12 +228,12 @@ msgstr "El patrón de nombre para los archivos"
 msgid "The paranoia mode to use"
 msgstr "El modo paranoia a usar"
 
-#: src/cd-drive.c:347
+#: src/cd-drive.c:362
 #, c-format
-msgid "Unnamed SCSI CDROM (%s)"
-msgstr "SCSI CDROM sin nombre (%s)"
+msgid "Unnamed SCSI CD-ROM (%s)"
+msgstr "CD-ROM SCSI sin nombre (%s)"
 
-#: src/cd-drive.c:792
+#: src/cd-drive.c:815
 msgid "File image"
 msgstr "Imagen de archivo"
 
@@ -243,91 +245,109 @@ msgstr "CDROM sin nombre"
 msgid "Select the drive"
 msgstr "Seleccione la unidad"
 
-#: src/sj-musicbrainz.c:46
+#: src/sj-metadata-musicbrainz.c:82
 msgid "Cannot create MusicBrainz client"
 msgstr "No se puede crear el cliente MusicBrainz"
 
-#: src/sj-musicbrainz.c:108
+#: src/sj-metadata-musicbrainz.c:174 src/sj-metadata-musicbrainz.c:282
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "No se puede leer CD: %s"
 
-#: src/sj-musicbrainz.c:115
+#: src/sj-metadata-musicbrainz.c:181
 msgid "Unknown Artist"
 msgstr "Artista desconocido"
 
-#: src/sj-musicbrainz.c:116
+#: src/sj-metadata-musicbrainz.c:182
 msgid "Unknown Title"
 msgstr "Titulo desconocido"
 
-#: src/sj-musicbrainz.c:121
+#: src/sj-metadata-musicbrainz.c:187
 #, c-format
 msgid "Track %d"
 msgstr "Pista %d"
 
-#: src/sj-musicbrainz.c:140
+#: src/sj-metadata-musicbrainz.c:207
+msgid ""
+"MusicBrainz metadata object is not valid. This is bad, check your console "
+"for errors."
+msgstr " El objeto de matadatos MusicBrainz no es valido. Esto es malo, busque errores en su consola."
+
+#: src/sj-metadata-musicbrainz.c:276
+#, c-format
+msgid "Device '%s' does not contain a media"
+msgstr "El dispositivo «%s» no contiene un soporte"
+
+#: src/sj-metadata-musicbrainz.c:279
+#, c-format
+msgid ""
+"Device '%s' could not be opened. Check the access permissions on the device."
+msgstr " El dispositivo «%s» no se pudo abrir. Compruebe los permisos de acceso del dispositivo."
+
+#: src/sj-metadata-musicbrainz.c:290
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "Este CD no pudo ser consultado: %s\n"
 
-#: src/sj-musicbrainz.c:146
+#: src/sj-metadata-musicbrainz.c:296
 msgid "This CD was not found.\n"
 msgstr "No se encuentra este CD.\n"
 
-#: src/sj-extractor.c:133
+#: src/sj-extractor.c:135
 msgid "Encoding format"
 msgstr "Formato de codificación"
 
-#: src/sj-extractor.c:133
+#: src/sj-extractor.c:135
 msgid "The format to write the encoded audio in"
 msgstr "El formato para escribir el sonido codificado"
 
-#: src/sj-extractor.c:279
+#: src/sj-extractor.c:278
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "No se pudo crear el lector GStreamer cdparanoia"
 
-#: src/sj-extractor.c:295
+#: src/sj-extractor.c:297
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
 msgstr "No se pudo crear el codificador GStreamer (%s)"
 
-#: src/sj-extractor.c:306
+#: src/sj-extractor.c:308
 msgid "Could not create GStreamer file output"
 msgstr "No se pudo crear el archivo de salida GStreamer"
 
-#: src/sj-extractor.c:335
+#: src/sj-extractor.c:337
 msgid "Could not get current track position"
 msgstr "No se pudo obtener la posición de la pista actual"
 
-#: src/sj-extractor.c:364
-msgid "Extractor object is not valid. This is bad, check your console for errors."
+#: src/sj-extractor.c:366
+msgid ""
+"Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "El objeto extractor no es valido. Esto es malo, compruebe su consola de "
 "errores."
 
-#: src/sj-extractor.c:433
+#: src/sj-extractor.c:441
 msgid "Ripped with Sound Juicer"
 msgstr "Extraído con Sound Juicer"
 
-#: src/sj-extractor.c:447
+#: src/sj-extractor.c:455
 msgid "Could not seek to track"
 msgstr "No se pudo acceder a la pista"
 
-#: src/sj-extractor.c:452
+#: src/sj-extractor.c:460
 msgid "Could not get track start position"
 msgstr "No se pudo obtener la posición de comienzo de pista"
 
-#: src/sj-util.c:64
+#: src/sj-util.c:65
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "No se pudo crear el directorio %s: %s"
 
-#: src/sj-util.c:101 src/sj-util.c:116
+#: src/sj-util.c:111 src/sj-util.c:126
 msgid "Could not eject the CD"
 msgstr "No se pudo expulsar el CD"
 
-#: src/sj-util.c:102 src/sj-util.c:117 src/sj-main.c:384 src/sj-main.c:454
-#: src/sj-main.c:655
+#: src/sj-util.c:112 src/sj-util.c:127 src/sj-main.c:76 src/sj-main.c:435
+#: src/sj-main.c:507
 msgid "Reason"
 msgstr "Razón"
 
@@ -335,52 +355,47 @@ msgstr "Razón"
 msgid "A CD Ripper"
 msgstr "Un extractor de CD"
 
-#: src/sj-prefs.c:46
+#: src/sj-prefs.c:47
 msgid "Album Artist, Album Title"
 msgstr "Artista del álbum, Título del álbum"
 
-#: src/sj-prefs.c:47
+#: src/sj-prefs.c:48
 msgid "Track Artist, Album Title"
 msgstr "Artista de la pista, Título del álbum"
 
-#: src/sj-prefs.c:48 src/sj-prefs.c:258 src/sj-prefs.c:269
+#: src/sj-prefs.c:49 src/sj-prefs.c:258 src/sj-prefs.c:269
 msgid "Album Title"
 msgstr "Titulo del álbum"
 
-#: src/sj-prefs.c:49 src/sj-prefs.c:259 src/sj-prefs.c:270
+#: src/sj-prefs.c:50 src/sj-prefs.c:259 src/sj-prefs.c:270
 msgid "Album Artist"
 msgstr "Artista del álbum"
 
-#: src/sj-prefs.c:50
+#: src/sj-prefs.c:51
 msgid "Album Artist - Album Title"
 msgstr "Artista del álbum - Título del álbum"
 
-#: src/sj-prefs.c:55
+#: src/sj-prefs.c:56
 msgid "Number - Title"
 msgstr "Número - título"
 
-#: src/sj-prefs.c:56 src/sj-prefs.c:264 src/sj-prefs.c:276
+#: src/sj-prefs.c:57 src/sj-prefs.c:264 src/sj-prefs.c:277
 msgid "Track Title"
 msgstr "Titulo de pista"
 
-#: src/sj-prefs.c:57
+#: src/sj-prefs.c:58
 msgid "Track Artist - Track Title"
 msgstr "Pista artista - Pista titulo"
 
-#: src/sj-prefs.c:58
+#: src/sj-prefs.c:59
 msgid "Number. Track Artist - Track Title"
 msgstr "Número de pista artista - Titulo de pista"
 
-#: src/sj-prefs.c:98
+#: src/sj-prefs.c:99
 msgid "Select Output Location"
 msgstr "Seleccione el directorio de destino"
 
-#: src/sj-prefs.c:195 src/sj-main.c:483
-#, c-format
-msgid "Unknown format %s"
-msgstr "Formato desconocido «%s»"
-
-#: src/sj-prefs.c:265 src/sj-prefs.c:277
+#: src/sj-prefs.c:265 src/sj-prefs.c:278
 msgid "Track Artist"
 msgstr "Artista de la pista"
 
@@ -416,49 +431,69 @@ msgstr "Extrayendo «%s»"
 msgid "mkdir() failed: %s"
 msgstr "mkdir() fallo: %s"
 
-#: src/sj-main.c:86
+#: src/sj-main.c:75
+msgid "Could not start Sound Juicer"
+msgstr "Extraído con Sound Juicer"
+
+#: src/sj-main.c:78
+msgid "Please consult the documentation for assistance."
+msgstr "Consulte la documentación para asistencia."
+
+#: src/sj-main.c:126
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Actualmente está extrayendo un CD. ¿Quiere salir ahora o continuar?"
 
-#: src/sj-main.c:136 src/sj-main.c:193
+#: src/sj-main.c:179 src/sj-main.c:237
 msgid "(unknown)"
 msgstr "(desconocido)"
 
-#: src/sj-main.c:235 src/sj-main.c:752
+#: src/sj-main.c:279 src/sj-main.c:841
 msgid "Title"
 msgstr "Titulo"
 
-#: src/sj-main.c:241 src/sj-main.c:760
+#: src/sj-main.c:285 src/sj-main.c:849
 msgid "Artist"
 msgstr "Artista"
 
-#: src/sj-main.c:382 src/sj-main.c:452
+#: src/sj-main.c:433 src/sj-main.c:505
 msgid "Could not read the CD"
 msgstr "No se pudo leer el CD"
 
-#: src/sj-main.c:383
+#: src/sj-main.c:434
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer no pudo leer la pista listada en este CD."
 
-#: src/sj-main.c:434
+#: src/sj-main.c:486
 msgid "No CD-ROM drives found"
 msgstr "No se encontraron unidades CD-ROM"
 
-#: src/sj-main.c:435
+#: src/sj-main.c:487
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer no pudo encontrar ninguna unidad de CD-ROM para leer."
 
-#: src/sj-main.c:446
+#: src/sj-main.c:499
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer no pudo acceder a la unidad de CD-ROM «%s»."
 
-#: src/sj-main.c:589
+#: src/sj-main.c:564
+msgid "Cannot find any suitable encoders"
+msgstr "No se pudo encontrar ningún codificador apropiado"
+
+#: src/sj-main.c:579
+msgid "The currently selected encoder is not available on your installation."
+msgstr "El codificador seleccionado actualmente no está disponible para su instalación."
+
+#: src/sj-main.c:581
+msgid "Change the encoder"
+msgstr "Cambiar el codificador"
+
+#: src/sj-main.c:691
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "La columna desconocida %d fue editada"
 
-#: src/sj-main.c:636
+#: src/sj-main.c:738
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -467,29 +502,24 @@ msgstr ""
 "No se pudo mostrar la ayuda para Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:654
-msgid "Could not start Sound Juicer"
-msgstr "Extraído con Sound Juicer"
-
-#: src/sj-main.c:657
-msgid "Please consult the documentation for assistance."
-msgstr "Consulte la documentación para asistencia."
-
-#: src/sj-main.c:691
+#: src/sj-main.c:780
 msgid "Could not create GConf client.\n"
 msgstr "No se pudo crear el cliente GConf.\n"
 
-#: src/sj-main.c:733
+#: src/sj-main.c:822
 msgid "Extract?"
 msgstr "¿Extraer?"
 
-#: src/sj-main.c:741
+#: src/sj-main.c:830
 msgid "Track"
 msgstr "Pista"
 
-#: src/sj-main.c:770
+#: src/sj-main.c:859
 msgid "Duration"
 msgstr "Duración"
+
+#~ msgid "Unknown format %s"
+#~ msgstr "Formato desconocido «%s»"
 
 #~ msgid "CD Ripper"
 #~ msgstr "Extractor de CD "
@@ -516,4 +546,3 @@ msgstr "Duración"
 #~ "\n"
 #~ "El mensaje de error es '%s'. Por favor consulte el <tt>README</tt> para "
 #~ "mas ayuda."
-
