@@ -411,12 +411,19 @@ static void reread_cd (gboolean ignore_no_media)
     gdk_cursor_unref (cursor);
     gdk_display_sync (gdk_drawable_get_display (main_window->window));
   }
-  
+ 
+  if (!is_audio_cd (device)) {
+    update_ui_for_album (NULL);
+    if (realized)
+      gdk_window_set_cursor (main_window->window, NULL);
+    return;
+  }
+
   albums = sj_metadata_list_albums (metadata, &error);
 
   if (realized)
     gdk_window_set_cursor (main_window->window, NULL);
-  
+
   if (error && !(error->code == SJ_ERROR_CD_NO_MEDIA && ignore_no_media)) {
     GtkWidget *dialog;
     dialog = gtk_message_dialog_new (realized ? GTK_WINDOW (main_window) : NULL, 0,

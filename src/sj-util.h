@@ -33,4 +33,6 @@ void eject_cdrom (const char* device, GtkWindow *parent);
 
 gboolean tray_is_opened (const char *device);
 
+gboolean is_audio_cd (const char *device);
+
 #endif /* SJ_UTIL_H */

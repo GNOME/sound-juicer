@@ -29,6 +29,7 @@
 #include <libgnome/gnome-i18n.h>
 #include "sj-error.h"
 #include "sj-util.h"
+#include "cd-drive.h"
 
 /**
  * Stolen from gnome-vfs
@@ -146,3 +147,36 @@ tray_is_opened (const char *device)
   
   return status == CDS_TRAY_OPEN;
 }
+
+gboolean is_audio_cd (const char *device)
+{
+  CDMediaType type;
+  int fd, status;
+
+  type = guess_media_type (device);
+  switch (type) {
+    case CD_MEDIA_TYPE_CD:
+    case CD_MEDIA_TYPE_CDR:
+    case CD_MEDIA_TYPE_CDRW:
+      /* shut up gcc */
+      type = 0;
+    default:
+      return FALSE;
+  }
+
+  fd = open (device, O_RDONLY | O_NONBLOCK | O_EXCL);
+  if (fd <0) {
+    return FALSE;
+  }
+
+  status = ioctl (fd, CDROM_DISC_STATUS, CDSL_CURRENT);
+  if (status < 0) {
+    close (fd);
+    return FALSE;
+  }
+
+  close (fd);
+
+  return status == CDS_AUDIO;
+}
+
