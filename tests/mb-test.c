@@ -5,13 +5,13 @@
 
 int main (int argc, char** argv)
 {
-  GList *albums;
+  GList *albums = NULL;
   SjMetadata *metadata;
 
   g_type_init ();
   metadata = (SjMetadata*)sj_metadata_musicbrainz_new ();
   sj_metadata_set_cdrom (metadata, "/dev/cdroms/cdrom0");
-  albums = sj_metadata_list_albums (metadata, NULL);
+  //albums = sj_metadata_list_albums (metadata, NULL);
 
   while (albums) {
     AlbumDetails *album;

@@ -77,3 +77,4 @@ sj-metadata-marshal.c: sj-metadata-marshal.list
 
 BUILT_SOURCES = $(MARSHALFILES)
 CLEANFILES = $(BUILT_SOURCES)
+EXTRA_DIST = sj-metadata-marshal.list
