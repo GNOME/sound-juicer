@@ -256,6 +256,11 @@ static GstElement* build_encoder (SjExtractor *extractor)
   return element;
 }
 
+static void error_cb (GstElement *element, GObject *arg, gchar *arg2, gpointer user_data)
+{
+  g_warning ("Error from gstreamer: %s", arg2);
+}
+
 static void build_pipeline (SjExtractor *extractor)
 {
   SjExtractorPrivate *priv;
@@ -269,6 +274,7 @@ static void build_pipeline (SjExtractor *extractor)
     gst_object_unref (GST_OBJECT (priv->pipeline));
   }
   priv->pipeline = gst_pipeline_new ("pipeline");
+  g_signal_connect (G_OBJECT (priv->pipeline), "error", G_CALLBACK (error_cb), NULL);
 
   /* Read from CD */
   priv->cdparanoia = gst_element_factory_make ("cdparanoia", "cdparanoia");
