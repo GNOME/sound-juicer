@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-06-25 13:12+0200\n"
-"PO-Revision-Date: 2003-06-25 16:04+0200\n"
+"POT-Creation-Date: 2003-07-01 05:19+0200\n"
+"PO-Revision-Date: 2003-07-01 09:49+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -98,7 +98,7 @@ msgstr "Průběh"
 msgid "Raw audio"
 msgstr "Přímý zvuk"
 
-#: data/sound-juicer.glade.h:22 src/sj-about.c:49 src/sj-main.c:579
+#: data/sound-juicer.glade.h:22 src/sj-about.c:49 src/sj-main.c:602
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -229,73 +229,74 @@ msgstr "Vybrat mechaniku"
 msgid "Cannot create MusicBrainz client"
 msgstr "Nemohu vytvořit klienta MusicBrainz"
 
-#: src/sj-musicbrainz.c:98
+#: src/sj-musicbrainz.c:100
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Nemohu číst CD: %s"
 
-#: src/sj-musicbrainz.c:103
+#: src/sj-musicbrainz.c:105
 msgid "Unknown Artist"
 msgstr "Neznámý umělec"
 
-#: src/sj-musicbrainz.c:104
+#: src/sj-musicbrainz.c:106
 msgid "Unknown Title"
 msgstr "Neznámý název"
 
-#: src/sj-musicbrainz.c:109
+#: src/sj-musicbrainz.c:111
 #, c-format
 msgid "Track %d"
 msgstr "Stopa %d"
 
-#: src/sj-musicbrainz.c:130
+#: src/sj-musicbrainz.c:128
+#, c-format
+msgid "This CD could not be queried: %s\n"
+msgstr "Nemohu se dotázat na toto CD: %s\n"
+
+#: src/sj-musicbrainz.c:134
 msgid "This CD was not found.\n"
 msgstr "Toto CD nebylo nalezeno.\n"
 
-#: src/sj-extractor.c:132
+#: src/sj-extractor.c:133
 msgid "Encoding format"
 msgstr "Formát kódování"
 
-#: src/sj-extractor.c:132
+#: src/sj-extractor.c:133
 msgid "The format to write the encoded audio in"
 msgstr "Formát, ve kterém zapisova kódovaný zvuk"
 
-#: src/sj-extractor.c:232
-msgid "MPEG encoder not available"
-msgstr "Enkodér MPEG není k dispozici"
-
-#: src/sj-extractor.c:283
+#: src/sj-extractor.c:279
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "Nemohu vytvořit GStreamer čteč cdparanoia "
 
-#: src/sj-extractor.c:299
+#: src/sj-extractor.c:295
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
 msgstr "Nemohu vytvořit GStreamer enkodér (%s)"
 
-#: src/sj-extractor.c:310
+#: src/sj-extractor.c:306
 msgid "Could not create GStreamer file output"
 msgstr "Nemohu vytvořit GStreamer výstup do souboru"
 
-#: src/sj-extractor.c:339
+#: src/sj-extractor.c:335
 msgid "Could not get current track position"
 msgstr "Nemohu získat aktuální pozici stopy"
 
-#: src/sj-extractor.c:368
+#: src/sj-extractor.c:364
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Objekt extraktoru není platný. To je špatné, přečtěte si chyby na své "
 "konzole."
 
-#: src/sj-extractor.c:430
+#: src/sj-extractor.c:432
 msgid "Ripped with Sound Juicer"
 msgstr "Ripováno pomocí Sound Juicer"
 
-#: src/sj-extractor.c:444
+#: src/sj-extractor.c:446
 msgid "Could not seek to track"
 msgstr "Nemohu se posunout na stopu"
 
-#: src/sj-extractor.c:449
+#: src/sj-extractor.c:451
 msgid "Could not get track start position"
 msgstr "Nemohu získat počáteční pozici stopy"
 
@@ -389,11 +390,11 @@ msgstr "Pokračovat"
 msgid "(unknown)"
 msgstr "(neznámé)"
 
-#: src/sj-main.c:234 src/sj-main.c:656
+#: src/sj-main.c:234 src/sj-main.c:680
 msgid "Title"
 msgstr "Název"
 
-#: src/sj-main.c:240 src/sj-main.c:664
+#: src/sj-main.c:240 src/sj-main.c:688
 msgid "Artist"
 msgstr "Umělec"
 
@@ -405,7 +406,7 @@ msgstr "Nemohu číst CD"
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer nemohl přečíst seznam stop tohoto CD."
 
-#: src/sj-main.c:383 src/sj-main.c:436 src/sj-main.c:560
+#: src/sj-main.c:383 src/sj-main.c:436 src/sj-main.c:583
 msgid "Reason"
 msgstr "Důvod"
 
@@ -422,34 +423,37 @@ msgstr "Sound Juicer nemohl najít mechaniku CD-ROM, ze které číst."
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer nemohl přistupovat k zařízení CD-ROM '%s'"
 
-#: src/sj-main.c:545
+#: src/sj-main.c:568
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Byl upraven neznámý sloupec %d"
 
-#: src/sj-main.c:559
+#: src/sj-main.c:582
 msgid "Could not start Sound Juicer"
 msgstr "Nemohu spustit Sound Juicer"
 
-#: src/sj-main.c:562
+#: src/sj-main.c:585
 msgid "Please consult the documentation for assistance."
 msgstr "Pro pomoc si prosím přečtěte dokumentaci."
 
-#: src/sj-main.c:596
+#: src/sj-main.c:619
 msgid "Could not create GConf client.\n"
 msgstr "Nemohu vytvořit klienta GConf.\n"
 
-#: src/sj-main.c:637
+#: src/sj-main.c:661
 msgid "Extract?"
 msgstr "Extrahovat?"
 
-#: src/sj-main.c:645
+#: src/sj-main.c:669
 msgid "Track"
 msgstr "Stopa"
 
-#: src/sj-main.c:674
+#: src/sj-main.c:698
 msgid "Duration"
 msgstr "Trvání"
+
+#~ msgid "MPEG encoder not available"
+#~ msgstr "Enkodér MPEG není k dispozici"
 
 #~ msgid "<b>_Quality</b>"
 #~ msgstr "<b>_Kvalita</b>"
