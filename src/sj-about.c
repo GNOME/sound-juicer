@@ -32,6 +32,7 @@ void on_about_activate (void)
   
   const gchar *authors[] = {
     "Ross Burton <ross@burtonini.com>",
+    "And many others who have contributed patches.",
     NULL
   };
   const gchar *documentors[] = {
@@ -54,7 +55,7 @@ void on_about_activate (void)
   pixbuf = gdk_pixbuf_new_from_file (PKGDATADIR"/orange-slice.png", NULL);
   win = gnome_about_new (_("Sound Juicer"), VERSION,
                          "Copyright \xc2\xa9 2003 Ross Burton",
-                         _("A CD Ripper"),
+                         _("An Audio CD Extractor"),
                          authors,
                          documentors,
                          strcmp (translator_credits, "translator_credits") != 0 ? translator_credits : NULL,
