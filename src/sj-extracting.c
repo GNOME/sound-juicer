@@ -43,6 +43,8 @@
 typedef struct {
   int seconds;
   struct timeval time;
+  int ripped;
+  int taken;
 } Progress;
 
 /** If this module has been initialised yet. */
@@ -374,16 +376,17 @@ on_progress_cb (SjExtractor *extractor, const int seconds, gpointer data)
       gettimeofday(&before.time, NULL);
     } else {
       struct timeval time;
-      int ripped, taken;
+      int taken;
       float speed;
 
       gettimeofday(&time, NULL);
-      ripped = current_duration + seconds - before.seconds;
       taken = time.tv_sec + (time.tv_usec / 1000000.0)
-        - (before.time.tv_sec + (before.time.tv_usec / 1000000.0));
+        - (before.time.tv_sec + (before.time.tv_usec / 1000000.0));	
       if (taken >= 4) {
-        speed = (float) ripped / (float) taken;
-        update_speed_progress (extractor, speed, (int) ((total_duration - current_duration + seconds) / speed));
+	before.taken += taken;
+	before.ripped += current_duration + seconds - before.seconds;
+        speed = (float) before.ripped / (float) before.taken;
+        update_speed_progress (extractor, speed, (int) ((total_duration - current_duration - seconds) / speed));
         before.seconds = current_duration + seconds;
         gettimeofday(&before.time, NULL);
       }
