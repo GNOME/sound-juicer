@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-28 20:34+0200\n"
-"PO-Revision-Date: 2004-04-14 15:57+0200\n"
+"POT-Creation-Date: 2004-05-11 15:35+0200\n"
+"PO-Revision-Date: 2004-05-11 20:58+0200\n"
 "Last-Translator: Laszlo Dvornik <dvornikl@mailbox.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
@@ -127,7 +127,7 @@ msgstr "Folyamat"
 msgid "Raw audio"
 msgstr "Nyers audio"
 
-#: data/sound-juicer.glade.h:27 src/sj-about.c:56 src/sj-main.c:875
+#: data/sound-juicer.glade.h:27 src/sj-about.c:56 src/sj-main.c:876
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -193,7 +193,7 @@ msgstr "címke"
 
 #: data/sound-juicer.glade.h:42
 msgid "path_example_label"
-msgstr "példa_útvonal_címke"
+msgstr "útvonal_példa_címke"
 
 #: data/sound-juicer.schemas.in.h:2
 #, no-c-format
@@ -202,6 +202,9 @@ msgid ""
 "album artist (lowercase) %tt -- track title %tT -- track title (lowercase) %"
 "ta -- track artist %tA -- track artist (lowercase)"
 msgstr ""
+"%at -- album címe %aT -- album címe (kisbetűs) %aa -- album előadója %aA -- "
+"album előadója (kisbetűs) %tt -- szám címe %tT -- szám címe (kisbetűs) %ta "
+"-- szám előadója %tA -- szám előadója (kisbetűs)"
 
 #: data/sound-juicer.schemas.in.h:4
 #, no-c-format
@@ -218,47 +221,52 @@ msgid ""
 "If enabled, special characters such as space, wildcards and backslashes will "
 "be removed from the output filename."
 msgstr ""
+"Ha engedélyezve van, akkor a speciális karakterek, mint például a szóköz, a "
+"wildcard-ok és a fordított perjelek el lesznek távolítva a kimeneti "
+"fájlnévből."
 
 #: data/sound-juicer.schemas.in.h:6
 msgid "If to strip special characters from filenames"
-msgstr ""
+msgstr "Eltávolítsa-e a speciális karaktereket a fájlnevekből"
 
 #: data/sound-juicer.schemas.in.h:7
 msgid ""
 "Paranoia mode, 3 settings: 0 (no paranoia), 4 (cdda2wav-style overlap "
 "checking) and 255 (full paranoia)"
 msgstr ""
+"Paranoia mód, 3 beállítás: 0 (nincs paranoia), 4 (cdda2wav-szerű átfedés "
+"ellenőrzés) és 255 (teljes paranoia)"
 
 #: data/sound-juicer.schemas.in.h:8
 msgid "The directory structure for the files"
-msgstr ""
+msgstr "A könyvtárstruktúra a fájlokhoz"
 
 #: data/sound-juicer.schemas.in.h:9
 msgid "The name pattern for files"
-msgstr ""
+msgstr "A névminta a fájlokhoz"
 
 #: data/sound-juicer.schemas.in.h:10
 msgid "The paranoia mode to use"
-msgstr ""
+msgstr "A használandó paranoia mód"
 
 #: data/sound-juicer.schemas.in.h:11
 msgid "Whether to eject the CD when finished extracting."
-msgstr ""
+msgstr "Kiadja-e a CD-t a grabbelés befejezésekor."
 
-#: src/bacon-cd-selection.c:170
-msgid "Select the drive"
-msgstr "Meghajtó kiválasztása"
-
-#: src/bacon-cd-selection.c:271
+#: src/bacon-cd-selection.c:257
 msgid "Unnamed CDROM"
 msgstr "Névtelen CD-ROM"
 
-#: src/cd-drive.c:404
+#: src/bacon-cd-selection.c:302
+msgid "Select the drive"
+msgstr "Meghajtó kiválasztása"
+
+#: src/cd-drive.c:573
 #, c-format
 msgid "Unnamed SCSI CD-ROM (%s)"
 msgstr "Névtelen SCSI CD-ROM (%s)"
 
-#: src/cd-drive.c:976
+#: src/cd-drive.c:1151
 msgid "File image"
 msgstr "Lemezképfájl"
 
@@ -292,7 +300,7 @@ msgid "_Overwrite"
 msgstr "_Felülírás"
 
 #. Display a nice dialog
-#: src/sj-extracting.c:245 src/sj-extracting.c:283 src/sj-extracting.c:495
+#: src/sj-extracting.c:248 src/sj-extracting.c:285 src/sj-extracting.c:497
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -301,22 +309,22 @@ msgstr ""
 "Grabbelés sikertelen.\n"
 "Ok: %s"
 
-#: src/sj-extracting.c:273
+#: src/sj-extracting.c:275
 #, c-format
 msgid "Extracting '%s'"
 msgstr "'%s' grabbelése"
 
-#: src/sj-extracting.c:335
+#: src/sj-extracting.c:337
 #, c-format
 msgid "%d:%02d (at %0.1fx)"
 msgstr "%d:%02d (%0.1fx)"
 
-#: src/sj-extracting.c:337
+#: src/sj-extracting.c:339
 msgid "Unknown (at 0.0x)"
 msgstr "Ismeretlen (0,0x)"
 
 #. TODO: need to have a better message here
-#: src/sj-extracting.c:432
+#: src/sj-extracting.c:434
 msgid "The tracks have been copied successfully."
 msgstr "A számok sikeresen kimásolódtak."
 
@@ -328,55 +336,55 @@ msgstr "Tömörítési formátum"
 msgid "The format to write the encoded audio in"
 msgstr "A formátum, amelyben a tömörített audio ki lesz írva"
 
-#: src/sj-extractor.c:302
+#: src/sj-extractor.c:312
 msgid "Could not create GStreamer cdparanoia reader"
-msgstr "Nem hozható létre a GStreamer cdparanoia olvasó"
+msgstr "Nem lehet létrehozni a GStreamer cdparanoia olvasót"
 
-#: src/sj-extractor.c:321
+#: src/sj-extractor.c:331
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
-msgstr "Nem hozható létre a GStreamer tömörítő (%s)"
+msgstr "Nem lehet létrehozni a GStreamer tömörítőt (%s)"
 
-#: src/sj-extractor.c:332
+#: src/sj-extractor.c:342
 msgid "Could not create GStreamer file output"
-msgstr "Nem hozható létre a GStreamer fájl kimenete"
+msgstr "Nem lehet létrehozni a GStreamer fájlkimenetet"
 
-#: src/sj-extractor.c:362
+#: src/sj-extractor.c:372
 msgid "Could not get current track position"
-msgstr "Nem szerezhető meg a jelenlegi szám pozíciója"
+msgstr "Nem lehet megszerezni a jelenlegi szám pozícióját"
 
-#: src/sj-extractor.c:391
+#: src/sj-extractor.c:401
 msgid "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "A grabbelő objektum érvénytelen. Ez baj, hibák megtekintéséhez nézze meg a "
 "konzolt."
 
-#: src/sj-extractor.c:466 src/sj-extractor.c:480
+#: src/sj-extractor.c:476 src/sj-extractor.c:490
 msgid "Ripped with Sound Juicer"
 msgstr "Ripped with Sound Juicer"
 
-#: src/sj-extractor.c:495
+#: src/sj-extractor.c:505
 msgid "Could not seek to track"
-msgstr "Nem lehet pozícionálni a sávra"
+msgstr "Nem lehet pozicionálni a sávra"
 
-#: src/sj-extractor.c:500
+#: src/sj-extractor.c:510
 msgid "Could not get track start position"
-msgstr "Nem szerezhető meg a szám kezdő pozíciója"
+msgstr "Nem lehet megszerezni a szám kezdőpozícióját"
 
-#: src/sj-extractor.c:537
+#: src/sj-extractor.c:547
 msgid "The plugin necessary for CD access was not found"
 msgstr "A CD eléréséhez szükséges bővítmény nem található"
 
-#: src/sj-extractor.c:545
+#: src/sj-extractor.c:555
 msgid "The plugin necessary for file access was not found"
 msgstr "A fájl eléréséhez szükséges bővítmény nem található"
 
 #: src/sj-main.c:83
 msgid "Could not start Sound Juicer"
-msgstr "Nem indítható el a Sound Juicer"
+msgstr "Nem lehet elindítani a Sound Juicer-t"
 
-#: src/sj-main.c:84 src/sj-main.c:439 src/sj-main.c:514 src/sj-main.c:572
-#: src/sj-util.c:108 src/sj-util.c:128
+#: src/sj-main.c:84 src/sj-main.c:439 src/sj-main.c:514 src/sj-main.c:573
+#: src/sj-util.c:110 src/sj-util.c:130
 msgid "Reason"
 msgstr "Ok"
 
@@ -386,23 +394,23 @@ msgstr "Segítségért tekintse meg a dokumentációt."
 
 #: src/sj-main.c:134
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
-msgstr "Jelenleg folyik egy CD grabbelése. Kilép vagy folytatja?"
+msgstr "Ön jelenleg grabbel egy CD-t. Kilép vagy folytatja?"
 
 #: src/sj-main.c:191 src/sj-main.c:249
 msgid "(unknown)"
 msgstr "(ismeretlen)"
 
-#: src/sj-main.c:291 src/sj-main.c:955
+#: src/sj-main.c:291 src/sj-main.c:956
 msgid "Title"
 msgstr "Cím"
 
-#: src/sj-main.c:297 src/sj-main.c:963
+#: src/sj-main.c:297 src/sj-main.c:964
 msgid "Artist"
 msgstr "Előadó"
 
-#: src/sj-main.c:437 src/sj-main.c:512 src/sj-main.c:570
+#: src/sj-main.c:437 src/sj-main.c:512 src/sj-main.c:571
 msgid "Could not read the CD"
-msgstr "Nem olvasható a CD"
+msgstr "Nem lehet olvasni a CD-t"
 
 #: src/sj-main.c:438 src/sj-main.c:513
 msgid "Sound Juicer could not read the track listing on this CD."
@@ -413,58 +421,58 @@ msgstr "A Sound Juicer nem tudta beolvasni a CD számlistáját."
 msgid "Retrieving track listing...please wait."
 msgstr "Számlista betöltése...kérem várjon."
 
-#: src/sj-main.c:551
+#: src/sj-main.c:552
 msgid "No CD-ROM drives found"
 msgstr "CD-ROM nem található"
 
-#: src/sj-main.c:552
+#: src/sj-main.c:553
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "A Sound Juicer nem talált olvasható CD-ROM meghajtót."
 
-#: src/sj-main.c:564
+#: src/sj-main.c:565
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "A Sound Juicer nem tudott hozzáférni a(z) %s CD-ROM meghajtóhoz."
 
-#: src/sj-main.c:629
+#: src/sj-main.c:630
 msgid "Cannot find any suitable encoders"
 msgstr "Nem találhatóak megfelelő tömörítők"
 
-#: src/sj-main.c:644
+#: src/sj-main.c:645
 msgid "The currently selected encoder is not available on your installation."
-msgstr "A jelenleg kiválasztott tömörítő nem elérhető a rendszeren."
+msgstr "A jelenleg kiválasztott tömörítő nem érhető el a rendszeren."
 
-#: src/sj-main.c:646
-msgid "Change the encoder"
-msgstr "Tömörítő megváltoztatása"
+#: src/sj-main.c:647
+msgid "_Change the encoder"
+msgstr "Tömörítő _megváltoztatása"
 
-#: src/sj-main.c:796
+#: src/sj-main.c:797
 #, c-format
 msgid "Unknown column %d was edited"
-msgstr ""
+msgstr "%d. ismeretlen oszlop szerkesztve"
 
-#: src/sj-main.c:844
+#: src/sj-main.c:845 src/sj-prefs.c:124
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
 "%s"
 msgstr ""
-"A súgó megjelenítése nem sikerült\n"
+"Nem lehet megjeleníteni súgót a Sound Juicer-hez\n"
 "%s"
 
-#: src/sj-main.c:894
+#: src/sj-main.c:895
 msgid "Could not create GConf client.\n"
 msgstr "Nem lehet létrehozni a GConf klienst.\n"
 
-#: src/sj-main.c:936
+#: src/sj-main.c:937
 msgid "Extract"
 msgstr "Grabbelés"
 
-#: src/sj-main.c:944
+#: src/sj-main.c:945
 msgid "Track"
 msgstr "Szám"
 
-#: src/sj-main.c:973
+#: src/sj-main.c:974
 msgid "Duration"
 msgstr "Időtartam"
 
@@ -501,19 +509,19 @@ msgstr ""
 #: src/sj-metadata-musicbrainz.c:293
 #, c-format
 msgid "Device '%s' does not contain a media"
-msgstr "'%s' eszköz nem tartalmaz adathordozót"
+msgstr "A(z) '%s' eszköz nem tartalmaz adathordozót"
 
 #: src/sj-metadata-musicbrainz.c:296
 #, c-format
 msgid "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr ""
-"'%s' eszközt nem lehet megnyitni. Ellenőrizze az eszközhöz tartozó "
+"A(z) '%s' eszközt nem lehet megnyitni. Ellenőrizze az eszközhöz tartozó "
 "hozzáférési engedélyeket."
 
 #: src/sj-metadata-musicbrainz.c:309
 #, c-format
 msgid "This CD could not be queried: %s\n"
-msgstr "Ez a CD nem lekérdezhető: %s\n"
+msgstr "Ezt a CD-t nem lehet lekérdezni: %s\n"
 
 #: src/sj-metadata-musicbrainz.c:317
 msgid "This CD was not found.\n"
@@ -527,59 +535,59 @@ msgstr "Különböző"
 msgid "Could not create CD lookup thread"
 msgstr "Nem lehet létrehozni a CD lekérdező szálat"
 
-#: src/sj-prefs.c:47
+#: src/sj-prefs.c:50
 msgid "Album Artist, Album Title"
 msgstr "Album előadója, album címe"
 
-#: src/sj-prefs.c:48
+#: src/sj-prefs.c:51
 msgid "Track Artist, Album Title"
 msgstr "Szám előadója, album címe"
 
-#: src/sj-prefs.c:49 src/sj-prefs.c:273
+#: src/sj-prefs.c:52 src/sj-prefs.c:307
 msgid "Album Title"
 msgstr "Album címe"
 
-#: src/sj-prefs.c:50 src/sj-prefs.c:274
+#: src/sj-prefs.c:53 src/sj-prefs.c:308
 msgid "Album Artist"
 msgstr "Album előadója"
 
-#: src/sj-prefs.c:51
+#: src/sj-prefs.c:54
 msgid "Album Artist - Album Title"
 msgstr "Album előadója - album címe"
 
-#: src/sj-prefs.c:52
+#: src/sj-prefs.c:55
 msgid "[none]"
 msgstr "[nincs]"
 
-#: src/sj-prefs.c:57
+#: src/sj-prefs.c:60
 msgid "Number - Title"
 msgstr "Sorszám - Cím"
 
-#: src/sj-prefs.c:58 src/sj-prefs.c:281
+#: src/sj-prefs.c:61 src/sj-prefs.c:315
 msgid "Track Title"
 msgstr "Szám címe"
 
-#: src/sj-prefs.c:59
+#: src/sj-prefs.c:62
 msgid "Track Artist - Track Title"
 msgstr "Szám előadója - szám címe"
 
-#: src/sj-prefs.c:60
+#: src/sj-prefs.c:63
 msgid "Number. Track Artist - Track Title"
 msgstr "Sorszám. szám előadója - szám címe"
 
-#: src/sj-prefs.c:109
+#: src/sj-prefs.c:143
 msgid "Select Output Location"
 msgstr "Kimeneti hely megadása"
 
-#: src/sj-prefs.c:282
+#: src/sj-prefs.c:316
 msgid "Track Artist"
 msgstr "Szám előadója"
 
-#: src/sj-util.c:64
+#: src/sj-util.c:65
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Nem sikerült létrehozni a(z) %s könyvtárat: %s"
 
-#: src/sj-util.c:107 src/sj-util.c:127
+#: src/sj-util.c:109 src/sj-util.c:129
 msgid "Could not eject the CD"
 msgstr "Nem lehet kiadni a CD-t"
