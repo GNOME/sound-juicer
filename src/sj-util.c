@@ -169,6 +169,9 @@ gboolean is_audio_cd (const char *device)
     case CD_MEDIA_TYPE_CDRW:
       /* shut up gcc */
       type = 0;
+    case CD_MEDIA_TYPE_UNKNOWN:
+      /* Handle an unknown disk type by assuming its audio */
+      return TRUE;
     default:
       return FALSE;
   }
