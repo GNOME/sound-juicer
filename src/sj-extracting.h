@@ -1,7 +1,7 @@
 /* 
  * Copyright (C) 2003 Ross Burton <ross@burtonini.com>
  *
- * Sound Juicer - sound-juicer.h
+ * Sound Juicer - sj-extracting.h
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,51 +20,11 @@
  * Authors: Ross Burton <ross@burtonini.com>
  */
 
-#ifndef SOUND_JUICER_H
-#define SOUND_JUICER_H
+#ifndef SJ_EXTRACTING_H
+#define SJ_EXTRACTING_H
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif /* HAVE_CONFIG_H */
-
-#include <libgnome/gnome-i18n.h>
-#include <glade/glade-xml.h>
 #include <gtk/gtkwidget.h>
-#include <gtk/gtkliststore.h>
-#include "sj-extractor.h"
 
-/**
- * The main window
- */
-extern GtkWidget * main_window;
+void on_extract_activate (GtkWidget *button, gpointer user_data);
 
-/**
- * The Glade UI file
- */
-extern GladeXML *glade;
-
-/**
- * The extractor GObject being used
- */
-extern SjExtractor *extractor;
-
-/**
- * Set if currently extracting
- */
-extern gboolean extracting;
-
-enum {
-  COLUMN_EXTRACT,
-  COLUMN_NUMBER,
-  COLUMN_TITLE,
-  COLUMN_ARTIST,
-  COLUMN_DURATION,
-  COLUMN_DETAILS,
-  COLUMN_TOTAL
-};
-
-extern GtkListStore *track_store;
-
-extern const char *base_path;
-
-#endif /* SOUND_JUICER_H */
+#endif /* SJ_EXTRACTING_H */

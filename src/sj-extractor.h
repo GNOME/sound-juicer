@@ -52,7 +52,7 @@ typedef struct {
 
 typedef struct {
   GObjectClass parent_class;
-  void (*progress) (SjExtractor *extractor, int seconds);
+  void (*progress) (SjExtractor *extractor, const int seconds);
   void (*completion) (SjExtractor *extractor);
 } SjExtractorClass;
 
@@ -66,6 +66,8 @@ void sj_extractor_set_device (SjExtractor *extractor, const char* device);
 void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, const char* path, GError **error);
 
 void sj_extractor_cancel_extract (SjExtractor *extractor);
+
+const TrackDetails *sj_extractor_get_track_details (SjExtractor *extractor);
 
 G_END_DECLS
 

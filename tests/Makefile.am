@@ -1,13 +1,13 @@
 INCLUDES = -I../src/ @LIBGLADE_CFLAGS@ @GSTREAMER_CFLAGS@ @MUSICBRAINZ_CFLAGS@ @GNOME_CFLAGS@
 AM_CFLAGS = -g -Wall -export-dynamic -Wunused
-AM_DEFS = -DGNOME_DISABLE_DEPRECATED=1
+AM_DEFS = -DGNOME_DISABLE_DEPRECATED=1 -DGTK_DISABLE_DEPRECATED=1 -DGDK_DISABLE_DEPRECATED=1 -DG_DISABLE_DEPRECATED=1
 
 noinst_PROGRAMS = glade-test mb-test
 
-mb_test_SOURCES = mb-test.c  ../src/sj-musicbrainz.c
+mb_test_SOURCES = mb-test.c  ../src/sj-musicbrainz.c ../src/sj-error.c
 mb_test_LDADD = @GLIB_LIBS@ @MUSICBRAINZ_LIBS@
 
-glade_test_SOURCES = glade-test.c prefs-test.c ../src/sj-error.c ../src/sj-extractor.c ../src/sj-musicbrainz.c ../src/bacon-cd-selection.c ../src/cd-drive.c ../src/sj-util.c ../src/sj-about.c
+glade_test_SOURCES = glade-test.c prefs-test.c ../src/sj-error.c ../src/sj-extractor.c ../src/sj-musicbrainz.c ../src/bacon-cd-selection.c ../src/cd-drive.c ../src/sj-util.c ../src/sj-about.c ../src/sj-extracting.c
 glade_test_LDADD = @MUSICBRAINZ_LIBS@ @GSTREAMER_LIBS@ @LIBGLADE_LIBS@ @GNOME_LIBS@
 
 

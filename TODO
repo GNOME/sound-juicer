@@ -1,9 +1,8 @@
 I must also create a GConf schema file.
 
-Must decide if the refresh button should is "Re-read" or "Refresh"
-
 I'd like to be able to check for cdparanoia, vorbisenc, etc GST
-plugins at configure time. Anyone know how I do this?
+plugins at configure time. Get the m4 macro to do this from
+gst-plugins.
 
 If the track durations are known, show album progress based on
 seconds. To do this, store the total and current seconds.
@@ -13,3 +12,5 @@ Do a CD lookup using gnome-media's CDDB library
 Make the musicbrainz lookup async?
 
 Is there a cdda2wav plugin for gst? cdparanoia is sloow.
+
+GObjectify the CD lookup code.

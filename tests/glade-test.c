@@ -14,42 +14,26 @@
 
 GladeXML *glade;
 
-static SjExtractor *extractor;
+SjExtractor *extractor;
 
 static GConfClient *gconf_client;
 
 GtkWidget *main_window;
-static GtkWidget *progress_dialog = NULL;
 static GtkWidget *title_label, *artist_label, *duration_label;
 static GtkWidget *track_listview, *reread_button, *extract_button;
 static GtkWidget *extract_menuitem, *select_all_menuitem;
-static GtkWidget *progress_label, *track_progress, *album_progress;
-static GtkListStore *track_store;
+GtkListStore *track_store;
 
 static EncoderFormat encoding_format = VORBIS;
 
-static const char *base_path;
+const char *base_path;
 static const char *device;
-static int track_duration; /* duration of current track for progress dialog */
-static gboolean ripping = FALSE;
-
-static GList *pending = NULL; /* a GList of TrackDetails* to rip */
-static int total_ripping; /* the number of tracks to rip, not decremented */
+gboolean extracting = FALSE;
 
 #define GCONF_ROOT "/apps/sound-juicer"
 #define GCONF_DEVICE GCONF_ROOT "/device"
 #define GCONF_BASEPATH GCONF_ROOT "/base_path"
 #define GCONF_FORMAT GCONF_ROOT "/format"
-
-enum {
-  COLUMN_EXTRACT,
-  COLUMN_NUMBER,
-  COLUMN_TITLE,
-  COLUMN_ARTIST,
-  COLUMN_DURATION,
-  COLUMN_DETAILS,
-  COLUMN_TOTAL
-};
 
 /**
  * Clicked Quit
@@ -62,7 +46,7 @@ void on_quit_activate (GtkMenuItem *item, gpointer user_data)
 
 gboolean on_destory_event (GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
-  if (ripping) {
+  if (extracting) {
     GtkWidget *dialog;
     int response;
 
@@ -106,7 +90,7 @@ static void duration_cell_data_cb (GtkTreeViewColumn *tree_column,
                                 GtkTreeIter *iter,
                                 gpointer data)
 {
-  GValue v = {0};
+  GValue v = {0,};
   int duration;
 
   gtk_tree_model_get_value (tree_model, iter, COLUMN_DURATION, &v);
@@ -324,111 +308,12 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
 }
 
 /**
- * Called for every selected track when ripping
- */
-static gboolean rip_track_foreach_cb (GtkTreeModel *model,
-                                      GtkTreePath *path,
-                                      GtkTreeIter *iter,
-                                      gpointer data)
-{
-  gboolean extract;
-  TrackDetails *track;
-
-  gtk_tree_model_get (model, iter,
-                      COLUMN_EXTRACT, &extract,
-                      COLUMN_DETAILS, &track,
-                      -1);
-  if (!extract) return FALSE;
-  pending = g_list_append (pending, track);
-  ++total_ripping;
-  return FALSE;
-}
-
-
-static void pop_and_rip (void)
-{
-  TrackDetails *track;
-  char *file_path, *directory;
-  GError *error = NULL;
-  int left;
-
-  if (pending == NULL) {
-    gtk_widget_hide (progress_dialog);
-    return;
-  }
-
-  track = pending->data;
-  pending = g_list_next (pending);
-
-  left = total_ripping - (g_list_length (pending) + 1); /* +1 as we've popped already */
-  gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress), (float)left/(float)total_ripping);
-
-  track_duration = track->duration;
-
-  gtk_label_set_text (GTK_LABEL (progress_label), g_strdup_printf (_("Currently extracting '%s'"), track->title));
-  file_path = g_strdup_printf("%s/%s/%s.ogg", base_path, track->album->title, track->title); /* TODO: CRAP */
-  directory = g_path_get_dirname (file_path);
-  if (!g_file_test (directory, G_FILE_TEST_IS_DIR)) {
-    GError *error = NULL;
-    mkdir_recursive (directory, 0750, &error);
-    if (error) {
-      g_warning (_("mkdir() failed: %s"), error->message);
-      g_error_free (error);
-      return;
-    }
-  }
-  g_free (directory);
-  ripping = TRUE;
-  sj_extractor_extract_track (extractor, track, file_path, &error);
-  if (error) {
-    g_print ("Error extracting: %s\n", error->message);
-    g_error_free (error);
-    return;
-  }
-  g_free (file_path);
-  return;
-}
-
-/**
- * Clicked on Extract in the UI
- */
-void on_extract_activate (GtkWidget *button, gpointer user_data)
-{
-  if (progress_dialog == NULL) {
-    progress_dialog = glade_xml_get_widget (glade, "progress_dialog");
-    gtk_window_set_transient_for (GTK_WINDOW (progress_dialog), GTK_WINDOW (main_window));
-    track_progress = glade_xml_get_widget (glade, "track_progress");
-    album_progress = glade_xml_get_widget (glade, "album_progress");
-    progress_label = glade_xml_get_widget (glade, "progress_label");
-    g_assert (progress_dialog != NULL);
-  }
-  gtk_widget_show_all (progress_dialog);
-
-  /* Fill pending with a list of all tracks to rip */
-  g_list_free (pending);
-  total_ripping = 0;
-  gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), rip_track_foreach_cb, NULL);
-  pop_and_rip();
-}
-
-/**
  * Clicked on Reread in the UI (button/menu)
  */
 void on_reread_activate (GtkWidget *button, gpointer user_data)
 {
   reread_cd ();
 }
-
-/**
- * Cancel in the progress dialog clicked
- */
-void on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
-{
-  sj_extractor_cancel_extract(extractor);
-  gtk_widget_hide (progress_dialog);
-}
-
-
 
 /**
  * The /apps/sound-juicer/format key has changed. Argh where to put
@@ -454,7 +339,7 @@ void format_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
 }
 
 /**
- * Called when the user clicked on the Extract? column check boxes
+ * Called when the user clicked on the Extract column check boxes
  */
 static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
                                 gchar *path,
@@ -467,35 +352,12 @@ static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
   gtk_list_store_set (track_store, &iter, COLUMN_EXTRACT, !extract, -1);
 }
 
-/**
- * Called by sj-gstreamer to report progress
- */
-static void on_progress_cb (SjExtractor *extractor, int seconds)
-{
-  if (track_duration != 0) {
-    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), (float)seconds/(float)track_duration);
-  } else {
-    gtk_progress_bar_pulse (GTK_PROGRESS_BAR (track_progress));
-  }
-  return;
-}
-
-static void on_completion_cb (SjExtractor *extractor)
-{
-  ripping = FALSE;
-  /* TODO: uncheck the Extract check box */
-  pop_and_rip ();
-  return;
-}
-
 int main (int argc, char **argv)
 {
   gtk_init (&argc, &argv);
   sj_musicbrainz_init ();
 
   extractor = SJ_EXTRACTOR (sj_extractor_new());
-  g_signal_connect (extractor, "progress", G_CALLBACK(on_progress_cb), NULL);
-  g_signal_connect (extractor, "completion", G_CALLBACK(on_completion_cb), NULL);
 
   gconf_client = gconf_client_get_default();
   g_assert (gconf_client != NULL);
@@ -509,6 +371,8 @@ int main (int argc, char **argv)
   glade_xml_signal_autoconnect (glade);
 
   main_window = glade_xml_get_widget (glade, "main_window");
+  gtk_window_set_icon_from_file (GTK_WINDOW (main_window), "../data/sound-juicer.png", NULL);
+
   select_all_menuitem = glade_xml_get_widget (glade, "select_all");
   extract_menuitem = glade_xml_get_widget (glade, "extract_menuitem");
   title_label = glade_xml_get_widget (glade, "title_label");

@@ -51,7 +51,7 @@ void on_about_activate (void)
                          _("Copyright (C) 2003 Ross Burton"),
                          _("A CD Ripper"),
                          authors, documentors, translator_credits, pixbuf);
-  /* TODO: window icon */
+  gtk_window_set_icon_from_file (GTK_WINDOW (win), "../data/sound-juicer.png", NULL);
   gtk_window_set_transient_for (GTK_WINDOW (win), GTK_WINDOW (main_window));
   gtk_window_set_destroy_with_parent (GTK_WINDOW (win), TRUE);
   
