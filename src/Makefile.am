@@ -5,6 +5,7 @@ DEFS += \
 	-DGTK_DISABLE_DEPRECATED=1 \
 	-DGDK_DISABLE_DEPRECATED=1 \
 	-DG_DISABLE_DEPRECATED=1 \
+	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"  \
 	-DDATADIR=\""$(datadir)/sound-juicer"\" \
 	-DPIXMAPDIR=\""$(datadir)/pixmaps"\"
 

@@ -23,8 +23,9 @@
 #include "sound-juicer.h"
 
 #include <string.h>
+#include <gnome.h>
 #include <gtk/gtk.h>
-#include <glade/glade-xml.h>
+#include <glade/glade.h>
 #include <gconf/gconf-client.h>
 #include "sj-about.h"
 #include "sj-musicbrainz.h"
@@ -376,18 +377,43 @@ static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
 
 int main (int argc, char **argv)
 {
-  gtk_init (&argc, &argv);
+  GError *err = NULL;
+
+  bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
+  bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+  textdomain (GETTEXT_PACKAGE);
+  
+  gnome_program_init ("sound-juicer",
+		      VERSION, LIBGNOMEUI_MODULE,
+		      argc, argv,
+		      NULL);
+
+  g_set_application_name (_("Sound Juicer CD Ripper"));
+
   sj_musicbrainz_init ();
 
   extractor = SJ_EXTRACTOR (sj_extractor_new());
 
-  gconf_client = gconf_client_get_default();
-  g_assert (gconf_client != NULL);
+  gconf_init (argc, argv, &err);
+  if (err != NULL || (gconf_client = gconf_client_get_default ()) == NULL)
+    {
+      char *str;
+      
+      str = g_strdup_printf (_("Sound-Juicer couln't initialise the \n"
+			       "configuration engine:\n%s"),
+			     err->message);
+      g_error_free (err);
+      g_free (str);
+      exit (1);
+    }
+
+
   gconf_client_add_dir (gconf_client, GCONF_ROOT, GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
   gconf_client_notify_add (gconf_client, GCONF_DEVICE, device_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_BASEPATH, basepath_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_FORMAT, format_changed_cb, NULL, NULL, NULL);
 
+  glade_init ();
   glade = glade_xml_new (DATADIR"/sound-juicer.glade", NULL, NULL);
   g_assert (glade != NULL);
   glade_xml_signal_autoconnect (glade);

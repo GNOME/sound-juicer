@@ -44,7 +44,6 @@ void on_about_activate (void)
   }
   
   /* TODO: I think this is leaking */
-  /* TODO: fix this path to use DATADIR */
   /* TODO: pass a GError */
   pixbuf = gdk_pixbuf_new_from_file (DATADIR"/orange-slice.png", NULL);
   win = gnome_about_new (_("Sound Juicer"), VERSION,
