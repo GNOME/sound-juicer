@@ -882,7 +882,7 @@ guess_media_type (const char *device_path)
 #if defined(__linux__) || defined(__FreeBSD__)
 	return linux_bsd_media_type (device_path);
 #else
-	return CD_BLANK_MEDIA_TYPE_UNKNOWN;
+	return CD_MEDIA_TYPE_UNKNOWN;
 #endif
 }
 
