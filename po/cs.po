@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-21 11:31+0100\n"
-"PO-Revision-Date: 2004-11-21 16:48+0100\n"
+"POT-Creation-Date: 2004-11-24 11:28+0100\n"
+"PO-Revision-Date: 2004-11-24 13:08+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -241,16 +241,16 @@ msgstr "Režim paranoiy, který používat"
 msgid "Whether to eject the CD when finished extracting."
 msgstr "Jestli vysunout CD po dokončení extrakce."
 
-#: src/bacon-cd-selection.c:200
+#: src/bacon-cd-selection.c:170
 msgid "Unnamed CDROM"
 msgstr "Nepojmenovaná CDROM"
 
-#: src/cd-drive.c:837
+#: src/cd-drive.c:855
 #, c-format
 msgid "Unnamed SCSI Drive (%s)"
 msgstr "Nepojmenovaná mechanika SCSI (%s)"
 
-#: src/cd-drive.c:1397
+#: src/cd-drive.c:1415
 msgid "File image"
 msgstr "Soubor obrazu"
 
@@ -266,7 +266,7 @@ msgstr "Miloslav Trmač <mitr@volny.cz>"
 msgid "An Audio CD Extractor"
 msgstr "Extraktor zvukových CD"
 
-#: src/sj-extracting.c:177
+#: src/sj-extracting.c:191
 #, c-format
 msgid ""
 "A file called '%s' exists, size %lu kB.\n"
@@ -275,16 +275,16 @@ msgstr ""
 "Soubor pojmenovaný '%s' existuje, velikost %lu kB.\n"
 "Chcete tuto stopu přeskočit nebo jej přepsat?"
 
-#: src/sj-extracting.c:180
+#: src/sj-extracting.c:194
 msgid "_Skip"
 msgstr "Pře_skočit"
 
-#: src/sj-extracting.c:181
+#: src/sj-extracting.c:195
 msgid "_Overwrite"
 msgstr "_Přepsat"
 
 #. Display a nice dialog
-#: src/sj-extracting.c:236 src/sj-extracting.c:273 src/sj-extracting.c:489
+#: src/sj-extracting.c:250 src/sj-extracting.c:287 src/sj-extracting.c:504
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -293,26 +293,26 @@ msgstr ""
 "Sound Juicer nemohl extrahovat toto CD.\n"
 "Důvod: %s"
 
-#: src/sj-extracting.c:263
+#: src/sj-extracting.c:277
 #, c-format
 msgid "Extracting '%s'"
 msgstr "Extrahuji '%s'"
 
-#: src/sj-extracting.c:325
+#: src/sj-extracting.c:339
 #, c-format
 msgid "%d:%02d (at %0.1fx)"
 msgstr "%d:%02d (při %0.1f×)"
 
-#: src/sj-extracting.c:327
+#: src/sj-extracting.c:341
 msgid "Unknown (at 0.0x)"
 msgstr "Neznámý (při 0.0×)"
 
 #. TODO: need to have a better message here
-#: src/sj-extracting.c:431
+#: src/sj-extracting.c:446
 msgid "The tracks have been copied successfully."
 msgstr "Stopy byly úspěšně zkopírovány."
 
-#: src/sj-extracting.c:436
+#: src/sj-extracting.c:451
 msgid "_Eject"
 msgstr "_Vysunout"
 
@@ -791,11 +791,11 @@ msgstr "Nemohu vytvořit klienta MusicBrainz"
 msgid "Cannot read CD: %s"
 msgstr "Nemohu číst CD: %s"
 
-#: src/sj-metadata-musicbrainz.c:202
+#: src/sj-metadata-musicbrainz.c:202 src/sj-metadata-musicbrainz.c:363
 msgid "Unknown Artist"
 msgstr "Neznámý umělec"
 
-#: src/sj-metadata-musicbrainz.c:203
+#: src/sj-metadata-musicbrainz.c:203 src/sj-metadata-musicbrainz.c:351
 msgid "Unknown Title"
 msgstr "Neznámý název"
 
@@ -833,11 +833,15 @@ msgstr "Nemohu se dotázat na toto CD: %s\n"
 msgid "This CD was not found.\n"
 msgstr "Toto CD nebylo nalezeno.\n"
 
-#: src/sj-metadata-musicbrainz.c:356
+#: src/sj-metadata-musicbrainz.c:358
 msgid "Various"
 msgstr "Různé"
 
-#: src/sj-metadata-musicbrainz.c:430
+#: src/sj-metadata-musicbrainz.c:372
+msgid "Incomplete metadata for this CD.\n"
+msgstr "Neúplná metadata pro toto CD.\n"
+
+#: src/sj-metadata-musicbrainz.c:442
 msgid "Could not create CD lookup thread"
 msgstr "Nemohu vytvořit thread pro vyhledání CD"
 
