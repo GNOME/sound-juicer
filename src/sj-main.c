@@ -520,13 +520,13 @@ static void on_cell_edited (GtkCellRendererText *renderer,
   case COLUMN_TITLE:
     g_free (title);
     g_free (track->title);
-    track->title = string;
+    track->title = g_strdup (string);
     gtk_list_store_set (track_store, &iter, COLUMN_TITLE, track->title, -1);
     break;
   case COLUMN_ARTIST:
     g_free (artist);
     g_free (track->artist);
-    track->artist = string;
+    track->artist = g_strdup (string);
     gtk_list_store_set (track_store, &iter, COLUMN_ARTIST, track->artist, -1);
     break;
   default:

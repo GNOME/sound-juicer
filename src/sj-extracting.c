@@ -268,6 +268,7 @@ void on_extract_activate (GtkWidget *button, gpointer user_data)
   /* Fill pending with a list of all tracks to rip */
   total_ripping = 0;
   total_duration = 0;
+  current_duration = 0;
 
   g_signal_connect (extractor, "progress", G_CALLBACK(on_progress_cb), NULL);
   g_signal_connect (extractor, "completion", G_CALLBACK(on_completion_cb), NULL);
