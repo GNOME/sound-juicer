@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-13 12:25+0200\n"
-"PO-Revision-Date: 2004-09-13 19:39+0200\n"
-"Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
+"POT-Creation-Date: 2004-10-09 12:13+0200\n"
+"PO-Revision-Date: 2004-10-09 19:24+0200\n"
+"Last-Translator: Laszlo Dvornik <dvornik@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -136,7 +136,7 @@ msgstr "Folyamat"
 msgid "Raw audio"
 msgstr "Nyers audio"
 
-#: data/sound-juicer.glade.h:29 src/sj-about.c:56 src/sj-main.c:915
+#: data/sound-juicer.glade.h:29 src/sj-about.c:56 src/sj-main.c:944
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -168,7 +168,7 @@ msgstr "_CD"
 msgid "_Contents"
 msgstr "_Tartalom"
 
-#: data/sound-juicer.glade.h:36 src/sj-main.c:137
+#: data/sound-juicer.glade.h:36 src/sj-main.c:141
 msgid "_Continue"
 msgstr "_Folytatás"
 
@@ -240,10 +240,16 @@ msgstr ""
 "fájlnévből."
 
 #: data/sound-juicer.schemas.in.h:6
+msgid "If specified, this value will override the default MusicBrainz server."
+msgstr ""
+"Ha meg van adva, akkor ez az érték felülbírálja az alapértelmezett "
+"MusicBrainz-kiszolgálót."
+
+#: data/sound-juicer.schemas.in.h:7
 msgid "If to strip special characters from filenames"
 msgstr "Eltávolítsa-e a speciális karaktereket a fájlnevekből"
 
-#: data/sound-juicer.schemas.in.h:7
+#: data/sound-juicer.schemas.in.h:8
 msgid ""
 "Paranoia mode, 3 settings: 0 (no paranoia), 4 (cdda2wav-style overlap "
 "checking) and 255 (full paranoia)"
@@ -251,32 +257,36 @@ msgstr ""
 "Paranoia mód, 3 beállítás: 0 (nincs paranoia), 4 (cdda2wav-szerű átfedés-"
 "ellenőrzés) és 255 (teljes paranoia)"
 
-#: data/sound-juicer.schemas.in.h:8
+#: data/sound-juicer.schemas.in.h:9
+msgid "The MusicBrainz server to use"
+msgstr "A használandó MusicBrainz-kiszolgáló"
+
+#: data/sound-juicer.schemas.in.h:10
 msgid "The directory structure for the files"
 msgstr "A könyvtárstruktúra a fájlokhoz"
 
-#: data/sound-juicer.schemas.in.h:9
+#: data/sound-juicer.schemas.in.h:11
 msgid "The name pattern for files"
 msgstr "A névminta a fájlokhoz"
 
-#: data/sound-juicer.schemas.in.h:10
+#: data/sound-juicer.schemas.in.h:12
 msgid "The paranoia mode to use"
 msgstr "A használandó paranoia mód"
 
-#: data/sound-juicer.schemas.in.h:11
+#: data/sound-juicer.schemas.in.h:13
 msgid "Whether to eject the CD when finished extracting."
 msgstr "Kiadja-e a CD-t a grabbelés befejezésekor."
 
-#: src/bacon-cd-selection.c:187
+#: src/bacon-cd-selection.c:200
 msgid "Unnamed CDROM"
 msgstr "Névtelen CD-ROM"
 
-#: src/cd-drive.c:744
+#: src/cd-drive.c:837
 #, c-format
 msgid "Unnamed SCSI Drive (%s)"
 msgstr "Névtelen SCSI-meghajtó (%s)"
 
-#: src/cd-drive.c:1304
+#: src/cd-drive.c:1397
 msgid "File image"
 msgstr "Lemezképfájl"
 
@@ -720,79 +730,79 @@ msgstr "Hard Rock"
 msgid "[unknown genre]"
 msgstr "[ismeretlen műfaj]"
 
-#: src/sj-main.c:84
+#: src/sj-main.c:88
 msgid "Could not start Sound Juicer"
 msgstr "Nem lehet elindítani a Sound Juicer-t"
 
-#: src/sj-main.c:85 src/sj-main.c:444 src/sj-main.c:519 src/sj-main.c:578
+#: src/sj-main.c:89 src/sj-main.c:453 src/sj-main.c:528 src/sj-main.c:587
 #: src/sj-util.c:110 src/sj-util.c:130
 msgid "Reason"
 msgstr "Ok"
 
-#: src/sj-main.c:87
+#: src/sj-main.c:91
 msgid "Please consult the documentation for assistance."
 msgstr "Segítségért tekintse meg a dokumentációt."
 
-#: src/sj-main.c:135
+#: src/sj-main.c:139
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Ön jelenleg grabbel egy CD-t. Kilép vagy folytatja?"
 
-#: src/sj-main.c:192 src/sj-main.c:254
+#: src/sj-main.c:196 src/sj-main.c:263
 msgid "(unknown)"
 msgstr "(ismeretlen)"
 
-#: src/sj-main.c:296 src/sj-main.c:1006
+#: src/sj-main.c:305 src/sj-main.c:1035
 msgid "Title"
 msgstr "Cím"
 
-#: src/sj-main.c:302 src/sj-main.c:1014
+#: src/sj-main.c:311 src/sj-main.c:1044
 msgid "Artist"
 msgstr "Előadó"
 
-#: src/sj-main.c:442 src/sj-main.c:517 src/sj-main.c:576
+#: src/sj-main.c:451 src/sj-main.c:526 src/sj-main.c:585
 msgid "Could not read the CD"
 msgstr "Nem lehet olvasni a CD-t"
 
-#: src/sj-main.c:443 src/sj-main.c:518
+#: src/sj-main.c:452 src/sj-main.c:527
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "A Sound Juicer nem tudta beolvasni a CD számlistáját."
 
 #. Set statusbar message
-#: src/sj-main.c:502
+#: src/sj-main.c:511
 msgid "Retrieving track listing...please wait."
 msgstr "Számlista betöltése...kérem várjon."
 
-#: src/sj-main.c:557
+#: src/sj-main.c:566
 msgid "No CD-ROM drives found"
 msgstr "CD-ROM nem található"
 
-#: src/sj-main.c:558
+#: src/sj-main.c:567
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "A Sound Juicer nem talált olvasható CD-ROM meghajtót."
 
-#: src/sj-main.c:570
+#: src/sj-main.c:579
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "A Sound Juicer nem tudott hozzáférni a(z) '%s' CD-ROM meghajtóhoz"
 
-#: src/sj-main.c:635
+#: src/sj-main.c:644
 msgid "Cannot find any suitable encoders"
 msgstr "Nem találhatóak megfelelő tömörítők"
 
-#: src/sj-main.c:650
+#: src/sj-main.c:659
 msgid "The currently selected encoder is not available on your installation."
 msgstr "A jelenleg kiválasztott tömörítő nem érhető el a rendszeren."
 
-#: src/sj-main.c:652
+#: src/sj-main.c:661
 msgid "_Change the encoder"
 msgstr "Tömörítő _megváltoztatása"
 
-#: src/sj-main.c:802
+#: src/sj-main.c:811
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "%d. ismeretlen oszlop szerkesztve"
 
-#: src/sj-main.c:866 src/sj-prefs.c:128
+#: src/sj-main.c:875 src/sj-prefs.c:128
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -801,45 +811,45 @@ msgstr ""
 "Nem lehet megjeleníteni súgót a Sound Juicer-hez\n"
 "%s"
 
-#: src/sj-main.c:934
+#: src/sj-main.c:963
 msgid "Could not create GConf client.\n"
 msgstr "Nem lehet létrehozni a GConf-klienst.\n"
 
-#: src/sj-main.c:987
+#: src/sj-main.c:1016
 msgid "Extract"
 msgstr "Grabbelés"
 
-#: src/sj-main.c:995
+#: src/sj-main.c:1024
 msgid "Track"
 msgstr "Szám"
 
-#: src/sj-main.c:1024
+#: src/sj-main.c:1055
 msgid "Duration"
 msgstr "Időtartam"
 
-#: src/sj-metadata-musicbrainz.c:86
+#: src/sj-metadata-musicbrainz.c:89
 msgid "Cannot create MusicBrainz client"
 msgstr "Nem lehet létrehozni MusicBrainz-klienst"
 
-#: src/sj-metadata-musicbrainz.c:179 src/sj-metadata-musicbrainz.c:301
+#: src/sj-metadata-musicbrainz.c:194 src/sj-metadata-musicbrainz.c:316
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Nem lehet olvasni a CD-t: %s"
 
-#: src/sj-metadata-musicbrainz.c:186
+#: src/sj-metadata-musicbrainz.c:201
 msgid "Unknown Artist"
 msgstr "Ismeretlen előadó"
 
-#: src/sj-metadata-musicbrainz.c:187
+#: src/sj-metadata-musicbrainz.c:202
 msgid "Unknown Title"
 msgstr "Ismeretlen cím"
 
-#: src/sj-metadata-musicbrainz.c:192
+#: src/sj-metadata-musicbrainz.c:207
 #, c-format
 msgid "Track %d"
 msgstr "%d. szám"
 
-#: src/sj-metadata-musicbrainz.c:221
+#: src/sj-metadata-musicbrainz.c:236
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
@@ -847,12 +857,12 @@ msgstr ""
 "A MusicBrainz metadata objektum érvénytelen. Ez baj, a hibák megtekintéséhez "
 "nézze meg a konzolt."
 
-#: src/sj-metadata-musicbrainz.c:295
+#: src/sj-metadata-musicbrainz.c:310
 #, c-format
 msgid "Device '%s' does not contain a media"
 msgstr "A(z) '%s' eszköz nem tartalmaz adathordozót"
 
-#: src/sj-metadata-musicbrainz.c:298
+#: src/sj-metadata-musicbrainz.c:313
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
@@ -860,20 +870,20 @@ msgstr ""
 "A(z) '%s' eszközt nem lehet megnyitni. Ellenőrizze az eszközhöz tartozó "
 "hozzáférési engedélyeket."
 
-#: src/sj-metadata-musicbrainz.c:311
+#: src/sj-metadata-musicbrainz.c:326
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "Ezt a CD-t nem lehet lekérdezni: %s\n"
 
-#: src/sj-metadata-musicbrainz.c:319
+#: src/sj-metadata-musicbrainz.c:334
 msgid "This CD was not found.\n"
 msgstr "Ez a CD nem található.\n"
 
-#: src/sj-metadata-musicbrainz.c:340
+#: src/sj-metadata-musicbrainz.c:355
 msgid "Various"
 msgstr "Különböző"
 
-#: src/sj-metadata-musicbrainz.c:414
+#: src/sj-metadata-musicbrainz.c:429
 msgid "Could not create CD lookup thread"
 msgstr "Nem lehet létrehozni a CD lekérdező szálat"
 
