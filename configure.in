@@ -55,11 +55,12 @@ if test x"$GCONFTOOL" = xno; then
 fi
 AM_GCONF_SOURCE_2
 
-AM_GST_ELEMENT_CHECK(cdparanoia,,AC_MSG_ERROR([The 'cdparanoa' element was not found. This will cause Sound Juicer to fail at runtime.]))
-AM_GST_ELEMENT_CHECK(vorbisenc,,AC_MSG_ERROR([The 'vorbisenc' element was not found. This will cause Sound Juicer to fail at runtime.]))
+AM_GST_ELEMENT_CHECK(cdparanoia,,AC_MSG_WARN([The 'cdparanoia' element was not found. This will cause Sound Juicer to fail at runtime.]))
+AM_GST_ELEMENT_CHECK(vorbisenc,,AC_MSG_WARN([The 'vorbisenc' element was not found. This will cause Sound Juicer to fail at runtime.]))
 AM_GST_ELEMENT_CHECK(filesink,,AC_MSG_WARN([The 'filesink' element was not found. This will cause Sound Juicer to fail at runtime.]))
 
 AC_OUTPUT([
+sound-juicer.spec
 Makefile
 data/Makefile
 po/Makefile.in
