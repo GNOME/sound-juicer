@@ -73,9 +73,8 @@ const char* prefs_get_default_device ()
     default_device = g_strdup (cd->device);
     while (cdroms != NULL) {
       CDDrive *cdrom = cdroms->data;
-      cd_drive_free (cdrom);
       cdroms = g_list_remove (cdroms, cdrom);
-      g_free (cdrom);    
+      cd_drive_free (cdrom);
     }
   }
   return default_device;
