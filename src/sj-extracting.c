@@ -22,9 +22,15 @@
 
 #include "sound-juicer.h"
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h> 
+#include <errno.h>
+
 #include <glib/glist.h>
 #include <gtk/gtkwidget.h>
 #include <gtk/gtkwindow.h>
+#include <gtk/gtkmessagedialog.h>
 #include <gtk/gtkprogressbar.h>
 #include <gtk/gtklabel.h>
 #include <glade/glade-xml.h>
@@ -82,6 +88,43 @@ static char* build_filename(const TrackDetails *track)
   return path;
 }
 
+/**
+ * Check if a file exists, can be written to, etc.
+ * Return true on continue, false on skip.
+ */
+static gboolean check_for_file (const char* filename)
+{
+  struct stat stats;
+  int ret;
+  GtkWidget *dialog;
+  ret = stat (filename, &stats);
+  if (ret == -1) {
+    if (errno == ENOENT) {
+      return TRUE;
+    }
+    g_warning ("stat failed: %s", g_strerror (errno));
+    return FALSE;
+  }
+  if (stats.st_size < (100*1024)) {
+    /* The file exists but is small, assume overwriting */
+    return TRUE;
+  }
+  /* Otherwise the file exists and is large, ask user if they really
+     want to overwrite it */
+  dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), GTK_DIALOG_MODAL,
+                                   GTK_MESSAGE_QUESTION,
+                                   GTK_BUTTONS_NONE,
+                                   _("A file called '%s' exists, size %ldK.\nDo you want to skip this track or overwrite it?"),
+                                   filename, (unsigned long)(stats.st_size / 1024));
+    gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Skip"), GTK_RESPONSE_CANCEL);
+    gtk_dialog_add_button (GTK_DIALOG (dialog), _("Overwrite"), GTK_RESPONSE_ACCEPT);
+    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_ACCEPT);
+    gtk_widget_show_all (dialog);
+    ret = gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_widget_destroy (dialog);
+    return ret == GTK_RESPONSE_ACCEPT;
+}
+
 static void pop_and_rip (void)
 {
   TrackDetails *track;
@@ -106,6 +149,7 @@ static void pop_and_rip (void)
 
   file_path = build_filename (track);
 
+  /* Build the directory structure */
   directory = g_path_get_dirname (file_path);
   if (!g_file_test (directory, G_FILE_TEST_IS_DIR)) {
     GError *error = NULL;
@@ -117,6 +161,14 @@ static void pop_and_rip (void)
     }
   }
   g_free (directory);
+
+  /* See if the file exists */
+  if (!check_for_file(file_path)) {
+    current_duration += track->duration;
+    pop_and_rip ();
+    return;
+  }
+
   extracting = TRUE;
   sj_extractor_extract_track (extractor, track, file_path, &error);
   if (error) {
