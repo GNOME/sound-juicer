@@ -40,11 +40,12 @@ typedef struct {
 
 typedef struct {
 	GtkVBoxClass parent_class;
-	void (*device_changed) (GtkWidget *gtx, const char *device_path);
+	void (*device_changed) (GtkWidget *bcs, const char *device_path);
 } BaconCdSelectionClass;
 
 GtkType bacon_cd_selection_get_type              (void);
 GtkWidget *bacon_cd_selection_new                (void);
+GtkWidget *bacon_cd_selection_new_with_drives    (gboolean recorders_only);
 
 void bacon_cd_selection_set_device		 (BaconCdSelection *bcs,
 						  const char *device);
