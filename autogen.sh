@@ -2,7 +2,7 @@
 # Run this to generate all the initial makefiles, etc.
 
 #name of package
-PKG_NAME=${PKG_NAME:Sound Juicer}
+PKG_NAME="sound-juicer"
 srcdir=${srcdir:-.}
 
 # default version requirements ...
