@@ -20,6 +20,7 @@ bin_PROGRAMS = sound-juicer
 sound_juicer_SOURCES = \
 	sound-juicer.h \
 	sj-structures.h \
+	sj-structures.c \
 	sj-main.c \
 	sj-prefs.h \
 	sj-prefs.c \
