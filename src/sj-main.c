@@ -397,7 +397,6 @@ static void
 metadata_cb (SjMetadata *m, GList *albums, GError *error)
 {
   gboolean realized = GTK_WIDGET_REALIZED (main_window);
-  g_print("Albums: %d Error: %d\n", (int)albums, (int)error);
 
   if (realized)
     gdk_window_set_cursor (main_window->window, NULL);
