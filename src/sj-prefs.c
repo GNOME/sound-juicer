@@ -368,13 +368,13 @@ static void path_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
   char *value;
   int i = 0;
   g_return_if_fail (strcmp (entry->key, GCONF_PATH_PATTERN) == 0);
-  g_return_if_fail (entry->value->type == GCONF_VALUE_STRING);
 
   if (entry->value == NULL) {
     value = g_strdup (path_patterns[0].pattern);
-  } else {
+  } else if (entry->value->type == GCONF_VALUE_STRING) {
     value = g_strdup (gconf_value_get_string (entry->value));
-  }
+  } else
+    return;
   while (path_patterns[i].pattern && strcmp(path_patterns[i].pattern, value) != 0) {
     i++;
   }
@@ -389,13 +389,13 @@ static void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
   int i = 0;
 
   g_return_if_fail (strcmp (entry->key, GCONF_FILE_PATTERN) == 0);
-  g_return_if_fail (entry->value->type == GCONF_VALUE_STRING);
 
   if (entry->value == NULL) {
     value = g_strdup (file_patterns[0].pattern);
-  } else {
+  } else if (entry->value->type == GCONF_VALUE_STRING) {
     value = g_strdup (gconf_value_get_string (entry->value));
-  }
+  } else
+    return;
   while (file_patterns[i].pattern && strcmp(file_patterns[i].pattern, value) != 0) {
     i++;
   }
