@@ -110,6 +110,8 @@ build_filename (const TrackDetails *track)
 {
   char *realfile, *realpath, *filename, *extension, *path;
   EncoderFormat format;
+  GError *error = NULL;
+
   realpath = filepath_parse_pattern (path_pattern, track);
   realfile = filepath_parse_pattern (file_pattern, track);
   g_object_get (extractor, "format", &format, NULL);
@@ -134,7 +136,17 @@ build_filename (const TrackDetails *track)
   filename = g_strconcat (realfile, extension, NULL);
   path = g_build_filename (base_path, realpath, filename, NULL);
   g_free (realpath);
-  realpath = g_filename_from_utf8 (path, -1, NULL, NULL, NULL);
+  realpath = g_filename_from_utf8 (path, -1, NULL, NULL, &error);
+  if (error) {
+    const char *charset;
+
+    charset = g_getenv("G_FILENAME_ENCODING");
+    if (!charset) {
+      g_get_charset (&charset);
+    }
+    realpath = g_convert_with_fallback (path, -1, charset, "UTF-8","_", NULL, NULL, NULL);
+    g_error_free (error);
+  }
   g_free (path);
   g_free (realfile);
   g_free (filename);
