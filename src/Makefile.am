@@ -63,17 +63,17 @@ GLIB_GENMARSHAL =`pkg-config --variable=glib_genmarshal glib-2.0`
 
 sj-metadata-marshal.h: sj-metadata-marshal.list
 	( $(GLIB_GENMARSHAL) --prefix=metadata_marshal $< \
-	--header > marshal.tmp \
-	&& mv marshal.tmp $@ ) \
-	|| ( rm -f marshal.tmp && exit 1 )
+	--header > marshal-header.tmp \
+	&& mv marshal-header.tmp $@ ) \
+	|| ( rm -f marshal-header.tmp && exit 1 )
 
 sj-metadata-marshal.c: sj-metadata-marshal.list
 	( $(GLIB_GENMARSHAL) --prefix=metadata_marshal $< \
-	--body > marshal.tmp \
+	--body > marshal-source.tmp \
 	&& echo "#include \"sj-metadata-marshal.h\"" > $@ \
-	&& cat marshal.tmp >> $@ \
-	&& rm -f marshal.tmp ) \
-	|| ( rm -f marshal.tmp && exit 1 )
+	&& cat marshal-source.tmp >> $@ \
+	&& rm -f marshal-source.tmp ) \
+	|| ( rm -f marshal-source.tmp && exit 1 )
 
 BUILT_SOURCES = $(MARSHALFILES)
 CLEANFILES = $(BUILT_SOURCES)
