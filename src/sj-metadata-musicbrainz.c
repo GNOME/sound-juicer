@@ -86,6 +86,7 @@ sj_metadata_musicbrainz_instance_init (GTypeInstance *instance, gpointer g_class
     return;
   }
   mb_UseUTF8 (self->priv->mb, TRUE);
+  //mb_SetDepth (self->priv->mb, 1);
   if (g_getenv("MUSICBRAINZ_DEBUG")) {
     mb_SetDebug (self->priv->mb, TRUE);
   }
@@ -327,8 +328,14 @@ lookup_cd (SjMetadata *metadata)
     mb_GetResultData(priv->mb, MBE_AlbumGetAlbumName, data, 256);
     album->title = g_strdup (data);
 
-    mb_GetResultData1(priv->mb, MBE_AlbumGetArtistName, data, 256, 1);
-    album->artist = g_strdup (data);
+    mb_GetResultData (priv->mb, MBE_AlbumGetAlbumArtistId, data, 256);
+    mb_GetIDFromURL (priv->mb, data, data, 256);
+    if (g_ascii_strncasecmp (MBI_VARIOUS_ARTIST_ID, data, 64) == 0) {
+      album->artist = g_strdup (_("Various"));
+    } else {
+      mb_GetResultData1(priv->mb, MBE_AlbumGetArtistName, data, 256, 1);
+      album->artist = g_strdup (data);
+    }
 
     num_tracks = mb_GetResultInt(priv->mb, MBE_AlbumGetNumTracks);
 
@@ -379,7 +386,6 @@ lookup_cd (SjMetadata *metadata)
     }
   }
   priv->albums = albums;
-  g_print ("got metadata. albums: %d error: %d\n", (int)priv->albums, (int)priv->error);
   g_idle_add ((GSourceFunc)fire_signal_idle, metadata);
   return albums;
 }
