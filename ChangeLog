@@ -1,5 +1,11 @@
 2005-02-06  Ross Burton  <ross@burtonini.com>
 
+	* src/sj-prefs.c:
+	Write the empty string instead of NULL to GConf. GConf 2.8 doesn't
+	like NULL strings.
+
+2005-02-06  Ross Burton  <ross@burtonini.com>
+
 	* README:
 	Update and add bug reporting blurb.
 

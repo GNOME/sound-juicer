@@ -99,7 +99,7 @@ gboolean cd_drive_exists (const char *device)
  */
 void prefs_cdrom_changed_cb (GtkWidget *widget, const char* device)
 {
-  gconf_client_set_string (gconf_client, GCONF_DEVICE, device, NULL);
+  gconf_client_set_string (gconf_client, GCONF_DEVICE, device != NULL ? device : "", NULL);
 }
 
 /**
