@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer 0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-16 18:44+0200\n"
-"PO-Revision-Date: 2003-10-16 18:45+0200\n"
+"POT-Creation-Date: 2003-10-31 12:46+0100\n"
+"PO-Revision-Date: 2003-10-31 12:47+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -107,7 +107,7 @@ msgstr "Progrés"
 msgid "Raw audio"
 msgstr "Àudio cru"
 
-#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:785
+#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:832
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -251,69 +251,69 @@ msgstr "Seleccioneu la unitat"
 msgid "Unnamed CDROM"
 msgstr "CDROM sense nom"
 
-#: src/sj-extractor.c:136
+#: src/sj-extractor.c:135
 msgid "Encoding format"
 msgstr "Format de codificació"
 
-#: src/sj-extractor.c:136
+#: src/sj-extractor.c:135
 msgid "The format to write the encoded audio in"
 msgstr "El format en el qual escriure l'àudio codificat"
 
-#: src/sj-extractor.c:301
+#: src/sj-extractor.c:300
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "No s'ha pogut crear un lector de GStreamer de cdparanoia"
 
-#: src/sj-extractor.c:320
+#: src/sj-extractor.c:319
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
 msgstr "No s'ha pogut crear un codificador de GStreamer (%s)"
 
-#: src/sj-extractor.c:331
+#: src/sj-extractor.c:330
 msgid "Could not create GStreamer file output"
 msgstr "No s'ha pogut crear una sortida a fitxer de GStreamer"
 
-#: src/sj-extractor.c:361
+#: src/sj-extractor.c:360
 msgid "Could not get current track position"
 msgstr "No s'ha pogut obtindre la posició de la pista actual"
 
-#: src/sj-extractor.c:390
+#: src/sj-extractor.c:389
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "L'objecte d'extracció no és vàlid. Açò és dolent, comproveu la consola per a "
 "veure els errors."
 
-#: src/sj-extractor.c:465
+#: src/sj-extractor.c:461
 msgid "Ripped with Sound Juicer"
 msgstr "Extret amb Sound Juicer"
 
-#: src/sj-extractor.c:479
+#: src/sj-extractor.c:475
 msgid "Could not seek to track"
 msgstr "No s'ha pogut cercar fins la pista"
 
-#: src/sj-extractor.c:484
+#: src/sj-extractor.c:480
 msgid "Could not get track start position"
 msgstr "No s'ha pogut obtindre la posició d'inici de la pista"
 
-#: src/sj-extractor.c:527
+#: src/sj-extractor.c:516
 msgid "The plugin necessary for CD access was not found"
 msgstr "No s'ha trobat el connector necessari per l'accés a CD"
 
-#: src/sj-extractor.c:535
+#: src/sj-extractor.c:524
 msgid "The plugin necessary for file access was not found"
 msgstr "No s'ha trobat el connector necessari per l'accés a fitxers"
 
-#: src/sj-util.c:65
+#: src/sj-util.c:64
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "No s'ha pogut crear el directori %s: %s"
 
-#: src/sj-util.c:111 src/sj-util.c:126
+#: src/sj-util.c:110 src/sj-util.c:125
 msgid "Could not eject the CD"
 msgstr "No es pot expulsar el CD"
 
-#: src/sj-util.c:112 src/sj-util.c:127 src/sj-main.c:76 src/sj-main.c:412
-#: src/sj-main.c:480 src/sj-main.c:530
+#: src/sj-util.c:111 src/sj-util.c:126 src/sj-main.c:76 src/sj-main.c:416
+#: src/sj-main.c:486 src/sj-main.c:536
 msgid "Reason"
 msgstr "Raó"
 
@@ -365,37 +365,32 @@ msgstr "Seleccioneu la ubicació de la sortida"
 msgid "Track Artist"
 msgstr "Artista de la pista"
 
-#: src/sj-extracting.c:121
+#: src/sj-extracting.c:172
 #, c-format
 msgid ""
-"A file called '%s' exists, size %ldK.\n"
+"A file called '%s' exists, size %luK.\n"
 "Do you want to skip this track or overwrite it?"
 msgstr ""
-"Existeix un fitxer «%s», de mida %ldK.\n"
+"Existeix un fitxer «%s», de mida %luK.\n"
 "Voleu ometre aquesta pista o sobreescriure-la?"
 
-#: src/sj-extracting.c:123
+#: src/sj-extracting.c:174
 msgid "_Skip"
 msgstr "_Omet"
 
-#: src/sj-extracting.c:124
+#: src/sj-extracting.c:175
 msgid "_Overwrite"
 msgstr "_Sobreescriu"
 
-#. TODO: need to have a better message here
-#: src/sj-extracting.c:186
-msgid "The tracks have been copied successfully."
-msgstr "S'han copiat les pistes amb èxit."
-
-#: src/sj-extracting.c:210
+#: src/sj-extracting.c:247
 #, c-format
 msgid "Extracting '%s'"
 msgstr "S'està extraient «%s»"
 
-#: src/sj-extracting.c:220
-#, c-format
-msgid "mkdir() failed: %s"
-msgstr "mkdir() ha fallat: %s"
+#. TODO: need to have a better message here
+#: src/sj-extracting.c:356
+msgid "The tracks have been copied successfully."
+msgstr "S'han copiat les pistes amb èxit."
 
 #: src/sj-main.c:75
 msgid "Could not start Sound Juicer"
@@ -409,59 +404,59 @@ msgstr "Si us plau, consulteu la documentació per a obtindre ajuda."
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Esteu extraient un CD. Voleu sortir ara o continuar?"
 
-#: src/sj-main.c:179 src/sj-main.c:237
+#: src/sj-main.c:183 src/sj-main.c:241
 msgid "(unknown)"
 msgstr "(desconegut)"
 
-#: src/sj-main.c:279 src/sj-main.c:865
+#: src/sj-main.c:283 src/sj-main.c:911
 msgid "Title"
 msgstr "Títol"
 
-#: src/sj-main.c:285 src/sj-main.c:873
+#: src/sj-main.c:289 src/sj-main.c:919
 msgid "Artist"
 msgstr "Artista"
 
-#: src/sj-main.c:410 src/sj-main.c:478 src/sj-main.c:528
+#: src/sj-main.c:414 src/sj-main.c:484 src/sj-main.c:534
 msgid "Could not read the CD"
 msgstr "No s'ha pogut llegir el CD"
 
-#: src/sj-main.c:411 src/sj-main.c:479
+#: src/sj-main.c:415 src/sj-main.c:485
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer no ha pogut llegir la llista de pistes d'aquest CD."
 
-#: src/sj-main.c:509
+#: src/sj-main.c:515
 msgid "No CD-ROM drives found"
 msgstr "No s'han trobat unitats de CD-ROM"
 
-#: src/sj-main.c:510
+#: src/sj-main.c:516
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer no ha trobat cap unitat de CD-ROM per a llegir."
 
-#: src/sj-main.c:522
+#: src/sj-main.c:528
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer no ha pogut accedir al dispositiu de CD-ROM «%s»"
 
-#: src/sj-main.c:587
+#: src/sj-main.c:593
 msgid "Cannot find any suitable encoders"
 msgstr "No es troba cap codificador adeqüat"
 
-#: src/sj-main.c:602
+#: src/sj-main.c:608
 msgid "The currently selected encoder is not available on your installation."
 msgstr ""
 "El codificador seleccionat actualment no és disponible a la vostra "
 "instal·lació."
 
-#: src/sj-main.c:604
+#: src/sj-main.c:610
 msgid "Change the encoder"
 msgstr "Canvia el codificador"
 
-#: src/sj-main.c:714
+#: src/sj-main.c:760
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "S'ha editat la columna desconeguda %d"
 
-#: src/sj-main.c:761
+#: src/sj-main.c:808
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -470,19 +465,19 @@ msgstr ""
 "No s'ha pogut mostrar l'ajuda per a Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:804
+#: src/sj-main.c:851
 msgid "Could not create GConf client.\n"
 msgstr "No s'ha pogut crear un client de GConf.\n"
 
-#: src/sj-main.c:846
+#: src/sj-main.c:892
 msgid "Extract?"
 msgstr "Voleu extraure?"
 
-#: src/sj-main.c:854
+#: src/sj-main.c:900
 msgid "Track"
 msgstr "Pista"
 
-#: src/sj-main.c:883
+#: src/sj-main.c:929
 msgid "Duration"
 msgstr "Duració"
 
@@ -490,7 +485,7 @@ msgstr "Duració"
 msgid "Cannot create MusicBrainz client"
 msgstr "No es pot crear un client de MusicBrainz"
 
-#: src/sj-metadata-musicbrainz.c:178 src/sj-metadata-musicbrainz.c:297
+#: src/sj-metadata-musicbrainz.c:178 src/sj-metadata-musicbrainz.c:299
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "No es pot llegir el CD: %s"
@@ -516,12 +511,12 @@ msgstr ""
 "L'objecte de metadades MusicBrainz no és vàlid. Açò és dolent, comproveu la "
 "consola per a veure els errors."
 
-#: src/sj-metadata-musicbrainz.c:291
+#: src/sj-metadata-musicbrainz.c:293
 #, c-format
 msgid "Device '%s' does not contain a media"
 msgstr "El dispositiu «%s» no conté un medi"
 
-#: src/sj-metadata-musicbrainz.c:294
+#: src/sj-metadata-musicbrainz.c:296
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
@@ -529,18 +524,25 @@ msgstr ""
 "No s'ha pogut obrir el dispositiu «%s». Comproveu els permissos d'accés del "
 "dispositiu."
 
-#: src/sj-metadata-musicbrainz.c:307
+#: src/sj-metadata-musicbrainz.c:309
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "No s'ha pogut consultar aquest CD: %s\n"
 
-#: src/sj-metadata-musicbrainz.c:315
+#: src/sj-metadata-musicbrainz.c:317
 msgid "This CD was not found.\n"
 msgstr "No s'ha trobat aquest CD.\n"
 
-#: src/sj-metadata-musicbrainz.c:334
+#: src/sj-metadata-musicbrainz.c:338
 msgid "Various"
 msgstr "Diversos"
+
+#: src/sj-metadata-musicbrainz.c:410
+msgid "Could not create CD lookup thread"
+msgstr "No s'ha pogut crear el fil de consulta de CD"
+
+#~ msgid "mkdir() failed: %s"
+#~ msgstr "mkdir() ha fallat: %s"
 
 #~ msgid ""
 #~ "%at -- album title %aa -- album artist %tt -- track title %ta -- track "
