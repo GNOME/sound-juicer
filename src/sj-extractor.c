@@ -382,7 +382,7 @@ static gboolean tick_timeout_cb(SjExtractor *extractor)
   }
 
   /* Extra kick in the pants to keep things moving on a busy system */
-  gst_bin_iterate (extractor->priv->pipeline);
+  gst_bin_iterate (GST_BIN (extractor->priv->pipeline));
   
   return TRUE;
 }
