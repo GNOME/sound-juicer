@@ -49,7 +49,7 @@ static FilePattern path_patterns[] = {
 };
 
 static FilePattern file_patterns[] = {
-  {N_("Number - Title"), "%tn - %tt"},
+  {N_("Number - Title"), "%tN - %tt"},
   {N_("Track Title"), "%tt"},
   {N_("Track Artist - Track Title"), "%ta - %tt"},
   {NULL, NULL}

@@ -298,7 +298,7 @@ void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *en
   g_assert (strcmp (entry->key, GCONF_FILE_PATTERN) == 0);
   if (entry->value == NULL) {
     /* TODO: this value and the value in sj-prefs need to be in one place */
-    file_pattern = g_strdup ("%tn-%tt");
+    file_pattern = g_strdup ("%tN-%tt");
   } else {
     file_pattern = gconf_value_get_string (entry->value);
   }

@@ -291,7 +291,7 @@ static char* sanitize_path (char* s)
   /* Replace path seperators with whitespace */
   g_strdelimit  (s, "/", ' ');
   if (strip_chars) {
-    g_strdelimit (s, "\\*?&!", ' ');
+    g_strdelimit (s, "\\*?&!:", ' ');
     g_strdelimit (s, " ", '_'); /* TODO: use a different function */
   }
   return s;
