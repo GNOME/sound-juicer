@@ -1,3 +1,19 @@
+2003-05-04  Ross Burton  <ross@burtonini.com>
+
+	* configure.in:
+	Add an option to carry on if no CD-ROMs were found. The program is
+	useless but it means I can code on my laptop whilst everyone else
+	gets more error checks.
+
+	* src/sj-main.c:
+	Display a dialog if there are no CD-ROMs found.
+
+	* src/sj-prefs.c:
+	Store the file and path patterns in structures.  Listen to the
+	Strip Special, path and file pattern gconf keys and update the
+	UI. Original patches from Ryan Boren <ryan@boren.nu>, modified by
+	me.
+
 2003-05-03  Ross Burton  <ross@burtonini.com>
 
 	* src/sound-juicer.h:

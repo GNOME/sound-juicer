@@ -33,7 +33,27 @@ extern GladeXML *glade;
 extern GtkWidget *main_window;
 
 static GtkWidget *format_vorbis, *format_mpeg, *format_flac, *format_wave;
-static GtkWidget *cd_option, *path_option, *file_option, *basepath_label;
+static GtkWidget *cd_option, *path_option, *file_option, *basepath_label, *check_strip;
+
+typedef struct {
+  char* name;
+  char* pattern;
+} FilePattern;
+
+static FilePattern path_patterns[] = {
+  {N_("Album Artist, Album Title"), "%aa/%at"},
+  {N_("Track Artist, Album Title"), "%ta/%at"},
+  {N_("Album Title"), "%at"},
+  {N_("Album Artist"), "%aa"},
+  {NULL, NULL}
+};
+
+static FilePattern file_patterns[] = {
+  {N_("Number - Title"), "%tn - %tt"},
+  {N_("Track Title"), "%tt"},
+  {N_("Track Artist - Track Title"), "%ta - %tt"},
+  {NULL, NULL}
+};
 
 const char* prefs_get_default_device ()
 {
@@ -90,10 +110,10 @@ void prefs_browse_clicked (GtkButton *button, gpointer user_data)
 
 void prefs_path_option_changed (GtkOptionMenu *optionmenu, gpointer user_data)
 {
+  int history;
   const char* pattern;
-  GtkMenuShell *menu = GTK_MENU_SHELL (gtk_option_menu_get_menu (optionmenu));
-  /* TODO: foul. Maybe implement a data structure */
-  pattern = g_object_get_data (G_OBJECT(g_list_nth (menu->children, gtk_option_menu_get_history (optionmenu))->data), "pattern");
+  history = gtk_option_menu_get_history (optionmenu);
+  pattern = path_patterns[history].pattern;
   if (pattern) {
     gconf_client_set_string (gconf_client, GCONF_PATH_PATTERN, pattern, NULL);
   }
@@ -101,10 +121,10 @@ void prefs_path_option_changed (GtkOptionMenu *optionmenu, gpointer user_data)
 
 void prefs_file_option_changed (GtkOptionMenu *optionmenu, gpointer user_data)
 {
+  int history;
   const char* pattern;
-  GtkMenuShell *menu = GTK_MENU_SHELL (gtk_option_menu_get_menu (optionmenu));
-  /* TODO: foul. Maybe implement a data structure */
-  pattern = g_object_get_data (G_OBJECT(g_list_nth (menu->children, gtk_option_menu_get_history (optionmenu))->data), "pattern");
+  history = gtk_option_menu_get_history (optionmenu);
+  pattern = file_patterns[history].pattern;
   if (pattern) {
     gconf_client_set_string (gconf_client, GCONF_FILE_PATTERN, pattern, NULL);
   }
@@ -184,6 +204,67 @@ static void basepath_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry 
   gtk_label_set_text (GTK_LABEL (basepath_label), base_path);
 }
 
+static void strip_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+{
+  gboolean value = FALSE;
+  g_assert (strcmp (entry->key, GCONF_STRIP) == 0);
+  if (entry->value != NULL) {
+    value = gconf_value_get_bool (entry->value);
+  }
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check_strip), value);
+}
+
+static void path_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+{
+  char *value;
+  int i = 0;
+  g_assert (strcmp (entry->key, GCONF_PATH_PATTERN) == 0);
+  if (entry->value == NULL) {
+    value = g_strdup (path_patterns[0].pattern);
+  } else {
+    value = g_strdup (gconf_value_get_string (entry->value));
+  }
+  while (path_patterns[i].pattern && strcmp(path_patterns[i].pattern, value) != 0) {
+    i++;
+  }
+  g_free (value);
+  gtk_option_menu_set_history (GTK_OPTION_MENU (path_option), i);
+}
+
+static void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+{
+  char *value;
+  int i = 0;
+  g_assert (strcmp (entry->key, GCONF_FILE_PATTERN) == 0);
+  if (entry->value == NULL) {
+    value = g_strdup (file_patterns[0].pattern);
+  } else {
+    value = g_strdup (gconf_value_get_string (entry->value));
+  }
+  while (file_patterns[i].pattern && strcmp(file_patterns[i].pattern, value) != 0) {
+    i++;
+  }
+  g_free (value);
+  gtk_option_menu_set_history (GTK_OPTION_MENU (file_option), i);
+}
+
+/**
+ * Given a FilePattern array, generate a menu of them items
+ */
+static GtkWidget *generate_pattern_menu (FilePattern *patterns)
+{
+  int i;
+  GtkWidget *menu, *item;
+  menu = gtk_menu_new ();
+  
+  for (i = 0; patterns[i].pattern; ++i) {
+    item = gtk_menu_item_new_with_label (patterns[i].name);
+    g_object_set_data (G_OBJECT (item), "pattern", patterns[i].pattern);
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+  }
+  return menu;
+}
+
 /**
  * Clicked on Preferences in the UI
  */
@@ -203,53 +284,18 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     format_mpeg = glade_xml_get_widget (glade, "format_mpeg");
     format_flac = glade_xml_get_widget (glade, "format_flac");
     format_wave = glade_xml_get_widget (glade, "format_wave");
+    check_strip = glade_xml_get_widget (glade, "check_strip");
 
-    {
-      GtkWidget *menu, *item;
-      menu = gtk_menu_new ();
-
-      item = gtk_menu_item_new_with_label (_("Album Artist, Album Title"));
-      g_object_set_data (G_OBJECT (item), "pattern", "%aa/%at");
-      gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-
-      item = gtk_menu_item_new_with_label (_("Track Artist, Album Title"));
-      g_object_set_data (G_OBJECT (item), "pattern", "%ta/%at");
-      gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-
-      item = gtk_menu_item_new_with_label (_("Album Title"));
-      g_object_set_data (G_OBJECT (item), "pattern", "%at");
-      gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-
-      item = gtk_menu_item_new_with_label (_("Album Artist"));
-      g_object_set_data (G_OBJECT (item), "pattern", "%aa");
-      gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-
-      gtk_option_menu_set_menu (GTK_OPTION_MENU (path_option), menu);
-    }
-
-    {
-      GtkWidget *menu, *item;
-      menu = gtk_menu_new ();
-
-      item = gtk_menu_item_new_with_label (_("Number - Title"));
-      g_object_set_data (G_OBJECT (item), "pattern", "%tn - %tt");
-      gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-
-      item = gtk_menu_item_new_with_label (_("Track Title"));
-      g_object_set_data (G_OBJECT (item), "pattern", "%tt");
-      gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-
-      item = gtk_menu_item_new_with_label (_("Track Artist - Track Title"));
-      g_object_set_data (G_OBJECT (item), "pattern", "%ta - %tt");
-      gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-
-      gtk_option_menu_set_menu (GTK_OPTION_MENU (file_option), menu);
-    }
-
+    gtk_option_menu_set_menu (GTK_OPTION_MENU (path_option), generate_pattern_menu (path_patterns));
+    gtk_option_menu_set_menu (GTK_OPTION_MENU (file_option), generate_pattern_menu (file_patterns));
+    
     /* Connect to GConf to update the UI */
     gconf_client_notify_add (gconf_client, GCONF_DEVICE, device_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_BASEPATH, basepath_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_FORMAT, format_changed_cb, NULL, NULL, NULL);
+    gconf_client_notify_add (gconf_client, GCONF_STRIP, strip_changed_cb, NULL, NULL, NULL);
+    gconf_client_notify_add (gconf_client, GCONF_PATH_PATTERN, path_pattern_changed_cb, NULL, NULL, NULL);
+    gconf_client_notify_add (gconf_client, GCONF_FILE_PATTERN, file_pattern_changed_cb, NULL, NULL, NULL);
   }
   /*
    * TODO: this is pretty sick. Need another way of doing this --
@@ -259,6 +305,7 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
   basepath_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEPATH, NULL, TRUE, NULL), NULL);
   device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), NULL);
   format_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FORMAT, NULL, TRUE, NULL), NULL);
+  strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);
 
   gtk_widget_show_all (dialog);
   gtk_dialog_run (GTK_DIALOG (dialog));

@@ -59,6 +59,10 @@ AM_GST_ELEMENT_CHECK(cdparanoia,,AC_MSG_WARN([The 'cdparanoia' element was not f
 AM_GST_ELEMENT_CHECK(vorbisenc,,AC_MSG_WARN([The 'vorbisenc' element was not found. This will cause Sound Juicer to fail at runtime.]))
 AM_GST_ELEMENT_CHECK(filesink,,AC_MSG_WARN([The 'filesink' element was not found. This will cause Sound Juicer to fail at runtime.]))
 
+AC_ARG_ENABLE(ignore-missing-cd, [  --enable-ignore-missing-cd      Ignore missing CD-ROM],
+        AC_DEFINE(IGNORE_MISSING_CD, 1, [Ignore missing CD-ROM drives]),)
+dnl TODO: display a message etc
+
 AC_OUTPUT([
 sound-juicer.spec
 Makefile

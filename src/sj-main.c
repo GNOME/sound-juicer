@@ -278,6 +278,7 @@ void path_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *en
 {
   g_assert (strcmp (entry->key, GCONF_PATH_PATTERN) == 0);
   if (entry->value == NULL) {
+    /* TODO: this value and the value in sj-prefs need to be in one place */
     path_pattern = g_strdup ("%aa/%at");
   } else {
     path_pattern = gconf_value_get_string (entry->value);
@@ -292,6 +293,7 @@ void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *en
 {
   g_assert (strcmp (entry->key, GCONF_FILE_PATTERN) == 0);
   if (entry->value == NULL) {
+    /* TODO: this value and the value in sj-prefs need to be in one place */
     file_pattern = g_strdup ("%tn-%tt");
   } else {
     file_pattern = gconf_value_get_string (entry->value);
@@ -371,7 +373,7 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
   if (entry->value == NULL) {
     device = prefs_get_default_device();
     if (device == NULL) {
-#if 0
+#ifndef IGNORE_MISSING_CD
       GtkWidget *dialog;
       dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
                                        GTK_MESSAGE_ERROR,
