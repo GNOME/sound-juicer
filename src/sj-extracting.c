@@ -55,7 +55,8 @@ static char* build_filename(const TrackDetails *track)
   basefile = parse_pattern (file_pattern, track);
   switch (encoding_format) {
   case VORBIS:
-    filename = g_strconcat (base_path, basefile, ".ogg", NULL);    
+    filename = g_strconcat (base_path, basefile, ".ogg", NULL);
+    break;
   default:
     g_return_val_if_reached (NULL);
   }
@@ -242,10 +243,11 @@ parse_pattern (const char* pattern, const TrackDetails *track)
   s = string = g_new0(char, 256); /* TODO: bad hardcoding */
 
   p = pattern;
-  while (*++p) {
+  while (*p) {
     /* If not a % marker, copy and continue */
     if (*p != '%') {
-      *s++ = *p;
+      *s++ = *p++;
+      /* Explicit increment as we continue past the increment */
       continue;
     }
     /* Is a % marker, go to next and see what to do */
@@ -310,6 +312,7 @@ parse_pattern (const char* pattern, const TrackDetails *track)
       *s++ = '%';
       *s++ = *p;
     }
+    ++p;
   }
   *s = '\0';
   return string;

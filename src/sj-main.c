@@ -289,9 +289,9 @@ void pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, 
 {
   g_assert (strcmp (entry->key, GCONF_PATTERN) == 0);
   if (entry->value == NULL) {
-    base_path = g_strdup ("%aa/%at/%tt");
+    file_pattern = g_strdup ("%aa/%at/%tt");
   } else {
-    base_path = gconf_value_get_string (entry->value);
+    file_pattern = gconf_value_get_string (entry->value);
   }
   /* TODO: sanity check the pattern */
 }
