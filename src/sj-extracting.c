@@ -206,7 +206,7 @@ static void pop_and_rip (void)
  */
 void on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
 {
-  sj_extractor_cancel_extract(extractor);
+  sj_extractor_cancel_extract (extractor);
   /* Clean up the pending list */
   g_list_free (pending);
   pending = NULL;
@@ -272,6 +272,25 @@ static void on_completion_cb (SjExtractor *extractor, gpointer data)
 }
 
 /**
+ * Callback from SjExtractor to report errors
+ */
+static void on_error_cb (SjExtractor *extractor, GError *error, gpointer data)
+{
+  GtkWidget *dialog;
+  extracting = FALSE;
+  g_list_free (pending);
+  pending = NULL;
+  /* TODO: cleanup. Must refactor this code. */
+  dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
+                                   GTK_MESSAGE_ERROR,
+                                   GTK_BUTTONS_CLOSE,
+                                   g_strdup_printf ("Sound Juicer could not extract this CD.\nReason: %s", error->message));
+  gtk_dialog_run (GTK_DIALOG (dialog));
+  g_error_free (error);
+  return;
+}
+
+/**
  * Clicked on Extract in the UI
  */
 void on_extract_activate (GtkWidget *button, gpointer user_data)
@@ -302,6 +321,7 @@ void on_extract_activate (GtkWidget *button, gpointer user_data)
 
   g_signal_connect (extractor, "progress", G_CALLBACK(on_progress_cb), NULL);
   g_signal_connect (extractor, "completion", G_CALLBACK(on_completion_cb), NULL);
+  g_signal_connect (extractor, "error", G_CALLBACK(on_error_cb), NULL);
 
   gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), rip_track_foreach_cb, NULL);
   pop_and_rip();
