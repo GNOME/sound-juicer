@@ -99,7 +99,7 @@ linux_bsd_media_type (const char *device)
 		return CD_MEDIA_TYPE_ERROR;
 	}
 
-	mmc_profile = get_mmc_profile ((void *)fd);
+	mmc_profile = get_mmc_profile ((void *)&fd);
 	close (fd);
 
 	switch (mmc_profile) {
