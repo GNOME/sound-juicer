@@ -32,10 +32,7 @@ sound_juicer_SOURCES = \
 	sj-about.c \
 	sj-extracting.h \
 	sj-extracting.c \
-	bacon-cd-selection.h \
-	bacon-cd-selection.c \
-	cd-drive.h \
-	cd-drive.c
+	$(BACONFILES)
 
 sound_juicer_LDFLAGS = @MUSICBRAINZ_LIBS@ @GSTREAMER_LIBS@ @LIBGLADE_LIBS@ @GNOME_LIBS@
 
@@ -44,7 +41,7 @@ sound_juicer_LDFLAGS = @MUSICBRAINZ_LIBS@ @GSTREAMER_LIBS@ @LIBGLADE_LIBS@ @GNOM
 #
 
 BACONDIR=$(srcdir)/../../libbacon/src/
-BACONFILES=cd-drive.c cd-drive.h bacon-cd-selection.c bacon-cd-selection.h
+BACONFILES=cd-drive.c cd-drive.h bacon-cd-selection.c bacon-cd-selection.h dvd_plus_rw_utils.cpp transport.hxx
 
 regenerate-built-sources:
 	BACONFILES="$(BACONFILES)" BACONDIR="$(BACONDIR)" $(top_srcdir)/src/update-from-bacon.sh
