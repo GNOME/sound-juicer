@@ -610,11 +610,11 @@ void format_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
       gtk_dialog_add_button (GTK_DIALOG (dialog), _("Change the encoder"), GTK_RESPONSE_ACCEPT);
       response = gtk_dialog_run (GTK_DIALOG (dialog));
       if (response == GTK_RESPONSE_REJECT) {
-        exit (1);
+        gtk_main_quit ();
       } else {
+        gtk_widget_destroy (dialog);
         on_edit_preferences_cb (NULL, NULL);
       }
-      gtk_widget_destroy (dialog);
     }
   }
 }
