@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-01 13:16+0100\n"
-"PO-Revision-Date: 2003-11-01 13:25+0100\n"
+"POT-Creation-Date: 2003-11-14 02:17+0100\n"
+"PO-Revision-Date: 2003-11-14 02:18+0100\n"
 "Last-Translator: Danilo Šegan <dsegan@gmx.net>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -110,7 +110,7 @@ msgid "Raw audio"
 msgstr "Neobrađeni zvuk"
 
 # Sokovnik za zvuk = Zvukovnik
-#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:832
+#: data/sound-juicer.glade.h:24 src/sj-about.c:55 src/sj-main.c:848
 msgid "Sound Juicer"
 msgstr "Zvukovnik"
 
@@ -118,7 +118,9 @@ msgstr "Zvukovnik"
 msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
-msgstr "Ovaj CD može imati više od jednog albuma.  Selektujte album koji je ispod i pritisnite <i>Nastavi</i>."
+msgstr ""
+"Ovaj CD može imati više od jednog albuma.  Selektujte album koji je ispod i "
+"pritisnite <i>Nastavi</i>."
 
 #: data/sound-juicer.glade.h:26
 msgid "Wave"
@@ -136,7 +138,7 @@ msgstr "_CD"
 msgid "_Contents"
 msgstr "_Sadržaj"
 
-#: data/sound-juicer.glade.h:30 src/sj-main.c:128
+#: data/sound-juicer.glade.h:30 src/sj-main.c:134
 msgid "_Continue"
 msgstr "_Nastavi"
 
@@ -259,47 +261,47 @@ msgstr "Oblik vrste zapisa"
 msgid "The format to write the encoded audio in"
 msgstr "Oblik za pisanje načina tonskog zapisa u"
 
-#: src/sj-extractor.c:300
+#: src/sj-extractor.c:297
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "Ne može da stvori GStrimerov čitač cdparanoia"
 
-#: src/sj-extractor.c:319
+#: src/sj-extractor.c:316
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
 msgstr "Ne može da napravi GStrimerov enkoder (%s)"
 
-#: src/sj-extractor.c:330
+#: src/sj-extractor.c:327
 msgid "Could not create GStreamer file output"
 msgstr "Ne može da napravi GStrimerovu izlaznu datoteku"
 
-#: src/sj-extractor.c:360
+#: src/sj-extractor.c:357
 msgid "Could not get current track position"
 msgstr "Ne može da dobije trenutnu poziciju staze"
 
-#: src/sj-extractor.c:389
+#: src/sj-extractor.c:386
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Izvučeni objekat nije odgovarajuć. To je loše, proverite svoju konzolu za "
 "graškama."
 
-#: src/sj-extractor.c:461
+#: src/sj-extractor.c:458
 msgid "Ripped with Sound Juicer"
 msgstr "Izvučen pomoću Zvukovnika"
 
-#: src/sj-extractor.c:475
+#: src/sj-extractor.c:472
 msgid "Could not seek to track"
 msgstr "Ne može da potraži stazu"
 
-#: src/sj-extractor.c:480
+#: src/sj-extractor.c:477
 msgid "Could not get track start position"
 msgstr "Ne može da dobije startnu poziciju staze"
 
-#: src/sj-extractor.c:516
+#: src/sj-extractor.c:513
 msgid "The plugin necessary for CD access was not found"
 msgstr "Dodatak neophodan za pristup CD-u nije nađen"
 
-#: src/sj-extractor.c:524
+#: src/sj-extractor.c:521
 msgid "The plugin necessary for file access was not found"
 msgstr "Dodatak neophodan za pristup datoteci nije nađen"
 
@@ -312,12 +314,24 @@ msgstr "Nisam mogao da napravim direktorijum %s: %s"
 msgid "Could not eject the CD"
 msgstr "Ne može da izbaci CD"
 
-#: src/sj-util.c:111 src/sj-util.c:126 src/sj-main.c:76 src/sj-main.c:416
-#: src/sj-main.c:486 src/sj-main.c:536
+#: src/sj-util.c:111 src/sj-util.c:126 src/sj-main.c:82 src/sj-main.c:422
+#: src/sj-main.c:496 src/sj-main.c:546
 msgid "Reason"
 msgstr "Razlog"
 
-#: src/sj-about.c:52
+#.
+#. * Note to translators: put here your name and email so it will show
+#. * up in the "about" box
+#.
+#: src/sj-about.c:45
+msgid "translator_credits"
+msgstr ""
+"Dejan Matijević <dejan@ns.sympatico.ca>\n"
+"Danilo Šegan <danilo@prevod.org>\n"
+"\n"
+"Prevod.org — prevod na srpski jezik."
+
+#: src/sj-about.c:57
 msgid "A CD Ripper"
 msgstr "Izvlačivač sa CD-a"
 
@@ -329,11 +343,11 @@ msgstr "Izvođač albuma, Naslov albuma"
 msgid "Track Artist, Album Title"
 msgstr "Izvođač staze - Naslov albuma"
 
-#: src/sj-prefs.c:49 src/sj-prefs.c:258 src/sj-prefs.c:269
+#: src/sj-prefs.c:49 src/sj-prefs.c:259 src/sj-prefs.c:270
 msgid "Album Title"
 msgstr "Naslov albuma"
 
-#: src/sj-prefs.c:50 src/sj-prefs.c:259 src/sj-prefs.c:270
+#: src/sj-prefs.c:50 src/sj-prefs.c:260 src/sj-prefs.c:271
 msgid "Album Artist"
 msgstr "Izvođač albuma"
 
@@ -341,31 +355,35 @@ msgstr "Izvođač albuma"
 msgid "Album Artist - Album Title"
 msgstr "Izvođač albuma - Naslov albuma"
 
-#: src/sj-prefs.c:56
+#: src/sj-prefs.c:52
+msgid "[none]"
+msgstr "[ništa]"
+
+#: src/sj-prefs.c:57
 msgid "Number - Title"
 msgstr "Broj - Naslov"
 
-#: src/sj-prefs.c:57 src/sj-prefs.c:264 src/sj-prefs.c:277
+#: src/sj-prefs.c:58 src/sj-prefs.c:265 src/sj-prefs.c:278
 msgid "Track Title"
 msgstr "Naslov staze"
 
-#: src/sj-prefs.c:58
+#: src/sj-prefs.c:59
 msgid "Track Artist - Track Title"
 msgstr "Izvođač staze - Naslov staze"
 
-#: src/sj-prefs.c:59
+#: src/sj-prefs.c:60
 msgid "Number. Track Artist - Track Title"
 msgstr "Broj. Izvođač staze - Naslov staze"
 
-#: src/sj-prefs.c:99
+#: src/sj-prefs.c:100
 msgid "Select Output Location"
 msgstr "Odaberite izlaznu lokaciju"
 
-#: src/sj-prefs.c:265 src/sj-prefs.c:278
+#: src/sj-prefs.c:266 src/sj-prefs.c:279
 msgid "Track Artist"
 msgstr "Izvođač staze"
 
-#: src/sj-extracting.c:174
+#: src/sj-extracting.c:175
 #, c-format
 msgid ""
 "A file called '%s' exists, size %luKB.\n"
@@ -374,87 +392,89 @@ msgstr ""
 "Datoteka zvana „%s“ postoji, veličine %luK.\n"
 "Da li želite da preskočite ovu pesmu ili je presnimite?"
 
-#: src/sj-extracting.c:176
+#: src/sj-extracting.c:177
 msgid "_Skip"
 msgstr "Pre_skoči"
 
-#: src/sj-extracting.c:177
+#: src/sj-extracting.c:178
 msgid "_Overwrite"
 msgstr "_Presnimi"
 
-#: src/sj-extracting.c:251
+#: src/sj-extracting.c:252
 #, c-format
 msgid "Extracting '%s'"
 msgstr "Izvlačenje „%s“"
 
 #. TODO: need to have a better message here
-#: src/sj-extracting.c:362
+#: src/sj-extracting.c:363
 msgid "The tracks have been copied successfully."
 msgstr "Datoteke su uspešno kopirane."
 
-#: src/sj-main.c:75
+#: src/sj-main.c:81
 msgid "Could not start Sound Juicer"
 msgstr "Ne mogu da pokrenem Zvukovnik"
 
-#: src/sj-main.c:78
+#: src/sj-main.c:84
 msgid "Please consult the documentation for assistance."
 msgstr "Pogledajte dokumentaciju za pomoć."
 
-#: src/sj-main.c:126
+#: src/sj-main.c:132
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
-msgstr "Vi trenutno izvlačite sa CD-a.  Da li sada hoćete da prekinete ili da nastavite?"
+msgstr ""
+"Vi trenutno izvlačite sa CD-a.  Da li sada hoćete da prekinete ili da "
+"nastavite?"
 
-#: src/sj-main.c:183 src/sj-main.c:241
+#: src/sj-main.c:189 src/sj-main.c:247
 msgid "(unknown)"
 msgstr "(nepoznato)"
 
-#: src/sj-main.c:283 src/sj-main.c:911
+#: src/sj-main.c:289 src/sj-main.c:927
 msgid "Title"
 msgstr "Naslov"
 
-#: src/sj-main.c:289 src/sj-main.c:919
+#: src/sj-main.c:295 src/sj-main.c:935
 msgid "Artist"
 msgstr "Izvođač"
 
-#: src/sj-main.c:414 src/sj-main.c:484 src/sj-main.c:534
+#: src/sj-main.c:420 src/sj-main.c:494 src/sj-main.c:544
 msgid "Could not read the CD"
 msgstr "Ne mogu da čitam CD"
 
-#: src/sj-main.c:415 src/sj-main.c:485
+#: src/sj-main.c:421 src/sj-main.c:495
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Zvukovnik ne može da čita spisak pesama sa ovog CD-a."
 
-#: src/sj-main.c:515
+#: src/sj-main.c:525
 msgid "No CD-ROM drives found"
 msgstr "Nijedan CD uređaj nije nađen"
 
-#: src/sj-main.c:516
+#: src/sj-main.c:526
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Zvukovnik ne može da naće nijedan CD uređaj da čita."
 
-#: src/sj-main.c:528
+#: src/sj-main.c:538
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Zvukovnik ne može da pristupi CD uređaju „%s“"
 
-#: src/sj-main.c:593
+#: src/sj-main.c:603
 msgid "Cannot find any suitable encoders"
 msgstr "Ne mogu da nađem prigodne vrste zapisa"
 
-#: src/sj-main.c:608
+#: src/sj-main.c:618
 msgid "The currently selected encoder is not available on your installation."
 msgstr "Trenutno izabrana vrsta zapisa nije dostupna na vašem sistemu."
 
-#: src/sj-main.c:610
+#: src/sj-main.c:620
 msgid "Change the encoder"
 msgstr "Izmeni vrstu zapisa"
 
-#: src/sj-main.c:760
+#: src/sj-main.c:770
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Nepoznata kolona %d je promenjena"
 
-#: src/sj-main.c:808
+#: src/sj-main.c:818
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -463,19 +483,19 @@ msgstr ""
 "Ne može da prikaže pomoć za Zvukovnika\n"
 "%s"
 
-#: src/sj-main.c:851
+#: src/sj-main.c:867
 msgid "Could not create GConf client.\n"
 msgstr "Ne može da napravi GKonf klijent.\n"
 
-#: src/sj-main.c:892
+#: src/sj-main.c:908
 msgid "Extract?"
 msgstr "Izvaditi?"
 
-#: src/sj-main.c:900
+#: src/sj-main.c:916
 msgid "Track"
 msgstr "Staza"
 
-#: src/sj-main.c:929
+#: src/sj-main.c:945
 msgid "Duration"
 msgstr "Trajanje"
 
@@ -505,7 +525,9 @@ msgstr "Staza %d"
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
-msgstr "MusicBrainz objekat sa metapodacima nije odgovarajući. To je loše, proverite svoju konzolu za greške."
+msgstr ""
+"MusicBrainz objekat sa metapodacima nije odgovarajući. To je loše, proverite "
+"svoju konzolu za greške."
 
 #: src/sj-metadata-musicbrainz.c:293
 #, c-format
