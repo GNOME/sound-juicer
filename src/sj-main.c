@@ -432,6 +432,30 @@ void format_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
 }
 
 /**
+ * The GConf key for the HTTP proxy changed.
+ */
+void http_proxy_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+{
+  const char* value;
+  g_assert (strcmp (entry->key, GCONF_HTTP_PROXY) == 0);
+  if (entry->value == NULL) return;
+  value = gconf_value_get_string (entry->value);
+  sj_musicbrainz_set_proxy (value);
+}
+
+/**
+ * The GConf key for the HTTP proxy port changed.
+ */
+void http_proxy_port_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+{
+  int value;
+  g_assert (strcmp (entry->key, GCONF_HTTP_PROXY_PORT) == 0);
+  if (entry->value == NULL) return;
+  value = gconf_value_get_int (entry->value);
+  sj_musicbrainz_set_proxy_port (value);
+}
+
+/**
  * Clicked on Reread in the UI (button/menu)
  */
 void on_reread_activate (GtkWidget *button, gpointer user_data)
@@ -532,6 +556,9 @@ int main (int argc, char **argv)
   gconf_client_notify_add (gconf_client, GCONF_PARANOIA, paranoia_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_PATH_PATTERN, path_pattern_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_FILE_PATTERN, file_pattern_changed_cb, NULL, NULL, NULL);
+  gconf_client_add_dir (gconf_client, GCONF_PROXY_ROOT, GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
+  gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY, http_proxy_changed_cb, NULL, NULL, NULL);
+  gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY_PORT, http_proxy_port_changed_cb, NULL, NULL, NULL);
 
 
   glade_init ();
@@ -611,7 +638,9 @@ int main (int argc, char **argv)
   format_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FORMAT, NULL, TRUE, NULL), NULL);
   paranoia_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PARANOIA, NULL, TRUE, NULL), NULL);
   strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);
-    
+  http_proxy_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_HTTP_PROXY, NULL, TRUE, NULL), NULL);
+  http_proxy_port_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_HTTP_PROXY_PORT, NULL, TRUE, NULL), NULL);
+
   gtk_widget_show_all (main_window);
   gtk_main ();
   return 0;

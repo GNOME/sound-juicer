@@ -83,7 +83,7 @@ static void pop_and_rip (void)
   }
 
   track = pending->data;
-  pending = g_list_next (pending);
+  pending = g_list_remove (pending, track);
 
   left = total_ripping - (g_list_length (pending) + 1); /* +1 as we've popped already */
   gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress), (float)left/(float)total_ripping);
@@ -122,7 +122,10 @@ static void pop_and_rip (void)
 void on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
 {
   sj_extractor_cancel_extract(extractor);
+  /* Clean up the pending list */
+  g_list_free (pending);
   gtk_widget_hide (progress_dialog);
+  extracting = FALSE;
 }
 
 /**
@@ -196,7 +199,6 @@ void on_extract_activate (GtkWidget *button, gpointer user_data)
   gtk_widget_show_all (progress_dialog);
 
   /* Fill pending with a list of all tracks to rip */
-  g_list_free (pending);
   total_ripping = 0;
   total_duration = 0;
 

@@ -1,3 +1,31 @@
+2003-05-06  Ross Burton  <ross@burtonini.com>
+
+	* src/sj-extracting.c:
+	(on_progress_cancel_clicked): Set the extracting state field to
+	false. Noticed by Ryan Boren <ryan@boren.nu>.
+	(on_extract_activate): Re-arrange the freeing of the pending list
+	so that restarting extracts after cancelling works. Bug noticed by
+	Ryan Boren.
+
+	* src/sj-musicbrainz.[ch]:
+	Add functions to set the proxy host and port.
+
+	* src/sound-juicer.h:
+	Define the GConf keys for the system HTTP proxy and port.
+	
+	* src/sj-main.c:
+	Listen to the system HTTP proxy and set the MusicBrainz
+	proxy. Patch from Kai Willadsen <kaiw@itee.uq.edu.au>.
+
+	* configure.in:
+	* po/es_ES.po:
+	Added Spanish translation, by Kike <krm@futurnet.es>
+
+	* NEWS:
+	* README:
+	* TODO:
+	Updated.
+
 2003-05-04  Ross Burton  <ross@burtonini.com>
 
 	* configure.in:

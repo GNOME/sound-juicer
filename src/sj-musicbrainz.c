@@ -34,6 +34,8 @@
 #include "sj-error.h"
 
 static char* cdrom;
+static char* http_proxy;
+static int http_proxy_port;
 
 void sj_musicbrainz_init (void) {
   cdrom = g_strdup ("/dev/cdrom");
@@ -43,6 +45,18 @@ void sj_musicbrainz_set_cdrom(const char* device) {
   g_return_if_fail (device != NULL);
   g_free (cdrom);
   cdrom = g_strdup (device);
+}
+
+void sj_musicbrainz_set_proxy (const char* proxy) {
+  g_return_if_fail (proxy != NULL);
+  if (http_proxy) {
+    g_free (http_proxy);
+  }
+  http_proxy = g_strdup (proxy);
+}
+
+void sj_musicbrainz_set_proxy_port (int proxy_port) {
+  http_proxy_port = proxy_port;
 }
 
 static GList* get_offline_track_listing(musicbrainz_t mb, GError **error)
@@ -90,6 +104,10 @@ GList* sj_musicbrainz_list_albums(GError **error) {
     return NULL;
   }
   mb_SetDevice (mb, cdrom);
+
+  if (http_proxy) {
+    mb_SetProxy (mb, http_proxy, http_proxy_port);
+  }
 
   if (!mb_Query (mb, MBQ_GetCDInfo)) {
     return get_offline_track_listing (mb, error);

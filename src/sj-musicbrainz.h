@@ -28,6 +28,8 @@
 
 void sj_musicbrainz_init (void);
 void sj_musicbrainz_set_cdrom (const char* device);
+void sj_musicbrainz_set_proxy (const char* proxy);
+void sj_musicbrainz_set_proxy_port (int proxy_port);
 GList* sj_musicbrainz_list_albums (GError **error);
 
 #endif
