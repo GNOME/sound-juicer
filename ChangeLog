@@ -1,5 +1,16 @@
 2003-10-31  Ross Burton  <ross@burtonini.com>
 
+	* configure.in:
+	Add GObject and GThread to the GLib compiler arguments.
+
+	* test/mb-test.c
+	Initialize threads, and remove the explicit CD-ROM set.
+
+	* test/Makefile.am:
+	Remove -lgobject-2.0 as GLIB_LIBS does that for us now.
+
+2003-10-31  Ross Burton  <ross@burtonini.com>
+
 	* src/sj-extracting.c:
 	Use "kB" and divide by 1000 to be correct with file sizes. Pointed
 	out by Alexander Winston.  Also hide the dialogs when errors

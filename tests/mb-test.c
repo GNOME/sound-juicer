@@ -36,12 +36,12 @@ int main (int argc, char** argv)
   GMainLoop *loop;
 
   g_type_init ();
+  g_thread_init (NULL);
+  
   metadata = (SjMetadata*)sj_metadata_musicbrainz_new ();
 
   if (argc == 2) {
     sj_metadata_set_cdrom (metadata, argv[1]);
-  } else if (argc == 1) {
-    sj_metadata_set_cdrom (metadata, "/dev/cdroms/cdrom0");
   } else {
     g_print ("Usage: %s [CD device]\n", argv[0]);
     exit (1);

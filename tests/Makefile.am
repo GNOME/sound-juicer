@@ -21,4 +21,4 @@ mb_test_SOURCES = \
 	$(top_srcdir)/src/transport.hxx \
 	$(top_srcdir)/src/dvd_plus_rw_utils.cpp
 
-mb_test_LDADD = @GLIB_LIBS@ @MUSICBRAINZ_LIBS@ -lgobject-2.0
+mb_test_LDADD = @GLIB_LIBS@ @MUSICBRAINZ_LIBS@
