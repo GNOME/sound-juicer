@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
-"POT-Creation-Date: 2003-09-30 09:17+0200\n"
-"PO-Revision-Date: 2003-09-30 09:18+0200\n"
+"POT-Creation-Date: 2003-10-27 01:26+0100\n"
+"PO-Revision-Date: 2003-10-27 01:26+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -107,7 +107,7 @@ msgstr "Förlopp"
 msgid "Raw audio"
 msgstr "Rått ljud"
 
-#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:786
+#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:785
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -249,11 +249,11 @@ msgstr "Välj enheten"
 msgid "Unnamed CDROM"
 msgstr "Namnlös cd-rom"
 
-#: src/sj-extractor.c:136
+#: src/sj-extractor.c:135
 msgid "Encoding format"
 msgstr "Kodningsformat"
 
-#: src/sj-extractor.c:136
+#: src/sj-extractor.c:135
 msgid "The format to write the encoded audio in"
 msgstr "Formatet som det kodade ljudet ska skrivas i"
 
@@ -270,34 +270,34 @@ msgstr "Kunde inte skapa GStreamer-kodare (%s)"
 msgid "Could not create GStreamer file output"
 msgstr "Kunde inte skapa GStreamer-filutdata"
 
-#: src/sj-extractor.c:359
+#: src/sj-extractor.c:360
 msgid "Could not get current track position"
 msgstr "Kund einte få tag i aktuell spårposition"
 
-#: src/sj-extractor.c:388
+#: src/sj-extractor.c:389
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Extraktörsobjekt är inte giltigt. Detta är illa. Kontrollera eventuella fel "
 "på din konsoll."
 
-#: src/sj-extractor.c:463
+#: src/sj-extractor.c:461
 msgid "Ripped with Sound Juicer"
 msgstr "Rippad med Sound Juicer"
 
-#: src/sj-extractor.c:477
+#: src/sj-extractor.c:475
 msgid "Could not seek to track"
 msgstr "Kunde inte spola till nästa spår"
 
-#: src/sj-extractor.c:482
+#: src/sj-extractor.c:480
 msgid "Could not get track start position"
 msgstr "Kunde inte få tag i startposition"
 
-#: src/sj-extractor.c:522
+#: src/sj-extractor.c:516
 msgid "The plugin necessary for CD access was not found"
 msgstr "Insticksmodulen som är nödvändig för cd-åtkomst hittades inte"
 
-#: src/sj-extractor.c:530
+#: src/sj-extractor.c:524
 msgid "The plugin necessary for file access was not found"
 msgstr "Insticksmodulen som är nödvändig för filåtkomst hittades inte"
 
@@ -311,7 +311,7 @@ msgid "Could not eject the CD"
 msgstr "Kunde inte mata ut cd-skivan"
 
 #: src/sj-util.c:112 src/sj-util.c:127 src/sj-main.c:76 src/sj-main.c:412
-#: src/sj-main.c:481 src/sj-main.c:531
+#: src/sj-main.c:480 src/sj-main.c:530
 msgid "Reason"
 msgstr "Orsak"
 
@@ -363,37 +363,37 @@ msgstr "Välj utdataplats"
 msgid "Track Artist"
 msgstr "Spårartist"
 
-#: src/sj-extracting.c:118
+#: src/sj-extracting.c:172
 #, c-format
 msgid ""
-"A file called '%s' exists, size %ldK.\n"
+"A file called '%s' exists, size %luK.\n"
 "Do you want to skip this track or overwrite it?"
 msgstr ""
-"En fil med namnet \"%s\" finns redan med storleken %ld kB.\n"
+"En fil med namnet \"%s\" finns, storlek %lu kB.\n"
 "Vill du hoppa över detta spår eller skriva över det?"
 
-#: src/sj-extracting.c:120
+#: src/sj-extracting.c:174
 msgid "_Skip"
 msgstr "_Hoppa över"
 
-#: src/sj-extracting.c:121
+#: src/sj-extracting.c:175
 msgid "_Overwrite"
 msgstr "Skriv _över"
 
-#. TODO: need to have a better message here
-#: src/sj-extracting.c:147
-msgid "The tracks have been copied successfully."
-msgstr "Spåren har kopierats utan problem."
+#: src/sj-extracting.c:198
+#, c-format
+msgid "mkdir() failed: %s"
+msgstr "mkdir() misslyckades: %s"
 
-#: src/sj-extracting.c:168
+#: src/sj-extracting.c:239
 #, c-format
 msgid "Extracting '%s'"
 msgstr "Extraherar \"%s\""
 
-#: src/sj-extracting.c:178
-#, c-format
-msgid "mkdir() failed: %s"
-msgstr "mkdir() misslyckades: %s"
+#. TODO: need to have a better message here
+#: src/sj-extracting.c:343
+msgid "The tracks have been copied successfully."
+msgstr "Spåren har kopierats utan problem."
 
 #: src/sj-main.c:75
 msgid "Could not start Sound Juicer"
@@ -412,54 +412,54 @@ msgstr ""
 msgid "(unknown)"
 msgstr "(okänd)"
 
-#: src/sj-main.c:279 src/sj-main.c:866
+#: src/sj-main.c:279 src/sj-main.c:865
 msgid "Title"
 msgstr "Titel"
 
-#: src/sj-main.c:285 src/sj-main.c:874
+#: src/sj-main.c:285 src/sj-main.c:873
 msgid "Artist"
 msgstr "Artist"
 
-#: src/sj-main.c:410 src/sj-main.c:479 src/sj-main.c:529
+#: src/sj-main.c:410 src/sj-main.c:478 src/sj-main.c:528
 msgid "Could not read the CD"
 msgstr "Kunde inte läsa cd-skivan"
 
-#: src/sj-main.c:411 src/sj-main.c:480
+#: src/sj-main.c:411 src/sj-main.c:479
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer kunde inte läsa spårlistan på denna cd-skiva."
 
-#: src/sj-main.c:510
+#: src/sj-main.c:509
 msgid "No CD-ROM drives found"
 msgstr "Inga cd-romenheter hittades"
 
-#: src/sj-main.c:511
+#: src/sj-main.c:510
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer kunde inte hitta några cd-romenheter att läsa."
 
-#: src/sj-main.c:523
+#: src/sj-main.c:522
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer kunde inte komma åt cd-romenheten \"%s\""
 
-#: src/sj-main.c:588
+#: src/sj-main.c:587
 msgid "Cannot find any suitable encoders"
 msgstr "Kan inte hitta några lämpliga kodare"
 
-#: src/sj-main.c:603
+#: src/sj-main.c:602
 msgid "The currently selected encoder is not available on your installation."
 msgstr ""
 "Den för tillfället valda kodaren är inte tillgänglig i din installation."
 
-#: src/sj-main.c:605
+#: src/sj-main.c:604
 msgid "Change the encoder"
 msgstr "Byt kodare"
 
-#: src/sj-main.c:715
+#: src/sj-main.c:714
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Okänd kolumn %d redigerades"
 
-#: src/sj-main.c:762
+#: src/sj-main.c:761
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -468,19 +468,19 @@ msgstr ""
 "Kunde inte visa hjälp för Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:805
+#: src/sj-main.c:804
 msgid "Could not create GConf client.\n"
 msgstr "Kunde inte skapa GConf-klient.\n"
 
-#: src/sj-main.c:847
+#: src/sj-main.c:846
 msgid "Extract?"
 msgstr "Extrahera?"
 
-#: src/sj-main.c:855
+#: src/sj-main.c:854
 msgid "Track"
 msgstr "Spår"
 
-#: src/sj-main.c:884
+#: src/sj-main.c:883
 msgid "Duration"
 msgstr "Varaktighet"
 
