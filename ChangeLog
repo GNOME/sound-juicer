@@ -1,3 +1,12 @@
+2003-06-18  Ross Burton  <ross@burtonini.com>
+
+	* data/sound-juicer.glade:
+	Add CD->Eject
+	
+	* src/sj-main.c (on_eject_activate):
+	Implement CD ejecting. Actually only does system("eject") but
+	thats probably going to be more portable than using ioctl().
+
 2003-06-18  Brian Koebbe  <brian@koebbe.org>
 
 	* src/sj-main.c (on_cell_edited):
