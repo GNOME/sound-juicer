@@ -80,10 +80,10 @@ static void error_on_start (GError *error)
                                    GTK_MESSAGE_ERROR,
                                    GTK_BUTTONS_CLOSE,
                                    "<b>%s</b>\n\n%s: %s.\n%s",
-				   _("Could not start Sound Juicer"),
-				   _("Reason"),
-				   error->message,
-				   _("Please consult the documentation for assistance."));
+                                   _("Could not start Sound Juicer"),
+                                   _("Reason"),
+                                   error->message,
+                                   _("Please consult the documentation for assistance."));
   gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
   gtk_dialog_run (GTK_DIALOG (dialog));
 }
@@ -869,6 +869,7 @@ int main (int argc, char **argv)
   gnome_program_init ("sound-juicer",
                       VERSION, LIBGNOMEUI_MODULE,
                       argc, argv,
+                      GNOME_PROGRAM_STANDARD_PROPERTIES,
                       GNOME_PARAM_POPT_TABLE, options,
                       NULL);
   g_set_application_name (_("Sound Juicer"));
