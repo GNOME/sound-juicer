@@ -363,43 +363,46 @@ static gboolean rip_track_foreach_cb (GtkTreeModel *model,
 }
 
 /**
- * Create a directory and all of its parents.
+ * Stolen from gnome-vfs
  */
-static void mkdirs (const char* directory, mode_t mode, GError **error)
+static void
+mkdir_recursive (const char *path, mode_t permission_bits, GError **error)
 {
-  /* TODO: this is vile */
-  gboolean last = FALSE;
-  char* dir = strdup (directory);
-  char* p = strchr (dir+1, '/');
-
-  if (p == NULL) {
-    if (mkdir (dir, mode) == -1) {
-      if (errno == EEXIST) return;
-      g_set_error (error,
-                   SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-                   _("Could not create directory %s: %s"), directory, strerror (errno));
-      return;
-    }
-  }
+  struct stat stat_buffer;
+  const char *dir_separator_scanner;
+  char *current_path;
   
-  while (p && !last) {
-    *p = '\0';
-    g_message(p);
-    if (mkdir (dir, mode) == -1) {
-      if (errno == EEXIST) goto next;
-      g_set_error (error,
-                   SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-                   _("Could not create directory %s: %s"), directory, strerror (errno));
-      return;
+  /* try creating a director for each level */
+  for (dir_separator_scanner = path;; dir_separator_scanner++) {
+    /* advance to the next directory level */
+    for (;;dir_separator_scanner++) {
+      if (!*dir_separator_scanner) {
+        break;
+      }	
+      if (*dir_separator_scanner == G_DIR_SEPARATOR) {
+        break;
+      }
     }
-  next:
-    *p = '/';
-    p = strchr (p+1, '/');
-    if (p == NULL) {
-      p = dir;
-      last = TRUE;
+    if (dir_separator_scanner - path > 0) {
+      current_path = g_strndup (path, dir_separator_scanner - path);
+      mkdir (current_path, permission_bits);
+      if (stat (current_path, &stat_buffer) != 0) {
+        /* we failed to create a directory and it wasn't there already;
+         * bail
+         */
+        g_free (current_path);
+        g_set_error (error,
+                     SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
+                     _("Could not create directory %s: %s"), path, strerror (errno));
+        return;
+      }
+      g_free (current_path);
     }
+    if (!*dir_separator_scanner) {
+      break;
+    }	
   }
+  return;
 }
 
 static void pop_and_rip (void)
@@ -427,7 +430,7 @@ static void pop_and_rip (void)
   directory = g_path_get_dirname (file_path);
   if (!g_file_test (directory, G_FILE_TEST_IS_DIR)) {
     GError *error = NULL;
-    mkdirs (directory, 0750, &error);
+    mkdir_recursive (directory, 0750, &error);
     if (error) {
       g_warning (_("mkdir() failed: %s"), error->message);
       g_error_free (error);
