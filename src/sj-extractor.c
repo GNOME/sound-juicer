@@ -267,6 +267,15 @@ static GstElement* build_encoder (SjExtractor *extractor)
   return element;
 }
 
+#if defined(GSTREAMER_0_8)
+static void error_cb (GstElement *element, GObject *arg, GError *err, gchar *arg2, gpointer user_data)
+{
+  SjExtractor *extractor = SJ_EXTRACTOR (user_data);
+  g_signal_emit (G_OBJECT (extractor),
+                 sje_table_signals[ERROR],
+                 0, err);
+}
+#elif defined(GSTREAMER_0_6)
 static void error_cb (GstElement *element, GObject *arg, gchar *arg2, gpointer user_data)
 {
   SjExtractor *extractor = SJ_EXTRACTOR (user_data);
@@ -278,6 +287,7 @@ static void error_cb (GstElement *element, GObject *arg, gchar *arg2, gpointer u
                  sje_table_signals[ERROR],
                  0, error);
 }
+#endif
 
 static void build_pipeline (SjExtractor *extractor)
 {
