@@ -71,11 +71,11 @@ static void error_on_start (GError *error)
   dialog = gtk_message_dialog_new (NULL, 0,
                                    GTK_MESSAGE_ERROR,
                                    GTK_BUTTONS_CLOSE,
-                                   g_strdup_printf ("<b>%s</b>\n\n%s: %s.\n%s",
-                                                    _("Could not start Sound Juicer"),
-                                                    _("Reason"),
-                                                    error->message,
-                                                    _("Please consult the documentation for assistance.")));
+                                   "<b>%s</b>\n\n%s: %s.\n%s",
+				   _("Could not start Sound Juicer"),
+				   _("Reason"),
+				   error->message,
+				   _("Please consult the documentation for assistance."));
   gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
   gtk_dialog_run (GTK_DIALOG (dialog));
 }
@@ -422,11 +422,11 @@ static void reread_cd (gboolean ignore_no_media)
     dialog = gtk_message_dialog_new (realized ? GTK_WINDOW (main_window) : NULL, 0,
                                      GTK_MESSAGE_ERROR,
                                      GTK_BUTTONS_CLOSE,
-                                     g_strdup_printf ("<b>%s</b>\n\n%s\n%s: %s",
-                                                     _("Could not read the CD"),
-                                                     _("Sound Juicer could not read the track listing on this CD."),
-                                                     _("Reason"),
-                                                     error->message));
+				     "<b>%s</b>\n\n%s\n%s: %s",
+				      _("Could not read the CD"),
+				      _("Sound Juicer could not read the track listing on this CD."),
+				      _("Reason"),
+				      error->message);
     gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
@@ -475,11 +475,13 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
                                        GTK_DIALOG_DESTROY_WITH_PARENT,
                                        GTK_MESSAGE_ERROR,
                                        GTK_BUTTONS_CLOSE,
-                                       g_strdup_printf ("<b>%s</b>\n\n%s",
-                                                        _("No CD-ROM drives found"),
-                                                        _("Sound Juicer could not find any CD-ROM drives to read.")));
+                                       "<b>%s</b>\n\n%s",
+				       _("No CD-ROM drives found"),
+				       _("Sound Juicer could not find any CD-ROM drives to read."));
       gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
       gtk_dialog_run (GTK_DIALOG (dialog));
+      gtk_widget_destroy (dialog);
+      exit (1);
 #endif
     }
   } else {
@@ -492,11 +494,11 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
                                        GTK_DIALOG_DESTROY_WITH_PARENT,
                                        GTK_MESSAGE_ERROR,
                                        GTK_BUTTONS_CLOSE,
-                                       g_strdup_printf ("<b>%s</b>\n\n%s\n%s: %s",
-                                                        _("Could not read the CD"),
-                                                        message,
-                                                        _("Reason"),
-                                                        strerror (errno)));
+                                       "<b>%s</b>\n\n%s\n%s: %s",
+				       _("Could not read the CD"),
+				       message,
+				       _("Reason"),
+				       strerror (errno));
       g_free (message);
       gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
       gtk_dialog_run (GTK_DIALOG (dialog));

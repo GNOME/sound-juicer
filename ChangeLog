@@ -1,3 +1,11 @@
+2003-09-02  Bastien Nocera  <hadess@hadess.net>
+
+	* src/sj-main.c: (error_on_start), (reread_cd),
+	(device_changed_cb): exit when no CD drives could be found, don't
+	g_strdup_printf when gtk_message_dialog_new handles printf format
+	just fine (fixes memleaks) (both patches from Jonathan Blandford
+	<jrb@redhat.com>)
+
 2003-09-02  Thomas Vander Stichele <thomas at apestaart dot org>
 
         * data/Makefile.am: print warning and continue when failing to install
