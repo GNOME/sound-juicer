@@ -1,5 +1,11 @@
 2003-05-08  Ross Burton  <ross@burtonini.com>
 
+	* src/sj-main.c (device_changed_cb):
+	Call exit(1) instead of gtk_main_quit() as there is not a main
+	loop running if we get here on startup.
+
+2003-05-08  Ross Burton  <ross@burtonini.com>
+
 	* src/sj-extractor.c:
 	Fix a compile error...
 

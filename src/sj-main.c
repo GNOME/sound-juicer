@@ -386,8 +386,7 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
                                        "Sound Juicer could not find any CD-ROM drives to read."));
       gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
       gtk_dialog_run (GTK_DIALOG (dialog));
-      gtk_main_quit ();
-      return;
+      exit (1);
 #endif
     }
   } else {
