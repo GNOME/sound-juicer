@@ -206,6 +206,8 @@ static void sj_extractor_get_property (GObject *object, guint property_id,
 static void sj_extractor_finalize (GObject *object)
 {
   SjExtractor *extractor = (SjExtractor *)object;
+  if (extractor->priv->idle_id > 0)
+    g_source_remove (extractor->priv->idle_id);
   if (extractor->priv->pipeline)
     gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
   /* TODO: free the members of priv */
@@ -452,6 +454,9 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
 
   /* See if we need to rebuild the pipeline */
   if (priv->rebuild_pipeline != FALSE) {
+    if (priv->idle_id > 0)
+      g_source_remove (priv->idle_id);
+    priv->idle_id = 0;
     build_pipeline (extractor);
     if (priv->construct_error != NULL) {
       *error = g_error_copy (priv->construct_error);
