@@ -46,6 +46,10 @@
 static void reread_cd (gboolean ignore_no_media);
 static void update_ui_for_album (AlbumDetails *album);
 
+/* Prototypes for the signal blocking/unblocking in update_ui_for_album */
+void on_title_edit_changed(GtkEditable *widget, gpointer user_data);
+void on_artist_edit_changed(GtkEditable *widget, gpointer user_data);
+
 GladeXML *glade;
 
 SjMetadata *metadata;
@@ -220,8 +224,13 @@ static void update_ui_for_album (AlbumDetails *album)
   } else {
     gtk_list_store_clear (track_store);
 
+    g_signal_handlers_block_by_func (title_entry, on_title_edit_changed, NULL);
+    g_signal_handlers_block_by_func (artist_entry, on_artist_edit_changed, NULL);
     gtk_entry_set_text (GTK_ENTRY (title_entry), album->title);
     gtk_entry_set_text (GTK_ENTRY (artist_entry), album->artist);
+    g_signal_handlers_unblock_by_func (title_entry, on_title_edit_changed, NULL);
+    g_signal_handlers_unblock_by_func (artist_entry, on_artist_edit_changed, NULL);
+
     gtk_combo_box_set_active (GTK_COMBO_BOX (genre_combo), -1);
     gtk_widget_set_sensitive (title_entry, TRUE);
     gtk_widget_set_sensitive (artist_entry, TRUE);
