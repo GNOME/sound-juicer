@@ -498,6 +498,7 @@ static void reread_cd (gboolean ignore_no_media)
 
   if (!is_audio_cd (device)) {
     update_ui_for_album (NULL);
+    gtk_statusbar_pop(GTK_STATUSBAR(status_bar), 0);
     if (realized)
       gdk_window_set_cursor (main_window->window, NULL);
     return;
