@@ -44,6 +44,8 @@
 #include "sj-util.h"
 #include "sj-prefs.h"
 
+gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data);
+
 static void reread_cd (gboolean ignore_no_media);
 static void update_ui_for_album (AlbumDetails *album);
 
@@ -100,7 +102,9 @@ static void error_on_start (GError *error)
  */
 void on_quit_activate (GtkMenuItem *item, gpointer user_data)
 {
-  gtk_main_quit ();
+  if (on_delete_event (NULL, NULL, NULL) == FALSE) {
+    gtk_main_quit ();
+  }
 }
 
 /**
@@ -129,7 +133,7 @@ gboolean poll_tray_opened (gpointer data)
   return TRUE;
 }
 
-gboolean on_destroy_event (GtkWidget *widget, GdkEvent *event, gpointer user_data)
+gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
   if (extracting) {
     GtkWidget *dialog;
@@ -144,7 +148,7 @@ gboolean on_destroy_event (GtkWidget *widget, GdkEvent *event, gpointer user_dat
     response = gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
     
-    if (response != GTK_RESPONSE_ACCEPT) {
+    if (response == GTK_RESPONSE_ACCEPT) {
       if (poll_id > 0) {
         g_source_remove (poll_id);
       }

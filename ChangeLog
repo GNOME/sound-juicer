@@ -1,5 +1,13 @@
 2005-02-01  Ross Burton  <ross@burtonini.com>
 
+	* data/sound-juicer.glade:
+	* src/sj-main.c:
+	Use delete-event instead of destroy-event, check if we are ripping
+	when Quit is selected, and fix the reversed "you are still
+	ripping" logic.  (closes #163153, thanks to Madhan Raj M)
+
+2005-02-01  Ross Burton  <ross@burtonini.com>
+
 	* src/sj-main.c:
 	Ensure (De)Select All reflects the state of the selection (closes
 	#162830, thanks to Nirmal Kumar)
