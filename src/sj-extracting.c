@@ -50,8 +50,8 @@ static GtkWidget *track_progress, *album_progress;
 /** The progress label. */
 static GtkWidget *progress_label;
 
-/** The extract button in the UI */
-static GtkWidget *extract_button;
+/** The extract and rereda buttons in the UI */
+static GtkWidget *extract_button, *reread_button;
 
 /** The current TrackDetails being extracted. */
 static TrackDetails *track;
@@ -139,6 +139,7 @@ cleanup (void)
   pending = NULL;
   track = NULL;
   gtk_widget_set_sensitive (extract_button, TRUE);
+  gtk_widget_set_sensitive (reread_button, TRUE);
 }
 
 /**
@@ -445,6 +446,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
     album_progress = glade_xml_get_widget (glade, "album_progress");
     progress_label = glade_xml_get_widget (glade, "progress_label");
     extract_button = glade_xml_get_widget (glade, "extract_button");
+    reread_button = glade_xml_get_widget (glade, "reread_button");
     /* TODO : this callback should be in the glade file */
     g_signal_connect (progress_dialog, "delete-event", G_CALLBACK (on_progress_cancel_clicked), NULL);
 
@@ -455,6 +457,10 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), 0);
   gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress), 0);
   gtk_widget_show_all (progress_dialog);
+
+  /* Disable some buttons */
+  gtk_widget_set_sensitive (extract_button, FALSE);
+  gtk_widget_set_sensitive (reread_button, FALSE);
 
   /* Start the extracting */
   extracting = TRUE;
