@@ -89,17 +89,8 @@ static LibHalContext *
 get_hal_context (void)
 {
 	static LibHalContext *ctx = NULL;
-	LibHalFunctions hal_functions = {
-		NULL, /* mainloop integration */
-		NULL, /* device_added */
-		NULL, /* device_removed */
-		NULL, /* device_new_capability */
-		NULL, /* property_modified */
-		NULL, /* device_condition */
-	};
-	
 	if (ctx == NULL)
-		ctx = hal_initialize (&hal_functions, FALSE);
+		ctx = hal_initialize (NULL, FALSE);
 
 	return ctx;
 }
