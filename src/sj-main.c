@@ -435,7 +435,6 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
                                                         _("Sound Juicer could not find any CD-ROM drives to read.")));
       gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
       gtk_dialog_run (GTK_DIALOG (dialog));
-      exit (1);
 #endif
     }
   } else {
@@ -662,15 +661,16 @@ static void error_on_start (GError *error)
 int main (int argc, char **argv)
 {
   GError *error = NULL;
-
+  
   bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
   
   gnome_program_init ("sound-juicer",
-		      VERSION, LIBGNOMEUI_MODULE,
-		      argc, argv,
-		      GNOME_PROGRAM_STANDARD_PROPERTIES, NULL);
+                      VERSION, LIBGNOMEUI_MODULE,
+                      argc, argv,
+                      GNOME_PROGRAM_STANDARD_PROPERTIES,
+                      NULL);
   g_set_application_name (_("Sound Juicer"));
 
   sj_musicbrainz_init (&error);
