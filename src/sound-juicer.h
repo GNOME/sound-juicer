@@ -62,7 +62,7 @@ extern gboolean extracting;
 /**
  * The columns in the list view
  */
-enum {
+typedef enum {
   COLUMN_EXTRACT,
   COLUMN_NUMBER,
   COLUMN_TITLE,
@@ -70,7 +70,7 @@ enum {
   COLUMN_DURATION,
   COLUMN_DETAILS,
   COLUMN_TOTAL
-};
+} ViewColumn;
 
 /**
  * The GtkTreeModel which all of the tracks are stored in

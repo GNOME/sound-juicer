@@ -113,20 +113,17 @@ static void duration_cell_data_cb (GtkTreeViewColumn *tree_column,
                                 GtkTreeIter *iter,
                                 gpointer data)
 {
-  GValue v = {0,};
   int duration;
+  char *string;
 
-  gtk_tree_model_get_value (tree_model, iter, COLUMN_DURATION, &v);
-  duration = g_value_get_int (&v);
-
-  g_value_unset (&v);
-  g_value_init(&v, G_TYPE_STRING);  
-  if (duration) {
-    g_value_set_string (&v, g_strdup_printf("%d:%02d", duration / 60, duration % 60));
+  gtk_tree_model_get (tree_model, iter, COLUMN_DURATION, &duration, -1);
+  if (duration != 0) {
+    string = g_strdup_printf("%d:%02d", duration / 60, duration % 60);
   } else {
-    g_value_set_string (&v, _("(unknown)"));
+    string = g_strdup(_("(unknown)"));
   }
-  g_object_set_property (G_OBJECT (cell), "text", &v);
+  g_object_set (G_OBJECT (cell), "text", string, NULL);
+  g_free (string);
 }
 
 /**
@@ -411,16 +408,7 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
 }
 
 /**
- * Clicked on Reread in the UI (button/menu)
- */
-void on_reread_activate (GtkWidget *button, gpointer user_data)
-{
-  reread_cd ();
-}
-
-/**
- * The /apps/sound-juicer/format key has changed. Argh where to put
- * this!
+ * The /apps/sound-juicer/format key has changed.
  */
 void format_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
@@ -442,6 +430,14 @@ void format_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
 }
 
 /**
+ * Clicked on Reread in the UI (button/menu)
+ */
+void on_reread_activate (GtkWidget *button, gpointer user_data)
+{
+  reread_cd ();
+}
+
+/**
  * Called when the user clicked on the Extract column check boxes
  */
 static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
@@ -453,6 +449,39 @@ static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
   gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (track_store), &iter, path);
   gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, COLUMN_EXTRACT, &extract, -1);
   gtk_list_store_set (track_store, &iter, COLUMN_EXTRACT, !extract, -1);
+}
+
+static void on_cell_edited (GtkCellRendererText *renderer,
+                 gchar *path, gchar *string,
+                 gpointer column_data)
+{
+  ViewColumn column = GPOINTER_TO_INT (column_data);
+  GtkTreeIter iter;
+  TrackDetails *track;
+  char *artist, *title;
+  gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (track_store), &iter, path);
+  gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter,
+                      COLUMN_ARTIST, &artist,
+                      COLUMN_TITLE, &title,
+                      COLUMN_DETAILS, &track,
+                      -1);
+  switch (column) {
+  case COLUMN_TITLE:
+    g_free (title);
+    g_free (track->title);
+    track->title = string;
+    gtk_list_store_set (track_store, &iter, COLUMN_TITLE, track->title, -1);
+    break;
+  case COLUMN_ARTIST:
+    g_free (artist);
+    g_free (track->artist);
+    track->artist = string;
+    gtk_list_store_set (track_store, &iter, COLUMN_ARTIST, track->artist, -1);
+    break;
+  default:
+    g_warning (_("Unknown column %d was edited"), column);
+  }
+  return;
 }
 
 int main (int argc, char **argv)
@@ -499,6 +528,9 @@ int main (int argc, char **argv)
   gconf_client_notify_add (gconf_client, GCONF_BASEPATH, basepath_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_FORMAT, format_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_PARANOIA, paranoia_changed_cb, NULL, NULL, NULL);
+  gconf_client_notify_add (gconf_client, GCONF_PATH_PATTERN, path_pattern_changed_cb, NULL, NULL, NULL);
+  gconf_client_notify_add (gconf_client, GCONF_FILE_PATTERN, file_pattern_changed_cb, NULL, NULL, NULL);
+
 
   glade_init ();
   glade = glade_xml_new (DATADIR"/sound-juicer.glade", NULL, NULL);
@@ -543,20 +575,22 @@ int main (int argc, char **argv)
 
     /* TODO: Do I need to create these every time or will a single one do? */
     text_renderer = gtk_cell_renderer_text_new ();
+    g_signal_connect (text_renderer, "edited", G_CALLBACK (on_cell_edited), GUINT_TO_POINTER (COLUMN_TITLE));
+    g_object_set (G_OBJECT (text_renderer), "editable", TRUE, NULL);
     column = gtk_tree_view_column_new_with_attributes (_("Title"),
                                                        text_renderer,
                                                        "text", COLUMN_TITLE,
                                                        NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
-    /* TODO: editable */
 
     text_renderer = gtk_cell_renderer_text_new ();
     column = gtk_tree_view_column_new_with_attributes (_("Artist"),
                                                        text_renderer,
                                                        "text", COLUMN_ARTIST,
                                                        NULL);
+    g_signal_connect (text_renderer, "edited", G_CALLBACK (on_cell_edited), GUINT_TO_POINTER (COLUMN_ARTIST));
+    g_object_set (G_OBJECT (text_renderer), "editable", TRUE, NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
-    /* TODO: editable */
     
     text_renderer = gtk_cell_renderer_text_new ();
     column = gtk_tree_view_column_new_with_attributes (_("Duration"),

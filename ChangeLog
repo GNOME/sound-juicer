@@ -1,3 +1,17 @@
+2003-05-03  Ross Burton  <ross@burtonini.com>
+
+	* src/sound-juicer.h:
+	Name the column numbers enum.
+
+	* src/sj-main.c:
+	Allow the title/artist fields to be edited.
+	(main) Listen to the file and path pattern GConf keys. Patch from Ryan
+	Boren <ryan@boren.nu>.
+	(duration_cell_data_cb) Fix memory leaks and stupid use of GValue.
+
+	* src/sj-structures.c:
+	Make the fields non-const so I can edit them.
+
 2003-04-29  Ross Burton  <ross@burtonini.com>
 
 	* configure.in: Version 0.2.1.

@@ -32,14 +32,14 @@ typedef struct _TrackDetails TrackDetails;
 struct _TrackDetails {
   AlbumDetails *album;
   int number; /* track number */
-  const char *title;
-  const char *artist;
+  char *title;
+  char *artist;
   int duration; /* seconds */
 };
 
 struct _AlbumDetails {
-  const char* title;
-  const char* artist;
+  char* title;
+  char* artist;
   GList* tracks;
 };
 
