@@ -45,7 +45,32 @@ PKG_CHECK_MODULES(GNOME, libgnomeui-2.0)
 AC_SUBST(GNOME_CFLAGS)
 AC_SUBST(GNOME_LIBS)
 
-PKG_CHECK_MODULES(GSTREAMER, gstreamer-0.6 >= 0.6.1)
+dnl Now we're ready to ask for gstreamer libs and cflags
+dnl And we can also ask for the right version of gstreamer
+HAVE_GSTREAMER=no
+                                                                                
+dnl start with 0.7
+GST_MAJORMINOR=0.7
+PKG_CHECK_MODULES(GSTREAMER, \
+  gstreamer-$GST_MAJORMINOR gstreamer-libs-$GST_MAJORMINOR
+  gstreamer-control-$GST_MAJORMINOR gstreamer-gconf-$GST_MAJORMINOR,
+HAVE_GSTREAMER=yes,HAVE_GSTREAMER=no)
+                                                                                
+dnl if not try 0.6
+    if test "x$HAVE_GSTREAMER" = "xno"; then
+GST_MAJORMINOR=0.6
+PKG_CHECK_MODULES(GSTREAMER, \
+    gstreamer-$GST_MAJORMINOR >= 0.6.0 gstreamer-libs-$GST_MAJORMINOR
+    gstreamer-control-$GST_MAJORMINOR gstreamer-gconf-$GST_MAJORMINOR,
+ HAVE_GSTREAMER=yes,HAVE_GSTREAMER=no)
+        fi
+dnl Give error and exit if we don't have gstreamer
+     if test "x$HAVE_GSTREAMER" = "xno"; then
+AC_MSG_ERROR([GStreamer not found, or too old version found])
+        fi
+    have_gstreamer=yes
+GSTREAMER_DEPS="gstreamer-$GST_MAJORMINOR"
+
 AC_SUBST(GSTREAMER_CFLAGS)
 AC_SUBST(GSTREAMER_LIBS)
 
