@@ -55,6 +55,7 @@ GConfClient *gconf_client;
 GtkWidget *main_window;
 static GtkWidget *title_entry, *artist_entry, *duration_label;
 static GtkWidget *track_listview, *extract_button;
+static GtkWidget *status_bar;
 static GtkWidget *extract_menuitem, *select_all_menuitem, *deselect_all_menuitem;
 GtkListStore *track_store;
 
@@ -410,6 +411,8 @@ metadata_cb (SjMetadata *m, GList *albums, GError *error)
 
   if (realized)
     gdk_window_set_cursor (main_window->window, NULL);
+    /* Clear the statusbar message */
+    gtk_statusbar_pop(GTK_STATUSBAR(status_bar), 0);
   
   if (error && !(error->code == SJ_ERROR_CD_NO_MEDIA)) {
     GtkWidget *dialog;
@@ -476,6 +479,9 @@ static void reread_cd (gboolean ignore_no_media)
     gdk_display_sync (gdk_drawable_get_display (main_window->window));
   }
   
+  /* Set statusbar message */
+  gtk_statusbar_push(GTK_STATUSBAR(status_bar), 0, _("Retrieving track listing...please wait."));
+
   if (!is_audio_cd (device)) {
     update_ui_for_album (NULL);
     if (realized)
@@ -896,7 +902,8 @@ int main (int argc, char **argv)
   duration_label = glade_xml_get_widget (glade, "duration_label");
   track_listview = glade_xml_get_widget (glade, "track_listview");
   extract_button = glade_xml_get_widget (glade, "extract_button");
-  
+  status_bar = glade_xml_get_widget (glade, "status_bar");
+
   track_store = gtk_list_store_new (COLUMN_TOTAL, G_TYPE_BOOLEAN, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_POINTER);
   gtk_tree_view_set_model (GTK_TREE_VIEW (track_listview), GTK_TREE_MODEL (track_store));
   {
