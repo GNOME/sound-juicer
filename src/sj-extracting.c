@@ -617,7 +617,7 @@ sanitize_path (char* s)
   g_strdelimit (s, "/", ' ');
   if (strip_chars) {
     /* Mangle all weird characters to whitespace */
-    g_strdelimit (s, "\\*?&!:\"", ' ');
+    g_strdelimit (s, "\\*?&!:\'\"$()`|>{}", ' ');
     /* Replace all whitespace with underscores */
     /* TODO: I'd like this to compress whitespace aswell */
     g_strdelimit (s, "\t ", '_');
