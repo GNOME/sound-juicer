@@ -35,6 +35,9 @@ export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1;
 %makeinstall
 unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 
+# Clean out bad files
+rm -rf $RPM_BUILD_ROOT%{_localstatedir}/scrollkeeper
+
 %find_lang sound-juicer
 
 %clean
@@ -54,7 +57,6 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/sound-juicer.sc
 %{_datadir}/pixmaps/sound-juicer.png
 %{_datadir}/gnome/help
 %{_datadir}/omf
-%{_localstatedir}/scrollkeeper
 
 %changelog
 * Fri Sep 27 2003 Christian Schaller <Uraeus@gnome.org>
