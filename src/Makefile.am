@@ -1,17 +1,7 @@
+# General compiler flags
 AM_CFLAGS = -Wall -Werror -export-dynamic -W -Wno-unused-parameter
 
-AM_CPPFLAGS = \
-	@DISABLE_DEPRECATED_CFLAGS@ \
-	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"  \
-	-DDATADIR=\""$(datadir)"\" \
-	-DPREFIX=\""$(prefix)"\" \
-	-DLIBDIR=\""$(libdir)"\" \
-	-DSYSCONFDIR=\""$(sysconfdir)"\" \
-	-DPIXMAPDIR=\""$(datadir)/pixmaps"\" \
-	-DPKGDATADIR=\""$(datadir)/sound-juicer"\" \
-	@MUSICBRAINZ_CFLAGS@ @GSTREAMER_CFLAGS@ \
-	@LIBGLADE_CFLAGS@  @GNOME_CFLAGS@
-
+# We always build Sound Juicer
 bin_PROGRAMS = sound-juicer
 
 sound_juicer_SOURCES = \
@@ -38,7 +28,20 @@ sound_juicer_SOURCES = \
 	$(BACONFILES) \
 	$(MARSHALFILES)
 
+sound_juicer_CPPFLAGS = \
+	@DISABLE_DEPRECATED_CFLAGS@ \
+	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"  \
+	-DDATADIR=\""$(datadir)"\" \
+	-DPREFIX=\""$(prefix)"\" \
+	-DLIBDIR=\""$(libdir)"\" \
+	-DSYSCONFDIR=\""$(sysconfdir)"\" \
+	-DPIXMAPDIR=\""$(datadir)/pixmaps"\" \
+	-DPKGDATADIR=\""$(datadir)/sound-juicer"\" \
+	@MUSICBRAINZ_CFLAGS@ @GSTREAMER_CFLAGS@ \
+	@LIBGLADE_CFLAGS@  @GNOME_CFLAGS@
+
 sound_juicer_LDFLAGS = @MUSICBRAINZ_LIBS@ @GSTREAMER_LIBS@ @LIBGLADE_LIBS@ @GNOME_LIBS@
+
 
 #
 # Update the libbacon files
