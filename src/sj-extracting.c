@@ -218,6 +218,9 @@ create_directory_for (const char* filename, GError **error)
   return directory;
 }
 
+/* Prototype for pop_and_extract */
+static void on_completion_cb (SjExtractor *extractor, gpointer data);
+
 /**
  * The work horse of this file.  Take the first entry from the pending list,
  * update the UI, and start the extractor.
@@ -260,8 +263,7 @@ pop_and_extract (void)
     paths = g_list_append (paths, directory);
     /* See if the file exists */
     if (!check_for_file (file_path)) {
-      current_duration += track->duration;
-      pop_and_extract ();
+      on_completion_cb (NULL, NULL);
       return;
     }
 
@@ -604,7 +606,7 @@ sanitize_path (char* s)
   g_strdelimit (s, "/", ' ');
   if (strip_chars) {
     /* Mangle all weird characters to whitespace */
-    g_strdelimit (s, "\\*?&!:", ' ');
+    g_strdelimit (s, "\\*?&!:\"", ' ');
     /* Replace all whitespace with underscores */
     /* TODO: I'd like this to compress whitespace aswell */
     g_strdelimit (s, "\t ", '_');
