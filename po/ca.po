@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-08 18:57+0200\n"
-"PO-Revision-Date: 2004-04-08 18:58+0200\n"
+"POT-Creation-Date: 2004-06-07 17:12+0200\n"
+"PO-Revision-Date: 2004-06-07 17:13+0200\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -72,8 +72,8 @@ msgid "<i>Coming soon!</i>"
 msgstr "<i>Molt prompte!</i>"
 
 #: data/sound-juicer.glade.h:13
-msgid "D_irectory Hierarchy"
-msgstr "Jerarquia de d_irectori"
+msgid "D_irectory Hierarchy:"
+msgstr "Jerarquia de d_irectori:"
 
 #: data/sound-juicer.glade.h:14
 msgid "E_ject"
@@ -127,7 +127,7 @@ msgstr "Progrés"
 msgid "Raw audio"
 msgstr "Àudio cru"
 
-#: data/sound-juicer.glade.h:27 src/sj-about.c:56 src/sj-main.c:875
+#: data/sound-juicer.glade.h:27 src/sj-about.c:56 src/sj-main.c:876
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -176,8 +176,8 @@ msgid "_Extract"
 msgstr "_Extrau"
 
 #: data/sound-juicer.glade.h:38
-msgid "_File Name"
-msgstr "Nom del _fitxer"
+msgid "_File Name:"
+msgstr "Nom del _fitxer:"
 
 #: data/sound-juicer.glade.h:39
 msgid "_Re-read"
@@ -258,20 +258,20 @@ msgstr "El mode de paranoia a utilitzar"
 msgid "Whether to eject the CD when finished extracting."
 msgstr "Si s'ha d'expulsar el CD quan es finalitza l'extracció."
 
-#: src/bacon-cd-selection.c:170
-msgid "Select the drive"
-msgstr "Seleccioneu la unitat"
-
-#: src/bacon-cd-selection.c:271
+#: src/bacon-cd-selection.c:257
 msgid "Unnamed CDROM"
 msgstr "CDROM sense nom"
 
-#: src/cd-drive.c:404
+#: src/bacon-cd-selection.c:302
+msgid "Select the drive"
+msgstr "Seleccioneu la unitat"
+
+#: src/cd-drive.c:573
 #, c-format
 msgid "Unnamed SCSI CD-ROM (%s)"
 msgstr "CD-ROM SCSI sense nom (%s)"
 
-#: src/cd-drive.c:976
+#: src/cd-drive.c:1151
 msgid "File image"
 msgstr "Fitxer d'imatge"
 
@@ -305,7 +305,7 @@ msgid "_Overwrite"
 msgstr "_Sobreescriu"
 
 #. Display a nice dialog
-#: src/sj-extracting.c:245 src/sj-extracting.c:283 src/sj-extracting.c:495
+#: src/sj-extracting.c:248 src/sj-extracting.c:285 src/sj-extracting.c:497
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -314,24 +314,28 @@ msgstr ""
 "Sound Juicer no ha pogut extraure aquest CD.\n"
 "Raó: %s"
 
-#: src/sj-extracting.c:273
+#: src/sj-extracting.c:275
 #, c-format
 msgid "Extracting '%s'"
 msgstr "S'està extraient «%s»"
 
-#: src/sj-extracting.c:335
+#: src/sj-extracting.c:337
 #, c-format
 msgid "%d:%02d (at %0.1fx)"
 msgstr "%d:%02d (a %0.1fx)"
 
-#: src/sj-extracting.c:337
+#: src/sj-extracting.c:339
 msgid "Unknown (at 0.0x)"
 msgstr "Desconegut (a 0.0x)"
 
 #. TODO: need to have a better message here
-#: src/sj-extracting.c:432
+#: src/sj-extracting.c:434
 msgid "The tracks have been copied successfully."
 msgstr "S'han copiat les pistes amb èxit."
+
+#: src/sj-extracting.c:439
+msgid "_Eject"
+msgstr "_Expulsa"
 
 #: src/sj-extractor.c:140
 msgid "Encoding format"
@@ -341,47 +345,47 @@ msgstr "Format de codificació"
 msgid "The format to write the encoded audio in"
 msgstr "El format en el qual escriure l'àudio codificat"
 
-#: src/sj-extractor.c:302
+#: src/sj-extractor.c:312
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "No s'ha pogut crear un lector de GStreamer de cdparanoia"
 
-#: src/sj-extractor.c:321
+#: src/sj-extractor.c:331
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
 msgstr "No s'ha pogut crear un codificador de GStreamer (%s)"
 
-#: src/sj-extractor.c:332
+#: src/sj-extractor.c:342
 msgid "Could not create GStreamer file output"
 msgstr "No s'ha pogut crear una sortida a fitxer de GStreamer"
 
-#: src/sj-extractor.c:362
+#: src/sj-extractor.c:372
 msgid "Could not get current track position"
 msgstr "No s'ha pogut obtindre la posició de la pista actual"
 
-#: src/sj-extractor.c:391
+#: src/sj-extractor.c:401
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "L'objecte d'extracció no és vàlid. Açò és dolent, comproveu la consola per a "
 "veure els errors."
 
-#: src/sj-extractor.c:466 src/sj-extractor.c:480
+#: src/sj-extractor.c:476 src/sj-extractor.c:490
 msgid "Ripped with Sound Juicer"
 msgstr "Extret amb Sound Juicer"
 
-#: src/sj-extractor.c:495
+#: src/sj-extractor.c:505
 msgid "Could not seek to track"
 msgstr "No s'ha pogut cercar fins la pista"
 
-#: src/sj-extractor.c:500
+#: src/sj-extractor.c:510
 msgid "Could not get track start position"
 msgstr "No s'ha pogut obtindre la posició d'inici de la pista"
 
-#: src/sj-extractor.c:537
+#: src/sj-extractor.c:547
 msgid "The plugin necessary for CD access was not found"
 msgstr "No s'ha trobat el connector necessari per l'accés a CD"
 
-#: src/sj-extractor.c:545
+#: src/sj-extractor.c:555
 msgid "The plugin necessary for file access was not found"
 msgstr "No s'ha trobat el connector necessari per l'accés a fitxers"
 
@@ -389,8 +393,8 @@ msgstr "No s'ha trobat el connector necessari per l'accés a fitxers"
 msgid "Could not start Sound Juicer"
 msgstr "No s'ha pogut iniciar Sound Juicer"
 
-#: src/sj-main.c:84 src/sj-main.c:439 src/sj-main.c:514 src/sj-main.c:572
-#: src/sj-util.c:108 src/sj-util.c:128
+#: src/sj-main.c:84 src/sj-main.c:439 src/sj-main.c:514 src/sj-main.c:573
+#: src/sj-util.c:110 src/sj-util.c:130
 msgid "Reason"
 msgstr "Raó"
 
@@ -406,15 +410,15 @@ msgstr "Esteu extraient un CD. Voleu sortir ara o continuar?"
 msgid "(unknown)"
 msgstr "(desconegut)"
 
-#: src/sj-main.c:291 src/sj-main.c:955
+#: src/sj-main.c:291 src/sj-main.c:958
 msgid "Title"
 msgstr "Títol"
 
-#: src/sj-main.c:297 src/sj-main.c:963
+#: src/sj-main.c:297 src/sj-main.c:966
 msgid "Artist"
 msgstr "Artista"
 
-#: src/sj-main.c:437 src/sj-main.c:512 src/sj-main.c:570
+#: src/sj-main.c:437 src/sj-main.c:512 src/sj-main.c:571
 msgid "Could not read the CD"
 msgstr "No s'ha pogut llegir el CD"
 
@@ -427,39 +431,39 @@ msgstr "Sound Juicer no ha pogut llegir la llista de pistes d'aquest CD."
 msgid "Retrieving track listing...please wait."
 msgstr "S'està obtenint el llistat de pistes... espereu."
 
-#: src/sj-main.c:551
+#: src/sj-main.c:552
 msgid "No CD-ROM drives found"
 msgstr "No s'han trobat unitats de CD-ROM"
 
-#: src/sj-main.c:552
+#: src/sj-main.c:553
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer no ha trobat cap unitat de CD-ROM per a llegir."
 
-#: src/sj-main.c:564
+#: src/sj-main.c:565
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer no ha pogut accedir al dispositiu de CD-ROM «%s»"
 
-#: src/sj-main.c:629
+#: src/sj-main.c:630
 msgid "Cannot find any suitable encoders"
 msgstr "No es troba cap codificador adeqüat"
 
-#: src/sj-main.c:644
+#: src/sj-main.c:645
 msgid "The currently selected encoder is not available on your installation."
 msgstr ""
 "El codificador seleccionat actualment no és disponible a la vostra "
 "instal·lació."
 
-#: src/sj-main.c:646
+#: src/sj-main.c:647
 msgid "_Change the encoder"
 msgstr "_Canvia el codificador"
 
-#: src/sj-main.c:796
+#: src/sj-main.c:797
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "S'ha editat la columna desconeguda %d"
 
-#: src/sj-main.c:844
+#: src/sj-main.c:845 src/sj-prefs.c:125
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -468,19 +472,19 @@ msgstr ""
 "No s'ha pogut mostrar l'ajuda per a Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:894
+#: src/sj-main.c:895
 msgid "Could not create GConf client.\n"
 msgstr "No s'ha pogut crear un client de GConf.\n"
 
-#: src/sj-main.c:936
+#: src/sj-main.c:939
 msgid "Extract"
 msgstr "Extrau"
 
-#: src/sj-main.c:944
+#: src/sj-main.c:947
 msgid "Track"
 msgstr "Pista"
 
-#: src/sj-main.c:973
+#: src/sj-main.c:976
 msgid "Duration"
 msgstr "Duració"
 
@@ -544,60 +548,64 @@ msgstr "Diversos"
 msgid "Could not create CD lookup thread"
 msgstr "No s'ha pogut crear el fil de consulta de CD"
 
-#: src/sj-prefs.c:47
+#: src/sj-prefs.c:50
 msgid "Album Artist, Album Title"
 msgstr "Artista de l'àlbum, títol de l'àlbum"
 
-#: src/sj-prefs.c:48
+#: src/sj-prefs.c:51
 msgid "Track Artist, Album Title"
 msgstr "Artista de la pista, Títol de l'àlbum"
 
-#: src/sj-prefs.c:49 src/sj-prefs.c:273
+#: src/sj-prefs.c:52 src/sj-prefs.c:308
 msgid "Album Title"
 msgstr "Títol de l'àlbum"
 
-#: src/sj-prefs.c:50 src/sj-prefs.c:274
+#: src/sj-prefs.c:53 src/sj-prefs.c:309
 msgid "Album Artist"
 msgstr "Artista de l'àlbum"
 
-#: src/sj-prefs.c:51
+#: src/sj-prefs.c:54
 msgid "Album Artist - Album Title"
 msgstr "Artista de l'àlbum - títol de l'àlbum"
 
-#: src/sj-prefs.c:52
+#: src/sj-prefs.c:55
 msgid "[none]"
 msgstr "[cap]"
 
-#: src/sj-prefs.c:57
+#: src/sj-prefs.c:60
 msgid "Number - Title"
 msgstr "Número - Títol"
 
-#: src/sj-prefs.c:58 src/sj-prefs.c:281
+#: src/sj-prefs.c:61 src/sj-prefs.c:316
 msgid "Track Title"
 msgstr "Títol de la pista"
 
-#: src/sj-prefs.c:59
+#: src/sj-prefs.c:62
 msgid "Track Artist - Track Title"
 msgstr "Artista de la pista - Títol de la pista"
 
-#: src/sj-prefs.c:60
+#: src/sj-prefs.c:63
 msgid "Number. Track Artist - Track Title"
 msgstr "Número. Artista de la pista - Títol de la pista"
 
-#: src/sj-prefs.c:109
+#: src/sj-prefs.c:64
+msgid "Number-Track Artist-Track Title (lowercase)"
+msgstr "Número-Pista Artista de la pista-Títol de la pista (minúscules)"
+
+#: src/sj-prefs.c:144
 msgid "Select Output Location"
 msgstr "Seleccioneu la ubicació de la sortida"
 
-#: src/sj-prefs.c:282
+#: src/sj-prefs.c:317
 msgid "Track Artist"
 msgstr "Artista de la pista"
 
-#: src/sj-util.c:64
+#: src/sj-util.c:65
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "No s'ha pogut crear el directori %s: %s"
 
-#: src/sj-util.c:107 src/sj-util.c:127
+#: src/sj-util.c:109 src/sj-util.c:129
 msgid "Could not eject the CD"
 msgstr "No es pot expulsar el CD"
 
