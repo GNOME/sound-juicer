@@ -20,6 +20,10 @@
  * Authors: Ross Burton <ross@burtonini.com>
  */
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif /* HAVE_CONFIG_H */
+
 #include <glib/gerror.h>
 #include <glib/gtypes.h>
 #include <glib-object.h>
