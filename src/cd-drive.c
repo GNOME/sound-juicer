@@ -351,16 +351,8 @@ cd_drive_get_media_type_and_rewritable (CDDrive *cdrom, gboolean *is_rewritable)
 		int num_devices;
 		CDMediaType type;
 		char *hal_type;
-		LibHalFunctions hal_functions = {
-			NULL, /* mainloop integration */
-			NULL, /* device_added */
-			NULL, /* device_removed */
-			NULL, /* device_new_capability */
-			NULL, /* property_modified */
-			NULL, /* device_condition */
-		};
 		
-		ctx = hal_initialize (&hal_functions, FALSE);
+		ctx = hal_initialize (NULL, FALSE);
 		if (ctx != NULL) {
 			device_names = hal_manager_find_device_string_match (ctx, 
 									     "info.parent",
@@ -485,20 +477,12 @@ static GList *
 hal_scan (gboolean recorder_only)
 {
 	GList *cdroms = NULL;
-	LibHalFunctions hal_functions = {
-		NULL, /* mainloop integration */
-		NULL, /* device_added */
-		NULL, /* device_removed */
-		NULL, /* device_new_capability */
-		NULL, /* property_modified */
-		NULL, /* device_condition */
-	};
 	int i;
 	int num_devices;
 	char** device_names;
 	LibHalContext *ctx;
 
-	ctx = hal_initialize (&hal_functions, FALSE);
+	ctx = hal_initialize (NULL, FALSE);
 	if (ctx == NULL) {
 		return NULL;
 	}
