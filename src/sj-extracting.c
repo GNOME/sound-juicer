@@ -172,7 +172,7 @@ check_for_file (const char* filename)
   dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), GTK_DIALOG_MODAL,
                                    GTK_MESSAGE_QUESTION,
                                    GTK_BUTTONS_NONE,
-                                   _("A file called '%s' exists, size %lu KB.\nDo you want to skip this track or overwrite it?"),
+                                   _("A file called '%s' exists, size %lu kB.\nDo you want to skip this track or overwrite it?"),
                                    filename, (unsigned long)(stats.st_size / 1000));
   gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Skip"), GTK_RESPONSE_CANCEL);
   gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Overwrite"), GTK_RESPONSE_ACCEPT);
