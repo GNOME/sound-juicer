@@ -54,11 +54,10 @@ mkdir_recursive (const char *path, mode_t permission_bits, GError **error)
     }
     if (dir_separator_scanner - path > 0) {
       current_path = g_strndup (path, dir_separator_scanner - path);
+      /* TODO: this algorithm doesn't handle "permission denied" on mkdir at all well */
       mkdir (current_path, permission_bits);
       if (stat (current_path, &stat_buffer) != 0) {
-        /* we failed to create a directory and it wasn't there already;
-         * bail
-         */
+        /* We failed to create a directory and it wasn't there already; bail */
         g_free (current_path);
         g_set_error (error,
                      SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
