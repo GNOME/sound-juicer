@@ -46,12 +46,12 @@ void on_about_activate (void)
   /* TODO: I think this is leaking */
   /* TODO: fix this path to use DATADIR */
   /* TODO: pass a GError */
-  pixbuf = gdk_pixbuf_new_from_file ("../data/orange-slice.png", NULL);
+  pixbuf = gdk_pixbuf_new_from_file (DATADIR"/orange-slice.png", NULL);
   win = gnome_about_new (_("Sound Juicer"), VERSION,
                          _("Copyright (C) 2003 Ross Burton"),
                          _("A CD Ripper"),
                          authors, documentors, translator_credits, pixbuf);
-  gtk_window_set_icon_from_file (GTK_WINDOW (win), "../data/sound-juicer.png", NULL);
+  gtk_window_set_icon_from_file (GTK_WINDOW (win), PIXMAPDIR"/sound-juicer.png", NULL);
   gtk_window_set_transient_for (GTK_WINDOW (win), GTK_WINDOW (main_window));
   gtk_window_set_destroy_with_parent (GTK_WINDOW (win), TRUE);
   

@@ -1,15 +1,11 @@
 Sound Juicer
+Copyright (C) 2003 Ross Burton
 
 This is Sound Juicer, a CD ripping tool using GTK+ and GStreamer.
 
-It's not finished.
+Do the usual configure/make/make install malarky, and run
+"sound-juicer" in $(prefix)/bin or "CD Ripper" in Applications ->
+Sound & Video.
 
-src/ contains the code sort of works.
-
-test/ is where I've been trying out code and ideas.
-
-Currently test/glade-test.c is the "application". I has ripped entire
-albums, so it should work for you.
-
-CVS GStreamer is required for the Ogg tagging to work correctly --
-you'll get invalid tag messages with 0.6.0.
+GStreamer 0.6.1 (in CVS atm) is required for the Ogg tagging to work
+correctly -- you'll get invalid tag messages with 0.6.0.

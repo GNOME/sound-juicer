@@ -1,8 +1,8 @@
 pixmapdir = $(datadir)/pixmaps
 pixmap_DATA = sound-juicer.png
 
-gladedir = $(datadir)/sound-juicer/
-glade_DATA = sound-juicer.glade
+privatedatadir = $(datadir)/sound-juicer/
+privatedata_DATA = sound-juicer.glade orange-slice.png
 
 desktopdir = $(datadir)/applications
 desktop_DATA = sound-juicer.desktop

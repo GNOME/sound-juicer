@@ -1,16 +1,24 @@
-I must also create a GConf schema file.
+Create a GConf schema file.
 
 I'd like to be able to check for cdparanoia, vorbisenc, etc GST
 plugins at configure time. Get the m4 macro to do this from
 gst-plugins.
 
-If the track durations are known, show album progress based on
-seconds. To do this, store the total and current seconds.
-
 Do a CD lookup using gnome-media's CDDB library
+
+GObjectify the CD lookup code.
 
 Make the musicbrainz lookup async?
 
-Is there a cdda2wav plugin for gst? cdparanoia is sloow.
+Make the track list editable, so the user can override the
+title/artist.
 
-GObjectify the CD lookup code.
+For the future, add a button to submit the current titles
+
+Play/stop track. Not a full CD player, but simple play/stop should be
+enough.
+
+SjExtractor's constructor wants to return a GError if it fails. How do
+I do this with GObject?
+
+Watch the CD drive so the UI updates when a disk is inserted/removed.

@@ -1,9 +1,32 @@
-#include "config.h"
+/* 
+ * Copyright (C) 2003 Ross Burton <ross@burtonini.com>
+ *
+ * Sound Juicer - sj-about.c
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * Authors: Ross Burton <ross@burtonini.com>
+ */
+
+#include "sound-juicer.h"
+
 #include <string.h>
 #include <gtk/gtk.h>
 #include <glade/glade-xml.h>
 #include <gconf/gconf-client.h>
-#include <libgnome/gnome-i18n.h>
+#include "cd-drive.h"
 #include "bacon-cd-selection.h"
 
 #define GCONF_ROOT "/apps/sound-juicer"
@@ -20,9 +43,22 @@ static GtkWidget *cd_option, *basepath_label;
 
 const char* prefs_get_default_device ()
 {
-  /* TODO: Yuck, requires the prefs dialog to be shown first. Pants */
-  g_return_val_if_fail (cd_option != NULL, NULL);
-  return bacon_cd_selection_get_device (BACON_CD_SELECTION (cd_option));
+  static const char* default_device = NULL;
+  if (default_device == NULL) {
+    CDDrive *cd;
+    GList *cdroms = NULL;
+    cdroms = scan_for_cdroms (FALSE, FALSE);
+    if (cdroms == NULL) return NULL;
+    cd = cdroms->data;
+    default_device = g_strdup (cd->device);
+    while (cdroms != NULL) {
+      CDDrive *cdrom = cdroms->data;
+      cd_drive_free (cdrom);
+      cdroms = g_list_remove (cdroms, cdrom);
+      g_free (cdrom);    
+    }
+  }
+  return default_device;
 }
 
 /**

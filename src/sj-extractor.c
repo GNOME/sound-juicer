@@ -133,8 +133,13 @@ static void sj_extractor_class_init (SjExtractorClass *klass)
 
 static void sj_extractor_instance_init (SjExtractor *extractor)
 {
+  GError *error = NULL;
   extractor->priv = g_new0 (SjExtractorPrivate, 1);  
-  build_pipeline(extractor, NULL); /* TODO: handle errors */
+  build_pipeline(extractor, &error);
+  if (error) {
+    g_error (_("Could not create pipeline: %s"), error->message);
+    g_error_free (error);
+  }
 }
 
 #if 0

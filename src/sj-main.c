@@ -1,3 +1,25 @@
+/* 
+ * Copyright (C) 2003 Ross Burton <ross@burtonini.com>
+ *
+ * Sound Juicer - sj-main.c
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * Authors: Ross Burton <ross@burtonini.com>
+ */
+
 #include "sound-juicer.h"
 
 #include <string.h>
@@ -10,7 +32,7 @@
 #include "sj-structures.h"
 #include "sj-error.h"
 #include "sj-util.h"
-#include "prefs-test.h"
+#include "sj-prefs.h"
 
 GladeXML *glade;
 
@@ -53,7 +75,7 @@ gboolean on_destory_event (GtkWidget *widget, GdkEvent *event, gpointer user_dat
     dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), GTK_DIALOG_MODAL,
                                      GTK_MESSAGE_QUESTION,
                                      GTK_BUTTONS_NONE,
-                                     _("You are currently ripping a CD. Do you want to quit now or contine ripping?"));
+                                     _("You are currently extracting a CD. Do you want to quit now or contine?"));
     gtk_dialog_add_button (GTK_DIALOG (dialog), "gtk-quit", GTK_RESPONSE_ACCEPT);
     gtk_dialog_add_button (GTK_DIALOG (dialog), _("Continue"), GTK_RESPONSE_REJECT);
     g_signal_connect_swapped (GTK_OBJECT (dialog), 
@@ -366,12 +388,12 @@ int main (int argc, char **argv)
   gconf_client_notify_add (gconf_client, GCONF_BASEPATH, basepath_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_FORMAT, format_changed_cb, NULL, NULL, NULL);
 
-  glade = glade_xml_new ("../data/sound-juicer.glade", NULL, NULL);
+  glade = glade_xml_new (DATADIR"/sound-juicer.glade", NULL, NULL);
   g_assert (glade != NULL);
   glade_xml_signal_autoconnect (glade);
 
   main_window = glade_xml_get_widget (glade, "main_window");
-  gtk_window_set_icon_from_file (GTK_WINDOW (main_window), "../data/sound-juicer.png", NULL);
+  gtk_window_set_icon_from_file (GTK_WINDOW (main_window), PIXMAPDIR"/sound-juicer.png", NULL);
 
   select_all_menuitem = glade_xml_get_widget (glade, "select_all");
   extract_menuitem = glade_xml_get_widget (glade, "extract_menuitem");
@@ -410,6 +432,7 @@ int main (int argc, char **argv)
                                                        "text", COLUMN_TITLE,
                                                        NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
+    /* TODO: editable */
 
     text_renderer = gtk_cell_renderer_text_new ();
     column = gtk_tree_view_column_new_with_attributes (_("Artist"),
@@ -417,6 +440,7 @@ int main (int argc, char **argv)
                                                        "text", COLUMN_ARTIST,
                                                        NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
+    /* TODO: editable */
     
     text_renderer = gtk_cell_renderer_text_new ();
     column = gtk_tree_view_column_new_with_attributes (_("Duration"),
