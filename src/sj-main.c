@@ -599,6 +599,7 @@ int main (int argc, char **argv)
                                                        toggle_renderer,
                                                        "active", COLUMN_EXTRACT,
                                                        NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
     text_renderer = gtk_cell_renderer_text_new ();
@@ -606,6 +607,7 @@ int main (int argc, char **argv)
                                                        text_renderer,
                                                        "text", COLUMN_NUMBER,
                                                        NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
     /* TODO: Do I need to create these every time or will a single one do? */
@@ -616,6 +618,7 @@ int main (int argc, char **argv)
                                                        text_renderer,
                                                        "text", COLUMN_TITLE,
                                                        NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
     text_renderer = gtk_cell_renderer_text_new ();
@@ -623,6 +626,7 @@ int main (int argc, char **argv)
                                                        text_renderer,
                                                        "text", COLUMN_ARTIST,
                                                        NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
     g_signal_connect (text_renderer, "edited", G_CALLBACK (on_cell_edited), GUINT_TO_POINTER (COLUMN_ARTIST));
     g_object_set (G_OBJECT (text_renderer), "editable", TRUE, NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
@@ -631,6 +635,7 @@ int main (int argc, char **argv)
     column = gtk_tree_view_column_new_with_attributes (_("Duration"),
                                                        text_renderer,
                                                        NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_column_set_cell_data_func (column, text_renderer, duration_cell_data_cb, NULL, NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
