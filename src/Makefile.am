@@ -1,11 +1,7 @@
 AM_CFLAGS = -Wall -Werror -export-dynamic -W -Wno-unused-parameter
 
 AM_CPPFLAGS = \
-	-DGNOME_DISABLE_DEPRECATED=1 \
-	-DGCONF_DISABLE_DEPRECATED=1 \
-	-DGTK_DISABLE_DEPRECATED=1 \
-	-DGDK_DISABLE_DEPRECATED=1 \
-	-DG_DISABLE_DEPRECATED=1 \
+	@DISABLE_DEPRECATED_CFLAGS@ \
 	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"  \
 	-DDATADIR=\""$(datadir)"\" \
 	-DPREFIX=\""$(prefix)"\" \
