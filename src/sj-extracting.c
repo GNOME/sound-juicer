@@ -134,7 +134,9 @@ static void
 cleanup (void)
 {
   /* Free the used data */
-  g_list_deep_free (paths, NULL);
+  if (paths) {
+    g_list_deep_free (paths, NULL);
+  }
   g_list_free (pending);
   pending = NULL;
   track = NULL;
@@ -160,7 +162,7 @@ check_for_file (const char* filename)
     g_warning ("stat failed: %s", g_strerror (errno));
     return FALSE;
   }
-  if (stats.st_size < (100*1024)) {
+  if (stats.st_size < (100000)) {
     /* The file exists but is small, assume overwriting */
     return TRUE;
   }
@@ -169,15 +171,15 @@ check_for_file (const char* filename)
   dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), GTK_DIALOG_MODAL,
                                    GTK_MESSAGE_QUESTION,
                                    GTK_BUTTONS_NONE,
-                                   _("A file called '%s' exists, size %luK.\nDo you want to skip this track or overwrite it?"),
-                                   filename, (unsigned long)(stats.st_size / 1024));
-    gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Skip"), GTK_RESPONSE_CANCEL);
-    gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Overwrite"), GTK_RESPONSE_ACCEPT);
-    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_ACCEPT);
-    gtk_widget_show_all (dialog);
-    ret = gtk_dialog_run (GTK_DIALOG (dialog));
-    gtk_widget_destroy (dialog);
-    return ret == GTK_RESPONSE_ACCEPT;
+                                   _("A file called '%s' exists, size %luKB.\nDo you want to skip this track or overwrite it?"),
+                                   filename, (unsigned long)(stats.st_size / 1000));
+  gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Skip"), GTK_RESPONSE_CANCEL);
+  gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Overwrite"), GTK_RESPONSE_ACCEPT);
+  gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_ACCEPT);
+  gtk_widget_show_all (dialog);
+  ret = gtk_dialog_run (GTK_DIALOG (dialog));
+  gtk_widget_destroy (dialog);
+  return ret == GTK_RESPONSE_ACCEPT;
 }
 
 /**
@@ -222,11 +224,13 @@ pop_and_extract (void)
     directory = create_directory_for (file_path, &error);
     if (error) {
       GtkWidget *dialog;
+      gtk_widget_hide (progress_dialog);
       dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
                                        GTK_MESSAGE_ERROR,
                                        GTK_BUTTONS_CLOSE,
                                        g_strdup_printf ("Sound Juicer could not extract this CD.\nReason: %s", error->message));
       gtk_dialog_run (GTK_DIALOG (dialog));
+      gtk_widget_destroy (dialog);
       g_error_free (error);
       cleanup ();
       return;
@@ -250,11 +254,13 @@ pop_and_extract (void)
     sj_extractor_extract_track (extractor, track, file_path, &error);
     if (error) {
       GtkWidget *dialog;
+      gtk_widget_hide (progress_dialog);
       dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
                                        GTK_MESSAGE_ERROR,
                                        GTK_BUTTONS_CLOSE,
                                        g_strdup_printf ("Sound Juicer could not extract this CD.\nReason: %s", error->message));
       gtk_dialog_run (GTK_DIALOG (dialog));
+      gtk_widget_destroy (dialog);
       g_error_free (error);
       cleanup ();
       return;
@@ -409,6 +415,8 @@ on_error_cb (SjExtractor *extractor, GError *error, gpointer data)
                                    GTK_BUTTONS_CLOSE,
                                    g_strdup_printf ("Sound Juicer could not extract this CD.\nReason: %s", error->message));
   gtk_dialog_run (GTK_DIALOG (dialog));
+  gtk_widget_destroy (dialog);
+
   g_error_free (error);
   cleanup ();
   extracting = FALSE;

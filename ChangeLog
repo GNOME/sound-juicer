@@ -1,5 +1,12 @@
 2003-10-31  Ross Burton  <ross@burtonini.com>
 
+	* src/sj-extracting.c:
+	Use "kB" and divide by 1000 to be correct with file sizes. Pointed
+	out by Alexander Winston.  Also hide the dialogs when errors
+	occur, and stop cleanup() crashing.
+
+2003-10-31  Ross Burton  <ross@burtonini.com>
+
 	* src/Makefile.am:
 	Define PKGDATADIR to DATADIR/sound-juicer.
 
