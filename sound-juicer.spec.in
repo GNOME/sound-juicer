@@ -27,9 +27,9 @@ GStreamer-based CD ripping tool. Saves audio CDs to Ogg/vorbis.
 
 %build
 
-./configure --prefix=%{_prefix} --sysconfdir=%{_sysconfdir}
+%configure
 
-make
+%make
 
 %install
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf $RPM_BUILD_ROOT
@@ -38,28 +38,26 @@ export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1;
 %makeinstall
 unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 
-#%find_lang sound-juicer
+%find_lang sound-juicer
 
 %clean
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf $RPM_BUILD_ROOT
 
-%post -p /sbin/ldconfig
-export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/sound-juicer.schemas > /dev/null;
+%post
+export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/sound-juicer.schemas > /dev/null
 
-%postun -p /sbin/ldconfig
-
-#%files -f sound-juicer.lang
-%files
+%files -f sound-juicer.lang
 %defattr(-, root, root)
 %doc AUTHORS COPYING ChangeLog INSTALL README NEWS
 %{_bindir}/sound-juicer
 %{_sysconfdir}/gconf/schemas/sound-juicer.schemas
-%{_datadir}/sound-juicer/sound-juicer.glade
-%{_datadir}/sound-juicer/orange-slice.png
+%{_datadir}/sound-juicer
 %{_datadir}/applications/sound-juicer.desktop
 %{_datadir}/pixmaps/sound-juicer.png
-%{_datadir}/locale/*/LC_MESSAGES/*
 
 %changelog
+* Tue Apr 22 2003 Frederic Crozat <fcrozat@mandrakesoft.com>
+- Use more macros
+
 * Sun Apr 20 2003 Ronald Bultje <rbultje@ronald.bitfreak.net>
 - Make spec file for sound-juicer (based on netRB spec file)
