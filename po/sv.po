@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
-"POT-Creation-Date: 2003-09-02 00:36+0200\n"
-"PO-Revision-Date: 2003-09-02 00:37+0200\n"
+"POT-Creation-Date: 2003-09-02 23:29+0200\n"
+"PO-Revision-Date: 2003-09-02 23:30+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -107,7 +107,7 @@ msgstr "Förlopp"
 msgid "Raw audio"
 msgstr "Rått ljud"
 
-#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:718
+#: data/sound-juicer.glade.h:24 src/sj-about.c:50 src/sj-main.c:755
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -135,7 +135,7 @@ msgstr "_Cd"
 msgid "_Contents"
 msgstr "_Innehåll"
 
-#: data/sound-juicer.glade.h:30 src/sj-main.c:103
+#: data/sound-juicer.glade.h:30 src/sj-main.c:128
 msgid "_Continue"
 msgstr "_Fortsätt"
 
@@ -242,34 +242,42 @@ msgstr "Namnlös cd-rom"
 msgid "Select the drive"
 msgstr "Välj enheten"
 
-#: src/sj-musicbrainz.c:49
+#: src/sj-metadata-musicbrainz.c:82
 msgid "Cannot create MusicBrainz client"
 msgstr "Kan inte skapa MusicBrainz-klient"
 
-#: src/sj-musicbrainz.c:111 src/sj-musicbrainz.c:156
+#: src/sj-metadata-musicbrainz.c:174 src/sj-metadata-musicbrainz.c:282
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Kan inte läsa cd-skiva: %s"
 
-#: src/sj-musicbrainz.c:118
+#: src/sj-metadata-musicbrainz.c:181
 msgid "Unknown Artist"
 msgstr "Okänd artist"
 
-#: src/sj-musicbrainz.c:119
+#: src/sj-metadata-musicbrainz.c:182
 msgid "Unknown Title"
 msgstr "Okänd titel"
 
-#: src/sj-musicbrainz.c:124
+#: src/sj-metadata-musicbrainz.c:187
 #, c-format
 msgid "Track %d"
 msgstr "Spår %d"
 
-#: src/sj-musicbrainz.c:150
+#: src/sj-metadata-musicbrainz.c:207
+msgid ""
+"MusicBrainz metadata object is not valid. This is bad, check your console "
+"for errors."
+msgstr ""
+"MusicBrainz-metadataobjekt är inte giltigt. Detta är illa. Kontrollera "
+"eventuella fel på din konsoll."
+
+#: src/sj-metadata-musicbrainz.c:276
 #, c-format
 msgid "Device '%s' does not contain a media"
 msgstr "Enheten \"%s\" innehåller inget medium"
 
-#: src/sj-musicbrainz.c:153
+#: src/sj-metadata-musicbrainz.c:279
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
@@ -277,12 +285,12 @@ msgstr ""
 "Enheten \"%s\" kunde inte öppnas. Kontrollera åtkomsträttigheterna för "
 "enheten."
 
-#: src/sj-musicbrainz.c:164
+#: src/sj-metadata-musicbrainz.c:290
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "Denna cd-skiva kunde inte undersökas: %s\n"
 
-#: src/sj-musicbrainz.c:170
+#: src/sj-metadata-musicbrainz.c:296
 msgid "This CD was not found.\n"
 msgstr "Denna cd-skiva hittades inte.\n"
 
@@ -339,8 +347,8 @@ msgstr "Kunde inte skapa katalogen %s. %s"
 msgid "Could not eject the CD"
 msgstr "Kunde inte mata ut cd-skivan"
 
-#: src/sj-util.c:102 src/sj-util.c:117 src/sj-main.c:69 src/sj-main.c:396
-#: src/sj-main.c:466
+#: src/sj-util.c:102 src/sj-util.c:117 src/sj-main.c:76 src/sj-main.c:428
+#: src/sj-main.c:500
 msgid "Reason"
 msgstr "Orsak"
 
@@ -424,71 +432,71 @@ msgstr "Extraherar \"%s\""
 msgid "mkdir() failed: %s"
 msgstr "mkdir() misslyckades: %s"
 
-#: src/sj-main.c:68
+#: src/sj-main.c:75
 msgid "Could not start Sound Juicer"
 msgstr "Kunde inte starta Sound Juicer"
 
-#: src/sj-main.c:71
+#: src/sj-main.c:78
 msgid "Please consult the documentation for assistance."
 msgstr "Läs dokumentationen för hjälp."
 
-#: src/sj-main.c:101
+#: src/sj-main.c:126
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr ""
 "Du håller på att extrahera en cd-skiva. Vill du avsluta nu eller fortsätta?"
 
-#: src/sj-main.c:147 src/sj-main.c:205
+#: src/sj-main.c:179 src/sj-main.c:237
 msgid "(unknown)"
 msgstr "(okänd)"
 
-#: src/sj-main.c:247 src/sj-main.c:796
+#: src/sj-main.c:279 src/sj-main.c:834
 msgid "Title"
 msgstr "Titel"
 
-#: src/sj-main.c:253 src/sj-main.c:804
+#: src/sj-main.c:285 src/sj-main.c:842
 msgid "Artist"
 msgstr "Artist"
 
-#: src/sj-main.c:394 src/sj-main.c:464
+#: src/sj-main.c:426 src/sj-main.c:498
 msgid "Could not read the CD"
 msgstr "Kunde inte läsa cd-skivan"
 
-#: src/sj-main.c:395
+#: src/sj-main.c:427
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer kunde inte läsa spårlistan på denna cd-skiva."
 
-#: src/sj-main.c:447
+#: src/sj-main.c:479
 msgid "No CD-ROM drives found"
 msgstr "Inga cd-romenheter hittades"
 
-#: src/sj-main.c:448
+#: src/sj-main.c:480
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer kunde inte hitta några cd-romenheter att läsa."
 
-#: src/sj-main.c:458
+#: src/sj-main.c:492
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer kunde inte komma åt cd-romenheten \"%s\""
 
-#: src/sj-main.c:520
+#: src/sj-main.c:557
 msgid "Cannot find any suitable encoders"
 msgstr "Kan inte hitta några lämpliga kodare"
 
-#: src/sj-main.c:535
+#: src/sj-main.c:572
 msgid "The currently selected encoder is not available on your installation."
 msgstr ""
 "Den för tillfället valda kodaren är inte tillgänglig i din installation."
 
-#: src/sj-main.c:537
+#: src/sj-main.c:574
 msgid "Change the encoder"
 msgstr "Byt kodare"
 
-#: src/sj-main.c:647
+#: src/sj-main.c:684
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Okänd kolumn %d redigerades"
 
-#: src/sj-main.c:694
+#: src/sj-main.c:731
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -497,19 +505,19 @@ msgstr ""
 "Kunde inte visa hjälp för Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:735
+#: src/sj-main.c:773
 msgid "Could not create GConf client.\n"
 msgstr "Kunde inte skapa GConf-klient.\n"
 
-#: src/sj-main.c:777
+#: src/sj-main.c:815
 msgid "Extract?"
 msgstr "Extrahera?"
 
-#: src/sj-main.c:785
+#: src/sj-main.c:823
 msgid "Track"
 msgstr "Spår"
 
-#: src/sj-main.c:814
+#: src/sj-main.c:852
 msgid "Duration"
 msgstr "Varaktighet"
 
