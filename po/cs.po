@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-08 07:49+0100\n"
-"PO-Revision-Date: 2005-02-08 15:21+0100\n"
+"POT-Creation-Date: 2005-02-12 15:30+0100\n"
+"PO-Revision-Date: 2005-02-12 22:19+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -110,12 +110,16 @@ msgstr "Nastavení"
 msgid "Progress"
 msgstr "Průběh"
 
-#: data/sound-juicer.glade.h:23 src/sj-about.c:56 src/sj-extractor.c:444
+#: data/sound-juicer.glade.h:23
+msgid "Select A Folder"
+msgstr "Vybrat adresář"
+
+#: data/sound-juicer.glade.h:24 src/sj-about.c:56 src/sj-extractor.c:444
 #: src/sj-main.c:936
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
-#: data/sound-juicer.glade.h:24
+#: data/sound-juicer.glade.h:25
 msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
@@ -123,13 +127,9 @@ msgstr ""
 "Toto CD může být více než jedno album. Vyberte prosím, které album to je, "
 "níže a stiskněte <i>Pokračovat</i>."
 
-#: data/sound-juicer.glade.h:25
+#: data/sound-juicer.glade.h:26
 msgid "Unknown"
 msgstr "Neznámý"
-
-#: data/sound-juicer.glade.h:26
-msgid "_Browse..."
-msgstr "_Procházet..."
 
 #: data/sound-juicer.glade.h:27
 msgid "_CD"
@@ -160,22 +160,26 @@ msgid "_Extract"
 msgstr "_Extrahovat"
 
 #: data/sound-juicer.glade.h:34
+msgid "_Folder:"
+msgstr "_Adresář:"
+
+#: data/sound-juicer.glade.h:35
 msgid "_Help"
 msgstr "_Nápověda"
 
-#: data/sound-juicer.glade.h:35
+#: data/sound-juicer.glade.h:36
 msgid "_Re-read"
 msgstr "_Znovu načíst"
 
-#: data/sound-juicer.glade.h:36
+#: data/sound-juicer.glade.h:37
 msgid "_Select All"
 msgstr "Vybrat vš_e"
 
-#: data/sound-juicer.glade.h:37
+#: data/sound-juicer.glade.h:38
 msgid "_Strip special characters"
 msgstr "_Odstranit speciální znaky"
 
-#: data/sound-juicer.glade.h:38
+#: data/sound-juicer.glade.h:39
 msgid "label"
 msgstr "jmenovka"
 
@@ -856,11 +860,11 @@ msgstr "Umělec alba, název alba"
 msgid "Track Artist, Album Title"
 msgstr "Umělec stopy, název alba"
 
-#: src/sj-prefs.c:54 src/sj-prefs.c:291
+#: src/sj-prefs.c:54 src/sj-prefs.c:280
 msgid "Album Title"
 msgstr "Název alba"
 
-#: src/sj-prefs.c:55 src/sj-prefs.c:292
+#: src/sj-prefs.c:55 src/sj-prefs.c:281
 msgid "Album Artist"
 msgstr "Umělec alba"
 
@@ -876,7 +880,7 @@ msgstr "[žádný]"
 msgid "Number - Title"
 msgstr "Číslo - název"
 
-#: src/sj-prefs.c:63 src/sj-prefs.c:299
+#: src/sj-prefs.c:63 src/sj-prefs.c:288
 msgid "Track Title"
 msgstr "Název stopy"
 
@@ -892,11 +896,7 @@ msgstr "Číslo. stopy umělec - název stopy"
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Číslo-Umělec stopy-Název stopy (malými písmeny)"
 
-#: src/sj-prefs.c:155
-msgid "Select Output Location"
-msgstr "Vyberte umístění výstupu"
-
-#: src/sj-prefs.c:300
+#: src/sj-prefs.c:289
 msgid "Track Artist"
 msgstr "Umělec stopy"
 
@@ -908,6 +908,12 @@ msgstr "Nemohu vytvořit adresář %s: %s"
 #: src/sj-util.c:109 src/sj-util.c:129
 msgid "Could not eject the CD"
 msgstr "Nemohu vysunout CD"
+
+#~ msgid "_Browse..."
+#~ msgstr "_Procházet..."
+
+#~ msgid "Select Output Location"
+#~ msgstr "Vyberte umístění výstupu"
 
 #~ msgid "Unnamed CDROM"
 #~ msgstr "Nepojmenovaná CDROM"
