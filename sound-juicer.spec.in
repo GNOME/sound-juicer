@@ -9,13 +9,13 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 Requires:	libmusicbrainz >= 2.0.1
 Requires:	libgnomeui >= 2.0.0
 Requires:	glib2 >= 2.0.0
-Requires:	gstreamer >= 0.6.1
+Requires:	gstreamer >= 0.8.0
 Requires:	GConf2 >= 2.0.0
-Requires:	gstreamer-plugins >= 0.6.2
+Requires:	gstreamer-plugins >= 0.7.2
 BuildRequires:	libmusicbrainz-devel >= 2.0.1
 BuildRequires:	libgnomeui-devel >= 2.0.0
 BuildRequires:	glib2-devel >= 2.0.0
-BuildRequires:	gstreamer-devel >= 0.6.1
+BuildRequires:	gstreamer-devel >= 0.8.0
 BuildRequires:	GConf2-devel >= 2.0.0
 BuildRequires:  scrollkeeper >= @SCROLLKEEPER_BUILD_REQUIRED@
 
@@ -59,6 +59,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/sound-juicer.sc
 %{_datadir}/omf
 
 %changelog
+* Sun Feb 29 2004 Christian Schaller <Uraeus@gnome.org>
+- Add versioning to gstreamer req
+
 * Fri Sep 27 2003 Christian Schaller <Uraeus@gnome.org>
 - Replace req of gst-cdpara with gst-plugins as we now use standard RH packaging
 
