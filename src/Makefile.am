@@ -1,5 +1,5 @@
 # General compiler flags
-AM_CFLAGS = -Wall -Werror -export-dynamic -W -Wno-unused-parameter
+AM_CFLAGS = -Wall -export-dynamic -W -Wno-unused-parameter
 
 # General CPP flags. When I can demand automake 1.8, this can become
 # sound_juicer_CPPFLAGS.
@@ -13,7 +13,7 @@ AM_CPPFLAGS = \
 	-DPIXMAPDIR=\""$(datadir)/pixmaps"\" \
 	-DPKGDATADIR=\""$(datadir)/sound-juicer"\" \
 	@MUSICBRAINZ_CFLAGS@ @GSTREAMER_CFLAGS@ \
-	@MEDIA_PROFILES_CFLAGS@ @UI_CFLAGS@ @HAL_CFLAGS@
+	@MEDIA_PROFILES_CFLAGS@ @BURN_CFLAGS@ @UI_CFLAGS@ @HAL_CFLAGS@
 
 
 # We always build Sound Juicer
@@ -42,22 +42,9 @@ sound_juicer_SOURCES = \
 	sj-about.c \
 	sj-extracting.h \
 	sj-extracting.c \
-	$(BACONFILES) \
 	$(MARSHALFILES)
 
-sound_juicer_LDFLAGS = @MUSICBRAINZ_LIBS@ @MEDIA_PROFILES_LIBS@ @GSTREAMER_LIBS@ @UI_LIBS@ @HAL_LIBS@
-
-
-#
-# Update the libbacon files
-#
-
-BACONDIR=$(srcdir)/../../nautilus-cd-burner/
-BACONFILES=cd-drive.c cd-drive.h bacon-cd-selection.c bacon-cd-selection.h dvd_plus_rw_utils.cpp transport.hxx
-
-regenerate-built-sources:
-	BACONFILES="$(BACONFILES)" BACONDIR="$(BACONDIR)" $(top_srcdir)/src/update-from-bacon.sh
-
+sound_juicer_LDFLAGS = @MUSICBRAINZ_LIBS@ @MEDIA_PROFILES_LIBS@ @GSTREAMER_LIBS@ @BURN_LIBS@ @UI_LIBS@ @HAL_LIBS@
 
 #
 # Build the GValue marshals

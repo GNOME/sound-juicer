@@ -28,9 +28,9 @@
 #include <gconf/gconf-client.h>
 #include <libgnome/gnome-help.h>
 #include <profiles/gnome-media-profiles.h>
+#include <nautilus-burn-drive.h>
+#include <nautilus-burn-drive-selection.h>
 #include "sj-extracting.h"
-#include "cd-drive.h"
-#include "bacon-cd-selection.h"
 
 extern GladeXML *glade;
 extern GtkWidget *main_window;
@@ -71,8 +71,8 @@ const char* prefs_get_default_device ()
 {
   static const char* default_device = NULL;
   if (default_device == NULL) {
-    CDDrive *cd;
-    cdroms = scan_for_cdroms (FALSE, FALSE);
+    NautilusBurnDrive *cd;
+    cdroms = nautilus_burn_drive_get_list (FALSE, FALSE);
     if (cdroms == NULL) return NULL;
     cd = cdroms->data;
     default_device = cd->device;
@@ -85,10 +85,10 @@ gboolean cd_drive_exists (const char *device)
   GList *l;
   if (device == NULL) return FALSE;
   if (cdroms == NULL) {
-    cdroms = scan_for_cdroms (FALSE, FALSE);
+    cdroms = nautilus_burn_drive_get_list (FALSE, FALSE);
   }
   for (l = cdroms; l != NULL; l = l->next) {
-    if (strcmp (((CDDrive *) (l->data))->device, device) == 0)
+    if (strcmp (((NautilusBurnDrive *) (l->data))->device, device) == 0)
       return TRUE;
   }
   return FALSE;
@@ -207,11 +207,11 @@ static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *e
   g_return_if_fail (strcmp (entry->key, GCONF_DEVICE) == 0);
 
   if (entry->value == NULL) {
-    bacon_cd_selection_set_device (BACON_CD_SELECTION (cd_option),
-                                   bacon_cd_selection_get_default_device (BACON_CD_SELECTION (cd_option)));
+    nautilus_burn_drive_selection_set_device (NAUTILUS_BURN_DRIVE_SELECTION (cd_option),
+                                   nautilus_burn_drive_selection_get_default_device (NAUTILUS_BURN_DRIVE_SELECTION (cd_option)));
   } else {
     g_return_if_fail (entry->value->type == GCONF_VALUE_STRING);
-    bacon_cd_selection_set_device (BACON_CD_SELECTION (cd_option),
+    nautilus_burn_drive_selection_set_device (NAUTILUS_BURN_DRIVE_SELECTION (cd_option),
                                    gconf_value_get_string (entry->value));
   }
 }

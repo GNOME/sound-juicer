@@ -29,6 +29,7 @@
 #include <glib/gmessages.h>
 #include <musicbrainz/queries.h>
 #include <musicbrainz/mb_c.h>
+#include <nautilus-burn-drive.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -36,7 +37,6 @@
 #include "sj-structures.h"
 #include "sj-error.h"
 #include "sj-genres.h"
-#include "cd-drive.h"
 
 struct SjMetadataMusicbrainzPrivate {
   GError *construct_error;
@@ -293,7 +293,7 @@ lookup_cd (SjMetadata *metadata)
   GList *al, *tl;
   char data[MB_BUFFER_SIZE];
   int num_albums, i, j;
-  CDMediaType type;
+  NautilusBurnMediaType type;
 
   /* TODO: fire error signal */
   g_return_val_if_fail (metadata != NULL, NULL);
@@ -302,8 +302,8 @@ lookup_cd (SjMetadata *metadata)
   g_return_val_if_fail (priv->cdrom != NULL, NULL);
   priv->error = NULL; /* TODO: hack */
 
-  type = cd_drive_get_media_type_from_path (priv->cdrom);
-  if (type == CD_MEDIA_TYPE_ERROR) {
+  type = nautilus_burn_drive_get_media_type_from_path (priv->cdrom);
+  if (type == NAUTILUS_BURN_MEDIA_TYPE_ERROR) {
     char *msg;
     SjError err;
 

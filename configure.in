@@ -32,6 +32,11 @@ PKG_CHECK_MODULES(GLIB, glib-2.0 gthread-2.0 gobject-2.0)
 AC_SUBST(GLIB_CFLAGS)
 AC_SUBST(GLIB_LIBS)
 
+# Find nautilus-burn
+PKG_CHECK_MODULES(BURN, libnautilus-burn)
+AC_SUBST(BURN_CFLAGS)
+AC_SUBST(BURN_LIBS)
+
 # Find the UI libraries
 PKG_CHECK_MODULES(UI, gtk+-2.0 >= 2.4  libglade-2.0  gconf-2.0  libgnomeui-2.0)
 AC_SUBST(UI_CFLAGS)

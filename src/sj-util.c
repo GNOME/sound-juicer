@@ -27,9 +27,9 @@
 #include <glib/gutils.h>
 #include <glib/gstrfuncs.h>
 #include <libgnome/gnome-i18n.h>
+#include <nautilus-burn-drive.h>
 #include "sj-error.h"
 #include "sj-util.h"
-#include "cd-drive.h"
 
 /**
  * Stolen from gnome-vfs
@@ -169,17 +169,17 @@ tray_is_opened (const char *device)
 
 gboolean is_audio_cd (const char *device)
 {
-  CDMediaType type;
+  NautilusBurnMediaType type;
   int fd, status;
 
-  type = cd_drive_get_media_type_from_path (device);
+  type = nautilus_burn_drive_get_media_type_from_path (device);
   switch (type) {
-    case CD_MEDIA_TYPE_CD:
-    case CD_MEDIA_TYPE_CDR:
-    case CD_MEDIA_TYPE_CDRW:
+    case NAUTILUS_BURN_MEDIA_TYPE_CD:
+    case NAUTILUS_BURN_MEDIA_TYPE_CDR:
+    case NAUTILUS_BURN_MEDIA_TYPE_CDRW:
       /* shut up gcc */
       type = 0;
-    case CD_MEDIA_TYPE_UNKNOWN:
+    case NAUTILUS_BURN_MEDIA_TYPE_UNKNOWN:
       /* Handle an unknown disk type by assuming its audio */
       return TRUE;
     default:

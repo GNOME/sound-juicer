@@ -5,7 +5,7 @@ AM_CPPFLAGS = \
 	-DG_DISABLE_DEPRECATED=1 \
 	-I$(top_srcdir)/src \
 	@MUSICBRAINZ_CFLAGS@ @GSTREAMER_CFLAGS@ \
-	@MEDIA_PROFILES_CFLAGS@ @UI_CFLAGS@ @HAL_CFLAGS@
+	@MEDIA_PROFILES_CFLAGS@ @BURN_CFLAGS@ @UI_CFLAGS@ @HAL_CFLAGS@
 
 AM_CFLAGS = -g -Wall -export-dynamic -Wunused
 
@@ -16,9 +16,6 @@ mb_test_SOURCES = \
 	$(top_srcdir)/src/sj-metadata.c \
 	$(top_srcdir)/src/sj-metadata-musicbrainz.c \
 	$(top_srcdir)/src/sj-metadata-marshal.c \
-	$(top_srcdir)/src/sj-error.c \
-	$(top_srcdir)/src/cd-drive.c \
-	$(top_srcdir)/src/transport.hxx \
-	$(top_srcdir)/src/dvd_plus_rw_utils.cpp
+	$(top_srcdir)/src/sj-error.c
 
-mb_test_LDADD = @UI_LIBS@ @MUSICBRAINZ_LIBS@ @HAL_LIBS@
+mb_test_LDADD = @BURN_LIBS@ @UI_LIBS@ @MUSICBRAINZ_LIBS@ @HAL_LIBS@
