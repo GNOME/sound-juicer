@@ -43,6 +43,7 @@ static GList *pending = NULL; /* a GList of TrackDetails* to rip */
 static int total_ripping; /* the number of tracks to rip, not decremented */
 static int total_duration, current_duration;
 static int track_duration; /* duration of current track for progress dialog */
+static GList *paths; /* A list of strings, where songs have been written */
 
 static GtkWidget *progress_dialog;
 static GtkWidget *track_progress, *album_progress;
@@ -126,6 +127,42 @@ static gboolean check_for_file (const char* filename)
     return ret == GTK_RESPONSE_ACCEPT;
 }
 
+static void base_finder (char *data, char **ret)
+{
+  /* data is the path, a char*
+   * ret is really a char**, a pointer to a pointer, which is the common string */
+  if (*ret == NULL) {
+    *ret = g_strdup (data);
+    return;
+  } else {
+    /* Urgh */
+    char *i, *j, *marker;
+    i = marker = data;
+    j = *ret;
+    while (*i == *j) {
+      if (*i == G_DIR_SEPARATOR) marker = i;
+      if (*i == 0) {
+        marker = i;
+        break;
+      }
+      i = g_utf8_next_char (i);
+      j = g_utf8_next_char (j);
+    }
+    g_free (*ret);
+    *ret = g_strndup (data, marker - data + 1);
+  }
+}
+
+/**
+ * Take a GList* of paths (strings), and return the common base path.
+ */
+char* find_common_base (GList *list)
+{
+  char *ret = NULL;
+  g_list_foreach (list, (GFunc)base_finder, &ret);
+  return ret;
+}
+
 static void pop_and_rip (void)
 {
   TrackDetails *track;
@@ -149,9 +186,12 @@ static void pop_and_rip (void)
     result = gtk_dialog_run (GTK_DIALOG (finished_dialog));
     gtk_widget_destroy (finished_dialog);
     if (result == 1) {
-      char *command = g_strdup_printf ("nautilus --no-desktop %s", base_path);
+      char *base = find_common_base (paths);
+      char *command = g_strdup_printf ("nautilus --no-desktop %s", base);
       g_spawn_command_line_async (command, NULL);
+      g_free (base);
       g_free (command);
+      g_list_deep_free (paths, NULL);
     }
     gtk_widget_set_sensitive (extract_button, TRUE);
     return;
@@ -180,6 +220,7 @@ static void pop_and_rip (void)
       return;
     }
   }
+  paths = g_list_append (paths, g_strdup (directory));
   g_free (directory);
 
   /* See if the file exists */
@@ -208,6 +249,7 @@ void on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
 {
   sj_extractor_cancel_extract (extractor);
   /* Clean up the pending list */
+  /* TODO: free elements? Argh! */
   g_list_free (pending);
   pending = NULL;
   gtk_widget_hide (progress_dialog);
@@ -278,6 +320,7 @@ static void on_error_cb (SjExtractor *extractor, GError *error, gpointer data)
 {
   GtkWidget *dialog;
   extracting = FALSE;
+  /* TODO: free elements? Argh! */
   g_list_free (pending);
   pending = NULL;
   /* TODO: cleanup. Must refactor this code. */
