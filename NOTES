@@ -1,0 +1,13 @@
+Either pass in an AlbumDetails* to sj_gstreamer_extract_track(), or
+put an AlbumDetails* into each TrackDetails. This means we can set the
+album name.
+
+Use GConf. Keys so far:
+/apps/sound-juicer/base_path (string, default "")
+/apps/sound-juicer/device (string, default "")
+
+GErrorify everywhere!
+
+Instead of using an int counter, lookup the track number too?
+
+Find out why track duration doesn't work on MB.
