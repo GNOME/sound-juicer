@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
-"POT-Creation-Date: 2003-06-04 18:54+0200\n"
-"PO-Revision-Date: 2003-06-04 18:54+0200\n"
+"POT-Creation-Date: 2003-06-22 00:52+0200\n"
+"PO-Revision-Date: 2003-06-22 00:53+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -52,54 +52,62 @@ msgid "<b>_Output Format</b>"
 msgstr "<b>_Utdataformat</b>"
 
 #: data/sound-juicer.glade.h:10
+msgid "<b>_Quality</b>"
+msgstr "<b>_Kvalitet</b>"
+
+#: data/sound-juicer.glade.h:11
 msgid "D_irectory Hierarchy"
 msgstr "K_ataloghierarki"
 
-#: data/sound-juicer.glade.h:11
+#: data/sound-juicer.glade.h:12
+msgid "E_ject"
+msgstr "_Mata ut"
+
+#: data/sound-juicer.glade.h:13
 msgid "Excellent quality lossless compression"
 msgstr "Förlustfri komprimering med utmärkt kvalitet"
 
-#: data/sound-juicer.glade.h:12
+#: data/sound-juicer.glade.h:14
 msgid "FLAC"
 msgstr "FLAC"
 
-#: data/sound-juicer.glade.h:13
+#: data/sound-juicer.glade.h:15
 msgid "Good quality lossy compression"
 msgstr "Förlustkomprimering med god kvalitet"
 
-#: data/sound-juicer.glade.h:14
+#: data/sound-juicer.glade.h:16
 msgid "High quality lossy compression"
 msgstr "Förlustkomprimering med hög kvalitet"
 
-#: data/sound-juicer.glade.h:15
+#: data/sound-juicer.glade.h:17
 msgid "MP3"
 msgstr "MP3"
 
-#: data/sound-juicer.glade.h:16
+#: data/sound-juicer.glade.h:18
 msgid "Multiple Albums Found"
 msgstr "Flera album hittades"
 
-#: data/sound-juicer.glade.h:17
+#: data/sound-juicer.glade.h:19
 msgid "Ogg Vorbis"
 msgstr "Ogg Vorbis"
 
-#: data/sound-juicer.glade.h:18
+#: data/sound-juicer.glade.h:20
 msgid "Preferences"
 msgstr "Inställningar"
 
-#: data/sound-juicer.glade.h:19
+#: data/sound-juicer.glade.h:21
 msgid "Progress"
 msgstr "Förlopp"
 
-#: data/sound-juicer.glade.h:20
+#: data/sound-juicer.glade.h:22
 msgid "Raw audio"
 msgstr "Rått ljud"
 
-#: data/sound-juicer.glade.h:21 src/sj-about.c:49 src/sj-main.c:565
+#: data/sound-juicer.glade.h:23 src/sj-about.c:49 src/sj-main.c:579
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
-#: data/sound-juicer.glade.h:22
+#: data/sound-juicer.glade.h:24
 msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
@@ -107,43 +115,43 @@ msgstr ""
 "Denna cd-skiva kan vara mer än ett album. Välj det album det är nedan och "
 "tryck <i>Fortsätt</i>."
 
-#: data/sound-juicer.glade.h:23
+#: data/sound-juicer.glade.h:25
 msgid "Wave"
 msgstr "Våg"
 
-#: data/sound-juicer.glade.h:24
+#: data/sound-juicer.glade.h:26
 msgid "_Browse..."
 msgstr "_Bläddra..."
 
-#: data/sound-juicer.glade.h:25
+#: data/sound-juicer.glade.h:27
 msgid "_CD"
 msgstr "_Cd"
 
-#: data/sound-juicer.glade.h:26
+#: data/sound-juicer.glade.h:28
 msgid "_Continue"
 msgstr "_Fortsätt"
 
-#: data/sound-juicer.glade.h:27
+#: data/sound-juicer.glade.h:29
 msgid "_Deselect All"
 msgstr "_Avmarkera alla"
 
-#: data/sound-juicer.glade.h:28
+#: data/sound-juicer.glade.h:30
 msgid "_Extract"
 msgstr "_Extrahera"
 
-#: data/sound-juicer.glade.h:29
+#: data/sound-juicer.glade.h:31
 msgid "_File Name"
 msgstr "_Filnamn"
 
-#: data/sound-juicer.glade.h:30
+#: data/sound-juicer.glade.h:32
 msgid "_Re-read"
 msgstr "_Läs om"
 
-#: data/sound-juicer.glade.h:31
+#: data/sound-juicer.glade.h:33
 msgid "_Strip special characters"
 msgstr "_Ta bort specialtecken"
 
-#: data/sound-juicer.glade.h:32
+#: data/sound-juicer.glade.h:34
 msgid "label"
 msgstr "etikett"
 
@@ -337,7 +345,7 @@ msgstr "Spårartist - Spårtitel"
 msgid "Select Output Location"
 msgstr "Välj utdataplats"
 
-#: src/sj-prefs.c:191 src/sj-main.c:451
+#: src/sj-prefs.c:191 src/sj-main.c:465
 #, c-format
 msgid "Unknown format %s"
 msgstr "Okänt format %s"
@@ -369,80 +377,83 @@ msgstr "Extraherar \"%s\""
 msgid "mkdir() failed: %s"
 msgstr "mkdir() misslyckades: %s"
 
-#: src/sj-main.c:75
+#: src/sj-main.c:89
 msgid "You are currently extracting a CD. Do you want to quit now or contine?"
 msgstr ""
 "Du håller på att extrahera en cd-skiva. Vill du avsluta nu eller fortsätta?"
 
-#: src/sj-main.c:77
+#: src/sj-main.c:91
 msgid "Continue"
 msgstr "Fortsätt"
 
-#: src/sj-main.c:125 src/sj-main.c:178
+#: src/sj-main.c:139 src/sj-main.c:192
 msgid "(unknown)"
 msgstr "(okänd)"
 
-#: src/sj-main.c:220 src/sj-main.c:642
+#: src/sj-main.c:234 src/sj-main.c:656
 msgid "Title"
 msgstr "Titel"
 
-#: src/sj-main.c:226 src/sj-main.c:650
+#: src/sj-main.c:240 src/sj-main.c:664
 msgid "Artist"
 msgstr "Artist"
 
-#: src/sj-main.c:367 src/sj-main.c:420
+#: src/sj-main.c:381 src/sj-main.c:434
 msgid "Could not read the CD"
 msgstr "Kunde inte läsa cd-skivan"
 
-#: src/sj-main.c:368
+#: src/sj-main.c:382
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer kunde inte läsa spårlistan på denna cd-skiva."
 
-#: src/sj-main.c:369 src/sj-main.c:422 src/sj-main.c:546
+#: src/sj-main.c:383 src/sj-main.c:436 src/sj-main.c:560
 msgid "Reason"
 msgstr "Orsak"
 
-#: src/sj-main.c:403
+#: src/sj-main.c:417
 msgid "No CD-ROM drives found"
 msgstr "Inga cd-romenheter hittades"
 
-#: src/sj-main.c:404
+#: src/sj-main.c:418
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer kunde inte hitta några cd-romenheter att läsa."
 
-#: src/sj-main.c:415
+#: src/sj-main.c:429
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer kunde inte komma åt cd-romenheten \"%s\""
 
-#: src/sj-main.c:533
+#: src/sj-main.c:547
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Okänd kolumn %d redigerades"
 
-#: src/sj-main.c:545
+#: src/sj-main.c:559
 msgid "Could not start Sound Juicer"
 msgstr "Kunde inte starta Sound Juicer"
 
-#: src/sj-main.c:548
+#: src/sj-main.c:562
 msgid "Please consult the documentation for assistance."
 msgstr "Läs dokumentationen för hjälp."
 
-#: src/sj-main.c:582
+#: src/sj-main.c:596
 msgid "Could not create GConf client.\n"
 msgstr "Kunde inte skapa GConf-klient.\n"
 
-#: src/sj-main.c:623
+#: src/sj-main.c:637
 msgid "Extract?"
 msgstr "Extrahera?"
 
-#: src/sj-main.c:631
+#: src/sj-main.c:645
 msgid "Track"
 msgstr "Spår"
 
-#: src/sj-main.c:660
+#: src/sj-main.c:674
 msgid "Duration"
 msgstr "Varaktighet"
+
+#~ msgid "_Quality"
+#~ msgstr "_Kvalitet"
 
 #~ msgid ""
 #~ "A file called '%s' exists, size %ld K.\n"
@@ -559,9 +570,6 @@ msgstr "Varaktighet"
 
 #~ msgid "_Play count"
 #~ msgstr "_Spelräknare"
-
-#~ msgid "_Quality"
-#~ msgstr "_Kvalitet"
 
 #~ msgid "_Rating"
 #~ msgstr "_Betyg"
