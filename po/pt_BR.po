@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-20 20:49+0100\n"
-"PO-Revision-Date: 2004-03-21 15:43-0300\n"
+"POT-Creation-Date: 2004-04-07 04:08+0200\n"
+"PO-Revision-Date: 2004-04-07 10:35-0300\n"
 "Last-Translator: Raphael Higino <raphaelh@uai.com.br>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -53,11 +53,11 @@ msgstr "<b>Título:</b>"
 
 #: data/sound-juicer.glade.h:8
 msgid "<b>Track Names</b>"
-msgstr "<b>Nomes das Trilhas</b>"
+msgstr "<b>Nomes das Faixas</b>"
 
 #: data/sound-juicer.glade.h:9
 msgid "<b>Track Progress</b>"
-msgstr "<b>Progresso da Trilha</b>"
+msgstr "<b>Progresso da Faixa</b>"
 
 #: data/sound-juicer.glade.h:10
 msgid "<b>_Quality</b>"
@@ -65,7 +65,7 @@ msgstr "<b>_Qualidade</b>"
 
 #: data/sound-juicer.glade.h:11
 msgid "<b>_Track Format</b>"
-msgstr "<b>_Formato da Trilha</b>"
+msgstr "<b>_Formato da Faixa</b>"
 
 #: data/sound-juicer.glade.h:12
 msgid "<i>Coming soon!</i>"
@@ -135,7 +135,9 @@ msgstr "Sound Juicer"
 msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
-msgstr "Este CD pode ser mais de um álbum. Por favor, selecione abaixo qual álbum ele é e pressione <i>Continuar</i>."
+msgstr ""
+"Este CD pode ser mais de um álbum. Por favor, selecione abaixo qual álbum "
+"ele é e pressione <i>Continuar</i>."
 
 #: data/sound-juicer.glade.h:29
 msgid "Unknown"
@@ -199,7 +201,7 @@ msgid ""
 "%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
 "album artist (lowercase) %tt -- track title %tT -- track title (lowercase) %"
 "ta -- track artist %tA -- track artist (lowercase)"
-msgstr "%at -- título do álbum %aT -- título do álbum (minúsculas) %aa -- artista do álbum %aA -- artista do álbum (minúsculas) %tt -- título da trilha %tT -- título da trilha (minúsculas) %ta -- artista da trilha %tA -- artista da trilha (minúsculas)"
+msgstr "%at -- título do álbum %aT -- título do álbum (minúsculas) %aa -- artista do álbum %aA -- artista do álbum (minúsculas) %tt -- título da faixa %tT -- título da faixa (minúsculas) %ta -- artista da faixa %tA -- artista da faixa (minúsculas)"
 
 #: data/sound-juicer.schemas.in.h:4
 #, no-c-format
@@ -209,13 +211,15 @@ msgid ""
 "number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
 "tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
 "(lowercase)"
-msgstr "Não especifique uma extensão. %at -- título do álbum %aT -- título do álbum (minúsculas) %aa -- artista do álbum %aA -- artista do álbum (minúsculas) %tn -- número da trilha (p.ex. 8) %tN -- número da trilha, com zero (p.ex. 08) %tt -- título da trilha %tT -- título da trilha (minúsculas) %ta -- artista da trilha %tA -- artista da trilha (minúsculas)"
+msgstr "Não especifique uma extensão. %at -- título do álbum %aT -- título do álbum (minúsculas) %aa -- artista do álbum %aA -- artista do álbum (minúsculas) %tn -- número da faixa (p.ex. 8) %tN -- número da faixa, com zero (p.ex. 08) %tt -- título da faixa %tT -- título da faixa (minúsculas) %ta -- artista da faixa %tA -- artista da faixa (minúsculas)"
 
 #: data/sound-juicer.schemas.in.h:5
 msgid ""
 "If enabled, special characters such as space, wildcards and backslashes will "
 "be removed from the output filename."
-msgstr "Se habilitado, caracteres especiais como espaços, máscaras (* e ?) e contra-barras serão removidos do arquivo de saída."
+msgstr ""
+"Se habilitado, caracteres especiais como espaços, máscaras (* e ?) e contra-"
+"barras serão removidos do arquivo de saída."
 
 #: data/sound-juicer.schemas.in.h:6
 msgid "If to strip special characters from filenames"
@@ -225,7 +229,9 @@ msgstr "Se devem ser descartados caracteres especiais dos nomes de arquivos"
 msgid ""
 "Paranoia mode, 3 settings: 0 (no paranoia), 4 (cdda2wav-style overlap "
 "checking) and 255 (full paranoia)"
-msgstr "Modo paranóia, 3 configurações: 0 (sem paranóia), 4 (verificação de revestimento no estilo cdda2wav) e 255 (paranóico)"
+msgstr ""
+"Modo paranóia, 3 configurações: 0 (sem paranóia), 4 (verificação de "
+"revestimento no estilo cdda2wav) e 255 (paranóico)"
 
 #: data/sound-juicer.schemas.in.h:8
 msgid "The directory structure for the files"
@@ -279,7 +285,7 @@ msgid ""
 "Do you want to skip this track or overwrite it?"
 msgstr ""
 "Um arquivo chamado '%s' já existe, seu tamanho é %lu kB.\n"
-"Você deseja pular esta trilha ou sobrescrevê-la?"
+"Você deseja pular esta faixa ou sobrescrevê-la?"
 
 #: src/sj-extracting.c:192
 msgid "_Skip"
@@ -287,7 +293,7 @@ msgstr "_Pular"
 
 #: src/sj-extracting.c:193
 msgid "_Overwrite"
-msgstr "S_obrescrever"
+msgstr "_Sobrescrever"
 
 #. Display a nice dialog
 #: src/sj-extracting.c:245 src/sj-extracting.c:283 src/sj-extracting.c:495
@@ -316,7 +322,7 @@ msgstr "Desconhecido (a 0.0x)"
 #. TODO: need to have a better message here
 #: src/sj-extracting.c:432
 msgid "The tracks have been copied successfully."
-msgstr "As trilhas foram copiadas com sucesso."
+msgstr "As faixas foram copiadas com sucesso."
 
 #: src/sj-extractor.c:140
 msgid "Encoding format"
@@ -341,12 +347,13 @@ msgstr "Não foi possível criar a saída do arquivo do GStreamer"
 
 #: src/sj-extractor.c:362
 msgid "Could not get current track position"
-msgstr "Não foi possível obter a posição atual da trilha"
+msgstr "Não foi possível obter a posição atual da faixa"
 
 #: src/sj-extractor.c:391
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
-msgstr "O objeto extrator não é válido. Isso é ruim. Verifique erros no seu console."
+msgstr ""
+"O objeto extrator não é válido. Isso é ruim. Verifique erros no seu console."
 
 #: src/sj-extractor.c:466 src/sj-extractor.c:480
 msgid "Ripped with Sound Juicer"
@@ -354,11 +361,11 @@ msgstr "Extraído com Sound Juicer"
 
 #: src/sj-extractor.c:495
 msgid "Could not seek to track"
-msgstr "Não foi possível ir para a trilha"
+msgstr "Não foi possível ir para a faixa"
 
 #: src/sj-extractor.c:500
 msgid "Could not get track start position"
-msgstr "Não foi possível obter a posição de início da trilha"
+msgstr "Não foi possível obter a posição de início da faixa"
 
 #: src/sj-extractor.c:537
 msgid "The plugin necessary for CD access was not found"
@@ -383,7 +390,8 @@ msgstr "Por favor, consulte a documentação para ter assitência."
 
 #: src/sj-main.c:134
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
-msgstr "Neste momento você está extraindo um CD. Deseja sair agora ou continuar?"
+msgstr ""
+"Neste momento você está extraindo um CD. Deseja sair agora ou continuar?"
 
 #: src/sj-main.c:191 src/sj-main.c:249
 msgid "(unknown)"
@@ -403,12 +411,12 @@ msgstr "Não foi possível ler o CD"
 
 #: src/sj-main.c:438 src/sj-main.c:513
 msgid "Sound Juicer could not read the track listing on this CD."
-msgstr "O Sound Juicer não pôde ler a lista de trilhas neste CD."
+msgstr "O Sound Juicer não pôde ler a lista de faixas neste CD."
 
 #. Set statusbar message
 #: src/sj-main.c:497
 msgid "Retrieving track listing...please wait."
-msgstr "Obtendo a lista de trilhas... por favor, aguarde."
+msgstr "Obtendo a lista de faixas... por favor, aguarde."
 
 #: src/sj-main.c:551
 msgid "No CD-ROM drives found"
@@ -432,8 +440,8 @@ msgid "The currently selected encoder is not available on your installation."
 msgstr "O codificador atualmente selecionado não está disponível na sua instalação."
 
 #: src/sj-main.c:646
-msgid "Change the encoder"
-msgstr "Trocar o codificador"
+msgid "_Change the encoder"
+msgstr "Trocar o _codificador"
 
 #: src/sj-main.c:796
 #, c-format
@@ -459,7 +467,7 @@ msgstr "Extrair"
 
 #: src/sj-main.c:944
 msgid "Track"
-msgstr "Trilha"
+msgstr "Faixa"
 
 #: src/sj-main.c:973
 msgid "Duration"
@@ -485,13 +493,15 @@ msgstr "Título Desconhecido"
 #: src/sj-metadata-musicbrainz.c:191
 #, c-format
 msgid "Track %d"
-msgstr "Trilha %d"
+msgstr "Faixa %d"
 
 #: src/sj-metadata-musicbrainz.c:219
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
-msgstr "Objeto de meta-dados do MusicBrainz inválido. Isto é ruim, verifique erros no seu console."
+msgstr ""
+"Objeto de meta-dados do MusicBrainz inválido. Isto é ruim, verifique erros "
+"no seu console."
 
 #: src/sj-metadata-musicbrainz.c:293
 #, c-format
@@ -502,7 +512,9 @@ msgstr "O dispositivo '%s' não contém uma mídia"
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
-msgstr "O dispositivo '%s' não pode ser aberto. Verifique as permissões de acesso ao dispositivo."
+msgstr ""
+"O dispositivo '%s' não pode ser aberto. Verifique as permissões de acesso ao "
+"dispositivo."
 
 #: src/sj-metadata-musicbrainz.c:309
 #, c-format
@@ -527,7 +539,7 @@ msgstr "Artista do Álbum, Título do Álbum"
 
 #: src/sj-prefs.c:48
 msgid "Track Artist, Album Title"
-msgstr "Artista da Trilha, Título do Álbum"
+msgstr "Artista da Faixa, Título do Álbum"
 
 #: src/sj-prefs.c:49 src/sj-prefs.c:273
 msgid "Album Title"
@@ -551,15 +563,15 @@ msgstr "Número - Título"
 
 #: src/sj-prefs.c:58 src/sj-prefs.c:281
 msgid "Track Title"
-msgstr "Título da Trilha"
+msgstr "Título da Faixa"
 
 #: src/sj-prefs.c:59
 msgid "Track Artist - Track Title"
-msgstr "Artista da Trilha - Título da Trilha"
+msgstr "Artista da Faixa - Título da Faixa"
 
 #: src/sj-prefs.c:60
 msgid "Number. Track Artist - Track Title"
-msgstr "Número. Artista da Trilha - Título da Trilha"
+msgstr "Número. Artista da Faixa - Título da Faixa"
 
 #: src/sj-prefs.c:109
 msgid "Select Output Location"
@@ -567,7 +579,7 @@ msgstr "Selecione o local de saída"
 
 #: src/sj-prefs.c:282
 msgid "Track Artist"
-msgstr "Artista da Trilha"
+msgstr "Artista da Faixa"
 
 #: src/sj-util.c:64
 #, c-format
