@@ -6,7 +6,7 @@ int main (int argc, char** argv)
 {
   GList *albums;
 
-  sj_musicbrainz_init ();
+  sj_musicbrainz_init (NULL);
   sj_musicbrainz_set_cdrom ("/dev/cdroms/cdrom1");
   albums = sj_musicbrainz_list_albums(NULL);
 
@@ -21,5 +21,6 @@ int main (int argc, char** argv)
     }
     albums = g_list_next (albums);
   }
+  sj_musicbrainz_destroy ();
   return 0;
 }
