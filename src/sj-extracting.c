@@ -51,19 +51,23 @@ static char* parse_pattern (const char* pattern, const TrackDetails *track);
  */
 static char* build_filename(const TrackDetails *track)
 {
-  char *realfile, *realpath, *filename;
+  char *realfile, *realpath, *filename, *path;
   realpath = parse_pattern (path_pattern, track);
   realfile = parse_pattern (file_pattern, track);
   switch (encoding_format) {
   case VORBIS:
-    filename = g_strconcat (base_path, realpath, realfile, ".ogg", NULL);
+    filename = g_strconcat (realfile, ".ogg", NULL);
     break;
   default:
+    g_free (realpath);
+    g_free (realfile);
     g_return_val_if_reached (NULL);
   }
+  path = g_build_filename (base_path, realpath, filename, NULL);
   g_free (realpath);
   g_free (realfile);
-  return filename;
+  g_free (filename);
+  return path;
 }
 
 static void pop_and_rip (void)
