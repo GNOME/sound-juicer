@@ -393,5 +393,13 @@ lookup_cd (SjMetadata *metadata)
 static void
 mb_list_albums (SjMetadata *metadata, GError **error)
 {
-  lookup_cd (metadata);
+  GThread *thread;
+
+  g_return_if_fail (SJ_IS_METADATA_MUSICBRAINZ (metadata));
+
+  thread = g_thread_create ((GThreadFunc)lookup_cd, metadata, TRUE, error);
+  //FIXME show a proper error
+  if (thread == NULL) {
+    g_warning ("Error creating the thread");
+  }
 }
