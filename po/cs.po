@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-10 12:18+0200\n"
-"PO-Revision-Date: 2004-09-10 16:07+0200\n"
+"POT-Creation-Date: 2004-09-22 20:30+0200\n"
+"PO-Revision-Date: 2004-09-23 01:39+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -134,7 +134,7 @@ msgstr "Průběh"
 msgid "Raw audio"
 msgstr "Přímý zvuk"
 
-#: data/sound-juicer.glade.h:29 src/sj-about.c:56 src/sj-main.c:913
+#: data/sound-juicer.glade.h:29 src/sj-about.c:56 src/sj-main.c:915
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -237,10 +237,14 @@ msgstr ""
 "lomítka, odstraněny z názvu výstupního souboru."
 
 #: data/sound-juicer.schemas.in.h:6
+msgid "If specified, this value will override the default MusicBrainz server."
+msgstr "Je-li zadána, tato hodnota nahradí implicitní server MusicBrainz."
+
+#: data/sound-juicer.schemas.in.h:7
 msgid "If to strip special characters from filenames"
 msgstr "Jestli odstraňovat speciální znaky z názvů souborů"
 
-#: data/sound-juicer.schemas.in.h:7
+#: data/sound-juicer.schemas.in.h:8
 msgid ""
 "Paranoia mode, 3 settings: 0 (no paranoia), 4 (cdda2wav-style overlap "
 "checking) and 255 (full paranoia)"
@@ -248,32 +252,36 @@ msgstr ""
 "Režim paranoiy, 3 možnosti: 0 (žádná paranoia), 4 (kontrola překryvu ve "
 "stylu cdda2wav) a 255 (úplná paranoia)"
 
-#: data/sound-juicer.schemas.in.h:8
+#: data/sound-juicer.schemas.in.h:9
+msgid "The MusicBrainz server to use"
+msgstr "Server MusicBrainz, který používat"
+
+#: data/sound-juicer.schemas.in.h:10
 msgid "The directory structure for the files"
 msgstr "Struktura adresářů pro soubory"
 
-#: data/sound-juicer.schemas.in.h:9
+#: data/sound-juicer.schemas.in.h:11
 msgid "The name pattern for files"
 msgstr "Vzor názvů souborů"
 
-#: data/sound-juicer.schemas.in.h:10
+#: data/sound-juicer.schemas.in.h:12
 msgid "The paranoia mode to use"
 msgstr "Režim paranoiy, který používat"
 
-#: data/sound-juicer.schemas.in.h:11
+#: data/sound-juicer.schemas.in.h:13
 msgid "Whether to eject the CD when finished extracting."
 msgstr "Jestli vysunout CD po dokončení extrakce."
 
-#: src/bacon-cd-selection.c:187
+#: src/bacon-cd-selection.c:200
 msgid "Unnamed CDROM"
 msgstr "Nepojmenovaná CDROM"
 
-#: src/cd-drive.c:744
+#: src/cd-drive.c:853
 #, c-format
 msgid "Unnamed SCSI Drive (%s)"
 msgstr "Nepojmenovaná mechanika SCSI (%s)"
 
-#: src/cd-drive.c:1304
+#: src/cd-drive.c:1413
 msgid "File image"
 msgstr "Soubor obrazu"
 
@@ -289,7 +297,7 @@ msgstr "Miloslav Trmač <mitr@volny.cz>"
 msgid "An Audio CD Extractor"
 msgstr "Extraktor zvukových CD"
 
-#: src/sj-extracting.c:193
+#: src/sj-extracting.c:194
 #, c-format
 msgid ""
 "A file called '%s' exists, size %lu kB.\n"
@@ -298,16 +306,16 @@ msgstr ""
 "Soubor pojmenovaný '%s' existuje, velikost %lu kB.\n"
 "Chcete tuto stopu přeskočit nebo jej přepsat?"
 
-#: src/sj-extracting.c:196
+#: src/sj-extracting.c:197
 msgid "_Skip"
 msgstr "Pře_skočit"
 
-#: src/sj-extracting.c:197
+#: src/sj-extracting.c:198
 msgid "_Overwrite"
 msgstr "_Přepsat"
 
 #. Display a nice dialog
-#: src/sj-extracting.c:252 src/sj-extracting.c:289 src/sj-extracting.c:505
+#: src/sj-extracting.c:253 src/sj-extracting.c:290 src/sj-extracting.c:506
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -316,26 +324,26 @@ msgstr ""
 "Sound Juicer nemohl extrahovat toto CD.\n"
 "Důvod: %s"
 
-#: src/sj-extracting.c:279
+#: src/sj-extracting.c:280
 #, c-format
 msgid "Extracting '%s'"
 msgstr "Extrahuji '%s'"
 
-#: src/sj-extracting.c:341
+#: src/sj-extracting.c:342
 #, c-format
 msgid "%d:%02d (at %0.1fx)"
 msgstr "%d:%02d (při %0.1f×)"
 
-#: src/sj-extracting.c:343
+#: src/sj-extracting.c:344
 msgid "Unknown (at 0.0x)"
 msgstr "Neznámý (při 0.0×)"
 
 #. TODO: need to have a better message here
-#: src/sj-extracting.c:447
+#: src/sj-extracting.c:448
 msgid "The tracks have been copied successfully."
 msgstr "Stopy byly úspěšně zkopírovány."
 
-#: src/sj-extracting.c:452
+#: src/sj-extracting.c:453
 msgid "_Eject"
 msgstr "_Vysunout"
 
@@ -719,7 +727,7 @@ msgstr "[neznáný žánr]"
 msgid "Could not start Sound Juicer"
 msgstr "Nemohu spustit Sound Juicer"
 
-#: src/sj-main.c:85 src/sj-main.c:442 src/sj-main.c:517 src/sj-main.c:576
+#: src/sj-main.c:85 src/sj-main.c:444 src/sj-main.c:519 src/sj-main.c:578
 #: src/sj-util.c:110 src/sj-util.c:130
 msgid "Reason"
 msgstr "Důvod"
@@ -732,62 +740,62 @@ msgstr "Pro pomoc si prosím přečtěte dokumentaci."
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Momentálně extrahujete CD. Chcete hned skončit nebo pokračovat?"
 
-#: src/sj-main.c:192 src/sj-main.c:252
+#: src/sj-main.c:192 src/sj-main.c:254
 msgid "(unknown)"
 msgstr "(neznámé)"
 
-#: src/sj-main.c:294 src/sj-main.c:1004
+#: src/sj-main.c:296 src/sj-main.c:1006
 msgid "Title"
 msgstr "Název"
 
-#: src/sj-main.c:300 src/sj-main.c:1012
+#: src/sj-main.c:302 src/sj-main.c:1015
 msgid "Artist"
 msgstr "Umělec"
 
-#: src/sj-main.c:440 src/sj-main.c:515 src/sj-main.c:574
+#: src/sj-main.c:442 src/sj-main.c:517 src/sj-main.c:576
 msgid "Could not read the CD"
 msgstr "Nemohu číst CD"
 
-#: src/sj-main.c:441 src/sj-main.c:516
+#: src/sj-main.c:443 src/sj-main.c:518
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer nemohl přečíst seznam stop tohoto CD."
 
 #. Set statusbar message
-#: src/sj-main.c:500
+#: src/sj-main.c:502
 msgid "Retrieving track listing...please wait."
 msgstr "Získávám seznam stop...čekejte prosím."
 
-#: src/sj-main.c:555
+#: src/sj-main.c:557
 msgid "No CD-ROM drives found"
 msgstr "Nenalezena mechanika CD-ROM"
 
-#: src/sj-main.c:556
+#: src/sj-main.c:558
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer nemohl najít mechaniku CD-ROM, ze které číst."
 
-#: src/sj-main.c:568
+#: src/sj-main.c:570
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer nemohl přistupovat k zařízení CD-ROM '%s'"
 
-#: src/sj-main.c:633
+#: src/sj-main.c:635
 msgid "Cannot find any suitable encoders"
 msgstr "Nemohu najít vhodný enkodér"
 
-#: src/sj-main.c:648
+#: src/sj-main.c:650
 msgid "The currently selected encoder is not available on your installation."
 msgstr "Aktuálně vybraný enkodér není ve vaší instalaci k dispozici."
 
-#: src/sj-main.c:650
+#: src/sj-main.c:652
 msgid "_Change the encoder"
 msgstr "_Změnit enkodér"
 
-#: src/sj-main.c:800
+#: src/sj-main.c:802
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Byl upraven neznámý sloupec %d"
 
-#: src/sj-main.c:864 src/sj-prefs.c:128
+#: src/sj-main.c:866 src/sj-prefs.c:128
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -796,45 +804,45 @@ msgstr ""
 "Nemohu zobrazit nápovědu pro Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:932
+#: src/sj-main.c:934
 msgid "Could not create GConf client.\n"
 msgstr "Nemohu vytvořit klienta GConf.\n"
 
-#: src/sj-main.c:985
+#: src/sj-main.c:987
 msgid "Extract"
 msgstr "Extrahovat"
 
-#: src/sj-main.c:993
+#: src/sj-main.c:995
 msgid "Track"
 msgstr "Stopa"
 
-#: src/sj-main.c:1022
+#: src/sj-main.c:1026
 msgid "Duration"
 msgstr "Trvání"
 
-#: src/sj-metadata-musicbrainz.c:86
+#: src/sj-metadata-musicbrainz.c:89
 msgid "Cannot create MusicBrainz client"
 msgstr "Nemohu vytvořit klienta MusicBrainz"
 
-#: src/sj-metadata-musicbrainz.c:179 src/sj-metadata-musicbrainz.c:301
+#: src/sj-metadata-musicbrainz.c:192 src/sj-metadata-musicbrainz.c:314
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Nemohu číst CD: %s"
 
-#: src/sj-metadata-musicbrainz.c:186
+#: src/sj-metadata-musicbrainz.c:199
 msgid "Unknown Artist"
 msgstr "Neznámý umělec"
 
-#: src/sj-metadata-musicbrainz.c:187
+#: src/sj-metadata-musicbrainz.c:200
 msgid "Unknown Title"
 msgstr "Neznámý název"
 
-#: src/sj-metadata-musicbrainz.c:192
+#: src/sj-metadata-musicbrainz.c:205
 #, c-format
 msgid "Track %d"
 msgstr "Stopa %d"
 
-#: src/sj-metadata-musicbrainz.c:221
+#: src/sj-metadata-musicbrainz.c:234
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
@@ -842,32 +850,32 @@ msgstr ""
 "Objekt metadat MusicBrainz není platný. To je špatné, přečtěte si chyby na "
 "své konzole."
 
-#: src/sj-metadata-musicbrainz.c:295
+#: src/sj-metadata-musicbrainz.c:308
 #, c-format
 msgid "Device '%s' does not contain a media"
 msgstr "Zařízení '%s' neobsahuje médium"
 
-#: src/sj-metadata-musicbrainz.c:298
+#: src/sj-metadata-musicbrainz.c:311
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr ""
 "Nelze otevřít zařízení '%s'. Zkontrolujte oprávnění k přístupu k zařízení."
 
-#: src/sj-metadata-musicbrainz.c:311
+#: src/sj-metadata-musicbrainz.c:324
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "Nemohu se dotázat na toto CD: %s\n"
 
-#: src/sj-metadata-musicbrainz.c:319
+#: src/sj-metadata-musicbrainz.c:332
 msgid "This CD was not found.\n"
 msgstr "Toto CD nebylo nalezeno.\n"
 
-#: src/sj-metadata-musicbrainz.c:340
+#: src/sj-metadata-musicbrainz.c:353
 msgid "Various"
 msgstr "Různé"
 
-#: src/sj-metadata-musicbrainz.c:414
+#: src/sj-metadata-musicbrainz.c:427
 msgid "Could not create CD lookup thread"
 msgstr "Nemohu vytvořit thread pro vyhledání CD"
 
