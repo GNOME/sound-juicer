@@ -115,9 +115,12 @@ void prefs_eject_toggled (GtkToggleButton *togglebutton, gpointer user_data)
 void prefs_profile_changed (GtkWidget *widget, gpointer user_data)
 {
   GMAudioProfile *profile;
-  profile = gm_audio_profile_choose_get_active (widget);
-  gconf_client_set_string (gconf_client, GCONF_AUDIO_PROFILE,  
-			   gm_audio_profile_get_id (profile), NULL);
+  /* Handle the change being to unselect a profile */
+  if (gtk_combo_box_get_active (widget) != -1) {
+    profile = gm_audio_profile_choose_get_active (widget);
+    gconf_client_set_string (gconf_client, GCONF_AUDIO_PROFILE,  
+                             gm_audio_profile_get_id (profile), NULL);
+  }
 }
 
 /**
@@ -213,12 +216,9 @@ static void audio_profile_changed_cb (GConfClient *client, guint cnxn_id, GConfE
   if (!entry->value) return;
   value = gconf_value_get_string (entry->value);
   
+  /* If the value is empty, unset the combo. Otherwise try and set it. */
   if (strcmp (value, "") == 0) {
-    /* If there is a current profile use it otherwise use the default */
-    profile = gm_audio_profile_choose_get_active (audio_profile);
-    if (profile == NULL) {
-      gm_audio_profile_choose_set_active (audio_profile, DEFAULT_AUDIO_PROFILE_NAME);
-    }
+    gtk_combo_box_set_active (audio_profile, -1);
   } else {
     gm_audio_profile_choose_set_active (audio_profile, value);
   }
