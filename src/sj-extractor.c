@@ -490,6 +490,29 @@ const TrackDetails *sj_extractor_get_track_details (SjExtractor *extractor)
   return extractor->priv->track_details;
 }
 
+gboolean sj_extractor_supports_encoding (GError **error)
+{
+  GstElement *element = NULL;
+
+  element = gst_element_factory_make ("cdparanoia", "cdparanoia");
+  if (element == NULL) {
+    g_set_error (error, SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
+                 _("The plugin necessary for CD access was not found"));
+    return FALSE;
+  }
+  g_object_unref (element);
+
+  element = gst_element_factory_make ("filesink", "filesink");
+  if (element == NULL) {
+    g_set_error (error, SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
+                 _("The plugin necessary for file access was not found"));
+    return FALSE;
+  }
+  g_object_unref (element);
+
+  return TRUE;
+}
+
 gboolean sj_extractor_supports_format (EncoderFormat format)
 {
   GstElement *element = NULL;

@@ -902,6 +902,11 @@ int main (int argc, char **argv)
   paranoia_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PARANOIA, NULL, TRUE, NULL), NULL);
   strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);
 
+  if (sj_extractor_supports_encoding (&error) == FALSE) {
+    error_on_start (error);
+    return 0;
+  }
+
   /* Poke the CD drive every now and then */
   tray_opened = tray_is_opened (device);
   poll_id = g_timeout_add (2000, poll_tray_opened, NULL);

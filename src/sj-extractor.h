@@ -80,6 +80,7 @@ void sj_extractor_cancel_extract (SjExtractor *extractor);
 const TrackDetails *sj_extractor_get_track_details (SjExtractor *extractor);
 
 gboolean sj_extractor_supports_format (EncoderFormat format);
+gboolean sj_extractor_supports_encoding (GError **error);
 
 G_END_DECLS
 
