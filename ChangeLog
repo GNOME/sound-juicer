@@ -1,3 +1,10 @@
+2003-09-30  Bastien Nocera  <hadess@hadess.net>
+
+	* src/sj-extractor.c: (eos_cb), (tick_timeout_cb),
+	(sj_extractor_extract_track), (sj_extractor_cancel_extract):
+	Make sure that the pipeline is rebuilt for each track (work-around
+	bug #122416)
+
 2003-09-29  Ross Burton  <ross@burtonini.com>
 
 	* src/sj-metadata-musicbrainz.c:

@@ -222,6 +222,7 @@ static void eos_cb (GstElement *gstelement, SjExtractor *extractor)
 {
   g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
   gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
+  extractor->priv->rebuild_pipeline = TRUE;
   g_signal_emit (G_OBJECT (extractor),
                  sje_table_signals[COMPLETION],
                  0);
@@ -352,6 +353,7 @@ static gboolean tick_timeout_cb(SjExtractor *extractor)
   g_return_val_if_fail (SJ_IS_EXTRACTOR (extractor), FALSE);
 
   if (gst_element_get_state (extractor->priv->pipeline) != GST_STATE_PLAYING) {
+    extractor->priv->rebuild_pipeline = TRUE;
     return FALSE;
   }
 
@@ -432,7 +434,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   priv = extractor->priv;
 
   /* See if we need to rebuild the pipeline */
-  if (priv->rebuild_pipeline) {
+  if (priv->rebuild_pipeline != FALSE) {
     build_pipeline (extractor);
     if (priv->construct_error != NULL) {
       *error = g_error_copy (priv->construct_error);
@@ -453,7 +455,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   /* TODO; this works with Vorbis and MP3 and will work with FLAC when the
      property is added. Wave ... news not so good. */
   tracknumber = g_strdup_printf("%d/%d", track->number, track->album->number);
-  caps = GST_CAPS_NEW ("soundjuicer_metadata", 
+  caps = GST_CAPS_NEW ("soundjuicer_metadata",
                        "application/x-gst-metadata",
                        "title", GST_PROPS_STRING (track->title),
                        "artist", GST_PROPS_STRING (track->artist),
@@ -498,6 +500,9 @@ void sj_extractor_cancel_extract (SjExtractor *extractor)
     return;
   }
   gst_element_set_state (extractor->priv->pipeline, GST_STATE_PAUSED);
+
+  extractor->priv->rebuild_pipeline = TRUE;
+
   /*
    * TODO: I don't think I need to remove gst from the idle loop, as
    * it will call gst_bin_iterate(), which sees that it is PAUSED,
