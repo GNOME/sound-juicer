@@ -151,6 +151,8 @@ tray_is_opened (const char *device)
 {
   int fd, status;
   
+  if (device == NULL) return FALSE;
+
   fd = open (device, O_RDONLY | O_NONBLOCK | O_EXCL);
   if (fd < 0) {
     return FALSE;
@@ -171,6 +173,8 @@ gboolean is_audio_cd (const char *device)
 {
   CDMediaType type;
   int fd, status;
+
+  if (device == NULL) return FALSE;
 
   type = cd_drive_get_media_type_from_path (device);
   switch (type) {
