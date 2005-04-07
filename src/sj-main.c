@@ -895,7 +895,7 @@ static GtkTreeModel* populate_genre_list(void) {
   genres = NULL;
   while (p->genre != LAST_GENRE) {
     if (p->genre == p->canonical) {
-      genres = g_list_insert_sorted (genres, p, genre_cmp);
+      genres = g_list_insert_sorted (genres, (gpointer)p, genre_cmp);
     }
     ++p;
   }
@@ -943,13 +943,6 @@ int main (int argc, char **argv)
   }
   g_signal_connect (metadata, "metadata", G_CALLBACK (metadata_cb), NULL);
 
-  extractor = SJ_EXTRACTOR (sj_extractor_new());
-  error = sj_extractor_get_new_error (extractor);
-  if (error) {
-    error_on_start (error);
-    exit (1);
-  }
-
   gconf_client = gconf_client_get_default ();
   if (gconf_client == NULL) {
     g_warning (_("Could not create GConf client.\n"));
@@ -971,7 +964,7 @@ int main (int argc, char **argv)
   gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY_PORT, http_proxy_port_changed_cb, NULL, NULL, NULL);
 
   /* init gnome-media-profiles */
-  gnome_media_profiles_init (NULL);
+  gnome_media_profiles_init (gconf_client);
 
   glade_init ();
   glade = glade_xml_new (DATADIR"/sound-juicer/sound-juicer.glade", NULL, NULL);
@@ -1057,6 +1050,13 @@ int main (int argc, char **argv)
 
   update_ui_for_album (NULL);
   gtk_widget_show_all (main_window);
+
+  extractor = SJ_EXTRACTOR (sj_extractor_new());
+  error = sj_extractor_get_new_error (extractor);
+  if (error) {
+    error_on_start (error);
+    exit (1);
+  }
 
   http_proxy_setup (gconf_client);
   basepath_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEPATH, NULL, TRUE, NULL), NULL);
