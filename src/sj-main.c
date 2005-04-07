@@ -108,6 +108,14 @@ void on_quit_activate (GtkMenuItem *item, gpointer user_data)
 }
 
 /**
+ * Destroy signal Callback
+ */
+void on_destroy_signal (GtkMenuItem *item, gpointer user_data)
+{
+   gtk_main_quit ();
+}
+
+/**
  * Clicked Eject
  */
 void on_eject_activate (GtkMenuItem *item, gpointer user_data)
