@@ -1,5 +1,5 @@
 # General compiler flags
-AM_CFLAGS = -Wall -Werror -export-dynamic -W -Wno-unused-parameter
+AM_CFLAGS = -Wall -export-dynamic -W -Wno-unused-parameter
 
 # General CPP flags. When I can demand automake 1.8, this can become
 # sound_juicer_CPPFLAGS.
