@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+    "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY GFDL  SYSTEM "fdl-appendix.xml">
   <!ENTITY app "Sound Juicer">
-  <!ENTITY appversion "0.4.2">
-  <!ENTITY manrevision "2.0">
+  <!ENTITY application "<application>&app;</application>">
+  <!ENTITY appversion "0.6">
+  <!ENTITY manrevision "2.10">
 
   <!ENTITY mike "Mike Hearn">
   <!ENTITY mike-addr "mike@theoretic.com">
@@ -38,10 +39,14 @@
 <!-- appropriate code -->
 
   <articleinfo>
-    <title>&app; Manual</title>
+    <title>&application; Manual</title>
     <copyright>
       <year>2003</year>
       <holder>&mike; (&mike-addr;)</holder>
+    </copyright>
+    <copyright>
+      <year>2005</year>
+      <holder>Shaun McCance</holder>
     </copyright>
 
   <!-- translators: uncomment this:
@@ -69,9 +74,15 @@
       <author>
         <firstname>Mike</firstname>
         <surname>Hearn</surname>
-        <affiliation>
-          <address> <email>&mike-addr;</email> </address>
-        </affiliation>
+	<email>&mike-addr;</email>
+      </author>
+      <author>
+	<firstname>Shaun</firstname>
+	<surname>McCance</surname>
+	<affiliation>
+	  <orgname>GNOME Documentation Project</orgname>
+	</affiliation>
+	<email>shaunm@gnome.org</email>
       </author>
 <!-- This is appropriate place for other contributors: translators,
       maintainers,  etc. Commented out by default.
@@ -103,8 +114,16 @@
 
     <revhistory>
       <revision>
-        <revnumber>&app; Manual V&manrevision;</revnumber>
-        <date>6th July 2003</date>
+        <revnumber>&manrevision;</revnumber>
+        <date>2005-03-06</date>
+        <revdescription>
+          <para role="author">Shaun McCance</para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>2.0</revnumber>
+        <date>2003-07-06</date>
         <revdescription>
           <para role="author">&mike;
             <email>&mike-addr;</email>
@@ -117,242 +136,252 @@
 <!-- Translators may also add here feedback address for translations -->
   </articleinfo>
 
- <!-- ============= Document Body ============================= -->
- <!-- ============= Introduction ============================== -->
- <sect1 id="intro">
+<!-- ============= Document Body ============================= -->
+<!-- ============= Introduction ============================== -->
+<section id="intro">
   <title>Introduction</title>
+  <!-- manrevision 2.0 compatibility -->
+  <anchor id="aboutex"/>
+  <anchor id="notice"/>
+  <indexterm>
+    <primary>Sound Juicer</primary>
+    <secondary>Manual</secondary>
+    <tertiary>sound-juicer</tertiary>
+  </indexterm>
 
-  <sect2 id="aboutex">
-   <title>About &app;</title>
-   <indexterm>
-     <primary>Sound Juicer</primary>
-     <secondary>Manual</secondary>
-     <tertiary>sound-juicer</tertiary>
-   </indexterm>
-   <para>
-     &app; is a simple and clean CD ripper tool. It allows you to
-     extract the audio from audio compact discs and convert them into
-     a variety of audio formats your computer can understand and play.
-   </para>
-   <para>
-     It has several useful features, for instance it can look up the
-     titles and artists of the tracks on your CD from the internet,
-     using the freely available MusicBrainz service.
-   </para>
-  </sect2>
+  <para>&application; is a simple and clean CD ripping tool. It allows you
+  to extract the audio from audio compact discs and convert them into audio
+  files that your computer can understand and play.</para>
 
-  <sect2 id="notice">
-   <title>Notice</title>
-   <para>
-     &app; is currently in development, so this manual may not
-     reflect the program as you see it. If it doesn't, please file a
-     bug in GNOME bugzilla against sound-juicer, or email &mike-addr;
-   </para>
-  </sect2>
- </sect1>
+  <para>&application; is designed to be easy to use and to work with little
+  user intervention.  For example, if your computer is connected to the
+  Internet, it will automatically attempt to retrieve track information
+  from the freely-available <ulink
+  url="http://www.musicbrainz.org/">MusicBrainz</ulink> service.</para>
+</section>
 
+<section id="using">
+  <title>Using &application;</title>
 
- <sect1 id="using">
-   <title>Using &app;</title>
-   <para>
-     When you start &app;, it will examine the CD in the currently selected
-     drive, and try and locate information about its contents. It can
-     match against things like the serial number, but also the length
-     and positions of the tracks - this means that sometimes you may
-     get a false hit, and the details will be filled out
-     incorrectly. Don't worry though, they are easy to change.
-   </para>
+  <para>When you start &application;, it will examine the CD in the selected
+  drive and try to locate information about its audio tracks.  It can match
+  against the serial number of the CD as well as the lengths and positions of
+  the tracks.  Occasionally, another CD may have the same layout, causing
+  the wrong track information to be displayed.  If this happens, you will
+  have to enter the information manually.</para>
 
-   <para>
-     This is what &app; typically looks like when first started:
-   </para>
+  <para>This is what &application; typically looks like when started with
+  an audio CD in the drive:</para>
 
-   <figure>
-     <title>&app; on startup</title>
-     <screenshot>
-       <mediaobject>
-	 <imageobject>
-           <imagedata fileref="figures/startup" format="PNG"/>
-	 </imageobject>
-	 <textobject>
-           <phrase>&app; at startup</phrase>
-	 </textobject>
-       </mediaobject>
-     </screenshot>
-   </figure>
+  <figure>
+    <title>&application; on Startup</title>
+    <screenshot>
+      <mediaobject>
+	<imageobject>
+	  <imagedata fileref="figures/startup" format="PNG"/>
+	</imageobject>
+	<textobject>
+	  <phrase>&application; on startup</phrase>
+	</textobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
 
-   <para>
-     At the top of the window there are a couple of entry boxes for
-     the disc artist and title. You should fill this out appropriately
-     for the disc currently in the drive. For instance, if the disc is
-     an album, put the artist and the name of the album in these
-     entry boxes. For a single, the name of the artist and the track
-     will do (as you can see in the above screenshot). If the disc
-     is by multiple artists, you can just put "Various" or leave it blank.
-   </para>
+  <para>The top of the window contains controls for the title, artist,
+  and genre of the CD.  Below that is a list of the audio tracks on the
+  CD.  You can set the track and artist for each track.  &application;
+  uses this information to name the folders and files where your music
+  is stored.  In addition, the track and album information is encoded
+  directly into the audio files.  Many music players, including portable
+  devices and car stereos, use this information to organize and display
+  the audio files.</para>
 
-   <para>
-     That information is placed in the resultant files so they can be
-     easily catalogued and searched by music playing software later,
-     so it's a good idea to try and fill it out accurately - it will
-     make finding and sorting them much easier.
-   </para>
+  <para>To edit the title of a track, first select the track, then click
+  on the title.  When you have finished entering the title, press the
+  <keycap>Enter</keycap> key on your keyboard, or click outside the
+  title.</para>
 
-   <para>
-     Each track <emphasis>also</emphasis> has a title and artist
-     field, which should be set appropriately. Again, this
-     information will be encoded into the output files. You don't
-     have to extract every track on the CD, if you'd like to exclude
-     some, uncheck the box in the "Extract?" column. You can toggle
-     the status of all the tracks at once by using the Edit menu.
-   </para>
-   
-   <tip>
-     <para>
-       When you edit the disc artist field (at the top), all the
-       track artist fields are updated to reflect that. This saves
-       you a lot of typing - as most discs are by a single artist, it
-       means you only have to enter it once for the artist field to
-       be updated everywhere.
-     </para>
-   </tip>
+  <para>When you edit the artist for the CD, the artist for each track
+  is automatically updated.  Most CDs are by a single artist, and this
+  feature saves you the time of entering the artist for each track.</para>
 
-   <para>
-     The <guilabel>Duration</guilabel> field shows you the total
-     length of the CD in the current drive.
-   </para>
+  <para>Some CDs, however, are compilations of songs by different artists.
+  For these CDs, you will have to enter the artist for each track.  To set
+  the artist for a track, first select the track, then click on the artist.
+  You can set the artist for the CD to a value like "Various" or simply
+  leave it blank, depending on how you prefer to organize your music.</para>
 
-   <para>
-     The <guibutton>Re-read</guibutton> button is useful for when you
-     change CDs but don't want to restart the program - pressing it
-     will cause &app; to update its list of tracks.
-   </para>
+  <para>By default, &application; will extract all of the tracks on the CD
+  to audio files.  If you do not wish to extract all of the tracks, you can
+  control which tracks are extracted using the check boxes in the
+  <guilabel>Extract</guilabel> column of the track listing.  Only the tracks
+  you have selected will be extracted.</para>
 
-   <para>
-     When things are set up to your liking, press
-     the <guibutton>Extract</guibutton> button, and &app; will begin
-     reading the audio from the CD and saving it to disk. By default,
-     this is the "~/Music" directory in your home directory, but you
-     can change it in the <interface>Preferences window</interface>.
-   </para>
+  <para>Whenever possible, &application; will detect when a new CD has been
+  inserted and re-read the track information.  On certain types of computers,
+  it may not be techically possible to determine automatically when a new CD
+  has been inserted.  In this case, you can always click on the
+  <guibutton>Re-read</guibutton> button to re-read the track information
+  from the CD in the drive.</para>
 
-   <warning>
-     <para>
-       Extracting a CD can take a <emphasis>long time</emphasis>,
-       depending on the speed of your computer. By default &app;
-       compresses the audio at the same time as extracting it from
-       the CD so it takes less space on disk, however this is a time
-       consuming process. You don't have to sit and watch it though,
-       just minimize it, or move it to a different virtual desktop.
-     </para>
-   </warning>
-   
- </sect1>
+  <para>When you have entered all the information you need, click on the
+  <guibutton>Extract</guibutton> button.  &application; will begin reading
+  the audio from the CD and saving it to files on your computer.  By default,
+  the audio files are stored under the <filename>Music</filename> folder in
+  your home folder.</para>
 
+  <para>Extracting a CD can take a long time, depending on the speed of your
+  computer.  You can safely minimize &application; or move to another workspace
+  to continue using your computer while the audio is being extracted.</para>
+</section>
 
- <sect1 id="preferences">
-   <title>Preferences</title>
-   <para>
-     The preferences window allows you to control:
-   </para>
-   
-   <itemizedlist>
-     <listitem><para> Which CD drive &app; uses if you have more than one</para></listitem>
-     
-     <listitem><para> Where the extracted audio is placed on disk</para></listitem>
-     
-     <listitem><para> Which file format/codec is used for the extracted audio</para></listitem>
-   </itemizedlist>
+<section id="preferences">
+  <title>Preferences</title>
 
-   <figure>
-     <title>Preferences window</title>
-     <screenshot>
-       <mediaobject>
-	 <imageobject>
-           <imagedata fileref="figures/prefs" format="PNG"/>
-	 </imageobject>
-	 <textobject>
-           <phrase>Preferences window</phrase>
-	 </textobject>
-       </mediaobject>
-     </screenshot>
-   </figure>
-   
-   <para>
-     If you have multiple CD drives in your system, there is a drop
-     down list at the top which lets you choose the one to use by
-     default. You can also browse for a directory to place the audio
-     files in.
-   </para>
+  <para>The preferences window allows you to control:</para>
 
-   <para>
-     The <guilabel>Output Name</guilabel> section lets you control how
-     the audio files are layed out in your chosen directory. For
-     instance, in the default setup, the first track of my CD might be
-     extracted to "~/Music/iio/Rapture/01 - Rapture [Radio
-     Edit].ogg".
-   </para>
+  <itemizedlist>
+    <listitem><para>Which CD drive &application; uses if you have more than
+    one drive,</para></listitem>
+    <listitem><para>Where the extracted audio files are placed on your
+    computer, and</para></listitem>
+    <listitem><para>Which file format and codec is used for the extracted
+    audio files.</para></listitem>
+  </itemizedlist>
 
-   <para>
-     The <guibutton>Strip special characters</guibutton> checkbox
-     controls whether the file name should be made safe for the
-     command line. That involves removing characters like /, \, *, ?
-     and so on. It's probably a good idea to have this checked.
-   </para>
+  <figure>
+    <title>Preferences Window</title>
+    <screenshot>
+      <mediaobject>
+	<imageobject>
+	  <imagedata fileref="figures/prefs" format="PNG"/>
+	</imageobject>
+	<textobject>
+	  <phrase>Preferences window</phrase>
+	</textobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
 
-   
-   <sect2>
-     <title>Output format</title>
+  <section id="prefs-drive">
+    <title>Selecting a CD Drive</title>
 
-     <para>
-       Here you can choose which file format you want to save your
-       files to. The default is
-       <ulink type="http" url="http://www.vorbis.org/">Ogg
-	 Vorbis</ulink>, which is recommended due to its high in
-	 quality, low in size nature, as well as being an open format
-	 available to all. Ogg Vorbis can be played by virtually all
-	 Linux installations out of the box, and
-       <ulink type="http" 
-       url="http://www.nullsoft.com/">WinAmp</ulink>
-       for Windows also supports it.
-     </para>
+    <para>If you have multiple CD drives in your computer, the drop-down list
+    labelled <guilabel>CD drive</guilabel> allows you to select which drive to
+    use by default.  The check box <guibutton>Eject when finished</guibutton>
+    allows you to control whether &application; will eject the CD from the
+    drive when it has finished extracting the audio files.</para>
+  </section>
 
-     <para>
-       Other formats are available however. The MP3 codec is widely
-       known and used, and has good hardware support. If you have a
-       portable MP3 player that doesn't accept Vorbis files, you may
-       wish to use this so you can upload it to the device.
-     </para>
+  <section id="prefs-naming">
+    <title>Naming Audio Files</title>
 
-     <para>
-       FLAC is a lossless codec, as opposed to Vorbis and MP3 which
-       are lossy. Lossless codecs don't throw any information away at
-       all, which means you get a 100% faithful reproduction of the
-       original sound. Lossy codecs use complex mathematical
-       constructions, called psychoacoustic models, to eliminate
-       information that you cannot normally hear. The end result
-       sounds virtually identical to the original, even though it is
-       in reality substantially different.
-     </para>
+    <para>The <guilabel>Music Folder</guilabel> drop-down list allows you to
+    select which folder to store your audio files in.  Select one of the
+    folders from the list, or choose <guilabel>Other</guilabel> to select
+    another folder with the file chooser.  By default, files are placed
+    under the <filename>Music</filename> folder in your home folder.</para>
 
-     <para>
-       If quality is of the highest concern to you, and you have lots
-       of disk space to burn, you might want to try FLAC. The WAV raw
-       audio format is the lowest common denominator format - it
-       isn't compressed at all, and will give the biggest files. It's
-       often useful for professional audio work, but for most uses
-       you won't want to choose this option.
-     </para>
+    <para>The <guilabel>Track Names</guilabel> allows you to control how
+    the files and folders are named.  &application; can store audio files
+    in seperate folders, helping you keep your music organized.  You can
+    choose how these folders are created and named using the
+    <guilabel>Folder hierarchy</guilabel> drop-down list.  By default,
+    &application; creates a folder for the album artist and a subfolder
+    for the album.</para>
 
-     <para>
-       Some of the options may be unavailable here. If that's the
-       case, you need to install support for the relevant formats
-       into GStreamer. The exact way you do this will depend on your setup.
-     </para>
-   </sect2>
- </sect1>
-   
- 
+    <para>Use the <guilabel>File name</guilabel> drop-down list to select
+    how the audio files are named.  By default, &application; uses the track
+    number followed by a hyphen and the track title.  Selecting the
+    <guibutton>Strip special characters</guibutton> check box causes
+    &application; to remove or replace characters such as spaces and
+    punctuation in the filenames.</para>
+
+    <note><para>Even when <guibutton>Strip special characters</guibutton>
+    is not selected, &application; will remove the <literal>/</literal>
+    character from filenames.  This character cannot be used in any
+    filenames on UNIX, Linux, and similar systems.</para></note>
+  </section>
+
+  <section id="prefs-format">
+    <title>Selecting a Format</title>
+
+    <para>You can select which audio file format &application; uses to store
+    your tracks on your computer.  There are a number of available formats,
+    each with its own advantages.  The available formats on your computer
+    may vary, but the following choices are usually available:</para>
+
+    <variablelist>
+      <varlistentry>
+	<term>CD Quality, Lossy (Ogg Vorbis audio)</term>
+	<listitem>
+	  <para>This option is selected by default.
+	  <ulink url="http://www.vorbis.org/">Ogg Vorbis</ulink>, like other
+	  lossy audio formats (such as MP3 and AAC) discards some information
+	  from the original audio data.  Although the audio file is not a
+	  perfect replica of the CD audio, the differences are often not
+	  distinguishable to most listeners.  As a result, lossy formats
+	  tend to have very small file sizes.</para>
+
+	  <para>The Ogg Vorbis format is the default lossy format used in
+	  &application;.  Ogg Vorbis is an open format, developed by the
+	  <ulink url="http://xiph.org/">Xiph.Org Foundation</ulink>, which
+	  tends to produce smaller file sizes and higher quality audio than
+	  many other lossy formats.  While it is not as widespread as the
+	  older MP3 format, most music software can play Ogg Vorbis files,
+	  and many hardware players have incorporated support.</para>
+
+	  <para>Xiph.Org maintains lists of <ulink
+	  url="http://wiki.xiph.org/index.php/VorbisSoftwarePlayers">software
+	  players</ulink>, <ulink
+	  url="http://wiki.xiph.org/index.php/PortablePlayers">portable
+	  hardware players</ulink>, and <ulink
+	  url="http://wiki.xiph.org/index.php/StaticPlayers">static hardware
+	  players</ulink> which support Ogg Vorbis.</para>
+	</listitem>
+      </varlistentry>
+
+      <varlistentry>
+	<term>CD Quality, Lossless (FLAC audio)</term>
+	<listitem>
+	  <para>The <ulink url="http://flac.sourceforge.net/">FLAC</ulink>
+	  audio format is a lossless format.  That is, no audio data is lost
+	  when converting to FLAC, even though it compresses audio files by
+	  as much as 70%.  FLAC and other lossless formats are popular in
+	  cases where high fidelity audio is needed, but files need to be
+	  compressed to save disk space and network transfer times.</para>
+	</listitem>
+      </varlistentry>
+
+      <varlistentry>
+	<term>Voice (WAV audio)</term>
+	<listitem>
+	  <para>The Voice output profile produces low-quality mono audio
+	  files.  You may wish to select this for lectures, books on tape,
+	  and other spoken word CDs, where the loss in audio quality is
+	  less important.</para>
+	</listitem>
+      </varlistentry>
+    </variablelist>
+      <tip>
+        <para>If you need to store tracks in the MP3 format (for example,
+        because your portable music player only supports MP3 and not Ogg
+        Vorbis), you will need to create a new profile.  To do this, run
+        <application>gnome-audio-profiles-properties</application>, press
+          <guibutton>New</guibutton> and name it <userinput>MP3</userinput>.
+          Then press <guibutton>Edit</guibutton> and set <guilabel>GStreamer
+            Pipeline</guilabel> to
+            <userinput>audio/x-raw-int,rate=44100,channels=2 ! lame
+            name=enc</userinput>, the
+          <guilabel>File Extenstion</guilabel> to <userinput>mp3</userinput>,
+          and check <guibutton>Active</guibutton>. Then start &application; and
+          select the <guilabel>MP3</guilabel> format.</para>
+        <para>This profile uses the <application>LAME</application> MP3 encoder,
+          so you will need to have the GStreamer LAME plugin installed.</para>
+      </tip>
+  </section>
+</section>
+
 &GFDL;
 
 </article>
