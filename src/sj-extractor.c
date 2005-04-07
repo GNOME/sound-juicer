@@ -240,6 +240,8 @@ static GstElement* build_encoder (SjExtractor *extractor)
 static void error_cb (GstElement *element, GObject *arg, GError *err, gchar *arg2, gpointer user_data)
 {
   SjExtractor *extractor = SJ_EXTRACTOR (user_data);
+  /* Make sure the pipeline is not running any more */
+  gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
   g_signal_emit (G_OBJECT (extractor),
                  sje_table_signals[ERROR],
                  0, err);
