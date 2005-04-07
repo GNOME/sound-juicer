@@ -1,4 +1,4 @@
-2005-04-07  Ross Burton  <ross@burtonini.com>
+b2005-04-07  Ross Burton  <ross@burtonini.com>
 
 	Merge fixes from HEAD.
 	
@@ -7,6 +7,10 @@
 	
 	* src/sj-extracting.c:
 	Use gnome-open instead of nautilus.
+
+	* src/sj-prefs.c:
+	Don't write NULL strings to GConf, and remove tests which may
+	crash.
 
 2005-02-04  Ross Burton  <ross@burtonini.com>
 
