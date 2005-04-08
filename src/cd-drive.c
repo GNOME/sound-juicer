@@ -264,8 +264,8 @@ cd_drive_get_media_type_from_path_full (const char *device, gboolean *is_rewrita
 
 	g_return_val_if_fail (device != NULL, CD_MEDIA_TYPE_ERROR);
 
-	fd = open (device, O_RDWR|O_EXCL|O_NONBLOCK);
-	if (fd < 0) {
+	if ((fd = open (device, O_RDWR | O_EXCL | O_NONBLOCK)) < 0
+	    && (fd = open (device, O_RDONLY | O_EXCL | O_NONBLOCK)) < 0) {
 		if (errno == EBUSY) {
 			return CD_MEDIA_TYPE_BUSY;
 		}
@@ -438,8 +438,8 @@ cd_drive_get_media_size_from_path (const char *device)
 
 	secs = 0;
 
-	fd = open (device, O_RDWR|O_EXCL|O_NONBLOCK);
-	if (fd < 0) {
+	if ((fd = open (device, O_RDWR | O_EXCL | O_NONBLOCK)) < 0
+	    && (fd = open (device, O_RDONLY | O_EXCL | O_NONBLOCK)) < 0) {
 		if (errno == EBUSY) {
 			return CD_MEDIA_SIZE_BUSY;
 		}
@@ -745,7 +745,9 @@ get_cd_scsi_id (const char *dev, int *bus, int *id, int *lun)
 	} m_idlun;
 	
 	devfile = g_strdup_printf ("/dev/%s", dev);
-	fd = open(devfile, O_RDWR | O_NONBLOCK);
+	fd = open (devfile, O_RDWR | O_NONBLOCK);
+	if (fd < 0)
+		fd = open (devfile, O_RDONLY | O_NONBLOCK);
 	g_free (devfile);
 
 	/* Avoid problems with Valgrind */
@@ -801,8 +803,8 @@ get_device_max_read_speed (char *device)
 
 	max_speed = -1;
 
-	fd = open (device, O_RDWR|O_EXCL|O_NONBLOCK);
-	if (fd < 0) {
+	if ((fd = open (device, O_RDWR | O_EXCL | O_NONBLOCK)) < 0
+	    && (fd = open (device, O_RDONLY | O_EXCL | O_NONBLOCK)) < 0) {
 		return -1;
 	}
 
@@ -823,8 +825,8 @@ get_device_max_write_speed (char *device)
 
 	max_speed = -1;
 
-	fd = open (device, O_RDWR|O_EXCL|O_NONBLOCK);
-	if (fd < 0) {
+	if ((fd = open (device, O_RDWR | O_EXCL | O_NONBLOCK)) < 0
+	    && (fd = open (device, O_RDONLY | O_EXCL | O_NONBLOCK)) < 0) {
 		return -1;
 	}
 
