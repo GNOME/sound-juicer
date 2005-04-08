@@ -1,9 +1,16 @@
-2005-04-07  Ross Burton  <ross@burtonini.com>
+2005-04-08  Ross Burton  <ross@burtonini.com>
 
 	* configure.in:
 	* NEWS:
 	Version 0.6.1.
 
+2005-04-08  Ross Burton  <ross@burtonini.com>
+
+	* data/sound-juicer.glade:
+	* src/sj-prefs.c:
+	Don't use a GtkFileChooserButton in Glade, libglade for 2.8
+	doesn't handle it.  Use a custom widget.
+	
 2005-04-07  Ross Burton  <ross@burtonini.com>
 
 	Merge fixes from HEAD.

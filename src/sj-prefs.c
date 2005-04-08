@@ -440,3 +440,8 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
       
   gtk_widget_hide (prefs_dialog);
 }
+
+GtkWidget* create_file_chooser_button(void)
+{
+  return gtk_file_chooser_button_new (_("Select Folder"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+}

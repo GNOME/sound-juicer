@@ -1366,15 +1366,13 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkFileChooserButton" id="path_chooser">
+			<widget class="Custom" id="path_chooser">
 			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="title" translatable="yes">Select A Folder</property>
-			  <property name="action">GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER</property>
-			  <property name="local_only">True</property>
-			  <property name="show_hidden">False</property>
-			  <property name="width_chars">-1</property>
-			  <signal name="current_folder_changed" handler="prefs_base_folder_changed" last_modification_time="Mon, 07 Feb 2005 17:45:23 GMT"/>
+			  <property name="creation_function">create_file_chooser_button</property>
+			  <property name="int1">0</property>
+			  <property name="int2">0</property>
+			  <property name="last_modification_time">Thu, 07 Apr 2005 17:17:35 GMT</property>
+			  <signal name="current_folder_changed" handler="prefs_base_folder_changed" last_modification_time="Thu, 07 Apr 2005 17:18:04 GMT"/>
 			</widget>
 			<packing>
 			  <property name="padding">0</property>
