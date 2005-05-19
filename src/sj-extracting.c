@@ -518,8 +518,8 @@ on_error_cb (SjExtractor *extractor, GError *error, gpointer data)
 
   gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_destroy (dialog);
-  
-  g_error_free (error);
+
+  /* No need to free the error passed in */
   cleanup ();
   extracting = FALSE;
 }

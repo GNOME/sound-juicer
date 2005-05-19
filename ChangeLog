@@ -1,5 +1,11 @@
 2005-05-19  Ross Burton  <ross@burtonini.com>
 
+	* src/sj-extracting.c:
+	Don't free the GError in the signal handler, this causes a crash
+	(closes #126753).
+
+2005-05-19  Ross Burton  <ross@burtonini.com>
+
 	* data/sound-juicer.glade:
 	Focus the list view.
 
