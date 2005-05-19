@@ -20,6 +20,8 @@
  * Authors: Ross Burton <ross@burtonini.com>
  */
 
+#include "sound-juicer.h"
+
 #include <string.h>
 #include <errno.h>
 #include <sys/stat.h>
@@ -98,11 +100,11 @@ mkdir_recursive (const char *path, mode_t permission_bits, GError **error)
  * Eject a CD-ROM, displaying any errors in a dialog.
  */
 void
-eject_cdrom (const char* device, GtkWindow *parent)
+eject_cdrom (NautilusBurnDrive *drive, GtkWindow *parent)
 {
   int fd, result;
-  g_return_if_fail (device != NULL);
-  fd = open (device, O_RDONLY | O_NONBLOCK);
+  g_return_if_fail (drive != NULL);
+  fd = open (drive->device, O_RDONLY | O_NONBLOCK);
   if (fd == -1) {
     GtkWidget *dialog;
     char *text = g_strdup_printf ("<b>%s</b>\n\n%s: %s",
@@ -147,13 +149,13 @@ eject_cdrom (const char* device, GtkWindow *parent)
 }
 
 gboolean
-tray_is_opened (const char *device)
+tray_is_opened (NautilusBurnDrive *drive)
 {
   int fd, status;
   
-  if (device == NULL) return FALSE;
+  if (drive == NULL) return FALSE;
 
-  fd = open (device, O_RDONLY | O_NONBLOCK | O_EXCL);
+  fd = open (drive->device, O_RDONLY | O_NONBLOCK | O_EXCL);
   if (fd < 0) {
     return FALSE;
   }
@@ -169,30 +171,24 @@ tray_is_opened (const char *device)
   return status == CDS_TRAY_OPEN;
 }
 
-gboolean is_audio_cd (const char *device)
+gboolean
+is_audio_cd (NautilusBurnDrive *drive)
 {
-  /*
-   * TODO: remove this crack and replace with
-   * nautilus_burn_drive_get_media_type_full (see 137923)
-   */
-  NautilusBurnMediaType type;
+#if 0
+  gboolean audio;
+  if (drive == NULL) return FALSE;
+  nautilus_burn_drive_get_media_type_full (drive, NULL, NULL, NULL, &audio);
+  return audio;
+#else
   int fd, status;
 
-  if (device == NULL) return FALSE;
+  if (drive == NULL) return FALSE;
 
-  type = nautilus_burn_drive_get_media_type_from_path (device);
-  switch (type) {
-    case NAUTILUS_BURN_MEDIA_TYPE_CD:
-    case NAUTILUS_BURN_MEDIA_TYPE_CDR:
-    case NAUTILUS_BURN_MEDIA_TYPE_CDRW:
-    case NAUTILUS_BURN_MEDIA_TYPE_UNKNOWN:
-      /* Handle an unknown disk type by assuming its audio */
-      return TRUE;
-    default:
-      return FALSE;
+  if (nautilus_burn_drive_get_media_type (drive) == NAUTILUS_BURN_MEDIA_TYPE_UNKNOWN) {
+    return TRUE;
   }
-
-  fd = open (device, O_RDONLY | O_NONBLOCK | O_EXCL);
+  
+  fd = open (drive->device, O_RDONLY | O_NONBLOCK | O_EXCL);
   if (fd <0) {
     return FALSE;
   }
@@ -206,6 +202,7 @@ gboolean is_audio_cd (const char *device)
   close (fd);
 
   return status == CDS_AUDIO;
+#endif
 }
 
 /* Pass NULL to use g_free */

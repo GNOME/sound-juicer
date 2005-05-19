@@ -29,6 +29,7 @@
 #include <gtk/gtk.h>
 #include <glade/glade.h>
 #include <gconf/gconf-client.h>
+#include <nautilus-burn-drive.h>
 #include <libgnome/gnome-help.h>
 #include <libgnomeui/gnome-ui-init.h>
 #include <profiles/gnome-media-profiles.h>
@@ -68,7 +69,7 @@ static GtkWidget *extract_menuitem, *select_all_menuitem, *deselect_all_menuitem
 GtkListStore *track_store;
 
 const char *base_path, *path_pattern, *file_pattern;
-const char *device = NULL;
+NautilusBurnDrive *drive = NULL;
 gboolean strip_chars;
 gboolean eject_finished;
 gboolean extracting = FALSE;
@@ -120,7 +121,7 @@ void on_destroy_signal (GtkMenuItem *item, gpointer user_data)
  */
 void on_eject_activate (GtkMenuItem *item, gpointer user_data)
 {
-  eject_cdrom (device, GTK_WINDOW (main_window));
+  eject_cdrom (drive, GTK_WINDOW (main_window));
 }
 
 gboolean poll_tray_opened (gpointer data)
@@ -130,7 +131,7 @@ gboolean poll_tray_opened (gpointer data)
   if (extracting == TRUE)
     return TRUE;
 
-  new_status = tray_is_opened (device);
+  new_status = tray_is_opened (drive);
   if (new_status != tray_opened && new_status == FALSE) {
     reread_cd (TRUE);
   } else if (new_status != tray_opened && new_status == TRUE) {
@@ -468,14 +469,15 @@ metadata_cb (SjMetadata *m, GList *albums, GError *error)
   
   if (error && !(error->code == SJ_ERROR_CD_NO_MEDIA)) {
     GtkWidget *dialog;
+    
     dialog = gtk_message_dialog_new (realized ? GTK_WINDOW (main_window) : NULL, 0,
                                      GTK_MESSAGE_ERROR,
                                      GTK_BUTTONS_CLOSE,
-				     "<b>%s</b>\n\n%s\n%s: %s",
-				      _("Could not read the CD"),
-				      _("Sound Juicer could not read the track listing on this CD."),
-				      _("Reason"),
-				      error->message);
+                                     "<b>%s</b>\n\n%s\n%s: %s",
+                                     _("Could not read the CD"),
+                                     _("Sound Juicer could not read the track listing on this CD."),
+                                     _("Reason"),
+                                     error->message);
     gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
@@ -534,7 +536,7 @@ static void reread_cd (gboolean ignore_no_media)
   /* Set statusbar message */
   gtk_statusbar_push(GTK_STATUSBAR(status_bar), 0, _("Retrieving track listing...please wait."));
 
-  if (!is_audio_cd (device)) {
+  if (!is_audio_cd (drive)) {
     update_ui_for_album (NULL);
     gtk_statusbar_pop(GTK_STATUSBAR(status_bar), 0);
     if (realized)
@@ -573,6 +575,7 @@ static void reread_cd (gboolean ignore_no_media)
  */
 void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
+  const char *device;
   gboolean ignore_no_media = GPOINTER_TO_INT (user_data);
   g_assert (strcmp (entry->key, GCONF_DEVICE) == 0);
 
@@ -595,6 +598,7 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
       exit (1);
 #endif
     }
+    drive = nautilus_burn_drive_new_from_path (device);
   } else {
     device = gconf_value_get_string (entry->value);
     if (access (device, R_OK) != 0) {
@@ -615,13 +619,15 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
       gtk_dialog_run (GTK_DIALOG (dialog));
       gtk_widget_destroy (dialog);
       /* Set a null device */
-      device = NULL;
+      drive = NULL;
+    } else {
+      drive = nautilus_burn_drive_new_from_path (device);
     }
   }
   sj_metadata_set_cdrom (metadata, device);
   sj_extractor_set_device (extractor, device);
 
-  tray_opened = tray_is_opened (device);
+  tray_opened = tray_is_opened (drive);
   if (tray_opened == FALSE) {
     reread_cd (ignore_no_media);
   }
@@ -1082,7 +1088,7 @@ int main (int argc, char **argv)
   }
 
   /* Poke the CD drive every now and then */
-  tray_opened = tray_is_opened (device);
+  tray_opened = tray_is_opened (drive);
   poll_id = g_timeout_add (2000, poll_tray_opened, NULL);
 
   gtk_main ();

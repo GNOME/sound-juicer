@@ -454,7 +454,7 @@ show_finished_dialog (void)
                                    _("The tracks have been copied successfully."));
   /* If we eject when finished, eject now, otherwise add a button */
   if (eject_finished) {
-    eject_cdrom (device, GTK_WINDOW (main_window));
+    eject_cdrom (drive, GTK_WINDOW (main_window));
   } else {
     gtk_dialog_add_buttons (GTK_DIALOG (dialog), _("_Eject"), 2, NULL);
   }
@@ -471,7 +471,7 @@ show_finished_dialog (void)
     g_spawn_command_line_async (command, NULL);
     g_free (command);
   } else if (result == 2) {
-    eject_cdrom (device, GTK_WINDOW (main_window));
+    eject_cdrom (drive, GTK_WINDOW (main_window));
   }
   g_free (base);
 }

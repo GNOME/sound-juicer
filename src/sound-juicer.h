@@ -28,6 +28,7 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <glib/gi18n.h>
+#include <nautilus-burn-drive.h>
 #include <gconf/gconf-client.h>
 #include <glade/glade-xml.h>
 #include <gtk/gtkwidget.h>
@@ -80,7 +81,7 @@ extern GtkListStore *track_store;
 /**
  * The device we are extracting from.
  */
-extern const char *device;
+extern NautilusBurnDrive *drive;
 
 /**
  * The root path to write files too

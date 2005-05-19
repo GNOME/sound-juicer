@@ -26,14 +26,15 @@
 #include <sys/types.h>
 #include <glib/gerror.h>
 #include <gtk/gtkwindow.h>
+#include <nautilus-burn-drive.h>
 
 void mkdir_recursive (const char *path, mode_t permission_bits, GError **error);
 
-void eject_cdrom (const char* device, GtkWindow *parent);
+void eject_cdrom (NautilusBurnDrive *drive, GtkWindow *parent);
 
-gboolean tray_is_opened (const char *device);
+gboolean tray_is_opened (NautilusBurnDrive *drive);
 
-gboolean is_audio_cd (const char *device);
+gboolean is_audio_cd (NautilusBurnDrive *drive);
 
 void g_list_deep_free (GList *l, GFunc free_func);
 
