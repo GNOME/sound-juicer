@@ -576,12 +576,12 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
     genre_combo = glade_xml_get_widget (glade, "genre_combo");
     track_listview = glade_xml_get_widget (glade, "track_listview");
     
-	extract_menuitem = glade_xml_get_widget (glade, "extract_menuitem");
-	reread_menuitem = glade_xml_get_widget (glade, "re-read");
-	select_all_menuitem = glade_xml_get_widget (glade, "select_all");
-	deselect_all_menuitem = glade_xml_get_widget (glade, "deselect_all");
-	
-	/* TODO : this callback should be in the glade file */
+    extract_menuitem = glade_xml_get_widget (glade, "extract_menuitem");
+    reread_menuitem = glade_xml_get_widget (glade, "re-read");
+    select_all_menuitem = glade_xml_get_widget (glade, "select_all");
+    deselect_all_menuitem = glade_xml_get_widget (glade, "deselect_all");
+    
+    /* TODO : this callback should be in the glade file */
     g_signal_connect (progress_dialog, "delete-event", G_CALLBACK (on_progress_cancel_clicked), NULL);
 
     initialised = TRUE;
