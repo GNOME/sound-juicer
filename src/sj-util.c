@@ -190,7 +190,8 @@ is_audio_cd (NautilusBurnDrive *drive)
   
   fd = open (drive->device, O_RDONLY | O_NONBLOCK | O_EXCL);
   if (fd <0) {
-    return FALSE;
+    g_warning("%s: cannot open %s", __FUNCTION__, drive->device);
+    return TRUE;
   }
 
   status = ioctl (fd, CDROM_DISC_STATUS, CDSL_CURRENT);

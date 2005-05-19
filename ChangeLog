@@ -1,5 +1,11 @@
 2005-05-19  Ross Burton  <ross@burtonini.com>
 
+	* src/sj-util.c:
+	If we can't open the device, pretend its an audio CD and let
+	something else moan.  All of this code needs to be replaced.
+	
+2005-05-19  Ross Burton  <ross@burtonini.com>
+
 	* src/sj-extracting.c:
 	Don't free the GError in the signal handler, this causes a crash
 	(closes #126753).
