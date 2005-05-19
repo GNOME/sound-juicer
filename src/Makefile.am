@@ -20,6 +20,7 @@ AM_CPPFLAGS = \
 bin_PROGRAMS = sound-juicer
 
 sound_juicer_SOURCES = \
+	dummy.cpp \
 	sound-juicer.h \
 	sj-structures.h \
 	sj-structures.c \
