@@ -33,7 +33,7 @@ AC_SUBST(GLIB_CFLAGS)
 AC_SUBST(GLIB_LIBS)
 
 # Find nautilus-burn
-PKG_CHECK_MODULES(BURN, libnautilus-burn >= 2.11.0)
+PKG_CHECK_MODULES(BURN, libnautilus-burn >= 2.11.1)
 AC_SUBST(BURN_CFLAGS)
 AC_SUBST(BURN_LIBS)
 
@@ -46,7 +46,7 @@ AC_SUBST(UI_LIBS)
 HAVE_GSTREAMER=no
                                                                                 
 # Look for 0.8
-PKG_CHECK_MODULES(GSTREAMER, gstreamer-0.8 gstreamer-gconf-0.8, HAVE_GSTREAMER=yes, HAVE_GSTREAMER=no)
+PKG_CHECK_MODULES(GSTREAMER, gstreamer-0.8 gstreamer-gconf-0.8 gstreamer-plugins-0.8 >= 0.8.8, HAVE_GSTREAMER=yes, HAVE_GSTREAMER=no)
 if test "x$HAVE_GSTREAMER" = "xyes"; then
         AC_DEFINE(GSTREAMER_0_8, 1, [GStreamer 0.8])
 else
