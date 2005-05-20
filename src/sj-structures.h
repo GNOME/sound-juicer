@@ -24,6 +24,7 @@
 #define SJ_STRUCTURES_H
 
 #include <glib/glist.h>
+#include <gtk/gtktreemodel.h>
 
 #include "sj-genres.h"
 
@@ -38,6 +39,7 @@ struct _TrackDetails {
   char *artist;
   int duration; /* seconds */
   SjGenre genre; /* ID3 genre list */
+  GtkTreeIter iter; /* Temporary iterator for internal use */
 };
 
 struct _AlbumDetails {
