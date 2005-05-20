@@ -325,6 +325,7 @@ extract_track_foreach_cb (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *i
                       COLUMN_DETAILS, &track,
                       -1);
   if (extract) {
+    track->iter = *iter;
     pending = g_list_append (pending, track);
     ++total_extracting;
     total_duration += track->duration;
@@ -482,7 +483,9 @@ show_finished_dialog (void)
 static void
 on_completion_cb (SjExtractor *extractor, gpointer data)
 {
-  /* TODO: uncheck the relevant check box */
+  /* Uncheck the Extract check box */
+  gtk_list_store_set (track_store, &track->iter, COLUMN_EXTRACT, FALSE, -1);
+
   if (pending == NULL) {
     gtk_widget_hide (progress_dialog);
     show_finished_dialog ();
