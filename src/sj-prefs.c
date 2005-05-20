@@ -276,22 +276,23 @@ static void pattern_label_update (void)
   char *file_value, *path_value, *example, *format;
   gboolean strip;
   static AlbumDetails sample_album = {
-    N_("Album Title"),
-    N_("Album Artist"),
-    0,
-    NULL,
-    NULL,
-    NULL
+    N_("Album Title"), /* title */
+    N_("Album Artist"), /* artist */
+    0, /* number of tracks*/
+    NULL, /* track list */
+    NULL, /* album ID */
+    NULL, /* artist ID */
   };
   static TrackDetails sample_track = {
-    &sample_album,
-    9,
-    N_("Track Title"),
-    N_("Track Artist"),
-    60,
-    LAST_GENRE,
-    NULL,
-    {0,0,0,0}
+    &sample_album,  /*album */
+    9, /* track number */
+    N_("Track Title"), /* title */
+    N_("Track Artist"), /* artist */
+    60, /* duration */
+    LAST_GENRE, /* genre */
+    NULL, /* track ID */
+    NULL, /* artist ID */
+    {0,0,0,0} /* treeview iterator */
   };
   /* Magic to i18n-ize the sample strings. */
   static gboolean been_here = FALSE;

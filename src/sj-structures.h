@@ -40,6 +40,7 @@ struct _TrackDetails {
   int duration; /* seconds */
   SjGenre genre; /* ID3 genre list */
   char* track_id;
+  char* artist_id;
   GtkTreeIter iter; /* Temporary iterator for internal use */
 };
 

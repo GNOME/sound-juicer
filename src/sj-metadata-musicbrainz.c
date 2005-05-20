@@ -395,7 +395,10 @@ lookup_cd (SjMetadata *metadata)
         track->track_id = g_strdup (data);
       }
 
-      /* TODO: get track artist ID */
+      if (mb_GetResultData1(priv->mb, MBE_AlbumGetArtistId, data, MB_BUFFER_SIZE, j)) {
+        g_print("Got track artist id %s\n", data);
+        track->artist_id = g_strdup (data);
+      }
 
       if (mb_GetResultData1(priv->mb, MBE_AlbumGetTrackName, data, MB_BUFFER_SIZE, j)) {
         track->title = g_strdup (data);
