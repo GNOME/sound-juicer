@@ -30,6 +30,7 @@
 #include <glib-object.h>
 #include <gst/gst.h>
 #include <gst/gconf/gconf.h>
+#include <gst/tag/tag.h>
 #include <profiles/gnome-media-profiles.h>
 #include "sj-extractor.h"
 #include "sj-structures.h"
@@ -415,6 +416,9 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
                             GST_TAG_TRACK_NUMBER, track->number,
                             GST_TAG_TRACK_COUNT, track->album->number,
                             GST_TAG_ALBUM, track->album->title,
+                            GST_TAG_MUSICBRAINZ_ALBUMID, track->album->album_id,
+                            GST_TAG_MUSICBRAINZ_ALBUMARTISTID, track->album->artist_id,
+                            GST_TAG_MUSICBRAINZ_TRACKID, track->track_id,
                             GST_TAG_ENCODER, _("Sound Juicer"),
                             GST_TAG_ENCODER_VERSION, VERSION,
                             NULL);

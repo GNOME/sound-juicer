@@ -345,6 +345,14 @@ lookup_cd (SjMetadata *metadata)
     mb_Select1(priv->mb, MBS_SelectAlbum, i);
     album = g_new0 (AlbumDetails, 1);
 
+    if (mb_GetResultData(priv->mb, MBE_AlbumGetAlbumId, data, MB_BUFFER_SIZE)) {
+      album->album_id = g_strdup (data);
+    }
+
+    if (mb_GetResultData(priv->mb, MBE_AlbumGetAlbumArtistId, data, MB_BUFFER_SIZE)) {
+      album->artist_id = g_strdup (data);
+    }
+
     if (mb_GetResultData(priv->mb, MBE_AlbumGetAlbumName, data, MB_BUFFER_SIZE)) {
       album->title = g_strdup (data);
     } else {
@@ -382,6 +390,12 @@ lookup_cd (SjMetadata *metadata)
       track->album = album;
 
       track->number = j; /* replace with number lookup? */
+
+      if (mb_GetResultData1(priv->mb, MBE_AlbumGetTrackId, data, MB_BUFFER_SIZE, j)) {
+        track->track_id = g_strdup (data);
+      }
+
+      /* TODO: get track artist ID */
 
       if (mb_GetResultData1(priv->mb, MBE_AlbumGetTrackName, data, MB_BUFFER_SIZE, j)) {
         track->title = g_strdup (data);

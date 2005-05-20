@@ -279,6 +279,8 @@ static void pattern_label_update (void)
     N_("Album Title"),
     N_("Album Artist"),
     0,
+    NULL,
+    NULL,
     NULL
   };
   static TrackDetails sample_track = {
@@ -288,6 +290,7 @@ static void pattern_label_update (void)
     N_("Track Artist"),
     60,
     LAST_GENRE,
+    NULL,
     {0,0,0,0}
   };
   /* Magic to i18n-ize the sample strings. */

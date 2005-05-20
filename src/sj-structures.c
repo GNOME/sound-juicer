@@ -33,6 +33,7 @@ void track_details_free(TrackDetails *track)
   g_return_if_fail (track != NULL);
   g_free (track->title);
   g_free (track->artist);
+  g_free (track->track_id);
   g_free (track);
 }
 
@@ -44,6 +45,7 @@ void album_details_free(AlbumDetails *album)
   g_return_if_fail (album != NULL);
   g_free (album->title);
   g_free (album->artist);
+  g_free (album->album_id);
   g_list_deep_free (album->tracks, (GFunc)track_details_free);
   g_free (album);
 }

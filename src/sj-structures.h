@@ -39,6 +39,7 @@ struct _TrackDetails {
   char *artist;
   int duration; /* seconds */
   SjGenre genre; /* ID3 genre list */
+  char* track_id;
   GtkTreeIter iter; /* Temporary iterator for internal use */
 };
 
@@ -47,6 +48,8 @@ struct _AlbumDetails {
   char* artist;
   int   number; /* number of tracks in the album */
   GList* tracks;
+  char* album_id;
+  char* artist_id;
 };
 
 void album_details_free(AlbumDetails *album);
