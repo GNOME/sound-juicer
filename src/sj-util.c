@@ -181,13 +181,31 @@ is_audio_cd (NautilusBurnDrive *drive)
   return audio;
 #else
   int fd, status;
+  NautilusBurnMediaType type;
 
   if (drive == NULL) return FALSE;
 
-  if (nautilus_burn_drive_get_media_type (drive) == NAUTILUS_BURN_MEDIA_TYPE_UNKNOWN) {
-    return TRUE;
+  type = nautilus_burn_drive_get_media_type (drive);
+  switch (type) {
+  case NAUTILUS_BURN_MEDIA_TYPE_DVD:
+  case NAUTILUS_BURN_MEDIA_TYPE_DVDR:
+  case NAUTILUS_BURN_MEDIA_TYPE_DVDRW:
+  case NAUTILUS_BURN_MEDIA_TYPE_DVD_RAM:
+  case NAUTILUS_BURN_MEDIA_TYPE_DVD_PLUS_R:
+  case NAUTILUS_BURN_MEDIA_TYPE_DVD_PLUS_RW:
+  case NAUTILUS_BURN_MEDIA_TYPE_DVD_PLUS_R_DL:
+    /* We don't support reading DVD-Audio drives */
+    return FALSE;
+  case NAUTILUS_BURN_MEDIA_TYPE_BUSY:
+  case NAUTILUS_BURN_MEDIA_TYPE_ERROR:
+  case NAUTILUS_BURN_MEDIA_TYPE_UNKNOWN:
+  case NAUTILUS_BURN_MEDIA_TYPE_CD:
+  case NAUTILUS_BURN_MEDIA_TYPE_CDR:
+  case NAUTILUS_BURN_MEDIA_TYPE_CDRW:
+    break;
+    /* Don't use default so we get warned when a new media type appears */
   }
-  
+
   fd = open (drive->device, O_RDONLY | O_NONBLOCK | O_EXCL);
   if (fd <0) {
     g_warning("%s: cannot open %s", __FUNCTION__, drive->device);
