@@ -29,27 +29,8 @@
 #include <glib/gutils.h>
 #include <glib/gstrfuncs.h>
 #include <glib/gi18n.h>
-#include <nautilus-burn-drive.h>
-#include <gtk/gtkmessagedialog.h>
-#include <gtk/gtklabel.h>
 #include "sj-error.h"
 #include "sj-util.h"
-
-/*
- * Totally linux-centric. Non-linux people send patches! :)
- */
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-
-#ifdef __FreeBSD__
-#include <sys/cdio.h>
-#define CDROMEJECT CDIOCEJECT
-#endif /* __FreeBSD__ */
-
-#ifdef __linux__
-#include <linux/cdrom.h>
-#endif /* __linux__ */
 
 /**
  * Stolen from gnome-vfs
@@ -76,15 +57,14 @@ mkdir_recursive (const char *path, mode_t permission_bits, GError **error)
       /* TODO: this algorithm doesn't handle "permission denied" on mkdir at all well */
       if (mkdir (current_path, permission_bits) != 0) {
         int err = errno;
-
-	if (err != EEXIST) {
+        if (err != EEXIST) {
           /* We failed to create a directory and it wasn't there already; bail */
           g_free (current_path);
           g_set_error (error,
                        SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
                        _("Could not create directory %s: %s"), path, g_strerror (err));
           return;
-	}
+        }
       }
       g_free (current_path);
     }
