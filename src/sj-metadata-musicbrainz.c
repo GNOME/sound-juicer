@@ -372,6 +372,22 @@ lookup_cd (SjMetadata *metadata)
       }
     }
 
+    {
+      int num_releases;
+      num_releases = mb_GetResultInt (priv->mb, MBE_AlbumGetNumReleaseDates);
+      if (num_releases > 0) {
+        mb_Select1(priv->mb, MBS_SelectReleaseDate, 1);
+        if (mb_GetResultData(priv->mb, MBE_ReleaseGetDate, data, MB_BUFFER_SIZE)) {
+          int matched, year=1, month=1, day=1;
+          matched = sscanf(data, "%u-%u-%u", &year, &month, &day);
+          if (matched > 1) {
+            album->release_date = g_date_new_dmy (day, month, year);
+          }
+        }
+        mb_Select(priv->mb, MBS_Back);
+      }
+    }
+
     num_tracks = mb_GetResultInt(priv->mb, MBE_AlbumGetNumTracks);
     if (num_tracks < 1) {
       g_free (album->artist);
@@ -396,7 +412,6 @@ lookup_cd (SjMetadata *metadata)
       }
 
       if (mb_GetResultData1(priv->mb, MBE_AlbumGetArtistId, data, MB_BUFFER_SIZE, j)) {
-        g_print("Got track artist id %s\n", data);
         track->artist_id = g_strdup (data);
       }
 

@@ -44,11 +44,19 @@ struct _TrackDetails {
   GtkTreeIter iter; /* Temporary iterator for internal use */
 };
 
+struct _Date {
+  /* TODO: use GLib date structures? */
+  guint year;
+  guint month;
+  guint day;
+};
+
 struct _AlbumDetails {
   char* title;
   char* artist;
   int   number; /* number of tracks in the album */
   GList* tracks;
+  GDate *release_date; /* MusicBrainz support multiple releases per album */
   char* album_id;
   char* artist_id;
 };

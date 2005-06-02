@@ -280,6 +280,7 @@ static void pattern_label_update (void)
     N_("Album Artist"), /* artist */
     0, /* number of tracks*/
     NULL, /* track list */
+    NULL, /* release date */
     NULL, /* album ID */
     NULL, /* artist ID */
   };

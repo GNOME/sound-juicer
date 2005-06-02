@@ -430,6 +430,13 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
                               GST_TAG_GENRE, sj_genre_name (track->genre),
                               NULL);
         }
+        if (track->album->release_date) {
+          gst_tag_setter_add (GST_TAG_SETTER (elt->data),
+                              /* TODO: is APPEND right? */
+                              GST_TAG_MERGE_APPEND,
+                              GST_TAG_DATE, g_date_get_julian (track->album->release_date),
+                              NULL);
+        }
         taggable = TRUE;
       }
     }
