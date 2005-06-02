@@ -633,11 +633,13 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
 static char*
 sanitize_path (char* s)
 {
-  /* Replace path seperators with whitespace */
-  g_strdelimit (s, "/", ' ');
+  /* Replace path seperators with a hyphen */
+  g_strdelimit (s, "/", '-');
   if (strip_chars) {
-    /* Mangle all weird characters to whitespace */
-    g_strdelimit (s, "\\*?&!:\'\"$()`|>{}", ' ');
+    /* Replace separators with a hyphen */
+    g_strdelimit (s, "\\:|", '-');
+    /* Replace all other weird characters to whitespace */
+    g_strdelimit (s, "*?&!\'\"$()`>{}", ' ');
     /* Replace all whitespace with underscores */
     /* TODO: I'd like this to compress whitespace aswell */
     g_strdelimit (s, "\t ", '_');
