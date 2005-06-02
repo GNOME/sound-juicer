@@ -22,12 +22,10 @@
 
 #include "sound-juicer.h"
 
-#include <string.h>
 #include <errno.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <glib/gutils.h>
-#include <glib/gstrfuncs.h>
 #include <glib/gi18n.h>
 #include "sj-error.h"
 #include "sj-util.h"
