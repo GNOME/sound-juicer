@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2003 Ross Burton <ross@burtonini.com>
+ * Copyright (C) 2003-2005 Ross Burton <ross@burtonini.com>
  *
  * Sound Juicer - sj-util.c
  *
@@ -30,8 +30,26 @@
 #include <glib/gstrfuncs.h>
 #include <glib/gi18n.h>
 #include <nautilus-burn-drive.h>
+#include <gtk/gtkmessagedialog.h>
+#include <gtk/gtklabel.h>
 #include "sj-error.h"
 #include "sj-util.h"
+
+/*
+ * Totally linux-centric. Non-linux people send patches! :)
+ */
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+
+#ifdef __FreeBSD__
+#include <sys/cdio.h>
+#define CDROMEJECT CDIOCEJECT
+#endif /* __FreeBSD__ */
+
+#ifdef __linux__
+#include <linux/cdrom.h>
+#endif /* __linux__ */
 
 /**
  * Stolen from gnome-vfs
@@ -75,153 +93,6 @@ mkdir_recursive (const char *path, mode_t permission_bits, GError **error)
     }	
   }
   return;
-}
-
-/*
- * Totally linux-centric. Non-linux people send patches! :)
- */
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-
-#ifdef __FreeBSD__
-#include <sys/cdio.h>
-#define CDROMEJECT CDIOCEJECT
-#endif /* __FreeBSD__ */
-
-#ifdef __linux__
-#include <linux/cdrom.h>
-#endif /* __linux__ */
-
-#include <gtk/gtkmessagedialog.h>
-#include <gtk/gtklabel.h>
-
-/**
- * Eject a CD-ROM, displaying any errors in a dialog.
- */
-void
-eject_cdrom (NautilusBurnDrive *drive, GtkWindow *parent)
-{
-  int fd, result;
-  g_return_if_fail (drive != NULL);
-  fd = open (drive->device, O_RDONLY | O_NONBLOCK);
-  if (fd == -1) {
-    GtkWidget *dialog;
-    char *text = g_strdup_printf ("<b>%s</b>\n\n%s: %s",
-                                  _("Could not eject the CD"),
-                                  _("Reason"),
-                                  g_strerror (errno));
-
-    dialog = gtk_message_dialog_new (GTK_WINDOW (parent), GTK_DIALOG_MODAL,
-                                     GTK_MESSAGE_ERROR,
-                                     GTK_BUTTONS_CLOSE,
-                                     text);
-
-    g_free (text);
-
-    gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
-    gtk_dialog_run (GTK_DIALOG (dialog));
-    gtk_widget_destroy (dialog);
-    goto done;
-  }
-  result = ioctl (fd, CDROMEJECT);
-  if (result == -1) {
-    GtkWidget *dialog;
-    char *text = g_strdup_printf ("<b>%s</b>\n\n%s: %s",
-                                  _("Could not eject the CD"),
-                                  _("Reason"),
-                                  g_strerror (errno));
-
-    dialog = gtk_message_dialog_new (GTK_WINDOW (parent), GTK_DIALOG_MODAL,
-                                     GTK_MESSAGE_ERROR,
-                                     GTK_BUTTONS_CLOSE,
-                                     text);
-    g_free (text);
-
-    gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
-    gtk_dialog_run (GTK_DIALOG (dialog));
-    gtk_widget_destroy (dialog);
-    goto done;
-  }
- done:
-  close (fd);
-  return;
-}
-
-gboolean
-tray_is_opened (NautilusBurnDrive *drive)
-{
-  int fd, status;
-  
-  if (drive == NULL) return FALSE;
-
-  fd = open (drive->device, O_RDONLY | O_NONBLOCK | O_EXCL);
-  if (fd < 0) {
-    return FALSE;
-  }
-  
-  status = ioctl (fd, CDROM_DRIVE_STATUS, CDSL_CURRENT);
-  if (status < 0) {
-    close (fd);
-    return FALSE;
-  }
-  
-  close (fd);
-  
-  return status == CDS_TRAY_OPEN;
-}
-
-gboolean
-is_audio_cd (NautilusBurnDrive *drive)
-{
-#if 0
-  gboolean audio;
-  if (drive == NULL) return FALSE;
-  nautilus_burn_drive_get_media_type_full (drive, NULL, NULL, NULL, &audio);
-  return audio;
-#else
-  int fd, status;
-  NautilusBurnMediaType type;
-
-  if (drive == NULL) return FALSE;
-
-  type = nautilus_burn_drive_get_media_type (drive);
-  switch (type) {
-  case NAUTILUS_BURN_MEDIA_TYPE_DVD:
-  case NAUTILUS_BURN_MEDIA_TYPE_DVDR:
-  case NAUTILUS_BURN_MEDIA_TYPE_DVDRW:
-  case NAUTILUS_BURN_MEDIA_TYPE_DVD_RAM:
-  case NAUTILUS_BURN_MEDIA_TYPE_DVD_PLUS_R:
-  case NAUTILUS_BURN_MEDIA_TYPE_DVD_PLUS_RW:
-  case NAUTILUS_BURN_MEDIA_TYPE_DVD_PLUS_R_DL:
-    /* We don't support reading DVD-Audio drives */
-    return FALSE;
-  case NAUTILUS_BURN_MEDIA_TYPE_BUSY:
-  case NAUTILUS_BURN_MEDIA_TYPE_ERROR:
-  case NAUTILUS_BURN_MEDIA_TYPE_UNKNOWN:
-  case NAUTILUS_BURN_MEDIA_TYPE_CD:
-  case NAUTILUS_BURN_MEDIA_TYPE_CDR:
-  case NAUTILUS_BURN_MEDIA_TYPE_CDRW:
-    break;
-    /* Don't use default so we get warned when a new media type appears */
-  }
-
-  fd = open (drive->device, O_RDONLY | O_NONBLOCK | O_EXCL);
-  if (fd <0) {
-    g_warning("%s: cannot open %s", __FUNCTION__, drive->device);
-    return TRUE;
-  }
-
-  status = ioctl (fd, CDROM_DISC_STATUS, CDSL_CURRENT);
-  if (status < 0) {
-    close (fd);
-    return FALSE;
-  }
-
-  close (fd);
-
-  return status == CDS_AUDIO;
-#endif
 }
 
 /* Pass NULL to use g_free */

@@ -121,7 +121,7 @@ void on_destroy_signal (GtkMenuItem *item, gpointer user_data)
  */
 void on_eject_activate (GtkMenuItem *item, gpointer user_data)
 {
-  eject_cdrom (drive, GTK_WINDOW (main_window));
+  nautilus_burn_drive_eject (drive);
 }
 
 gboolean poll_tray_opened (gpointer data)
@@ -131,7 +131,7 @@ gboolean poll_tray_opened (gpointer data)
   if (extracting == TRUE)
     return TRUE;
 
-  new_status = tray_is_opened (drive);
+  new_status = nautilus_burn_drive_door_is_open (drive);
   if (new_status != tray_opened && new_status == FALSE) {
     reread_cd (TRUE);
   } else if (new_status != tray_opened && new_status == TRUE) {
@@ -514,6 +514,15 @@ metadata_cb (SjMetadata *m, GList *albums, GError *error)
   }
 }
 
+static gboolean
+is_audio_cd (NautilusBurnDrive *drive)
+{
+  gboolean audio;
+  if (drive == NULL) return FALSE;
+  nautilus_burn_drive_get_media_type_full (drive, NULL, NULL, NULL, &audio);
+  return audio;
+}
+
 /**
  * Utility function to reread a CD
  */
@@ -627,7 +636,7 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
   sj_metadata_set_cdrom (metadata, device);
   sj_extractor_set_device (extractor, device);
 
-  tray_opened = tray_is_opened (drive);
+  tray_opened = nautilus_burn_drive_door_is_open (drive);
   if (tray_opened == FALSE) {
     reread_cd (ignore_no_media);
   }
@@ -1088,7 +1097,7 @@ int main (int argc, char **argv)
   }
 
   /* Poke the CD drive every now and then */
-  tray_opened = tray_is_opened (drive);
+  tray_opened = nautilus_burn_drive_door_is_open (drive);
   poll_id = g_timeout_add (2000, poll_tray_opened, NULL);
 
   gtk_main ();
