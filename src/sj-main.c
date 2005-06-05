@@ -35,6 +35,7 @@
 #include <profiles/gnome-media-profiles.h>
 #include <gst/gst.h>
 
+#include "bacon-message-connection.h"
 #include "sj-about.h"
 #include "sj-genres.h"
 #include "sj-metadata.h"
@@ -67,6 +68,7 @@ static GtkWidget *track_listview, *extract_button;
 static GtkWidget *status_bar;
 static GtkWidget *extract_menuitem, *select_all_menuitem, *deselect_all_menuitem;
 GtkListStore *track_store;
+static BaconMessageConnection *connection;
 
 const char *base_path, *path_pattern, *file_pattern;
 NautilusBurnDrive *drive = NULL;
@@ -82,6 +84,7 @@ static AlbumDetails *current_album;
 int autostart = FALSE;
 
 #define DEFAULT_PARANOIA 4
+#define RAISE_WINDOW "raise-window"
 
 static void error_on_start (GError *error)
 {
@@ -936,6 +939,16 @@ static GtkTreeModel* populate_genre_list(void) {
   return GTK_TREE_MODEL (store);
 }
 
+static void
+on_message_received (const char *message, gpointer user_data)
+{
+  if (message == NULL)
+    return;
+  if (strcmp (RAISE_WINDOW, message) == 0) {
+    gtk_window_present (GTK_WINDOW (main_window));
+  }
+}
+
 int main (int argc, char **argv)
 {
   GError *error = NULL;
@@ -957,6 +970,15 @@ int main (int argc, char **argv)
                       GNOME_PARAM_POPT_TABLE, options,
                       NULL);
   g_set_application_name (_("Sound Juicer"));
+
+  connection = bacon_message_connection_new ("sound-juicer");
+  if (bacon_message_connection_get_is_server (connection) == FALSE) {
+	  bacon_message_connection_send (connection, RAISE_WINDOW);
+	  bacon_message_connection_free (connection);
+	  exit (0);
+  } else {
+    bacon_message_connection_set_callback (connection, on_message_received, NULL);
+  }
 
   metadata = SJ_METADATA (sj_metadata_musicbrainz_new ());
   error = sj_metadata_get_new_error (metadata);

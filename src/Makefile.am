@@ -45,6 +45,7 @@ sound_juicer_SOURCES = \
 	sj-about.c \
 	sj-extracting.h \
 	sj-extracting.c \
+	$(BACON_FILES) \
 	$(MARSHALFILES)
 
 sound_juicer_LDFLAGS = @MUSICBRAINZ_LIBS@ @MEDIA_PROFILES_LIBS@ @GSTREAMER_LIBS@ @BURN_LIBS@ @UI_LIBS@
@@ -73,3 +74,9 @@ sj-metadata-marshal.c: sj-metadata-marshal.list
 BUILT_SOURCES = $(MARSHALFILES)
 CLEANFILES = $(BUILT_SOURCES)
 EXTRA_DIST = sj-metadata-marshal.list
+
+BACON_DIR=$(srcdir)/../../libbacon/src/
+BACON_FILES=bacon-message-connection.h bacon-message-connection.c
+
+regenerate-built-sources:
+	BACONFILES="$(BACON_FILES)" BACONDIR="$(BACON_DIR)" $(top_srcdir)/src/update-from-bacon.sh
