@@ -990,8 +990,16 @@ int main (int argc, char **argv)
   gnome_media_profiles_init (gconf_client);
 
   glade_init ();
-  glade = glade_xml_new (DATADIR"/sound-juicer/sound-juicer.glade", NULL, NULL);
-  g_assert (glade != NULL);
+  glade = glade_xml_new ("../data/sound-juicer.glade", NULL, NULL);
+  if (glade == NULL) {
+    glade = glade_xml_new (DATADIR"/sound-juicer/sound-juicer.glade", NULL, NULL);
+  }
+  if (glade == NULL) {
+    g_error_new (0, 0, _("The interface file for Sound Juicer could not be read."));
+    error_on_start (error);
+    g_error_free (error);
+    exit (1);
+  }
   glade_xml_signal_autoconnect (glade);
 
   main_window = glade_xml_get_widget (glade, "main_window");
