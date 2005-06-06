@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-08 12:55-0500\n"
-"PO-Revision-Date: 2005-02-08 19:40-0400\n"
+"POT-Creation-Date: 2005-06-05 22:13-0400\n"
+"PO-Revision-Date: 2005-06-05 19:40-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -116,8 +116,8 @@ msgstr "Progress"
 msgid "Select A Folder"
 msgstr "Select A Folder"
 
-#: data/sound-juicer.glade.h:24 src/sj-about.c:56 src/sj-extractor.c:444
-#: src/sj-main.c:936
+#: data/sound-juicer.glade.h:24 src/sj-about.c:52 src/sj-extractor.c:423
+#: src/sj-main.c:972
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -141,7 +141,7 @@ msgstr "_CD"
 msgid "_Contents"
 msgstr "_Contents"
 
-#: data/sound-juicer.glade.h:29 src/sj-main.c:147
+#: data/sound-juicer.glade.h:29 src/sj-main.c:159
 msgid "_Continue"
 msgstr "_Continue"
 
@@ -263,19 +263,19 @@ msgstr "The paranoia mode to use"
 msgid "Whether to eject the CD when finished extracting."
 msgstr "Whether to eject the CD when finished extracting."
 
+#: src/sj-about.c:53
+msgid "An Audio CD Extractor"
+msgstr "An Audio CD Extractor"
+
 #.
 #. * Note to translators: put here your name and email so it will show
 #. * up in the "about" box
 #.
-#: src/sj-about.c:46
+#: src/sj-about.c:62
 msgid "translator-credits"
 msgstr ""
 "Maintainer: Adam Weinberger <adamw@gnome.org>\n"
 "Alexander Winston <alexander.winston@comcast.net>"
-
-#: src/sj-about.c:58
-msgid "An Audio CD Extractor"
-msgstr "An Audio CD Extractor"
 
 #: src/sj-extracting.c:199
 #, c-format
@@ -295,7 +295,7 @@ msgid "_Overwrite"
 msgstr "_Overwrite"
 
 #. Display a nice dialog
-#: src/sj-extracting.c:258 src/sj-extracting.c:295 src/sj-extracting.c:511
+#: src/sj-extracting.c:258 src/sj-extracting.c:295 src/sj-extracting.c:514
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -309,68 +309,68 @@ msgstr ""
 msgid "Extracting '%s'"
 msgstr "Extracting '%s'"
 
-#: src/sj-extracting.c:347
+#: src/sj-extracting.c:348
 #, c-format
 msgid "%d:%02d (at %0.1fx)"
 msgstr "%d:%02d (at %0.1fx)"
 
-#: src/sj-extracting.c:349
+#: src/sj-extracting.c:350
 msgid "Unknown (at 0.0x)"
 msgstr "Unknown (at 0.0x)"
 
 #. TODO: need to have a better message here
-#: src/sj-extracting.c:454
+#: src/sj-extracting.c:455
 msgid "The tracks have been copied successfully."
 msgstr "The tracks have been copied successfully."
 
-#: src/sj-extracting.c:459
+#: src/sj-extracting.c:460
 msgid "_Eject"
 msgstr "_Eject"
 
-#: src/sj-extractor.c:125
+#: src/sj-extractor.c:100
 msgid "GNOME Audio Profile"
 msgstr "GNOME Audio Profile"
 
-#: src/sj-extractor.c:125
+#: src/sj-extractor.c:100
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "The GNOME Audio Profile used for encoding audio"
 
-#: src/sj-extractor.c:270
+#: src/sj-extractor.c:245
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "Could not create GStreamer cdparanoia reader"
 
-#: src/sj-extractor.c:289
+#: src/sj-extractor.c:264
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
 msgstr "Could not create GStreamer encoder (%s)"
 
-#: src/sj-extractor.c:300
+#: src/sj-extractor.c:275
 msgid "Could not create GStreamer file output"
 msgstr "Could not create GStreamer file output"
 
-#: src/sj-extractor.c:330
+#: src/sj-extractor.c:305
 msgid "Could not get current track position"
 msgstr "Could not get current track position"
 
-#: src/sj-extractor.c:363
+#: src/sj-extractor.c:338
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Extractor object is not valid. This is bad, check your console for errors."
 
-#: src/sj-extractor.c:471
+#: src/sj-extractor.c:457
 msgid "Could not seek to track"
 msgstr "Could not seek to track"
 
-#: src/sj-extractor.c:476
+#: src/sj-extractor.c:462
 msgid "Could not get track start position"
 msgstr "Could not get track start position"
 
-#: src/sj-extractor.c:513
+#: src/sj-extractor.c:499
 msgid "The plugin necessary for CD access was not found"
 msgstr "The plugin necessary for CD access was not found"
 
-#: src/sj-extractor.c:521
+#: src/sj-extractor.c:507
 msgid "The plugin necessary for file access was not found"
 msgstr "The plugin necessary for file access was not found"
 
@@ -698,78 +698,77 @@ msgstr "Hard Rock"
 msgid "[unknown genre]"
 msgstr "[unknown genre]"
 
-#: src/sj-main.c:92
+#: src/sj-main.c:96
 msgid "Could not start Sound Juicer"
 msgstr "Could not start Sound Juicer"
 
-#: src/sj-main.c:93 src/sj-main.c:469 src/sj-main.c:544 src/sj-main.c:603
-#: src/sj-util.c:110 src/sj-util.c:130
+#: src/sj-main.c:97 src/sj-main.c:482 src/sj-main.c:566 src/sj-main.c:627
 msgid "Reason"
 msgstr "Reason"
 
-#: src/sj-main.c:95
+#: src/sj-main.c:99
 msgid "Please consult the documentation for assistance."
 msgstr "Please consult the documentation for assistance."
 
-#: src/sj-main.c:145
+#: src/sj-main.c:157
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr ""
 "You are currently extracting a CD. Do you want to quit now or continue?"
 
-#: src/sj-main.c:208 src/sj-main.c:279
+#: src/sj-main.c:220 src/sj-main.c:291
 msgid "(unknown)"
 msgstr "(unknown)"
 
-#: src/sj-main.c:321 src/sj-main.c:1030
+#: src/sj-main.c:333 src/sj-main.c:1076
 msgid "Title"
 msgstr "Title"
 
-#: src/sj-main.c:327 src/sj-main.c:1039
+#: src/sj-main.c:339 src/sj-main.c:1085
 msgid "Artist"
 msgstr "Artist"
 
-#: src/sj-main.c:467 src/sj-main.c:542 src/sj-main.c:601
+#: src/sj-main.c:480 src/sj-main.c:564 src/sj-main.c:625
 msgid "Could not read the CD"
 msgstr "Could not read the CD"
 
-#: src/sj-main.c:468 src/sj-main.c:543
+#: src/sj-main.c:481 src/sj-main.c:565
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer could not read the track listing on this CD."
 
 #. Set statusbar message
-#: src/sj-main.c:527
+#: src/sj-main.c:549
 msgid "Retrieving track listing...please wait."
 msgstr "Retrieving track listing...please wait."
 
-#: src/sj-main.c:582
+#: src/sj-main.c:605
 msgid "No CD-ROM drives found"
 msgstr "No CD-ROM drives found"
 
-#: src/sj-main.c:583
+#: src/sj-main.c:606
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer could not find any CD-ROM drives to read."
 
-#: src/sj-main.c:595
+#: src/sj-main.c:619
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer could not access the CD-ROM device '%s'"
 
-#: src/sj-main.c:640
+#: src/sj-main.c:666
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr ""
 "The currently selected audio profile is not available on your installation."
 
-#: src/sj-main.c:642
+#: src/sj-main.c:668
 msgid "_Change Profile"
 msgstr "_Change Profile"
 
-#: src/sj-main.c:804
+#: src/sj-main.c:830
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Unknown column %d was edited"
 
-#: src/sj-main.c:867 src/sj-prefs.c:138
+#: src/sj-main.c:893 src/sj-prefs.c:141
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -778,19 +777,23 @@ msgstr ""
 "Could not display help for Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:955
+#: src/sj-main.c:993
 msgid "Could not create GConf client.\n"
 msgstr "Could not create GConf client.\n"
 
-#: src/sj-main.c:1011
+#: src/sj-main.c:1020
+msgid "The interface file for Sound Juicer could not be read."
+msgstr "The interface file for Sound Juicer could not be read."
+
+#: src/sj-main.c:1057
 msgid "Extract"
 msgstr "Extract"
 
-#: src/sj-main.c:1019
+#: src/sj-main.c:1065
 msgid "Track"
 msgstr "Track"
 
-#: src/sj-main.c:1050
+#: src/sj-main.c:1096
 msgid "Duration"
 msgstr "Duration"
 
@@ -803,11 +806,11 @@ msgstr "Cannot create MusicBrainz client"
 msgid "Cannot read CD: %s"
 msgstr "Cannot read CD: %s"
 
-#: src/sj-metadata-musicbrainz.c:202 src/sj-metadata-musicbrainz.c:363
+#: src/sj-metadata-musicbrainz.c:202 src/sj-metadata-musicbrainz.c:371
 msgid "Unknown Artist"
 msgstr "Unknown Artist"
 
-#: src/sj-metadata-musicbrainz.c:203 src/sj-metadata-musicbrainz.c:351
+#: src/sj-metadata-musicbrainz.c:203 src/sj-metadata-musicbrainz.c:359
 msgid "Unknown Title"
 msgstr "Unknown Title"
 
@@ -845,15 +848,15 @@ msgstr "This CD could not be queried: %s\n"
 msgid "This CD was not found.\n"
 msgstr "This CD was not found.\n"
 
-#: src/sj-metadata-musicbrainz.c:358
+#: src/sj-metadata-musicbrainz.c:366
 msgid "Various"
 msgstr "Various"
 
-#: src/sj-metadata-musicbrainz.c:372
+#: src/sj-metadata-musicbrainz.c:396
 msgid "Incomplete metadata for this CD.\n"
 msgstr "Incomplete metadata for this CD.\n"
 
-#: src/sj-metadata-musicbrainz.c:442
+#: src/sj-metadata-musicbrainz.c:474
 msgid "Could not create CD lookup thread"
 msgstr "Could not create CD lookup thread"
 
@@ -865,11 +868,12 @@ msgstr "Album Artist, Album Title"
 msgid "Track Artist, Album Title"
 msgstr "Track Artist, Album Title"
 
-#: src/sj-prefs.c:54 src/sj-prefs.c:280
+#: src/sj-prefs.c:54 src/sj-prefs.c:279
 msgid "Album Title"
 msgstr "Album Title"
 
-#: src/sj-prefs.c:55 src/sj-prefs.c:281
+#. title
+#: src/sj-prefs.c:55 src/sj-prefs.c:280
 msgid "Album Artist"
 msgstr "Album Artist"
 
@@ -885,7 +889,9 @@ msgstr "[none]"
 msgid "Number - Title"
 msgstr "Number - Title"
 
-#: src/sj-prefs.c:63 src/sj-prefs.c:288
+#. album
+#. track number
+#: src/sj-prefs.c:63 src/sj-prefs.c:290
 msgid "Track Title"
 msgstr "Track Title"
 
@@ -901,15 +907,12 @@ msgstr "Number. Track Artist - Track Title"
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Number-Track Artist-Track Title (lowercase)"
 
-#: src/sj-prefs.c:289
+#. title
+#: src/sj-prefs.c:291
 msgid "Track Artist"
 msgstr "Track Artist"
 
-#: src/sj-util.c:65
+#: src/sj-util.c:63
 #, c-format
 msgid "Could not create directory %s: %s"
 msgstr "Could not create directory %s: %s"
-
-#: src/sj-util.c:109 src/sj-util.c:129
-msgid "Could not eject the CD"
-msgstr "Could not eject the CD"
