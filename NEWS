@@ -1,3 +1,27 @@
+Sound Juicer "Grace the Corners of Our Rooms" 2.11.1
+====================================================
+
+Finally, a release in the 2.11 series.
+
+* Initialise audio profiles before creating the extractor
+* Fix some pointer tests which may crash
+* Focus the list view on startup
+* Depend on nautilus-burn 2.11.1, and pass around NautilusBurnDrive objects
+  instead of device names.
+* Don't free GErrors in the pipeline error handler, this makes SJ crash
+* Add a dummy C++ file to fix builds where gcc version != g++ version
+* Uncheck each track as it is extracted
+* Put lots more metadata into the songs (MusicBrainz IDs and release date)
+* Check for and switch to an existing instance of SJ when starting (Bastien Nocera)
+
+And the ever-working translators:
+
+Adam Weinberger (en_CA), Ahmad Riza H Nst (id), Canonical Ltd (xh), Dafydd
+Harries (cy), Hendrik Richter (de), Ivar Smolin (et), Jyotsna Shrestha (ne),
+Mugurel Tudor (ro), Nikos Charonitakis (el), Raphael Higino (pt_BR), Steve
+Murphy (rw).
+
+
 Sound Juicer "Smile Kindly Then Rip Your Life To Pieces" 2.10.0
 ===============================================================
 
