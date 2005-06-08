@@ -85,6 +85,8 @@ int autostart = FALSE;
 
 #define DEFAULT_PARANOIA 4
 #define RAISE_WINDOW "raise-window"
+#define SOURCE_GLADE "../data/sound-juicer.glade"
+#define INSTALLED_GLADE DATADIR"/sound-juicer/sound-juicer.glade"
 
 static void error_on_start (GError *error)
 {
@@ -1012,9 +1014,10 @@ int main (int argc, char **argv)
   gnome_media_profiles_init (gconf_client);
 
   glade_init ();
-  glade = glade_xml_new ("../data/sound-juicer.glade", NULL, NULL);
-  if (glade == NULL) {
-    glade = glade_xml_new (DATADIR"/sound-juicer/sound-juicer.glade", NULL, NULL);
+  if (g_file_test (SOURCE_GLADE, G_FILE_TEST_EXISTS) != FALSE) {
+    glade = glade_xml_new (SOURCE_GLADE, NULL, NULL);
+  } else {
+    glade = glade_xml_new (INSTALLED_GLADE, NULL, NULL);
   }
   if (glade == NULL) {
     g_error_new (0, 0, _("The interface file for Sound Juicer could not be read."));
