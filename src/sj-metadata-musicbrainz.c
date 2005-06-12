@@ -346,30 +346,28 @@ lookup_cd (SjMetadata *metadata)
     album = g_new0 (AlbumDetails, 1);
 
     if (mb_GetResultData(priv->mb, MBE_AlbumGetAlbumId, data, MB_BUFFER_SIZE)) {
+      mb_GetIDFromURL (priv->mb, data, data, MB_BUFFER_SIZE);
       album->album_id = g_strdup (data);
     }
 
-    if (mb_GetResultData(priv->mb, MBE_AlbumGetAlbumArtistId, data, MB_BUFFER_SIZE)) {
+    if (mb_GetResultData (priv->mb, MBE_AlbumGetAlbumArtistId, data, MB_BUFFER_SIZE)) {
+      mb_GetIDFromURL (priv->mb, data, data, MB_BUFFER_SIZE);
       album->artist_id = g_strdup (data);
+      if (g_ascii_strncasecmp (MBI_VARIOUS_ARTIST_ID, data, 64) == 0) {
+        album->artist = g_strdup (_("Various"));
+      } else {
+        if (data && mb_GetResultData1(priv->mb, MBE_AlbumGetArtistName, data, MB_BUFFER_SIZE, 1)) {
+          album->artist = g_strdup (data);
+        } else {
+          album->artist = g_strdup (_("Unknown Artist"));
+        }
+      }
     }
 
     if (mb_GetResultData(priv->mb, MBE_AlbumGetAlbumName, data, MB_BUFFER_SIZE)) {
       album->title = g_strdup (data);
     } else {
       album->title = g_strdup (_("Unknown Title"));
-    }
-
-    mb_GetResultData (priv->mb, MBE_AlbumGetAlbumArtistId, data, MB_BUFFER_SIZE);
-    /* TODO: handle failure */
-    mb_GetIDFromURL (priv->mb, data, data, MB_BUFFER_SIZE);
-    if (g_ascii_strncasecmp (MBI_VARIOUS_ARTIST_ID, data, 64) == 0) {
-      album->artist = g_strdup (_("Various"));
-    } else {
-      if (data && mb_GetResultData1(priv->mb, MBE_AlbumGetArtistName, data, MB_BUFFER_SIZE, 1)) {
-        album->artist = g_strdup (data);
-      } else {
-        album->artist = g_strdup (_("Unknown Artist"));
-      }
     }
 
     {
@@ -408,10 +406,12 @@ lookup_cd (SjMetadata *metadata)
       track->number = j; /* replace with number lookup? */
 
       if (mb_GetResultData1(priv->mb, MBE_AlbumGetTrackId, data, MB_BUFFER_SIZE, j)) {
+        mb_GetIDFromURL (priv->mb, data, data, MB_BUFFER_SIZE);
         track->track_id = g_strdup (data);
       }
 
       if (mb_GetResultData1(priv->mb, MBE_AlbumGetArtistId, data, MB_BUFFER_SIZE, j)) {
+        mb_GetIDFromURL (priv->mb, data, data, MB_BUFFER_SIZE);
         track->artist_id = g_strdup (data);
       }
 
