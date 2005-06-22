@@ -1,15 +1,15 @@
 # traditional Chinese translation of sound-juicer.
 # Copyright (C) 2003, 2004 Free Software Foundation, Inc.
-# Abel Cheung <maddog@linuxhall.org>, 2003, 2004.
+# Abel Cheung <abel@oaka.org>, 2003, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer 0.5.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-01 16:55+0800\n"
-"PO-Revision-Date: 2005-03-01 16:55+0800\n"
-"Last-Translator: Abel Cheung <maddog@linuxhall.org>\n"
-"Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
+"POT-Creation-Date: 2005-06-22 13:11+0000\n"
+"PO-Revision-Date: 2005-06-23 03:45+0800\n"
+"Last-Translator: Abel Cheung <abel@oaka.org>\n"
+"Language-Team: Chinese (traditional) <community@linuxhall.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -120,7 +120,7 @@ msgid "Select A Folder"
 msgstr "選取資料夾"
 
 #: ../data/sound-juicer.glade.h:24 ../src/sj-about.c:52
-#: ../src/sj-extractor.c:444 ../src/sj-main.c:944
+#: ../src/sj-extractor.c:418 ../src/sj-main.c:944
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -284,11 +284,12 @@ msgstr "音樂擷取程式"
 #: ../src/sj-about.c:62
 msgid "translator-credits"
 msgstr ""
-"i18n 程中文化計劃\n"
-"http://i18n.linux.org.tw/\n"
+"如對翻譯有任何意見，請送一封電子郵件給\n"
+"以下地址，GNOME 翻譯團隊會盡快回覆您：\n"
+"community@linuxhall.org\n"
 "\n"
 "Woodman Tuen <wmtuen@gmail.com>, 2005\n"
-"Abel Cheung <maddog@linuxhall.org>, 2003, 2004"
+"Abel Cheung <abel@oaka.org>, 2003, 2004"
 
 #: ../src/sj-extracting.c:199
 #, c-format
@@ -341,49 +342,49 @@ msgstr "音軌已經完成複制"
 msgid "_Eject"
 msgstr "退出碟片(_E)"
 
-#: ../src/sj-extractor.c:125
+#: ../src/sj-extractor.c:99
 msgid "GNOME Audio Profile"
 msgstr "GNOME 音效設定組合"
 
-#: ../src/sj-extractor.c:125
+#: ../src/sj-extractor.c:99
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "音效編碼所使用的 GNOME 音效設定組合"
 
-#: ../src/sj-extractor.c:270
+#: ../src/sj-extractor.c:244
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "無法建立 GStreamer cdparanoia 讀取程式"
 
-#: ../src/sj-extractor.c:289
+#: ../src/sj-extractor.c:263
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
 msgstr "無法建立 GStreamer 編碼器 (%s)"
 
-#: ../src/sj-extractor.c:300
+#: ../src/sj-extractor.c:274
 msgid "Could not create GStreamer file output"
 msgstr "無法產生 GStreamer 檔案輸出程序"
 
-#: ../src/sj-extractor.c:330
+#: ../src/sj-extractor.c:304
 msgid "Could not get current track position"
 msgstr "無法取得目前曲目的位置"
 
-#: ../src/sj-extractor.c:363
+#: ../src/sj-extractor.c:337
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr "擷取程式物件是無效的。這是壞的，請使用終端機檢查錯誤。"
 
-#: ../src/sj-extractor.c:471
+#: ../src/sj-extractor.c:445
 msgid "Could not seek to track"
 msgstr "無法尋找音軌"
 
-#: ../src/sj-extractor.c:476
+#: ../src/sj-extractor.c:450
 msgid "Could not get track start position"
 msgstr "無法取得曲目開始的位置"
 
-#: ../src/sj-extractor.c:513
+#: ../src/sj-extractor.c:487
 msgid "The plugin necessary for CD access was not found"
 msgstr "找不到存取光碟所需的增效模組"
 
-#: ../src/sj-extractor.c:521
+#: ../src/sj-extractor.c:495
 msgid "The plugin necessary for file access was not found"
 msgstr "找不到存取檔案所需的增效模組"
 
@@ -750,11 +751,11 @@ msgstr "您正在擷取光碟。您想現在離開，或是繼續？"
 msgid "(unknown)"
 msgstr "(不明)"
 
-#: ../src/sj-main.c:329 ../src/sj-main.c:1038
+#: ../src/sj-main.c:329 ../src/sj-main.c:1031
 msgid "Title"
 msgstr "標題"
 
-#: ../src/sj-main.c:335 ../src/sj-main.c:1047
+#: ../src/sj-main.c:335 ../src/sj-main.c:1040
 msgid "Artist"
 msgstr "藝人"
 
@@ -807,19 +808,19 @@ msgstr ""
 "無法顯示 Sound Juicer 的說明文件\n"
 "%s"
 
-#: ../src/sj-main.c:963
+#: ../src/sj-main.c:956
 msgid "Could not create GConf client.\n"
 msgstr "無法產生 GConf 客戶端。\n"
 
-#: ../src/sj-main.c:1019
+#: ../src/sj-main.c:1012
 msgid "Extract"
 msgstr "擷取"
 
-#: ../src/sj-main.c:1027
+#: ../src/sj-main.c:1020
 msgid "Track"
 msgstr "曲目編號"
 
-#: ../src/sj-main.c:1058
+#: ../src/sj-main.c:1051
 msgid "Duration"
 msgstr "長度"
 
@@ -892,11 +893,11 @@ msgstr "專輯藝人、專輯標題"
 msgid "Track Artist, Album Title"
 msgstr "曲目藝人、專輯標題"
 
-#: ../src/sj-prefs.c:54 ../src/sj-prefs.c:280
+#: ../src/sj-prefs.c:54 ../src/sj-prefs.c:279
 msgid "Album Title"
 msgstr "專輯標題"
 
-#: ../src/sj-prefs.c:55 ../src/sj-prefs.c:281
+#: ../src/sj-prefs.c:55 ../src/sj-prefs.c:280
 msgid "Album Artist"
 msgstr "專輯藝人"
 
@@ -912,7 +913,7 @@ msgstr "[無]"
 msgid "Number - Title"
 msgstr "數字 - 標題"
 
-#: ../src/sj-prefs.c:63 ../src/sj-prefs.c:288
+#: ../src/sj-prefs.c:63 ../src/sj-prefs.c:287
 msgid "Track Title"
 msgstr "曲目標題"
 
@@ -928,7 +929,7 @@ msgstr "數字. 曲目藝人 - 曲目標題"
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "數字-曲目藝人-曲目標題（小寫）"
 
-#: ../src/sj-prefs.c:289
+#: ../src/sj-prefs.c:288
 msgid "Track Artist"
 msgstr "曲目藝人"
 
