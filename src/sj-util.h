@@ -24,9 +24,11 @@
 #define SJ_UTIL_H
 
 #include <sys/types.h>
-#include <glib/gerror.h>
+#include <libgnomevfs/gnome-vfs-uri.h>
+#include <libgnomevfs/gnome-vfs-result.h>
 
-void mkdir_recursive (const char *path, mode_t permission_bits, GError **error);
+GnomeVFSResult make_directory_with_parents_for_uri (GnomeVFSURI * uri, guint perm);
+GnomeVFSResult make_directory_with_parents (const gchar * text_uri, guint perm);
 
 void g_list_deep_free (GList *l, GFunc free_func);
 

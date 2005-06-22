@@ -65,7 +65,7 @@ void sj_extractor_set_device (SjExtractor *extractor, const char* device);
 
 void sj_extractor_set_paranoia (SjExtractor *extractor, const int paranoia_mode);
 
-void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, const char* path, GError **error);
+void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, const char* url, GError **error);
 
 void sj_extractor_cancel_extract (SjExtractor *extractor);
 

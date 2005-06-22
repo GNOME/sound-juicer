@@ -86,7 +86,7 @@ extern NautilusBurnDrive *drive;
 /**
  * The root path to write files too
  */
-extern const char *base_path;
+extern const char *base_uri;
 
 /**
  * The pattern to expand when naming folders
@@ -120,6 +120,7 @@ extern gboolean autostart;
 #define GCONF_DEVICE GCONF_ROOT "/device"
 #define GCONF_EJECT GCONF_ROOT "/eject"
 #define GCONF_BASEPATH GCONF_ROOT "/base_path"
+#define GCONF_BASEURI GCONF_ROOT "/base_uri"
 #define GCONF_FILE_PATTERN GCONF_ROOT "/file_pattern"
 #define GCONF_PATH_PATTERN GCONF_ROOT "/path_pattern"
 #define GCONF_AUDIO_PROFILE GCONF_ROOT "/audio_profile"

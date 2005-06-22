@@ -30,6 +30,7 @@
 #include <stdlib.h>
 
 #include <glib/glist.h>
+#include <libgnomevfs/gnome-vfs-utils.h>
 #include <gtk/gtklabel.h>
 #include <gtk/gtkmain.h>
 #include <gtk/gtkmessagedialog.h>
@@ -37,6 +38,7 @@
 #include <gtk/gtkstock.h>
 #include <gtk/gtktreemodel.h>
 
+#include "sj-error.h"
 #include "sj-extracting.h"
 #include "sj-util.h"
 
@@ -111,32 +113,28 @@ static Progress before;
 static char*
 build_filename (const TrackDetails *track)
 {
-  char *realfile, *realpath, *filename, *path;
+  GnomeVFSURI *uri, *new;
+  char *realfile, *realpath, *filename, *string;
   GMAudioProfile *profile;
-  GError *error = NULL;
+
+  g_object_get (extractor, "profile", &profile, NULL);
+
+  uri = gnome_vfs_uri_new (base_uri);
 
   realpath = filepath_parse_pattern (path_pattern, track);
-  realfile = filepath_parse_pattern (file_pattern, track);
-  g_object_get (extractor, "profile", &profile, NULL);
-  filename = g_strdup_printf("%s.%s", realfile, 
-			     gm_audio_profile_get_extension(profile));
-  path = g_build_filename (base_path, realpath, filename, NULL);
+  new = gnome_vfs_uri_append_path (uri, realpath);
+  gnome_vfs_uri_unref (uri); uri = new;
   g_free (realpath);
-  realpath = g_filename_from_utf8 (path, -1, NULL, NULL, &error);
-  if (error) {
-    const char *charset;
 
-    charset = g_getenv("G_FILENAME_ENCODING");
-    if (!charset) {
-      g_get_charset (&charset);
-    }
-    realpath = g_convert_with_fallback (path, -1, charset, "UTF-8","_", NULL, NULL, NULL);
-    g_error_free (error);
-  }
-  g_free (path);
-  g_free (realfile);
-  g_free (filename);
-  return realpath;
+  realfile = filepath_parse_pattern (file_pattern, track);
+  filename = g_strdup_printf("%s.%s", realfile, gm_audio_profile_get_extension(profile));
+  new = gnome_vfs_uri_append_file_name (uri, filename);
+  gnome_vfs_uri_unref (uri); uri = new;
+  g_free (filename); g_free (realfile);
+
+  string = gnome_vfs_uri_to_string (uri, 0);
+  gnome_vfs_uri_unref (uri);
+  return string;
 }
 
 /**
@@ -213,19 +211,27 @@ check_for_file (const char* filename)
  * directory.
  */
 static char*
-create_directory_for (const char* filename, GError **error)
+create_directory_for (const char* url, GError **error)
 {
-  char *directory;
-  g_return_val_if_fail (filename != NULL, NULL);
+  GnomeVFSResult res;
+  GnomeVFSURI *uri, *parent;
+  char *string;
 
-  directory = g_path_get_dirname (filename);
-  if (!g_file_test (directory, G_FILE_TEST_IS_DIR)) {
-    mkdir_recursive (directory, 0777, error);
-    if (error) {
-      return NULL;
-    }
+  g_return_val_if_fail (url != NULL, NULL);
+
+  uri = gnome_vfs_uri_new (url);
+  parent = gnome_vfs_uri_get_parent (uri);
+  gnome_vfs_uri_unref (uri);
+
+  res = make_directory_with_parents_for_uri (parent, 0777);
+  if (res != GNOME_VFS_OK) {
+    g_set_error (error, SJ_ERROR, SJ_ERROR_CD_PERMISSION_ERROR, g_strdup (gnome_vfs_result_to_string (res)));
+    return NULL;
   }
-  return directory;
+
+  string = gnome_vfs_uri_to_string (parent, 0);
+  gnome_vfs_uri_unref (parent);
+  return string;
 }
 
 /* Prototype for pop_and_extract */

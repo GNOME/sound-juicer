@@ -1,5 +1,28 @@
 2005-06-22  Ross Burton  <ross@burtonini.com>
 
+	The Great Gnome-Vfs Port.
+
+	* data/sound-juicer.glade:
+	Manually add the file system backend property to the file selector.
+
+	* data/sound-juicer.schemas.in:
+	Add base_uri and deprecate base_path.
+	
+	* src/sj-extractor.[ch]:
+	Use gnomevfssink instead of filesink.
+
+	* src/sj-extracting.c:
+	* src/sj-main.c:
+	* src/sj-prefs.c:
+	* src/sound-juicer.h:
+	base_path is dead, long live base_uri.
+
+	* src/sj-util.[ch]:
+	Replace mkdir_recursive with make_directory_with_parents_for_uri
+	from gnome-vfs.
+
+2005-06-22  Ross Burton  <ross@burtonini.com>
+
 	* data/sound-juicer.glade:
 	Add hidden for now Edit Profiles button.
 

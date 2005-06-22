@@ -1371,9 +1371,10 @@
 			  <property name="can_focus">True</property>
 			  <property name="title" translatable="yes">Select A Folder</property>
 			  <property name="action">GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER</property>
-			  <property name="local_only">True</property>
+			  <property name="local_only">False</property>
 			  <property name="show_hidden">False</property>
 			  <property name="width_chars">-1</property>
+			  <property name="file_system_backend">gnome-vfs</property>
 			  <signal name="current_folder_changed" handler="prefs_base_folder_changed" last_modification_time="Mon, 07 Feb 2005 17:45:23 GMT"/>
 			</widget>
 			<packing>

@@ -32,6 +32,7 @@
 #include <nautilus-burn-drive.h>
 #include <libgnome/gnome-help.h>
 #include <libgnomeui/gnome-ui-init.h>
+#include <libgnomevfs/gnome-vfs-utils.h>
 #include <profiles/gnome-media-profiles.h>
 #include <gst/gst.h>
 
@@ -70,7 +71,7 @@ static GtkWidget *extract_menuitem, *select_all_menuitem, *deselect_all_menuitem
 GtkListStore *track_store;
 static BaconMessageConnection *connection;
 
-const char *base_path, *path_pattern, *file_pattern;
+const char *base_uri, *path_pattern, *file_pattern;
 NautilusBurnDrive *drive = NULL;
 gboolean strip_chars;
 gboolean eject_finished;
@@ -379,15 +380,15 @@ AlbumDetails* multiple_album_dialog(GList *albums)
 /**
  * The GConf key for the base path changed
  */
-void basepath_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+void baseuri_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
-  g_assert (strcmp (entry->key, GCONF_BASEPATH) == 0);
+  g_assert (strcmp (entry->key, GCONF_BASEURI) == 0);
   if (entry->value == NULL) {
-    base_path = g_strdup (g_get_home_dir ());
+    base_uri = gnome_vfs_get_uri_from_local_path (g_get_home_dir ());
   } else {
-    base_path = gconf_value_get_string (entry->value);
+    base_uri = gconf_value_get_string (entry->value);
   }
-  /* TODO: sanity check the path somewhat */
+  /* TODO: sanity check the URI somewhat */
 }
 
 /**
@@ -942,6 +943,25 @@ static GtkTreeModel* populate_genre_list(void) {
 }
 
 static void
+upgrade_gconf (void)
+{
+  char *s;
+  s = gconf_client_get_string (gconf_client, GCONF_BASEURI, NULL);
+  if (s != NULL) {
+    g_free (s);
+  } else {
+    char *uri;
+    s = gconf_client_get_string (gconf_client, GCONF_BASEPATH, NULL);
+    if (s == NULL)
+      return;
+    uri = gnome_vfs_get_uri_from_local_path (s);
+    g_free (s);
+    gconf_client_set_string (gconf_client, GCONF_BASEURI, uri, NULL);
+    g_free (uri);
+  }
+}
+
+static void
 on_message_received (const char *message, gpointer user_data)
 {
   if (message == NULL)
@@ -996,10 +1016,12 @@ int main (int argc, char **argv)
     exit (1);
   }
 
+  upgrade_gconf ();
+
   gconf_client_add_dir (gconf_client, GCONF_ROOT, GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
   gconf_client_notify_add (gconf_client, GCONF_DEVICE, device_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_EJECT, eject_changed_cb, NULL, NULL, NULL);
-  gconf_client_notify_add (gconf_client, GCONF_BASEPATH, basepath_changed_cb, NULL, NULL, NULL);
+  gconf_client_notify_add (gconf_client, GCONF_BASEURI, baseuri_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_STRIP, strip_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_AUDIO_PROFILE, profile_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_PARANOIA, paranoia_changed_cb, NULL, NULL, NULL);
@@ -1115,7 +1137,8 @@ int main (int argc, char **argv)
   }
 
   http_proxy_setup (gconf_client);
-  basepath_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEPATH, NULL, TRUE, NULL), NULL);
+  /* TODO: port port basepath to baseuri */
+  baseuri_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEURI, NULL, TRUE, NULL), NULL);
   path_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL), NULL);
   file_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL), NULL);
   profile_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_AUDIO_PROFILE, NULL, TRUE, NULL), NULL);

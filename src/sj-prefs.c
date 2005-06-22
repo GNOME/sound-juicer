@@ -154,12 +154,10 @@ void show_help ()
  */
 void prefs_base_folder_changed (GtkWidget *chooser, gpointer user_data)
 {
-  char *filename, *path;
-  filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (chooser));
-  path = g_filename_to_utf8 (filename, -1, NULL, NULL, NULL); /* TODO: GError */
-  gconf_client_set_string (gconf_client, GCONF_BASEPATH, path, NULL);
-  g_free (path);
-  g_free (filename);
+  char *uri;
+  uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (chooser));
+  gconf_client_set_string (gconf_client, GCONF_BASEURI, uri, NULL);
+  g_free (uri);
 }
 
 void prefs_path_option_changed (GtkComboBox *combo, gpointer user_data)
@@ -234,7 +232,7 @@ static void audio_profile_changed_cb (GConfClient *client, guint cnxn_id, GConfE
   }
 }
 
-static void basepath_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void baseuri_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   /*
    * The conflict between separation of the prefs and the main window,
@@ -243,16 +241,16 @@ static void basepath_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry 
    * prefs window from the main is ugly. Maybe put the validation code
    * into sj-utils?
    */
-  const char* base_path;
-  g_return_if_fail (strcmp (entry->key, GCONF_BASEPATH) == 0);
+  const char* base_uri;
+  g_return_if_fail (strcmp (entry->key, GCONF_BASEURI) == 0);
 
   if (entry->value == NULL) {
     gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (basepath_fcb), g_get_home_dir());
   } else {
     g_return_if_fail (entry->value->type == GCONF_VALUE_STRING);
-    base_path = gconf_value_get_string (entry->value);
-    if (strcmp (gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (basepath_fcb)), base_path) != 0) { 
-           gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (basepath_fcb), base_path);
+    base_uri = gconf_value_get_string (entry->value);
+    if (strcmp (gtk_file_chooser_get_current_folder_uri (GTK_FILE_CHOOSER (basepath_fcb)), base_uri) != 0) { 
+      gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (basepath_fcb), base_uri);
     }
   }
 }
@@ -429,14 +427,14 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
 
     /* Connect to GConf to update the UI */
     gconf_client_notify_add (gconf_client, GCONF_DEVICE, device_changed_cb, NULL, NULL, NULL);
-    gconf_client_notify_add (gconf_client, GCONF_BASEPATH, basepath_changed_cb, NULL, NULL, NULL);
+    gconf_client_notify_add (gconf_client, GCONF_BASEURI, baseuri_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_AUDIO_PROFILE, audio_profile_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_STRIP, strip_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_EJECT, eject_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_PATH_PATTERN, path_pattern_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_FILE_PATTERN, file_pattern_changed_cb, NULL, NULL, NULL);
   }
-  basepath_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEPATH, NULL, TRUE, NULL), NULL);
+  baseuri_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEURI, NULL, TRUE, NULL), NULL);
   device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), NULL);
   audio_profile_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_AUDIO_PROFILE, NULL, TRUE, NULL), NULL);
   strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);

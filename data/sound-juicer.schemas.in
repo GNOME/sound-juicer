@@ -26,13 +26,24 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/sound-juicer/base_uri</key>
+      <applyto>/apps/sound-juicer/base_uri</applyto>
+      <type>string</type>
+      <owner>sound-juicer</owner>
+      <locale name="C">
+        <!-- No default, NULL will use $HOME -->
+        <short>The URI to save the extracted music to.</short>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/sound-juicer/base_path</key>
       <applyto>/apps/sound-juicer/base_path</applyto>
       <type>string</type>
       <owner>sound-juicer</owner>
       <locale name="C">
         <!-- No default, NULL will use $HOME -->
-        <short>The directory to save the extracted music to.</short>
+        <short>The local directory to save the extracted music to (deprecated, use base_uri)</short>
       </locale>
     </schema>
 

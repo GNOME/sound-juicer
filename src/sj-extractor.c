@@ -268,7 +268,7 @@ static void build_pipeline (SjExtractor *extractor)
   g_signal_connect (priv->encoder, "eos", G_CALLBACK (eos_cb), extractor);
 
   /* Write to disk */
-  priv->filesink = gst_element_factory_make ("filesink", "filesink");
+  priv->filesink = gst_element_factory_make ("gnomevfssink", "gnomevfssink");
   if (priv->filesink == NULL) {
     g_set_error (&priv->construct_error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
@@ -364,7 +364,7 @@ void sj_extractor_set_paranoia (SjExtractor *extractor, const int paranoia_mode)
     g_object_set (G_OBJECT (extractor->priv->cdparanoia), "paranoia-mode", paranoia_mode, NULL);
 }
 
-void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, const char* path, GError **error)
+void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, const char* url, GError **error)
 {
   GstEvent *event;
   static GstFormat format = GST_FORMAT_TIME;
@@ -374,7 +374,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   g_return_if_fail (extractor != NULL);
   g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
 
-  g_return_if_fail (path != NULL);
+  g_return_if_fail (url != NULL);
   g_return_if_fail (track != NULL);
 
   priv = extractor->priv;
@@ -395,7 +395,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
 
   /* Set the output filename */
   gst_element_set_state (priv->filesink, GST_STATE_NULL);
-  g_object_set (G_OBJECT (priv->filesink), "location", path, NULL);
+  g_object_set (G_OBJECT (priv->filesink), "location", url, NULL);
 
   /* Set the metadata */
   {

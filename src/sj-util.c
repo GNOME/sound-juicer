@@ -21,56 +21,66 @@
  */
 
 #include "sound-juicer.h"
-
-#include <errno.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <glib/gutils.h>
-#include <glib/gi18n.h>
-#include "sj-error.h"
 #include "sj-util.h"
 
+#include <libgnomevfs/gnome-vfs-ops.h>
+
 /**
- * Stolen from gnome-vfs
+ * Stolen from gnome-vfs/programs/gnomevfs-mkdir.c (v1.3)
  */
-void
-mkdir_recursive (const char *path, mode_t permission_bits, GError **error)
+GnomeVFSResult
+make_directory_with_parents_for_uri (GnomeVFSURI * uri, guint perm)
 {
-  const char *dir_separator_scanner;
-  char *current_path;
-  
-  /* try creating a director for each level */
-  for (dir_separator_scanner = path;; dir_separator_scanner++) {
-    /* advance to the next directory level */
-    for (;;dir_separator_scanner++) {
-      if (!*dir_separator_scanner) {
-        break;
-      }	
-      if (*dir_separator_scanner == G_DIR_SEPARATOR) {
-        break;
-      }
-    }
-    if (dir_separator_scanner - path > 0) {
-      current_path = g_strndup (path, dir_separator_scanner - path);
-      /* TODO: this algorithm doesn't handle "permission denied" on mkdir at all well */
-      if (mkdir (current_path, permission_bits) != 0) {
-        int err = errno;
-        if (err != EEXIST) {
-          /* We failed to create a directory and it wasn't there already; bail */
-          g_free (current_path);
-          g_set_error (error,
-                       SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-                       _("Could not create directory %s: %s"), path, g_strerror (err));
-          return;
-        }
-      }
-      g_free (current_path);
-    }
-    if (!*dir_separator_scanner) {
-      break;
-    }	
-  }
-  return;
+	GnomeVFSResult result;
+	GnomeVFSURI *parent, *work_uri;
+	GList *list = NULL;
+
+	result = gnome_vfs_make_directory_for_uri (uri, perm);
+	if (result == GNOME_VFS_OK || result != GNOME_VFS_ERROR_NOT_FOUND)
+		return result;
+
+	work_uri = uri;
+
+	while (result == GNOME_VFS_ERROR_NOT_FOUND) {
+		parent = gnome_vfs_uri_get_parent (work_uri);
+		result = gnome_vfs_make_directory_for_uri (parent, perm);
+
+		if (result == GNOME_VFS_ERROR_NOT_FOUND)
+			list = g_list_prepend (list, parent);
+		work_uri = parent;
+	}
+
+	if (result != GNOME_VFS_OK) {
+		/* Clean up */
+		while (list != NULL) {
+			gnome_vfs_uri_unref ((GnomeVFSURI *) list->data);
+			list = g_list_remove (list, list->data);
+		}
+	}
+
+	while (result == GNOME_VFS_OK && list != NULL) {
+		result = gnome_vfs_make_directory_for_uri
+		    ((GnomeVFSURI *) list->data, perm);
+
+		gnome_vfs_uri_unref ((GnomeVFSURI *) list->data);
+		list = g_list_remove (list, list->data);
+	}
+
+	result = gnome_vfs_make_directory_for_uri (uri, perm);
+	return result;
+}
+
+GnomeVFSResult
+make_directory_with_parents (const gchar * text_uri, guint perm)
+{
+	GnomeVFSURI *uri;
+	GnomeVFSResult result;
+
+	uri = gnome_vfs_uri_new (text_uri);
+	result = make_directory_with_parents_for_uri (uri, perm);
+	gnome_vfs_uri_unref (uri);
+
+	return result;
 }
 
 /* Pass NULL to use g_free */
