@@ -22,14 +22,11 @@
 
 #include "sound-juicer.h"
 
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <sys/time.h>
-#include <unistd.h> 
-#include <errno.h>
-#include <stdlib.h>
+#include <time.h>
 
 #include <glib/glist.h>
+#include <libgnomevfs/gnome-vfs-ops.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <gtk/gtklabel.h>
 #include <gtk/gtkmain.h>
@@ -169,34 +166,37 @@ cleanup (void)
  * Return true on continue, false on skip.
  */
 static gboolean
-check_for_file (const char* filename)
+check_for_file (const char* uri)
 {
-  struct stat stats;
-  int ret;
+  GnomeVFSFileInfo info;
+  GnomeVFSResult res;
   GtkWidget *dialog;
-  char *utf8_filename;
+  char *filename, *size;
+  int ret;
   
-  ret = stat (filename, &stats);
-  if (ret == -1) {
-    if (errno == ENOENT) {
-      return TRUE;
-    }
-    g_warning ("stat failed: %s", g_strerror (errno));
+  res = gnome_vfs_get_file_info (uri, &info, GNOME_VFS_FILE_INFO_DEFAULT);
+  if (res == GNOME_VFS_ERROR_NOT_FOUND)
+    return TRUE;
+  if (res != GNOME_VFS_OK) {
+    /* TODO: display an error dialog */
+    g_warning ("Cannot get file info: %s", gnome_vfs_result_to_string (res));
     return FALSE;
   }
-  if (stats.st_size < (100000)) {
+  if (info.size < (100000)) {
     /* The file exists but is small, assume overwriting */
     return TRUE;
   }
   /* Otherwise the file exists and is large, ask user if they really
      want to overwrite it */
-  utf8_filename = g_filename_to_utf8 (filename, -1, NULL, NULL, NULL);
+  filename = gnome_vfs_format_uri_for_display (uri);
+  size = gnome_vfs_format_file_size_for_display (info.size);
   dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), GTK_DIALOG_MODAL,
                                    GTK_MESSAGE_QUESTION,
                                    GTK_BUTTONS_NONE,
-                                   _("A file called '%s' exists, size %lu kB.\nDo you want to skip this track or overwrite it?"),
-                                   utf8_filename, (unsigned long)(stats.st_size / 1000));
-  g_free (utf8_filename);
+                                   _("A file called '%s' exists, size %s.\nDo you want to skip this track or overwrite it?"),
+                                   filename, size);
+  g_free (filename);
+  g_free (size);
   gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Skip"), GTK_RESPONSE_CANCEL);
   gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Overwrite"), GTK_RESPONSE_ACCEPT);
   gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_ACCEPT);
