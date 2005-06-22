@@ -194,6 +194,17 @@ void prefs_strip_toggled (GtkToggleButton *togglebutton, gpointer user_data)
                          NULL);
 }
 
+/**
+ * The Edit Profiles button was pressed.
+ */
+void prefs_edit_profile_clicked (GtkButton *button, gpointer user_data)
+{
+  GtkWidget *dialog;
+  dialog = gm_audio_profiles_edit_new (gconf_client, GTK_WINDOW (main_window));
+  gtk_widget_show_all (dialog);
+  gtk_dialog_run (GTK_DIALOG (dialog));
+}
+
 static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   g_return_if_fail (strcmp (entry->key, GCONF_DEVICE) == 0);
