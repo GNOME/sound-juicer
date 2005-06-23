@@ -57,6 +57,9 @@ select_track (void)
   if (seek_to_track == -1)
     return;
 
+  gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
+      &current_iter, NULL, seek_to_track);
+
   gst_element_set_state (pipeline, GST_STATE_PAUSED);
   cd = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "cd-source");
   gst_pad_send_event (gst_element_get_pad (cd, "src"),
@@ -76,10 +79,6 @@ play (void)
 {
   char *title;
   gst_element_set_state (pipeline, GST_STATE_PLAYING);
-  gtk_list_store_set (track_store, &current_iter, COLUMN_STATE, STATE_PLAYING, -1);
-  gtk_tree_model_get (GTK_TREE_MODEL (track_store), &current_iter, COLUMN_TITLE, &title, -1);
-  sj_main_set_title (title);
-  g_free (title);
 }
 
 /**
@@ -90,8 +89,6 @@ static void
 pause (void)
 {
   gst_element_set_state (pipeline, GST_STATE_PAUSED);
-  gtk_list_store_set (track_store, &current_iter, COLUMN_STATE, STATE_IDLE, -1);
-  sj_main_set_title (NULL);
 }
 
 /**
@@ -102,7 +99,6 @@ static void
 stop (void)
 {
   gst_element_set_state (pipeline, GST_STATE_NULL);
-  sj_main_set_title (NULL);
 }
 
 /**
@@ -131,12 +127,18 @@ cb_hop_track (gpointer data)
   if (current_track + 2 == tracks) {
     stop ();
     seek_to_track = 0;
-    gtk_tree_model_get_iter_first (GTK_TREE_MODEL (track_store), &current_iter);    
   } else {
+    char *title;
     seek_to_track = current_track + 1;
-    gtk_list_store_set (track_store, &current_iter, COLUMN_STATE, STATE_IDLE, -1);
-    gtk_tree_model_iter_next (GTK_TREE_MODEL (track_store), &current_iter);
+    gtk_list_store_set (track_store, &current_iter,
+        COLUMN_STATE, STATE_IDLE, -1);
     select_track ();
+    gtk_list_store_set (track_store, &current_iter,
+        COLUMN_STATE, STATE_PLAYING, -1);
+    gtk_tree_model_get (GTK_TREE_MODEL (track_store),
+        &current_iter, COLUMN_TITLE, &title, -1);
+    sj_main_set_title (title);
+    g_free (title);
     play ();
   }
 
@@ -240,13 +242,23 @@ cb_state (GstElement * p, GstElementState old_state, GstElementState new_state,
 {
   if (old_state == GST_STATE_READY && new_state == GST_STATE_PAUSED) {
     GtkWidget *w = glade_xml_get_widget (glade, "seek_scale");
+    char *title;
     gtk_widget_show (w);
+    gtk_list_store_set (track_store, &current_iter,
+        COLUMN_STATE, STATE_PLAYING, -1);
+    gtk_tree_model_get (GTK_TREE_MODEL (track_store),
+        &current_iter, COLUMN_TITLE, &title, -1);
+    sj_main_set_title (title);
+    g_free (title);
   } else if (new_state == GST_STATE_READY && old_state == GST_STATE_PAUSED) {
     GtkWidget *w = glade_xml_get_widget (glade, "seek_scale"),
         *s = glade_xml_get_widget (glade, "status_bar");
     gtk_widget_hide (w);
     gtk_statusbar_pop (GTK_STATUSBAR (s), 0);
     slen = GST_CLOCK_TIME_NONE;
+    gtk_list_store_set (track_store, &current_iter,
+        COLUMN_STATE, STATE_IDLE, -1);
+    sj_main_set_title (NULL);
   } else if (new_state == GST_STATE_PLAYING) {
     GtkWidget *b = glade_xml_get_widget (glade, "play_button");
     gtk_button_set_label (GTK_BUTTON (b), GTK_STOCK_MEDIA_PAUSE);
@@ -369,8 +381,17 @@ on_tracklist_row_activate (GtkTreeView * treeview, GtkTreePath * path,
       gtk_list_store_set (track_store, &current_iter, COLUMN_STATE, STATE_IDLE, -1);
 
   if (setup (&err)) {
+    char *title;
     seek_to_track = track - 1;
+    gtk_list_store_set (track_store, &current_iter,
+        COLUMN_STATE, STATE_IDLE, -1);
     select_track ();
+    gtk_list_store_set (track_store, &current_iter,
+        COLUMN_STATE, STATE_PLAYING, -1);
+    gtk_tree_model_get (GTK_TREE_MODEL (track_store),
+        &current_iter, COLUMN_TITLE, &title, -1);
+    sj_main_set_title (title);
+    g_free (title);
     current_iter = iter;
     play ();
   } else {
