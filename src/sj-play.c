@@ -258,7 +258,8 @@ setup (GError ** err)
     }
     /* do not set to 1, that messes up buffering. 2 is enough to keep
      * noise from the drive down. */
-    g_object_set (G_OBJECT (cdp), "read-speed", 2, NULL);
+    g_object_set (G_OBJECT (cdp), "read-speed", 2,
+        "device", drive->device, NULL);
 
     internal_t = gst_thread_new ("output");
     queue = gst_element_factory_make ("queue", "queue");
