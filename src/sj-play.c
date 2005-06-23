@@ -247,7 +247,6 @@ setup (GError ** err)
     g_signal_connect (pipeline, "error", G_CALLBACK (cb_error), NULL);
     g_signal_connect (pipeline, "state-change", G_CALLBACK (cb_state), NULL);
 
-    /* FIXME: set device */
     cdp = gst_element_factory_make ("cdparanoia", "cd-source");
     if (!cdp) {
       gst_object_unref (GST_OBJECT (pipeline));
