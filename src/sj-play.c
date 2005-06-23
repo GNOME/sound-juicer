@@ -72,6 +72,7 @@ static void
 play (void)
 {
   gst_element_set_state (pipeline, GST_STATE_PLAYING);
+  sj_main_set_title ("Playing"); /* TODO: extract title */
 }
 
 /**
@@ -82,6 +83,7 @@ static void
 pause (void)
 {
   gst_element_set_state (pipeline, GST_STATE_PAUSED);
+  sj_main_set_title (NULL);
 }
 
 /**
@@ -92,6 +94,7 @@ static void
 stop (void)
 {
   gst_element_set_state (pipeline, GST_STATE_NULL);
+  sj_main_set_title (NULL);
 }
 
 /**
@@ -155,6 +158,7 @@ get_label_for_time (gint sec)
 static void
 set_statusbar_pos (gint pos, gint len)
 {
+  /* TODO: make 's' static and get once */
   GtkWidget *s = glade_xml_get_widget (glade, "status_bar");
   static gint prev_pos = 0, prev_len = 0;
   gchar *x, *y, *r;
@@ -223,7 +227,7 @@ cb_state (GstElement * p, GstElementState old_state, GstElementState new_state,
     gtk_button_set_label (GTK_BUTTON (b), GTK_STOCK_MEDIA_PAUSE);
     id = g_timeout_add (100, (GSourceFunc) cb_set_time, NULL);
   } else if (old_state == GST_STATE_PLAYING) {
-     GtkWidget *b = glade_xml_get_widget (glade, "play_button");
+    GtkWidget *b = glade_xml_get_widget (glade, "play_button");
     gtk_button_set_label (GTK_BUTTON (b), GTK_STOCK_MEDIA_PLAY);
     if (id) {
       g_source_remove (id);
@@ -237,7 +241,7 @@ cb_state (GstElement * p, GstElementState old_state, GstElementState new_state,
  */
 
 static gboolean
-setup (GError ** err)
+setup (GError **err)
 {
   if (!pipeline) {
     GstElement *internal_t, *out, *conv, *scale, *cdp, *queue;
@@ -251,12 +255,12 @@ setup (GError ** err)
     if (!cdp) {
       gst_object_unref (GST_OBJECT (pipeline));
       pipeline = NULL;
-      g_set_error (err, 0, 0, 
-          _("Failed to create CD source element"));
+      g_set_error (err, 0, 0, _("Failed to create CD source element"));
       return FALSE;
     }
     /* do not set to 1, that messes up buffering. 2 is enough to keep
      * noise from the drive down. */
+    /* TODO: will not notice drive changes, should monitor */
     g_object_set (G_OBJECT (cdp), "read-speed", 2,
         "device", drive->device, NULL);
 
@@ -292,11 +296,16 @@ setup (GError ** err)
 void
 on_play_activate (GtkWidget *button, gpointer user_data)
 {
+  GError *error = NULL;
   if (is_playing ()) {
     pause ();
-  } else if (setup (NULL)) {
+  } else if (setup (&error)) {
     select_track ();
     play ();
+  } else {
+    /* TODO: display dialog */
+    g_warning ("Cannot play: %s", error->message);
+    g_error_free (error);
   }
 }
 
@@ -307,15 +316,20 @@ on_tracklist_row_activate (GtkTreeView * treeview, GtkTreePath * path,
   GtkTreeModel *model;
   GtkTreeIter iter;
   gint track;
+  GError *error = NULL;
 
   model = gtk_tree_view_get_model (treeview);
   gtk_tree_model_get_iter (model, &iter, path);
   gtk_tree_model_get (model, &iter, COLUMN_NUMBER, &track, -1);
 
-  if (setup (NULL)) {
+  if (setup (&error)) {
     seek_to_track = track - 1;
     select_track ();
     play ();
+  } else {
+    /* TODO: display dialog */
+    g_warning ("Cannot play: %s", error->message);
+    g_error_free (error);
   }
 }
 
