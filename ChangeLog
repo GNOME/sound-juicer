@@ -1,5 +1,15 @@
 2005-06-23  Ronald S. Bultje  <rbultje@ronald.bitfreak.net>
 
+	* src/sj-extracting.c: (on_extract_activate):
+	* src/sj-main.c: (on_eject_activate):
+	* src/sj-play.h:
+	  Release device on extract/eject.
+	* src/sj-play.c: (idle_error), (cb_error), (cb_state),
+	(stop_playback), (on_play_activate), (on_tracklist_row_activate):
+	  Graphical error reporting. Remove a few fixed FIXMEs.
+
+2005-06-23  Ronald S. Bultje  <rbultje@ronald.bitfreak.net>
+
 	* src/sound-juicer.h:
 	* src/sj-main:
 	Add sj_window_set_title().

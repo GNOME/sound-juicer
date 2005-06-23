@@ -46,6 +46,7 @@
 #include "sj-error.h"
 #include "sj-util.h"
 #include "sj-prefs.h"
+#include "sj-play.h"
 
 gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data);
 
@@ -139,6 +140,9 @@ void on_destroy_signal (GtkMenuItem *item, gpointer user_data)
  */
 void on_eject_activate (GtkMenuItem *item, gpointer user_data)
 {
+  /* first make sure we're not playing */
+  stop_playback ();
+
   nautilus_burn_drive_eject (drive);
 }
 

@@ -33,6 +33,7 @@
 #include <gtk/gtkstock.h>
 #include <gtk/gtkrange.h>
 #include <gtk/gtkstatusbar.h>
+#include <gtk/gtkmessagedialog.h>
 
 #include "sound-juicer.h"
 
@@ -141,12 +142,28 @@ cb_eos (GstElement * p, gpointer data)
   g_idle_add ((GSourceFunc) cb_hop_track, NULL);
 }
 
+static gboolean
+idle_error (GError * err)
+{
+  GtkWidget *dialog;
+
+  dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
+				   GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
+				   _("Error playing CD.\n\nReason: %s"),
+				   err->message);
+  gtk_dialog_run (GTK_DIALOG (dialog));
+  gtk_widget_destroy (dialog);
+  g_error_free (err);
+
+  /* once */
+  return FALSE;
+}
+
 static void
 cb_error (GstElement * p, GstElement * source, GError * err, gchar * debug,
     gpointer data)
 {
-  /* FIXME: nice dialog */
-  g_warning (err->message);
+  g_idle_add ((GSourceFunc) idle_error, g_error_copy (err));
 }
 
 static gchar *
@@ -211,8 +228,6 @@ static void
 cb_state (GstElement * p, GstElementState old_state, GstElementState new_state,
     gpointer data)
 {
-  /* FIXME: change play button label/icon */
-
   if (old_state == GST_STATE_READY && new_state == GST_STATE_PAUSED) {
     GtkWidget *w = glade_xml_get_widget (glade, "seek_scale");
     gtk_widget_show (w);
@@ -290,22 +305,39 @@ setup (GError **err)
 }
 
 /**
+ * Public function to release device.
+ */
+
+void
+stop_playback (void)
+{
+  stop ();
+}
+
+/**
  * Interface entry point.
  */
 
 void
 on_play_activate (GtkWidget *button, gpointer user_data)
 {
-  GError *error = NULL;
+  GError *err = NULL;
+
   if (is_playing ()) {
     pause ();
-  } else if (setup (&error)) {
+  } else if (setup (&err)) {
     select_track ();
     play ();
   } else {
-    /* TODO: display dialog */
-    g_warning ("Cannot play: %s", error->message);
-    g_error_free (error);
+    GtkWidget *dialog;
+
+    dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
+				     GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
+				     _("Error playing CD.\n\nReason: %s"),
+				     err->message);
+    gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_widget_destroy (dialog);
+    g_error_free (err);
   }
 }
 
@@ -313,23 +345,29 @@ void
 on_tracklist_row_activate (GtkTreeView * treeview, GtkTreePath * path,
     GtkTreeViewColumn * col, gpointer user_data)
 {
+  GError *err = NULL;
   GtkTreeModel *model;
   GtkTreeIter iter;
   gint track;
-  GError *error = NULL;
 
   model = gtk_tree_view_get_model (treeview);
   gtk_tree_model_get_iter (model, &iter, path);
   gtk_tree_model_get (model, &iter, COLUMN_NUMBER, &track, -1);
 
-  if (setup (&error)) {
+  if (setup (&err)) {
     seek_to_track = track - 1;
     select_track ();
     play ();
   } else {
-    /* TODO: display dialog */
-    g_warning ("Cannot play: %s", error->message);
-    g_error_free (error);
+    GtkWidget *dialog;
+
+    dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
+				     GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
+				     _("Error playing CD.\n\nReason: %s"),
+				     err->message);
+    gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_widget_destroy (dialog);
+    g_error_free (err);
   }
 }
 

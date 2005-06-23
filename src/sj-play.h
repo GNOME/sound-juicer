@@ -26,8 +26,6 @@
 #include <gtk/gtkwidget.h>
 #include "sj-structures.h"
 
-void on_play_activate (GtkWidget *button, gpointer user_data);
-void on_tracklist_row_activate (GtkTreeView * treeview, GtkTreePath * path,
-				GtkTreeViewColumn * col, gpointer user_data);
+void	stop_playback	(void);
 
 #endif /* SJ_PLAY_H_H */
