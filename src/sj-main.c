@@ -66,7 +66,7 @@ GConfClient *gconf_client;
 
 GtkWidget *main_window;
 static GtkWidget *title_entry, *artist_entry, *duration_label, *genre_combo;
-static GtkWidget *track_listview, *extract_button;
+static GtkWidget *track_listview, *extract_button, *play_button;
 static GtkWidget *status_bar;
 static GtkWidget *extract_menuitem, *select_all_menuitem, *deselect_all_menuitem;
 GtkListStore *track_store;
@@ -83,7 +83,7 @@ static gint total_no_of_tracks;
 static gint no_of_tracks_selected;
 static AlbumDetails *current_album;
 
-int autostart = FALSE;
+gboolean autostart = FALSE, autoplay = FALSE;
 
 #define DEFAULT_PARANOIA 4
 #define RAISE_WINDOW "raise-window"
@@ -558,6 +558,11 @@ metadata_cb (SjMetadata *m, GList *albums, GError *error)
   
   if (autostart) {
     g_signal_emit_by_name (extract_button, "activate", NULL);
+    autostart = FALSE;
+  }
+  if (autoplay) {
+    g_signal_emit_by_name (play_button, "activate", NULL);
+    autoplay = FALSE;
   }
 }
 
@@ -1018,6 +1023,7 @@ int main (int argc, char **argv)
   struct poptOption options[] = {
     { NULL, '\0', POPT_ARG_INCLUDE_TABLE, NULL, 0, "GStreamer", NULL },
     { "auto-start", 'a', POPT_ARG_NONE, &autostart, 0, "Start extracting immediately", NULL},
+    { "play", 'p', POPT_ARG_NONE, &autoplay, 0, "Start playing immediately", NULL},
     POPT_TABLEEND
   };
 
@@ -1102,6 +1108,7 @@ int main (int argc, char **argv)
   genre_combo = glade_xml_get_widget (glade, "genre_combo");
   track_listview = glade_xml_get_widget (glade, "track_listview");
   extract_button = glade_xml_get_widget (glade, "extract_button");
+  play_button = glade_xml_get_widget (glade, "play_button");
   status_bar = glade_xml_get_widget (glade, "status_bar");
 
   gtk_combo_box_set_model (GTK_COMBO_BOX (genre_combo), populate_genre_list ());
