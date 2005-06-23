@@ -74,9 +74,12 @@ select_track (void)
 static void
 play (void)
 {
+  char *title;
   gst_element_set_state (pipeline, GST_STATE_PLAYING);
   gtk_list_store_set (track_store, &current_iter, COLUMN_STATE, STATE_PLAYING, -1);
-  sj_main_set_title ("Playing"); /* TODO: extract title */
+  gtk_tree_model_get (GTK_TREE_MODEL (track_store), &current_iter, COLUMN_TITLE, &title, -1);
+  sj_main_set_title (title);
+  g_free (title);
 }
 
 /**
