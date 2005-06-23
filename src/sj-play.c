@@ -114,7 +114,7 @@ cb_hop_track (gpointer data)
   GtkTreeModel *model;
   gint tracks;
 
-  model = gtk_tree_view_get_model (GTK_TREE_VIEW (track_store));
+  model = GTK_TREE_MODEL (track_store);
   tracks = gtk_tree_model_iter_n_children (model, NULL);
 
   if (current_track + 2 == tracks) {
