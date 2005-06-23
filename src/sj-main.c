@@ -1127,7 +1127,7 @@ int main (int argc, char **argv)
   }
 
   update_ui_for_album (NULL);
-  gtk_widget_show_all (main_window);
+  gtk_widget_show (main_window);
 
   extractor = SJ_EXTRACTOR (sj_extractor_new());
   error = sj_extractor_get_new_error (extractor);

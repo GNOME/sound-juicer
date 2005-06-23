@@ -37,6 +37,8 @@ sound_juicer_SOURCES = \
 	sj-metadata.c \
 	sj-metadata-musicbrainz.h \
 	sj-metadata-musicbrainz.c \
+	sj-play.c \
+	sj-play.h \
 	sj-profile-chooser.h \
 	sj-profile-chooser.c \
 	sj-util.h \
