@@ -64,6 +64,7 @@ extern gboolean extracting;
  * The columns in the list view
  */
 typedef enum {
+  COLUMN_STATE,
   COLUMN_EXTRACT,
   COLUMN_NUMBER,
   COLUMN_TITLE,
@@ -72,6 +73,12 @@ typedef enum {
   COLUMN_DETAILS,
   COLUMN_TOTAL
 } ViewColumn;
+
+typedef enum {
+  STATE_IDLE,
+  STATE_PLAYING,
+  STATE_EXTRACTING
+} TrackState;
 
 /**
  * The GtkTreeModel which all of the tracks are stored in
