@@ -89,6 +89,18 @@ int autostart = FALSE;
 #define SOURCE_GLADE "../data/sound-juicer.glade"
 #define INSTALLED_GLADE DATADIR"/sound-juicer/sound-juicer.glade"
 
+void
+sj_main_set_title (const char* detail)
+{
+  if (detail == NULL) {
+    gtk_window_set_title (GTK_WINDOW (main_window), _("Sound Juicer"));
+  } else {
+    char *s = g_strdup_printf ("%s - %s", detail, _("Sound Juicer"));
+    gtk_window_set_title (GTK_WINDOW (main_window), s);
+    g_free (s);
+  }
+}
+
 static void error_on_start (GError *error)
 {
   GtkWidget *dialog;

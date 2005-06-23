@@ -133,4 +133,7 @@ extern gboolean autostart;
 #define GCONF_HTTP_PROXY GCONF_PROXY_ROOT "/host"
 #define GCONF_HTTP_PROXY_PORT GCONF_PROXY_ROOT "/port"
 
+/* TODO: need to add a SjWindow object or something */
+void sj_main_set_title (const char* detail);
+
 #endif /* SOUND_JUICER_H */
