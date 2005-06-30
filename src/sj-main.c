@@ -68,7 +68,7 @@ GtkWidget *main_window;
 static GtkWidget *title_entry, *artist_entry, *duration_label, *genre_combo;
 static GtkWidget *track_listview, *extract_button, *play_button;
 static GtkWidget *status_bar;
-static GtkWidget *extract_menuitem, *select_all_menuitem, *deselect_all_menuitem;
+static GtkWidget *extract_menuitem, *play_menuitem, *select_all_menuitem, *deselect_all_menuitem;
 GtkListStore *track_store;
 static BaconMessageConnection *connection;
 
@@ -285,6 +285,8 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (title_entry, FALSE);
     gtk_widget_set_sensitive (artist_entry, FALSE);
     gtk_widget_set_sensitive (genre_combo, FALSE);
+    gtk_widget_set_sensitive (play_button, FALSE);
+    gtk_widget_set_sensitive (play_menuitem, FALSE);
     gtk_widget_set_sensitive (extract_button, FALSE);
     gtk_widget_set_sensitive (extract_menuitem, FALSE);
     gtk_widget_set_sensitive (select_all_menuitem, FALSE);
@@ -303,6 +305,8 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (title_entry, TRUE);
     gtk_widget_set_sensitive (artist_entry, TRUE);
     gtk_widget_set_sensitive (genre_combo, TRUE);
+    gtk_widget_set_sensitive (play_button, TRUE);
+    gtk_widget_set_sensitive (play_menuitem, FALSE);
     gtk_widget_set_sensitive (extract_button, TRUE);
     gtk_widget_set_sensitive (extract_menuitem, TRUE);
     gtk_widget_set_sensitive (select_all_menuitem, FALSE);
@@ -1109,6 +1113,7 @@ int main (int argc, char **argv)
   track_listview = glade_xml_get_widget (glade, "track_listview");
   extract_button = glade_xml_get_widget (glade, "extract_button");
   play_button = glade_xml_get_widget (glade, "play_button");
+  play_menuitem = glade_xml_get_widget (glade, "play_menuitem");
   status_bar = glade_xml_get_widget (glade, "status_bar");
 
   gtk_combo_box_set_model (GTK_COMBO_BOX (genre_combo), populate_genre_list ());
