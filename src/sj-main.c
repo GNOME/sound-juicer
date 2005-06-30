@@ -38,7 +38,6 @@
 
 #include "bacon-message-connection.h"
 #include "sj-about.h"
-#include "sj-genres.h"
 #include "sj-metadata.h"
 #include "sj-metadata-musicbrainz.h"
 #include "sj-extractor.h"
@@ -64,7 +63,7 @@ SjExtractor *extractor;
 GConfClient *gconf_client;
 
 GtkWidget *main_window;
-static GtkWidget *title_entry, *artist_entry, *duration_label, *genre_combo;
+static GtkWidget *title_entry, *artist_entry, *duration_label, *genre_entry;
 static GtkWidget *track_listview, *extract_button;
 static GtkWidget *status_bar;
 static GtkWidget *extract_menuitem, *select_all_menuitem, *deselect_all_menuitem;
@@ -240,11 +239,11 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_list_store_clear (track_store);
     gtk_entry_set_text (GTK_ENTRY (title_entry), "");
     gtk_entry_set_text (GTK_ENTRY (artist_entry), "");
+    gtk_entry_set_text (GTK_ENTRY (genre_entry), "");
     gtk_label_set_text (GTK_LABEL (duration_label), "");
-    gtk_combo_box_set_active (GTK_COMBO_BOX (genre_combo), -1);
     gtk_widget_set_sensitive (title_entry, FALSE);
     gtk_widget_set_sensitive (artist_entry, FALSE);
-    gtk_widget_set_sensitive (genre_combo, FALSE);
+    gtk_widget_set_sensitive (genre_entry, FALSE);
     gtk_widget_set_sensitive (extract_button, FALSE);
     gtk_widget_set_sensitive (extract_menuitem, FALSE);
     gtk_widget_set_sensitive (select_all_menuitem, FALSE);
@@ -259,10 +258,9 @@ static void update_ui_for_album (AlbumDetails *album)
     g_signal_handlers_unblock_by_func (title_entry, on_title_edit_changed, NULL);
     g_signal_handlers_unblock_by_func (artist_entry, on_artist_edit_changed, NULL);
 
-    gtk_combo_box_set_active (GTK_COMBO_BOX (genre_combo), -1);
     gtk_widget_set_sensitive (title_entry, TRUE);
     gtk_widget_set_sensitive (artist_entry, TRUE);
-    gtk_widget_set_sensitive (genre_combo, TRUE);
+    gtk_widget_set_sensitive (genre_entry, TRUE);
     gtk_widget_set_sensitive (extract_button, TRUE);
     gtk_widget_set_sensitive (extract_menuitem, TRUE);
     gtk_widget_set_sensitive (select_all_menuitem, FALSE);
@@ -866,20 +864,12 @@ void on_artist_edit_changed(GtkEditable *widget, gpointer user_data) {
   } while (gtk_tree_model_iter_next (GTK_TREE_MODEL(track_store), &iter));
 }
 
-static gboolean genre_foreach (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer data) {
-  TrackDetails *track;
-  gtk_tree_model_get (model, iter, COLUMN_DETAILS, &track, -1);
-  track->genre = GPOINTER_TO_INT(data);
-  return FALSE;
-}
-
-void on_genre_combo_changed(GtkComboBox *combo, gpointer user_data) {
-  GtkTreeIter iter;
-  if (gtk_combo_box_get_active_iter (combo, &iter)) {
-    int num;
-    gtk_tree_model_get (gtk_combo_box_get_model (combo), &iter, 0, &num, -1);
-    gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), (GtkTreeModelForeachFunc)genre_foreach, GINT_TO_POINTER(num));
+void on_genre_edit_changed(GtkEditable *widget, gpointer user_data) {
+  g_return_if_fail (current_album != NULL);
+  if (current_album->genre) {
+    g_free (current_album->genre);
   }
+  current_album->genre = gtk_editable_get_chars (widget, 0, -1); /* get all the characters */
 }
 
 void on_contents_activate(GtkWidget *button, gpointer user_data) {
@@ -904,40 +894,37 @@ void on_contents_activate(GtkWidget *button, gpointer user_data) {
   }
 }
 
-static int genre_cmp (gconstpointer a, gconstpointer b)
-{
-  GenreMap *p1, *p2;
-  p1 = (GenreMap *)a;
-  p2 = (GenreMap *)b;
-  return strcmp (sj_genre_name (p1->canonical), sj_genre_name (p2->canonical));
-}
 
-static GtkTreeModel* populate_genre_list(void) {
+static const char* genres[] = {
+  "Ambient",
+  "Blues",
+  "Classical",
+  "Country",
+  "Dance",
+  "Electronica",
+  "Folk",
+  "Jazz",
+  "Latin",
+  "Pop",
+  "Rap",
+  "Reggae",
+  "Rock",
+  "Soul",
+  "Spoken Word",
+  NULL
+};
+
+static GtkTreeModel* create_genre_list(void) {
   GtkListStore *store;
-  const GenreMap *p;
-  GList *genres;
-  GList *g;
+  const char **g = genres;
 
-  store = gtk_list_store_new (2, G_TYPE_INT, G_TYPE_STRING);
-  p = genremap;
-  
-  genres = NULL;
-  while (p->genre != LAST_GENRE) {
-    if (p->genre == p->canonical) {
-      genres = g_list_insert_sorted (genres, (gpointer)p, genre_cmp);
-    }
-    ++p;
-  }
+  store = gtk_list_store_new (1, G_TYPE_STRING);
 
-  g = genres;
-  while (g != NULL) {
+  while (*g != NULL) {
     GtkTreeIter iter;
-    p = (GenreMap *)g->data;
     gtk_list_store_append (store, &iter);
-    gtk_list_store_set (store, &iter, 0, p->canonical, 1, sj_genre_name (p->canonical), -1);
-    g = g->next;
+    gtk_list_store_set (store, &iter, 0, *g++, -1);
   }
-  g_list_free (genres);
 
   return GTK_TREE_MODEL (store);
 }
@@ -1058,17 +1045,18 @@ int main (int argc, char **argv)
   title_entry = glade_xml_get_widget (glade, "title_entry");
   artist_entry = glade_xml_get_widget (glade, "artist_entry");
   duration_label = glade_xml_get_widget (glade, "duration_label");
-  genre_combo = glade_xml_get_widget (glade, "genre_combo");
+  genre_entry = glade_xml_get_widget (glade, "genre_entry");
   track_listview = glade_xml_get_widget (glade, "track_listview");
   extract_button = glade_xml_get_widget (glade, "extract_button");
   status_bar = glade_xml_get_widget (glade, "status_bar");
 
-  gtk_combo_box_set_model (GTK_COMBO_BOX (genre_combo), populate_genre_list ());
   {
-    GtkCellRenderer *renderer;
-    renderer = gtk_cell_renderer_text_new ();
-    gtk_cell_layout_pack_start (GTK_CELL_LAYOUT(genre_combo), renderer, TRUE);
-    gtk_cell_layout_add_attribute(GTK_CELL_LAYOUT(genre_combo), renderer, "text", 1);
+    GtkEntryCompletion *completion;
+    completion = gtk_entry_completion_new ();
+    gtk_entry_completion_set_model (completion, create_genre_list ());
+    gtk_entry_completion_set_text_column (completion, 0);
+    gtk_entry_completion_set_inline_completion (completion, TRUE);
+    gtk_entry_set_completion (GTK_ENTRY (genre_entry), completion);
   }
 
   track_store = gtk_list_store_new (COLUMN_TOTAL, G_TYPE_BOOLEAN, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_POINTER);

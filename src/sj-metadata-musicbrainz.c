@@ -36,7 +36,6 @@
 #include "sj-metadata-musicbrainz.h"
 #include "sj-structures.h"
 #include "sj-error.h"
-#include "sj-genres.h"
 
 struct SjMetadataMusicbrainzPrivate {
   GError *construct_error;
@@ -201,6 +200,7 @@ get_offline_track_listing(SjMetadata *metadata, GError **error)
   album = g_new0 (AlbumDetails, 1);
   album->artist = g_strdup (_("Unknown Artist"));
   album->title = g_strdup (_("Unknown Title"));
+  album->genre = NULL;
   for (i = 1; i <= num_tracks; i++) {
     track = g_new0 (TrackDetails, 1);
     track->album = album;
@@ -208,7 +208,6 @@ get_offline_track_listing(SjMetadata *metadata, GError **error)
     track->title = g_strdup_printf (_("Track %d"), i);
     track->artist = g_strdup (album->artist);
     track->duration = get_duration_from_sectors (mb_GetResultInt1 (priv->mb, MBE_TOCGetTrackNumSectors, i+1));
-    track->genre = LAST_GENRE;
     album->tracks = g_list_append (album->tracks, track);
     album->number++;
   }
@@ -426,8 +425,6 @@ lookup_cd (SjMetadata *metadata)
       if (mb_GetResultData1(priv->mb, MBE_AlbumGetTrackDuration, data, MB_BUFFER_SIZE, j)) {
         track->duration = atoi (data) / 1000;
       }
-      
-      track->genre = LAST_GENRE;
       
       album->tracks = g_list_append (album->tracks, track);
       album->number++;

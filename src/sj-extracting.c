@@ -59,7 +59,7 @@ static GtkWidget *track_progress, *album_progress;
 static GtkWidget *progress_label;
 
 /** The widgets in the main UI */
-static GtkWidget *extract_button, *reread_button, *title_entry, *artist_entry, *genre_combo, *track_listview;
+static GtkWidget *extract_button, *reread_button, *title_entry, *artist_entry, *genre_entry, *track_listview;
 
 /** The menuitem in the main menu */
 static GtkWidget *extract_menuitem, *reread_menuitem, *select_all_menuitem, *deselect_all_menuitem;
@@ -153,7 +153,7 @@ cleanup (void)
   gtk_widget_set_sensitive (track_listview, TRUE);
   gtk_widget_set_sensitive (title_entry, TRUE);
   gtk_widget_set_sensitive (artist_entry, TRUE);
-  gtk_widget_set_sensitive (genre_combo, TRUE);
+  gtk_widget_set_sensitive (genre_entry, TRUE);
   /* Enabling the Menuitem */ 
   gtk_widget_set_sensitive (extract_menuitem, TRUE);
   gtk_widget_set_sensitive (reread_menuitem, TRUE);
@@ -582,7 +582,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
     reread_button = glade_xml_get_widget (glade, "reread_button");
     title_entry = glade_xml_get_widget (glade, "title_entry");
     artist_entry = glade_xml_get_widget (glade, "artist_entry");
-    genre_combo = glade_xml_get_widget (glade, "genre_combo");
+    genre_entry = glade_xml_get_widget (glade, "genre_entry");
     track_listview = glade_xml_get_widget (glade, "track_listview");
     
     extract_menuitem = glade_xml_get_widget (glade, "extract_menuitem");
@@ -607,7 +607,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   gtk_widget_set_sensitive (reread_button, FALSE);
   gtk_widget_set_sensitive (title_entry, FALSE);
   gtk_widget_set_sensitive (artist_entry, FALSE);
-  gtk_widget_set_sensitive (genre_combo, FALSE);
+  gtk_widget_set_sensitive (genre_entry, FALSE);
   gtk_widget_set_sensitive (track_listview, FALSE);
 
   /* Disable the menuitems in the main menu*/	

@@ -1,3 +1,28 @@
+2005-06-30  Ross Burton  <ross@burtonini.com>
+
+	* data/sound-juicer.glade:
+	Change the genre combo to an entry.
+
+	* src/sj-extracting.c:
+	Update for combo->entry.
+
+	* src/sj-extractor.c:
+	Set the MusicBrainz tags last in case GStreamer doesn't support
+	them, and set the genre from the album genre string.
+
+	* src/sj-main.c:
+	Set an entry completion based on a typical set of genres.
+
+	* src/sj-structures.[ch]:
+	Move the track-level genre enum to an album-level genre string.
+
+	* src/sj-metadata-musicbrainz.c:
+	Update for genre changes.
+
+	* src/Makefile.am:
+	* src/sj-genres.[ch]:
+	Removed SjGenre, no longer needed.
+
 2005-06-27  Ross Burton  <ross@burtonini.com>
 
 	* acinclude.m4:

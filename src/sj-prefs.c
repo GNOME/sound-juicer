@@ -287,6 +287,7 @@ static void pattern_label_update (void)
   static AlbumDetails sample_album = {
     N_("Album Title"), /* title */
     N_("Album Artist"), /* artist */
+    NULL, /* genre */
     0, /* number of tracks*/
     NULL, /* track list */
     NULL, /* release date */
@@ -299,7 +300,6 @@ static void pattern_label_update (void)
     N_("Track Title"), /* title */
     N_("Track Artist"), /* artist */
     60, /* duration */
-    LAST_GENRE, /* genre */
     NULL, /* track ID */
     NULL, /* artist ID */
     {0,0,0,0} /* treeview iterator */

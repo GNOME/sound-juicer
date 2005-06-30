@@ -26,8 +26,6 @@
 #include <glib/glist.h>
 #include <gtk/gtktreemodel.h>
 
-#include "sj-genres.h"
-
 typedef struct _AlbumDetails AlbumDetails;
 typedef struct _TrackDetails TrackDetails;
 
@@ -38,7 +36,6 @@ struct _TrackDetails {
   char *title;
   char *artist;
   int duration; /* seconds */
-  SjGenre genre; /* ID3 genre list */
   char* track_id;
   char* artist_id;
   GtkTreeIter iter; /* Temporary iterator for internal use */
@@ -54,6 +51,7 @@ struct _Date {
 struct _AlbumDetails {
   char* title;
   char* artist;
+  char *genre;
   int   number; /* number of tracks in the album */
   GList* tracks;
   GDate *release_date; /* MusicBrainz support multiple releases per album */

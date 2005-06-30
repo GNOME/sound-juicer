@@ -24,6 +24,7 @@
 #include "config.h"
 #endif /* HAVE_CONFIG_H */
 
+#include <string.h>
 #include <glib/gerror.h>
 #include <glib/gtypes.h>
 #include <glib/gi18n.h>
@@ -416,23 +417,21 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
                             GST_TAG_TRACK_NUMBER, track->number,
                             GST_TAG_TRACK_COUNT, track->album->number,
                             GST_TAG_ALBUM, track->album->title,
+                            GST_TAG_ENCODER, _("Sound Juicer"),
+                            GST_TAG_ENCODER_VERSION, VERSION,
                             GST_TAG_MUSICBRAINZ_ALBUMID, track->album->album_id,
                             GST_TAG_MUSICBRAINZ_ALBUMARTISTID, track->album->artist_id,
                             GST_TAG_MUSICBRAINZ_ARTISTID, track->artist_id,
                             GST_TAG_MUSICBRAINZ_TRACKID, track->track_id,
-                            GST_TAG_ENCODER, _("Sound Juicer"),
-                            GST_TAG_ENCODER_VERSION, VERSION,
                             NULL);
-        if (track->genre != LAST_GENRE) {
+        if (track->album->genre != NULL && strcmp (track->album->genre, "") != 0) {
           gst_tag_setter_add (GST_TAG_SETTER (elt->data),
-                              /* TODO: is APPEND right? */
                               GST_TAG_MERGE_APPEND,
-                              GST_TAG_GENRE, sj_genre_name (track->genre),
+                              GST_TAG_GENRE, track->album->genre,
                               NULL);
         }
         if (track->album->release_date) {
           gst_tag_setter_add (GST_TAG_SETTER (elt->data),
-                              /* TODO: is APPEND right? */
                               GST_TAG_MERGE_APPEND,
                               GST_TAG_DATE, g_date_get_julian (track->album->release_date),
                               NULL);
