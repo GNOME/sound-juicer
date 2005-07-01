@@ -304,7 +304,7 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (artist_entry, TRUE);
     gtk_widget_set_sensitive (genre_entry, TRUE);
     gtk_widget_set_sensitive (play_button, TRUE);
-    gtk_widget_set_sensitive (play_menuitem, FALSE);
+    gtk_widget_set_sensitive (play_menuitem, TRUE);
     gtk_widget_set_sensitive (extract_button, TRUE);
     gtk_widget_set_sensitive (extract_menuitem, TRUE);
     gtk_widget_set_sensitive (select_all_menuitem, FALSE);
@@ -1092,13 +1092,13 @@ int main (int argc, char **argv)
 
   select_all_menuitem = glade_xml_get_widget (glade, "select_all");
   deselect_all_menuitem = glade_xml_get_widget (glade, "deselect_all");
-  extract_menuitem = glade_xml_get_widget (glade, "extract_menuitem");
   title_entry = glade_xml_get_widget (glade, "title_entry");
   artist_entry = glade_xml_get_widget (glade, "artist_entry");
   duration_label = glade_xml_get_widget (glade, "duration_label");
   genre_entry = glade_xml_get_widget (glade, "genre_entry");
   track_listview = glade_xml_get_widget (glade, "track_listview");
   extract_button = glade_xml_get_widget (glade, "extract_button");
+  extract_menuitem = glade_xml_get_widget (glade, "extract_menuitem");
   play_button = glade_xml_get_widget (glade, "play_button");
   play_menuitem = glade_xml_get_widget (glade, "play_menuitem");
   status_bar = glade_xml_get_widget (glade, "status_bar");
