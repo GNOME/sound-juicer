@@ -98,7 +98,8 @@ pause (void)
 static void
 stop (void)
 {
-  gst_element_set_state (pipeline, GST_STATE_NULL);
+  if (pipeline != NULL)
+    gst_element_set_state (pipeline, GST_STATE_NULL);
 }
 
 /**
