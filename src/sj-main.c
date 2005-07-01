@@ -45,6 +45,7 @@
 #include "sj-error.h"
 #include "sj-util.h"
 #include "sj-prefs.h"
+#include "sj-play.h"
 
 gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data);
 
@@ -64,9 +65,9 @@ GConfClient *gconf_client;
 
 GtkWidget *main_window;
 static GtkWidget *title_entry, *artist_entry, *duration_label, *genre_entry;
-static GtkWidget *track_listview, *extract_button;
+static GtkWidget *track_listview, *extract_button, *play_button;
 static GtkWidget *status_bar;
-static GtkWidget *extract_menuitem, *select_all_menuitem, *deselect_all_menuitem;
+static GtkWidget *extract_menuitem, *play_menuitem, *select_all_menuitem, *deselect_all_menuitem;
 GtkListStore *track_store;
 static BaconMessageConnection *connection;
 
@@ -81,12 +82,24 @@ static gint total_no_of_tracks;
 static gint no_of_tracks_selected;
 static AlbumDetails *current_album;
 
-int autostart = FALSE;
+gboolean autostart = FALSE, autoplay = FALSE;
 
 #define DEFAULT_PARANOIA 4
 #define RAISE_WINDOW "raise-window"
 #define SOURCE_GLADE "../data/sound-juicer.glade"
 #define INSTALLED_GLADE DATADIR"/sound-juicer/sound-juicer.glade"
+
+void
+sj_main_set_title (const char* detail)
+{
+  if (detail == NULL) {
+    gtk_window_set_title (GTK_WINDOW (main_window), _("Sound Juicer"));
+  } else {
+    char *s = g_strdup_printf ("%s - %s", detail, _("Sound Juicer"));
+    gtk_window_set_title (GTK_WINDOW (main_window), s);
+    g_free (s);
+  }
+}
 
 static void error_on_start (GError *error)
 {
@@ -126,6 +139,9 @@ void on_destroy_signal (GtkMenuItem *item, gpointer user_data)
  */
 void on_eject_activate (GtkMenuItem *item, gpointer user_data)
 {
+  /* first make sure we're not playing */
+  stop_playback ();
+
   nautilus_burn_drive_eject (drive);
 }
 
@@ -225,6 +241,30 @@ static void duration_cell_data_cb (GtkTreeViewColumn *tree_column,
   g_free (string);
 }
 
+extern gint current_track;
+static void title_cell_icon_data_cb (GtkTreeViewColumn *tree_column,
+                                GtkCellRenderer *cell,
+                                GtkTreeModel *tree_model,
+                                GtkTreeIter *iter,
+                                gpointer data)
+{
+  TrackState state;
+  gtk_tree_model_get (tree_model, iter, COLUMN_STATE, &state, -1);
+  switch (state) {
+  case STATE_IDLE:
+    g_object_set (G_OBJECT (cell), "stock-id", "", NULL);
+    break;
+  case STATE_PLAYING:
+    g_object_set (G_OBJECT (cell), "stock-id", GTK_STOCK_MEDIA_PLAY, NULL);
+    break;
+  case STATE_EXTRACTING:
+    g_object_set (G_OBJECT (cell), "stock-id", GTK_STOCK_MEDIA_RECORD, NULL);
+    break;
+  default:
+    g_warning("Unhandled track state %d\n", state);
+  }
+}
+
 /**
  * Utility function to update the UI for a given Album
  */
@@ -244,6 +284,8 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (title_entry, FALSE);
     gtk_widget_set_sensitive (artist_entry, FALSE);
     gtk_widget_set_sensitive (genre_entry, FALSE);
+    gtk_widget_set_sensitive (play_button, FALSE);
+    gtk_widget_set_sensitive (play_menuitem, FALSE);
     gtk_widget_set_sensitive (extract_button, FALSE);
     gtk_widget_set_sensitive (extract_menuitem, FALSE);
     gtk_widget_set_sensitive (select_all_menuitem, FALSE);
@@ -261,6 +303,8 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (title_entry, TRUE);
     gtk_widget_set_sensitive (artist_entry, TRUE);
     gtk_widget_set_sensitive (genre_entry, TRUE);
+    gtk_widget_set_sensitive (play_button, TRUE);
+    gtk_widget_set_sensitive (play_menuitem, FALSE);
     gtk_widget_set_sensitive (extract_button, TRUE);
     gtk_widget_set_sensitive (extract_menuitem, TRUE);
     gtk_widget_set_sensitive (select_all_menuitem, FALSE);
@@ -272,6 +316,7 @@ static void update_ui_for_album (AlbumDetails *album)
       album_duration += track->duration;
       gtk_list_store_append (track_store, &iter);
       gtk_list_store_set (track_store, &iter,
+                          COLUMN_STATE, STATE_IDLE,
                           COLUMN_EXTRACT, TRUE,
                           COLUMN_NUMBER, track->number,
                           COLUMN_TITLE, track->title,
@@ -281,7 +326,7 @@ static void update_ui_for_album (AlbumDetails *album)
                           -1);
      total_no_of_tracks++; 
     }
-no_of_tracks_selected=total_no_of_tracks;
+    no_of_tracks_selected=total_no_of_tracks;
 
     /* Some albums don't have track durations :( */
     if (album_duration) {
@@ -515,6 +560,11 @@ metadata_cb (SjMetadata *m, GList *albums, GError *error)
   
   if (autostart) {
     g_signal_emit_by_name (extract_button, "activate", NULL);
+    autostart = FALSE;
+  }
+  if (autoplay) {
+    g_signal_emit_by_name (play_button, "activate", NULL);
+    autoplay = FALSE;
   }
 }
 
@@ -964,6 +1014,7 @@ int main (int argc, char **argv)
   struct poptOption options[] = {
     { NULL, '\0', POPT_ARG_INCLUDE_TABLE, NULL, 0, "GStreamer", NULL },
     { "auto-start", 'a', POPT_ARG_NONE, &autostart, 0, "Start extracting immediately", NULL},
+    { "play", 'p', POPT_ARG_NONE, &autoplay, 0, "Start playing immediately", NULL},
     POPT_TABLEEND
   };
 
@@ -1048,6 +1099,8 @@ int main (int argc, char **argv)
   genre_entry = glade_xml_get_widget (glade, "genre_entry");
   track_listview = glade_xml_get_widget (glade, "track_listview");
   extract_button = glade_xml_get_widget (glade, "extract_button");
+  play_button = glade_xml_get_widget (glade, "play_button");
+  play_menuitem = glade_xml_get_widget (glade, "play_menuitem");
   status_bar = glade_xml_get_widget (glade, "status_bar");
 
   {
@@ -1059,63 +1112,66 @@ int main (int argc, char **argv)
     gtk_entry_set_completion (GTK_ENTRY (genre_entry), completion);
   }
 
-  track_store = gtk_list_store_new (COLUMN_TOTAL, G_TYPE_BOOLEAN, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_POINTER);
+  track_store = gtk_list_store_new (COLUMN_TOTAL, G_TYPE_INT, G_TYPE_BOOLEAN, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_POINTER);
   gtk_tree_view_set_model (GTK_TREE_VIEW (track_listview), GTK_TREE_MODEL (track_store));
   {
     GtkTreeViewColumn *column;
-    GtkCellRenderer *text_renderer, *toggle_renderer;
+    GtkCellRenderer *renderer;
     
-    toggle_renderer = gtk_cell_renderer_toggle_new ();
-    g_signal_connect (toggle_renderer, "toggled", G_CALLBACK (on_extract_toggled), NULL);
+    renderer = gtk_cell_renderer_toggle_new ();
+    g_signal_connect (renderer, "toggled", G_CALLBACK (on_extract_toggled), NULL);
     column = gtk_tree_view_column_new_with_attributes (_("Extract"),
-                                                       toggle_renderer,
+                                                       renderer,
                                                        "active", COLUMN_EXTRACT,
                                                        NULL);
     gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
-    text_renderer = gtk_cell_renderer_text_new ();
+    renderer = gtk_cell_renderer_text_new ();
     column = gtk_tree_view_column_new_with_attributes (_("Track"),
-                                                       text_renderer,
+                                                       renderer,
                                                        "text", COLUMN_NUMBER,
                                                        NULL);
     gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
-    /* TODO: Do I need to create these every time or will a single one do? */
-    text_renderer = gtk_cell_renderer_text_new ();
-    g_signal_connect (text_renderer, "edited", G_CALLBACK (on_cell_edited), GUINT_TO_POINTER (COLUMN_TITLE));
-    g_object_set (G_OBJECT (text_renderer), "editable", TRUE, NULL);
-    column = gtk_tree_view_column_new_with_attributes (_("Title"),
-                                                       text_renderer,
-                                                       "text", COLUMN_TITLE,
-                                                       NULL);
+    column = gtk_tree_view_column_new ();
+    gtk_tree_view_column_set_title (column, _("Title"));
     gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_column_set_expand (column, TRUE);
+    renderer = gtk_cell_renderer_pixbuf_new ();
+    gtk_tree_view_column_pack_start (column, renderer, FALSE);
+    gtk_tree_view_column_set_cell_data_func (column, renderer, title_cell_icon_data_cb, NULL, NULL);
+
+    renderer = gtk_cell_renderer_text_new ();
+    g_signal_connect (renderer, "edited", G_CALLBACK (on_cell_edited), GUINT_TO_POINTER (COLUMN_TITLE));
+    g_object_set (G_OBJECT (renderer), "editable", TRUE, NULL);
+    gtk_tree_view_column_pack_start (column, renderer, TRUE);
+    gtk_tree_view_column_add_attribute (column, renderer, "text", COLUMN_TITLE);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
-    text_renderer = gtk_cell_renderer_text_new ();
+    renderer = gtk_cell_renderer_text_new ();
     column = gtk_tree_view_column_new_with_attributes (_("Artist"),
-                                                       text_renderer,
+                                                       renderer,
                                                        "text", COLUMN_ARTIST,
                                                        NULL);
     gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_column_set_expand (column, TRUE);
-    g_signal_connect (text_renderer, "edited", G_CALLBACK (on_cell_edited), GUINT_TO_POINTER (COLUMN_ARTIST));
-    g_object_set (G_OBJECT (text_renderer), "editable", TRUE, NULL);
+    g_signal_connect (renderer, "edited", G_CALLBACK (on_cell_edited), GUINT_TO_POINTER (COLUMN_ARTIST));
+    g_object_set (G_OBJECT (renderer), "editable", TRUE, NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
     
-    text_renderer = gtk_cell_renderer_text_new ();
+    renderer = gtk_cell_renderer_text_new ();
     column = gtk_tree_view_column_new_with_attributes (_("Duration"),
-                                                       text_renderer,
+                                                       renderer,
                                                        NULL);
     gtk_tree_view_column_set_resizable (column, TRUE);
-    gtk_tree_view_column_set_cell_data_func (column, text_renderer, duration_cell_data_cb, NULL, NULL);
+    gtk_tree_view_column_set_cell_data_func (column, renderer, duration_cell_data_cb, NULL, NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
   }
 
   update_ui_for_album (NULL);
-  gtk_widget_show_all (main_window);
+  gtk_widget_show (main_window);
 
   extractor = SJ_EXTRACTOR (sj_extractor_new());
   error = sj_extractor_get_new_error (extractor);

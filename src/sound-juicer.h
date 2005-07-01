@@ -64,6 +64,7 @@ extern gboolean extracting;
  * The columns in the list view
  */
 typedef enum {
+  COLUMN_STATE,
   COLUMN_EXTRACT,
   COLUMN_NUMBER,
   COLUMN_TITLE,
@@ -72,6 +73,12 @@ typedef enum {
   COLUMN_DETAILS,
   COLUMN_TOTAL
 } ViewColumn;
+
+typedef enum {
+  STATE_IDLE,
+  STATE_PLAYING,
+  STATE_EXTRACTING
+} TrackState;
 
 /**
  * The GtkTreeModel which all of the tracks are stored in
@@ -132,5 +139,8 @@ extern gboolean autostart;
 #define GCONF_HTTP_PROXY_ENABLE GCONF_PROXY_ROOT "/use_http_proxy"
 #define GCONF_HTTP_PROXY GCONF_PROXY_ROOT "/host"
 #define GCONF_HTTP_PROXY_PORT GCONF_PROXY_ROOT "/port"
+
+/* TODO: need to add a SjWindow object or something */
+void sj_main_set_title (const char* detail);
 
 #endif /* SOUND_JUICER_H */

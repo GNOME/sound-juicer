@@ -38,6 +38,7 @@
 #include "sj-error.h"
 #include "sj-extracting.h"
 #include "sj-util.h"
+#include "sj-play.h"
 
 typedef struct {
   int seconds;
@@ -551,6 +552,9 @@ on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
 void
 on_extract_activate (GtkWidget *button, gpointer user_data)
 {
+  /* first make sure we're not playing, we cannot share the resource */
+  stop_playback ();
+
   /* Populate the pending list */
   pending = NULL;
   total_extracting = 0;
