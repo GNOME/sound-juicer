@@ -223,6 +223,16 @@ static void error_cb (GstElement *element, GObject *arg, GError *err, gchar *arg
                  0, err);
 }
 
+/**
+ * Callback from the gnomevfssink to say that its about to overwrite a file.
+ * For now, Just Say Yes.  If this API will stay in 0.9, then rewrite
+ * SjExtractor.
+ */
+static gboolean just_say_yes (GstElement *element, gpointer filename, gpointer user_data)
+{
+  return TRUE;
+}
+
 static void build_pipeline (SjExtractor *extractor)
 {
   SjExtractorPrivate *priv;
@@ -276,6 +286,7 @@ static void build_pipeline (SjExtractor *extractor)
                  _("Could not create GStreamer file output"));
     return;
   }
+  g_signal_connect (G_OBJECT (priv->filesink), "allow-overwrite", G_CALLBACK (just_say_yes), extractor);
 
   /* Add the elements to the pipeline */
   gst_bin_add (GST_BIN (priv->pipeline), priv->cdparanoia);

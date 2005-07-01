@@ -1,5 +1,12 @@
 2005-07-01  Ross Burton  <ross@burtonini.com>
 
+	* src/sj-extractor.c:
+	Add just_say_yes() so that gnomevfssink will always overwrite
+	files.  At the moment we do this check before starting the
+	pipeline so this is safe.
+
+2005-07-01  Ross Burton  <ross@burtonini.com>
+
 	* data/sound-juicer.glade:
 	* src/Makefile.am:
 	* src/sj-extracting.c:
