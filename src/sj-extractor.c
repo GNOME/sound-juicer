@@ -487,7 +487,7 @@ void sj_extractor_cancel_extract (SjExtractor *extractor)
   if (gst_element_get_state (extractor->priv->pipeline) != GST_STATE_PLAYING) {
     return;
   }
-  gst_element_set_state (extractor->priv->pipeline, GST_STATE_PAUSED);
+  gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
   g_source_remove (extractor->priv->idle_id);
 
   extractor->priv->rebuild_pipeline = TRUE;
