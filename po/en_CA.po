@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-23 19:54-0400\n"
-"PO-Revision-Date: 2005-06-23 19:40-0400\n"
+"POT-Creation-Date: 2005-07-03 18:39-0400\n"
+"PO-Revision-Date: 2005-07-03 19:40-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -109,23 +109,27 @@ msgid "O_utput:"
 msgstr "O_utput:"
 
 #: data/sound-juicer.glade.h:22
+msgid "Play / Pause"
+msgstr "Play / Pause"
+
+#: data/sound-juicer.glade.h:23
 msgid "Preferences"
 msgstr "Preferences"
 
-#: data/sound-juicer.glade.h:23
+#: data/sound-juicer.glade.h:24
 msgid "Progress"
 msgstr "Progress"
 
-#: data/sound-juicer.glade.h:24
+#: data/sound-juicer.glade.h:25
 msgid "Select A Folder"
 msgstr "Select A Folder"
 
-#: data/sound-juicer.glade.h:25 src/sj-about.c:52 src/sj-extractor.c:423
-#: src/sj-main.c:994
+#: data/sound-juicer.glade.h:26 src/sj-about.c:52 src/sj-extractor.c:431
+#: src/sj-main.c:96 src/sj-main.c:98 src/sj-main.c:1032
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
-#: data/sound-juicer.glade.h:26
+#: data/sound-juicer.glade.h:27
 msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
@@ -133,59 +137,59 @@ msgstr ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
 
-#: data/sound-juicer.glade.h:27
+#: data/sound-juicer.glade.h:28
 msgid "Unknown"
 msgstr "Unknown"
 
-#: data/sound-juicer.glade.h:28
+#: data/sound-juicer.glade.h:29
 msgid "_CD"
 msgstr "_CD"
 
-#: data/sound-juicer.glade.h:29
+#: data/sound-juicer.glade.h:30
 msgid "_Contents"
 msgstr "_Contents"
 
-#: data/sound-juicer.glade.h:30 src/sj-main.c:162
+#: data/sound-juicer.glade.h:31 src/sj-main.c:177
 msgid "_Continue"
 msgstr "_Continue"
 
-#: data/sound-juicer.glade.h:31
+#: data/sound-juicer.glade.h:32
 msgid "_Deselect All"
 msgstr "_Deselect All"
 
-#: data/sound-juicer.glade.h:32
+#: data/sound-juicer.glade.h:33
 msgid "_Edit"
 msgstr "_Edit"
 
-#: data/sound-juicer.glade.h:33
+#: data/sound-juicer.glade.h:34
 msgid "_Eject when finished"
 msgstr "_Eject when finished"
 
-#: data/sound-juicer.glade.h:34
+#: data/sound-juicer.glade.h:35
 msgid "_Extract"
 msgstr "_Extract"
 
-#: data/sound-juicer.glade.h:35
+#: data/sound-juicer.glade.h:36
 msgid "_Folder:"
 msgstr "_Folder:"
 
-#: data/sound-juicer.glade.h:36
+#: data/sound-juicer.glade.h:37
 msgid "_Help"
 msgstr "_Help"
 
-#: data/sound-juicer.glade.h:37
+#: data/sound-juicer.glade.h:38
 msgid "_Re-read"
 msgstr "_Re-read"
 
-#: data/sound-juicer.glade.h:38
+#: data/sound-juicer.glade.h:39
 msgid "_Select All"
 msgstr "_Select All"
 
-#: data/sound-juicer.glade.h:39
+#: data/sound-juicer.glade.h:40
 msgid "_Strip special characters"
 msgstr "_Strip special characters"
 
-#: data/sound-juicer.glade.h:40
+#: data/sound-juicer.glade.h:41
 msgid "label"
 msgstr "label"
 
@@ -331,448 +335,124 @@ msgstr "The tracks have been copied successfully."
 msgid "_Eject"
 msgstr "_Eject"
 
-#: src/sj-extractor.c:100
+#: src/sj-extractor.c:101
 msgid "GNOME Audio Profile"
 msgstr "GNOME Audio Profile"
 
-#: src/sj-extractor.c:100
+#: src/sj-extractor.c:101
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "The GNOME Audio Profile used for encoding audio"
 
-#: src/sj-extractor.c:245
+#: src/sj-extractor.c:256
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "Could not create GStreamer cdparanoia reader"
 
-#: src/sj-extractor.c:264
+#: src/sj-extractor.c:275
 #, c-format
 msgid "Could not create GStreamer encoder (%s)"
 msgstr "Could not create GStreamer encoder (%s)"
 
-#: src/sj-extractor.c:275
+#: src/sj-extractor.c:286
 msgid "Could not create GStreamer file output"
 msgstr "Could not create GStreamer file output"
 
-#: src/sj-extractor.c:305
+#: src/sj-extractor.c:317
 msgid "Could not get current track position"
 msgstr "Could not get current track position"
 
-#: src/sj-extractor.c:338
+#: src/sj-extractor.c:350
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Extractor object is not valid. This is bad, check your console for errors."
 
-#: src/sj-extractor.c:457
+#: src/sj-extractor.c:467
 msgid "Could not seek to track"
 msgstr "Could not seek to track"
 
-#: src/sj-extractor.c:462
+#: src/sj-extractor.c:472
 msgid "Could not get track start position"
 msgstr "Could not get track start position"
 
-#: src/sj-extractor.c:499
+#: src/sj-extractor.c:509
 msgid "The plugin necessary for CD access was not found"
 msgstr "The plugin necessary for CD access was not found"
 
-#: src/sj-extractor.c:507
+#: src/sj-extractor.c:517
 msgid "The plugin necessary for file access was not found"
 msgstr "The plugin necessary for file access was not found"
 
-#: src/sj-genres.c:37
-msgid "Blues"
-msgstr "Blues"
-
-#: src/sj-genres.c:39
-msgid "Classic Rock"
-msgstr "Classic Rock"
-
-#: src/sj-genres.c:41
-msgid "Country"
-msgstr "Country"
-
-#: src/sj-genres.c:43
-msgid "Dance"
-msgstr "Dance"
-
-#: src/sj-genres.c:45
-msgid "Disco"
-msgstr "Disco"
-
-#: src/sj-genres.c:47
-msgid "Funk"
-msgstr "Funk"
-
-#: src/sj-genres.c:49
-msgid "Grunge"
-msgstr "Grunge"
-
-#: src/sj-genres.c:51
-msgid "Hip-Hop"
-msgstr "Hip-Hop"
-
-#: src/sj-genres.c:53
-msgid "Jazz"
-msgstr "Jazz"
-
-#: src/sj-genres.c:55
-msgid "Metal"
-msgstr "Metal"
-
-#: src/sj-genres.c:57
-msgid "New Age"
-msgstr "New Age"
-
-#: src/sj-genres.c:59
-msgid "Oldies"
-msgstr "Oldies"
-
-#: src/sj-genres.c:61
-msgid "Other"
-msgstr "Other"
-
-#: src/sj-genres.c:63
-msgid "Pop"
-msgstr "Pop"
-
-#: src/sj-genres.c:65
-msgid "R&B"
-msgstr "R&B"
-
-#: src/sj-genres.c:67
-msgid "Rap"
-msgstr "Rap"
-
-#: src/sj-genres.c:69
-msgid "Reggae"
-msgstr "Reggae"
-
-#: src/sj-genres.c:71
-msgid "Rock"
-msgstr "Rock"
-
-#: src/sj-genres.c:73
-msgid "Techno"
-msgstr "Techno"
-
-#: src/sj-genres.c:75
-msgid "Industrial"
-msgstr "Industrial"
-
-#: src/sj-genres.c:77
-msgid "Alternative"
-msgstr "Alternative"
-
-#: src/sj-genres.c:79
-msgid "Ska"
-msgstr "Ska"
-
-#: src/sj-genres.c:81
-msgid "Death Metal"
-msgstr "Death Metal"
-
-#: src/sj-genres.c:83
-msgid "Pranks"
-msgstr "Pranks"
-
-#: src/sj-genres.c:85
-msgid "Soundtrack"
-msgstr "Soundtrack"
-
-#: src/sj-genres.c:87
-msgid "Euro-Techno"
-msgstr "Euro-Techno"
-
-#: src/sj-genres.c:89
-msgid "Ambient"
-msgstr "Ambient"
-
-#: src/sj-genres.c:91
-msgid "Trip-Hop"
-msgstr "Trip-Hop"
-
-#: src/sj-genres.c:93
-msgid "Vocal"
-msgstr "Vocal"
-
-#: src/sj-genres.c:95
-msgid "Jazz+Funk"
-msgstr "Jazz+Funk"
-
-#: src/sj-genres.c:97
-msgid "Fusion"
-msgstr "Fusion"
-
-#: src/sj-genres.c:99
-msgid "Trance"
-msgstr "Trance"
-
-#: src/sj-genres.c:101
-msgid "Classical"
-msgstr "Classical"
-
-#: src/sj-genres.c:103
-msgid "Instrumental"
-msgstr "Instrumental"
-
-#: src/sj-genres.c:105
-msgid "Acid"
-msgstr "Acid"
-
-#: src/sj-genres.c:107
-msgid "House"
-msgstr "House"
-
-#: src/sj-genres.c:109
-msgid "Game"
-msgstr "Game"
-
-#: src/sj-genres.c:111
-msgid "Sound Clip"
-msgstr "Sound Clip"
-
-#: src/sj-genres.c:113
-msgid "Gospel"
-msgstr "Gospel"
-
-#: src/sj-genres.c:115
-msgid "Noise"
-msgstr "Noise"
-
-#: src/sj-genres.c:117
-msgid "AlternRock"
-msgstr "AlternRock"
-
-#: src/sj-genres.c:119
-msgid "Bass"
-msgstr "Bass"
-
-#: src/sj-genres.c:121
-msgid "Soul"
-msgstr "Soul"
-
-#: src/sj-genres.c:123
-msgid "Punk"
-msgstr "Punk"
-
-#: src/sj-genres.c:125
-msgid "Space"
-msgstr "Space"
-
-#: src/sj-genres.c:127
-msgid "Meditative"
-msgstr "Meditative"
-
-#: src/sj-genres.c:129
-msgid "Instrumental Pop"
-msgstr "Instrumental Pop"
-
-#: src/sj-genres.c:131
-msgid "Instrumental Rock"
-msgstr "Instrumental Rock"
-
-#: src/sj-genres.c:133
-msgid "Ethnic"
-msgstr "Ethnic"
-
-#: src/sj-genres.c:135
-msgid "Gothic"
-msgstr "Gothic"
-
-#: src/sj-genres.c:137
-msgid "Darkwave"
-msgstr "Darkwave"
-
-#: src/sj-genres.c:139
-msgid "Techno-Industrial"
-msgstr "Techno-Industrial"
-
-#: src/sj-genres.c:141
-msgid "Electronic"
-msgstr "Electronic"
-
-#: src/sj-genres.c:143
-msgid "Pop-Folk"
-msgstr "Pop-Folk"
-
-#: src/sj-genres.c:145
-msgid "Eurodance"
-msgstr "Eurodance"
-
-#: src/sj-genres.c:147
-msgid "Dream"
-msgstr "Dream"
-
-#: src/sj-genres.c:149
-msgid "Southern Rock"
-msgstr "Southern Rock"
-
-#: src/sj-genres.c:151
-msgid "Comedy"
-msgstr "Comedy"
-
-#: src/sj-genres.c:153
-msgid "Cult"
-msgstr "Cult"
-
-#: src/sj-genres.c:155
-msgid "Gangsta"
-msgstr "Gangsta"
-
-#: src/sj-genres.c:157
-msgid "Top 40"
-msgstr "Top 40"
-
-#: src/sj-genres.c:159
-msgid "Christian Rap"
-msgstr "Christian Rap"
-
-#: src/sj-genres.c:161
-msgid "Pop/Funk"
-msgstr "Pop/Funk"
-
-#: src/sj-genres.c:163
-msgid "Jungle"
-msgstr "Jungle"
-
-#: src/sj-genres.c:165
-msgid "Native American"
-msgstr "Native American"
-
-#: src/sj-genres.c:167
-msgid "Cabaret"
-msgstr "Cabaret"
-
-#: src/sj-genres.c:169
-msgid "New Wave"
-msgstr "New Wave"
-
-#: src/sj-genres.c:171
-msgid "Psychadelic"
-msgstr "Psychadelic"
-
-#: src/sj-genres.c:173
-msgid "Rave"
-msgstr "Rave"
-
-#: src/sj-genres.c:175
-msgid "Showtunes"
-msgstr "Showtunes"
-
-#: src/sj-genres.c:177
-msgid "Trailer"
-msgstr "Trailer"
-
-#: src/sj-genres.c:179
-msgid "Lo-Fi"
-msgstr "Lo-Fi"
-
-#: src/sj-genres.c:181
-msgid "Tribal"
-msgstr "Tribal"
-
-#: src/sj-genres.c:183
-msgid "Acid Punk"
-msgstr "Acid Punk"
-
-#: src/sj-genres.c:185
-msgid "Acid Jazz"
-msgstr "Acid Jazz"
-
-#: src/sj-genres.c:187
-msgid "Polka"
-msgstr "Polka"
-
-#: src/sj-genres.c:189
-msgid "Retro"
-msgstr "Retro"
-
-#: src/sj-genres.c:191
-msgid "Musical"
-msgstr "Musical"
-
-#: src/sj-genres.c:193
-msgid "Rock & Roll"
-msgstr "Rock & Roll"
-
-#: src/sj-genres.c:195
-msgid "Hard Rock"
-msgstr "Hard Rock"
-
-#: src/sj-genres.c:197
-msgid "[unknown genre]"
-msgstr "[unknown genre]"
-
-#: src/sj-main.c:99
+#: src/sj-main.c:111
 msgid "Could not start Sound Juicer"
 msgstr "Could not start Sound Juicer"
 
-#: src/sj-main.c:100 src/sj-main.c:485 src/sj-main.c:569 src/sj-main.c:630
+#: src/sj-main.c:112 src/sj-main.c:528 src/sj-main.c:617 src/sj-main.c:678
 msgid "Reason"
 msgstr "Reason"
 
-#: src/sj-main.c:102
+#: src/sj-main.c:114
 msgid "Please consult the documentation for assistance."
 msgstr "Please consult the documentation for assistance."
 
-#: src/sj-main.c:160
+#: src/sj-main.c:175
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr ""
 "You are currently extracting a CD. Do you want to quit now or continue?"
 
-#: src/sj-main.c:223 src/sj-main.c:294
+#: src/sj-main.c:238 src/sj-main.c:337
 msgid "(unknown)"
 msgstr "(unknown)"
 
-#: src/sj-main.c:336 src/sj-main.c:1101
+#: src/sj-main.c:379 src/sj-main.c:1139
 msgid "Title"
 msgstr "Title"
 
-#: src/sj-main.c:342 src/sj-main.c:1110
+#: src/sj-main.c:385 src/sj-main.c:1154
 msgid "Artist"
 msgstr "Artist"
 
-#: src/sj-main.c:483 src/sj-main.c:567 src/sj-main.c:628
+#: src/sj-main.c:526 src/sj-main.c:615 src/sj-main.c:676
 msgid "Could not read the CD"
 msgstr "Could not read the CD"
 
-#: src/sj-main.c:484 src/sj-main.c:568
+#: src/sj-main.c:527 src/sj-main.c:616
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer could not read the track listing on this CD."
 
 #. Set statusbar message
-#: src/sj-main.c:552
+#: src/sj-main.c:600
 msgid "Retrieving track listing...please wait."
 msgstr "Retrieving track listing...please wait."
 
-#: src/sj-main.c:608
+#: src/sj-main.c:656
 msgid "No CD-ROM drives found"
 msgstr "No CD-ROM drives found"
 
-#: src/sj-main.c:609
+#: src/sj-main.c:657
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer could not find any CD-ROM drives to read."
 
-#: src/sj-main.c:622
+#: src/sj-main.c:670
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer could not access the CD-ROM device '%s'"
 
-#: src/sj-main.c:669
+#: src/sj-main.c:717
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr ""
 "The currently selected audio profile is not available on your installation."
 
-#: src/sj-main.c:671
+#: src/sj-main.c:719
 msgid "_Change Profile"
 msgstr "_Change Profile"
 
-#: src/sj-main.c:833
+#: src/sj-main.c:881
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Unknown column %d was edited"
 
-#: src/sj-main.c:896 src/sj-prefs.c:141
+#: src/sj-main.c:936 src/sj-prefs.c:141
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -781,40 +461,40 @@ msgstr ""
 "Could not display help for Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:1015
+#: src/sj-main.c:1053
 msgid "Could not create GConf client.\n"
 msgstr "Could not create GConf client.\n"
 
-#: src/sj-main.c:1045
+#: src/sj-main.c:1083
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "The interface file for Sound Juicer could not be read."
 
-#: src/sj-main.c:1082
+#: src/sj-main.c:1123
 msgid "Extract"
 msgstr "Extract"
 
-#: src/sj-main.c:1090
+#: src/sj-main.c:1131
 msgid "Track"
 msgstr "Track"
 
-#: src/sj-main.c:1121
+#: src/sj-main.c:1165
 msgid "Duration"
 msgstr "Duration"
 
-#: src/sj-metadata-musicbrainz.c:90
+#: src/sj-metadata-musicbrainz.c:89
 msgid "Cannot create MusicBrainz client"
 msgstr "Cannot create MusicBrainz client"
 
-#: src/sj-metadata-musicbrainz.c:195 src/sj-metadata-musicbrainz.c:317
+#: src/sj-metadata-musicbrainz.c:194 src/sj-metadata-musicbrainz.c:316
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Cannot read CD: %s"
 
-#: src/sj-metadata-musicbrainz.c:202 src/sj-metadata-musicbrainz.c:362
+#: src/sj-metadata-musicbrainz.c:201 src/sj-metadata-musicbrainz.c:361
 msgid "Unknown Artist"
 msgstr "Unknown Artist"
 
-#: src/sj-metadata-musicbrainz.c:203 src/sj-metadata-musicbrainz.c:370
+#: src/sj-metadata-musicbrainz.c:202 src/sj-metadata-musicbrainz.c:369
 msgid "Unknown Title"
 msgstr "Unknown Title"
 
@@ -823,7 +503,7 @@ msgstr "Unknown Title"
 msgid "Track %d"
 msgstr "Track %d"
 
-#: src/sj-metadata-musicbrainz.c:237
+#: src/sj-metadata-musicbrainz.c:236
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
@@ -831,38 +511,62 @@ msgstr ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
 
-#: src/sj-metadata-musicbrainz.c:311
+#: src/sj-metadata-musicbrainz.c:310
 #, c-format
 msgid "Device '%s' does not contain a media"
 msgstr "Device '%s' does not contain a media"
 
-#: src/sj-metadata-musicbrainz.c:314
+#: src/sj-metadata-musicbrainz.c:313
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 
-#: src/sj-metadata-musicbrainz.c:327
+#: src/sj-metadata-musicbrainz.c:326
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "This CD could not be queried: %s\n"
 
-#: src/sj-metadata-musicbrainz.c:335
+#: src/sj-metadata-musicbrainz.c:334
 msgid "This CD was not found.\n"
 msgstr "This CD was not found.\n"
 
-#: src/sj-metadata-musicbrainz.c:357
+#: src/sj-metadata-musicbrainz.c:356
 msgid "Various"
 msgstr "Various"
 
-#: src/sj-metadata-musicbrainz.c:394
+#: src/sj-metadata-musicbrainz.c:393
 msgid "Incomplete metadata for this CD.\n"
 msgstr "Incomplete metadata for this CD.\n"
 
-#: src/sj-metadata-musicbrainz.c:474
+#: src/sj-metadata-musicbrainz.c:471
 msgid "Could not create CD lookup thread"
 msgstr "Could not create CD lookup thread"
+
+#: src/sj-play.c:165 src/sj-play.c:361 src/sj-play.c:403
+#, c-format
+msgid ""
+"Error playing CD.\n"
+"\n"
+"Reason: %s"
+msgstr ""
+"Error playing CD.\n"
+"\n"
+"Reason: %s"
+
+#: src/sj-play.c:296
+msgid "Failed to create CD source element"
+msgstr "Failed to create CD source element"
+
+#: src/sj-play.c:320
+msgid "Failed to create audio output"
+msgstr "Failed to create audio output"
+
+#: src/sj-play.c:434
+#, c-format
+msgid "Seeking to %s"
+msgstr "Seeking to %s"
 
 #: src/sj-prefs.c:52
 msgid "Album Artist, Album Title"
@@ -895,7 +599,7 @@ msgstr "Number - Title"
 
 #. album
 #. track number
-#: src/sj-prefs.c:63 src/sj-prefs.c:299
+#: src/sj-prefs.c:63 src/sj-prefs.c:300
 msgid "Track Title"
 msgstr "Track Title"
 
@@ -912,6 +616,6 @@ msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Number-Track Artist-Track Title (lowercase)"
 
 #. title
-#: src/sj-prefs.c:300
+#: src/sj-prefs.c:301
 msgid "Track Artist"
 msgstr "Track Artist"
