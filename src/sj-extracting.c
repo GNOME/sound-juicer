@@ -60,10 +60,10 @@ static GtkWidget *track_progress, *album_progress;
 static GtkWidget *progress_label;
 
 /** The widgets in the main UI */
-static GtkWidget *extract_button, *title_entry, *artist_entry, *genre_entry, *track_listview;
+static GtkWidget *extract_button, *play_button, *title_entry, *artist_entry, *genre_entry, *track_listview;
 
 /** The menuitem in the main menu */
-static GtkWidget *extract_menuitem, *reread_menuitem, *select_all_menuitem, *deselect_all_menuitem;
+static GtkWidget *extract_menuitem, *play_menuitem, *reread_menuitem, *select_all_menuitem, *deselect_all_menuitem;
 
 /** The current TrackDetails being extracted. */
 static TrackDetails *track;
@@ -150,11 +150,13 @@ cleanup (void)
   pending = NULL;
   track = NULL;
   gtk_widget_set_sensitive (extract_button, TRUE);
+  gtk_widget_set_sensitive (play_button, TRUE);
   gtk_widget_set_sensitive (track_listview, TRUE);
   gtk_widget_set_sensitive (title_entry, TRUE);
   gtk_widget_set_sensitive (artist_entry, TRUE);
   gtk_widget_set_sensitive (genre_entry, TRUE);
   /* Enabling the Menuitem */ 
+  gtk_widget_set_sensitive (play_menuitem, TRUE);
   gtk_widget_set_sensitive (extract_menuitem, TRUE);
   gtk_widget_set_sensitive (reread_menuitem, TRUE);
   gtk_widget_set_sensitive (select_all_menuitem, TRUE);
@@ -582,11 +584,13 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
     album_progress = glade_xml_get_widget (glade, "album_progress");
     progress_label = glade_xml_get_widget (glade, "progress_label");
     extract_button = glade_xml_get_widget (glade, "extract_button");
+    play_button = glade_xml_get_widget (glade, "play_button");
     title_entry = glade_xml_get_widget (glade, "title_entry");
     artist_entry = glade_xml_get_widget (glade, "artist_entry");
     genre_entry = glade_xml_get_widget (glade, "genre_entry");
     track_listview = glade_xml_get_widget (glade, "track_listview");
     
+    play_menuitem = glade_xml_get_widget (glade, "play_menuitem");
     extract_menuitem = glade_xml_get_widget (glade, "extract_menuitem");
     reread_menuitem = glade_xml_get_widget (glade, "re-read");
     select_all_menuitem = glade_xml_get_widget (glade, "select_all");
@@ -606,12 +610,14 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
 
   /* Disable the widgets in the main UI*/
   gtk_widget_set_sensitive (extract_button, FALSE);
+  gtk_widget_set_sensitive (play_button, FALSE);
   gtk_widget_set_sensitive (title_entry, FALSE);
   gtk_widget_set_sensitive (artist_entry, FALSE);
   gtk_widget_set_sensitive (genre_entry, FALSE);
   gtk_widget_set_sensitive (track_listview, FALSE);
 
   /* Disable the menuitems in the main menu*/	
+  gtk_widget_set_sensitive (play_menuitem, FALSE);
   gtk_widget_set_sensitive (extract_menuitem, FALSE);
   gtk_widget_set_sensitive (reread_menuitem, FALSE);
   gtk_widget_set_sensitive (select_all_menuitem, FALSE);
