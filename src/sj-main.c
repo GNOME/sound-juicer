@@ -241,12 +241,11 @@ static void duration_cell_data_cb (GtkTreeViewColumn *tree_column,
   g_free (string);
 }
 
-extern gint current_track;
-static void title_cell_icon_data_cb (GtkTreeViewColumn *tree_column,
-                                GtkCellRenderer *cell,
-                                GtkTreeModel *tree_model,
-                                GtkTreeIter *iter,
-                                gpointer data)
+static void number_cell_icon_data_cb (GtkTreeViewColumn *tree_column,
+				      GtkCellRenderer *cell,
+				      GtkTreeModel *tree_model,
+				      GtkTreeIter *iter,
+				      gpointer data)
 {
   TrackState state;
   gtk_tree_model_get (tree_model, iter, COLUMN_STATE, &state, -1);
@@ -1127,27 +1126,28 @@ int main (int argc, char **argv)
     gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
-    renderer = gtk_cell_renderer_text_new ();
-    column = gtk_tree_view_column_new_with_attributes (_("Track"),
-                                                       renderer,
-                                                       "text", COLUMN_NUMBER,
-                                                       NULL);
-    gtk_tree_view_column_set_resizable (column, TRUE);
-    gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
-
     column = gtk_tree_view_column_new ();
-    gtk_tree_view_column_set_title (column, _("Title"));
-    gtk_tree_view_column_set_resizable (column, TRUE);
-    gtk_tree_view_column_set_expand (column, TRUE);
-    renderer = gtk_cell_renderer_pixbuf_new ();
+    gtk_tree_view_column_set_title (column, _("Track"));
+    gtk_tree_view_column_set_expand (column, FALSE);
+    gtk_tree_view_column_set_resizable (column, FALSE);
+    renderer = gtk_cell_renderer_text_new ();
     gtk_tree_view_column_pack_start (column, renderer, FALSE);
-    gtk_tree_view_column_set_cell_data_func (column, renderer, title_cell_icon_data_cb, NULL, NULL);
+    gtk_tree_view_column_add_attribute (column, renderer, "text", COLUMN_NUMBER);
+    renderer = gtk_cell_renderer_pixbuf_new ();
+    g_object_set (renderer, "stock-size", GTK_ICON_SIZE_MENU, "xalign", 0.0, NULL);
+    gtk_tree_view_column_pack_start (column, renderer, TRUE);
+    gtk_tree_view_column_set_cell_data_func (column, renderer, number_cell_icon_data_cb, NULL, NULL);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
     renderer = gtk_cell_renderer_text_new ();
     g_signal_connect (renderer, "edited", G_CALLBACK (on_cell_edited), GUINT_TO_POINTER (COLUMN_TITLE));
     g_object_set (G_OBJECT (renderer), "editable", TRUE, NULL);
-    gtk_tree_view_column_pack_start (column, renderer, TRUE);
-    gtk_tree_view_column_add_attribute (column, renderer, "text", COLUMN_TITLE);
+    column = gtk_tree_view_column_new_with_attributes (_("Title"),
+                                                       renderer,
+                                                       "text", COLUMN_TITLE,
+                                                       NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
+    gtk_tree_view_column_set_expand (column, TRUE);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
     renderer = gtk_cell_renderer_text_new ();
