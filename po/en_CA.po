@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-03 18:39-0400\n"
-"PO-Revision-Date: 2005-07-03 19:40-0400\n"
+"POT-Creation-Date: 2005-07-07 20:04-0400\n"
+"PO-Revision-Date: 2005-07-07 19:40-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -125,7 +125,7 @@ msgid "Select A Folder"
 msgstr "Select A Folder"
 
 #: data/sound-juicer.glade.h:26 src/sj-about.c:52 src/sj-extractor.c:431
-#: src/sj-main.c:96 src/sj-main.c:98 src/sj-main.c:1032
+#: src/sj-main.c:96 src/sj-main.c:98 src/sj-main.c:1031
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -142,20 +142,20 @@ msgid "Unknown"
 msgstr "Unknown"
 
 #: data/sound-juicer.glade.h:29
-msgid "_CD"
-msgstr "_CD"
-
-#: data/sound-juicer.glade.h:30
 msgid "_Contents"
 msgstr "_Contents"
 
-#: data/sound-juicer.glade.h:31 src/sj-main.c:177
+#: data/sound-juicer.glade.h:30 src/sj-main.c:177
 msgid "_Continue"
 msgstr "_Continue"
 
-#: data/sound-juicer.glade.h:32
+#: data/sound-juicer.glade.h:31
 msgid "_Deselect All"
 msgstr "_Deselect All"
+
+#: data/sound-juicer.glade.h:32
+msgid "_Disc"
+msgstr "_Disc"
 
 #: data/sound-juicer.glade.h:33
 msgid "_Edit"
@@ -285,7 +285,7 @@ msgstr ""
 "Maintainer: Adam Weinberger <adamw@gnome.org>\n"
 "Alexander Winston <alexander.winston@comcast.net>"
 
-#: src/sj-extracting.c:196
+#: src/sj-extracting.c:198
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -294,16 +294,16 @@ msgstr ""
 "A file called '%s' exists, size %s.\n"
 "Do you want to skip this track or overwrite it?"
 
-#: src/sj-extracting.c:200
+#: src/sj-extracting.c:202
 msgid "_Skip"
 msgstr "_Skip"
 
-#: src/sj-extracting.c:201
+#: src/sj-extracting.c:203
 msgid "_Overwrite"
 msgstr "_Overwrite"
 
 #. Display a nice dialog
-#: src/sj-extracting.c:264 src/sj-extracting.c:301 src/sj-extracting.c:520
+#: src/sj-extracting.c:266 src/sj-extracting.c:303 src/sj-extracting.c:522
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -312,26 +312,26 @@ msgstr ""
 "Sound Juicer could not extract this CD.\n"
 "Reason: %s"
 
-#: src/sj-extracting.c:291
+#: src/sj-extracting.c:293
 #, c-format
 msgid "Extracting '%s'"
 msgstr "Extracting '%s'"
 
-#: src/sj-extracting.c:354
+#: src/sj-extracting.c:356
 #, c-format
 msgid "%d:%02d (at %0.1fx)"
 msgstr "%d:%02d (at %0.1fx)"
 
-#: src/sj-extracting.c:356
+#: src/sj-extracting.c:358
 msgid "Unknown (at 0.0x)"
 msgstr "Unknown (at 0.0x)"
 
 #. TODO: need to have a better message here
-#: src/sj-extracting.c:461
+#: src/sj-extracting.c:463
 msgid "The tracks have been copied successfully."
 msgstr "The tracks have been copied successfully."
 
-#: src/sj-extracting.c:466
+#: src/sj-extracting.c:468
 msgid "_Eject"
 msgstr "_Eject"
 
@@ -386,7 +386,7 @@ msgstr "The plugin necessary for file access was not found"
 msgid "Could not start Sound Juicer"
 msgstr "Could not start Sound Juicer"
 
-#: src/sj-main.c:112 src/sj-main.c:528 src/sj-main.c:617 src/sj-main.c:678
+#: src/sj-main.c:112 src/sj-main.c:527 src/sj-main.c:616 src/sj-main.c:677
 msgid "Reason"
 msgstr "Reason"
 
@@ -399,60 +399,60 @@ msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr ""
 "You are currently extracting a CD. Do you want to quit now or continue?"
 
-#: src/sj-main.c:238 src/sj-main.c:337
+#: src/sj-main.c:238 src/sj-main.c:336
 msgid "(unknown)"
 msgstr "(unknown)"
 
-#: src/sj-main.c:379 src/sj-main.c:1139
+#: src/sj-main.c:378 src/sj-main.c:1145
 msgid "Title"
 msgstr "Title"
 
-#: src/sj-main.c:385 src/sj-main.c:1154
+#: src/sj-main.c:384 src/sj-main.c:1154
 msgid "Artist"
 msgstr "Artist"
 
-#: src/sj-main.c:526 src/sj-main.c:615 src/sj-main.c:676
+#: src/sj-main.c:525 src/sj-main.c:614 src/sj-main.c:675
 msgid "Could not read the CD"
 msgstr "Could not read the CD"
 
-#: src/sj-main.c:527 src/sj-main.c:616
+#: src/sj-main.c:526 src/sj-main.c:615
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer could not read the track listing on this CD."
 
 #. Set statusbar message
-#: src/sj-main.c:600
+#: src/sj-main.c:599
 msgid "Retrieving track listing...please wait."
 msgstr "Retrieving track listing...please wait."
 
-#: src/sj-main.c:656
+#: src/sj-main.c:655
 msgid "No CD-ROM drives found"
 msgstr "No CD-ROM drives found"
 
-#: src/sj-main.c:657
+#: src/sj-main.c:656
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer could not find any CD-ROM drives to read."
 
-#: src/sj-main.c:670
+#: src/sj-main.c:669
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer could not access the CD-ROM device '%s'"
 
-#: src/sj-main.c:717
+#: src/sj-main.c:716
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr ""
 "The currently selected audio profile is not available on your installation."
 
-#: src/sj-main.c:719
+#: src/sj-main.c:718
 msgid "_Change Profile"
 msgstr "_Change Profile"
 
-#: src/sj-main.c:881
+#: src/sj-main.c:880
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Unknown column %d was edited"
 
-#: src/sj-main.c:936 src/sj-prefs.c:141
+#: src/sj-main.c:935 src/sj-prefs.c:141
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -461,19 +461,19 @@ msgstr ""
 "Could not display help for Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:1053
+#: src/sj-main.c:1052
 msgid "Could not create GConf client.\n"
 msgstr "Could not create GConf client.\n"
 
-#: src/sj-main.c:1083
+#: src/sj-main.c:1082
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "The interface file for Sound Juicer could not be read."
 
-#: src/sj-main.c:1123
+#: src/sj-main.c:1122
 msgid "Extract"
 msgstr "Extract"
 
-#: src/sj-main.c:1131
+#: src/sj-main.c:1130
 msgid "Track"
 msgstr "Track"
 
