@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-02 10:11+0700\n"
-"PO-Revision-Date: 2005-07-02 10:16+0700\n"
+"POT-Creation-Date: 2005-07-10 17:18+0700\n"
+"PO-Revision-Date: 2005-07-10 17:20+0700\n"
 "Last-Translator: Paisa Seeluangsawat <paisa@users.sf.net>\n"
 "Language-Team: Thai <L10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
@@ -129,7 +129,7 @@ msgstr "เลือกโฟลเดอร์"
 
 #: data/sound-juicer.glade.h:26 src/sj-about.c:52
 #: src/sj-extractor.c:431 src/sj-main.c:96 src/sj-main.c:98
-#: src/sj-main.c:1032
+#: src/sj-main.c:1031
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -145,20 +145,20 @@ msgid "Unknown"
 msgstr "ไม่ทราบ"
 
 #: data/sound-juicer.glade.h:29
-msgid "_CD"
-msgstr "ซี_ดี"
-
-#: data/sound-juicer.glade.h:30
 msgid "_Contents"
 msgstr "เ_นื้อหา"
 
-#: data/sound-juicer.glade.h:31 src/sj-main.c:177
+#: data/sound-juicer.glade.h:30 src/sj-main.c:177
 msgid "_Continue"
 msgstr "_ต่อไป"
 
-#: data/sound-juicer.glade.h:32
+#: data/sound-juicer.glade.h:31
 msgid "_Deselect All"
 msgstr "ไ_ม่เลือกสักอัน"
+
+#: data/sound-juicer.glade.h:32
+msgid "_Disc"
+msgstr "แ_ผ่น"
 
 #: data/sound-juicer.glade.h:33
 msgid "_Edit"
@@ -287,7 +287,7 @@ msgstr ""
 "ถ้ามีเวลาโปรดมาช่วยกันแปล ;-)\n"
 "http://gnome-th.sf.net"
 
-#: src/sj-extracting.c:196
+#: src/sj-extracting.c:198
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -296,17 +296,17 @@ msgstr ""
 "มีแฟ้มชื่อ '%s' อยู่แล้ว ซึ่งมีขนาด %s\n"
 "คุณต้องการข้ามร่องเสียงนี้หรือจะเขียนทับแฟ้ม?"
 
-#: src/sj-extracting.c:200
+#: src/sj-extracting.c:202
 msgid "_Skip"
 msgstr "ข้_าม"
 
-#: src/sj-extracting.c:201
+#: src/sj-extracting.c:203
 msgid "_Overwrite"
 msgstr "เ_ขียนทับ"
 
 #. Display a nice dialog
-#: src/sj-extracting.c:264 src/sj-extracting.c:301
-#: src/sj-extracting.c:520
+#: src/sj-extracting.c:266 src/sj-extracting.c:303
+#: src/sj-extracting.c:522
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -315,26 +315,26 @@ msgstr ""
 "Sound Juicer คัดลอกเพลงจากซีดีนี้ไม่สำเร็จ\n"
 "สาเหตุ: %s"
 
-#: src/sj-extracting.c:291
+#: src/sj-extracting.c:293
 #, c-format
 msgid "Extracting '%s'"
 msgstr "กำลังคัดลอก '%s'"
 
-#: src/sj-extracting.c:354
+#: src/sj-extracting.c:356
 #, c-format
 msgid "%d:%02d (at %0.1fx)"
 msgstr "%d:%02d (ที่ %0.1fx)"
 
-#: src/sj-extracting.c:356
+#: src/sj-extracting.c:358
 msgid "Unknown (at 0.0x)"
 msgstr "ไม่ทราบ (ที่ 0.0x)"
 
 #. TODO: need to have a better message here
-#: src/sj-extracting.c:461
+#: src/sj-extracting.c:463
 msgid "The tracks have been copied successfully."
 msgstr "คัดลอกร่องเสียงเหล่านี้สำเร็จเรียบร้อย"
 
-#: src/sj-extracting.c:466
+#: src/sj-extracting.c:468
 msgid "_Eject"
 msgstr "เด้_งแผ่นออก"
 
@@ -388,8 +388,8 @@ msgstr "ไม่พบ filesink ซึ่งจำเป็นสำหรั�
 msgid "Could not start Sound Juicer"
 msgstr "ไม่สามารถเริ่มการทำงานของ Sound Juicer"
 
-#: src/sj-main.c:112 src/sj-main.c:528 src/sj-main.c:617
-#: src/sj-main.c:678
+#: src/sj-main.c:112 src/sj-main.c:527 src/sj-main.c:616
+#: src/sj-main.c:677
 msgid "Reason"
 msgstr "เหตุผล"
 
@@ -402,59 +402,59 @@ msgstr "โปรดอ่านเอกสารคู่มือเพื่
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "คุณกำลังคัดลอกเพลงจากซีดีอยู่ ต้องการจะออกจากโปรแกรมเดี๋ยวนี้ หรือคัดลอกต่อ ?"
 
-#: src/sj-main.c:238 src/sj-main.c:337
+#: src/sj-main.c:238 src/sj-main.c:336
 msgid "(unknown)"
 msgstr "(ไม่รู้จัก)"
 
-#: src/sj-main.c:379 src/sj-main.c:1139
+#: src/sj-main.c:378 src/sj-main.c:1145
 msgid "Title"
 msgstr "ชื่อ"
 
-#: src/sj-main.c:385 src/sj-main.c:1154
+#: src/sj-main.c:384 src/sj-main.c:1154
 msgid "Artist"
 msgstr "ศิลปิน"
 
-#: src/sj-main.c:526 src/sj-main.c:615 src/sj-main.c:676
+#: src/sj-main.c:525 src/sj-main.c:614 src/sj-main.c:675
 msgid "Could not read the CD"
 msgstr "ไม่สามารถอ่านซีดีนี้"
 
-#: src/sj-main.c:527 src/sj-main.c:616
+#: src/sj-main.c:526 src/sj-main.c:615
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer ไม่สามารถอ่านสารบัญร่องเสียงของซีดีนี้"
 
 #. Set statusbar message
-#: src/sj-main.c:600
+#: src/sj-main.c:599
 msgid "Retrieving track listing...please wait."
 msgstr "กำลังอ่านสารบัญร่องเสียง...โปรดรอสักครู่"
 
-#: src/sj-main.c:656
+#: src/sj-main.c:655
 msgid "No CD-ROM drives found"
 msgstr "ไม่พบตัวอ่านซีดี"
 
-#: src/sj-main.c:657
+#: src/sj-main.c:656
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer ไม่พบตัวอ่านซีดีในเครื่อง"
 
-#: src/sj-main.c:670
+#: src/sj-main.c:669
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer ไม่สามารถเข้าใช้อุปกรณ์ซีดี '%s'"
 
-#: src/sj-main.c:717
+#: src/sj-main.c:716
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "โพรไฟล์เสียงที่เลือกอยู่ไม่ปรากฏว่ามีในการติดตั้งของคุณ"
 
-#: src/sj-main.c:719
+#: src/sj-main.c:718
 msgid "_Change Profile"
 msgstr "เ_ปลี่ยนโพรไฟล์"
 
-#: src/sj-main.c:881
+#: src/sj-main.c:880
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "คอลัมน์ %d ถูกแก้ไข ซึ่งไม่น่าจะถูกต้อง"
 
-#: src/sj-main.c:936 src/sj-prefs.c:141
+#: src/sj-main.c:935 src/sj-prefs.c:141
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -463,19 +463,19 @@ msgstr ""
 "ไม่สามารถแสดงวิธีใช้ของ Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:1053
+#: src/sj-main.c:1052
 msgid "Could not create GConf client.\n"
 msgstr "ไม่สามารถสร้างตัวใช้บริการ GConf\n"
 
-#: src/sj-main.c:1083
+#: src/sj-main.c:1082
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "ไม่สามารถอ่านข้อมูลส่วนติดต่อผู้ใช้ของ Sound Juicer ได้"
 
-#: src/sj-main.c:1123
+#: src/sj-main.c:1122
 msgid "Extract"
 msgstr "คัดลอก"
 
-#: src/sj-main.c:1131
+#: src/sj-main.c:1130
 msgid "Track"
 msgstr "ร่องเสียง"
 
@@ -619,6 +619,9 @@ msgstr "หมายเลข-ศิลปินเพลง-ชื่อเพ�
 msgid "Track Artist"
 msgstr "ศิลปินเพลง"
 
+#~ msgid "_CD"
+#~ msgstr "ซี_ดี"
+
 #~ msgid "Blues"
 #~ msgstr "บลูส์"
 
@@ -630,9 +633,6 @@ msgstr "ศิลปินเพลง"
 
 #~ msgid "Dance"
 #~ msgstr "แดนซ์"
-
-#~ msgid "Disco"
-#~ msgstr "ดิสโก้"
 
 #~ msgid "Hip-Hop"
 #~ msgstr "ฮิปฮอป"
