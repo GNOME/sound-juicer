@@ -45,6 +45,8 @@ sound_juicer_SOURCES = \
 	sj-about.c \
 	sj-extracting.h \
 	sj-extracting.c \
+	sj-volume.c \
+	sj-volume.h \
 	$(BACON_FILES) \
 	$(MARSHALFILES)
 

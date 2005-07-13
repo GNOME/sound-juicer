@@ -35,6 +35,7 @@
 #include <gtk/gtkstatusbar.h>
 #include <gtk/gtkmessagedialog.h>
 
+#include "sj-volume.h"
 #include "sound-juicer.h"
 
 static GstElement *pipeline = NULL;
@@ -42,6 +43,7 @@ static guint id = 0;
 static gint seek_to_track = -1, current_track = -1;
 static gboolean seeking = FALSE, internal_update = FALSE;
 static guint64 slen = GST_CLOCK_TIME_NONE;
+static gfloat vol = 1.0;
 
 static GtkTreeIter current_iter;
 
@@ -77,7 +79,6 @@ select_track (void)
 static void
 play (void)
 {
-  char *title;
   gst_element_set_state (pipeline, GST_STATE_PLAYING);
 }
 
@@ -188,8 +189,7 @@ get_label_for_time (gint sec)
 static void
 set_statusbar_pos (gint pos, gint len)
 {
-  /* TODO: make 's' static and get once */
-  GtkWidget *s = glade_xml_get_widget (glade, "status_bar");
+  static GtkStatusbar *status = NULL;
   static gint prev_pos = 0, prev_len = 0;
   gchar *x, *y, *r;
 
@@ -204,7 +204,10 @@ set_statusbar_pos (gint pos, gint len)
   g_free (x);
   g_free (y);
 
-  gtk_statusbar_push (GTK_STATUSBAR (s), 0, r);
+  if (status == NULL) {
+    status = GTK_STATUSBAR (glade_xml_get_widget (glade, "status_bar"));
+  }
+  gtk_statusbar_push (status, 0, r);
   g_free (r);
 }
 
@@ -241,10 +244,18 @@ static void
 cb_state (GstElement * p, GstElementState old_state, GstElementState new_state,
     gpointer data)
 {
+  static GtkWidget *seek, *volume, *status, *play;
+  if (seek == NULL || volume == NULL) {
+    seek = glade_xml_get_widget (glade, "seek_scale");
+    volume = glade_xml_get_widget (glade, "volume_button");
+    status = glade_xml_get_widget (glade, "status_bar");
+    play = glade_xml_get_widget (glade, "play_button");
+  }
+
   if (old_state == GST_STATE_READY && new_state == GST_STATE_PAUSED) {
-    GtkWidget *w = glade_xml_get_widget (glade, "seek_scale");
     char *title;
-    gtk_widget_show (w);
+    gtk_widget_show (seek);
+    gtk_widget_show (volume);
     gtk_list_store_set (track_store, &current_iter,
         COLUMN_STATE, STATE_PLAYING, -1);
     gtk_tree_model_get (GTK_TREE_MODEL (track_store),
@@ -252,21 +263,18 @@ cb_state (GstElement * p, GstElementState old_state, GstElementState new_state,
     sj_main_set_title (title);
     g_free (title);
   } else if (new_state == GST_STATE_READY && old_state == GST_STATE_PAUSED) {
-    GtkWidget *w = glade_xml_get_widget (glade, "seek_scale"),
-        *s = glade_xml_get_widget (glade, "status_bar");
-    gtk_widget_hide (w);
-    gtk_statusbar_pop (GTK_STATUSBAR (s), 0);
+    gtk_widget_hide (seek);
+    gtk_widget_hide (volume);
+    gtk_statusbar_pop (GTK_STATUSBAR (status), 0);
     slen = GST_CLOCK_TIME_NONE;
     gtk_list_store_set (track_store, &current_iter,
         COLUMN_STATE, STATE_IDLE, -1);
     sj_main_set_title (NULL);
   } else if (new_state == GST_STATE_PLAYING) {
-    GtkWidget *b = glade_xml_get_widget (glade, "play_button");
-    gtk_button_set_label (GTK_BUTTON (b), GTK_STOCK_MEDIA_PAUSE);
+    gtk_button_set_label (GTK_BUTTON (play), GTK_STOCK_MEDIA_PAUSE);
     id = g_timeout_add (100, (GSourceFunc) cb_set_time, NULL);
   } else if (old_state == GST_STATE_PLAYING) {
-    GtkWidget *b = glade_xml_get_widget (glade, "play_button");
-    gtk_button_set_label (GTK_BUTTON (b), GTK_STOCK_MEDIA_PLAY);
+    gtk_button_set_label (GTK_BUTTON (play), GTK_STOCK_MEDIA_PLAY);
     if (id) {
       g_source_remove (id);
       id = 0;
@@ -282,7 +290,7 @@ static gboolean
 setup (GError **err)
 {
   if (!pipeline) {
-    GstElement *internal_t, *out, *conv, *scale, *cdp, *queue;
+    GstElement *internal_t, *out, *conv, *scale, *cdp, *queue, *volume;
 
     pipeline = gst_thread_new ("playback");
     g_signal_connect (pipeline, "eos", G_CALLBACK (cb_eos), NULL);
@@ -306,10 +314,12 @@ setup (GError **err)
     queue = gst_element_factory_make ("queue", "queue");
     conv = gst_element_factory_make ("audioconvert", "conv");
     scale = gst_element_factory_make ("audioscale", "scale");
+    volume = gst_element_factory_make ("volume", "vol");
+    g_object_set (G_OBJECT (volume), "volume", vol, NULL);
     out = gst_gconf_get_default_audio_sink ();
 
-    gst_element_link_many (cdp, queue, conv, scale, out, NULL);
-    gst_bin_add_many (GST_BIN (internal_t), conv, scale, out, NULL);
+    gst_element_link_many (cdp, queue, conv, scale, volume, out, NULL);
+    gst_bin_add_many (GST_BIN (internal_t), conv, scale, volume, out, NULL);
     gst_bin_add_many (GST_BIN (pipeline), cdp, queue, internal_t, NULL);
 
     /* if something went wrong, cleanup here is easier... */
@@ -405,6 +415,22 @@ on_tracklist_row_activate (GtkTreeView * treeview, GtkTreePath * path,
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
     g_error_free (err);
+  }
+}
+
+/**
+ * Volume.
+ */
+
+void
+on_volume_changed (GtkWidget * volb, gpointer data)
+{
+  vol = sj_volume_button_get_value (SJ_VOLUME_BUTTON (volb));
+  if (pipeline) {
+    GstElement *volume;
+
+    volume = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "vol");
+    g_object_set (G_OBJECT (volume), "volume", vol, NULL);
   }
 }
 

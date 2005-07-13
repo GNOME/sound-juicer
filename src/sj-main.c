@@ -46,6 +46,7 @@
 #include "sj-util.h"
 #include "sj-prefs.h"
 #include "sj-play.h"
+#include "sj-volume.h"
 
 gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data);
 
@@ -976,6 +977,14 @@ static GtkTreeModel* create_genre_list(void) {
   }
 
   return GTK_TREE_MODEL (store);
+}
+
+GtkWidget *
+sj_make_volume_button (void)
+{
+  GtkWidget *w = sj_volume_button_new (0.0, 1.0, 0.02);
+  sj_volume_button_set_value (SJ_VOLUME_BUTTON (w), 1.0);
+  return w;
 }
 
 static void
