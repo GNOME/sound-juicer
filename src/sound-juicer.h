@@ -143,8 +143,9 @@ extern gboolean autostart;
 /**
  * Custom stock icons
  */
-#define SJ_STOCK_PLAY "sj_stock_play"
-#define SJ_STOCK_RECORD "sj_stock_record"
+#define SJ_STOCK_PLAYING "sj-stock-playing"
+#define SJ_STOCK_RECORDING "sj-stock-recording"
+#define SJ_STOCK_EXTRACT "sj-stock-extract"
 
 /* TODO: need to add a SjWindow object or something */
 void sj_main_set_title (const char* detail);

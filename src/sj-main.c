@@ -26,6 +26,7 @@
 #include <string.h>
 #include <unistd.h>
 
+#include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
 #include <glade/glade.h>
 #include <gconf/gconf-client.h>
@@ -129,8 +130,9 @@ sj_stock_init (void)
 
   static GtkStockItem sj_stock_items[] =
   {
-    { SJ_STOCK_PLAY, NULL, 0, 0, NULL },
-    { SJ_STOCK_RECORD, NULL, 0, 0, NULL }
+    { SJ_STOCK_PLAYING, NULL, 0, 0, NULL },
+    { SJ_STOCK_RECORDING, NULL, 0, 0, NULL },
+    { SJ_STOCK_EXTRACT, "E_xtract", GDK_CONTROL_MASK, GDK_Return, NULL }
   };
 
   if (initialized)
@@ -138,8 +140,9 @@ sj_stock_init (void)
 
   sj_icon_factory = gtk_icon_factory_new ();
 
-  add_stock_icon (sj_icon_factory, SJ_STOCK_PLAY, GTK_ICON_SIZE_MENU, PKGDATADIR"/sj-play.png");
-  add_stock_icon (sj_icon_factory, SJ_STOCK_RECORD, GTK_ICON_SIZE_MENU, PKGDATADIR"/sj-record.png");
+  add_stock_icon (sj_icon_factory, SJ_STOCK_PLAYING, GTK_ICON_SIZE_MENU, PKGDATADIR"/sj-play.png");
+  add_stock_icon (sj_icon_factory, SJ_STOCK_RECORDING, GTK_ICON_SIZE_MENU, PKGDATADIR"/sj-record.png");
+  gtk_icon_factory_add (sj_icon_factory, SJ_STOCK_EXTRACT, gtk_icon_factory_lookup_default (GTK_STOCK_CDROM));
 
   gtk_icon_factory_add_default (sj_icon_factory);
 
@@ -313,10 +316,10 @@ static void number_cell_icon_data_cb (GtkTreeViewColumn *tree_column,
     g_object_set (G_OBJECT (cell), "stock-id", "", NULL);
     break;
   case STATE_PLAYING:
-    g_object_set (G_OBJECT (cell), "stock-id", SJ_STOCK_PLAY, NULL);
+    g_object_set (G_OBJECT (cell), "stock-id", SJ_STOCK_PLAYING, NULL);
     break;
   case STATE_EXTRACTING:
-    g_object_set (G_OBJECT (cell), "stock-id", SJ_STOCK_RECORD, NULL);
+    g_object_set (G_OBJECT (cell), "stock-id", SJ_STOCK_RECORDING, NULL);
     break;
   default:
     g_warning("Unhandled track state %d\n", state);
