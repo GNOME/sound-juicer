@@ -90,6 +90,64 @@ gboolean autostart = FALSE, autoplay = FALSE;
 #define SOURCE_GLADE "../data/sound-juicer.glade"
 #define INSTALLED_GLADE DATADIR"/sound-juicer/sound-juicer.glade"
 
+static void
+add_stock_icon (GtkIconFactory *sj_icon_factory,
+                const gchar *stock_id,
+                GtkIconSize  size,
+                const gchar *file_name)
+{
+  GtkIconSource *source;
+  GtkIconSet    *set;
+  GdkPixbuf     *pixbuf;
+
+  source = gtk_icon_source_new ();
+
+  gtk_icon_source_set_size (source, size);
+  gtk_icon_source_set_size_wildcarded (source, FALSE);
+
+  pixbuf = gdk_pixbuf_new_from_file (file_name, NULL);
+
+  gtk_icon_source_set_pixbuf (source, pixbuf);
+
+  g_object_unref (pixbuf);
+
+  set = gtk_icon_set_new ();
+
+  gtk_icon_set_add_source (set, source);
+  gtk_icon_source_free (source);
+
+  gtk_icon_factory_add (sj_icon_factory, stock_id, set);
+
+  gtk_icon_set_unref (set);
+}
+
+void
+sj_stock_init (void)
+{
+  static gboolean initialized = FALSE;
+  static GtkIconFactory *sj_icon_factory = NULL;
+
+  static GtkStockItem sj_stock_items[] =
+  {
+    { SJ_STOCK_PLAY, NULL, 0, 0, NULL },
+    { SJ_STOCK_RECORD, NULL, 0, 0, NULL }
+  };
+
+  if (initialized)
+    return;
+
+  sj_icon_factory = gtk_icon_factory_new ();
+
+  add_stock_icon (sj_icon_factory, SJ_STOCK_PLAY, GTK_ICON_SIZE_MENU, PKGDATADIR"/sj-play.png");
+  add_stock_icon (sj_icon_factory, SJ_STOCK_RECORD, GTK_ICON_SIZE_MENU, PKGDATADIR"/sj-record.png");
+
+  gtk_icon_factory_add_default (sj_icon_factory);
+
+  gtk_stock_add_static (sj_stock_items, G_N_ELEMENTS (sj_stock_items));
+
+  initialized = TRUE;
+}
+
 void
 sj_main_set_title (const char* detail)
 {
@@ -255,10 +313,10 @@ static void number_cell_icon_data_cb (GtkTreeViewColumn *tree_column,
     g_object_set (G_OBJECT (cell), "stock-id", "", NULL);
     break;
   case STATE_PLAYING:
-    g_object_set (G_OBJECT (cell), "stock-id", GTK_STOCK_MEDIA_PLAY, NULL);
+    g_object_set (G_OBJECT (cell), "stock-id", SJ_STOCK_PLAY, NULL);
     break;
   case STATE_EXTRACTING:
-    g_object_set (G_OBJECT (cell), "stock-id", GTK_STOCK_MEDIA_RECORD, NULL);
+    g_object_set (G_OBJECT (cell), "stock-id", SJ_STOCK_RECORD, NULL);
     break;
   default:
     g_warning("Unhandled track state %d\n", state);
@@ -1038,6 +1096,8 @@ int main (int argc, char **argv)
                       GNOME_PARAM_POPT_TABLE, options,
                       NULL);
   g_set_application_name (_("Sound Juicer"));
+
+  sj_stock_init ();
 
   connection = bacon_message_connection_new ("sound-juicer");
   if (bacon_message_connection_get_is_server (connection) == FALSE) {

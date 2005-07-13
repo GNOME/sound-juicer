@@ -140,6 +140,12 @@ extern gboolean autostart;
 #define GCONF_HTTP_PROXY GCONF_PROXY_ROOT "/host"
 #define GCONF_HTTP_PROXY_PORT GCONF_PROXY_ROOT "/port"
 
+/**
+ * Custom stock icons
+ */
+#define SJ_STOCK_PLAY "sj_stock_play"
+#define SJ_STOCK_RECORD "sj_stock_record"
+
 /* TODO: need to add a SjWindow object or something */
 void sj_main_set_title (const char* detail);
 
