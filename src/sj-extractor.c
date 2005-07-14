@@ -317,7 +317,9 @@ static void build_pipeline (SjExtractor *extractor)
   g_assert (priv->source_pad); /* TODO: GError */
 
   priv->queue = gst_element_factory_make ("queue", "queue");
-
+  /* Nice big buffers... */
+  g_object_set (priv->queue, "max-size-time", 20 * GST_SECOND, NULL);
+  
   priv->thread = gst_thread_new ("encode thread");
 
   /* Encode */
@@ -349,7 +351,12 @@ static void build_pipeline (SjExtractor *extractor)
   gst_bin_add (GST_BIN (priv->pipeline), priv->thread);
 
   /* Link it all together */
-  gst_element_link_many (priv->cdparanoia, priv->queue, priv->encoder, priv->filesink, NULL);
+  if (!gst_element_link_many (priv->cdparanoia, priv->queue, priv->encoder, priv->filesink, NULL)) {
+    /* TODO: need to produce a GError here */
+    g_warning ("Cannot link pipeline, very bad!");
+    g_object_unref (priv->pipeline);
+    return;
+  }
 
   priv->rebuild_pipeline = FALSE;
 }
