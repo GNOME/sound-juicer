@@ -52,24 +52,28 @@ enum {
   LAST_SIGNAL
 };
 
-static int sje_table_signals[LAST_SIGNAL] = { 0 };
+static guint sje_table_signals[LAST_SIGNAL] = { 0 };
 
 #define DEFAULT_AUDIO_PROFILE_NAME "cdlossy"
 
 struct SjExtractorPrivate {
+  /** The current audio profile */
   GMAudioProfile *profile;
+  /** If the pipeline needs to be re-created */
   gboolean rebuild_pipeline;
-  GstElement *pipeline;
-  GstElement *cdparanoia, *encoder, *filesink;
+  /* The gstreamer pipeline elements */
+  GstElement *pipeline, *cdparanoia, *queue, *thread, *encoder, *filesink;
   GstFormat track_format;
   GstPad *source_pad;
-  const char *encoder_name;
   char *device_path;
   int paranoia_mode;
   int track_start;
   int seconds;
   GError *construct_error;
+  /* Variables used by the thread to push signals into the main thread */
   guint idle_id;
+  GMutex *idle_mutex;
+  GAsyncQueue *idle_queue;
 };
 
 static void build_pipeline (SjExtractor *extractor);
@@ -133,6 +137,9 @@ static void sj_extractor_init (SjExtractor *extractor)
   extractor->priv = g_new0 (SjExtractorPrivate, 1);
   extractor->priv->profile = gm_audio_profile_lookup(DEFAULT_AUDIO_PROFILE_NAME);
   extractor->priv->rebuild_pipeline = TRUE;
+  extractor->priv->idle_id = 0;
+  extractor->priv->idle_mutex = g_mutex_new ();
+  extractor->priv->idle_queue = g_async_queue_new ();
 }
 
 static void sj_extractor_set_property (GObject *object, guint property_id,
@@ -165,37 +172,77 @@ static void sj_extractor_get_property (GObject *object, guint property_id,
 static void sj_extractor_finalize (GObject *object)
 {
   SjExtractor *extractor = (SjExtractor *)object;
-  if (extractor->priv->idle_id > 0)
-    g_source_remove (extractor->priv->idle_id);
   if (extractor->priv->pipeline)
     gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
   /* TODO: free the members of priv */
+  g_mutex_free (extractor->priv->idle_mutex);
+  g_async_queue_unref (extractor->priv->idle_queue);
   g_free (extractor->priv);
-  /* TODO: SJ_EXTRACTOR_GET_CLASS (extractor)->parent_class->finalize (object);*/
-  /* g_object_finalize (object); */
   extractor->priv = NULL;
-  extractor = NULL;
+  G_OBJECT_CLASS (sj_extractor_parent_class)->finalize (object);
 }
 
 /*
  * Private Methods
  */
+
+typedef struct {
+  guint signal;
+  union {
+    GError *error;
+    int progress;
+  } args;
+} SignalData;
+
+static gboolean
+fire_signal(gpointer user_data)
+{
+  SjExtractor *extractor = SJ_EXTRACTOR (user_data);
+  SignalData *data;
+  g_mutex_lock (extractor->priv->idle_mutex);
+
+  while ((data = g_async_queue_try_pop (extractor->priv->idle_queue)) != NULL) {
+    switch (data->signal) {
+    case COMPLETION:
+      g_signal_emit (extractor, sje_table_signals [COMPLETION], 0);
+      break;
+    case ERROR:
+      g_signal_emit (extractor, sje_table_signals[ERROR], 0, data->args.error);
+      g_error_free (data->args.error);
+      break;
+    case PROGRESS:
+      g_signal_emit (extractor, sje_table_signals[PROGRESS], 0, data->args.progress);
+      break;
+    default:
+      g_warning ("Unknown signal ID %d", data->signal);
+    }
+    g_free (data);
+  }
+
+  extractor->priv->idle_id = 0;
+  g_mutex_unlock (extractor->priv->idle_mutex);
+  return FALSE;
+}
+
+static void
+queue_signal (SjExtractor *extractor, SignalData *data)
+{
+  g_mutex_lock (extractor->priv->idle_mutex);
+  g_async_queue_push (extractor->priv->idle_queue, data);
+  if (extractor->priv->idle_id == 0)
+    extractor->priv->idle_id = g_idle_add (fire_signal, extractor);
+  g_mutex_unlock (extractor->priv->idle_mutex);
+}
+
 static void eos_cb (GstElement *gstelement, SjExtractor *extractor)
 {
+  SignalData *data;
   g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
   gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
   extractor->priv->rebuild_pipeline = TRUE;
-  g_signal_emit (G_OBJECT (extractor),
-                 sje_table_signals[COMPLETION],
-                 0);
-}
-
-static const char* get_encoder_name (SjExtractor *extractor)
-{
-  SjExtractorPrivate *priv;
-  g_return_val_if_fail (SJ_IS_EXTRACTOR (extractor), NULL);
-  priv = (SjExtractorPrivate*)extractor->priv;
-  return priv->encoder_name;
+  data = g_new0 (SignalData, 1);
+  data->signal = COMPLETION;
+  queue_signal (extractor, data);
 }
 
 static GstElement* build_encoder (SjExtractor *extractor)
@@ -216,11 +263,13 @@ static GstElement* build_encoder (SjExtractor *extractor)
 static void error_cb (GstElement *element, GObject *arg, GError *err, gchar *arg2, gpointer user_data)
 {
   SjExtractor *extractor = SJ_EXTRACTOR (user_data);
+  SignalData *data;
   /* Make sure the pipeline is not running any more */
   gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
-  g_signal_emit (G_OBJECT (extractor),
-                 sje_table_signals[ERROR],
-                 0, err);
+  data = g_new0 (SignalData, 1);
+  data->signal = ERROR;
+  data->args.error = g_error_copy (err);
+  queue_signal (extractor, data);
 }
 
 /**
@@ -245,7 +294,7 @@ static void build_pipeline (SjExtractor *extractor)
   if (priv->pipeline != NULL) {
     gst_object_unref (GST_OBJECT (priv->pipeline));
   }
-  priv->pipeline = gst_pipeline_new ("pipeline");
+  priv->pipeline = gst_thread_new ("pipeline");
   g_signal_connect (G_OBJECT (priv->pipeline), "error", G_CALLBACK (error_cb), extractor);
 
   /* Read from CD */
@@ -267,12 +316,16 @@ static void build_pipeline (SjExtractor *extractor)
   priv->source_pad = gst_element_get_pad (priv->cdparanoia, "src");
   g_assert (priv->source_pad); /* TODO: GError */
 
+  priv->queue = gst_element_factory_make ("queue", "queue");
+
+  priv->thread = gst_thread_new ("encode thread");
+
   /* Encode */
   priv->encoder = build_encoder (extractor);
   if (priv->encoder == NULL) {
     g_set_error (&priv->construct_error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-                 _("Could not create GStreamer encoder (%s)"), get_encoder_name (extractor));
+                 _("Could not create GStreamer encoders for %s"), gm_audio_profile_get_name (priv->profile));
     return;
   }
   /* Connect to the eos so we know when its finished */
@@ -290,11 +343,13 @@ static void build_pipeline (SjExtractor *extractor)
 
   /* Add the elements to the pipeline */
   gst_bin_add (GST_BIN (priv->pipeline), priv->cdparanoia);
-  gst_bin_add (GST_BIN (priv->pipeline), priv->encoder);
-  gst_bin_add (GST_BIN (priv->pipeline), priv->filesink);
+  gst_bin_add (GST_BIN (priv->thread), priv->queue);
+  gst_bin_add (GST_BIN (priv->thread), priv->encoder);
+  gst_bin_add (GST_BIN (priv->thread), priv->filesink);
+  gst_bin_add (GST_BIN (priv->pipeline), priv->thread);
 
   /* Link it all together */
-  gst_element_link_many (priv->cdparanoia, priv->encoder, priv->filesink, NULL);
+  gst_element_link_many (priv->cdparanoia, priv->queue, priv->encoder, priv->filesink, NULL);
 
   priv->rebuild_pipeline = FALSE;
 }
@@ -320,15 +375,14 @@ static gboolean tick_timeout_cb(SjExtractor *extractor)
 
   secs = nanos / GST_SECOND;
   if (secs != extractor->priv->seconds) {
+    SignalData *data;
     extractor->priv->seconds = secs;
-    g_signal_emit (G_OBJECT (extractor),
-                   sje_table_signals[PROGRESS],
-                   0, secs - extractor->priv->track_start);
+    data = g_new0 (SignalData, 1);
+    data->signal = PROGRESS;
+    data->args.progress = secs - extractor->priv->track_start;
+    queue_signal (extractor, data);
   }
 
-  /* Extra kick in the pants to keep things moving on a busy system */
-  gst_bin_iterate (GST_BIN (extractor->priv->pipeline));
-  
   return TRUE;
 }
 
@@ -393,9 +447,6 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
 
   /* See if we need to rebuild the pipeline */
   if (priv->rebuild_pipeline != FALSE) {
-    if (priv->idle_id > 0)
-      g_source_remove (priv->idle_id);
-    priv->idle_id = 0;
     build_pipeline (extractor);
     if (priv->construct_error != NULL) {
       *error = g_error_copy (priv->construct_error);
@@ -475,7 +526,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   priv->track_start = nanos / GST_SECOND;
 
   gst_element_set_state (priv->pipeline, GST_STATE_PLAYING);
-  priv->idle_id = g_idle_add ((GSourceFunc)gst_bin_iterate, priv->pipeline);
+  
   g_timeout_add (200, (GSourceFunc)tick_timeout_cb, extractor);
 }
 
@@ -488,15 +539,8 @@ void sj_extractor_cancel_extract (SjExtractor *extractor)
     return;
   }
   gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
-  g_source_remove (extractor->priv->idle_id);
 
   extractor->priv->rebuild_pipeline = TRUE;
-
-  /*
-   * TODO: I don't think I need to remove gst from the idle loop, as
-   * it will call gst_bin_iterate(), which sees that it is PAUSED,
-   * will return FALSE as it did nothing, and be removed. Correct?
-   */
 }
 
 gboolean sj_extractor_supports_encoding (GError **error)
