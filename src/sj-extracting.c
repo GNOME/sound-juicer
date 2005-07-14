@@ -32,6 +32,10 @@
 #include <gtk/gtkmain.h>
 #include <gtk/gtkmessagedialog.h>
 #include <gtk/gtkprogressbar.h>
+#include <gtk/gtkstatusbar.h>
+#include <gtk/gtkimage.h>
+#include <gtk/gtkstatusbar.h>
+#include <gtk/gtkimage.h>
 #include <gtk/gtkstock.h>
 #include <gtk/gtktreemodel.h>
 
@@ -50,14 +54,8 @@ typedef struct {
 /** If this module has been initialised yet. */
 static gboolean initialised = FALSE;
 
-/** The progress dialog. */
-static GtkWidget *progress_dialog;
-
-/** The track and album progress bars. */
-static GtkWidget *track_progress, *album_progress;
-
-/** The progress label. */
-static GtkWidget *progress_label;
+/** The progress bar and Status bar */
+static GtkWidget *progress_bar, *status_bar;
 
 /** The widgets in the main UI */
 static GtkWidget *extract_button, *play_button, *title_entry, *artist_entry, *genre_entry, *track_listview;
@@ -149,9 +147,14 @@ cleanup (void)
   g_list_free (pending);
   pending = NULL;
   track = NULL;
-  gtk_widget_set_sensitive (extract_button, TRUE);
+  gtk_button_set_label (GTK_BUTTON (extract_button), SJ_STOCK_EXTRACT);
+  
+  /* Clear the Status bar */
+  gtk_statusbar_push (GTK_STATUSBAR (status_bar), 0, "");
+  /* Clear the progress bar */
+  gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (progress_bar), 0);
+  
   gtk_widget_set_sensitive (play_button, TRUE);
-  gtk_widget_set_sensitive (track_listview, TRUE);
   gtk_widget_set_sensitive (title_entry, TRUE);
   gtk_widget_set_sensitive (artist_entry, TRUE);
   gtk_widget_set_sensitive (genre_entry, TRUE);
@@ -161,6 +164,12 @@ cleanup (void)
   gtk_widget_set_sensitive (reread_menuitem, TRUE);
   gtk_widget_set_sensitive (select_all_menuitem, TRUE);
   gtk_widget_set_sensitive (deselect_all_menuitem, TRUE);
+  
+  /*Enable the Extract column and Make the Title and Artist column Editable*/
+  g_object_set (G_OBJECT (toggle_renderer), "mode", GTK_CELL_RENDERER_MODE_ACTIVATABLE, NULL);
+  g_object_set (G_OBJECT (title_renderer), "editable", TRUE, NULL);
+  g_object_set (G_OBJECT (artist_renderer), "editable", TRUE, NULL);
+  g_signal_handlers_unblock_by_func (track_listview, on_tracklist_row_activate, NULL);
 }
 
 /**
@@ -262,7 +271,6 @@ pop_and_extract (void)
     directory = create_directory_for (file_path, &error);
     if (error) {
       GtkWidget *dialog;
-      gtk_widget_hide (progress_dialog);
       text = g_strdup_printf (_("Sound Juicer could not extract this CD.\nReason: %s"), error->message);
 
       dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
@@ -284,21 +292,19 @@ pop_and_extract (void)
       on_completion_cb (NULL, NULL);
       return;
     }
-
+   
+	/* Update the state stock image */
+    gtk_list_store_set (track_store, &track->iter,
+                   COLUMN_STATE, STATE_EXTRACTING, -1);
+		
     /* Update the progress bars */
-    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), 0);
-    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress),
+    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (progress_bar),
                                    CLAMP (1.0 - ((g_list_length (pending) + 1)  / (float)total_extracting), 0.0, 1.0));
-
-    text = g_strdup_printf (_("Extracting '%s'"), track->title);
-    gtk_label_set_text (GTK_LABEL (progress_label), text);
-    g_free (text);
 
     /* Now actually do the extraction */
     sj_extractor_extract_track (extractor, track, file_path, &error);
     if (error) {
       GtkWidget *dialog;
-      gtk_widget_hide (progress_dialog);
 
       text = g_strdup_printf (_("Sound Juicer could not extract this CD.\nReason: %s"), error->message);
 
@@ -347,18 +353,15 @@ extract_track_foreach_cb (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *i
 static void
 update_speed_progress (SjExtractor *extractor, float speed, int eta)
 {
-  GtkWidget *eta_label;
   char *eta_str;
 
-  eta_label = glade_xml_get_widget (glade, "eta_label");
-
   if (eta >= 0) {
-    eta_str = g_strdup_printf (_("%d:%02d (at %0.1fx)"), eta / 60, eta % 60, speed);
+    eta_str = g_strdup_printf (_("Estimated time left: %d:%02d (at %0.1fx)"), eta / 60, eta % 60, speed);	
   } else {
-    eta_str = g_strdup (_("Unknown (at 0.0x)"));
+    eta_str = g_strdup (_("Estimated time left: unknown"));  
   }
-
-  gtk_label_set_label (GTK_LABEL (eta_label), eta_str);
+  
+  gtk_statusbar_push (GTK_STATUSBAR (status_bar), 0, eta_str);
   g_free (eta_str);
 }
 
@@ -368,20 +371,11 @@ update_speed_progress (SjExtractor *extractor, float speed, int eta)
 static void
 on_progress_cb (SjExtractor *extractor, const int seconds, gpointer data)
 {
-  /* Track progress */
-  if (track->duration != 0) {
-    float percent;
-    percent = CLAMP ((float)seconds / (float)track->duration, 0, 1);
-    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), percent);
-  } else {
-    gtk_progress_bar_pulse (GTK_PROGRESS_BAR (track_progress));
-  }
-
   /* Album progress */
   if (total_duration != 0) {
     float percent;
     percent = CLAMP ((float)(current_duration + seconds) / (float)total_duration, 0, 1);
-    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress), percent);
+    gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (progress_bar), percent);
 
     if (before.seconds == -1) {
       before.seconds = current_duration + seconds;
@@ -491,11 +485,13 @@ show_finished_dialog (void)
 static void
 on_completion_cb (SjExtractor *extractor, gpointer data)
 {
+  gtk_list_store_set (track_store, &track->iter,
+                    COLUMN_STATE, STATE_IDLE, -1);
+  
   /* Uncheck the Extract check box */
   gtk_list_store_set (track_store, &track->iter, COLUMN_EXTRACT, FALSE, -1);
 
   if (pending == NULL) {
-    gtk_widget_hide (progress_dialog);
     show_finished_dialog ();
     if (autostart) {
       gtk_main_quit ();
@@ -517,7 +513,8 @@ on_error_cb (SjExtractor *extractor, GError *error, gpointer data)
   GtkWidget *dialog;
   char *text;
   /* We've come to a screeching halt... */
-  gtk_widget_hide (progress_dialog);
+  gtk_list_store_set (track_store, &track->iter,
+                 COLUMN_STATE, STATE_IDLE, -1);
   /* Display a nice dialog */
   text = g_strdup_printf (_("Sound Juicer could not extract this CD.\nReason: %s"), error->message);
 
@@ -542,8 +539,9 @@ void
 on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
 {
   sj_extractor_cancel_extract (extractor);
+  gtk_list_store_set (track_store, &track->iter,
+                 COLUMN_STATE, STATE_IDLE, -1);
   cleanup ();
-  gtk_widget_hide (progress_dialog);
   extracting = FALSE;
 }
 
@@ -555,7 +553,13 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
 {
   /* first make sure we're not playing, we cannot share the resource */
   stop_playback ();
-
+  
+  /* If extracting, then cancel the extract */
+  if (extracting) {
+     on_progress_cancel_clicked (NULL, NULL);
+     return;
+  }
+				
   /* Populate the pending list */
   pending = NULL;
   total_extracting = 0;
@@ -576,45 +580,36 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
     g_signal_connect (extractor, "completion", G_CALLBACK (on_completion_cb), NULL);
     g_signal_connect (extractor, "error", G_CALLBACK (on_error_cb), NULL);
 
-    /* Get the progress dialog */
-    progress_dialog = glade_xml_get_widget (glade, "progress_dialog");
-    g_assert (progress_dialog != NULL);
-    gtk_window_set_transient_for (GTK_WINDOW (progress_dialog), GTK_WINDOW (main_window));
-    track_progress = glade_xml_get_widget (glade, "track_progress");
-    album_progress = glade_xml_get_widget (glade, "album_progress");
-    progress_label = glade_xml_get_widget (glade, "progress_label");
     extract_button = glade_xml_get_widget (glade, "extract_button");
     play_button = glade_xml_get_widget (glade, "play_button");
     title_entry = glade_xml_get_widget (glade, "title_entry");
     artist_entry = glade_xml_get_widget (glade, "artist_entry");
     genre_entry = glade_xml_get_widget (glade, "genre_entry");
     track_listview = glade_xml_get_widget (glade, "track_listview");
-    
+    progress_bar = glade_xml_get_widget (glade, "progress_bar");
+    status_bar = glade_xml_get_widget (glade, "status_bar");
+	
     play_menuitem = glade_xml_get_widget (glade, "play_menuitem");
     extract_menuitem = glade_xml_get_widget (glade, "extract_menuitem");
     reread_menuitem = glade_xml_get_widget (glade, "re-read");
     select_all_menuitem = glade_xml_get_widget (glade, "select_all");
     deselect_all_menuitem = glade_xml_get_widget (glade, "deselect_all");
     
-    /* TODO : this callback should be in the glade file */
-    g_signal_connect (progress_dialog, "delete-event", G_CALLBACK (on_progress_cancel_clicked), NULL);
-
     initialised = TRUE;
   }
-
+  
+  /* Change the label to Stop while extracting*/
+  gtk_button_set_label (GTK_BUTTON (extract_button), GTK_STOCK_STOP);
+  
   /* Reset the progress dialog */
-  gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (track_progress), 0);
-  gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (album_progress), 0);
+  gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (progress_bar), 0);
   update_speed_progress (NULL, 0.0, -1);
-  gtk_widget_show_all (progress_dialog);
 
   /* Disable the widgets in the main UI*/
-  gtk_widget_set_sensitive (extract_button, FALSE);
   gtk_widget_set_sensitive (play_button, FALSE);
   gtk_widget_set_sensitive (title_entry, FALSE);
   gtk_widget_set_sensitive (artist_entry, FALSE);
   gtk_widget_set_sensitive (genre_entry, FALSE);
-  gtk_widget_set_sensitive (track_listview, FALSE);
 
   /* Disable the menuitems in the main menu*/	
   gtk_widget_set_sensitive (play_menuitem, FALSE);
@@ -623,6 +618,12 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   gtk_widget_set_sensitive (select_all_menuitem, FALSE);
   gtk_widget_set_sensitive (deselect_all_menuitem, FALSE);
   
+  /* Disable the Extract column */
+  g_object_set (G_OBJECT (toggle_renderer), "mode", GTK_CELL_RENDERER_MODE_INERT, NULL);
+  g_object_set (G_OBJECT (title_renderer), "editable", FALSE, NULL);
+  g_object_set (G_OBJECT (artist_renderer), "editable", FALSE, NULL);
+  g_signal_handlers_block_by_func (track_listview, on_tracklist_row_activate, NULL);
+
   /* Start the extracting */
   extracting = TRUE;
   pop_and_extract ();

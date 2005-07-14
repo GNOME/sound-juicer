@@ -32,6 +32,7 @@
 #include <gconf/gconf-client.h>
 #include <glade/glade-xml.h>
 #include <gtk/gtkwidget.h>
+#include <gtk/gtk.h>
 #include <gtk/gtkliststore.h>
 #include "sj-extractor.h"
 
@@ -119,6 +120,11 @@ extern gboolean eject_finished;
  * If we are in auto-start mode
  */
 extern gboolean autostart;
+
+/**
+ * Toggle, Title and Artist Renderers
+ */
+extern GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer;
 
 /**
  * GConf key names

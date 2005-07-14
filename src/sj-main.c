@@ -72,6 +72,7 @@ static GtkWidget *status_bar;
 static GtkWidget *extract_menuitem, *play_menuitem, *select_all_menuitem, *deselect_all_menuitem;
 GtkListStore *track_store;
 static BaconMessageConnection *connection;
+GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer;
 
 const char *base_uri, *path_pattern, *file_pattern;
 NautilusBurnDrive *drive = NULL;
@@ -1189,10 +1190,10 @@ int main (int argc, char **argv)
     GtkTreeViewColumn *column;
     GtkCellRenderer *renderer;
     
-    renderer = gtk_cell_renderer_toggle_new ();
-    g_signal_connect (renderer, "toggled", G_CALLBACK (on_extract_toggled), NULL);
+    toggle_renderer = gtk_cell_renderer_toggle_new ();
+    g_signal_connect (toggle_renderer, "toggled", G_CALLBACK (on_extract_toggled), NULL);
     column = gtk_tree_view_column_new_with_attributes (_("Extract"),
-                                                       renderer,
+                                                       toggle_renderer,
                                                        "active", COLUMN_EXTRACT,
                                                        NULL);
     gtk_tree_view_column_set_resizable (column, TRUE);
@@ -1211,26 +1212,26 @@ int main (int argc, char **argv)
     gtk_tree_view_column_set_cell_data_func (column, renderer, number_cell_icon_data_cb, NULL, NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
-    renderer = gtk_cell_renderer_text_new ();
-    g_signal_connect (renderer, "edited", G_CALLBACK (on_cell_edited), GUINT_TO_POINTER (COLUMN_TITLE));
-    g_object_set (G_OBJECT (renderer), "editable", TRUE, NULL);
+    title_renderer = gtk_cell_renderer_text_new ();
+    g_signal_connect (title_renderer, "edited", G_CALLBACK (on_cell_edited), GUINT_TO_POINTER (COLUMN_TITLE));
+    g_object_set (G_OBJECT (title_renderer), "editable", TRUE, NULL);
     column = gtk_tree_view_column_new_with_attributes (_("Title"),
-                                                       renderer,
+                                                       title_renderer,
                                                        "text", COLUMN_TITLE,
                                                        NULL);
     gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_column_set_expand (column, TRUE);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
-    renderer = gtk_cell_renderer_text_new ();
+    artist_renderer = gtk_cell_renderer_text_new ();
     column = gtk_tree_view_column_new_with_attributes (_("Artist"),
-                                                       renderer,
+                                                       artist_renderer,
                                                        "text", COLUMN_ARTIST,
                                                        NULL);
     gtk_tree_view_column_set_resizable (column, TRUE);
     gtk_tree_view_column_set_expand (column, TRUE);
-    g_signal_connect (renderer, "edited", G_CALLBACK (on_cell_edited), GUINT_TO_POINTER (COLUMN_ARTIST));
-    g_object_set (G_OBJECT (renderer), "editable", TRUE, NULL);
+    g_signal_connect (artist_renderer, "edited", G_CALLBACK (on_cell_edited), GUINT_TO_POINTER (COLUMN_ARTIST));
+    g_object_set (G_OBJECT (artist_renderer), "editable", TRUE, NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
     
     renderer = gtk_cell_renderer_text_new ();

@@ -27,5 +27,7 @@
 #include "sj-structures.h"
 
 void	stop_playback	(void);
+void   on_tracklist_row_activate (GtkTreeView * treeview, GtkTreePath * path,
+                   GtkTreeViewColumn * col, gpointer user_data);
 
 #endif /* SJ_PLAY_H_H */
