@@ -307,7 +307,7 @@ lookup_cd (SjMetadata *metadata)
     SjError err;
 
     if (access (priv->cdrom, W_OK) == 0) {
-      msg = g_strdup_printf (_("Device '%s' does not contain a media"), priv->cdrom);
+      msg = g_strdup_printf (_("Device '%s' does not contain any media"), priv->cdrom);
       err = SJ_ERROR_CD_NO_MEDIA;
     } else {
       msg = g_strdup_printf (_("Device '%s' could not be opened. Check the access permissions on the device."), priv->cdrom);
