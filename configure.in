@@ -2,6 +2,7 @@
 AC_INIT(sound-juicer, 2.11.4, http://www.burtonini.com/)
 AC_PREREQ(2.52)
 AM_INIT_AUTOMAKE([check-news 1.6])
+AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR(src/sj-extractor.c)
 AM_CONFIG_HEADER(src/config.h)
 AM_MAINTAINER_MODE
@@ -27,6 +28,8 @@ AC_PROG_CXX
 AC_PROG_LIBTOOL
 AC_PROG_INTLTOOL([0.20])
 
+# Use the GNOME documentation framework
+GNOME_DOC_INIT
 
 # Find GLib and GObject
 PKG_CHECK_MODULES(GLIB, glib-2.0 gthread-2.0 gobject-2.0)
@@ -123,7 +126,6 @@ sound-juicer.spec
 Makefile
 help/Makefile
 help/sound-juicer/Makefile
-help/sound-juicer/C/Makefile
 data/Makefile
 po/Makefile.in
 src/Makefile

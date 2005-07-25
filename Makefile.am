@@ -8,12 +8,12 @@ INTLTOOL_BUILT = \
 EXTRA_DIST = \
 	autogen.sh \
 	sound-juicer.spec \
-	xmldocs.make \
-	omf.make \
-	$(INTLTOOL_BUILT:=.in)
+	gnome-doc-utils.make \
+	$(INTLTOOL_BUILT:=.in) \
+	m4
 
 DISTCLEANFILES = po/.intltool-merge-cache \
-		 $(INTLTOOL_BUILT)
+	gnome-doc-utils.make \
+	$(INTLTOOL_BUILT)
 
-distuninstallcheck_listfiles = \
-	find -path ./var/scrollkeeper/\* -prune -or -type f -print
+DISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper
