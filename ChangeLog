@@ -1,3 +1,13 @@
+2005-07-27  Ronald S. Bultje  <rbultje@ronald.bitfreak.net>
+
+	* src/sj-play.c: (cb_hop_track), (cb_change_button), (idle_state),
+	(cb_state):
+	  Let change state be executed in idle handler, to prevent theoretical
+	  threading issues that make GStreamer feared and famous. Also add a
+	  timeout handler before we reset the button label, so it does not
+	  switch quickly between PAUSED and PLAYING on track-switch, but
+	  stays in play-mode.
+
 2005-07-27  Ross Burton  <ross@burtonini.com>
 
 	* data/sound-juicer.schemas.in:

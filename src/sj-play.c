@@ -39,7 +39,7 @@
 #include "sound-juicer.h"
 
 static GstElement *pipeline = NULL;
-static guint id = 0;
+static guint id = 0, button_change_id = 0;
 static gint seek_to_track = -1, current_track = -1;
 static gboolean seeking = FALSE, internal_update = FALSE;
 static guint64 slen = GST_CLOCK_TIME_NONE;
@@ -126,7 +126,7 @@ cb_hop_track (gpointer data)
   model = GTK_TREE_MODEL (track_store);
   tracks = gtk_tree_model_iter_n_children (model, NULL);
 
-  if (current_track + 2 == tracks) {
+  if (current_track + 1 >= tracks) {
     stop ();
     seek_to_track = 0;
   } else {
@@ -240,11 +240,23 @@ cb_set_time (gpointer data)
   return TRUE;
 }
 
-static void
-cb_state (GstElement * p, GstElementState old_state, GstElementState new_state,
-    gpointer data)
+static gboolean
+cb_change_button (gpointer data)
 {
-  static GtkWidget *seek, *volume, *status, *play;
+  button_change_id = 0;
+
+  gtk_button_set_label (GTK_BUTTON (data), GTK_STOCK_MEDIA_PLAY);
+
+  /* once */
+  return FALSE;
+}
+
+static gboolean
+idle_state (gpointer data)
+{
+  static GtkWidget *seek = NULL, *volume = NULL, *status, *play;
+  gint transition = GPOINTER_TO_INT (data);
+
   if (seek == NULL || volume == NULL) {
     seek = glade_xml_get_widget (glade, "seek_scale");
     volume = glade_xml_get_widget (glade, "volume_button");
@@ -252,7 +264,7 @@ cb_state (GstElement * p, GstElementState old_state, GstElementState new_state,
     play = glade_xml_get_widget (glade, "play_button");
   }
 
-  if (old_state == GST_STATE_READY && new_state == GST_STATE_PAUSED) {
+  if (transition == GST_STATE_READY_TO_PAUSED) {
     char *title;
     gtk_widget_show (seek);
     gtk_widget_show (volume);
@@ -262,7 +274,7 @@ cb_state (GstElement * p, GstElementState old_state, GstElementState new_state,
         &current_iter, COLUMN_TITLE, &title, -1);
     sj_main_set_title (title);
     g_free (title);
-  } else if (new_state == GST_STATE_READY && old_state == GST_STATE_PAUSED) {
+  } else if (transition == GST_STATE_PAUSED_TO_READY) {
     gtk_widget_hide (seek);
     gtk_widget_hide (volume);
     gtk_statusbar_pop (GTK_STATUSBAR (status), 0);
@@ -270,16 +282,34 @@ cb_state (GstElement * p, GstElementState old_state, GstElementState new_state,
     gtk_list_store_set (track_store, &current_iter,
         COLUMN_STATE, STATE_IDLE, -1);
     sj_main_set_title (NULL);
-  } else if (new_state == GST_STATE_PLAYING) {
+    current_track = -1;
+  } else if (transition == GST_STATE_PAUSED_TO_PLAYING) {
     gtk_button_set_label (GTK_BUTTON (play), GTK_STOCK_MEDIA_PAUSE);
     id = g_timeout_add (100, (GSourceFunc) cb_set_time, NULL);
-  } else if (old_state == GST_STATE_PLAYING) {
-    gtk_button_set_label (GTK_BUTTON (play), GTK_STOCK_MEDIA_PLAY);
+    if (button_change_id) {
+      g_source_remove (button_change_id);
+      button_change_id = 0;
+    }
+  } else if (transition == GST_STATE_PLAYING_TO_PAUSED) {
     if (id) {
       g_source_remove (id);
       id = 0;
     }
+    /* otherwise button flickers on track-switch */
+    button_change_id =
+        g_timeout_add (500, (GSourceFunc) cb_change_button, play);
   }
+
+  /* once */
+  return FALSE;
+}
+
+static void
+cb_state (GstElement * p, GstElementState old_state, GstElementState new_state,
+    gpointer data)
+{
+  g_idle_add ((GSourceFunc) idle_state,
+      GINT_TO_POINTER (old_state << 8 | new_state));
 }
 
 /**
