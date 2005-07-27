@@ -424,6 +424,8 @@ on_play_activate (GtkWidget *button, gpointer user_data)
 
   if (is_playing ()) {
     pause ();
+  } else if (pipeline && GST_STATE (pipeline) == GST_STATE_PAUSED) {
+    play ();
   } else if (setup (&err)) {
     if (select_track ())
       play ();
