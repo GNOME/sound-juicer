@@ -51,13 +51,33 @@ static GtkTreeIter current_iter;
  * Select track number.
  */
 
-static void
+static gboolean
 select_track (void)
 {
   GstElement *cd;
 
-  if (seek_to_track == -1)
-    return;
+  if (seek_to_track == -1) {
+    gint tracks =
+        gtk_tree_model_iter_n_children (GTK_TREE_MODEL (track_store), NULL);
+
+    seek_to_track = 0;
+    while (seek_to_track < tracks) {
+      gboolean do_play;
+      GtkTreeIter next_iter;
+
+      gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
+          &next_iter, NULL, seek_to_track);
+      gtk_tree_model_get (GTK_TREE_MODEL (track_store), &next_iter,
+          COLUMN_EXTRACT, &do_play, -1);
+      if (do_play)
+        break;
+      seek_to_track++;
+    }
+    if (seek_to_track == tracks) {
+      seek_to_track = -1;
+      return FALSE;
+    }
+  }
 
   gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
       &current_iter, NULL, seek_to_track);
@@ -70,6 +90,8 @@ select_track (void)
           seek_to_track, seek_to_track + 1));
   current_track = seek_to_track;
   seek_to_track = -1;
+
+  return TRUE;
 }
 
 /**
@@ -121,23 +143,36 @@ static gboolean
 cb_hop_track (gpointer data)
 {
   GtkTreeModel *model;
-  gint tracks;
+  gint tracks, next_track = current_track + 1;
+  GtkTreeIter next_iter;
 
   model = GTK_TREE_MODEL (track_store);
   tracks = gtk_tree_model_iter_n_children (model, NULL);
 
-  if (current_track + 1 >= tracks) {
+  while (next_track < tracks) {
+    gboolean do_play;
+
+    gtk_tree_model_iter_nth_child (model,
+        &next_iter, NULL, next_track);
+    gtk_tree_model_get (GTK_TREE_MODEL (track_store), &next_iter,
+        COLUMN_EXTRACT, &do_play, -1);
+    if (do_play)
+      break;
+    next_track++;
+  }
+
+  if (next_track >= tracks) {
     stop ();
     seek_to_track = 0;
   } else {
     char *title;
-    seek_to_track = current_track + 1;
+    seek_to_track = next_track;
     gtk_list_store_set (track_store, &current_iter,
         COLUMN_STATE, STATE_IDLE, -1);
     select_track ();
     gtk_list_store_set (track_store, &current_iter,
         COLUMN_STATE, STATE_PLAYING, -1);
-    gtk_tree_model_get (GTK_TREE_MODEL (track_store),
+    gtk_tree_model_get (model,
         &current_iter, COLUMN_TITLE, &title, -1);
     sj_main_set_title (title);
     g_free (title);
@@ -361,7 +396,6 @@ setup (GError **err)
       return FALSE;
     }
 
-    seek_to_track = 0;
     if (!gtk_tree_model_get_iter_first (GTK_TREE_MODEL (track_store), &current_iter))
       g_warning ("Cannot get first iter");
   }
@@ -391,8 +425,10 @@ on_play_activate (GtkWidget *button, gpointer user_data)
   if (is_playing ()) {
     pause ();
   } else if (setup (&err)) {
-    select_track ();
-    play ();
+    if (select_track ())
+      play ();
+    else
+      stop ();
   } else {
     GtkWidget *dialog;
 
