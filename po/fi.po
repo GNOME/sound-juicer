@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-24 16:17+0300\n"
-"PO-Revision-Date: 2005-07-24 16:20+0300\n"
+"POT-Creation-Date: 2005-07-28 18:51+0300\n"
+"PO-Revision-Date: 2005-07-28 18:51+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -182,7 +182,7 @@ msgstr ""
 "(pienaakkosin) %ta -- raidan esittäjä %tA -- raidan esittäjä (pienaakkosin)"
 
 #: ../data/sound-juicer.schemas.in.h:3
-msgid "Audio Profile to encode with"
+msgid "Audio Profile with which to encode"
 msgstr "Ääniprofiili, jolla koodataan"
 
 #: ../data/sound-juicer.schemas.in.h:5
@@ -225,7 +225,7 @@ msgstr ""
 "limittäisyyden tarkistus) ja 255 (täysin vainoharhainen)"
 
 #: ../data/sound-juicer.schemas.in.h:10
-msgid "The GNOME Audio Profile to encode the audio with."
+msgid "The GNOME Audio Profile with which to encode."
 msgstr "Gnomen ääniprofiili, jolla ääni koodataan."
 
 #: ../data/sound-juicer.schemas.in.h:11
@@ -488,6 +488,7 @@ msgstr ""
 "tarkista päätteeltäsi virheet."
 
 #: ../src/sj-metadata-musicbrainz.c:310
+#, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Laite '%s' ei sisällä levyä"
 
@@ -518,7 +519,7 @@ msgstr "Tämän CD:n metatiedot eivät ole täydellisiä.\n"
 msgid "Could not create CD lookup thread"
 msgstr "CD-hakusäiettä ei voitu luoda"
 
-#: ../src/sj-play.c:166 ../src/sj-play.c:371 ../src/sj-play.c:413
+#: ../src/sj-play.c:201 ../src/sj-play.c:439 ../src/sj-play.c:481
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -529,15 +530,15 @@ msgstr ""
 "\n"
 "Syy: %s"
 
-#: ../src/sj-play.c:304
+#: ../src/sj-play.c:369
 msgid "Failed to create CD source element"
 msgstr "CD-lähde-elementin luonti epäonnistui"
 
-#: ../src/sj-play.c:330
+#: ../src/sj-play.c:395
 msgid "Failed to create audio output"
 msgstr "Ääniulostulon luonti epäonnistui"
 
-#: ../src/sj-play.c:460
+#: ../src/sj-play.c:528
 #, c-format
 msgid "Seeking to %s"
 msgstr "Kelataan kohtaan %s"
