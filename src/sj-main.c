@@ -1192,7 +1192,7 @@ int main (int argc, char **argv)
     
     toggle_renderer = gtk_cell_renderer_toggle_new ();
     g_signal_connect (toggle_renderer, "toggled", G_CALLBACK (on_extract_toggled), NULL);
-    column = gtk_tree_view_column_new_with_attributes (_("Extract"),
+    column = gtk_tree_view_column_new_with_attributes ("",
                                                        toggle_renderer,
                                                        "active", COLUMN_EXTRACT,
                                                        NULL);
