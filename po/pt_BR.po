@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-24 21:16-0300\n"
-"PO-Revision-Date: 2005-07-24 21:17-0300\n"
+"POT-Creation-Date: 2005-07-30 12:23-0300\n"
+"PO-Revision-Date: 2005-07-30 12:24-0300\n"
 "Last-Translator: Raphael Higino <raphaelh@uai.com.br>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -178,7 +178,7 @@ msgstr ""
 "(minúsculas)"
 
 #: ../data/sound-juicer.schemas.in.h:3
-msgid "Audio Profile to encode with"
+msgid "Audio Profile with which to encode"
 msgstr "Perfil de Áudio com o qual codificar"
 
 #: ../data/sound-juicer.schemas.in.h:5
@@ -222,8 +222,8 @@ msgstr ""
 "sobreposição ao estilo cdda2wav) e 255 (paranóia total)"
 
 #: ../data/sound-juicer.schemas.in.h:10
-msgid "The GNOME Audio Profile to encode the audio with."
-msgstr "O Perfil de Áudio do GNOME com o qual codificar o áudio."
+msgid "The GNOME Audio Profile with which to encode."
+msgstr "O Perfil de Áudio do GNOME com o qual codificar."
 
 #: ../data/sound-juicer.schemas.in.h:11
 msgid "The MusicBrainz server to use"
@@ -439,10 +439,6 @@ msgstr "Não foi possível criar o cliente GConf.\n"
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "O arquivo de interface para o Sound Juicer não pôde ser lido."
 
-#: ../src/sj-main.c:1195
-msgid "Extract"
-msgstr "Extrair"
-
 #: ../src/sj-main.c:1203
 msgid "Track"
 msgstr "Faixa"
@@ -515,7 +511,7 @@ msgstr "Metadados incompletos para esse CD.\n"
 msgid "Could not create CD lookup thread"
 msgstr "Não foi possível criar o processo de consulta de CD"
 
-#: ../src/sj-play.c:166 ../src/sj-play.c:371 ../src/sj-play.c:413
+#: ../src/sj-play.c:201 ../src/sj-play.c:439 ../src/sj-play.c:481
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -526,15 +522,15 @@ msgstr ""
 "\n"
 "Razão: %s"
 
-#: ../src/sj-play.c:304
+#: ../src/sj-play.c:369
 msgid "Failed to create CD source element"
 msgstr "Falha ao criar o elemento de origem do CD"
 
-#: ../src/sj-play.c:330
+#: ../src/sj-play.c:395
 msgid "Failed to create audio output"
 msgstr "Falha ao criar a saída de áudio"
 
-#: ../src/sj-play.c:460
+#: ../src/sj-play.c:528
 #, c-format
 msgid "Seeking to %s"
 msgstr "Pulando para %s"
@@ -600,6 +596,9 @@ msgstr "+"
 #: ../src/sj-volume.c:201
 msgid "-"
 msgstr "-"
+
+#~ msgid "Extract"
+#~ msgstr "Extrair"
 
 #~ msgid "<b>Album Progress</b>"
 #~ msgstr "<b>Progresso do Álbum</b>"
