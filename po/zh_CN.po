@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-23 06:47+0000\n"
-"PO-Revision-Date: 2005-07-23 15:30+0800\n"
+"POT-Creation-Date: 2005-07-30 15:44+0000\n"
+"PO-Revision-Date: 2005-07-31 00:15+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
@@ -177,7 +177,7 @@ msgstr ""
 "(小写)"
 
 #: ../data/sound-juicer.schemas.in.h:3
-msgid "Audio Profile to encode with"
+msgid "Audio Profile with which to encode"
 msgstr "用于编码的音频配置文件"
 
 #: ../data/sound-juicer.schemas.in.h:5
@@ -216,7 +216,7 @@ msgstr ""
 "Paranoia模式, 3种设置：0(不用)，4(cdda2wav方式的重叠检查)和 255(完全paranoia)"
 
 #: ../data/sound-juicer.schemas.in.h:10
-msgid "The GNOME Audio Profile to encode the audio with."
+msgid "The GNOME Audio Profile with which to encode."
 msgstr "用于编码音频的 GNOME 音频配置文件。"
 
 #: ../data/sound-juicer.schemas.in.h:11
@@ -429,10 +429,6 @@ msgstr "无法创建 GConf 客户。\n"
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "音乐榨汁机的界面文件无法读取。"
 
-#: ../src/sj-main.c:1195
-msgid "Extract"
-msgstr "提取"
-
 #: ../src/sj-main.c:1203
 msgid "Track"
 msgstr "音轨"
@@ -471,7 +467,7 @@ msgstr "MusicBrainz 元数据对象无效。请在您的控制台上查看错误
 
 #: ../src/sj-metadata-musicbrainz.c:310
 #, c-format
-msgid "Device '%s' does not contain a media"
+msgid "Device '%s' does not contain any media"
 msgstr "设备“%s”不包含介质"
 
 #: ../src/sj-metadata-musicbrainz.c:313
@@ -501,23 +497,26 @@ msgstr "此 CD 的元数据不完整。\n"
 msgid "Could not create CD lookup thread"
 msgstr "无法创建 CD 查阅线程"
 
-#: ../src/sj-play.c:166 ../src/sj-play.c:371 ../src/sj-play.c:413
+#: ../src/sj-play.c:201 ../src/sj-play.c:439 ../src/sj-play.c:481
 #, c-format
 msgid ""
 "Error playing CD.\n"
 "\n"
 "Reason: %s"
-msgstr "播放 CD 出错。\n\n原因：%s"
+msgstr ""
+"播放 CD 出错。\n"
+"\n"
+"原因：%s"
 
-#: ../src/sj-play.c:304
+#: ../src/sj-play.c:369
 msgid "Failed to create CD source element"
 msgstr "创建 CD 源元素"
 
-#: ../src/sj-play.c:330
+#: ../src/sj-play.c:395
 msgid "Failed to create audio output"
 msgstr "无法创建音频输出"
 
-#: ../src/sj-play.c:460
+#: ../src/sj-play.c:528
 #, c-format
 msgid "Seeking to %s"
 msgstr "搜索到 %s"
@@ -574,278 +573,13 @@ msgstr "编号-音轨艺人-音轨标题(小写)"
 msgid "Track Artist"
 msgstr "音轨艺人"
 
-#~ msgid "<b>Album Progress</b>"
-#~ msgstr "<b>专辑进度</b>"
+#. +
+#: ../src/sj-volume.c:185
+msgid "+"
+msgstr "+"
+
+#. -
+#: ../src/sj-volume.c:201
+msgid "-"
+msgstr "-"
 
-#~ msgid "<b>Track Progress</b>"
-#~ msgstr "<b>音轨进度</b>"
-
-#~ msgid "E_xtract"
-#~ msgstr "提取(_X)"
-
-#~ msgid "Progress"
-#~ msgstr "进度"
-
-#~ msgid "Unknown"
-#~ msgstr "未知"
-
-#~ msgid "_CD"
-#~ msgstr "_CD"
-
-#~ msgid "_Extract"
-#~ msgstr "提取(_E)"
-
-#~ msgid "Extracting '%s'"
-#~ msgstr "正在提取 “%s”中"
-
-#~ msgid "%d:%02d (at %0.1fx)"
-#~ msgstr "%d:%02d (at %0.1fx)"
-
-#~ msgid "Unknown (at 0.0x)"
-#~ msgstr "未知 (0.0x)"
-
-#~ msgid "Blues"
-#~ msgstr "蓝调"
-
-#~ msgid "Classic Rock"
-#~ msgstr "经典摇滚"
-
-#~ msgid "Country"
-#~ msgstr "乡村"
-
-#~ msgid "Dance"
-#~ msgstr "舞曲"
-
-#~ msgid "Funk"
-#~ msgstr "乡土"
-
-#~ msgid "Grunge"
-#~ msgstr "垃圾乐"
-
-#~ msgid "Hip-Hop"
-#~ msgstr "嘻哈"
-
-#~ msgid "Jazz"
-#~ msgstr "爵士"
-
-#~ msgid "Metal"
-#~ msgstr "金属"
-
-#~ msgid "New Age"
-#~ msgstr "新时代"
-
-#~ msgid "Oldies"
-#~ msgstr "怀旧"
-
-#~ msgid "Other"
-#~ msgstr "其它"
-
-#~ msgid "Pop"
-#~ msgstr "流行"
-
-#~ msgid "R&B"
-#~ msgstr "R&B"
-
-#~ msgid "Rap"
-#~ msgstr "说唱"
-
-#~ msgid "Reggae"
-#~ msgstr "瑞格"
-
-#~ msgid "Rock"
-#~ msgstr "摇滚"
-
-#~ msgid "Techno"
-#~ msgstr "高科技舞曲"
-
-#~ msgid "Industrial"
-#~ msgstr "工业"
-
-#~ msgid "Alternative"
-#~ msgstr "另类"
-
-#~ msgid "Ska"
-#~ msgstr "斯卡"
-
-#~ msgid "Death Metal"
-#~ msgstr "死亡金属"
-
-#~ msgid "Pranks"
-#~ msgstr "戏谑"
-
-#~ msgid "Soundtrack"
-#~ msgstr "音轨"
-
-#~ msgid "Euro-Techno"
-#~ msgstr "欧洲高科技舞曲"
-
-#~ msgid "Ambient"
-#~ msgstr "环境音乐"
-
-#~ msgid "Trip-Hop"
-#~ msgstr "Trip-Hop"
-
-#~ msgid "Vocal"
-#~ msgstr "声乐"
-
-#~ msgid "Jazz+Funk"
-#~ msgstr "爵士+乡土"
-
-#~ msgid "Fusion"
-#~ msgstr "融合音乐"
-
-#~ msgid "Trance"
-#~ msgstr "恍惚"
-
-#~ msgid "Classical"
-#~ msgstr "古典"
-
-#~ msgid "Instrumental"
-#~ msgstr "器乐"
-
-#~ msgid "Acid"
-#~ msgstr "迷幻"
-
-#~ msgid "House"
-#~ msgstr "浩室"
-
-#~ msgid "Game"
-#~ msgstr "游戏"
-
-#~ msgid "Sound Clip"
-#~ msgstr "声音剪辑"
-
-#~ msgid "Gospel"
-#~ msgstr "福音"
-
-#~ msgid "Noise"
-#~ msgstr "噪音"
-
-#~ msgid "AlternRock"
-#~ msgstr "另类摇滚"
-
-#~ msgid "Bass"
-#~ msgstr "贝司"
-
-#~ msgid "Soul"
-#~ msgstr "灵乐"
-
-#~ msgid "Punk"
-#~ msgstr "朋克"
-
-#~ msgid "Space"
-#~ msgstr "空间"
-
-#~ msgid "Meditative"
-#~ msgstr "冥想"
-
-#~ msgid "Instrumental Pop"
-#~ msgstr "器乐流行"
-
-#~ msgid "Instrumental Rock"
-#~ msgstr "器乐摇滚"
-
-#~ msgid "Ethnic"
-#~ msgstr "民族"
-
-#~ msgid "Gothic"
-#~ msgstr "歌德摇滚"
-
-#~ msgid "Darkwave"
-#~ msgstr "黑暗"
-
-#~ msgid "Techno-Industrial"
-#~ msgstr "高科技-工业"
-
-#~ msgid "Electronic"
-#~ msgstr "电子音乐"
-
-#~ msgid "Pop-Folk"
-#~ msgstr "流行-乡土"
-
-#~ msgid "Eurodance"
-#~ msgstr "欧洲舞曲"
-
-#~ msgid "Dream"
-#~ msgstr "梦幻"
-
-#~ msgid "Southern Rock"
-#~ msgstr "南方摇滚"
-
-#~ msgid "Comedy"
-#~ msgstr "喜剧"
-
-#~ msgid "Cult"
-#~ msgstr "死亡摇滚"
-
-#~ msgid "Gangsta"
-#~ msgstr "Gangsta"
-
-#~ msgid "Top 40"
-#~ msgstr "排行榜"
-
-#~ msgid "Christian Rap"
-#~ msgstr "基督教说唱"
-
-#~ msgid "Pop/Funk"
-#~ msgstr "流行/乡土"
-
-#~ msgid "Jungle"
-#~ msgstr "丛林"
-
-#~ msgid "Native American"
-#~ msgstr "美国土著"
-
-#~ msgid "Cabaret"
-#~ msgstr "卡巴莱"
-
-#~ msgid "New Wave"
-#~ msgstr "新潮流"
-
-#~ msgid "Psychadelic"
-#~ msgstr "迷幻摇滚"
-
-#~ msgid "Rave"
-#~ msgstr "咆哮"
-
-#~ msgid "Showtunes"
-#~ msgstr "讽刺"
-
-#~ msgid "Trailer"
-#~ msgstr "预告片"
-
-#~ msgid "Lo-Fi"
-#~ msgstr "低保真"
-
-#~ msgid "Tribal"
-#~ msgstr "部落"
-
-#~ msgid "Acid Punk"
-#~ msgstr "迷幻朋克"
-
-#~ msgid "Acid Jazz"
-#~ msgstr "迷幻爵士"
-
-#~ msgid "Polka"
-#~ msgstr "波尔卡"
-
-#~ msgid "Retro"
-#~ msgstr "怀旧"
-
-#~ msgid "Musical"
-#~ msgstr "音乐家"
-
-#~ msgid "Rock & Roll"
-#~ msgstr "摇滚"
-
-#~ msgid "Hard Rock"
-#~ msgstr "硬摇滚"
-
-#~ msgid "[unknown genre]"
-#~ msgstr "[未知流派]"
-
-#~ msgid "Could not create directory %s: %s"
-#~ msgstr "无法创建 %s 目录：%s"
-
-#~ msgid "Could not eject the CD"
-#~ msgstr "无法弹出光盘"
