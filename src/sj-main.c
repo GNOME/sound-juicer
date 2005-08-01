@@ -1081,6 +1081,7 @@ on_message_received (const char *message, gpointer user_data)
 int main (int argc, char **argv)
 {
   GError *error = NULL;
+  GtkTreeSelection *selection;
   struct poptOption options[] = {
     { NULL, '\0', POPT_ARG_INCLUDE_TABLE, NULL, 0, "GStreamer", NULL },
     { "auto-start", 'a', POPT_ARG_NONE, &autostart, 0, "Start extracting immediately", NULL},
@@ -1253,6 +1254,11 @@ int main (int argc, char **argv)
     exit (1);
   }
 
+  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (track_listview));
+  
+  if (selection)
+  	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
+	  
   http_proxy_setup (gconf_client);
   /* TODO: port port basepath to baseuri */
   baseuri_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEURI, NULL, TRUE, NULL), NULL);

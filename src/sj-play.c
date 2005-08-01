@@ -424,11 +424,25 @@ on_play_activate (GtkWidget *button, gpointer user_data)
 
   if (is_playing ()) {
     pause ();
-  } else if (pipeline && GST_STATE (pipeline) == GST_STATE_PAUSED) {
+  } else if (pipeline && GST_STATE (pipeline) == GST_STATE_PAUSED && 
+                (current_track == seek_to_track || seek_to_track == -1)) {
     play ();
   } else if (setup (&err)) {
-    if (select_track ())
+    char *title;
+    if (current_track != -1)
+      gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
+          &current_iter, NULL, current_track);
+    gtk_list_store_set (track_store, &current_iter,
+        COLUMN_STATE, STATE_IDLE, -1);
+    if (select_track ()) {
+      gtk_list_store_set (track_store, &current_iter,
+          COLUMN_STATE, STATE_PLAYING, -1);
+      gtk_tree_model_get (GTK_TREE_MODEL (track_store),
+          &current_iter, COLUMN_TITLE, &title, -1);
+      sj_main_set_title (title);
+      g_free (title);
       play ();
+    }
     else
       stop ();
   } else {
@@ -462,6 +476,11 @@ on_tracklist_row_activate (GtkTreeView * treeview, GtkTreePath * path,
   if (setup (&err)) {
     char *title;
     seek_to_track = track - 1;
+
+    if (current_track != -1)
+      gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
+          &current_iter, NULL, current_track);
+
     gtk_list_store_set (track_store, &current_iter,
         COLUMN_STATE, STATE_IDLE, -1);
     select_track ();
@@ -483,6 +502,23 @@ on_tracklist_row_activate (GtkTreeView * treeview, GtkTreePath * path,
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
     g_error_free (err);
+  }
+}
+
+void
+on_tracklist_row_selected (GtkTreeView *treeview,
+               gpointer user_data)
+{
+  gint track;
+  GtkTreeSelection *selection = gtk_tree_view_get_selection (treeview);
+
+  if (is_playing ())
+    return;
+
+  if (gtk_tree_selection_get_selected (selection, NULL, &current_iter)) {
+    gtk_tree_model_get (GTK_TREE_MODEL (track_store),
+        &current_iter, COLUMN_NUMBER, &track, -1);
+    seek_to_track = track - 1;
   }
 }
 
