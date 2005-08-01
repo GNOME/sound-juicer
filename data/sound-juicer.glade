@@ -43,13 +43,13 @@
 		  <child>
 		    <widget class="GtkImageMenuItem" id="play_menuitem">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Play / Pause</property>
+		      <property name="label" translatable="yes">_Play / Pause</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_play_activate" last_modification_time="Wed, 22 Jun 2005 21:25:04 GMT"/>
 		      <accelerator key="p" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image80">
+			<widget class="GtkImage" id="image105">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-media-play</property>
 			  <property name="icon_size">1</property>
@@ -63,26 +63,41 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkImageMenuItem" id="extract_menuitem">
+		    <widget class="GtkImageMenuItem" id="previous_track">
 		      <property name="visible">True</property>
-		      <property name="label">sj-stock-extract</property>
-		      <property name="use_stock">True</property>
-		      <signal name="activate" handler="on_extract_activate" last_modification_time="Tue, 25 Mar 2003 07:45:51 GMT"/>
+		      <property name="tooltip" translatable="yes">Skip to the previous track</property>
+		      <property name="label" translatable="yes">Pre_vious Track</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_previous_track_activate" last_modification_time="Fri, 29 Jul 2005 08:33:47 GMT"/>
+		      <accelerator key="V" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image106">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-media-previous</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
 		    </widget>
 		  </child>
 
 		  <child>
-		    <widget class="GtkImageMenuItem" id="re-read">
+		    <widget class="GtkImageMenuItem" id="next_track">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Re-read</property>
+		      <property name="tooltip" translatable="yes">Skip to the next track</property>
+		      <property name="label" translatable="yes">_Next Track</property>
 		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_reread_activate" last_modification_time="Tue, 25 Mar 2003 07:45:51 GMT"/>
-		      <accelerator key="R" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+		      <signal name="activate" handler="on_next_track_activate" last_modification_time="Fri, 29 Jul 2005 08:25:21 GMT"/>
+		      <accelerator key="N" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image82">
+			<widget class="GtkImage" id="image107">
 			  <property name="visible">True</property>
-			  <property name="stock">gtk-refresh</property>
+			  <property name="stock">gtk-media-next</property>
 			  <property name="icon_size">1</property>
 			  <property name="xalign">0.5</property>
 			  <property name="yalign">0.5</property>
@@ -105,6 +120,43 @@
 
 		  <child>
 		    <widget class="GtkSeparatorMenuItem" id="separatormenuitem1">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="extract_menuitem">
+		      <property name="visible">True</property>
+		      <property name="label">sj-stock-extract</property>
+		      <property name="use_stock">True</property>
+		      <signal name="activate" handler="on_extract_activate" last_modification_time="Tue, 25 Mar 2003 07:45:51 GMT"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="re-read">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Re-read</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_reread_activate" last_modification_time="Tue, 25 Mar 2003 07:45:51 GMT"/>
+		      <accelerator key="R" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image108">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-refresh</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separator2">
 		      <property name="visible">True</property>
 		    </widget>
 		  </child>
@@ -187,7 +239,7 @@
 		      <signal name="activate" handler="on_contents_activate" last_modification_time="Sun, 06 Jul 2003 21:00:38 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image83">
+			<widget class="GtkImage" id="image109">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-help</property>
 			  <property name="icon_size">1</property>
@@ -581,44 +633,46 @@
       </child>
 
       <child>
-          <widget class="GtkHBox" id="hbox13">
-      <property name="visible">True</property>
-      <property name="homogeneous">False</property>
-      <property name="spacing">0</property>
+	<widget class="GtkHBox" id="hbox13">
+	  <property name="visible">True</property>
+	  <property name="homogeneous">False</property>
+	  <property name="spacing">0</property>
 
-      <child>
-        <widget class="GtkProgressBar" id="progress_bar">
-          <property name="visible">True</property>
-          <property name="orientation">GTK_PROGRESS_LEFT_TO_RIGHT</property>
-          <property name="fraction">0</property>
-          <property name="pulse_step">0.1</property>
-        </widget>
-        <packing>
-          <property name="padding">0</property>
-          <property name="expand">False</property>
-          <property name="fill">False</property>
-        </packing>
+	  <child>
+	    <widget class="GtkProgressBar" id="progress_bar">
+	      <property name="visible">True</property>
+	      <property name="orientation">GTK_PROGRESS_LEFT_TO_RIGHT</property>
+	      <property name="fraction">0</property>
+	      <property name="pulse_step">0.10000000149</property>
+	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">False</property>
+	      <property name="fill">False</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkStatusbar" id="status_bar">
+	      <property name="visible">True</property>
+	      <property name="has_resize_grip">True</property>
+	    </widget>
+	    <packing>
+	      <property name="padding">0</property>
+	      <property name="expand">True</property>
+	      <property name="fill">True</property>
+	    </packing>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">False</property>
+	  <property name="fill">False</property>
+	</packing>
       </child>
-      <child>
-        <widget class="GtkStatusbar" id="status_bar">
-          <property name="visible">True</property>
-          <property name="has_resize_grip">True</property>
-        </widget>
-        <packing>
-          <property name="padding">0</property>
-          <property name="expand">True</property>
-          <property name="fill">True</property>
-        </packing>
+    </widget>
   </child>
-    </widget>
-    <packing>
-      <property name="padding">0</property>
-      <property name="expand">False</property>
-      <property name="fill">False</property>
-    </packing>
-     </child>
-    </widget>
-</child>
 </widget>
 
 <widget class="GtkDialog" id="multiple_dialog">

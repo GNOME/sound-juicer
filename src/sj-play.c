@@ -179,8 +179,6 @@ cb_hop_track (gpointer data)
     play ();
   }
 
-  /* FIXME: notify treelist so we can add a 'playing' icon */
-
   /* once */
   return FALSE;
 }
@@ -502,6 +500,53 @@ on_tracklist_row_activate (GtkTreeView * treeview, GtkTreePath * path,
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
     g_error_free (err);
+  }
+}
+
+void
+on_next_track_activate(GtkWidget *button, gpointer data)
+{
+  cb_hop_track (NULL);
+}
+
+void
+on_previous_track_activate(GtkWidget *button, gpointer data)
+{
+  GtkTreeModel *model;
+  gint tracks, prev_track = current_track - 1;
+  GtkTreeIter prev_iter;
+
+  model = GTK_TREE_MODEL (track_store);
+  tracks = gtk_tree_model_iter_n_children (model, NULL);
+
+  while (prev_track >= 0) {
+    gboolean do_play;
+
+    gtk_tree_model_iter_nth_child (model,
+        &prev_iter, NULL, prev_track);
+    gtk_tree_model_get (GTK_TREE_MODEL (track_store), &prev_iter,
+        COLUMN_EXTRACT, &do_play, -1);
+    if (do_play)
+      break;
+    prev_track--;
+  }
+
+  if (prev_track < 0) {
+    stop ();
+    seek_to_track = 0;
+  } else {
+    char *title;
+    seek_to_track = prev_track;
+    gtk_list_store_set (track_store, &current_iter,
+        COLUMN_STATE, STATE_IDLE, -1);
+    select_track ();
+    gtk_list_store_set (track_store, &current_iter,
+        COLUMN_STATE, STATE_PLAYING, -1);
+    gtk_tree_model_get (model,
+        &current_iter, COLUMN_TITLE, &title, -1);
+    sj_main_set_title (title);
+    g_free (title);
+    play ();
   }
 }
 
