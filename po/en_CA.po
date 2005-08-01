@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-29 00:16-0400\n"
-"PO-Revision-Date: 2005-07-29 19:40-0400\n"
+"POT-Creation-Date: 2005-08-01 15:44-0400\n"
+"PO-Revision-Date: 2005-08-01 19:40-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -93,8 +93,8 @@ msgid "O_utput:"
 msgstr "O_utput:"
 
 #: data/sound-juicer.glade.h:18
-msgid "Play / Pause"
-msgstr "Play / Pause"
+msgid "Pre_vious Track"
+msgstr "Pre_vious Track"
 
 #: data/sound-juicer.glade.h:19
 msgid "Preferences"
@@ -104,12 +104,20 @@ msgstr "Preferences"
 msgid "Select A Folder"
 msgstr "Select A Folder"
 
-#: data/sound-juicer.glade.h:21 src/sj-about.c:52 src/sj-extractor.c:489
-#: src/sj-main.c:159 src/sj-main.c:161 src/sj-main.c:1102
+#: data/sound-juicer.glade.h:21
+msgid "Skip to the next track"
+msgstr "Skip to the next track"
+
+#: data/sound-juicer.glade.h:22
+msgid "Skip to the previous track"
+msgstr "Skip to the previous track"
+
+#: data/sound-juicer.glade.h:23 src/sj-about.c:52 src/sj-extractor.c:489
+#: src/sj-main.c:159 src/sj-main.c:161 src/sj-main.c:1103
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
-#: data/sound-juicer.glade.h:22
+#: data/sound-juicer.glade.h:24
 msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
@@ -117,51 +125,59 @@ msgstr ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
 
-#: data/sound-juicer.glade.h:23
+#: data/sound-juicer.glade.h:25
 msgid "_Contents"
 msgstr "_Contents"
 
-#: data/sound-juicer.glade.h:24 src/sj-main.c:240
+#: data/sound-juicer.glade.h:26 src/sj-main.c:240
 msgid "_Continue"
 msgstr "_Continue"
 
-#: data/sound-juicer.glade.h:25
+#: data/sound-juicer.glade.h:27
 msgid "_Deselect All"
 msgstr "_Deselect All"
 
-#: data/sound-juicer.glade.h:26
+#: data/sound-juicer.glade.h:28
 msgid "_Disc"
 msgstr "_Disc"
 
-#: data/sound-juicer.glade.h:27
+#: data/sound-juicer.glade.h:29
 msgid "_Edit"
 msgstr "_Edit"
 
-#: data/sound-juicer.glade.h:28
+#: data/sound-juicer.glade.h:30
 msgid "_Eject when finished"
 msgstr "_Eject when finished"
 
-#: data/sound-juicer.glade.h:29
+#: data/sound-juicer.glade.h:31
 msgid "_Folder:"
 msgstr "_Folder:"
 
-#: data/sound-juicer.glade.h:30
+#: data/sound-juicer.glade.h:32
 msgid "_Help"
 msgstr "_Help"
 
-#: data/sound-juicer.glade.h:31
+#: data/sound-juicer.glade.h:33
+msgid "_Next Track"
+msgstr "_Next Track"
+
+#: data/sound-juicer.glade.h:34
+msgid "_Play / Pause"
+msgstr "_Play / Pause"
+
+#: data/sound-juicer.glade.h:35
 msgid "_Re-read"
 msgstr "_Re-read"
 
-#: data/sound-juicer.glade.h:32
+#: data/sound-juicer.glade.h:36
 msgid "_Select All"
 msgstr "_Select All"
 
-#: data/sound-juicer.glade.h:33
+#: data/sound-juicer.glade.h:37
 msgid "_Strip special characters"
 msgstr "_Strip special characters"
 
-#: data/sound-juicer.glade.h:34
+#: data/sound-juicer.glade.h:38
 msgid "label"
 msgstr "label"
 
@@ -370,11 +386,11 @@ msgstr ""
 msgid "(unknown)"
 msgstr "(unknown)"
 
-#: src/sj-main.c:441 src/sj-main.c:1218
+#: src/sj-main.c:441 src/sj-main.c:1219
 msgid "Title"
 msgstr "Title"
 
-#: src/sj-main.c:447 src/sj-main.c:1227
+#: src/sj-main.c:447 src/sj-main.c:1228
 msgid "Artist"
 msgstr "Artist"
 
@@ -428,23 +444,19 @@ msgstr ""
 "Could not display help for Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:1125
+#: src/sj-main.c:1126
 msgid "Could not create GConf client.\n"
 msgstr "Could not create GConf client.\n"
 
-#: src/sj-main.c:1155
+#: src/sj-main.c:1156
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "The interface file for Sound Juicer could not be read."
 
-#: src/sj-main.c:1195
-msgid "Extract"
-msgstr "Extract"
-
-#: src/sj-main.c:1203
+#: src/sj-main.c:1204
 msgid "Track"
 msgstr "Track"
 
-#: src/sj-main.c:1238
+#: src/sj-main.c:1239
 msgid "Duration"
 msgstr "Duration"
 
@@ -511,7 +523,7 @@ msgstr "Incomplete metadata for this CD.\n"
 msgid "Could not create CD lookup thread"
 msgstr "Could not create CD lookup thread"
 
-#: src/sj-play.c:201 src/sj-play.c:439 src/sj-play.c:481
+#: src/sj-play.c:199 src/sj-play.c:451 src/sj-play.c:498
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -522,15 +534,15 @@ msgstr ""
 "\n"
 "Reason: %s"
 
-#: src/sj-play.c:369
+#: src/sj-play.c:367
 msgid "Failed to create CD source element"
 msgstr "Failed to create CD source element"
 
-#: src/sj-play.c:395
+#: src/sj-play.c:393
 msgid "Failed to create audio output"
 msgstr "Failed to create audio output"
 
-#: src/sj-play.c:528
+#: src/sj-play.c:609
 #, c-format
 msgid "Seeking to %s"
 msgstr "Seeking to %s"
