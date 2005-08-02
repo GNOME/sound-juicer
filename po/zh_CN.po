@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-30 15:44+0000\n"
-"PO-Revision-Date: 2005-07-31 00:15+0800\n"
+"POT-Creation-Date: 2005-08-02 06:56+0000\n"
+"PO-Revision-Date: 2005-08-02 22:47+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
@@ -94,8 +94,8 @@ msgid "O_utput:"
 msgstr "输出(_U)："
 
 #: ../data/sound-juicer.glade.h:18
-msgid "Play / Pause"
-msgstr "播放/暂停"
+msgid "Pre_vious Track"
+msgstr "上一音轨(_V)"
 
 #: ../data/sound-juicer.glade.h:19
 msgid "Preferences"
@@ -105,63 +105,79 @@ msgstr "首选项"
 msgid "Select A Folder"
 msgstr "选择文件夹"
 
-#: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:52
+#: ../data/sound-juicer.glade.h:21
+msgid "Skip to the next track"
+msgstr "跳到下一轨"
+
+#: ../data/sound-juicer.glade.h:22
+msgid "Skip to the previous track"
+msgstr "跳到上一轨"
+
+#: ../data/sound-juicer.glade.h:23 ../src/sj-about.c:52
 #: ../src/sj-extractor.c:489 ../src/sj-main.c:159 ../src/sj-main.c:161
-#: ../src/sj-main.c:1102
+#: ../src/sj-main.c:1103
 msgid "Sound Juicer"
 msgstr "音乐榨汁机"
 
-#: ../data/sound-juicer.glade.h:22
+#: ../data/sound-juicer.glade.h:24
 msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
 msgstr "这张 CD 可能有多于一张的专辑。请在下面选择专辑，并按 <i>继续</i>。"
 
-#: ../data/sound-juicer.glade.h:23
+#: ../data/sound-juicer.glade.h:25
 msgid "_Contents"
 msgstr "目录(_C)"
 
-#: ../data/sound-juicer.glade.h:24 ../src/sj-main.c:240
+#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:240
 msgid "_Continue"
 msgstr "继续(_C)"
 
-#: ../data/sound-juicer.glade.h:25
+#: ../data/sound-juicer.glade.h:27
 msgid "_Deselect All"
 msgstr "全部不选(_D)"
 
-#: ../data/sound-juicer.glade.h:26
+#: ../data/sound-juicer.glade.h:28
 msgid "_Disc"
 msgstr "碟片(_D)"
 
-#: ../data/sound-juicer.glade.h:27
+#: ../data/sound-juicer.glade.h:29
 msgid "_Edit"
 msgstr "编辑(_E)"
 
-#: ../data/sound-juicer.glade.h:28
+#: ../data/sound-juicer.glade.h:30
 msgid "_Eject when finished"
 msgstr "完成后弹出(_E)"
 
-#: ../data/sound-juicer.glade.h:29
+#: ../data/sound-juicer.glade.h:31
 msgid "_Folder:"
 msgstr "文件夹(_F)："
 
-#: ../data/sound-juicer.glade.h:30
+#: ../data/sound-juicer.glade.h:32
 msgid "_Help"
 msgstr "帮助(_H)"
 
-#: ../data/sound-juicer.glade.h:31
+#: ../data/sound-juicer.glade.h:33
+msgid "_Next Track"
+msgstr "下一音轨(_N)"
+
+#: ../data/sound-juicer.glade.h:34
+msgid "_Play / Pause"
+msgstr "播放/暂停(_P)"
+
+#: ../data/sound-juicer.glade.h:35
 msgid "_Re-read"
 msgstr "重新读取(_R)"
 
-#: ../data/sound-juicer.glade.h:32
+#: ../data/sound-juicer.glade.h:36
 msgid "_Select All"
 msgstr "全选(_S)"
 
-#: ../data/sound-juicer.glade.h:33
+#: ../data/sound-juicer.glade.h:37
 msgid "_Strip special characters"
 msgstr "去除特殊字符(_S)"
 
-#: ../data/sound-juicer.glade.h:34
+#: ../data/sound-juicer.glade.h:38
 msgid "label"
 msgstr "标签"
 
@@ -364,11 +380,11 @@ msgstr "您现在正在提取 CD。您想退出程序或者是继续？"
 msgid "(unknown)"
 msgstr "(未知)"
 
-#: ../src/sj-main.c:441 ../src/sj-main.c:1218
+#: ../src/sj-main.c:441 ../src/sj-main.c:1219
 msgid "Title"
 msgstr "标题"
 
-#: ../src/sj-main.c:447 ../src/sj-main.c:1227
+#: ../src/sj-main.c:447 ../src/sj-main.c:1228
 msgid "Artist"
 msgstr "艺人"
 
@@ -421,19 +437,19 @@ msgstr ""
 "无法显示 Sound Juicer 的帮助\n"
 "%s"
 
-#: ../src/sj-main.c:1125
+#: ../src/sj-main.c:1126
 msgid "Could not create GConf client.\n"
 msgstr "无法创建 GConf 客户。\n"
 
-#: ../src/sj-main.c:1155
+#: ../src/sj-main.c:1156
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "音乐榨汁机的界面文件无法读取。"
 
-#: ../src/sj-main.c:1203
+#: ../src/sj-main.c:1204
 msgid "Track"
 msgstr "音轨"
 
-#: ../src/sj-main.c:1238
+#: ../src/sj-main.c:1239
 msgid "Duration"
 msgstr "长度"
 
@@ -497,7 +513,7 @@ msgstr "此 CD 的元数据不完整。\n"
 msgid "Could not create CD lookup thread"
 msgstr "无法创建 CD 查阅线程"
 
-#: ../src/sj-play.c:201 ../src/sj-play.c:439 ../src/sj-play.c:481
+#: ../src/sj-play.c:199 ../src/sj-play.c:451 ../src/sj-play.c:498
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -508,15 +524,15 @@ msgstr ""
 "\n"
 "原因：%s"
 
-#: ../src/sj-play.c:369
+#: ../src/sj-play.c:367
 msgid "Failed to create CD source element"
 msgstr "创建 CD 源元素"
 
-#: ../src/sj-play.c:395
+#: ../src/sj-play.c:393
 msgid "Failed to create audio output"
 msgstr "无法创建音频输出"
 
-#: ../src/sj-play.c:528
+#: ../src/sj-play.c:609
 #, c-format
 msgid "Seeking to %s"
 msgstr "搜索到 %s"
@@ -582,4 +598,3 @@ msgstr "+"
 #: ../src/sj-volume.c:201
 msgid "-"
 msgstr "-"
-
