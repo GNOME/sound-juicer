@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-25 12:29+0700\n"
-"PO-Revision-Date: 2005-07-25 12:33+0700\n"
+"POT-Creation-Date: 2005-08-02 20:18+0700\n"
+"PO-Revision-Date: 2005-08-02 20:25+0700\n"
 "Last-Translator: Paisa Seeluangsawat <paisa@users.sf.net>\n"
 "Language-Team: Thai <L10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
@@ -96,8 +96,8 @@ msgid "O_utput:"
 msgstr "ข้อมูล_ออก:"
 
 #: data/sound-juicer.glade.h:18
-msgid "Play / Pause"
-msgstr "เล่น / พัก"
+msgid "Pre_vious Track"
+msgstr "ร่องเสียง_ก่อนหน้า"
 
 #: data/sound-juicer.glade.h:19
 msgid "Preferences"
@@ -107,64 +107,80 @@ msgstr "ปรับแต่ง"
 msgid "Select A Folder"
 msgstr "เลือกโฟลเดอร์"
 
-#: data/sound-juicer.glade.h:21 src/sj-about.c:52
+#: data/sound-juicer.glade.h:21
+msgid "Skip to the next track"
+msgstr "ข้ามไปร่องเสียงถัดไป"
+
+#: data/sound-juicer.glade.h:22
+msgid "Skip to the previous track"
+msgstr "ข้ามไปร่องเสียงก่อนหน้า"
+
+#: data/sound-juicer.glade.h:23 src/sj-about.c:52
 #: src/sj-extractor.c:489 src/sj-main.c:159 src/sj-main.c:161
-#: src/sj-main.c:1102
+#: src/sj-main.c:1103
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
-#: data/sound-juicer.glade.h:22
+#: data/sound-juicer.glade.h:24
 msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
 msgstr ""
 "มีข้อมูลอัลบัมมากกว่าหนึ่งชุดสำหรับซีดีนี้ โปรดเลือกว่าจะใช้ข้อมูลอัลบัมไหน แล้วกด <i>ต่อไป</i>."
 
-#: data/sound-juicer.glade.h:23
+#: data/sound-juicer.glade.h:25
 msgid "_Contents"
 msgstr "เ_นื้อหา"
 
-#: data/sound-juicer.glade.h:24 src/sj-main.c:240
+#: data/sound-juicer.glade.h:26 src/sj-main.c:240
 msgid "_Continue"
 msgstr "_ต่อไป"
 
-#: data/sound-juicer.glade.h:25
+#: data/sound-juicer.glade.h:27
 msgid "_Deselect All"
 msgstr "ไ_ม่เลือกสักอัน"
 
-#: data/sound-juicer.glade.h:26
+#: data/sound-juicer.glade.h:28
 msgid "_Disc"
 msgstr "แ_ผ่น"
 
-#: data/sound-juicer.glade.h:27
+#: data/sound-juicer.glade.h:29
 msgid "_Edit"
 msgstr "แ_ก้ไข"
 
-#: data/sound-juicer.glade.h:28
+#: data/sound-juicer.glade.h:30
 msgid "_Eject when finished"
 msgstr "_ดันแผ่นออกเมื่อเสร็จ"
 
-#: data/sound-juicer.glade.h:29
+#: data/sound-juicer.glade.h:31
 msgid "_Folder:"
 msgstr "โ_ฟลเดอร์:"
 
-#: data/sound-juicer.glade.h:30
+#: data/sound-juicer.glade.h:32
 msgid "_Help"
 msgstr "_วิธีใช้"
 
-#: data/sound-juicer.glade.h:31
+#: data/sound-juicer.glade.h:33
+msgid "_Next Track"
+msgstr "ร่องเสียง_ถัดไป"
+
+#: data/sound-juicer.glade.h:34
+msgid "_Play / Pause"
+msgstr "เ_ล่น / พัก"
+
+#: data/sound-juicer.glade.h:35
 msgid "_Re-read"
 msgstr "_อ่านใหม่"
 
-#: data/sound-juicer.glade.h:32
+#: data/sound-juicer.glade.h:36
 msgid "_Select All"
 msgstr "เลือกทั้ง_หมด"
 
-#: data/sound-juicer.glade.h:33
+#: data/sound-juicer.glade.h:37
 msgid "_Strip special characters"
 msgstr "_ลบตัวอักษรพิเศษออก"
 
-#: data/sound-juicer.glade.h:34
+#: data/sound-juicer.glade.h:38
 msgid "label"
 msgstr "ฉลาก"
 
@@ -180,7 +196,7 @@ msgstr ""
 "ศิลปินเพลง (อักษรตัวเล็ก)"
 
 #: data/sound-juicer.schemas.in.h:3
-msgid "Audio Profile to encode with"
+msgid "Audio Profile with which to encode"
 msgstr "โพรไฟล์เสียงที่จะใช้ลงรหัสข้อมูล"
 
 #: data/sound-juicer.schemas.in.h:5
@@ -220,7 +236,7 @@ msgstr ""
 "และ 255 (ใช้ paranoia เต็มที่)"
 
 #: data/sound-juicer.schemas.in.h:10
-msgid "The GNOME Audio Profile to encode the audio with."
+msgid "The GNOME Audio Profile with which to encode."
 msgstr "โพรไฟล์เสียงของ GNOME ที่จะใช้ลงรหัสเสียง"
 
 #: data/sound-juicer.schemas.in.h:11
@@ -334,8 +350,7 @@ msgstr "ไม่ทราบตำแหน่งร่องเสียงป
 #: src/sj-extractor.c:411
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
-msgstr ""
-"อ็อบเจกต์ extractor ใช้ไม่ได้ คงไม่ดีแน่ๆ ดูข้อผิดพลาดเพิ่มเติมได้ในเทอร์มินัล"
+msgstr "อ็อบเจกต์ extractor ใช้ไม่ได้ คงไม่ดีแน่ๆ ดูข้อผิดพลาดเพิ่มเติมได้ในเทอร์มินัล"
 
 #: src/sj-extractor.c:525
 msgid "Could not seek to track"
@@ -375,11 +390,11 @@ msgstr "คุณกำลังคัดลอกเพลงจากซีด
 msgid "(unknown)"
 msgstr "(ไม่รู้จัก)"
 
-#: src/sj-main.c:441 src/sj-main.c:1218
+#: src/sj-main.c:441 src/sj-main.c:1219
 msgid "Title"
 msgstr "ชื่อ"
 
-#: src/sj-main.c:447 src/sj-main.c:1227
+#: src/sj-main.c:447 src/sj-main.c:1228
 msgid "Artist"
 msgstr "ศิลปิน"
 
@@ -432,23 +447,19 @@ msgstr ""
 "ไม่สามารถแสดงวิธีใช้ของ Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:1125
+#: src/sj-main.c:1126
 msgid "Could not create GConf client.\n"
 msgstr "ไม่สามารถสร้างตัวใช้บริการ GConf\n"
 
-#: src/sj-main.c:1155
+#: src/sj-main.c:1156
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "ไม่สามารถอ่านข้อมูลส่วนติดต่อผู้ใช้ของ Sound Juicer ได้"
 
-#: src/sj-main.c:1195
-msgid "Extract"
-msgstr "คัดลอก"
-
-#: src/sj-main.c:1203
+#: src/sj-main.c:1204
 msgid "Track"
 msgstr "ร่องเสียง"
 
-#: src/sj-main.c:1238
+#: src/sj-main.c:1239
 msgid "Duration"
 msgstr "ความยาว"
 
@@ -478,8 +489,7 @@ msgstr "ร่องเสียง %d"
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
-msgstr ""
-"อ็อบเจกต์ metadata ของ MusicBrainz ใช้ไม่ได้ โปรดตรวจข้อผิดพลาดได้ในเทอร์มินัล"
+msgstr "อ็อบเจกต์ metadata ของ MusicBrainz ใช้ไม่ได้ โปรดตรวจข้อผิดพลาดได้ในเทอร์มินัล"
 
 #: src/sj-metadata-musicbrainz.c:310
 #, c-format
@@ -513,7 +523,7 @@ msgstr "metadata ไม่สมบูรณ์สำหรับซีดีน
 msgid "Could not create CD lookup thread"
 msgstr "ไม่สามารถสร้างเธรดสำหรับค้นข้อมูลซีดี"
 
-#: src/sj-play.c:166 src/sj-play.c:371 src/sj-play.c:413
+#: src/sj-play.c:199 src/sj-play.c:451 src/sj-play.c:498
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -524,15 +534,15 @@ msgstr ""
 "\n"
 "สาเหตุ: %s"
 
-#: src/sj-play.c:304
+#: src/sj-play.c:367
 msgid "Failed to create CD source element"
 msgstr "ไม่สามารถเปิดช่องข้อมูลเข้าจากซีดีได้"
 
-#: src/sj-play.c:330
+#: src/sj-play.c:393
 msgid "Failed to create audio output"
 msgstr "ไม่สามารถเปิดเอาต์พุตเสียง"
 
-#: src/sj-play.c:460
+#: src/sj-play.c:609
 #, c-format
 msgid "Seeking to %s"
 msgstr "กำลังเลื่อนไปที่ %s"
@@ -599,6 +609,9 @@ msgstr "+"
 msgid "-"
 msgstr "-"
 
+#~ msgid "Extract"
+#~ msgstr "คัดลอก"
+
 #~ msgid "<b>Album Progress</b>"
 #~ msgstr "<b>Album Progress</b>"
 
@@ -613,9 +626,6 @@ msgstr "-"
 
 #~ msgid "Unknown"
 #~ msgstr "ไม่ทราบ"
-
-#~ msgid "_Extract"
-#~ msgstr "_คัดลอกจากซีดี"
 
 #~ msgid "Extracting '%s'"
 #~ msgstr "กำลังคัดลอก '%s'"
