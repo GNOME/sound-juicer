@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer.HEAD.hi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-01 06:50+0000\n"
-"PO-Revision-Date: 2005-08-01 14:06+0530\n"
+"POT-Creation-Date: 2005-08-02 06:56+0000\n"
+"PO-Revision-Date: 2005-08-02 13:27+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
 "\n"
 
 #: ../data/sound-juicer.desktop.in.h:1
@@ -96,8 +97,8 @@ msgid "O_utput:"
 msgstr "आगत (_u):"
 
 #: ../data/sound-juicer.glade.h:18
-msgid "Play / Pause"
-msgstr "बजाएँ/ठहरें"
+msgid "Pre_vious Track"
+msgstr "पिछला ट्रैक (_v)"
 
 #: ../data/sound-juicer.glade.h:19
 msgid "Preferences"
@@ -107,13 +108,21 @@ msgstr "प्राथमिकताएँ"
 msgid "Select A Folder"
 msgstr "चुनें एक फ़ोल्डर"
 
-#: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:52
+#: ../data/sound-juicer.glade.h:21
+msgid "Skip to the next track"
+msgstr "अगले ट्रैक में जायें"
+
+#: ../data/sound-juicer.glade.h:22
+msgid "Skip to the previous track"
+msgstr "पिछले ट्रैक को जायें"
+
+#: ../data/sound-juicer.glade.h:23 ../src/sj-about.c:52
 #: ../src/sj-extractor.c:489 ../src/sj-main.c:159 ../src/sj-main.c:161
-#: ../src/sj-main.c:1102
+#: ../src/sj-main.c:1103
 msgid "Sound Juicer"
 msgstr "ध्वनि जूसर"
 
-#: ../data/sound-juicer.glade.h:22
+#: ../data/sound-juicer.glade.h:24
 msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
@@ -121,51 +130,59 @@ msgstr ""
 "यह CD एक एल्बम से ज्यादा हो सकता था. कृपया चुनें कि कौन सा एल्बम नीचे है और दबायें "
 "<i>ज<री/i>."
 
-#: ../data/sound-juicer.glade.h:23
+#: ../data/sound-juicer.glade.h:25
 msgid "_Contents"
 msgstr "विषय सूची (_C)"
 
-#: ../data/sound-juicer.glade.h:24 ../src/sj-main.c:240
+#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:240
 msgid "_Continue"
 msgstr "जारी रखें"
 
-#: ../data/sound-juicer.glade.h:25
+#: ../data/sound-juicer.glade.h:27
 msgid "_Deselect All"
 msgstr "अचयनित सभी"
 
-#: ../data/sound-juicer.glade.h:26
+#: ../data/sound-juicer.glade.h:28
 msgid "_Disc"
 msgstr "डिस्क (_D)"
 
-#: ../data/sound-juicer.glade.h:27
+#: ../data/sound-juicer.glade.h:29
 msgid "_Edit"
 msgstr "संपादन (_E)"
 
-#: ../data/sound-juicer.glade.h:28
+#: ../data/sound-juicer.glade.h:30
 msgid "_Eject when finished"
 msgstr "बाहर करें जब पूर्ण हो जाये (_E)"
 
-#: ../data/sound-juicer.glade.h:29
+#: ../data/sound-juicer.glade.h:31
 msgid "_Folder:"
 msgstr "फ़ोल्डर"
 
-#: ../data/sound-juicer.glade.h:30
+#: ../data/sound-juicer.glade.h:32
 msgid "_Help"
 msgstr "मदद (_H)"
 
-#: ../data/sound-juicer.glade.h:31
+#: ../data/sound-juicer.glade.h:33
+msgid "_Next Track"
+msgstr "अगला ट्रैक (_N)"
+
+#: ../data/sound-juicer.glade.h:34
+msgid "_Play / Pause"
+msgstr "बजाएँ/ठहरें (_P)"
+
+#: ../data/sound-juicer.glade.h:35
 msgid "_Re-read"
 msgstr "फिर पढें"
 
-#: ../data/sound-juicer.glade.h:32
+#: ../data/sound-juicer.glade.h:36
 msgid "_Select All"
 msgstr "सभी चुनें (_S)"
 
-#: ../data/sound-juicer.glade.h:33
+#: ../data/sound-juicer.glade.h:37
 msgid "_Strip special characters"
 msgstr "स्ट्रिप करें विशेष संप्रतीक को (_S)"
 
-#: ../data/sound-juicer.glade.h:34
+#: ../data/sound-juicer.glade.h:38
 msgid "label"
 msgstr "लेबल"
 
@@ -372,11 +389,11 @@ msgstr "अभी आप सीडी का अवशोषण कर रहे
 msgid "(unknown)"
 msgstr "(अज्ञात)"
 
-#: ../src/sj-main.c:441 ../src/sj-main.c:1218
+#: ../src/sj-main.c:441 ../src/sj-main.c:1219
 msgid "Title"
 msgstr "शीर्षक"
 
-#: ../src/sj-main.c:447 ../src/sj-main.c:1227
+#: ../src/sj-main.c:447 ../src/sj-main.c:1228
 msgid "Artist"
 msgstr "कलाकार"
 
@@ -428,19 +445,19 @@ msgstr ""
 "Sound Juicer के लिये सहायता नहीं दिखा सका\n"
 "%s"
 
-#: ../src/sj-main.c:1125
+#: ../src/sj-main.c:1126
 msgid "Could not create GConf client.\n"
 msgstr "GConf क्लाइंट को बना नहीं सका.\n"
 
-#: ../src/sj-main.c:1155
+#: ../src/sj-main.c:1156
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Sound Juicer के लिये अंतरफलक फाइल नहीं पढ़ा जा सका."
 
-#: ../src/sj-main.c:1203
+#: ../src/sj-main.c:1204
 msgid "Track"
 msgstr "ट्रैक"
 
-#: ../src/sj-main.c:1238
+#: ../src/sj-main.c:1239
 msgid "Duration"
 msgstr "अवधि"
 
@@ -503,7 +520,7 @@ msgstr "इस CD के लिये अपूर्ण मेटाडाट�
 msgid "Could not create CD lookup thread"
 msgstr "सीडी लुकअप थ्रेड नहीं बना सका"
 
-#: ../src/sj-play.c:201 ../src/sj-play.c:439 ../src/sj-play.c:481
+#: ../src/sj-play.c:199 ../src/sj-play.c:451 ../src/sj-play.c:498
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -514,15 +531,15 @@ msgstr ""
 "\n"
 "कारण: %s"
 
-#: ../src/sj-play.c:369
+#: ../src/sj-play.c:367
 msgid "Failed to create CD source element"
 msgstr "CD श्रोत तत्व बनाने में विफल"
 
-#: ../src/sj-play.c:395
+#: ../src/sj-play.c:393
 msgid "Failed to create audio output"
 msgstr "ऑडियो निर्गम बनाने में विफल"
 
-#: ../src/sj-play.c:528
+#: ../src/sj-play.c:609
 #, c-format
 msgid "Seeking to %s"
 msgstr "%s को खोज रहा है"
