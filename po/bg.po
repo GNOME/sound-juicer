@@ -1,16 +1,18 @@
 # Bulgarian translation of sound juicer.
 # Copyright (C) 2004 THE sound juicer'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the sound juicer package.
-# Rostislav Raykov <zbrox@i-space.org>, 2004;
-# Vladimir Petkov <vpetkov@i-space.org>, 2004.
+# Rostislav "zbrox" Raykov <zbrox@i-space.org>, 2004, 2005
+# Vladimir Petkov <vpetkov@i-space.org>, 2004, 2005
 # Vladimir Petkov <vpetkov@i-space.org>, 2005.
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: sound juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-21 18:30+0300\n"
-"PO-Revision-Date: 2005-07-21 18:30+0300\n"
-"Last-Translator: Vladimir Petkov <vpetkov@i-space.org>\n"
+"POT-Creation-Date: 2005-08-02 14:53+0300\n"
+"PO-Revision-Date: 2005-08-02 14:50+0300\n"
+"Last-Translator: Rostislav \"zbrox\" Raykov <zbrox@i-space.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -94,8 +96,8 @@ msgid "O_utput:"
 msgstr "_Изход:"
 
 #: ../data/sound-juicer.glade.h:18
-msgid "Play / Pause"
-msgstr "Слушане / Пауза"
+msgid "Pre_vious Track"
+msgstr "_Предишна песен"
 
 #: ../data/sound-juicer.glade.h:19
 msgid "Preferences"
@@ -105,13 +107,21 @@ msgstr "Настройки"
 msgid "Select A Folder"
 msgstr "Избор на папка"
 
-#: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:52
+#: ../data/sound-juicer.glade.h:21
+msgid "Skip to the next track"
+msgstr "Прескачане към следващата песен"
+
+#: ../data/sound-juicer.glade.h:22
+msgid "Skip to the previous track"
+msgstr "Прескачане към предишната песен"
+
+#: ../data/sound-juicer.glade.h:23 ../src/sj-about.c:52
 #: ../src/sj-extractor.c:489 ../src/sj-main.c:159 ../src/sj-main.c:161
-#: ../src/sj-main.c:1102
+#: ../src/sj-main.c:1103
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
-#: ../data/sound-juicer.glade.h:22
+#: ../data/sound-juicer.glade.h:24
 msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
@@ -119,51 +129,59 @@ msgstr ""
 "Това CD може да е с повече от един албум. Моля, изберете кой е албума и "
 "натиснете <i>Продължаване</i>."
 
-#: ../data/sound-juicer.glade.h:23
+#: ../data/sound-juicer.glade.h:25
 msgid "_Contents"
 msgstr "_Ръководство"
 
-#: ../data/sound-juicer.glade.h:24 ../src/sj-main.c:240
+#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:240
 msgid "_Continue"
 msgstr "Про_дължаване"
 
-#: ../data/sound-juicer.glade.h:25
+#: ../data/sound-juicer.glade.h:27
 msgid "_Deselect All"
 msgstr "Пре_махване на избора от всички"
 
-#: ../data/sound-juicer.glade.h:26
+#: ../data/sound-juicer.glade.h:28
 msgid "_Disc"
 msgstr "_Диск"
 
-#: ../data/sound-juicer.glade.h:27
+#: ../data/sound-juicer.glade.h:29
 msgid "_Edit"
 msgstr "_Редактиране"
 
-#: ../data/sound-juicer.glade.h:28
+#: ../data/sound-juicer.glade.h:30
 msgid "_Eject when finished"
 msgstr "_Изваждане на CD-то, след приключване"
 
-#: ../data/sound-juicer.glade.h:29
+#: ../data/sound-juicer.glade.h:31
 msgid "_Folder:"
 msgstr "_Папка:"
 
-#: ../data/sound-juicer.glade.h:30
+#: ../data/sound-juicer.glade.h:32
 msgid "_Help"
 msgstr "_Помощ"
 
-#: ../data/sound-juicer.glade.h:31
+#: ../data/sound-juicer.glade.h:33
+msgid "_Next Track"
+msgstr "_Следваща песен"
+
+#: ../data/sound-juicer.glade.h:34
+msgid "_Play / Pause"
+msgstr "С_лушане / Пауза"
+
+#: ../data/sound-juicer.glade.h:35
 msgid "_Re-read"
 msgstr "Четене _отново"
 
-#: ../data/sound-juicer.glade.h:32
+#: ../data/sound-juicer.glade.h:36
 msgid "_Select All"
 msgstr "_Избиране на всичко"
 
-#: ../data/sound-juicer.glade.h:33
+#: ../data/sound-juicer.glade.h:37
 msgid "_Strip special characters"
 msgstr "_Премахване на специалните символи"
 
-#: ../data/sound-juicer.glade.h:34
+#: ../data/sound-juicer.glade.h:38
 msgid "label"
 msgstr "етикет"
 
@@ -180,7 +198,7 @@ msgstr ""
 "изпълнител на песента %tA -- изпълнител на песента (само с малки букви)"
 
 #: ../data/sound-juicer.schemas.in.h:3
-msgid "Audio Profile to encode with"
+msgid "Audio Profile with which to encode"
 msgstr "Аудио профил, с който да се кодира"
 
 #: ../data/sound-juicer.schemas.in.h:5
@@ -194,7 +212,7 @@ msgid ""
 msgstr ""
 "Без определяне на файлово разширение. %at -- заглавие на албума %aT -- "
 "заглавие на албума (само с малки букви) %aa -- изпълнител на албума %aA -- "
-"изпълнител на албума (само с малки букви) %tn -- номер на песента ·(примерно "
+"изпълнител на албума (само с малки букви) %tn -- номер на песента  (примерно "
 "8) %tN -- номер на песента, с нула (примерно 08) %tt -- име на песента %tT "
 "-- име на песента (само с малки букви) %ta --  изпълнител на песента %tA -- "
 "изпълнител на песента (само с малки букви)"
@@ -215,7 +233,7 @@ msgstr ""
 
 #: ../data/sound-juicer.schemas.in.h:8
 msgid "If to strip special characters from filenames"
-msgstr "Дали да се махат специалните символи от файловите·имена"
+msgstr "Дали да се махат специалните символи от файловите имена"
 
 #: ../data/sound-juicer.schemas.in.h:9
 msgid ""
@@ -226,7 +244,7 @@ msgstr ""
 "застъпване) и 255 (пълен режим)"
 
 #: ../data/sound-juicer.schemas.in.h:10
-msgid "The GNOME Audio Profile to encode the audio with."
+msgid "The GNOME Audio Profile with which to encode."
 msgstr "Аудио профилът към GNOME, чрез който да бъде кодиран звук"
 
 #: ../data/sound-juicer.schemas.in.h:11
@@ -272,7 +290,7 @@ msgid ""
 "A file called '%s' exists, size %s.\n"
 "Do you want to skip this track or overwrite it?"
 msgstr ""
-"Файл с име \"%s\" съществува, размер %s.\n"
+"Файл с име „%s“ съществува, размер %s.\n"
 "Искате ли да пропуснете тази песен или да я презапишете?"
 
 #: ../src/sj-extracting.c:211
@@ -354,7 +372,7 @@ msgstr "Не може да се вземе стартовата позиция �
 
 #: ../src/sj-extractor.c:560
 msgid "The plugin necessary for CD access was not found"
-msgstr "Плъгинът, нужен за достъп до CD-то не беше·открит"
+msgstr "Плъгинът, нужен за достъп до CD-то не беше открит"
 
 #: ../src/sj-extractor.c:568
 msgid "The plugin necessary for file access was not found"
@@ -382,11 +400,11 @@ msgstr ""
 msgid "(unknown)"
 msgstr "(непознат)"
 
-#: ../src/sj-main.c:441 ../src/sj-main.c:1218
+#: ../src/sj-main.c:441 ../src/sj-main.c:1219
 msgid "Title"
 msgstr "Заглавие"
 
-#: ../src/sj-main.c:447 ../src/sj-main.c:1227
+#: ../src/sj-main.c:447 ../src/sj-main.c:1228
 msgid "Artist"
 msgstr "Изпълнител"
 
@@ -401,7 +419,7 @@ msgstr "Sound Juicer не може да прочете списъка с пес�
 #. Set statusbar message
 #: ../src/sj-main.c:662
 msgid "Retrieving track listing...please wait."
-msgstr "Получаване на списъка с песните... моля,·изчакайте."
+msgstr "Получаване на списъка с песните... моля, изчакайте."
 
 #: ../src/sj-main.c:718
 msgid "No CD-ROM drives found"
@@ -415,7 +433,7 @@ msgstr ""
 #: ../src/sj-main.c:732
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
-msgstr "Sound Juicer няма достъп до CD-ROM устройството \"%s\""
+msgstr "Sound Juicer няма достъп до CD-ROM устройството „%s“"
 
 #: ../src/sj-main.c:779
 msgid ""
@@ -440,23 +458,19 @@ msgstr ""
 "Не може да бъде показана помощ за Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1125
+#: ../src/sj-main.c:1126
 msgid "Could not create GConf client.\n"
 msgstr "Не може да се създаде GConf клиент.\n"
 
-#: ../src/sj-main.c:1155
+#: ../src/sj-main.c:1156
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Файлът с описанието на Sound Juicer не може да бъде прочетен."
 
-#: ../src/sj-main.c:1195
-msgid "Extract"
-msgstr "Извличане"
-
-#: ../src/sj-main.c:1203
+#: ../src/sj-main.c:1204
 msgid "Track"
 msgstr "Песен"
 
-#: ../src/sj-main.c:1238
+#: ../src/sj-main.c:1239
 msgid "Duration"
 msgstr "Продължителност"
 
@@ -492,15 +506,15 @@ msgstr ""
 
 #: ../src/sj-metadata-musicbrainz.c:310
 #, c-format
-msgid "Device '%s' does not contain a media"
-msgstr "Устройството \"%s\" не съдържа носител"
+msgid "Device '%s' does not contain any media"
+msgstr "Устройството „%s“ не съдържа носител"
 
 #: ../src/sj-metadata-musicbrainz.c:313
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr ""
-"Устройството \"%s\" не може да бъде отворено. Проверете разрешенията за "
+"Устройството „%s“ не може да бъде отворено. Проверете разрешенията за "
 "устройството."
 
 #: ../src/sj-metadata-musicbrainz.c:326
@@ -524,7 +538,7 @@ msgstr "Мета данните за това CD са незавършени.\n"
 msgid "Could not create CD lookup thread"
 msgstr "Нишката за преглед на CD-то не може да бъде създадена"
 
-#: ../src/sj-play.c:166 ../src/sj-play.c:371 ../src/sj-play.c:413
+#: ../src/sj-play.c:199 ../src/sj-play.c:451 ../src/sj-play.c:498
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -535,15 +549,15 @@ msgstr ""
 "\n"
 "Причина: %s"
 
-#: ../src/sj-play.c:304
+#: ../src/sj-play.c:367
 msgid "Failed to create CD source element"
 msgstr "Не може да се създаде източник от CD"
 
-#: ../src/sj-play.c:330
+#: ../src/sj-play.c:393
 msgid "Failed to create audio output"
 msgstr "Не може да се създаде звуков изход"
 
-#: ../src/sj-play.c:460
+#: ../src/sj-play.c:609
 #, c-format
 msgid "Seeking to %s"
 msgstr "Прескачане към %s"
@@ -600,278 +614,12 @@ msgstr "Номер - Изпълнител на песента - заглавие
 msgid "Track Artist"
 msgstr "Изпълнител на песен"
 
-#~ msgid "<b>Album Progress</b>"
-#~ msgstr "<b>Прогрес на албума</b>"
-
-#~ msgid "<b>Track Progress</b>"
-#~ msgstr "<b>Прогрес на песента</b>"
-
-#~ msgid "Progress"
-#~ msgstr "Прогрес"
-
-#~ msgid "Unknown"
-#~ msgstr "Непознат"
-
-#~ msgid "Extracting '%s'"
-#~ msgstr "Извличане на \"%s\""
-
-#~ msgid "%d:%02d (at %0.1fx)"
-#~ msgstr "%d:%02d (при %0.1fx)"
-
-#~ msgid "Unknown (at 0.0x)"
-#~ msgstr "Непознат (при 0.0х)"
-
-#~ msgid "E_xtract"
-#~ msgstr "_Извличане"
-
-#~ msgid "_CD"
-#~ msgstr "_CD"
-
-#~ msgid "_Extract"
-#~ msgstr "Из_вличане"
-
-#~ msgid "Blues"
-#~ msgstr "Блус"
-
-#~ msgid "Classic Rock"
-#~ msgstr "Класически рок"
-
-#~ msgid "Country"
-#~ msgstr "Кънтри"
-
-#~ msgid "Dance"
-#~ msgstr "Денс"
-
-#~ msgid "Funk"
-#~ msgstr "Фънк"
-
-#~ msgid "Grunge"
-#~ msgstr "Гръндж"
-
-#~ msgid "Hip-Hop"
-#~ msgstr "Хип-хоп"
-
-#~ msgid "Jazz"
-#~ msgstr "Джаз"
-
-#~ msgid "Metal"
-#~ msgstr "Метал"
-
-#~ msgid "New Age"
-#~ msgstr "Ню ейдж"
-
-#~ msgid "Oldies"
-#~ msgstr "Шлагери"
-
-#~ msgid "Other"
-#~ msgstr "Други"
-
-#~ msgid "Pop"
-#~ msgstr "Поп"
-
-#~ msgid "R&B"
-#~ msgstr "Ритъм и блус"
-
-#~ msgid "Rap"
-#~ msgstr "Рап"
-
-#~ msgid "Reggae"
-#~ msgstr "Реге"
-
-#~ msgid "Rock"
-#~ msgstr "Рок"
-
-#~ msgid "Techno"
-#~ msgstr "Техно"
-
-#~ msgid "Industrial"
-#~ msgstr "Индъстриал"
-
-#~ msgid "Alternative"
-#~ msgstr "Алтърнатив"
-
-#~ msgid "Ska"
-#~ msgstr "Ска"
-
-#~ msgid "Death Metal"
-#~ msgstr "Дет метъл"
-
-#~ msgid "Pranks"
-#~ msgstr "Пранкс"
-
-#~ msgid "Soundtrack"
-#~ msgstr "Музика към филм"
-
-#~ msgid "Euro-Techno"
-#~ msgstr "Евро-техно"
-
-#~ msgid "Ambient"
-#~ msgstr "Ембиънт"
-
-#~ msgid "Trip-Hop"
-#~ msgstr "Трип-хоп"
-
-#~ msgid "Vocal"
-#~ msgstr "Вокални"
-
-#~ msgid "Jazz+Funk"
-#~ msgstr "Джаз+Фънк"
-
-#~ msgid "Fusion"
-#~ msgstr "Фюжън"
-
-#~ msgid "Trance"
-#~ msgstr "Транс"
-
-#~ msgid "Classical"
-#~ msgstr "Класически"
-
-#~ msgid "Instrumental"
-#~ msgstr "Инструментал"
-
-#~ msgid "Acid"
-#~ msgstr "Ейсид"
-
-#~ msgid "House"
-#~ msgstr "Хауз"
-
-#~ msgid "Game"
-#~ msgstr "От игра"
-
-#~ msgid "Sound Clip"
-#~ msgstr "Звуков клип"
-
-#~ msgid "Gospel"
-#~ msgstr "Госпел"
-
-#~ msgid "Noise"
-#~ msgstr "Ноиз"
-
-#~ msgid "AlternRock"
-#~ msgstr "Алтернативен рок"
-
-#~ msgid "Bass"
-#~ msgstr "Бас"
-
-#~ msgid "Soul"
-#~ msgstr "Соул"
-
-#~ msgid "Punk"
-#~ msgstr "Пънк"
-
-#~ msgid "Space"
-#~ msgstr "Спейс"
-
-#~ msgid "Meditative"
-#~ msgstr "Медитатив"
-
-#~ msgid "Instrumental Pop"
-#~ msgstr "Инструментален поп"
-
-#~ msgid "Instrumental Rock"
-#~ msgstr "Инструментален рок"
-
-#~ msgid "Ethnic"
-#~ msgstr "Етнически"
-
-#~ msgid "Gothic"
-#~ msgstr "Готически"
-
-#~ msgid "Darkwave"
-#~ msgstr "Даркуейв"
-
-#~ msgid "Techno-Industrial"
-#~ msgstr "Техно-индъстриъл"
-
-#~ msgid "Electronic"
-#~ msgstr "Електроника"
-
-#~ msgid "Pop-Folk"
-#~ msgstr "Поп-фолк"
-
-#~ msgid "Eurodance"
-#~ msgstr "Евроденс"
-
-#~ msgid "Dream"
-#~ msgstr "Дрийм"
-
-#~ msgid "Southern Rock"
-#~ msgstr "Южен рок"
-
-#~ msgid "Comedy"
-#~ msgstr "Комедия"
-
-#~ msgid "Cult"
-#~ msgstr "Култ"
-
-#~ msgid "Gangsta"
-#~ msgstr "Гангстерски"
-
-#~ msgid "Top 40"
-#~ msgstr "Топ 40"
-
-#~ msgid "Christian Rap"
-#~ msgstr "Християнски рап"
-
-#~ msgid "Pop/Funk"
-#~ msgstr "Поп/фънк"
-
-#~ msgid "Jungle"
-#~ msgstr "Джънгъл"
-
-#~ msgid "Native American"
-#~ msgstr "Нейтив американ"
-
-#~ msgid "Cabaret"
-#~ msgstr "Кабаре"
-
-#~ msgid "New Wave"
-#~ msgstr "Ню Уейв"
-
-#~ msgid "Psychadelic"
-#~ msgstr "Сакъделик"
-
-#~ msgid "Rave"
-#~ msgstr "Рейв"
-
-#~ msgid "Showtunes"
-#~ msgstr "Шоутюнз"
-
-#~ msgid "Trailer"
-#~ msgstr "Трейлър"
-
-#~ msgid "Lo-Fi"
-#~ msgstr "Лоу-фай"
-
-#~ msgid "Tribal"
-#~ msgstr "Трайбал"
-
-#~ msgid "Acid Punk"
-#~ msgstr "Ейсид пънк"
-
-#~ msgid "Acid Jazz"
-#~ msgstr "Ейсид джаз"
-
-#~ msgid "Polka"
-#~ msgstr "Полка"
-
-#~ msgid "Retro"
-#~ msgstr "Ретро"
-
-#~ msgid "Musical"
-#~ msgstr "Музикъл"
-
-#~ msgid "Rock & Roll"
-#~ msgstr "Рок & Рол"
-
-#~ msgid "Hard Rock"
-#~ msgstr "Хард рок"
-
-#~ msgid "[unknown genre]"
-#~ msgstr "[неизвестен жанр]"
-
-#~ msgid "Could not create directory %s: %s"
-#~ msgstr "Директорията %s не може да бъде създадена: %s"
-
-#~ msgid "Could not eject the CD"
-#~ msgstr "CD-то не може да бъде извадено"
+#. +
+#: ../src/sj-volume.c:185
+msgid "+"
+msgstr "+"
+
+#. -
+#: ../src/sj-volume.c:201
+msgid "-"
+msgstr "-"
