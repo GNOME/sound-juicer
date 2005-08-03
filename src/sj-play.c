@@ -47,7 +47,7 @@ static gfloat vol = 1.0;
 
 static GtkTreeIter current_iter;
 
-static GtkWidget *play_button, *next_menuitem, *prev_menuitem, *seek_scale, *volume_button, *statusbar;
+static GtkWidget *play_button, *next_menuitem, *prev_menuitem, *reread_menuitem, *seek_scale, *volume_button, *statusbar;
 
 /**
  * Select track number.
@@ -107,6 +107,7 @@ play (void)
   
   gtk_widget_set_sensitive (next_menuitem, TRUE);
   gtk_widget_set_sensitive (prev_menuitem, TRUE);
+  gtk_widget_set_sensitive (reread_menuitem, FALSE);
 }
 
 /**
@@ -131,6 +132,7 @@ stop (void)
 
   gtk_widget_set_sensitive (next_menuitem, FALSE);
   gtk_widget_set_sensitive (prev_menuitem, FALSE);
+  gtk_widget_set_sensitive (reread_menuitem, TRUE);
 }
 
 /**
@@ -628,6 +630,7 @@ sj_play_init (void)
   play_button = glade_xml_get_widget (glade, "play_button");
   next_menuitem = glade_xml_get_widget (glade, "next_track_menuitem");
   prev_menuitem = glade_xml_get_widget (glade, "previous_track_menuitem");
+  reread_menuitem = glade_xml_get_widget (glade, "re-read");
   seek_scale = glade_xml_get_widget (glade, "seek_scale");
   volume_button = glade_xml_get_widget (glade, "volume_button");
   statusbar = glade_xml_get_widget (glade, "status_bar");
