@@ -1,23 +1,21 @@
-# translation of nb.po to Norwegian Bokmal
-# Norwegian translations for sound-juicer.
-# Copyright (C) 2003-2004 Free Software Foundation.
+# Norwegian bokmål translation for sound-juicer.
+# Copyright (C) 2003-2005 Free Software Foundation.
 # This file is distributed under the same license as the sound-juicer package.
-# Kjartan Maraas <kmaraas@gnome.org>, 2003-2004.
+# Kjartan Maraas <kmaraas@gnome.org>, 2003-2005.
 # Terance Edward Sola <terance@lyse.net>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: nb\n"
+"Project-Id-Version: 2.11.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-28 00:37+0200\n"
-"PO-Revision-Date: 2005-07-28 00:38+0200\n"
-"Last-Translator: Terance Edward Sola <terance@lyse.net>\n"
+"POT-Creation-Date: 2005-08-03 10:32+0200\n"
+"PO-Revision-Date: 2005-08-03 10:34+0200\n"
+"Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.10\n"
 
 #: ../data/sound-juicer.desktop.in.h:1
 msgid "Extract music from your CDs"
@@ -96,8 +94,8 @@ msgid "O_utput:"
 msgstr "_Utdata:"
 
 #: ../data/sound-juicer.glade.h:18
-msgid "Play / Pause"
-msgstr "Spill / Pause"
+msgid "Pre_vious Track"
+msgstr "_Forrige spor"
 
 #: ../data/sound-juicer.glade.h:19
 msgid "Preferences"
@@ -107,13 +105,21 @@ msgstr "Brukervalg"
 msgid "Select A Folder"
 msgstr "Velg en mappe"
 
-#: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:52
+#: ../data/sound-juicer.glade.h:21
+msgid "Skip to the next track"
+msgstr "Hopp til neste spor"
+
+#: ../data/sound-juicer.glade.h:22
+msgid "Skip to the previous track"
+msgstr "Hopp til forrige spor"
+
+#: ../data/sound-juicer.glade.h:23 ../src/sj-about.c:52
 #: ../src/sj-extractor.c:489 ../src/sj-main.c:159 ../src/sj-main.c:161
-#: ../src/sj-main.c:1102
+#: ../src/sj-main.c:1103
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
-#: ../data/sound-juicer.glade.h:22
+#: ../data/sound-juicer.glade.h:24
 msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
@@ -121,51 +127,59 @@ msgstr ""
 "Denne CDen kan ha flere enn ett album. Vennligst velg hvilket album det er "
 "under og klikk <i>Fortsett</i>."
 
-#: ../data/sound-juicer.glade.h:23
+#: ../data/sound-juicer.glade.h:25
 msgid "_Contents"
 msgstr "_Innhold"
 
-#: ../data/sound-juicer.glade.h:24 ../src/sj-main.c:240
+#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:240
 msgid "_Continue"
 msgstr "_Fortsett"
 
-#: ../data/sound-juicer.glade.h:25
+#: ../data/sound-juicer.glade.h:27
 msgid "_Deselect All"
 msgstr "_Velg bort alle"
 
-#: ../data/sound-juicer.glade.h:26
+#: ../data/sound-juicer.glade.h:28
 msgid "_Disc"
 msgstr "_CD"
 
-#: ../data/sound-juicer.glade.h:27
+#: ../data/sound-juicer.glade.h:29
 msgid "_Edit"
 msgstr "R_ediger"
 
-#: ../data/sound-juicer.glade.h:28
+#: ../data/sound-juicer.glade.h:30
 msgid "_Eject when finished"
 msgstr "_Løs ut etterpå"
 
-#: ../data/sound-juicer.glade.h:29
+#: ../data/sound-juicer.glade.h:31
 msgid "_Folder:"
 msgstr "_Mappe:"
 
-#: ../data/sound-juicer.glade.h:30
+#: ../data/sound-juicer.glade.h:32
 msgid "_Help"
 msgstr "_Hjelp"
 
-#: ../data/sound-juicer.glade.h:31
+#: ../data/sound-juicer.glade.h:33
+msgid "_Next Track"
+msgstr "_Neste spor"
+
+#: ../data/sound-juicer.glade.h:34
+msgid "_Play / Pause"
+msgstr "S_pill / Pause"
+
+#: ../data/sound-juicer.glade.h:35
 msgid "_Re-read"
 msgstr "_Gjenles"
 
-#: ../data/sound-juicer.glade.h:32
+#: ../data/sound-juicer.glade.h:36
 msgid "_Select All"
 msgstr "_Velg alle"
 
-#: ../data/sound-juicer.glade.h:33
+#: ../data/sound-juicer.glade.h:37
 msgid "_Strip special characters"
 msgstr "_Fjern spesielle tegn"
 
-#: ../data/sound-juicer.glade.h:34
+#: ../data/sound-juicer.glade.h:38
 msgid "label"
 msgstr "etikett"
 
@@ -331,8 +345,10 @@ msgid "Could not get current track position"
 msgstr "Kunne ikke finne posisjon i aktivt spor"
 
 #: ../src/sj-extractor.c:411
-msgid "Extractor object is not valid. This is bad, check your console for errors."
-msgstr "Ekstraktobjektet er ikke gyldig. Dette er ikke bra. Sjekk konsollet for feil."
+msgid ""
+"Extractor object is not valid. This is bad, check your console for errors."
+msgstr ""
+"Ekstraktobjektet er ikke gyldig. Dette er ikke bra. Sjekk konsollet for feil."
 
 #: ../src/sj-extractor.c:525
 msgid "Could not seek to track"
@@ -371,11 +387,11 @@ msgstr "Du holder på å rippe en CD. Vil du avslutte nå eller fortsette?"
 msgid "(unknown)"
 msgstr "(ukjent)"
 
-#: ../src/sj-main.c:441 ../src/sj-main.c:1218
+#: ../src/sj-main.c:441 ../src/sj-main.c:1219
 msgid "Title"
 msgstr "Tittel"
 
-#: ../src/sj-main.c:447 ../src/sj-main.c:1227
+#: ../src/sj-main.c:447 ../src/sj-main.c:1228
 msgid "Artist"
 msgstr "Artist"
 
@@ -406,7 +422,8 @@ msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer kunne ikke aksessere CD-ROM-enhet «%s»"
 
 #: ../src/sj-main.c:779
-msgid "The currently selected audio profile is not available on your installation."
+msgid ""
+"The currently selected audio profile is not available on your installation."
 msgstr "Valgt lydprofil er ikke tilgjengelig i din installasjon."
 
 #: ../src/sj-main.c:781
@@ -427,23 +444,19 @@ msgstr ""
 "Kunne ikke vise hjelp for Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1125
+#: ../src/sj-main.c:1126
 msgid "Could not create GConf client.\n"
 msgstr "Kunne ikke opprette GConf-klient.\n"
 
-#: ../src/sj-main.c:1155
+#: ../src/sj-main.c:1156
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Grensesnittbeskrivelsen for Sound Juicer kunne ikke leses."
 
-#: ../src/sj-main.c:1195
-msgid "Extract"
-msgstr "Hent ut"
-
-#: ../src/sj-main.c:1203
+#: ../src/sj-main.c:1204
 msgid "Track"
 msgstr "Spor"
 
-#: ../src/sj-main.c:1238
+#: ../src/sj-main.c:1239
 msgid "Duration"
 msgstr "Varighet"
 
@@ -484,7 +497,8 @@ msgstr "Enhet «%s» inneholder ikke et medie"
 
 #: ../src/sj-metadata-musicbrainz.c:313
 #, c-format
-msgid "Device '%s' could not be opened. Check the access permissions on the device."
+msgid ""
+"Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "Enhet «%s» kunne ikke åpnes. Sjekk tilgangsrettighetene på enheten."
 
 #: ../src/sj-metadata-musicbrainz.c:326
@@ -508,7 +522,7 @@ msgstr "Ukomplette metadata for denne CDen.\n"
 msgid "Could not create CD lookup thread"
 msgstr "Kunne ikke opprette tråd for CD-oppslag"
 
-#: ../src/sj-play.c:201 ../src/sj-play.c:439 ../src/sj-play.c:481
+#: ../src/sj-play.c:199 ../src/sj-play.c:451 ../src/sj-play.c:498
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -519,15 +533,15 @@ msgstr ""
 "\n"
 "Årsak: %s"
 
-#: ../src/sj-play.c:369
+#: ../src/sj-play.c:367
 msgid "Failed to create CD source element"
 msgstr "Kunne ikke opprette kildeelement fra CD"
 
-#: ../src/sj-play.c:395
+#: ../src/sj-play.c:393
 msgid "Failed to create audio output"
 msgstr "Kunne ikke opprette utdata for lyd"
 
-#: ../src/sj-play.c:528
+#: ../src/sj-play.c:609
 #, c-format
 msgid "Seeking to %s"
 msgstr "Søker til %s"
@@ -593,4 +607,3 @@ msgstr "+"
 #: ../src/sj-volume.c:201
 msgid "-"
 msgstr "-"
-
