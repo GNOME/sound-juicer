@@ -35,7 +35,7 @@
 #include <gtk/gtkstatusbar.h>
 #include <gtk/gtkmessagedialog.h>
 
-#include "sj-volume.h"
+#include "bacon-volume.h"
 #include "sound-juicer.h"
 
 static GstElement *pipeline = NULL;
@@ -569,7 +569,7 @@ on_tracklist_row_selected (GtkTreeView *treeview,
 void
 on_volume_changed (GtkWidget * volb, gpointer data)
 {
-  vol = sj_volume_button_get_value (SJ_VOLUME_BUTTON (volb));
+  vol = bacon_volume_button_get_value (BACON_VOLUME_BUTTON (volb));
   if (pipeline) {
     GstElement *volume;
 

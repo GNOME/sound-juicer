@@ -1,4 +1,4 @@
-/* Sj Volume Button / popup widget
+/* Volume Button / popup widget
  * (c) copyright 2005 Ronald S. Bultje <rbultje@ronald.bitfreak.net>
  *
  * This library is free software; you can redistribute it and/or
@@ -15,56 +15,51 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
- *
- * The Sj project hereby grant permission for non-gpl compatible GStreamer
- * plugins to be used and distributed together with GStreamer and Sj. This
- * permission are above and beyond the permissions granted by the GPL license
- * Sj is covered by.
  */
 
-#ifndef __BUTTON_H__
-#define __BUTTON_H__
+#ifndef __BACON_VOLUME_BUTTON_H__
+#define __BACON_VOLUME_BUTTON_H__
 
 #include <gtk/gtkbutton.h>
 #include <gtk/gtkicontheme.h>
 
 G_BEGIN_DECLS
 
-#define SJ_TYPE_VOLUME_BUTTON \
-  (sj_volume_button_get_type ())
-#define SJ_VOLUME_BUTTON(obj) \
-  (G_TYPE_CHECK_INSTANCE_CAST ((obj), SJ_TYPE_VOLUME_BUTTON, \
-			       SjVolumeButton))
+#define BACON_TYPE_VOLUME_BUTTON \
+  (bacon_volume_button_get_type ())
+#define BACON_VOLUME_BUTTON(obj) \
+  (G_TYPE_CHECK_INSTANCE_CAST ((obj), BACON_TYPE_VOLUME_BUTTON, \
+			       BaconVolumeButton))
 
-typedef struct _SjVolumeButton {
+typedef struct _BaconVolumeButton {
   GtkButton parent;
 
   /* popup */
   GtkWidget *dock, *scale, *image, *plus, *min;
   gint click_id;
-  gfloat direction;
+  float direction;
   gboolean timeout;
   guint32 pop_time;
   GtkIconTheme *theme;
-} SjVolumeButton;
+} BaconVolumeButton;
 
-typedef struct _SjVolumeButtonClass {
+typedef struct _BaconVolumeButtonClass {
   GtkButtonClass parent_class;
 
   /* signals */
-  void	(* value_changed)	(SjVolumeButton * button);
+  void	(* value_changed)	(BaconVolumeButton * button);
 
   gpointer __bla[4];
-} SjVolumeButtonClass;
+} BaconVolumeButtonClass;
 
-GType		sj_volume_button_get_type	(void);
+GType		bacon_volume_button_get_type	(void);
 
-GtkWidget *	sj_volume_button_new		(float min, float max,
+GtkWidget *	bacon_volume_button_new		(float min, float max,
 						 float step);
-float		sj_volume_button_get_value	(SjVolumeButton * button);
-void		sj_volume_button_set_value	(SjVolumeButton * button,
+float		bacon_volume_button_get_value	(BaconVolumeButton * button);
+void		bacon_volume_button_set_value	(BaconVolumeButton * button,
 						 float value);
 
 G_END_DECLS
 
-#endif /* __BUTTON_H__ */
+#endif /* __BACON_VOLUME_BUTTON_H__ */
