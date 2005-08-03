@@ -69,7 +69,7 @@ GtkWidget *main_window;
 static GtkWidget *title_entry, *artist_entry, *duration_label, *genre_entry;
 static GtkWidget *track_listview, *extract_button, *play_button;
 static GtkWidget *status_bar;
-static GtkWidget *extract_menuitem, *play_menuitem, *select_all_menuitem, *deselect_all_menuitem;
+static GtkWidget *extract_menuitem, *play_menuitem, *next_menuitem, *prev_menuitem, *select_all_menuitem, *deselect_all_menuitem;
 GtkListStore *track_store;
 static BaconMessageConnection *connection;
 GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer;
@@ -352,6 +352,8 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (extract_menuitem, FALSE);
     gtk_widget_set_sensitive (select_all_menuitem, FALSE);
     gtk_widget_set_sensitive (deselect_all_menuitem, TRUE);
+    gtk_widget_set_sensitive (prev_menuitem, FALSE);
+    gtk_widget_set_sensitive (next_menuitem, FALSE);
   } else {
     gtk_list_store_clear (track_store);
 
@@ -371,6 +373,8 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (extract_menuitem, TRUE);
     gtk_widget_set_sensitive (select_all_menuitem, FALSE);
     gtk_widget_set_sensitive (deselect_all_menuitem, TRUE);
+    gtk_widget_set_sensitive (prev_menuitem, FALSE);
+    gtk_widget_set_sensitive (next_menuitem, FALSE);
     
     for (l = album->tracks; l; l=g_list_next (l)) {
       GtkTreeIter iter;
@@ -1174,6 +1178,8 @@ int main (int argc, char **argv)
   extract_menuitem = glade_xml_get_widget (glade, "extract_menuitem");
   play_button = glade_xml_get_widget (glade, "play_button");
   play_menuitem = glade_xml_get_widget (glade, "play_menuitem");
+  next_menuitem = glade_xml_get_widget (glade, "next_track_menuitem");
+  prev_menuitem = glade_xml_get_widget (glade, "previous_track_menuitem");
   status_bar = glade_xml_get_widget (glade, "status_bar");
 
   {
@@ -1254,10 +1260,10 @@ int main (int argc, char **argv)
     exit (1);
   }
 
+  sj_play_init ();
+
   selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (track_listview));
-  
-  if (selection)
-  	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
+  gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
 	  
   http_proxy_setup (gconf_client);
   /* TODO: port port basepath to baseuri */
