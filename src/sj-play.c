@@ -104,6 +104,9 @@ static void
 play (void)
 {
   gst_element_set_state (pipeline, GST_STATE_PLAYING);
+  
+  gtk_widget_set_sensitive (next_menuitem, TRUE);
+  gtk_widget_set_sensitive (prev_menuitem, TRUE);
 }
 
 /**
@@ -430,9 +433,6 @@ on_play_activate (GtkWidget *button, gpointer user_data)
           &current_iter, COLUMN_TITLE, &title, -1);
       sj_main_set_title (title);
       g_free (title);
-
-      gtk_widget_set_sensitive (next_menuitem, TRUE);
-      gtk_widget_set_sensitive (prev_menuitem, TRUE);
 
       play ();
     }
