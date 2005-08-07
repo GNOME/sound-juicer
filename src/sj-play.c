@@ -311,6 +311,7 @@ idle_state (gpointer data)
     gtk_list_store_set (track_store, &current_iter,
         COLUMN_STATE, STATE_IDLE, -1);
     sj_main_set_title (NULL);
+    gtk_statusbar_push (GTK_STATUSBAR (statusbar), 0, "");
     current_track = -1;
   } else if (transition == GST_STATE_PAUSED_TO_PLAYING) {
     gtk_button_set_label (GTK_BUTTON (play_button), GTK_STOCK_MEDIA_PAUSE);
