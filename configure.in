@@ -69,7 +69,7 @@ AM_GST_ELEMENT_CHECK(wavenc,,AC_MSG_WARN([The 'wavenc' element was not found. Th
 AM_GST_ELEMENT_CHECK(gnomevfssink,,AC_MSG_WARN([The 'gnomevfssink' element was not found. This will cause Sound Juicer to fail at runtime.]))
 
 # Find GNOME Media Profiles
-PKG_CHECK_MODULES(MEDIA_PROFILES, gnome-media-profiles)
+PKG_CHECK_MODULES(MEDIA_PROFILES, gnome-media-profiles >= 2.11.91)
 AC_SUBST(MEDIA_PROFILES_CFLAGS)
 AC_SUBST(MEDIA_PROFILES_LIBS)
 
