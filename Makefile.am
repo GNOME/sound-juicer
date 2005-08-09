@@ -9,8 +9,7 @@ EXTRA_DIST = \
 	autogen.sh \
 	sound-juicer.spec \
 	gnome-doc-utils.make \
-	$(INTLTOOL_BUILT:=.in) \
-	m4
+	$(INTLTOOL_BUILT:=.in)
 
 DISTCLEANFILES = po/.intltool-merge-cache \
 	gnome-doc-utils.make \

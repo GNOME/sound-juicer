@@ -5,7 +5,7 @@ srcdir=`dirname $0`
 test -z "$srcdir" && srcdir=.
 
 PKG_NAME="sound-juicer"
-REQUIRED_AUTOMAKE_VERSION=1.6
+REQUIRED_AUTOMAKE_VERSION=1.9
 export REQUIRED_AUTOMAKE_VERSION
 
 (test -f $srcdir/configure.in) || {
