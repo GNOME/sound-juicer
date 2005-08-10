@@ -1048,7 +1048,8 @@ static GtkTreeModel* create_genre_list(void) {
 GtkWidget *
 sj_make_volume_button (void)
 {
-  GtkWidget *w = bacon_volume_button_new (0.0, 1.0, 0.02);
+  GtkWidget *w = bacon_volume_button_new (GTK_ICON_SIZE_SMALL_TOOLBAR,
+					  0.0, 1.0, 0.02);
   bacon_volume_button_set_value (BACON_VOLUME_BUTTON (w), 1.0);
   return w;
 }
