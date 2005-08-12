@@ -52,7 +52,6 @@ static GtkWidget *play_button, *next_menuitem, *prev_menuitem, *reread_menuitem,
 /**
  * Select track number.
  */
-
 static gboolean
 select_track (void)
 {
@@ -99,7 +98,6 @@ select_track (void)
 /**
  * Start playing.
  */
-
 static void
 play (void)
 {
@@ -113,7 +111,6 @@ play (void)
 /**
  * Pause
  */
-
 static void
 pause (void)
 {
@@ -123,7 +120,6 @@ pause (void)
 /**
  * Stop.
  */
-
 static void
 stop (void)
 {
@@ -138,7 +134,6 @@ stop (void)
 /**
  * Are we playing?
  */
-
 static gboolean
 is_playing (void)
 {
@@ -398,7 +393,7 @@ setup (GError **err)
   return TRUE;
 }
 
-/**
+/*
  * Public function to release device.
  */
 
@@ -408,7 +403,7 @@ stop_playback (void)
   stop ();
 }
 
-/**
+/*
  * Interface entry point.
  */
 
@@ -565,7 +560,7 @@ on_tracklist_row_selected (GtkTreeView *treeview,
   }
 }
 
-/**
+/*
  * Volume.
  */
 
@@ -581,7 +576,7 @@ on_volume_changed (GtkWidget * volb, gpointer data)
   }
 }
 
-/**
+/*
  * Seeking.
  */
 
@@ -625,6 +620,27 @@ on_seek_release (GtkWidget * scale, GdkEventButton * event, gpointer user_data)
   return FALSE;
 }
 
+/*
+ * Grim. Very Grim.
+ */
+void
+stop_ui_hack (void)
+{
+  gtk_button_set_label (play_button, GTK_STOCK_MEDIA_PLAY);
+  gtk_widget_hide (seek_scale);
+  gtk_widget_hide (volume_button);
+  gtk_statusbar_pop (GTK_STATUSBAR (statusbar), 0);
+  slen = GST_CLOCK_TIME_NONE;
+  gtk_list_store_set (track_store, &current_iter,
+                      COLUMN_STATE, STATE_IDLE, -1);
+  sj_main_set_title (NULL);
+  gtk_statusbar_push (GTK_STATUSBAR (statusbar), 0, "");
+  current_track = -1;
+}
+
+/**
+ * Init
+ */
 void
 sj_play_init (void)
 {

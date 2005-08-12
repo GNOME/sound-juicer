@@ -1,3 +1,15 @@
+2005-08-12  Ross Burton  <ross@burtonini.com>
+
+	* src/sj-play.[ch]:
+	New function to reset the interface to Stop mode without actually
+	changing the pipeline.
+
+	* src/sj-main.c:
+	Call function when the disk is ejected.
+
+	This is required as cdparanoia doesn't tell us when the drive is
+	ejected, and stopping the pipeline causes a deadlock. Very sad.
+	
 2005-08-10  Ronald S. Bultje  <rbultje@ronald.bitfreak.net>
 
 	* src/bacon-volume.c: (bacon_volume_button_new),

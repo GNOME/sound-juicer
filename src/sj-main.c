@@ -219,6 +219,7 @@ gboolean poll_tray_opened (gpointer data)
   if (new_status != tray_opened && new_status == FALSE) {
     reread_cd (TRUE);
   } else if (new_status != tray_opened && new_status == TRUE) {
+    stop_ui_hack ();
     update_ui_for_album (NULL);
   }
   tray_opened = new_status;
