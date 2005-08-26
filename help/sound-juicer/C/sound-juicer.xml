@@ -1,18 +1,16 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?><!-- -*- indent-tabs-mode: nil -*- -->
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
     "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
   <!ENTITY app "Sound Juicer">
   <!ENTITY application "<application>&app;</application>">
   <!ENTITY appversion "2.10">
   <!ENTITY manrevision "2.10">
-
-  <!ENTITY mike "Mike Hearn">
-  <!ENTITY mike-addr "mike@theoretic.com">
+  <!ENTITY musicbrainz "<ulink url='http://www.musicbrainz.org/'>MusicBrainz</ulink>">
 ]>
 
 <?gnome-doc-status
 Version: 2.12
-Status: Incomplete
+Status: Draft
 ?>
 
 <article id="index" lang="en">
@@ -21,7 +19,7 @@ Status: Incomplete
     
     <copyright>
       <year>2003</year>
-      <holder>&mike; (&mike-addr;)</holder>
+      <holder>Mike Hearn (mike@theoretic.com)</holder>
     </copyright>
     <copyright>
       <year>2005</year>
@@ -38,7 +36,7 @@ Status: Incomplete
       <author>
         <firstname>Mike</firstname>
         <surname>Hearn</surname>
-        <email>&mike-addr;</email>
+        <email>mike@theoretic.com</email>
       </author>
       <author role="maintainer">
         <firstname>Shaun</firstname>
@@ -63,8 +61,8 @@ Status: Incomplete
         <revnumber>2.0</revnumber>
         <date>2003-07-06</date>
         <revdescription>
-          <para role="author">&mike;
-            <email>&mike-addr;</email>
+          <para role="author">Mike Hearn
+            <email>mike@theoretic.com</email>
           </para>
           <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
@@ -79,7 +77,6 @@ Status: Incomplete
 
   <section id="intro">
     <title>Introduction</title>
-    <!-- manrevision 2.0 compatibility -->
     <anchor id="aboutex"/>
     <anchor id="notice"/>
     <indexterm>
@@ -89,31 +86,17 @@ Status: Incomplete
     </indexterm>
 
     <para>&application; is a simple and clean CD ripping tool. It allows you
-      to extract the audio from audio compact discs and convert them into audio
-      files that your computer can understand and play.</para>
+    to extract the audio from audio compact discs and convert them into audio
+    files that your computer can understand and play.  &application; can also
+    play the audio tracks directly from the CD, allowing you to preview the
+    CD before ripping it.</para>
 
-    <para>&application; is designed to be easy to use and to work with little
-      user intervention.  For example, if your computer is connected to the
-      Internet, it will automatically attempt to retrieve track information
-      from the freely-available <ulink
-        url="http://www.musicbrainz.org/">MusicBrainz</ulink> service.</para>
-  </section>
+    <para>&application; is designed to be easy to use, and to work with little
+    user intervention.  When you start &application;, it will examine the CD in
+    the drive and try to locate information about the audio tracks using the
+    freely-available &musicbrainz; service.</para>
 
-  <section id="using">
-    <title>Using &application;</title>
-
-    <para>When you start &application;, it will examine the CD in the selected
-      drive and try to locate information about its audio tracks.  It can match
-      against the serial number of the CD as well as the lengths and positions of
-      the tracks.  Occasionally, another CD may have the same layout, causing
-      the wrong track information to be displayed.  If this happens, you will
-      have to enter the information manually.</para>
-
-    <para>This is what &application; typically looks like when started with
-      an audio CD in the drive:</para>
-
-    <figure>
-      <title>&application; on Startup</title>
+    <informalfigure>
       <screenshot>
         <mediaobject>
           <imageobject>
@@ -124,54 +107,102 @@ Status: Incomplete
           </textobject>
         </mediaobject>
       </screenshot>
-    </figure>
+    </informalfigure>
+  </section>
 
-    <para>The top of the window contains controls for the title, artist,
-      and genre of the CD.  Below that is a list of the audio tracks on the
-      CD.  You can set the track and artist for each track.  &application;
-      uses this information to name the folders and files where your music
-      is stored.  In addition, the track and album information is encoded
-      directly into the audio files.  Many music players, including portable
-      devices and car stereos, use this information to organize and display
-      the audio files.</para>
+  <section id="track-data">
+    <title>Entering Track Data</title>
+
+    <para>When you insert an audio CD, &application; will automatically retrieve
+    the track data from &musicbrainz;.  MusicBrainz is a free service that provides
+    a database of data for most published CDs.  &application; uses the CD's serial
+    number and the positions and lengths of the tracks to match against CD in the
+    MusicBrainz database.</para>
+
+    <para>Occasionally, more than one CD will have the same layout.  If more than
+    one CD is found, &application; will present a dialog allowing you to choose
+    which CD data to use.  If the wrong CD is detected, or if MusicBrainz does
+    not contain any matching CDs, you will have to enter the track information
+    manually.</para>
+
+    <para>The top of the window contains text boxes for the title, artist, and
+    genre of the CD.  Below that is a list of the audio track on the CD.  You
+    can set the track title and artist for each track.  &application; uses this
+    information to name the files and folders where your music is stored.  The
+    track and album information is also encoded directly into the audio files.
+    Many music players, including portable devices, use this information to
+    organize and display the audio files.</para>
 
     <para>To edit the title of a track, first select the track, then click
-      on the title.  When you have finished entering the title, press the
-      <keycap>Enter</keycap> key on your keyboard, or click outside the
-      title.</para>
+    on the title.  When you have finished entering the title, press the
+    <keycap>Enter</keycap> key on your keyboard, or click outside the
+    title.</para>
 
-    <para>When you edit the artist for the CD, the artist for each track
-      is automatically updated.  Most CDs are by a single artist, and this
-      feature saves you the time of entering the artist for each track.</para>
+    <para>When you edit the artist for the CD, the artist for each track is
+    automatically updated.  Most CDs are by a single artist, and this feature
+    saves you the time of entering the artist for each track.</para>
 
     <para>Some CDs, however, are compilations of songs by different artists.
-      For these CDs, you will have to enter the artist for each track.  To set
-      the artist for a track, first select the track, then click on the artist.
-      You can set the artist for the CD to a value like "Various" or simply
-      leave it blank, depending on how you prefer to organize your music.</para>
+    For these CDs, you will have to enter the artist for each track.  To set
+    the artist for a track, first select the track, then click on the artist.
+    You can set the artist for the CD to a value like "Various" or simply
+    leave it blank, depending on how you prefer to organize your music.</para>
+  </section>
+
+  <section id="extracting">
+    <title>Extracting</title>
+    <anchor id="using"/>
 
     <para>By default, &application; will extract all of the tracks on the CD
-      to audio files.  If you do not wish to extract all of the tracks, you can
-      control which tracks are extracted using the check boxes in the
-      <guilabel>Extract</guilabel> column of the track listing.  Only the tracks
-      you have selected will be extracted.</para>
+    to audio files.  If you do not wish to extract all of the tracks, you can
+    control which tracks are extracted using the check boxes in the first column
+    of the track listing.  Only the tracks you have selected will be extracted.
+    </para>
 
-    <para>Whenever possible, &application; will detect when a new CD has been
-      inserted and re-read the track information.  On certain types of computers,
-      it may not be techically possible to determine automatically when a new CD
-      has been inserted.  In this case, you can always click on the
-      <guibutton>Re-read</guibutton> button to re-read the track information
-      from the CD in the drive.</para>
+    <para>You can also use the <menuchoice><guimenu>Edit</guimenu>
+    <guimenuitem>Select All</guimenuitem></menuchoice> and <menuchoice>
+    <guimenu>Edit</guimenu><guimenuitem>Deselect All</guimenuitem>
+    </menuchoice> menu items to select all or none of the tracks to
+    be extracted.</para>
 
     <para>When you have entered all the information you need, click on the
-      <guibutton>Extract</guibutton> button.  &application; will begin reading
-      the audio from the CD and saving it to files on your computer.  By default,
-      the audio files are stored under the <filename>Music</filename> folder in
-      your home folder.</para>
+    <guibutton>Extract</guibutton> button, or press <keycombo><keycap>Ctrl</keycap>
+    <keycap>Enter</keycap></keycombo>.  &application; will begin reading the audio
+    from the CD and saving it to files on your computer.  By default, the audio
+    files are stored under the <filename>Music</filename> folder in your home
+    folder.</para>
+
+    <para>When you begin extracting, the <guibutton>Extract</guibutton> button
+    will change to a <guibutton>Stop</guibutton> button.  You can click this
+    button at any time to stop extracting.</para>
+
+    <para>&application; indicates which track it is currently extracting by
+    displaying an icon next to the track number.  You can also see the total
+    prograss and estimated time left in the status bar at the bottom of the
+    window.</para>
 
     <para>Extracting a CD can take a long time, depending on the speed of your
-      computer.  You can safely minimize &application; or move to another workspace
-      to continue using your computer while the audio is being extracted.</para>
+    computer.  You can safely minimize &application; or move to another workspace
+    to continue using your computer while the audio is being extracted.</para>
+  </section>
+
+  <section id="playing">
+    <title>Playing</title>
+
+    <para>&application; allows you to play the tracks on your CD directly.
+    To begin playing the CD, simply click the <guibutton>Play</guibutton>
+    button, or press <keycombo><keycap>Ctrl</keycap><keycap>P</keycap>
+    </keycombo>.  To play a particular track, select that track and click
+    <guibutton>Play</guibutton>, or simple double-click the track.</para>
+
+    <para>When &application; is playing a CD, the <guibutton>Play</guibutton>
+    button changes to a <guibutton>Pause</guibutton> button.  You can click
+    this at any time to pause the playing, and click <guibutton>Play</guibutton>
+    again to continue playing where you left off.</para>
+
+    <para>While playing, &application; displays a progress bar showing the
+    position on the entire CD that is being played.  To skip to another part
+    of the CD, drag the handle along the progress bar.</para>
   </section>
 
   <section id="preferences">
@@ -180,16 +211,15 @@ Status: Incomplete
     <para>The preferences window allows you to control:</para>
 
     <itemizedlist>
-      <listitem><para>Which CD drive &application; uses if you have more than
-          one drive,</para></listitem>
+      <listitem><para>Which CD drive &application; uses, if you have more than
+      one drive,</para></listitem>
       <listitem><para>Where the extracted audio files are placed on your
-          computer, and</para></listitem>
+      computer, and</para></listitem>
       <listitem><para>Which file format and codec is used for the extracted
-          audio files.</para></listitem>
+      audio files.</para></listitem>
     </itemizedlist>
 
-    <figure>
-      <title>Preferences Window</title>
+    <informalfigure>
       <screenshot>
         <mediaobject>
           <imageobject>
@@ -200,83 +230,85 @@ Status: Incomplete
           </textobject>
         </mediaobject>
       </screenshot>
-    </figure>
+    </informalfigure>
 
     <section id="prefs-drive">
       <title>Selecting a CD Drive</title>
 
       <para>If you have multiple CD drives in your computer, the drop-down list
-        labelled <guilabel>CD drive</guilabel> allows you to select which drive to
-        use by default.  The check box <guibutton>Eject when finished</guibutton>
-        allows you to control whether &application; will eject the CD from the
-        drive when it has finished extracting the audio files.</para>
+      labelled <guilabel>CD drive</guilabel> allows you to select which drive to
+      use.  The check box <guibutton>Eject when finished</guibutton> allows you
+      to control whether &application; will eject the CD from the drive when it
+      has finished extracting the audio files.</para>
     </section>
 
     <section id="prefs-naming">
       <title>Naming Audio Files</title>
 
       <para>The <guilabel>Music Folder</guilabel> drop-down list allows you to
-        select which folder to store your audio files in.  Select one of the
-        folders from the list, or choose <guilabel>Other</guilabel> to select
-        another folder with the file chooser.  By default, files are placed
-        under the <filename>Music</filename> folder in your home folder.</para>
+      select which folder to store your audio files in.  Select one of the
+      folders from the list, or choose <guilabel>Other</guilabel> to select
+      another folder with the file chooser.  By default, files are placed
+      under the <filename>Music</filename> folder in your home folder.</para>
 
-      <para>The <guilabel>Track Names</guilabel> allows you to control how
-        the files and folders are named.  &application; can store audio files
-        in seperate folders, helping you keep your music organized.  You can
-        choose how these folders are created and named using the
-        <guilabel>Folder hierarchy</guilabel> drop-down list.  By default,
-        &application; creates a folder for the album artist and a subfolder
-        for the album.</para>
+      <para>The <guilabel>Track Names</guilabel> section allows you to control
+      how the files and folders are named.  &application; can store audio files
+      in seperate folders, helping you keep your music organized.  You can
+      choose how these folders are created and named using the <guilabel>Folder
+      hierarchy</guilabel> drop-down list.  By default,  &application; creates
+      a folder for the album artist and a subfolder for the album.</para>
 
       <para>Use the <guilabel>File name</guilabel> drop-down list to select
-        how the audio files are named.  By default, &application; uses the track
-        number followed by a hyphen and the track title.  Selecting the
-        <guibutton>Strip special characters</guibutton> check box causes
-        &application; to remove or replace characters such as spaces and
-        punctuation in the filenames.</para>
+      how the audio files are named.  By default, &application; uses the track
+      number followed by a hyphen and the track title.</para>
+
+      <para>Select the <guibutton>Strip special characters</guibutton> check
+      box to make &application; remove or replace characters such as spaces and
+      punctuation in the filenames.  This is useful if you plan to put the audio
+      files onto a portable device or another computer which has more limitations
+      on file names.</para>
 
       <note><para>Even when <guibutton>Strip special characters</guibutton>
-          is not selected, &application; will remove the <literal>/</literal>
-          character from filenames.  This character cannot be used in any
-          filenames on UNIX, Linux, and similar systems.</para></note>
+      is not selected, &application; will remove the <literal>/</literal>
+      character from filenames.  This character cannot be used in any
+      filenames on UNIX, Linux, and similar systems.</para></note>
     </section>
 
     <section id="prefs-format">
       <title>Selecting a Format</title>
 
       <para>You can select which audio file format &application; uses to store
-        your tracks on your computer.  There are a number of available formats,
-        each with its own advantages.  The available formats on your computer
-        may vary, but the following choices are usually available:</para>
+      your tracks on your computer.  There are a number of available formats,
+      each with its own advantages.  The available formats on your computer
+      may vary, but the following choices are usually available:</para>
 
       <variablelist>
         <varlistentry>
           <term>CD Quality, Lossy (Ogg Vorbis audio)</term>
           <listitem>
             <para>This option is selected by default.
-              <ulink url="http://www.vorbis.org/">Ogg Vorbis</ulink>, like other
-              lossy audio formats (such as MP3 and AAC) discards some information
-              from the original audio data.  Although the audio file is not a
-              perfect replica of the CD audio, the differences are often not
-              distinguishable to most listeners.  As a result, lossy formats
-              tend to have very small file sizes.</para>
+            <ulink url="http://www.vorbis.org/">Ogg Vorbis</ulink>, like other
+            lossy audio formats (such as MP3 and AAC) discards some information
+            from the original audio data.  Although the audio file is not a
+            perfect replica of the CD audio, the differences are often not
+            distinguishable to most listeners.  As a result, lossy formats
+            tend to have very small file sizes.</para>
 
             <para>The Ogg Vorbis format is the default lossy format used in
-              &application;.  Ogg Vorbis is an open format, developed by the
-              <ulink url="http://xiph.org/">Xiph.Org Foundation</ulink>, which
-              tends to produce smaller file sizes and higher quality audio than
-              many other lossy formats.  While it is not as widespread as the
-              older MP3 format, most music software can play Ogg Vorbis files,
-              and many hardware players have incorporated support.</para>
+            &application;.  Ogg Vorbis is an open format, developed by the
+            <ulink url="http://xiph.org/">Xiph.Org Foundation</ulink>, which
+            tends to produce smaller file sizes and higher quality audio than
+            many other lossy formats.  While it is not as widespread as the
+            older MP3 format, most music software can play Ogg Vorbis files,
+            and many hardware players have incorporated support.</para>
 
             <para>Xiph.Org maintains lists of <ulink
-                url="http://wiki.xiph.org/index.php/VorbisSoftwarePlayers">software
-                players</ulink>, <ulink
-                url="http://wiki.xiph.org/index.php/PortablePlayers">portable
-                hardware players</ulink>, and <ulink
-                url="http://wiki.xiph.org/index.php/StaticPlayers">static hardware
-                players</ulink> which support Ogg Vorbis.</para>
+            url="http://wiki.xiph.org/index.php/VorbisSoftwarePlayers">software
+            players</ulink>, <ulink
+            url="http://wiki.xiph.org/index.php/PortablePlayers">portable
+            hardware players</ulink>, and <ulink
+            url="http://wiki.xiph.org/index.php/StaticPlayers">static hardware
+            players</ulink> which support Ogg Vorbis.</para>
           </listitem>
         </varlistentry>
 
@@ -284,11 +316,11 @@ Status: Incomplete
           <term>CD Quality, Lossless (FLAC audio)</term>
           <listitem>
             <para>The <ulink url="http://flac.sourceforge.net/">FLAC</ulink>
-              audio format is a lossless format.  That is, no audio data is lost
-              when converting to FLAC, even though it compresses audio files by
-              as much as 70%.  FLAC and other lossless formats are popular in
-              cases where high fidelity audio is needed, but files need to be
-              compressed to save disk space and network transfer times.</para>
+            audio format is a lossless format.  No audio data is lost when
+            converting to FLAC, even though it compresses audio files by as
+            much as 70%.  FLAC and other lossless formats are popular in
+            cases where high fidelity audio is needed, but files need to be
+            compressed to save disk space and network transfer times.</para>
           </listitem>
         </varlistentry>
 
@@ -296,27 +328,40 @@ Status: Incomplete
           <term>Voice (WAV audio)</term>
           <listitem>
             <para>The Voice output profile produces low-quality mono audio
-              files.  You may wish to select this for lectures, books on tape,
-              and other spoken word CDs, where the loss in audio quality is
-              less important.</para>
+            files.  You may wish to select this for lectures, books on tape,
+            and other spoken word CDs, where the loss in audio quality is
+            less important.</para>
           </listitem>
         </varlistentry>
       </variablelist>
+
+      <para>You can click the <guibutton>Edit Profiles</guibutton> button to
+      edit the available audio formats.  The profile editor dialog provides
+      direct access to the audio conversion.  Profiles are defined with
+      <application>GStreamer</application> pipelines.
+      <application>GStreamer</application> is the underlying multimedia
+      library used by &application; and other multimedia applications.
+      A full explanation of audio profiles is outside the scope of this
+      document.</para>
+
       <tip>
         <para>If you need to store tracks in the MP3 format (for example,
-          because your portable music player only supports MP3 and not Ogg
-          Vorbis), you will need to create a new profile.  To do this, run
-          <application>gnome-audio-profiles-properties</application>, press
-          <guibutton>New</guibutton> and name it <userinput>MP3</userinput>.
-          Then press <guibutton>Edit</guibutton> and set <guilabel>GStreamer
-            Pipeline</guilabel> to
-          <userinput>audio/x-raw-int,rate=44100,channels=2 ! lame
-            name=enc</userinput>, the
-          <guilabel>File Extenstion</guilabel> to <userinput>mp3</userinput>,
-          and check <guibutton>Active</guibutton>. Then start &application; and
-          select the <guilabel>MP3</guilabel> format.</para>
+        if your portable music player only supports MP3 and not Ogg Vorbis),
+        you will need to create a new profile.  To do this, click on
+        <guibutton>Edit Profiles</guibutton>, click <guibutton>New</guibutton>,
+        and name the profile <userinput>MP3</userinput>.</para>
+
+        <para>Select the MP3 profile and click the <guibutton>Edit</guibutton>
+        button.  Set <guilabel>GStreamer Pipeline</guilabel> to
+        <literallayout><userinput>audio/x-raw-int,rate=44100,channels=2 ! lame name=enc</userinput></literallayout></para>
+
+        <para>Set the <guilabel>File Extenstion</guilabel> to
+        <userinput>mp3</userinput>, and select the <guibutton>Active</guibutton>
+        check box.  Then start &application; and
+        select the <guilabel>MP3</guilabel> format.</para>
+
         <para>This profile uses the <application>LAME</application> MP3 encoder,
-          so you will need to have the GStreamer LAME plugin installed.</para>
+        so you will need to have the GStreamer LAME plugin installed.</para>
       </tip>
     </section>
   </section>
