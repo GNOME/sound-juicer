@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sound-juicer 2.11.91\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-08-15 18:36+0200\n"
-"PO-Revision-Date: 2005-08-15 18:44+0200\n"
+"PO-Revision-Date: 2005-09-04 01:05+0200\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 
 #: ../data/sound-juicer.desktop.in.h:1
 msgid "Extract music from your CDs"
-msgstr "Extrau música dels vostres CD"
+msgstr "Extreu música dels vostres CD"
 
 #: ../data/sound-juicer.desktop.in.h:2
 msgid "Sound Juicer CD Ripper"
@@ -122,8 +122,8 @@ msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
 msgstr ""
-"Aquest CD pot contindre més d'un album. Si us plau, seleccioneu quin album "
-"és avall i feu clic en <i>Continua</i>."
+"Aquest CD pot contenir més d'un àlbum. Seleccioneu-ne un més avall i feu "
+"clic a <i>Continua</i>."
 
 #: ../data/sound-juicer.glade.h:25
 msgid "_Contents"
@@ -135,7 +135,7 @@ msgstr "_Continua"
 
 #: ../data/sound-juicer.glade.h:27
 msgid "_Deselect All"
-msgstr "_Deselecciona-les totes"
+msgstr "_Desselecciona-les totes"
 
 #: ../data/sound-juicer.glade.h:28
 msgid "_Disc"
@@ -147,7 +147,7 @@ msgstr "_Edita"
 
 #: ../data/sound-juicer.glade.h:30
 msgid "_Eject when finished"
-msgstr "_Expulsa quan finalitze"
+msgstr "_Expulsa quan finalitzi"
 
 #: ../data/sound-juicer.glade.h:31
 msgid "_Folder:"
@@ -187,7 +187,11 @@ msgid ""
 "%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
 "album artist (lowercase) %tt -- track title %tT -- track title (lowercase) %"
 "ta -- track artist %tA -- track artist (lowercase)"
-msgstr "%at -- títol de l'àlbum %aT -- títol de l'àlbum (en minúscules) %aa -- artista de l'àlbum %aA -- artista de l'àlbum (en minúscules) %tt -- títol de la peça %tT -- títol de la peça (en minúscules) %ta -- artista de la peça %tA --artista de la peça (en minúscules)"
+msgstr ""
+"%at -- títol de l'àlbum %aT -- títol de l'àlbum (en minúscules) %aa -- "
+"artista de l'àlbum %aA -- artista de l'àlbum (en minúscules) %tt -- títol de "
+"la peça %tT -- títol de la peça (en minúscules) %ta -- artista de la peça %"
+"tA --artista de la peça (en minúscules)"
 
 #: ../data/sound-juicer.schemas.in.h:3
 msgid "Audio Profile with which to encode"
@@ -201,15 +205,20 @@ msgid ""
 "number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
 "tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
 "(lowercase)"
-msgstr "No especifica una extensió. %at -- títol de l'àlbum %aT -- títol de l'àlbum (en minúscules) %aa -- artista de l'àlbum %aA -- artista de l'àlbum %tn -- número de peça (p.e 8) %tN -- número de peça, plenat amb zeros (p.e 08) %tt -- títol de la peça %tT -- títol de la peça (en minúscules) %ta -- artista de la peça %tA -- artista de la peça (en minúscules)"
+msgstr ""
+"No especifica una extensió. %at -- títol de l'àlbum %aT -- títol de l'àlbum "
+"(en minúscules) %aa -- artista de l'àlbum %aA -- artista de l'àlbum %tn -- "
+"número de peça (p.e 8) %tN -- número de peça, plenat amb zeros (p.e 08) %tt "
+"-- títol de la peça %tT -- títol de la peça (en minúscules) %ta -- artista "
+"de la peça %tA -- artista de la peça (en minúscules)"
 
 #: ../data/sound-juicer.schemas.in.h:6
 msgid ""
 "If enabled, special characters such as space, wildcards and backslashes will "
 "be removed from the output filename."
 msgstr ""
-"Si s'habilita, es suprimiran els caràcters especials, com espais, comodins i "
-"barres invertides, del nom de fitxer d'eixida."
+"Si s'habilita, se suprimiran els caràcters especials, com espais, comodins i "
+"barres invertides, del nom de fitxer de sortida."
 
 #: ../data/sound-juicer.schemas.in.h:7
 msgid "If specified, this value will override the default MusicBrainz server."
@@ -251,7 +260,7 @@ msgstr "El mode de paranoia a utilitzar"
 
 #: ../data/sound-juicer.schemas.in.h:15
 msgid "Whether to eject the CD when finished extracting."
-msgstr "Si s'ha d'expulsar el CD quan es finalitza l'extracció."
+msgstr "Si s'ha d'expulsar el CD quan es finalitzi l'extracció."
 
 #. +
 #: ../src/bacon-volume.c:187
@@ -300,7 +309,7 @@ msgid ""
 "Sound Juicer could not extract this CD.\n"
 "Reason: %s"
 msgstr ""
-"Sound Juicer no ha pogut extraure aquest CD.\n"
+"El Sound Juicer no ha pogut extreure aquest CD.\n"
 "Raó: %s"
 
 #: ../src/sj-extracting.c:359
@@ -344,7 +353,7 @@ msgstr "No s'ha pogut crear una sortida a fitxer de GStreamer"
 
 #: ../src/sj-extractor.c:379
 msgid "Could not get current track position"
-msgstr "No s'ha pogut obtindre la posició de la peça actual"
+msgstr "No s'ha pogut obtenir la posició de la peça actual"
 
 #: ../src/sj-extractor.c:411
 msgid ""
@@ -359,19 +368,19 @@ msgstr "No s'ha pogut cercar fins la peça"
 
 #: ../src/sj-extractor.c:530
 msgid "Could not get track start position"
-msgstr "No s'ha pogut obtindre la posició d'inici de la peça"
+msgstr "No s'ha pogut obtenir la posició d'inici de la peça"
 
 #: ../src/sj-extractor.c:560
 msgid "The plugin necessary for CD access was not found"
-msgstr "No s'ha trobat el connector necessari per l'accés a CD"
+msgstr "No s'ha trobat el connector necessari per a l'accés a CD"
 
 #: ../src/sj-extractor.c:568
 msgid "The plugin necessary for file access was not found"
-msgstr "No s'ha trobat el connector necessari per l'accés a fitxers"
+msgstr "No s'ha trobat el connector necessari per a l'accés a fitxers"
 
 #: ../src/sj-main.c:174
 msgid "Could not start Sound Juicer"
-msgstr "No s'ha pogut iniciar Sound Juicer"
+msgstr "No s'ha pogut iniciar el Sound Juicer"
 
 #: ../src/sj-main.c:175 ../src/sj-main.c:595 ../src/sj-main.c:684
 #: ../src/sj-main.c:745
@@ -380,7 +389,7 @@ msgstr "Raó"
 
 #: ../src/sj-main.c:177
 msgid "Please consult the documentation for assistance."
-msgstr "Si us plau, consulteu la documentació per a obtindre ajuda."
+msgstr "Consulteu la documentació per a obtenir ajuda."
 
 #: ../src/sj-main.c:239
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
@@ -404,7 +413,7 @@ msgstr "No s'ha pogut llegir el CD"
 
 #: ../src/sj-main.c:594 ../src/sj-main.c:683
 msgid "Sound Juicer could not read the track listing on this CD."
-msgstr "Sound Juicer no ha pogut llegir la llista de pistes d'aquest CD."
+msgstr "El Sound Juicer no ha pogut llegir la llista de pistes d'aquest CD."
 
 #. Set statusbar message
 #: ../src/sj-main.c:667
@@ -417,18 +426,18 @@ msgstr "No s'han trobat unitats de CD-ROM"
 
 #: ../src/sj-main.c:724
 msgid "Sound Juicer could not find any CD-ROM drives to read."
-msgstr "Sound Juicer no ha trobat cap unitat de CD-ROM per a llegir."
+msgstr "El Sound Juicer no ha trobat cap unitat de CD-ROM per a llegir."
 
 #: ../src/sj-main.c:737
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
-msgstr "Sound Juicer no ha pogut accedir al dispositiu de CD-ROM «%s»"
+msgstr "El Sound Juicer no ha pogut accedir al dispositiu de CD-ROM «%s»"
 
 #: ../src/sj-main.c:784
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr ""
-"El perfil d'audio seleccionat actualment no és disponible a la vostra "
+"El perfil d'àudio seleccionat actualment no és disponible a la vostra "
 "instal·lació."
 
 #: ../src/sj-main.c:786
@@ -446,7 +455,7 @@ msgid ""
 "Could not display help for Sound Juicer\n"
 "%s"
 msgstr ""
-"No s'ha pogut mostrar l'ajuda per a Sound Juicer\n"
+"No s'ha pogut mostrar l'ajuda del Sound Juicer\n"
 "%s"
 
 #: ../src/sj-main.c:1132
@@ -455,7 +464,7 @@ msgstr "No s'ha pogut crear un client de GConf.\n"
 
 #: ../src/sj-main.c:1162
 msgid "The interface file for Sound Juicer could not be read."
-msgstr "No s'ha pogut llegir el fitxer d'interfície de Sound Juicer."
+msgstr "No s'ha pogut llegir el fitxer d'interfície del Sound Juicer."
 
 #: ../src/sj-main.c:1212
 msgid "Track"
@@ -505,7 +514,7 @@ msgstr "El dispositiu «%s» no conté cap medi"
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr ""
-"No s'ha pogut obrir el dispositiu «%s». Comproveu els permissos d'accés del "
+"No s'ha pogut obrir el dispositiu «%s». Comproveu els permisos d'accés al "
 "dispositiu."
 
 #: ../src/sj-metadata-musicbrainz.c:326
