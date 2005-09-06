@@ -463,6 +463,9 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
     }
   }
 
+  /* Set extract speed */
+  g_object_set (G_OBJECT (priv->cdparanoia), "read-speed", 0, NULL);
+
   /* Set the output filename */
   gst_element_set_state (priv->filesink, GST_STATE_NULL);
   g_object_set (G_OBJECT (priv->filesink), "location", url, NULL);
