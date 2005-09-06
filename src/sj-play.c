@@ -626,7 +626,7 @@ on_seek_release (GtkWidget * scale, GdkEventButton * event, gpointer user_data)
 void
 stop_ui_hack (void)
 {
-  gtk_button_set_label (play_button, GTK_STOCK_MEDIA_PLAY);
+  gtk_button_set_label (GTK_BUTTON (play_button), GTK_STOCK_MEDIA_PLAY);
   gtk_widget_hide (seek_scale);
   gtk_widget_hide (volume_button);
   gtk_statusbar_pop (GTK_STATUSBAR (statusbar), 0);
