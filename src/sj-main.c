@@ -1088,10 +1088,12 @@ int main (int argc, char **argv)
 {
   GError *error = NULL;
   GtkTreeSelection *selection;
+  char *device = NULL;
   struct poptOption options[] = {
     { NULL, '\0', POPT_ARG_INCLUDE_TABLE, NULL, 0, "GStreamer", NULL },
     { "auto-start", 'a', POPT_ARG_NONE, &autostart, 0, "Start extracting immediately", NULL},
     { "play", 'p', POPT_ARG_NONE, &autoplay, 0, "Start playing immediately", NULL},
+    { "device", 'd', POPT_ARG_STRING, &device, 0, "What CD device to read", NULL},
     POPT_TABLEEND
   };
 
@@ -1268,7 +1270,6 @@ int main (int argc, char **argv)
   gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
 	  
   http_proxy_setup (gconf_client);
-  /* TODO: port port basepath to baseuri */
   baseuri_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEURI, NULL, TRUE, NULL), NULL);
   path_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL), NULL);
   file_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL), NULL);
@@ -1276,7 +1277,8 @@ int main (int argc, char **argv)
   paranoia_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PARANOIA, NULL, TRUE, NULL), NULL);
   strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);
   eject_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_EJECT, NULL, TRUE, NULL), NULL);
-  device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), GINT_TO_POINTER (TRUE));
+  if (device == NULL)
+    device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), GINT_TO_POINTER (TRUE));
 
   if (sj_extractor_supports_encoding (&error) == FALSE) {
     error_on_start (error);
