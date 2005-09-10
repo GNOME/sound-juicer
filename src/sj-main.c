@@ -133,7 +133,7 @@ sj_stock_init (void)
   {
     { SJ_STOCK_PLAYING, NULL, 0, 0, NULL },
     { SJ_STOCK_RECORDING, NULL, 0, 0, NULL },
-    { SJ_STOCK_EXTRACT, "E_xtract", GDK_CONTROL_MASK, GDK_Return, NULL }
+    { SJ_STOCK_EXTRACT, N_("E_xtract"), GDK_CONTROL_MASK, GDK_Return, NULL }
   };
 
   if (initialized)
