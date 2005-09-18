@@ -15,7 +15,7 @@ EXTRA_DIST = \
 	autogen.sh \
 	sound-juicer.spec \
 	gnome-doc-utils.make \
-	doap.rdf \
+	doap.rdf doap.rdf.in \
 	$(INTLTOOL_BUILT:=.in)
 
 CLEANFILES = doap.rdf
