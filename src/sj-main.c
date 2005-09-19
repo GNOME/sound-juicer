@@ -700,6 +700,43 @@ static void reread_cd (gboolean ignore_no_media)
   }
 }
 
+static void
+set_device(const char* device, gboolean ignore_no_media)
+{
+  if (device == NULL) {
+    drive = NULL;
+  } else if (access (device, R_OK) != 0) {
+    GtkWidget *dialog;
+    char *message;
+    message = g_strdup_printf (_("Sound Juicer could not access the CD-ROM device '%s'"), device);
+    dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
+                                     GTK_DIALOG_DESTROY_WITH_PARENT,
+                                     GTK_MESSAGE_ERROR,
+                                     GTK_BUTTONS_CLOSE,
+                                     "<b>%s</b>\n\n%s\n%s: %s",
+                                     _("Could not read the CD"),
+                                     message,
+                                     _("Reason"),
+                                     strerror (errno));
+    g_free (message);
+    gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
+    gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_widget_destroy (dialog);
+    /* Set a null device */
+    drive = NULL;
+  } else {
+    drive = nautilus_burn_drive_new_from_path (device);
+    g_assert (drive);
+  }
+  sj_metadata_set_cdrom (metadata, device);
+  sj_extractor_set_device (extractor, device);
+  
+  tray_opened = nautilus_burn_drive_door_is_open (drive);
+  if (tray_opened == FALSE) {
+    reread_cd (ignore_no_media);
+  }
+}
+
 /**
  * The GConf key for the device changed
  */
@@ -731,36 +768,8 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
     drive = nautilus_burn_drive_new_from_path (device);
   } else {
     device = gconf_value_get_string (entry->value);
-    if (access (device, R_OK) != 0) {
-      GtkWidget *dialog;
-      char *message;
-      message = g_strdup_printf (_("Sound Juicer could not access the CD-ROM device '%s'"), device);
-      dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
-                                       GTK_DIALOG_DESTROY_WITH_PARENT,
-                                       GTK_MESSAGE_ERROR,
-                                       GTK_BUTTONS_CLOSE,
-                                       "<b>%s</b>\n\n%s\n%s: %s",
-				       _("Could not read the CD"),
-				       message,
-				       _("Reason"),
-				       strerror (errno));
-      g_free (message);
-      gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
-      gtk_dialog_run (GTK_DIALOG (dialog));
-      gtk_widget_destroy (dialog);
-      /* Set a null device */
-      drive = NULL;
-    } else {
-      drive = nautilus_burn_drive_new_from_path (device);
-    }
   }
-  sj_metadata_set_cdrom (metadata, device);
-  sj_extractor_set_device (extractor, device);
-
-  tray_opened = nautilus_burn_drive_door_is_open (drive);
-  if (tray_opened == FALSE) {
-    reread_cd (ignore_no_media);
-  }
+  set_device (device, ignore_no_media);
 }
 
 void profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
@@ -1277,8 +1286,11 @@ int main (int argc, char **argv)
   paranoia_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PARANOIA, NULL, TRUE, NULL), NULL);
   strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);
   eject_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_EJECT, NULL, TRUE, NULL), NULL);
-  if (device == NULL)
+  if (device == NULL) {
     device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), GINT_TO_POINTER (TRUE));
+  } else {
+    set_device (device, TRUE);
+  }
 
   if (sj_extractor_supports_encoding (&error) == FALSE) {
     error_on_start (error);
