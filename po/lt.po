@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-21 01:14+0300\n"
-"PO-Revision-Date: 2005-08-21 01:20+0300\n"
+"POT-Creation-Date: 2005-09-21 18:27+0300\n"
+"PO-Revision-Date: 2005-09-21 18:28+0300\n"
 "Last-Translator: Žygimantas Beručka <uid0@akl.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
@@ -113,8 +113,8 @@ msgid "Skip to the previous track"
 msgstr "Peršokti į ankstesnį takelį"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-about.c:52
-#: ../src/sj-extractor.c:489 ../src/sj-main.c:159 ../src/sj-main.c:161
-#: ../src/sj-main.c:1109
+#: ../src/sj-extractor.c:492 ../src/sj-main.c:159 ../src/sj-main.c:161
+#: ../src/sj-main.c:1120
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -363,28 +363,32 @@ msgid ""
 msgstr ""
 "Ekstraktoriaus objektas yra netinkamas. Blogai, dėl klaidų žiūrėkite konsolę."
 
-#: ../src/sj-extractor.c:525
+#: ../src/sj-extractor.c:528
 msgid "Could not seek to track"
 msgstr "Nepavyko pasiekti takelio"
 
-#: ../src/sj-extractor.c:530
+#: ../src/sj-extractor.c:533
 msgid "Could not get track start position"
 msgstr "Nepavyko rasti takelio pradinės pozicijos"
 
-#: ../src/sj-extractor.c:560
+#: ../src/sj-extractor.c:563
 msgid "The plugin necessary for CD access was not found"
 msgstr "Įskiepis, būtinas CD skaitymui, buvo nerastas"
 
-#: ../src/sj-extractor.c:568
+#: ../src/sj-extractor.c:571
 msgid "The plugin necessary for file access was not found"
 msgstr "Įskiepis, būtinas priėjimui prie bylų, nerastas"
+
+#: ../src/sj-main.c:136
+msgid "E_xtract"
+msgstr "Raš_yti"
 
 #: ../src/sj-main.c:174
 msgid "Could not start Sound Juicer"
 msgstr "Negalpavyko paleisti Sound Juicer"
 
 #: ../src/sj-main.c:175 ../src/sj-main.c:595 ../src/sj-main.c:684
-#: ../src/sj-main.c:745
+#: ../src/sj-main.c:719
 msgid "Reason"
 msgstr "Priežastis"
 
@@ -400,15 +404,15 @@ msgstr "Jūs šiuo metu rašote iš CD. Ar norite išeiti tuoj pat ar tęsti?"
 msgid "(unknown)"
 msgstr "(nežinomas)"
 
-#: ../src/sj-main.c:446 ../src/sj-main.c:1227
+#: ../src/sj-main.c:446 ../src/sj-main.c:1238
 msgid "Title"
 msgstr "Pavadinimas"
 
-#: ../src/sj-main.c:452 ../src/sj-main.c:1236
+#: ../src/sj-main.c:452 ../src/sj-main.c:1247
 msgid "Artist"
 msgstr "Atlikėjas"
 
-#: ../src/sj-main.c:593 ../src/sj-main.c:682 ../src/sj-main.c:743
+#: ../src/sj-main.c:593 ../src/sj-main.c:682 ../src/sj-main.c:717
 msgid "Could not read the CD"
 msgstr "Nepavyko nuskaityti CD"
 
@@ -421,34 +425,34 @@ msgstr "Sound Juicer negalėjo perskaityti šios CD takelių sąrašo."
 msgid "Retrieving track listing...please wait."
 msgstr "Gaunamas takelių sąrašas...prašom palaukti."
 
-#: ../src/sj-main.c:723
-msgid "No CD-ROM drives found"
-msgstr "CD-ROM įrenginių nerasta"
-
-#: ../src/sj-main.c:724
-msgid "Sound Juicer could not find any CD-ROM drives to read."
-msgstr "Sound Juicer nerado jokių skaitomų CD-ROM įrenginių."
-
-#: ../src/sj-main.c:737
+#: ../src/sj-main.c:711
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer neturi priėjimo prie CD-ROM įrenginio „%s“"
 
-#: ../src/sj-main.c:784
+#: ../src/sj-main.c:760
+msgid "No CD-ROM drives found"
+msgstr "CD-ROM įrenginių nerasta"
+
+#: ../src/sj-main.c:761
+msgid "Sound Juicer could not find any CD-ROM drives to read."
+msgstr "Sound Juicer nerado jokių skaitomų CD-ROM įrenginių."
+
+#: ../src/sj-main.c:793
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Dabar pasirinktas audio profilis Jūsų sistemoje yra neprieinamas."
 
-#: ../src/sj-main.c:786
+#: ../src/sj-main.c:795
 msgid "_Change Profile"
 msgstr "_Keisti profilį"
 
-#: ../src/sj-main.c:948
+#: ../src/sj-main.c:957
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Buvo pakeistas nežinomas stulpelis %d"
 
-#: ../src/sj-main.c:1003 ../src/sj-prefs.c:141
+#: ../src/sj-main.c:1012 ../src/sj-prefs.c:141
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -457,19 +461,19 @@ msgstr ""
 "Nepavyko parodyti Sound Juicer pagalbos\n"
 "%s"
 
-#: ../src/sj-main.c:1132
+#: ../src/sj-main.c:1143
 msgid "Could not create GConf client.\n"
 msgstr "Nepavyko sukurti GConf kliento.\n"
 
-#: ../src/sj-main.c:1162
+#: ../src/sj-main.c:1173
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Sound Juicer sąsajos bylos nuskaityti nepavyko."
 
-#: ../src/sj-main.c:1212
+#: ../src/sj-main.c:1223
 msgid "Track"
 msgstr "Takelis"
 
-#: ../src/sj-main.c:1247
+#: ../src/sj-main.c:1258
 msgid "Duration"
 msgstr "Trukmė"
 
