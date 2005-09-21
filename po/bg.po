@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-06 16:16+0300\n"
-"PO-Revision-Date: 2005-08-02 11:47+0300\n"
+"POT-Creation-Date: 2005-09-21 10:05+0300\n"
+"PO-Revision-Date: 2005-09-21 10:06+0300\n"
 "Last-Translator: Rostislav \"zbrox\" Raykov <zbrox@i-space.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -116,8 +116,8 @@ msgid "Skip to the previous track"
 msgstr "Прескачане към предишната песен"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-about.c:52
-#: ../src/sj-extractor.c:489 ../src/sj-main.c:159 ../src/sj-main.c:161
-#: ../src/sj-main.c:1109
+#: ../src/sj-extractor.c:492 ../src/sj-main.c:159 ../src/sj-main.c:161
+#: ../src/sj-main.c:1120
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -372,28 +372,32 @@ msgstr ""
 "Обект от програмата за извличане не е валиден. Това е много лощо, проверете "
 "си конзолата за грешки."
 
-#: ../src/sj-extractor.c:525
+#: ../src/sj-extractor.c:528
 msgid "Could not seek to track"
 msgstr "Не може да мине към песента"
 
-#: ../src/sj-extractor.c:530
+#: ../src/sj-extractor.c:533
 msgid "Could not get track start position"
 msgstr "Не може да се вземе стартовата позиция на песента"
 
-#: ../src/sj-extractor.c:560
+#: ../src/sj-extractor.c:563
 msgid "The plugin necessary for CD access was not found"
 msgstr "Приставката нужна за достъп до CD-то не беше открита"
 
-#: ../src/sj-extractor.c:568
+#: ../src/sj-extractor.c:571
 msgid "The plugin necessary for file access was not found"
 msgstr "Приставката нужна за достъп до файловете не беше открита"
+
+#: ../src/sj-main.c:136
+msgid "E_xtract"
+msgstr "_Извличане"
 
 #: ../src/sj-main.c:174
 msgid "Could not start Sound Juicer"
 msgstr "Sound Juicer не може да се стартира"
 
 #: ../src/sj-main.c:175 ../src/sj-main.c:595 ../src/sj-main.c:684
-#: ../src/sj-main.c:745
+#: ../src/sj-main.c:719
 msgid "Reason"
 msgstr "Причина"
 
@@ -410,15 +414,15 @@ msgstr ""
 msgid "(unknown)"
 msgstr "(непознат)"
 
-#: ../src/sj-main.c:446 ../src/sj-main.c:1227
+#: ../src/sj-main.c:446 ../src/sj-main.c:1238
 msgid "Title"
 msgstr "Заглавие"
 
-#: ../src/sj-main.c:452 ../src/sj-main.c:1236
+#: ../src/sj-main.c:452 ../src/sj-main.c:1247
 msgid "Artist"
 msgstr "Изпълнител"
 
-#: ../src/sj-main.c:593 ../src/sj-main.c:682 ../src/sj-main.c:743
+#: ../src/sj-main.c:593 ../src/sj-main.c:682 ../src/sj-main.c:717
 msgid "Could not read the CD"
 msgstr "Дискът не може да бъде прочетен"
 
@@ -431,35 +435,35 @@ msgstr "Sound Juicer не може да прочете списъка с пес�
 msgid "Retrieving track listing...please wait."
 msgstr "Получаване на списъка с песните... Изчакайте."
 
-#: ../src/sj-main.c:723
-msgid "No CD-ROM drives found"
-msgstr "Няма открити CD-ROM устройства"
-
-#: ../src/sj-main.c:724
-msgid "Sound Juicer could not find any CD-ROM drives to read."
-msgstr ""
-"Sound Juicer не може да открие никакви CD-ROM устройства, от които да чете."
-
-#: ../src/sj-main.c:737
+#: ../src/sj-main.c:711
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer няма достъп до CD-ROM устройството „%s“"
 
-#: ../src/sj-main.c:784
+#: ../src/sj-main.c:760
+msgid "No CD-ROM drives found"
+msgstr "Няма открити CD-ROM устройства"
+
+#: ../src/sj-main.c:761
+msgid "Sound Juicer could not find any CD-ROM drives to read."
+msgstr ""
+"Sound Juicer не може да открие никакви CD-ROM устройства, от които да чете."
+
+#: ../src/sj-main.c:793
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Избрания аудио профил не е наличен на вашата инсталация."
 
-#: ../src/sj-main.c:786
+#: ../src/sj-main.c:795
 msgid "_Change Profile"
 msgstr "_Промяна на профил"
 
-#: ../src/sj-main.c:948
+#: ../src/sj-main.c:957
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Непозната колонa %d беше редактирана"
 
-#: ../src/sj-main.c:1003 ../src/sj-prefs.c:141
+#: ../src/sj-main.c:1012 ../src/sj-prefs.c:141
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -468,19 +472,19 @@ msgstr ""
 "Не може да бъде показана помощ за Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1132
+#: ../src/sj-main.c:1143
 msgid "Could not create GConf client.\n"
 msgstr "Не може да се създаде GConf клиент.\n"
 
-#: ../src/sj-main.c:1162
+#: ../src/sj-main.c:1173
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Файлът с описанието на Sound Juicer не може да бъде прочетен."
 
-#: ../src/sj-main.c:1212
+#: ../src/sj-main.c:1223
 msgid "Track"
 msgstr "Песен"
 
-#: ../src/sj-main.c:1247
+#: ../src/sj-main.c:1258
 msgid "Duration"
 msgstr "Продължителност"
 
