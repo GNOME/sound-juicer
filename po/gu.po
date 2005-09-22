@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-01 22:44+0000\n"
-"PO-Revision-Date: 2005-08-02 10:13+0530\n"
+"POT-Creation-Date: 2005-09-22 05:52+0200\n"
+"PO-Revision-Date: 2005-09-22 10:14+0530\n"
 "Last-Translator: Ankit Patel <ankit644@yahoo.com>\n"
 "Language-Team: Gujarati <indianoss-gujarati@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -13,6 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -114,8 +115,8 @@ msgid "Skip to the previous track"
 msgstr "પહેલાના ટ્રેક સુધી રદ કરો"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-about.c:52
-#: ../src/sj-extractor.c:489 ../src/sj-main.c:159 ../src/sj-main.c:161
-#: ../src/sj-main.c:1103
+#: ../src/sj-extractor.c:492 ../src/sj-main.c:159 ../src/sj-main.c:161
+#: ../src/sj-main.c:1120
 msgid "Sound Juicer"
 msgstr "સાઉન્ડ જ્યુસર"
 
@@ -131,7 +132,7 @@ msgstr ""
 msgid "_Contents"
 msgstr "સમાવિષ્ટો (_C)"
 
-#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:240
+#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:241
 msgid "_Continue"
 msgstr "ચાલુ રાખો (_C)"
 
@@ -260,6 +261,16 @@ msgstr "વાપરવા માટે પેરાનોઈઆ સ્થિત
 msgid "Whether to eject the CD when finished extracting."
 msgstr "જ્યારે અર્ક કાઢવાનું પૂર્ણ થાય ત્યારે શું CD ને બહાર કાઢવાની."
 
+#. +
+#: ../src/bacon-volume.c:187
+msgid "+"
+msgstr "+"
+
+#. -
+#: ../src/bacon-volume.c:203
+msgid "-"
+msgstr "-"
+
 #: ../src/sj-about.c:53
 msgid "An Audio CD Extractor"
 msgstr "ઓડિયો CD નો અર્ક કાઢનાર"
@@ -347,28 +358,32 @@ msgstr "વર્તમાન ટ્રેકની સ્થિતિ મેળ
 msgid "Extractor object is not valid. This is bad, check your console for errors."
 msgstr "વિસ્તારક ઓબ્જેક્ટ માન્ય નથી. આ ખરાબ છે, તમારા કન્સોલને ભૂલો માટે ચકાસો."
 
-#: ../src/sj-extractor.c:525
+#: ../src/sj-extractor.c:528
 msgid "Could not seek to track"
 msgstr "ટ્રેક સુધી પહોંચી શક્યા નહિં"
 
-#: ../src/sj-extractor.c:530
+#: ../src/sj-extractor.c:533
 msgid "Could not get track start position"
 msgstr "ટ્રેકની શરુઆતની સ્થિતિ મેળવી શક્યા નહિં"
 
-#: ../src/sj-extractor.c:560
+#: ../src/sj-extractor.c:563
 msgid "The plugin necessary for CD access was not found"
 msgstr "CD ચલાવવા માટે જરુરી પ્લગઈન મળ્યું નહતું"
 
-#: ../src/sj-extractor.c:568
+#: ../src/sj-extractor.c:571
 msgid "The plugin necessary for file access was not found"
 msgstr "ફાઈલ ચલાવવા માટે જરુરી પ્લગઈન મળ્યું નહતું"
+
+#: ../src/sj-main.c:136
+msgid "E_xtract"
+msgstr "અર્ક કાઢો (_x)"
 
 #: ../src/sj-main.c:174
 msgid "Could not start Sound Juicer"
 msgstr "સાઉન્ડ જ્યુસર શરુ કરી શક્યા નહિં"
 
-#: ../src/sj-main.c:175 ../src/sj-main.c:590 ../src/sj-main.c:679
-#: ../src/sj-main.c:740
+#: ../src/sj-main.c:175 ../src/sj-main.c:595 ../src/sj-main.c:684
+#: ../src/sj-main.c:719
 msgid "Reason"
 msgstr "કારણ"
 
@@ -376,64 +391,64 @@ msgstr "કારણ"
 msgid "Please consult the documentation for assistance."
 msgstr "મહેરબાની કરીને મદદ માટે દસ્તાવેજીકરણનો આશરો લો."
 
-#: ../src/sj-main.c:238
+#: ../src/sj-main.c:239
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr ""
 "તમે વર્તમાનમાં CD નો અર્ક કાઢી રહ્યા છીએ. શું તમે હમણાં બહાર નીકળવા માંગો છો અથવા ચાલુ "
 "રાખવા માંગો છો?"
 
-#: ../src/sj-main.c:301 ../src/sj-main.c:399
+#: ../src/sj-main.c:302 ../src/sj-main.c:404
 msgid "(unknown)"
 msgstr "(અજ્ઞાત)"
 
-#: ../src/sj-main.c:441 ../src/sj-main.c:1219
+#: ../src/sj-main.c:446 ../src/sj-main.c:1238
 msgid "Title"
 msgstr "શીર્ષક"
 
-#: ../src/sj-main.c:447 ../src/sj-main.c:1228
+#: ../src/sj-main.c:452 ../src/sj-main.c:1247
 msgid "Artist"
 msgstr "કલાકાર"
 
-#: ../src/sj-main.c:588 ../src/sj-main.c:677 ../src/sj-main.c:738
+#: ../src/sj-main.c:593 ../src/sj-main.c:682 ../src/sj-main.c:717
 msgid "Could not read the CD"
 msgstr "CD વાંચી શક્યા નહિં"
 
-#: ../src/sj-main.c:589 ../src/sj-main.c:678
+#: ../src/sj-main.c:594 ../src/sj-main.c:683
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "આ CD પર યાદી કરેલ ટ્રેકને સાઉન્ડ જ્યુસર વાંચી શક્યું નહિં."
 
 #. Set statusbar message
-#: ../src/sj-main.c:662
+#: ../src/sj-main.c:667
 msgid "Retrieving track listing...please wait."
 msgstr "ટ્રેકની યાદી મેળવી રહ્યા છીએ...મહેરબાની કરીને રાહ જુઓ."
 
-#: ../src/sj-main.c:718
-msgid "No CD-ROM drives found"
-msgstr "કોઈ CD-ROM ડ્રાઈવો મળી નથી"
-
-#: ../src/sj-main.c:719
-msgid "Sound Juicer could not find any CD-ROM drives to read."
-msgstr "સાઉન્ડ જ્યુસર કોઈ CD-ROM ડ્રાઈવો વાંચવા માટે શોધી શક્યું નથી."
-
-#: ../src/sj-main.c:732
+#: ../src/sj-main.c:711
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "સાઉન્ડ જ્યુસર CD-ROM ઉપકરણ '%s' ને ચલાવી શક્યું નહિં"
 
-#: ../src/sj-main.c:779
+#: ../src/sj-main.c:760
+msgid "No CD-ROM drives found"
+msgstr "કોઈ CD-ROM ડ્રાઈવો મળી નથી"
+
+#: ../src/sj-main.c:761
+msgid "Sound Juicer could not find any CD-ROM drives to read."
+msgstr "સાઉન્ડ જ્યુસર કોઈ CD-ROM ડ્રાઈવો વાંચવા માટે શોધી શક્યું નથી."
+
+#: ../src/sj-main.c:793
 msgid "The currently selected audio profile is not available on your installation."
 msgstr "તમારા સ્થાપનમાં વર્તમાનમાં પસંદિત ઓડિયો રૂપરેખા હાજર નથી."
 
-#: ../src/sj-main.c:781
+#: ../src/sj-main.c:795
 msgid "_Change Profile"
 msgstr "રૂપરેખા બદલો (_C)"
 
-#: ../src/sj-main.c:943
+#: ../src/sj-main.c:957
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "અજ્ઞાત સ્તંભ %d માં ફેરફાર થયેલ હતો"
 
-#: ../src/sj-main.c:998 ../src/sj-prefs.c:141
+#: ../src/sj-main.c:1012 ../src/sj-prefs.c:141
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -442,19 +457,19 @@ msgstr ""
 "સાઉન્ડ જ્યુસર માટે મદદ પ્રદર્શિત કરી શક્યા નહિં\n"
 "%s"
 
-#: ../src/sj-main.c:1126
+#: ../src/sj-main.c:1143
 msgid "Could not create GConf client.\n"
 msgstr "જીકોન્ફ ક્લાઈન્ટ બનાવી શક્યા નહિં.\n"
 
-#: ../src/sj-main.c:1156
+#: ../src/sj-main.c:1173
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Sound Juicer માટેની ઈન્ટરફેસ ફાઈલ વાંચી શકાઈ નહિં."
 
-#: ../src/sj-main.c:1204
+#: ../src/sj-main.c:1223
 msgid "Track"
 msgstr "ટ્રેક"
 
-#: ../src/sj-main.c:1239
+#: ../src/sj-main.c:1258
 msgid "Duration"
 msgstr "સમયગાળો"
 
@@ -517,7 +532,7 @@ msgstr "આ CD માટે અયોગ્ય મેટાડેટા.\n"
 msgid "Could not create CD lookup thread"
 msgstr "CD લુકઅપ થ્રેડ બનાવી શક્યા નહિં"
 
-#: ../src/sj-play.c:199 ../src/sj-play.c:451 ../src/sj-play.c:498
+#: ../src/sj-play.c:204 ../src/sj-play.c:444 ../src/sj-play.c:491
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -528,15 +543,15 @@ msgstr ""
 "\n"
 "કારણ: %s"
 
-#: ../src/sj-play.c:367
+#: ../src/sj-play.c:359
 msgid "Failed to create CD source element"
 msgstr "CD સ્રોત ઘટક બનાવવામાં નિષ્ફળ"
 
-#: ../src/sj-play.c:393
+#: ../src/sj-play.c:385
 msgid "Failed to create audio output"
 msgstr "ઓડિયો આઉટપુટ બનાવવામાં નિષ્ફળ"
 
-#: ../src/sj-play.c:609
+#: ../src/sj-play.c:601
 #, c-format
 msgid "Seeking to %s"
 msgstr "%s પર પહોંચી રહ્યા છીએ"
@@ -592,14 +607,4 @@ msgstr "નંબર-ટ્રેક કલાકાર-ટ્રેક શી�
 #: ../src/sj-prefs.c:301
 msgid "Track Artist"
 msgstr "ટ્રેક કલાકાર"
-
-#. +
-#: ../src/sj-volume.c:185
-msgid "+"
-msgstr "+"
-
-#. -
-#: ../src/sj-volume.c:201
-msgid "-"
-msgstr "-"
 
