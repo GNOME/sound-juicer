@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-03 14:49+0000\n"
-"PO-Revision-Date: 2005-08-03 21:53+0200\n"
+"POT-Creation-Date: 2005-09-26 05:44+0200\n"
+"PO-Revision-Date: 2005-09-26 13:13+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
@@ -115,8 +115,8 @@ msgid "Skip to the previous track"
 msgstr "Ugrás az előző számra"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-about.c:52
-#: ../src/sj-extractor.c:489 ../src/sj-main.c:159 ../src/sj-main.c:161
-#: ../src/sj-main.c:1107
+#: ../src/sj-extractor.c:492 ../src/sj-main.c:159 ../src/sj-main.c:161
+#: ../src/sj-main.c:1120
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -132,7 +132,7 @@ msgstr ""
 msgid "_Contents"
 msgstr "_Tartalom"
 
-#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:240
+#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:241
 msgid "_Continue"
 msgstr "_Folytatás"
 
@@ -265,6 +265,16 @@ msgstr "A használandó paranoia mód"
 msgid "Whether to eject the CD when finished extracting."
 msgstr "Kiadja-e a CD-t a beolvasás befejezésekor."
 
+#. +
+#: ../src/bacon-volume.c:187
+msgid "+"
+msgstr "+"
+
+#. -
+#: ../src/bacon-volume.c:203
+msgid "-"
+msgstr "-"
+
 #: ../src/sj-about.c:53
 msgid "An Audio CD Extractor"
 msgstr "Egy hang CD beolvasó"
@@ -351,34 +361,37 @@ msgid "Could not get current track position"
 msgstr "Nem lehet megszerezni a jelenlegi szám pozícióját"
 
 #: ../src/sj-extractor.c:411
-msgid ""
-"Extractor object is not valid. This is bad, check your console for errors."
+msgid "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "A beolvasó objektum érvénytelen. Ez baj, a hibák megtekintéséhez nézze meg a "
 "konzolt."
 
-#: ../src/sj-extractor.c:525
+#: ../src/sj-extractor.c:528
 msgid "Could not seek to track"
 msgstr "Nem lehet pozicionálni a sávra"
 
-#: ../src/sj-extractor.c:530
+#: ../src/sj-extractor.c:533
 msgid "Could not get track start position"
 msgstr "Nem lehet megszerezni a szám kezdőpozícióját"
 
-#: ../src/sj-extractor.c:560
+#: ../src/sj-extractor.c:563
 msgid "The plugin necessary for CD access was not found"
 msgstr "A CD-hozzáféréshez szükséges bővítmény nem található"
 
-#: ../src/sj-extractor.c:568
+#: ../src/sj-extractor.c:571
 msgid "The plugin necessary for file access was not found"
 msgstr "A fájlhozzáféréshez szükséges bővítmény nem található"
+
+#: ../src/sj-main.c:136
+msgid "E_xtract"
+msgstr "_Beolvasás"
 
 #: ../src/sj-main.c:174
 msgid "Could not start Sound Juicer"
 msgstr "Nem lehet elindítani a Sound Juicer-t"
 
-#: ../src/sj-main.c:175 ../src/sj-main.c:594 ../src/sj-main.c:683
-#: ../src/sj-main.c:744
+#: ../src/sj-main.c:175 ../src/sj-main.c:595 ../src/sj-main.c:684
+#: ../src/sj-main.c:719
 msgid "Reason"
 msgstr "Ok"
 
@@ -386,63 +399,62 @@ msgstr "Ok"
 msgid "Please consult the documentation for assistance."
 msgstr "Segítségért tekintse meg a dokumentációt."
 
-#: ../src/sj-main.c:238
+#: ../src/sj-main.c:239
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Jelenleg épp beolvas egy CD-t. Kilép vagy folytatja?"
 
-#: ../src/sj-main.c:301 ../src/sj-main.c:403
+#: ../src/sj-main.c:302 ../src/sj-main.c:404
 msgid "(unknown)"
 msgstr "(ismeretlen)"
 
-#: ../src/sj-main.c:445 ../src/sj-main.c:1225
+#: ../src/sj-main.c:446 ../src/sj-main.c:1238
 msgid "Title"
 msgstr "Cím"
 
-#: ../src/sj-main.c:451 ../src/sj-main.c:1234
+#: ../src/sj-main.c:452 ../src/sj-main.c:1247
 msgid "Artist"
 msgstr "Előadó"
 
-#: ../src/sj-main.c:592 ../src/sj-main.c:681 ../src/sj-main.c:742
+#: ../src/sj-main.c:593 ../src/sj-main.c:682 ../src/sj-main.c:717
 msgid "Could not read the CD"
 msgstr "Nem lehet olvasni a CD-t"
 
-#: ../src/sj-main.c:593 ../src/sj-main.c:682
+#: ../src/sj-main.c:594 ../src/sj-main.c:683
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "A Sound Juicer nem tudta beolvasni a CD számlistáját."
 
 #. Set statusbar message
-#: ../src/sj-main.c:666
+#: ../src/sj-main.c:667
 msgid "Retrieving track listing...please wait."
 msgstr "Számlista betöltése...kérem várjon."
 
-#: ../src/sj-main.c:722
-msgid "No CD-ROM drives found"
-msgstr "CD-ROM nem található"
-
-#: ../src/sj-main.c:723
-msgid "Sound Juicer could not find any CD-ROM drives to read."
-msgstr "A Sound Juicer nem talált olvasható CD-ROM meghajtót."
-
-#: ../src/sj-main.c:736
+#: ../src/sj-main.c:711
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "A Sound Juicer nem tudott hozzáférni a(z) \"%s\" CD-ROM meghajtóhoz"
 
-#: ../src/sj-main.c:783
-msgid ""
-"The currently selected audio profile is not available on your installation."
+#: ../src/sj-main.c:760
+msgid "No CD-ROM drives found"
+msgstr "CD-ROM nem található"
+
+#: ../src/sj-main.c:761
+msgid "Sound Juicer could not find any CD-ROM drives to read."
+msgstr "A Sound Juicer nem talált olvasható CD-ROM meghajtót."
+
+#: ../src/sj-main.c:793
+msgid "The currently selected audio profile is not available on your installation."
 msgstr "A jelenleg kiválasztott hangprofil nem érhető el a rendszeren."
 
-#: ../src/sj-main.c:785
+#: ../src/sj-main.c:795
 msgid "_Change Profile"
 msgstr "Profil _megváltoztatása"
 
-#: ../src/sj-main.c:947
+#: ../src/sj-main.c:957
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "%d. ismeretlen oszlop szerkesztve"
 
-#: ../src/sj-main.c:1002 ../src/sj-prefs.c:141
+#: ../src/sj-main.c:1012 ../src/sj-prefs.c:141
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -451,19 +463,19 @@ msgstr ""
 "Nem lehet megjeleníteni súgót a Sound Juicer-hez\n"
 "%s"
 
-#: ../src/sj-main.c:1130
+#: ../src/sj-main.c:1143
 msgid "Could not create GConf client.\n"
 msgstr "Nem lehet létrehozni a GConf-klienst.\n"
 
-#: ../src/sj-main.c:1160
+#: ../src/sj-main.c:1173
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Nem olvasható a felületi fájl a Sound Juicerhez."
 
-#: ../src/sj-main.c:1210
+#: ../src/sj-main.c:1223
 msgid "Track"
 msgstr "Szám"
 
-#: ../src/sj-main.c:1245
+#: ../src/sj-main.c:1258
 msgid "Duration"
 msgstr "Időtartam"
 
@@ -504,8 +516,7 @@ msgstr "A(z) \"%s\" eszköz nem tartalmaz adathordozót"
 
 #: ../src/sj-metadata-musicbrainz.c:313
 #, c-format
-msgid ""
-"Device '%s' could not be opened. Check the access permissions on the device."
+msgid "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr ""
 "A(z) \"%s\" eszközt nem lehet megnyitni. Ellenőrizze az eszközhöz tartozó "
 "hozzáférési engedélyeket."
@@ -531,7 +542,7 @@ msgstr "Érvénytelen metaadat ehhez a CD-hez.\n"
 msgid "Could not create CD lookup thread"
 msgstr "Nem lehet létrehozni a CD lekérdező szálat"
 
-#: ../src/sj-play.c:204 ../src/sj-play.c:446 ../src/sj-play.c:493
+#: ../src/sj-play.c:204 ../src/sj-play.c:444 ../src/sj-play.c:491
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -542,15 +553,15 @@ msgstr ""
 "\n"
 "Ok: %s"
 
-#: ../src/sj-play.c:358
+#: ../src/sj-play.c:359
 msgid "Failed to create CD source element"
 msgstr "A CD forráselem létrehozása sikertelen"
 
-#: ../src/sj-play.c:384
+#: ../src/sj-play.c:385
 msgid "Failed to create audio output"
 msgstr "Nem sikerült létrehozni a hangkimenetet"
 
-#: ../src/sj-play.c:603
+#: ../src/sj-play.c:601
 #, c-format
 msgid "Seeking to %s"
 msgstr "Tekerés ide: %s"
@@ -607,12 +618,3 @@ msgstr "Sorszám-szám előadója-szám címe (kisbetűs)"
 msgid "Track Artist"
 msgstr "Szám előadója"
 
-#. +
-#: ../src/sj-volume.c:185
-msgid "+"
-msgstr "+"
-
-#. -
-#: ../src/sj-volume.c:201
-msgid "-"
-msgstr "-"
