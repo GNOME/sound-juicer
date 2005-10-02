@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.11.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-03 10:32+0200\n"
-"PO-Revision-Date: 2005-08-03 10:34+0200\n"
+"POT-Creation-Date: 2005-10-02 18:44+0200\n"
+"PO-Revision-Date: 2005-10-02 18:44+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -114,8 +114,8 @@ msgid "Skip to the previous track"
 msgstr "Hopp til forrige spor"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-about.c:52
-#: ../src/sj-extractor.c:489 ../src/sj-main.c:159 ../src/sj-main.c:161
-#: ../src/sj-main.c:1103
+#: ../src/sj-extractor.c:492 ../src/sj-main.c:159 ../src/sj-main.c:161
+#: ../src/sj-main.c:1120
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -131,7 +131,7 @@ msgstr ""
 msgid "_Contents"
 msgstr "_Innhold"
 
-#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:240
+#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:241
 msgid "_Continue"
 msgstr "_Fortsett"
 
@@ -261,6 +261,16 @@ msgstr "Paranoiamodus som skal brukes"
 msgid "Whether to eject the CD when finished extracting."
 msgstr "Om CDen skal løses ut når uthenting av sanger er fullført."
 
+#. +
+#: ../src/bacon-volume.c:187
+msgid "+"
+msgstr "+"
+
+#. -
+#: ../src/bacon-volume.c:203
+msgid "-"
+msgstr "-"
+
 #: ../src/sj-about.c:53
 msgid "An Audio CD Extractor"
 msgstr "Program for å hente ut sanger fra CDer"
@@ -350,28 +360,32 @@ msgid ""
 msgstr ""
 "Ekstraktobjektet er ikke gyldig. Dette er ikke bra. Sjekk konsollet for feil."
 
-#: ../src/sj-extractor.c:525
+#: ../src/sj-extractor.c:528
 msgid "Could not seek to track"
 msgstr "Kunne ikke søke til spor"
 
-#: ../src/sj-extractor.c:530
+#: ../src/sj-extractor.c:533
 msgid "Could not get track start position"
 msgstr "Kunne ikke finne startposisjon for spor"
 
-#: ../src/sj-extractor.c:560
+#: ../src/sj-extractor.c:563
 msgid "The plugin necessary for CD access was not found"
 msgstr "Tillegg som kreves for aksess til CD ble ikke funnet"
 
-#: ../src/sj-extractor.c:568
+#: ../src/sj-extractor.c:571
 msgid "The plugin necessary for file access was not found"
 msgstr "Tillegg som kreves for filaksess ble ikke funnet"
+
+#: ../src/sj-main.c:136
+msgid "E_xtract"
+msgstr "Hent _ut"
 
 #: ../src/sj-main.c:174
 msgid "Could not start Sound Juicer"
 msgstr "Kunne ikke starte Sound Juicer"
 
-#: ../src/sj-main.c:175 ../src/sj-main.c:590 ../src/sj-main.c:679
-#: ../src/sj-main.c:740
+#: ../src/sj-main.c:175 ../src/sj-main.c:595 ../src/sj-main.c:684
+#: ../src/sj-main.c:719
 msgid "Reason"
 msgstr "Årsak"
 
@@ -379,63 +393,63 @@ msgstr "Årsak"
 msgid "Please consult the documentation for assistance."
 msgstr "Vennligst se i dokumentasjonen for hjelp."
 
-#: ../src/sj-main.c:238
+#: ../src/sj-main.c:239
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Du holder på å rippe en CD. Vil du avslutte nå eller fortsette?"
 
-#: ../src/sj-main.c:301 ../src/sj-main.c:399
+#: ../src/sj-main.c:302 ../src/sj-main.c:404
 msgid "(unknown)"
 msgstr "(ukjent)"
 
-#: ../src/sj-main.c:441 ../src/sj-main.c:1219
+#: ../src/sj-main.c:446 ../src/sj-main.c:1238
 msgid "Title"
 msgstr "Tittel"
 
-#: ../src/sj-main.c:447 ../src/sj-main.c:1228
+#: ../src/sj-main.c:452 ../src/sj-main.c:1247
 msgid "Artist"
 msgstr "Artist"
 
-#: ../src/sj-main.c:588 ../src/sj-main.c:677 ../src/sj-main.c:738
+#: ../src/sj-main.c:593 ../src/sj-main.c:682 ../src/sj-main.c:717
 msgid "Could not read the CD"
 msgstr "Kunne ikke lese CDen"
 
-#: ../src/sj-main.c:589 ../src/sj-main.c:678
+#: ../src/sj-main.c:594 ../src/sj-main.c:683
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer kunne ikke lese sporlisten på denne CDen."
 
 #. Set statusbar message
-#: ../src/sj-main.c:662
+#: ../src/sj-main.c:667
 msgid "Retrieving track listing...please wait."
 msgstr "Henter sporliste...vennligst vent."
 
-#: ../src/sj-main.c:718
-msgid "No CD-ROM drives found"
-msgstr "Ingen CD-ROM-enheter funnet"
-
-#: ../src/sj-main.c:719
-msgid "Sound Juicer could not find any CD-ROM drives to read."
-msgstr "Sound Juicer kunne ikke finne noen CD-ROM-enheter å lese fra."
-
-#: ../src/sj-main.c:732
+#: ../src/sj-main.c:711
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer kunne ikke aksessere CD-ROM-enhet «%s»"
 
-#: ../src/sj-main.c:779
+#: ../src/sj-main.c:760
+msgid "No CD-ROM drives found"
+msgstr "Ingen CD-ROM-enheter funnet"
+
+#: ../src/sj-main.c:761
+msgid "Sound Juicer could not find any CD-ROM drives to read."
+msgstr "Sound Juicer kunne ikke finne noen CD-ROM-enheter å lese fra."
+
+#: ../src/sj-main.c:793
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Valgt lydprofil er ikke tilgjengelig i din installasjon."
 
-#: ../src/sj-main.c:781
+#: ../src/sj-main.c:795
 msgid "_Change Profile"
 msgstr "_Endre profil"
 
-#: ../src/sj-main.c:943
+#: ../src/sj-main.c:957
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Ukjent kolonne %d ble redigert"
 
-#: ../src/sj-main.c:998 ../src/sj-prefs.c:141
+#: ../src/sj-main.c:1012 ../src/sj-prefs.c:141
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -444,19 +458,19 @@ msgstr ""
 "Kunne ikke vise hjelp for Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1126
+#: ../src/sj-main.c:1143
 msgid "Could not create GConf client.\n"
 msgstr "Kunne ikke opprette GConf-klient.\n"
 
-#: ../src/sj-main.c:1156
+#: ../src/sj-main.c:1173
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Grensesnittbeskrivelsen for Sound Juicer kunne ikke leses."
 
-#: ../src/sj-main.c:1204
+#: ../src/sj-main.c:1223
 msgid "Track"
 msgstr "Spor"
 
-#: ../src/sj-main.c:1239
+#: ../src/sj-main.c:1258
 msgid "Duration"
 msgstr "Varighet"
 
@@ -522,7 +536,7 @@ msgstr "Ukomplette metadata for denne CDen.\n"
 msgid "Could not create CD lookup thread"
 msgstr "Kunne ikke opprette tråd for CD-oppslag"
 
-#: ../src/sj-play.c:199 ../src/sj-play.c:451 ../src/sj-play.c:498
+#: ../src/sj-play.c:204 ../src/sj-play.c:444 ../src/sj-play.c:491
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -533,15 +547,15 @@ msgstr ""
 "\n"
 "Årsak: %s"
 
-#: ../src/sj-play.c:367
+#: ../src/sj-play.c:359
 msgid "Failed to create CD source element"
 msgstr "Kunne ikke opprette kildeelement fra CD"
 
-#: ../src/sj-play.c:393
+#: ../src/sj-play.c:385
 msgid "Failed to create audio output"
 msgstr "Kunne ikke opprette utdata for lyd"
 
-#: ../src/sj-play.c:609
+#: ../src/sj-play.c:601
 #, c-format
 msgid "Seeking to %s"
 msgstr "Søker til %s"
@@ -597,13 +611,3 @@ msgstr "Sporets nummer Artist-Spor Tittel (små bokstaver)"
 #: ../src/sj-prefs.c:301
 msgid "Track Artist"
 msgstr "Sporets artist"
-
-#. +
-#: ../src/sj-volume.c:185
-msgid "+"
-msgstr "+"
-
-#. -
-#: ../src/sj-volume.c:201
-msgid "-"
-msgstr "-"
