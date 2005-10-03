@@ -1029,6 +1029,7 @@ static const char* genres[] = {
   "Dance",
   "Electronica",
   "Folk",
+  "Funk",
   "Jazz",
   "Latin",
   "Pop",
