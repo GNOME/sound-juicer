@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-02 06:56+0000\n"
-"PO-Revision-Date: 2005-08-02 22:47+0800\n"
+"POT-Creation-Date: 2005-10-04 05:47+0200\n"
+"PO-Revision-Date: 2005-10-04 14:40+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
@@ -22,8 +22,8 @@ msgid "Extract music from your CDs"
 msgstr "从您的 CD 中提取音乐"
 
 #: ../data/sound-juicer.desktop.in.h:2
-msgid "Sound Juicer CD Ripper"
-msgstr "音乐榨汁机 CD 抓取器"
+msgid "Sound Juicer CD Extractor"
+msgstr "音乐榨汁机 CD 提取器"
 
 #: ../data/sound-juicer.glade.h:1
 msgid "<b>Artist:</b>"
@@ -114,8 +114,8 @@ msgid "Skip to the previous track"
 msgstr "跳到上一轨"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-about.c:52
-#: ../src/sj-extractor.c:489 ../src/sj-main.c:159 ../src/sj-main.c:161
-#: ../src/sj-main.c:1103
+#: ../src/sj-extractor.c:492 ../src/sj-main.c:159 ../src/sj-main.c:161
+#: ../src/sj-main.c:1121
 msgid "Sound Juicer"
 msgstr "音乐榨汁机"
 
@@ -129,7 +129,7 @@ msgstr "这张 CD 可能有多于一张的专辑。请在下面选择专辑，�
 msgid "_Contents"
 msgstr "目录(_C)"
 
-#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:240
+#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:241
 msgid "_Continue"
 msgstr "继续(_C)"
 
@@ -255,6 +255,16 @@ msgstr "使用的 paranoia 模式"
 msgid "Whether to eject the CD when finished extracting."
 msgstr "提取完成后是否弹出 CD。"
 
+#. +
+#: ../src/bacon-volume.c:187
+msgid "+"
+msgstr "+"
+
+#. -
+#: ../src/bacon-volume.c:203
+msgid "-"
+msgstr "-"
+
 #: ../src/sj-about.c:53
 msgid "An Audio CD Extractor"
 msgstr "音频 CD 提取器"
@@ -292,7 +302,7 @@ msgid ""
 "Sound Juicer could not extract this CD.\n"
 "Reason: %s"
 msgstr ""
-"Sound Juicer 无法提取此 CD。\n"
+"音乐榨汁机无法提取此 CD。\n"
 "原因：%s"
 
 #: ../src/sj-extracting.c:359
@@ -343,19 +353,19 @@ msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr "提取器对象无效。在您的控制台上查看错误信息。"
 
-#: ../src/sj-extractor.c:525
+#: ../src/sj-extractor.c:528
 msgid "Could not seek to track"
 msgstr "无法寻找到音轨"
 
-#: ../src/sj-extractor.c:530
+#: ../src/sj-extractor.c:533
 msgid "Could not get track start position"
 msgstr "无法取得音轨起始位置"
 
-#: ../src/sj-extractor.c:560
+#: ../src/sj-extractor.c:563
 msgid "The plugin necessary for CD access was not found"
 msgstr "CD 访问所需的插件未找到"
 
-#: ../src/sj-extractor.c:568
+#: ../src/sj-extractor.c:571
 msgid "The plugin necessary for file access was not found"
 msgstr "文件访问所需的插件未找到"
 
@@ -365,10 +375,10 @@ msgstr "抓取(_X)"
 
 #: ../src/sj-main.c:174
 msgid "Could not start Sound Juicer"
-msgstr "无法启动 Sound Juicer"
+msgstr "无法启动音乐榨汁机"
 
-#: ../src/sj-main.c:175 ../src/sj-main.c:590 ../src/sj-main.c:679
-#: ../src/sj-main.c:740
+#: ../src/sj-main.c:175 ../src/sj-main.c:595 ../src/sj-main.c:684
+#: ../src/sj-main.c:719
 msgid "Reason"
 msgstr "原因"
 
@@ -376,84 +386,84 @@ msgstr "原因"
 msgid "Please consult the documentation for assistance."
 msgstr "请参考文档获得帮助。"
 
-#: ../src/sj-main.c:238
+#: ../src/sj-main.c:239
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "您现在正在提取 CD。您想退出程序或者是继续？"
 
-#: ../src/sj-main.c:301 ../src/sj-main.c:399
+#: ../src/sj-main.c:302 ../src/sj-main.c:404
 msgid "(unknown)"
 msgstr "(未知)"
 
-#: ../src/sj-main.c:441 ../src/sj-main.c:1219
+#: ../src/sj-main.c:446 ../src/sj-main.c:1239
 msgid "Title"
 msgstr "标题"
 
-#: ../src/sj-main.c:447 ../src/sj-main.c:1228
+#: ../src/sj-main.c:452 ../src/sj-main.c:1248
 msgid "Artist"
 msgstr "艺人"
 
-#: ../src/sj-main.c:588 ../src/sj-main.c:677 ../src/sj-main.c:738
+#: ../src/sj-main.c:593 ../src/sj-main.c:682 ../src/sj-main.c:717
 msgid "Could not read the CD"
 msgstr "无法读取 CD"
 
-#: ../src/sj-main.c:589 ../src/sj-main.c:678
+#: ../src/sj-main.c:594 ../src/sj-main.c:683
 msgid "Sound Juicer could not read the track listing on this CD."
-msgstr "Sound Juicer 无法读取此 CD 的音轨列表。"
+msgstr "音乐榨汁机无法读取此 CD 的音轨列表。"
 
 #. Set statusbar message
-#: ../src/sj-main.c:662
+#: ../src/sj-main.c:667
 msgid "Retrieving track listing...please wait."
 msgstr "正在获取音轨列表...请稍候。"
 
-#: ../src/sj-main.c:718
+#: ../src/sj-main.c:711
+#, c-format
+msgid "Sound Juicer could not access the CD-ROM device '%s'"
+msgstr "音乐榨汁机无法访问光盘驱动器“%s”"
+
+#: ../src/sj-main.c:760
 msgid "No CD-ROM drives found"
 msgstr "找不到光驱"
 
-#: ../src/sj-main.c:719
+#: ../src/sj-main.c:761
 msgid "Sound Juicer could not find any CD-ROM drives to read."
-msgstr "Sound Juicer 找不到任何可以读取数据的光驱。"
+msgstr "音乐榨汁机找不到任何可以读取数据的光驱。"
 
-#: ../src/sj-main.c:732
-#, c-format
-msgid "Sound Juicer could not access the CD-ROM device '%s'"
-msgstr "Sound Juicer 无法访问光盘驱动器“%s”"
-
-#: ../src/sj-main.c:779
+#: ../src/sj-main.c:793
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "目前所选的音频配置文件在您的系统中不可用。"
 
-#: ../src/sj-main.c:781
+#: ../src/sj-main.c:795
 msgid "_Change Profile"
 msgstr "更改配置文件(_C)"
 
-#: ../src/sj-main.c:943
+#: ../src/sj-main.c:957
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "未知的列 %d 已被修改"
 
-#: ../src/sj-main.c:998 ../src/sj-prefs.c:141
+#: ../src/sj-main.c:1012 ../src/sj-prefs.c:141
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
 "%s"
 msgstr ""
-"无法显示 Sound Juicer 的帮助\n"
+"无法显示音乐榨汁机的帮助\n"
 "%s"
 
-#: ../src/sj-main.c:1126
+#: ../src/sj-main.c:1144
 msgid "Could not create GConf client.\n"
 msgstr "无法创建 GConf 客户。\n"
 
-#: ../src/sj-main.c:1156
+#: ../src/sj-main.c:1174
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "音乐榨汁机的界面文件无法读取。"
 
-#: ../src/sj-main.c:1204
+#: ../src/sj-main.c:1224
 msgid "Track"
 msgstr "音轨"
 
-#: ../src/sj-main.c:1239
+#: ../src/sj-main.c:1259
 msgid "Duration"
 msgstr "长度"
 
@@ -517,7 +527,7 @@ msgstr "此 CD 的元数据不完整。\n"
 msgid "Could not create CD lookup thread"
 msgstr "无法创建 CD 查阅线程"
 
-#: ../src/sj-play.c:199 ../src/sj-play.c:451 ../src/sj-play.c:498
+#: ../src/sj-play.c:204 ../src/sj-play.c:444 ../src/sj-play.c:491
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -528,15 +538,15 @@ msgstr ""
 "\n"
 "原因：%s"
 
-#: ../src/sj-play.c:367
+#: ../src/sj-play.c:359
 msgid "Failed to create CD source element"
 msgstr "创建 CD 源元素"
 
-#: ../src/sj-play.c:393
+#: ../src/sj-play.c:385
 msgid "Failed to create audio output"
 msgstr "无法创建音频输出"
 
-#: ../src/sj-play.c:609
+#: ../src/sj-play.c:601
 #, c-format
 msgid "Seeking to %s"
 msgstr "搜索到 %s"
@@ -593,12 +603,3 @@ msgstr "编号-音轨艺人-音轨标题(小写)"
 msgid "Track Artist"
 msgstr "音轨艺人"
 
-#. +
-#: ../src/sj-volume.c:185
-msgid "+"
-msgstr "+"
-
-#. -
-#: ../src/sj-volume.c:201
-msgid "-"
-msgstr "-"
