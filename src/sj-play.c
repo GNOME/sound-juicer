@@ -631,8 +631,8 @@ stop_ui_hack (void)
   gtk_widget_hide (volume_button);
   gtk_statusbar_pop (GTK_STATUSBAR (statusbar), 0);
   slen = GST_CLOCK_TIME_NONE;
-  gtk_list_store_set (track_store, &current_iter,
-                      COLUMN_STATE, STATE_IDLE, -1);
+  if (gtk_list_store_iter_is_valid (track_store, &current_iter))
+    gtk_list_store_set (track_store, &current_iter, COLUMN_STATE, STATE_IDLE, -1);
   sj_main_set_title (NULL);
   gtk_statusbar_push (GTK_STATUSBAR (statusbar), 0, "");
   current_track = -1;
