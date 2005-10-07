@@ -156,4 +156,11 @@ extern GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer;
 /* TODO: need to add a SjWindow object or something */
 void sj_main_set_title (const char* detail);
 
+/* Debug macros */
+#ifdef ENABLE_DEBUG
+#define d(x) x
+#else
+#define d(x)
+#endif
+
 #endif /* SOUND_JUICER_H */
