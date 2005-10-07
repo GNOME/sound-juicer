@@ -83,6 +83,7 @@ PKG_CHECK_MODULES(CDIO, libcdio, HAVE_CDIO=yes, HAVE_CDIO=no)
 if test "x$HAVE_CDIO" = "xyes"; then
         AM_CONDITIONAL(HAVE_CDIO, true)
 else
+        AM_CONDITIONAL(HAVE_CDIO, false)
         AC_MSG_WARN([libcdio not found, cannot get track names from CD-TEXT])
 fi
 
