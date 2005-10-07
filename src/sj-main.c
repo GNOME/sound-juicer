@@ -208,17 +208,18 @@ void on_eject_activate (GtkMenuItem *item, gpointer user_data)
   nautilus_burn_drive_eject (drive);
 }
 
-gboolean poll_tray_opened (gpointer data)
+static gboolean poll_tray_opened (gpointer data)
 {
   gboolean new_status;
-
   if (extracting == TRUE)
     return TRUE;
 
   new_status = nautilus_burn_drive_door_is_open (drive);
   if (new_status != tray_opened && new_status == FALSE) {
+    d(g_printerr("Poll detected new CD\n"));
     reread_cd (TRUE);
   } else if (new_status != tray_opened && new_status == TRUE) {
+    d(g_printerr("Poll detected removed CD\n"));
     stop_ui_hack ();
     update_ui_for_album (NULL);
   }
@@ -666,7 +667,10 @@ static void reread_cd (gboolean ignore_no_media)
   /* Set statusbar message */
   gtk_statusbar_push(GTK_STATUSBAR(status_bar), 0, _("Retrieving track listing...please wait."));
 
+  d(if (!drive) g_printerr("Attempting to re-read NULL drive\n"));
+
   if (!is_audio_cd (drive)) {
+    d(g_printerr("Media is not an audio CD\n"));
     update_ui_for_album (NULL);
     gtk_statusbar_pop(GTK_STATUSBAR(status_bar), 0);
     if (realized)
