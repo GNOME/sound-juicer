@@ -19,6 +19,10 @@ AM_CPPFLAGS = \
 # We always build Sound Juicer
 bin_PROGRAMS = sound-juicer
 
+if HAVE_CDIO
+CDIO_SOURCES = 	sj-metadata-cdtext.h sj-metadata-cdtext.c
+endif
+
 sound_juicer_SOURCES = \
 	dummy.cpp \
 	sound-juicer.h \
@@ -33,6 +37,7 @@ sound_juicer_SOURCES = \
 	sj-extractor.c \
 	sj-metadata.h \
 	sj-metadata.c \
+	$(CDIO_SOURCES) \
 	sj-metadata-musicbrainz.h \
 	sj-metadata-musicbrainz.c \
 	sj-play.c \
@@ -51,6 +56,9 @@ sound_juicer_SOURCES = \
 	$(MARSHALFILES)
 
 sound_juicer_LDFLAGS = @MUSICBRAINZ_LIBS@ @MEDIA_PROFILES_LIBS@ @GSTREAMER_LIBS@ @BURN_LIBS@ @UI_LIBS@
+if HAVE_CDIO
+sound_juicer_LDFLAGS += @CDIO_LIBS@
+endif
 
 #
 # Build the GValue marshals
