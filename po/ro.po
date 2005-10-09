@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer.HEAD.ro\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-17 14:53+0000\n"
-"PO-Revision-Date: 2005-08-17 23:50+0300\n"
+"POT-Creation-Date: 2005-10-09 20:45+0200\n"
+"PO-Revision-Date: 2005-10-10 00:58+0300\n"
 "Last-Translator: Mugurel Tudor <mugurelu@gnome.ro>\n"
 "Language-Team: Romanian <gnomero@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -114,8 +114,8 @@ msgid "Skip to the previous track"
 msgstr "Sări la pista anterioară"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-about.c:52
-#: ../src/sj-extractor.c:489 ../src/sj-main.c:159 ../src/sj-main.c:161
-#: ../src/sj-main.c:1109
+#: ../src/sj-extractor.c:492 ../src/sj-main.c:159 ../src/sj-main.c:161
+#: ../src/sj-main.c:1124
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -131,7 +131,7 @@ msgstr ""
 msgid "_Contents"
 msgstr "_Conţinut"
 
-#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:241
+#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:242
 msgid "_Continue"
 msgstr "_Continuă"
 
@@ -357,33 +357,38 @@ msgid "Could not get current track position"
 msgstr "Nu am putut obţine poziţia curentă a piesei"
 
 #: ../src/sj-extractor.c:411
-msgid "Extractor object is not valid. This is bad, check your console for errors."
+msgid ""
+"Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Obiectul extractor nu este valid. Acest lucru e grav, verificaţi consola "
 "pentru erori."
 
-#: ../src/sj-extractor.c:525
+#: ../src/sj-extractor.c:528
 msgid "Could not seek to track"
 msgstr "Nu am putut căuta până la piesă"
 
-#: ../src/sj-extractor.c:530
+#: ../src/sj-extractor.c:533
 msgid "Could not get track start position"
 msgstr "Nu am putut obţine poziţia de început a piesei"
 
-#: ../src/sj-extractor.c:560
+#: ../src/sj-extractor.c:563
 msgid "The plugin necessary for CD access was not found"
 msgstr "Modulul necesar pentru accesul CD nu a fost găsit"
 
-#: ../src/sj-extractor.c:568
+#: ../src/sj-extractor.c:571
 msgid "The plugin necessary for file access was not found"
 msgstr "Modulul necesar pentru accesul la fişiere nu a fost găsit"
+
+#: ../src/sj-main.c:136
+msgid "E_xtract"
+msgstr "E_xtrage"
 
 #: ../src/sj-main.c:174
 msgid "Could not start Sound Juicer"
 msgstr "Nu am putut porni Sound Juicer"
 
-#: ../src/sj-main.c:175 ../src/sj-main.c:595 ../src/sj-main.c:684
-#: ../src/sj-main.c:745
+#: ../src/sj-main.c:175 ../src/sj-main.c:596 ../src/sj-main.c:688
+#: ../src/sj-main.c:723
 msgid "Reason"
 msgstr "Motiv"
 
@@ -391,66 +396,68 @@ msgstr "Motiv"
 msgid "Please consult the documentation for assistance."
 msgstr "Vă rugăm consulaţi documentaţia pentru asistenţă."
 
-#: ../src/sj-main.c:239
+#: ../src/sj-main.c:240
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
-msgstr "În acest moment extrageţi un CD. Doriţi să terminaţi acum sau să continuaţi?"
+msgstr ""
+"În acest moment extrageţi un CD. Doriţi să terminaţi acum sau să continuaţi?"
 
-#: ../src/sj-main.c:302 ../src/sj-main.c:404
+#: ../src/sj-main.c:303 ../src/sj-main.c:405
 msgid "(unknown)"
 msgstr "(necunoscut)"
 
-#: ../src/sj-main.c:446 ../src/sj-main.c:1227
+#: ../src/sj-main.c:447 ../src/sj-main.c:1242
 msgid "Title"
 msgstr "Titlu"
 
-#: ../src/sj-main.c:452 ../src/sj-main.c:1236
+#: ../src/sj-main.c:453 ../src/sj-main.c:1251
 msgid "Artist"
 msgstr "Artist"
 
-#: ../src/sj-main.c:593 ../src/sj-main.c:682 ../src/sj-main.c:743
+#: ../src/sj-main.c:594 ../src/sj-main.c:686 ../src/sj-main.c:721
 msgid "Could not read the CD"
 msgstr "Nu am putut citi CD-ul"
 
-#: ../src/sj-main.c:594 ../src/sj-main.c:683
+#: ../src/sj-main.c:595 ../src/sj-main.c:687
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer nu a putut citi lista de piese de pe acest CD."
 
 #. Set statusbar message
-#: ../src/sj-main.c:667
+#: ../src/sj-main.c:668
 msgid "Retrieving track listing...please wait."
 msgstr "Obţin lista pieselor...vă rugăm aşteptaţi."
 
-#: ../src/sj-main.c:723
+#: ../src/sj-main.c:715
+#, c-format
+msgid "Sound Juicer could not access the CD-ROM device '%s'"
+msgstr "Sound Juicer nu a putut accesa dispozitivul CD-ROM „%s”"
+
+#: ../src/sj-main.c:764
 msgid "No CD-ROM drives found"
 msgstr "Nici un dispozitiv CD-ROM găsit"
 
-#: ../src/sj-main.c:724
+#: ../src/sj-main.c:765
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr ""
 "Sound Juicer nu a putut găsi nici un dispozitiv CD-ROM pe care să îl "
 "citească."
 
-#: ../src/sj-main.c:737
-#, c-format
-msgid "Sound Juicer could not access the CD-ROM device '%s'"
-msgstr "Sound Juicer nu a putut accesa dispozitivul CD-ROM „%s”"
-
-#: ../src/sj-main.c:784
-msgid "The currently selected audio profile is not available on your installation."
+#: ../src/sj-main.c:797
+msgid ""
+"The currently selected audio profile is not available on your installation."
 msgstr ""
 "Profilul audio selectat în acest moment nu este disponibil pe instalarea "
 "dumneavoastră."
 
-#: ../src/sj-main.c:786
+#: ../src/sj-main.c:799
 msgid "_Change Profile"
 msgstr "_Schimbă profilul"
 
-#: ../src/sj-main.c:948
+#: ../src/sj-main.c:961
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Coloana necunoscută %d a fost editată"
 
-#: ../src/sj-main.c:1003 ../src/sj-prefs.c:141
+#: ../src/sj-main.c:1016 ../src/sj-prefs.c:141
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -459,19 +466,19 @@ msgstr ""
 "Nu am putut afişa ajutorul pentru Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1132
+#: ../src/sj-main.c:1147
 msgid "Could not create GConf client.\n"
 msgstr "Nu am putut crea un client GConf.\n"
 
-#: ../src/sj-main.c:1162
+#: ../src/sj-main.c:1177
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Fişierul interfaţă pentru Sound Juicer nu a putut fi citit."
 
-#: ../src/sj-main.c:1212
+#: ../src/sj-main.c:1227
 msgid "Track"
 msgstr "Piesă"
 
-#: ../src/sj-main.c:1247
+#: ../src/sj-main.c:1262
 msgid "Duration"
 msgstr "Durată"
 
@@ -512,7 +519,8 @@ msgstr "Dispozitivul „%s” nu conţine un mediu"
 
 #: ../src/sj-metadata-musicbrainz.c:313
 #, c-format
-msgid "Device '%s' could not be opened. Check the access permissions on the device."
+msgid ""
+"Device '%s' could not be opened. Check the access permissions on the device."
 msgstr ""
 "Dispozitivul „%s” nu a putut fi deschis. Verificaţi permisiunile de acces la "
 "acel dispozitiv."
@@ -613,4 +621,3 @@ msgstr "Număr-Artist piesă-Titlu piesă (cu litere mici)"
 #: ../src/sj-prefs.c:301
 msgid "Track Artist"
 msgstr "Artist piesă"
-
