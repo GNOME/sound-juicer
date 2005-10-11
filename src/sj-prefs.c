@@ -241,7 +241,7 @@ static void baseuri_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *
    * prefs window from the main is ugly. Maybe put the validation code
    * into sj-utils?
    */
-  const char* base_uri;
+  const char* base_uri, *current_uri;
   g_return_if_fail (strcmp (entry->key, GCONF_BASEURI) == 0);
 
   if (entry->value == NULL) {
@@ -249,7 +249,8 @@ static void baseuri_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *
   } else {
     g_return_if_fail (entry->value->type == GCONF_VALUE_STRING);
     base_uri = gconf_value_get_string (entry->value);
-    if (strcmp (gtk_file_chooser_get_current_folder_uri (GTK_FILE_CHOOSER (basepath_fcb)), base_uri) != 0) { 
+    current_uri = gtk_file_chooser_get_current_folder_uri (GTK_FILE_CHOOSER (basepath_fcb));
+    if (current_uri == NULL || strcmp (current_uri, base_uri) != 0) { 
       gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (basepath_fcb), base_uri);
     }
   }
