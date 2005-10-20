@@ -79,8 +79,7 @@ NautilusBurnDrive *drive = NULL;
 gboolean strip_chars;
 gboolean eject_finished;
 gboolean extracting = FALSE;
-static gboolean tray_opened = FALSE;
-static guint poll_id = 0;
+
 static gint total_no_of_tracks;
 static gint no_of_tracks_selected;
 static AlbumDetails *current_album;
@@ -208,26 +207,6 @@ void on_eject_activate (GtkMenuItem *item, gpointer user_data)
   nautilus_burn_drive_eject (drive);
 }
 
-static gboolean poll_tray_opened (gpointer data)
-{
-  gboolean new_status;
-  if (extracting == TRUE)
-    return TRUE;
-
-  new_status = nautilus_burn_drive_door_is_open (drive);
-  if (new_status != tray_opened && new_status == FALSE) {
-    d(g_printerr("Poll detected new CD\n"));
-    reread_cd (TRUE);
-  } else if (new_status != tray_opened && new_status == TRUE) {
-    d(g_printerr("Poll detected removed CD\n"));
-    stop_ui_hack ();
-    update_ui_for_album (NULL);
-  }
-  tray_opened = new_status;
-
-  return TRUE;
-}
-
 gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
   if (extracting) {
@@ -244,9 +223,6 @@ gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data
     gtk_widget_destroy (dialog);
     
     if (response == GTK_RESPONSE_ACCEPT) {
-      if (poll_id > 0) {
-        g_source_remove (poll_id);
-      }
       return FALSE;
     } 
     return TRUE;
@@ -712,10 +688,55 @@ static void reread_cd (gboolean ignore_no_media)
 }
 
 static void
-set_device(const char* device, gboolean ignore_no_media)
+media_added_cb (NautilusBurnDrive *drive,
+                gpointer           data)
 {
-  if (device == NULL) {
+  if (extracting == TRUE) {
+    /* FIXME: recover? */
+  }
+
+  d(g_printerr ("** media added to device %s\n", drive->device));
+  reread_cd (TRUE);
+}
+
+static void
+media_removed_cb (NautilusBurnDrive *drive,
+                  gpointer           data)
+{
+  if (extracting == TRUE) {
+    /* FIXME: recover? */
+  }
+
+  d(g_printerr ("** media removed from device %s\n", drive->device));
+  stop_ui_hack ();
+  update_ui_for_album (NULL);
+}
+
+static void
+set_drive_from_device (const char *device)
+{
+  if (drive) {
+    nautilus_burn_drive_unref (drive);
     drive = NULL;
+  }
+
+  if (! device)
+    return;
+
+  drive = nautilus_burn_drive_new_from_path (device);
+  g_assert (drive);
+  g_object_set (drive, "enable-monitor", TRUE, NULL);
+  g_signal_connect (drive, "media-added", G_CALLBACK (media_added_cb), NULL);
+  g_signal_connect (drive, "media-removed", G_CALLBACK (media_removed_cb), NULL);
+}
+
+static void
+set_device (const char* device, gboolean ignore_no_media)
+{
+  gboolean tray_opened;
+
+  if (device == NULL) {
+    set_drive_from_device (device);
   } else if (access (device, R_OK) != 0) {
     GtkWidget *dialog;
     char *message;
@@ -733,12 +754,13 @@ set_device(const char* device, gboolean ignore_no_media)
     gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
+
     /* Set a null device */
-    drive = NULL;
+    set_drive_from_device (NULL);
   } else {
-    drive = nautilus_burn_drive_new_from_path (device);
-    g_assert (drive);
+    set_drive_from_device (device);
   }
+
   sj_metadata_set_cdrom (metadata, device);
   sj_extractor_set_device (extractor, device);
   
@@ -776,7 +798,6 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
       exit (1);
 #endif
     }
-    drive = nautilus_burn_drive_new_from_path (device);
   } else {
     device = gconf_value_get_string (entry->value);
   }
@@ -1308,10 +1329,6 @@ int main (int argc, char **argv)
     error_on_start (error);
     return 0;
   }
-
-  /* Poke the CD drive every now and then */
-  tray_opened = nautilus_burn_drive_door_is_open (drive);
-  poll_id = g_timeout_add (2000, poll_tray_opened, NULL);
 
   gtk_main ();
   g_object_unref (metadata);
