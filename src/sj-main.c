@@ -639,9 +639,16 @@ metadata_cb (SjMetadata *m, GList *albums, GError *error)
 static gboolean
 is_audio_cd (NautilusBurnDrive *drive)
 {
+  NautilusBurnMediaType type;
   gboolean audio;
   if (drive == NULL) return FALSE;
-  nautilus_burn_drive_get_media_type_full (drive, NULL, NULL, NULL, &audio);
+  type = nautilus_burn_drive_get_media_type_full (drive, NULL, NULL, NULL, &audio);
+  if (type == NAUTILUS_BURN_MEDIA_TYPE_ERROR) {
+    g_warning ("Error getting media type\n");
+  }
+  if (type == NAUTILUS_BURN_MEDIA_TYPE_BUSY) {
+    g_warning ("BUSY getting media type, should re-check\n");
+  }
   return audio;
 }
 
