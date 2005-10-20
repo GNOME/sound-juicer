@@ -715,7 +715,11 @@ media_removed_cb (NautilusBurnDrive *drive,
 static void
 set_drive_from_device (const char *device)
 {
+  gboolean is_locked;
+  char    *reason;
+
   if (drive) {
+    nautilus_burn_drive_unlock (drive);
     nautilus_burn_drive_unref (drive);
     drive = NULL;
   }
@@ -725,6 +729,13 @@ set_drive_from_device (const char *device)
 
   drive = nautilus_burn_drive_new_from_path (device);
   g_assert (drive);
+
+  is_locked = nautilus_burn_drive_lock (drive, _("Extracting audio from CD"), &reason);
+  if (! is_locked) {
+    g_warning ("Could not lock drive: %s", reason);
+    g_free (reason);
+  }
+
   g_object_set (drive, "enable-monitor", TRUE, NULL);
   g_signal_connect (drive, "media-added", G_CALLBACK (media_added_cb), NULL);
   g_signal_connect (drive, "media-removed", G_CALLBACK (media_removed_cb), NULL);

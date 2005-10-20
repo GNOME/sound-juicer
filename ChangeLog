@@ -1,3 +1,10 @@
+2005-10-20  William Jon McCann  <mccann@jhu.edu>
+
+	* src/sj-main.c (set_drive_from_device):
+	Lock the drive while SJ is running.  Fixes #319249.
+
+	* .cvsignore: Add files.
+
 2005-10-19  William Jon McCann  <mccann@jhu.edu>
 
 	* src/sj-main.c (media_added_cb, media_removed_cb)
