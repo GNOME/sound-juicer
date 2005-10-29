@@ -431,6 +431,8 @@ lookup_cd (SjMetadata *metadata)
     }
 
     albums = g_list_append (albums, album);
+
+    mb_Select (priv->mb, MBS_Back);
   }
 
   /* For each album, we need to insert the duration data if necessary
