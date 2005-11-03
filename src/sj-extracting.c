@@ -641,12 +641,14 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
  * name shell-friendly. This involves removing [?*\ ] and replacing
  * with '_'.
  *
- * This function manipulates the string in-place, so g_strdup()
- * anything you want to keep safe!
+ * This function doesn't change the input, and returns an allocated 
+ * string.
  */
 static char*
-sanitize_path (char* s)
+sanitize_path (const char* str)
 {
+  gchar *res = NULL;
+  gchar *s = g_strdup(str);
   /* Replace path seperators with a hyphen */
   g_strdelimit (s, "/", '-');
   if (strip_chars) {
@@ -658,7 +660,9 @@ sanitize_path (char* s)
     /* TODO: I'd like this to compress whitespace aswell */
     g_strdelimit (s, "\t ", '_');
   }
-  return s;
+  res = g_filename_from_utf8(s, -1, NULL, NULL, NULL);
+  g_free(s);
+  return res ? res : g_strdup(str);
 }
 
 /**
@@ -684,6 +688,7 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
 
   p = pattern;
   while (*p) {
+    gchar *tmp; 
     /* If not a % marker, copy and continue */
     if (*p != '%') {
       *s++ = *p++;
@@ -704,22 +709,26 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
        */
       switch (*++p) {
       case 't':
-        i = temp = sanitize_path (g_strdup (track->album->title));
+        i = temp = sanitize_path (track->album->title);
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
       case 'T':
-        i = temp = sanitize_path (g_utf8_strdown (track->album->title, -1));
+	tmp = g_utf8_strdown (track->album->title, -1);
+        i = temp = sanitize_path (tmp);
+	g_free(tmp);
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
       case 'a':
-        i = temp = sanitize_path (g_strdup (track->album->artist));
+        i = temp = sanitize_path (track->album->artist);
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
       case 'A':
-        i = temp = sanitize_path (g_utf8_strdown (track->album->artist, -1));
+	tmp = g_utf8_strdown (track->album->artist, -1);
+        i = temp = sanitize_path (tmp);
+	g_free(tmp);
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
@@ -733,22 +742,26 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
        */
       switch (*++p) {
       case 't':
-        i = temp = sanitize_path (g_strdup (track->title));
+        i = temp = sanitize_path (track->title);
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
       case 'T':
-        i = temp = sanitize_path (g_utf8_strdown (track->title, -1));
+	tmp = g_utf8_strdown (track->title, -1);
+        i = temp = sanitize_path (tmp);
+	g_free(tmp);
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
       case 'a':
-        i = temp = sanitize_path (g_strdup (track->artist));
+        i = temp = sanitize_path (track->artist);
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
       case 'A':
-        i = temp = sanitize_path (g_utf8_strdown (track->artist, -1));
+	tmp = g_utf8_strdown (track->artist, -1);
+        i = temp = sanitize_path (tmp);
+	g_free(tmp);
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
