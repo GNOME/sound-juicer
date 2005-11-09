@@ -1,16 +1,16 @@
 # Lithuanian translation of sound-juicer.
 # Copyright (C) 2004-2005 Free Software Foundation, Inc.
 # This file is distributed under the same license as the sound-juicer package.
-# Žygimantas Beručka <uid0@akl.lt>, 2004-2005.
+# Žygimantas Beručka <zygis@gnome.org>, 2004-2005.
 # Justina Klingaitė <justina.klingaite@gmail.com>, 2005.
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-21 18:27+0300\n"
-"PO-Revision-Date: 2005-09-21 18:28+0300\n"
-"Last-Translator: Žygimantas Beručka <uid0@akl.lt>\n"
+"POT-Creation-Date: 2005-11-09 02:36+0200\n"
+"PO-Revision-Date: 2005-11-09 02:39+0200\n"
+"Last-Translator: Žygimantas Beručka <zygis@gnome.org>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,8 +21,8 @@ msgid "Extract music from your CDs"
 msgstr "Įsirašykite muziką iš Jūsų CD"
 
 #: ../data/sound-juicer.desktop.in.h:2
-msgid "Sound Juicer CD Ripper"
-msgstr "Muzikos iš CD rašiklis, Sound Juicer"
+msgid "Sound Juicer CD Extractor"
+msgstr "Sound Juicer CD iškleidiklis"
 
 #: ../data/sound-juicer.glade.h:1
 msgid "<b>Artist:</b>"
@@ -113,8 +113,8 @@ msgid "Skip to the previous track"
 msgstr "Peršokti į ankstesnį takelį"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-about.c:52
-#: ../src/sj-extractor.c:492 ../src/sj-main.c:159 ../src/sj-main.c:161
-#: ../src/sj-main.c:1120
+#: ../src/sj-extractor.c:492 ../src/sj-main.c:158 ../src/sj-main.c:160
+#: ../src/sj-main.c:1164
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -130,7 +130,7 @@ msgstr ""
 msgid "_Contents"
 msgstr "_Turinys"
 
-#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:241
+#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:221
 msgid "_Continue"
 msgstr "_Tęsti"
 
@@ -274,7 +274,7 @@ msgstr "-"
 
 #: ../src/sj-about.c:53
 msgid "An Audio CD Extractor"
-msgstr "Audio CD ekstraktorius"
+msgstr "Audio CD išskleidiklis"
 
 #.
 #. * Note to translators: put here your name and email so it will show
@@ -283,7 +283,7 @@ msgstr "Audio CD ekstraktorius"
 #: ../src/sj-about.c:62
 msgid "translator-credits"
 msgstr ""
-"Žygimantas Beručka <uid0@akl.lt>,\n"
+"Žygimantas Beručka <zygis@gnome.org>,\n"
 "Justina Klingaitė <justina.klingaite@gmail.com>"
 
 #: ../src/sj-extracting.c:207
@@ -379,80 +379,84 @@ msgstr "Įskiepis, būtinas CD skaitymui, buvo nerastas"
 msgid "The plugin necessary for file access was not found"
 msgstr "Įskiepis, būtinas priėjimui prie bylų, nerastas"
 
-#: ../src/sj-main.c:136
+#: ../src/sj-main.c:135
 msgid "E_xtract"
 msgstr "Raš_yti"
 
-#: ../src/sj-main.c:174
+#: ../src/sj-main.c:173
 msgid "Could not start Sound Juicer"
 msgstr "Negalpavyko paleisti Sound Juicer"
 
-#: ../src/sj-main.c:175 ../src/sj-main.c:595 ../src/sj-main.c:684
-#: ../src/sj-main.c:719
+#: ../src/sj-main.c:174 ../src/sj-main.c:572 ../src/sj-main.c:671
+#: ../src/sj-main.c:762
 msgid "Reason"
 msgstr "Priežastis"
 
-#: ../src/sj-main.c:177
+#: ../src/sj-main.c:176
 msgid "Please consult the documentation for assistance."
 msgstr "Prašom, dėl pagalbos žiūrėti dokumentaciją."
 
-#: ../src/sj-main.c:239
+#: ../src/sj-main.c:219
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Jūs šiuo metu rašote iš CD. Ar norite išeiti tuoj pat ar tęsti?"
 
-#: ../src/sj-main.c:302 ../src/sj-main.c:404
+#: ../src/sj-main.c:279 ../src/sj-main.c:381
 msgid "(unknown)"
 msgstr "(nežinomas)"
 
-#: ../src/sj-main.c:446 ../src/sj-main.c:1238
+#: ../src/sj-main.c:423 ../src/sj-main.c:1282
 msgid "Title"
 msgstr "Pavadinimas"
 
-#: ../src/sj-main.c:452 ../src/sj-main.c:1247
+#: ../src/sj-main.c:429 ../src/sj-main.c:1291
 msgid "Artist"
 msgstr "Atlikėjas"
 
-#: ../src/sj-main.c:593 ../src/sj-main.c:682 ../src/sj-main.c:717
+#: ../src/sj-main.c:570 ../src/sj-main.c:669 ../src/sj-main.c:760
 msgid "Could not read the CD"
 msgstr "Nepavyko nuskaityti CD"
 
-#: ../src/sj-main.c:594 ../src/sj-main.c:683
+#: ../src/sj-main.c:571 ../src/sj-main.c:670
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer negalėjo perskaityti šios CD takelių sąrašo."
 
 #. Set statusbar message
-#: ../src/sj-main.c:667
+#: ../src/sj-main.c:651
 msgid "Retrieving track listing...please wait."
 msgstr "Gaunamas takelių sąrašas...prašom palaukti."
 
-#: ../src/sj-main.c:711
+#: ../src/sj-main.c:733
+msgid "Extracting audio from CD"
+msgstr "Muzika išskleidžiama CD"
+
+#: ../src/sj-main.c:754
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer neturi priėjimo prie CD-ROM įrenginio „%s“"
 
-#: ../src/sj-main.c:760
+#: ../src/sj-main.c:804
 msgid "No CD-ROM drives found"
 msgstr "CD-ROM įrenginių nerasta"
 
-#: ../src/sj-main.c:761
+#: ../src/sj-main.c:805
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer nerado jokių skaitomų CD-ROM įrenginių."
 
-#: ../src/sj-main.c:793
+#: ../src/sj-main.c:836
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Dabar pasirinktas audio profilis Jūsų sistemoje yra neprieinamas."
 
-#: ../src/sj-main.c:795
+#: ../src/sj-main.c:838
 msgid "_Change Profile"
 msgstr "_Keisti profilį"
 
-#: ../src/sj-main.c:957
+#: ../src/sj-main.c:1000
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Buvo pakeistas nežinomas stulpelis %d"
 
-#: ../src/sj-main.c:1012 ../src/sj-prefs.c:141
+#: ../src/sj-main.c:1055 ../src/sj-prefs.c:141
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -461,21 +465,29 @@ msgstr ""
 "Nepavyko parodyti Sound Juicer pagalbos\n"
 "%s"
 
-#: ../src/sj-main.c:1143
+#: ../src/sj-main.c:1187
 msgid "Could not create GConf client.\n"
 msgstr "Nepavyko sukurti GConf kliento.\n"
 
-#: ../src/sj-main.c:1173
+#: ../src/sj-main.c:1217
 msgid "The interface file for Sound Juicer could not be read."
-msgstr "Sound Juicer sąsajos bylos nuskaityti nepavyko."
+msgstr "Nepavyko perskaityti Sound Juicer sąsajos bylos."
 
-#: ../src/sj-main.c:1223
+#: ../src/sj-main.c:1267
 msgid "Track"
 msgstr "Takelis"
 
-#: ../src/sj-main.c:1258
+#: ../src/sj-main.c:1302
 msgid "Duration"
 msgstr "Trukmė"
+
+#: ../src/sj-metadata-cdtext.c:128
+msgid "CD-TEXT metadata plugin failed to initialise."
+msgstr "Nepavyko inicializuoti CD-TEXT metaduomenų įskiepio."
+
+#: ../src/sj-metadata-cdtext.c:179
+msgid "Cannot read CD"
+msgstr "Nepavyko perskaityti CD"
 
 #: ../src/sj-metadata-musicbrainz.c:89
 msgid "Cannot create MusicBrainz client"
@@ -537,7 +549,7 @@ msgstr "Įvairūs"
 msgid "Incomplete metadata for this CD.\n"
 msgstr "Nepilni šio CD metaduomenys.\n"
 
-#: ../src/sj-metadata-musicbrainz.c:471
+#: ../src/sj-metadata-musicbrainz.c:473
 msgid "Could not create CD lookup thread"
 msgstr "Nepavyko sukurti CD paieškos gijos"
 
@@ -573,12 +585,12 @@ msgstr "Albumo atlikėjas, albumo pavadinimas"
 msgid "Track Artist, Album Title"
 msgstr "Takelio atlikėjas, Albumo pavadinimas"
 
-#: ../src/sj-prefs.c:54 ../src/sj-prefs.c:288
+#: ../src/sj-prefs.c:54 ../src/sj-prefs.c:289
 msgid "Album Title"
 msgstr "Albumo pavadinimas"
 
 #. title
-#: ../src/sj-prefs.c:55 ../src/sj-prefs.c:289
+#: ../src/sj-prefs.c:55 ../src/sj-prefs.c:290
 msgid "Album Artist"
 msgstr "Albumo atlikėjas"
 
@@ -596,7 +608,7 @@ msgstr "Numeris - Pavadinimas"
 
 #. album
 #. track number
-#: ../src/sj-prefs.c:63 ../src/sj-prefs.c:300
+#: ../src/sj-prefs.c:63 ../src/sj-prefs.c:301
 msgid "Track Title"
 msgstr "Takelio pavadinimas"
 
@@ -613,6 +625,9 @@ msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Numeris-Takelio atlikėjas-Takelio pavadinimas (maž.raidės)"
 
 #. title
-#: ../src/sj-prefs.c:301
+#: ../src/sj-prefs.c:302
 msgid "Track Artist"
 msgstr "Takelio atlikėjas"
+
+#~ msgid "Sound Juicer CD Ripper"
+#~ msgstr "Muzikos iš CD rašiklis, Sound Juicer"
