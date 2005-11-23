@@ -282,6 +282,29 @@ mb_set_proxy_port (SjMetadata *metadata, const int port)
   mb_SetProxy (priv->mb, priv->http_proxy, priv->http_proxy_port);
 }
 
+/* Data imported from FreeDB is horrendeous for compilations,
+ * Try to split the 'Various' artist */
+static void
+artist_and_title_from_title (TrackDetails *track, gpointer data)
+{
+  char *slash, **split;
+
+  if (g_ascii_strncasecmp (MBI_VARIOUS_ARTIST_ID, track->album->artist_id, 64) != 0 && track->album->artist_id[0] != '\0' && track->artist_id[0] != '\0') {
+    track->title = g_strdup (data);
+    return;
+  }
+
+  slash = strstr (data, " / ");
+  if (slash == NULL) {
+    track->title = g_strdup (data);
+    return;
+  }
+  split = g_strsplit (data, " / ", 2);
+  track->artist = g_strdup (split[0]);
+  track->title = g_strdup (split[1]);
+  g_strfreev (split);
+}
+
 static gpointer
 lookup_cd (SjMetadata *metadata)
 {
@@ -415,10 +438,14 @@ lookup_cd (SjMetadata *metadata)
       }
 
       if (mb_GetResultData1(priv->mb, MBE_AlbumGetTrackName, data, MB_BUFFER_SIZE, j)) {
-        track->title = g_strdup (data);
+        if (track->artist_id != NULL) {
+          artist_and_title_from_title (track, data);
+	} else {
+          track->title = g_strdup (data);
+	}
       }
 
-      if (mb_GetResultData1(priv->mb, MBE_AlbumGetArtistName, data, MB_BUFFER_SIZE, j)) {
+      if (track->artist == NULL && mb_GetResultData1(priv->mb, MBE_AlbumGetArtistName, data, MB_BUFFER_SIZE, j)) {
         track->artist = g_strdup (data);
       }
 
