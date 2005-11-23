@@ -152,6 +152,24 @@ sj_stock_init (void)
   initialized = TRUE;
 }
 
+static void
+set_busy_cursor (gboolean busy)
+{
+  if (!GTK_WIDGET_REALIZED (main_window))
+    return;
+
+  if (busy) {
+    GdkCursor *cursor;
+    cursor = gdk_cursor_new_for_display (gdk_drawable_get_display (main_window->window),
+					 GDK_WATCH);
+    gdk_window_set_cursor (main_window->window, cursor);
+    gdk_cursor_unref (cursor);
+    gdk_display_sync (gdk_drawable_get_display (main_window->window));
+  } else {
+    gdk_window_set_cursor (main_window->window, NULL);
+  }
+}
+
 void
 sj_main_set_title (const char* detail)
 {
@@ -208,6 +226,12 @@ void on_eject_activate (GtkMenuItem *item, gpointer user_data)
   nautilus_burn_drive_eject (drive);
 }
 
+static gboolean poll_helper (gpointer data)
+{
+  reread_cd (TRUE);
+  return FALSE;
+}
+
 static gboolean poll_tray_opened (gpointer data)
 {
   gboolean new_status;
@@ -217,7 +241,8 @@ static gboolean poll_tray_opened (gpointer data)
   new_status = nautilus_burn_drive_door_is_open (drive);
   if (new_status != tray_opened && new_status == FALSE) {
     d(g_printerr("Poll detected new CD\n"));
-    reread_cd (TRUE);
+    set_busy_cursor (TRUE);
+    g_timeout_add (300, poll_helper, NULL);
   } else if (new_status != tray_opened && new_status == TRUE) {
     d(g_printerr("Poll detected removed CD\n"));
     stop_ui_hack ();
@@ -578,11 +603,10 @@ static void
 metadata_cb (SjMetadata *m, GList *albums, GError *error)
 {
   gboolean realized = GTK_WIDGET_REALIZED (main_window);
-
-  if (realized)
-    gdk_window_set_cursor (main_window->window, NULL);
-    /* Clear the statusbar message */
-    gtk_statusbar_pop(GTK_STATUSBAR(status_bar), 0);
+  
+  set_busy_cursor (FALSE);
+  /* Clear the statusbar message */
+  gtk_statusbar_pop(GTK_STATUSBAR(status_bar), 0);
   
   if (error && !(error->code == SJ_ERROR_CD_NO_MEDIA)) {
     GtkWidget *dialog;
@@ -651,18 +675,11 @@ is_audio_cd (NautilusBurnDrive *drive)
 static void reread_cd (gboolean ignore_no_media)
 {
   /* TODO: remove ignore_no_media? */
-  GError *error = NULL;
-  GdkCursor *cursor;
   gboolean realized = GTK_WIDGET_REALIZED (main_window);
+  GError *error = NULL;
   
   /* Set watch cursor */
-  if (realized) {
-    cursor = gdk_cursor_new_for_display (gdk_drawable_get_display (main_window->window),
-					 GDK_WATCH);
-    gdk_window_set_cursor (main_window->window, cursor);
-    gdk_cursor_unref (cursor);
-    gdk_display_sync (gdk_drawable_get_display (main_window->window));
-  }
+  set_busy_cursor (TRUE);
   
   /* Set statusbar message */
   gtk_statusbar_push(GTK_STATUSBAR(status_bar), 0, _("Retrieving track listing...please wait."));
@@ -673,8 +690,7 @@ static void reread_cd (gboolean ignore_no_media)
     d(g_printerr("Media is not an audio CD\n"));
     update_ui_for_album (NULL);
     gtk_statusbar_pop(GTK_STATUSBAR(status_bar), 0);
-    if (realized)
-      gdk_window_set_cursor (main_window->window, NULL);
+    set_busy_cursor (FALSE);
     return;
   }
   
