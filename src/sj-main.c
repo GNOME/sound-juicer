@@ -1165,6 +1165,8 @@ int main (int argc, char **argv)
 
   sj_stock_init ();
 
+  gtk_window_set_default_icon_from_file (PIXMAPDIR"/sound-juicer.png", NULL);
+
   connection = bacon_message_connection_new ("sound-juicer");
   if (bacon_message_connection_get_is_server (connection) == FALSE) {
 	  bacon_message_connection_send (connection, RAISE_WINDOW);
@@ -1222,8 +1224,6 @@ int main (int argc, char **argv)
   glade_xml_signal_autoconnect (glade);
 
   main_window = glade_xml_get_widget (glade, "main_window");
-  gtk_window_set_icon_from_file (GTK_WINDOW (main_window), PIXMAPDIR"/sound-juicer.png", NULL);
-
   select_all_menuitem = glade_xml_get_widget (glade, "select_all");
   deselect_all_menuitem = glade_xml_get_widget (glade, "deselect_all");
   title_entry = glade_xml_get_widget (glade, "title_entry");
@@ -1307,15 +1307,15 @@ int main (int argc, char **argv)
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
   }
 
-  update_ui_for_album (NULL);
-  gtk_widget_show (main_window);
-
   extractor = SJ_EXTRACTOR (sj_extractor_new());
   error = sj_extractor_get_new_error (extractor);
   if (error) {
     error_on_start (error);
     exit (1);
   }
+
+  update_ui_for_album (NULL);
+  gtk_widget_show (main_window);
 
   sj_play_init ();
 
