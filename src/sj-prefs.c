@@ -407,10 +407,25 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
   int rc;
 
   if (prefs_dialog == NULL) {
+    const char * labels[] = { "cd_label", "path_label", "folder_label", "file_label", "example_label", "profile_label" };
+    guint i;
+    GtkSizeGroup *group;
+
     prefs_dialog = glade_xml_get_widget (glade, "prefs_dialog");
     g_assert (prefs_dialog != NULL);
     gtk_window_set_transient_for (GTK_WINDOW (prefs_dialog), GTK_WINDOW (main_window));
 
+    group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
+    for (i = 0; i < G_N_ELEMENTS (labels); i++) {
+      GtkWidget *widget;
+      widget = glade_xml_get_widget (glade, labels[i]);
+      if (widget) {
+        gtk_size_group_add_widget (group, widget);
+      } else {
+        g_warning ("Widget %s not found", labels[i]);
+      }
+    }
+    g_object_unref (group);
 
     cd_option = glade_xml_get_widget (glade, "cd_option");
     basepath_fcb = glade_xml_get_widget (glade, "path_chooser");
