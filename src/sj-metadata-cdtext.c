@@ -35,10 +35,6 @@
 #include "sj-error.h"
 #include "sj-util.h"
 
-#if CDIO_API_VERSION != 2
-#error Unknown libcdio version!
-#endif
-
 static GError* cdtext_get_new_error (SjMetadata *metadata);
 static void cdtext_set_cdrom (SjMetadata *metadata, const char* device);
 static void cdtext_set_proxy (SjMetadata *metadata, const char* proxy);
