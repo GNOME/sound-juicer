@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-21 05:46+0200\n"
-"PO-Revision-Date: 2005-10-21 19:47+0300\n"
+"POT-Creation-Date: 2005-11-24 06:59+0100\n"
+"PO-Revision-Date: 2005-11-24 08:53+0300\n"
 "Last-Translator: Priit Laes <amd@store20.com>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -21,10 +21,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../data/sound-juicer.desktop.in.h:1
+msgid "CD Extractor"
+msgstr "CD-Rippija"
+
+#: ../data/sound-juicer.desktop.in.h:2
 msgid "Extract music from your CDs"
 msgstr "Ripi muusikat oma CD'delt"
 
-#: ../data/sound-juicer.desktop.in.h:2
+#: ../data/sound-juicer.desktop.in.h:3
 msgid "Sound Juicer CD Extractor"
 msgstr "Sound Juicer CD'de rippija"
 
@@ -93,8 +97,8 @@ msgid "Multiple Albums Found"
 msgstr "Leiti mitu albumit"
 
 #: ../data/sound-juicer.glade.h:17
-msgid "O_utput:"
-msgstr "_Väljund:"
+msgid "O_utput Format:"
+msgstr "_Väljundvorming:"
 
 #: ../data/sound-juicer.glade.h:18
 msgid "Pre_vious Track"
@@ -450,11 +454,11 @@ msgstr ""
 "Sound Juicer'i abiteavet pole võimalik kuvada\n"
 "%s"
 
-#: ../src/sj-main.c:1187
+#: ../src/sj-main.c:1189
 msgid "Could not create GConf client.\n"
 msgstr "GConf klienti pole võimalik luua.\n"
 
-#: ../src/sj-main.c:1217
+#: ../src/sj-main.c:1219
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Sound Juicer'i liidesefail ei ole loetav."
 
@@ -466,11 +470,11 @@ msgstr "Lugu"
 msgid "Duration"
 msgstr "Kestus"
 
-#: ../src/sj-metadata-cdtext.c:128
+#: ../src/sj-metadata-cdtext.c:124
 msgid "CD-TEXT metadata plugin failed to initialise."
 msgstr "Tõrge CD-TEXT metaandmete plugina lähtestamisel."
 
-#: ../src/sj-metadata-cdtext.c:179
+#: ../src/sj-metadata-cdtext.c:175
 msgid "Cannot read CD"
 msgstr "CD-plaati pole võimalik lugeda"
 
@@ -479,18 +483,18 @@ msgid "Cannot create MusicBrainz client"
 msgstr "MusicBrainz'i klienti pole võimalik luua"
 
 #: ../src/sj-metadata-musicbrainz.c:194
-#: ../src/sj-metadata-musicbrainz.c:316
+#: ../src/sj-metadata-musicbrainz.c:339
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "CD-plaati pole võimalik lugeda: %s"
 
 #: ../src/sj-metadata-musicbrainz.c:201
-#: ../src/sj-metadata-musicbrainz.c:361
+#: ../src/sj-metadata-musicbrainz.c:384
 msgid "Unknown Artist"
 msgstr "Tundmatu esitaja"
 
 #: ../src/sj-metadata-musicbrainz.c:202
-#: ../src/sj-metadata-musicbrainz.c:369
+#: ../src/sj-metadata-musicbrainz.c:392
 msgid "Unknown Title"
 msgstr "Tundmatu pealkiri"
 
@@ -503,34 +507,34 @@ msgstr "%d lugu"
 msgid "MusicBrainz metadata object is not valid. This is bad, check your console for errors."
 msgstr "MusicBrainz'i metaandmete objekt ei ole paikapidav. See on halb, vaata tekkinud veateateid konsoolilt."
 
-#: ../src/sj-metadata-musicbrainz.c:310
+#: ../src/sj-metadata-musicbrainz.c:333
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Seade '%s' ei sisalda meediat"
 
-#: ../src/sj-metadata-musicbrainz.c:313
+#: ../src/sj-metadata-musicbrainz.c:336
 #, c-format
 msgid "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "Seadet '%s' ei suudetud avada. Kontrolli seadme juurdepääsuõiguseid."
 
-#: ../src/sj-metadata-musicbrainz.c:326
+#: ../src/sj-metadata-musicbrainz.c:349
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "Selle plaadi kohta pole võimalik teavet pärida: %s\n"
 
-#: ../src/sj-metadata-musicbrainz.c:334
+#: ../src/sj-metadata-musicbrainz.c:357
 msgid "This CD was not found.\n"
 msgstr "Seda plaati ei leitud.\n"
 
-#: ../src/sj-metadata-musicbrainz.c:356
+#: ../src/sj-metadata-musicbrainz.c:379
 msgid "Various"
 msgstr "Erinevad"
 
-#: ../src/sj-metadata-musicbrainz.c:393
+#: ../src/sj-metadata-musicbrainz.c:416
 msgid "Incomplete metadata for this CD.\n"
 msgstr "Selle plaadi jaoks pole täielikke metaandmeid.\n"
 
-#: ../src/sj-metadata-musicbrainz.c:471
+#: ../src/sj-metadata-musicbrainz.c:500
 msgid "Could not create CD lookup thread"
 msgstr "Plaadinime lahendamiseks vajaliku lõime pole võimalik luua"
 
@@ -617,8 +621,6 @@ msgstr "Loo esitaja"
 
 #~ msgid "Sound Juicer CD Ripper"
 #~ msgstr "Sound Juicer plaadirippija"
-#~ msgid "Extract"
-#~ msgstr "Ripi"
 #~ msgid "<b>Album Progress</b>"
 #~ msgstr "<b>Albumi edenemine</b>"
 #~ msgid "<b>Track Progress</b>"
