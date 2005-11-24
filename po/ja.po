@@ -5,12 +5,15 @@
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2004.
 # Satoru SATOH <ss@gnome.gr.jp>, 2004.
 #
+# 訳語の凡例 (since 2005-11-24):
+# Audio: 音楽 or オーディオ
+# Music: 楽曲
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-29 23:33+0900\n"
-"PO-Revision-Date: 2005-10-29 23:31+0900\n"
+"POT-Creation-Date: 2005-11-24 22:23+0900\n"
+"PO-Revision-Date: 2005-11-24 22:21+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -18,10 +21,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../data/sound-juicer.desktop.in.h:1
-msgid "Extract music from your CDs"
-msgstr "お好みの CD から音楽を切り出します"
+msgid "CD Extractor"
+msgstr "CD 切り出しツール"
 
 #: ../data/sound-juicer.desktop.in.h:2
+msgid "Extract music from your CDs"
+msgstr "お好みの CD から楽曲を切り出します"
+
+#: ../data/sound-juicer.desktop.in.h:3
 msgid "Sound Juicer CD Extractor"
 msgstr "Sound Juicer CD 切り出しツール"
 
@@ -47,7 +54,7 @@ msgstr "<b>ジャンル:</b>"
 
 #: ../data/sound-juicer.glade.h:6
 msgid "<b>Music Folder</b>"
-msgstr "<b>音楽フォルダ</b>"
+msgstr "<b>楽曲フォルダ</b>"
 
 #: ../data/sound-juicer.glade.h:7
 msgid "<b>Title:</b>"
@@ -90,8 +97,8 @@ msgid "Multiple Albums Found"
 msgstr "複数のアルバムを検出しました"
 
 #: ../data/sound-juicer.glade.h:17
-msgid "O_utput:"
-msgstr "出力(_U):"
+msgid "O_utput Format:"
+msgstr "出力フォーマット(_U):"
 
 #: ../data/sound-juicer.glade.h:18
 msgid "Pre_vious Track"
@@ -149,7 +156,7 @@ msgstr "編集(_E)"
 
 #: ../data/sound-juicer.glade.h:30
 msgid "_Eject when finished"
-msgstr "完了したらイジェクトする(_E)"
+msgstr "完了したら取り出す(_E)"
 
 #: ../data/sound-juicer.glade.h:31
 msgid "_Folder:"
@@ -177,7 +184,7 @@ msgstr "全て選択(_S)"
 
 #: ../data/sound-juicer.glade.h:37
 msgid "_Strip special characters"
-msgstr "特殊文字を無視する(_S)"
+msgstr "特殊な文字を無視する(_S)"
 
 #: ../data/sound-juicer.glade.h:38
 msgid "label"
@@ -341,7 +348,7 @@ msgstr "GNOME オーディオ・プロファイル"
 
 #: ../src/sj-extractor.c:105
 msgid "The GNOME Audio Profile used for encoding audio"
-msgstr "オーディオを切り出す際に使用する GNOME オーディオ・プロファイル"
+msgstr "楽曲を切り出す際に使用する GNOME オーディオ・プロファイル"
 
 #: ../src/sj-extractor.c:305
 msgid "Could not create GStreamer cdparanoia reader"
@@ -472,11 +479,11 @@ msgstr ""
 "Sound Juicer のヘルプを表示できませんでした。\n"
 "%s"
 
-#: ../src/sj-main.c:1187
+#: ../src/sj-main.c:1189
 msgid "Could not create GConf client.\n"
 msgstr "GConf クライアントを生成できませんでした。\n"
 
-#: ../src/sj-main.c:1217
+#: ../src/sj-main.c:1219
 msgid "The interface file for Sound Juicer could not be read."
 msgstr ""
 "Sound Juicer のインタフェース・ファイル (.glade) を読み込めませんでした。"
@@ -489,11 +496,11 @@ msgstr "トラック"
 msgid "Duration"
 msgstr "演奏時間"
 
-#: ../src/sj-metadata-cdtext.c:128
+#: ../src/sj-metadata-cdtext.c:124
 msgid "CD-TEXT metadata plugin failed to initialise."
 msgstr "CD-TEXT メタデータのプラグインを初期化できませんでした。"
 
-#: ../src/sj-metadata-cdtext.c:179
+#: ../src/sj-metadata-cdtext.c:175
 msgid "Cannot read CD"
 msgstr "CD を読み込めません"
 
@@ -501,16 +508,16 @@ msgstr "CD を読み込めません"
 msgid "Cannot create MusicBrainz client"
 msgstr "MusicBrainz クライアントを生成できません"
 
-#: ../src/sj-metadata-musicbrainz.c:194 ../src/sj-metadata-musicbrainz.c:316
+#: ../src/sj-metadata-musicbrainz.c:194 ../src/sj-metadata-musicbrainz.c:339
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "音楽 CD を読み込めません: %s"
 
-#: ../src/sj-metadata-musicbrainz.c:201 ../src/sj-metadata-musicbrainz.c:361
+#: ../src/sj-metadata-musicbrainz.c:201 ../src/sj-metadata-musicbrainz.c:384
 msgid "Unknown Artist"
 msgstr "演奏者が不明です"
 
-#: ../src/sj-metadata-musicbrainz.c:202 ../src/sj-metadata-musicbrainz.c:369
+#: ../src/sj-metadata-musicbrainz.c:202 ../src/sj-metadata-musicbrainz.c:392
 msgid "Unknown Title"
 msgstr "タイトルが不明です"
 
@@ -527,12 +534,12 @@ msgstr ""
 "MusicBrainz メタデータ・'オブジェクトが不正です。この状態は最悪です。端末から"
 "エラーをチェックして下さい。"
 
-#: ../src/sj-metadata-musicbrainz.c:310
+#: ../src/sj-metadata-musicbrainz.c:333
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "デバイス '%s' にはメディアが挿入されていません"
 
-#: ../src/sj-metadata-musicbrainz.c:313
+#: ../src/sj-metadata-musicbrainz.c:336
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
@@ -540,24 +547,24 @@ msgstr ""
 "デバイス '%s' を開けませんでした。デバイスへのアクセス権限をチェックして下さ"
 "い。"
 
-#: ../src/sj-metadata-musicbrainz.c:326
+#: ../src/sj-metadata-musicbrainz.c:349
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "この音楽 CD を音楽 DB に問い合わせできませんでした: %s\n"
 
-#: ../src/sj-metadata-musicbrainz.c:334
+#: ../src/sj-metadata-musicbrainz.c:357
 msgid "This CD was not found.\n"
 msgstr "この音楽 CD が見つかりませんでした。\n"
 
-#: ../src/sj-metadata-musicbrainz.c:356
+#: ../src/sj-metadata-musicbrainz.c:379
 msgid "Various"
 msgstr "いろいろ"
 
-#: ../src/sj-metadata-musicbrainz.c:393
+#: ../src/sj-metadata-musicbrainz.c:416
 msgid "Incomplete metadata for this CD.\n"
 msgstr "この CD のメタデータが不完全です。\n"
 
-#: ../src/sj-metadata-musicbrainz.c:473
+#: ../src/sj-metadata-musicbrainz.c:500
 msgid "Could not create CD lookup thread"
 msgstr "音楽 CD の問い合わせスレッドを生成できませんでした"
 
