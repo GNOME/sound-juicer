@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-15 06:53+0000\n"
-"PO-Revision-Date: 2005-08-20 22:45+0200\n"
+"POT-Creation-Date: 2005-11-24 14:54+0100\n"
+"PO-Revision-Date: 2005-11-24 22:33+0100\n"
 "Last-Translator: Elian Myftiu <elian@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -17,12 +17,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit"
 
 #: ../data/sound-juicer.desktop.in.h:1
+msgid "CD Extractor"
+msgstr "Nxjerrësi i CD"
+
+#: ../data/sound-juicer.desktop.in.h:2
 msgid "Extract music from your CDs"
 msgstr "Nxirr muzikë nga CDtë tuaja"
 
-#: ../data/sound-juicer.desktop.in.h:2
-msgid "Sound Juicer CD Ripper"
-msgstr "Sound Juicer - CD Ripper"
+#: ../data/sound-juicer.desktop.in.h:3
+msgid "Sound Juicer CD Extractor"
+msgstr "Shtrydhësi i Tingullit Nxjerrës CD"
 
 #: ../data/sound-juicer.glade.h:1
 msgid "<b>Artist:</b>"
@@ -89,8 +93,8 @@ msgid "Multiple Albums Found"
 msgstr "U Gjetën Albume të Shumëfishtë"
 
 #: ../data/sound-juicer.glade.h:17
-msgid "O_utput:"
-msgstr "Dal_ja:"
+msgid "O_utput Format:"
+msgstr "Formati i Përpu_nimit:"
 
 #: ../data/sound-juicer.glade.h:18
 msgid "Pre_vious Track"
@@ -113,8 +117,8 @@ msgid "Skip to the previous track"
 msgstr "Kalo tek kënga e mëparshme"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-about.c:52
-#: ../src/sj-extractor.c:489 ../src/sj-main.c:159 ../src/sj-main.c:161
-#: ../src/sj-main.c:1109
+#: ../src/sj-extractor.c:492 ../src/sj-main.c:158 ../src/sj-main.c:160
+#: ../src/sj-main.c:1164
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -130,7 +134,7 @@ msgstr ""
 msgid "_Contents"
 msgstr "_Përmbajtja"
 
-#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:241
+#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:221
 msgid "_Continue"
 msgstr "_Vazhdo"
 
@@ -361,93 +365,101 @@ msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr "Objekti çngjeshës është i pavlefshëm. Kontrollo console për gabime."
 
-#: ../src/sj-extractor.c:525
+#: ../src/sj-extractor.c:528
 msgid "Could not seek to track"
 msgstr "I pamundur kërkimi në këngë"
 
-#: ../src/sj-extractor.c:530
+#: ../src/sj-extractor.c:533
 msgid "Could not get track start position"
 msgstr "E pamundur marrja e pozicionit fillestar të këngës"
 
-#: ../src/sj-extractor.c:560
+#: ../src/sj-extractor.c:563
 msgid "The plugin necessary for CD access was not found"
 msgstr "Plugin i duhur për leximin e CD-së nuk u gjet"
 
-#: ../src/sj-extractor.c:568
+#: ../src/sj-extractor.c:571
 msgid "The plugin necessary for file access was not found"
 msgstr "Plugin për leximin e file-it nuk u gjet"
 
-#: ../src/sj-main.c:174
+#: ../src/sj-main.c:135
+msgid "E_xtract"
+msgstr "Nx_irr Këngën"
+
+#: ../src/sj-main.c:173
 msgid "Could not start Sound Juicer"
 msgstr "E pamundur nisja e Sound Juicer"
 
-#: ../src/sj-main.c:175 ../src/sj-main.c:595 ../src/sj-main.c:684
-#: ../src/sj-main.c:745
+#: ../src/sj-main.c:174 ../src/sj-main.c:572 ../src/sj-main.c:671
+#: ../src/sj-main.c:762
 msgid "Reason"
 msgstr "Arsyeja"
 
-#: ../src/sj-main.c:177
+#: ../src/sj-main.c:176
 msgid "Please consult the documentation for assistance."
 msgstr "Të lutem këshillo manualin për ndihmë."
 
-#: ../src/sj-main.c:239
+#: ../src/sj-main.c:219
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr ""
 "Je duke nxjerrë këngë nga një CD. Dëshiron të dalësh tani apo të vazhdosh?"
 
-#: ../src/sj-main.c:302 ../src/sj-main.c:404
+#: ../src/sj-main.c:279 ../src/sj-main.c:381
 msgid "(unknown)"
 msgstr "(i panjohur)"
 
-#: ../src/sj-main.c:446 ../src/sj-main.c:1227
+#: ../src/sj-main.c:423 ../src/sj-main.c:1282
 msgid "Title"
 msgstr "Titulli"
 
-#: ../src/sj-main.c:452 ../src/sj-main.c:1236
+#: ../src/sj-main.c:429 ../src/sj-main.c:1291
 msgid "Artist"
 msgstr "Artisti"
 
-#: ../src/sj-main.c:593 ../src/sj-main.c:682 ../src/sj-main.c:743
+#: ../src/sj-main.c:570 ../src/sj-main.c:669 ../src/sj-main.c:760
 msgid "Could not read the CD"
 msgstr "I pamundur leximi nga CD"
 
-#: ../src/sj-main.c:594 ../src/sj-main.c:683
+#: ../src/sj-main.c:571 ../src/sj-main.c:670
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer nuk mundi të lexojë këngën e kësaj CD-je."
 
 #. Set statusbar message
-#: ../src/sj-main.c:667
+#: ../src/sj-main.c:651
 msgid "Retrieving track listing...please wait."
 msgstr "Duke tërhequr listën e këngëve...të lutem prit."
 
-#: ../src/sj-main.c:723
-msgid "No CD-ROM drives found"
-msgstr "Nuk u gjet asnjë lexues CD-ROM"
+#: ../src/sj-main.c:733
+msgid "Extracting audio from CD"
+msgstr "Duke nxjerrë muzikë nga CD"
 
-#: ../src/sj-main.c:724
-msgid "Sound Juicer could not find any CD-ROM drives to read."
-msgstr "Sound Juicer nuk arriti të gjejë asnjë lexues CD-ROM."
-
-#: ../src/sj-main.c:737
+#: ../src/sj-main.c:754
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer nuk arriti të përdorë dispozitivin CD-ROM '%s'"
 
-#: ../src/sj-main.c:784
+#: ../src/sj-main.c:804
+msgid "No CD-ROM drives found"
+msgstr "Nuk u gjet asnjë lexues CD-ROM"
+
+#: ../src/sj-main.c:805
+msgid "Sound Juicer could not find any CD-ROM drives to read."
+msgstr "Sound Juicer nuk arriti të gjejë asnjë lexues CD-ROM."
+
+#: ../src/sj-main.c:836
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Profili i zgjedhur audio nuk gjendet në instalimin tuaj."
 
-#: ../src/sj-main.c:786
+#: ../src/sj-main.c:838
 msgid "_Change Profile"
 msgstr "_Ndrysho Profil"
 
-#: ../src/sj-main.c:948
+#: ../src/sj-main.c:1000
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "U ndryshua kolona e panjohur %d"
 
-#: ../src/sj-main.c:1003 ../src/sj-prefs.c:141
+#: ../src/sj-main.c:1055 ../src/sj-prefs.c:141
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -456,36 +468,44 @@ msgstr ""
 "E pamundur shfaqja e ndihëms për Sound Juice\n"
 "%s"
 
-#: ../src/sj-main.c:1132
+#: ../src/sj-main.c:1189
 msgid "Could not create GConf client.\n"
 msgstr "I pamundur krijimi i klientit GConf.\n"
 
-#: ../src/sj-main.c:1162
+#: ../src/sj-main.c:1219
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "File i ndërfaqes për Sound Juicer nuk mund të lexohej."
 
-#: ../src/sj-main.c:1212
+#: ../src/sj-main.c:1267
 msgid "Track"
 msgstr "Kënga"
 
-#: ../src/sj-main.c:1247
+#: ../src/sj-main.c:1302
 msgid "Duration"
 msgstr "Kohëzgjatja"
+
+#: ../src/sj-metadata-cdtext.c:124
+msgid "CD-TEXT metadata plugin failed to initialise."
+msgstr "Plugin i të dhënave CD-TEXT dështoi në nisje."
+
+#: ../src/sj-metadata-cdtext.c:175
+msgid "Cannot read CD"
+msgstr "I pamundur leximi i CD-së"
 
 #: ../src/sj-metadata-musicbrainz.c:89
 msgid "Cannot create MusicBrainz client"
 msgstr "I pamundur krijimi i klientit MusicBrainz"
 
-#: ../src/sj-metadata-musicbrainz.c:194 ../src/sj-metadata-musicbrainz.c:316
+#: ../src/sj-metadata-musicbrainz.c:194 ../src/sj-metadata-musicbrainz.c:339
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "I pamundur leximi i CD-së: %s"
 
-#: ../src/sj-metadata-musicbrainz.c:201 ../src/sj-metadata-musicbrainz.c:361
+#: ../src/sj-metadata-musicbrainz.c:201 ../src/sj-metadata-musicbrainz.c:384
 msgid "Unknown Artist"
 msgstr "Artist i Panjohur"
 
-#: ../src/sj-metadata-musicbrainz.c:202 ../src/sj-metadata-musicbrainz.c:369
+#: ../src/sj-metadata-musicbrainz.c:202 ../src/sj-metadata-musicbrainz.c:392
 msgid "Unknown Title"
 msgstr "Titull i Panjohur"
 
@@ -502,12 +522,12 @@ msgstr ""
 "Objekti me të dhëna i MusicBrainz është i pavlefshëm. Kontrollo console tuaj "
 "për gabime."
 
-#: ../src/sj-metadata-musicbrainz.c:310
+#: ../src/sj-metadata-musicbrainz.c:333
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Dispozitivi '%s' nuk përmban ndonjë media"
 
-#: ../src/sj-metadata-musicbrainz.c:313
+#: ../src/sj-metadata-musicbrainz.c:336
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
@@ -515,24 +535,24 @@ msgstr ""
 "E pamundur hapja e dispozitivit '%s'. Kontrollo të drejtat e hyrjes në "
 "dispozitiv."
 
-#: ../src/sj-metadata-musicbrainz.c:326
+#: ../src/sj-metadata-musicbrainz.c:349
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "CD nuk mundi të pyetet: %s\n"
 
-#: ../src/sj-metadata-musicbrainz.c:334
+#: ../src/sj-metadata-musicbrainz.c:357
 msgid "This CD was not found.\n"
 msgstr "Ky CD nuk u gjet.\n"
 
-#: ../src/sj-metadata-musicbrainz.c:356
+#: ../src/sj-metadata-musicbrainz.c:379
 msgid "Various"
 msgstr "Të ndryshme"
 
-#: ../src/sj-metadata-musicbrainz.c:393
+#: ../src/sj-metadata-musicbrainz.c:416
 msgid "Incomplete metadata for this CD.\n"
 msgstr "Të dhëna jo të plota për këtë CD.\n"
 
-#: ../src/sj-metadata-musicbrainz.c:471
+#: ../src/sj-metadata-musicbrainz.c:500
 msgid "Could not create CD lookup thread"
 msgstr "I pamundur krijimi i proçesit kërkues për CD-në"
 
@@ -568,12 +588,12 @@ msgstr "Artisti i Albumit, Titulli i Albumit"
 msgid "Track Artist, Album Title"
 msgstr "Artisti i Këngës, Titulli i Këngës"
 
-#: ../src/sj-prefs.c:54 ../src/sj-prefs.c:288
+#: ../src/sj-prefs.c:54 ../src/sj-prefs.c:289
 msgid "Album Title"
 msgstr "Titulli i Albumit"
 
 #. title
-#: ../src/sj-prefs.c:55 ../src/sj-prefs.c:289
+#: ../src/sj-prefs.c:55 ../src/sj-prefs.c:290
 msgid "Album Artist"
 msgstr "Artisti i Albumit"
 
@@ -591,7 +611,7 @@ msgstr "Numri - Titulli"
 
 #. album
 #. track number
-#: ../src/sj-prefs.c:63 ../src/sj-prefs.c:300
+#: ../src/sj-prefs.c:63 ../src/sj-prefs.c:301
 msgid "Track Title"
 msgstr "Titulli i Këngës"
 
@@ -608,18 +628,18 @@ msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Numri-Artisti i Këngës-Titulli i Këngës (shkronja të vogla)"
 
 #. title
-#: ../src/sj-prefs.c:301
+#: ../src/sj-prefs.c:302
 msgid "Track Artist"
 msgstr "Artisti i Këngës"
+
+#~ msgid "Sound Juicer CD Ripper"
+#~ msgstr "Sound Juicer - CD Ripper"
 
 #~ msgid "<b>Album Progress</b>"
 #~ msgstr "<b>Ecuria e Albumit</b>"
 
 #~ msgid "<b>Track Progress</b>"
 #~ msgstr "<b>Progresi i Këngës</b>"
-
-#~ msgid "E_xtract"
-#~ msgstr "Nx_irr Këngën"
 
 #~ msgid "Progress"
 #~ msgstr "Ecuria"
@@ -878,9 +898,6 @@ msgstr "Artisti i Këngës"
 
 #~ msgid "[unknown genre]"
 #~ msgstr "[lloj i panjohur]"
-
-#~ msgid "Extract"
-#~ msgstr "Nxirr"
 
 #~ msgid "Could not create directory %s: %s"
 #~ msgstr "I pamundur krijimi i kartelës %s: %s"
