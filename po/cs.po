@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-02 14:39+0100\n"
-"PO-Revision-Date: 2005-11-02 23:34+0100\n"
+"POT-Creation-Date: 2005-12-02 15:09+0100\n"
+"PO-Revision-Date: 2005-12-02 20:45+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -15,10 +15,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../data/sound-juicer.desktop.in.h:1
+msgid "CD Extractor"
+msgstr "Extraktor CD"
+
+#: ../data/sound-juicer.desktop.in.h:2
 msgid "Extract music from your CDs"
 msgstr "Extrahovat hudbu z vašich CD"
 
-#: ../data/sound-juicer.desktop.in.h:2
+#: ../data/sound-juicer.desktop.in.h:3
 msgid "Sound Juicer CD Extractor"
 msgstr "Extraktor zvukových CD Sound Juicer"
 
@@ -87,8 +91,8 @@ msgid "Multiple Albums Found"
 msgstr "Nalezeno více alb"
 
 #: ../data/sound-juicer.glade.h:17
-msgid "O_utput:"
-msgstr "_Výstup:"
+msgid "O_utput Format:"
+msgstr "_Formát výstupu:"
 
 #: ../data/sound-juicer.glade.h:18
 msgid "Pre_vious Track"
@@ -460,11 +464,11 @@ msgstr ""
 "Nemohu zobrazit nápovědu pro Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1187
+#: ../src/sj-main.c:1189
 msgid "Could not create GConf client.\n"
 msgstr "Nemohu vytvořit klienta GConf.\n"
 
-#: ../src/sj-main.c:1217
+#: ../src/sj-main.c:1219
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Soubor rozhraní pro Sound Juicer nelze číst."
 
@@ -476,11 +480,11 @@ msgstr "Stopa"
 msgid "Duration"
 msgstr "Trvání"
 
-#: ../src/sj-metadata-cdtext.c:128
+#: ../src/sj-metadata-cdtext.c:124
 msgid "CD-TEXT metadata plugin failed to initialise."
 msgstr "Inicializace zásuvného modulu pro metadata CD-TEXT selhala."
 
-#: ../src/sj-metadata-cdtext.c:179
+#: ../src/sj-metadata-cdtext.c:175
 msgid "Cannot read CD"
 msgstr "Nemohu číst CD"
 
@@ -488,16 +492,16 @@ msgstr "Nemohu číst CD"
 msgid "Cannot create MusicBrainz client"
 msgstr "Nemohu vytvořit klienta MusicBrainz"
 
-#: ../src/sj-metadata-musicbrainz.c:194 ../src/sj-metadata-musicbrainz.c:316
+#: ../src/sj-metadata-musicbrainz.c:194 ../src/sj-metadata-musicbrainz.c:339
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Nemohu číst CD: %s"
 
-#: ../src/sj-metadata-musicbrainz.c:201 ../src/sj-metadata-musicbrainz.c:361
+#: ../src/sj-metadata-musicbrainz.c:201 ../src/sj-metadata-musicbrainz.c:384
 msgid "Unknown Artist"
 msgstr "Neznámý umělec"
 
-#: ../src/sj-metadata-musicbrainz.c:202 ../src/sj-metadata-musicbrainz.c:369
+#: ../src/sj-metadata-musicbrainz.c:202 ../src/sj-metadata-musicbrainz.c:392
 msgid "Unknown Title"
 msgstr "Neznámý název"
 
@@ -514,36 +518,36 @@ msgstr ""
 "Objekt metadat MusicBrainz není platný. To je špatné, přečtěte si chyby na "
 "své konzole."
 
-#: ../src/sj-metadata-musicbrainz.c:310
+#: ../src/sj-metadata-musicbrainz.c:333
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Zařízení '%s' neobsahuje médium"
 
-#: ../src/sj-metadata-musicbrainz.c:313
+#: ../src/sj-metadata-musicbrainz.c:336
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr ""
 "Nelze otevřít zařízení '%s'. Zkontrolujte oprávnění k přístupu k zařízení."
 
-#: ../src/sj-metadata-musicbrainz.c:326
+#: ../src/sj-metadata-musicbrainz.c:349
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "Nemohu se dotázat na toto CD: %s\n"
 
-#: ../src/sj-metadata-musicbrainz.c:334
+#: ../src/sj-metadata-musicbrainz.c:357
 msgid "This CD was not found.\n"
 msgstr "Toto CD nebylo nalezeno.\n"
 
-#: ../src/sj-metadata-musicbrainz.c:356
+#: ../src/sj-metadata-musicbrainz.c:379
 msgid "Various"
 msgstr "Různé"
 
-#: ../src/sj-metadata-musicbrainz.c:393
+#: ../src/sj-metadata-musicbrainz.c:416
 msgid "Incomplete metadata for this CD.\n"
 msgstr "Neúplná metadata pro toto CD.\n"
 
-#: ../src/sj-metadata-musicbrainz.c:473
+#: ../src/sj-metadata-musicbrainz.c:500
 msgid "Could not create CD lookup thread"
 msgstr "Nemohu vytvořit thread pro vyhledání CD"
 
@@ -625,9 +629,6 @@ msgstr "Umělec stopy"
 
 #~ msgid "Sound Juicer CD Ripper"
 #~ msgstr "Ripper CD Sound Juicer"
-
-#~ msgid "Extract"
-#~ msgstr "Extrahovat"
 
 #~ msgid "<b>Album Progress</b>"
 #~ msgstr "<b>Průběh alba</b>"
