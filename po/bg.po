@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-22 18:02+0200\n"
-"PO-Revision-Date: 2005-11-22 18:02+0200\n"
+"POT-Creation-Date: 2005-12-03 10:53+0200\n"
+"PO-Revision-Date: 2005-12-03 10:56+0200\n"
 "Last-Translator: Rostislav \"zbrox\" Raykov <zbrox@i-space.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,10 +20,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: ../data/sound-juicer.desktop.in.h:1
+msgid "CD Extractor"
+msgstr "Извличане на музика от музикални дискове"
+
+#: ../data/sound-juicer.desktop.in.h:2
 msgid "Extract music from your CDs"
 msgstr "Извличане на музика от Вашите аудио дискове в mp3 или ogg"
 
-#: ../data/sound-juicer.desktop.in.h:2
+#: ../data/sound-juicer.desktop.in.h:3
 msgid "Sound Juicer CD Extractor"
 msgstr "Sound Juicer - програма за извличане на музика"
 
@@ -92,8 +96,8 @@ msgid "Multiple Albums Found"
 msgstr "Открити множество албуми"
 
 #: ../data/sound-juicer.glade.h:17
-msgid "O_utput:"
-msgstr "_Изход:"
+msgid "O_utput Format:"
+msgstr "_Изходен формат:"
 
 #: ../data/sound-juicer.glade.h:18
 msgid "Pre_vious Track"
@@ -476,11 +480,11 @@ msgstr ""
 "Не може да бъде показана помощ за Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1187
+#: ../src/sj-main.c:1189
 msgid "Could not create GConf client.\n"
 msgstr "Не може да се създаде GConf клиент.\n"
 
-#: ../src/sj-main.c:1217
+#: ../src/sj-main.c:1219
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Файлът с описанието на Sound Juicer не може да бъде прочетен."
 
@@ -492,11 +496,11 @@ msgstr "Песен"
 msgid "Duration"
 msgstr "Продължителност"
 
-#: ../src/sj-metadata-cdtext.c:128
+#: ../src/sj-metadata-cdtext.c:124
 msgid "CD-TEXT metadata plugin failed to initialise."
 msgstr "Приставката за метаданни CD-TEXT не се инициализира."
 
-#: ../src/sj-metadata-cdtext.c:179
+#: ../src/sj-metadata-cdtext.c:175
 msgid "Cannot read CD"
 msgstr "Не може да чете CD"
 
@@ -504,16 +508,16 @@ msgstr "Не може да чете CD"
 msgid "Cannot create MusicBrainz client"
 msgstr "Не може да се създаде MusicBrainz клиента"
 
-#: ../src/sj-metadata-musicbrainz.c:194 ../src/sj-metadata-musicbrainz.c:316
+#: ../src/sj-metadata-musicbrainz.c:194 ../src/sj-metadata-musicbrainz.c:339
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Не може да чете CD: %s"
 
-#: ../src/sj-metadata-musicbrainz.c:201 ../src/sj-metadata-musicbrainz.c:361
+#: ../src/sj-metadata-musicbrainz.c:201 ../src/sj-metadata-musicbrainz.c:384
 msgid "Unknown Artist"
 msgstr "Непознат изпълнител"
 
-#: ../src/sj-metadata-musicbrainz.c:202 ../src/sj-metadata-musicbrainz.c:369
+#: ../src/sj-metadata-musicbrainz.c:202 ../src/sj-metadata-musicbrainz.c:392
 msgid "Unknown Title"
 msgstr "Непознато заглавие"
 
@@ -530,12 +534,12 @@ msgstr ""
 "MusicBrainz мета информацията не е валидна. Това е много лошо, проверете "
 "конзолата си загрешки."
 
-#: ../src/sj-metadata-musicbrainz.c:310
+#: ../src/sj-metadata-musicbrainz.c:333
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Устройството „%s“ не съдържа носител"
 
-#: ../src/sj-metadata-musicbrainz.c:313
+#: ../src/sj-metadata-musicbrainz.c:336
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
@@ -543,24 +547,24 @@ msgstr ""
 "Устройството „%s“ не може да бъде отворено. Проверете разрешенията за "
 "устройството."
 
-#: ../src/sj-metadata-musicbrainz.c:326
+#: ../src/sj-metadata-musicbrainz.c:349
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "Това CD не може да бъде заявено %s\n"
 
-#: ../src/sj-metadata-musicbrainz.c:334
+#: ../src/sj-metadata-musicbrainz.c:357
 msgid "This CD was not found.\n"
 msgstr "Това CD не беше открито.\n"
 
-#: ../src/sj-metadata-musicbrainz.c:356
+#: ../src/sj-metadata-musicbrainz.c:379
 msgid "Various"
 msgstr "Различни изпълнители"
 
-#: ../src/sj-metadata-musicbrainz.c:393
+#: ../src/sj-metadata-musicbrainz.c:416
 msgid "Incomplete metadata for this CD.\n"
 msgstr "Мета данните за това CD са незавършени.\n"
 
-#: ../src/sj-metadata-musicbrainz.c:473
+#: ../src/sj-metadata-musicbrainz.c:500
 msgid "Could not create CD lookup thread"
 msgstr "Нишката за преглед на CD-то не може да бъде създадена"
 
