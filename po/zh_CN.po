@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-04 05:47+0200\n"
-"PO-Revision-Date: 2005-10-04 14:40+0800\n"
+"POT-Creation-Date: 2005-12-25 15:00+0100\n"
+"PO-Revision-Date: 2005-12-25 22:37+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
@@ -18,10 +18,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../data/sound-juicer.desktop.in.h:1
+msgid "CD Extractor"
+msgstr "CD 提取器"
+
+#: ../data/sound-juicer.desktop.in.h:2
 msgid "Extract music from your CDs"
 msgstr "从您的 CD 中提取音乐"
 
-#: ../data/sound-juicer.desktop.in.h:2
+#: ../data/sound-juicer.desktop.in.h:3
 msgid "Sound Juicer CD Extractor"
 msgstr "音乐榨汁机 CD 提取器"
 
@@ -90,8 +94,8 @@ msgid "Multiple Albums Found"
 msgstr "找到多张专辑"
 
 #: ../data/sound-juicer.glade.h:17
-msgid "O_utput:"
-msgstr "输出(_U)："
+msgid "O_utput Format:"
+msgstr "输出格式(_U)："
 
 #: ../data/sound-juicer.glade.h:18
 msgid "Pre_vious Track"
@@ -114,8 +118,8 @@ msgid "Skip to the previous track"
 msgstr "跳到上一轨"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-about.c:52
-#: ../src/sj-extractor.c:492 ../src/sj-main.c:159 ../src/sj-main.c:161
-#: ../src/sj-main.c:1121
+#: ../src/sj-extractor.c:492 ../src/sj-main.c:158 ../src/sj-main.c:160
+#: ../src/sj-main.c:1164
 msgid "Sound Juicer"
 msgstr "音乐榨汁机"
 
@@ -129,7 +133,7 @@ msgstr "这张 CD 可能有多于一张的专辑。请在下面选择专辑，�
 msgid "_Contents"
 msgstr "目录(_C)"
 
-#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:241
+#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:221
 msgid "_Continue"
 msgstr "继续(_C)"
 
@@ -369,80 +373,84 @@ msgstr "CD 访问所需的插件未找到"
 msgid "The plugin necessary for file access was not found"
 msgstr "文件访问所需的插件未找到"
 
-#: ../src/sj-main.c:136
+#: ../src/sj-main.c:135
 msgid "E_xtract"
 msgstr "抓取(_X)"
 
-#: ../src/sj-main.c:174
+#: ../src/sj-main.c:173
 msgid "Could not start Sound Juicer"
 msgstr "无法启动音乐榨汁机"
 
-#: ../src/sj-main.c:175 ../src/sj-main.c:595 ../src/sj-main.c:684
-#: ../src/sj-main.c:719
+#: ../src/sj-main.c:174 ../src/sj-main.c:572 ../src/sj-main.c:671
+#: ../src/sj-main.c:762
 msgid "Reason"
 msgstr "原因"
 
-#: ../src/sj-main.c:177
+#: ../src/sj-main.c:176
 msgid "Please consult the documentation for assistance."
 msgstr "请参考文档获得帮助。"
 
-#: ../src/sj-main.c:239
+#: ../src/sj-main.c:219
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "您现在正在提取 CD。您想退出程序或者是继续？"
 
-#: ../src/sj-main.c:302 ../src/sj-main.c:404
+#: ../src/sj-main.c:279 ../src/sj-main.c:381
 msgid "(unknown)"
 msgstr "(未知)"
 
-#: ../src/sj-main.c:446 ../src/sj-main.c:1239
+#: ../src/sj-main.c:423 ../src/sj-main.c:1282
 msgid "Title"
 msgstr "标题"
 
-#: ../src/sj-main.c:452 ../src/sj-main.c:1248
+#: ../src/sj-main.c:429 ../src/sj-main.c:1291
 msgid "Artist"
 msgstr "艺人"
 
-#: ../src/sj-main.c:593 ../src/sj-main.c:682 ../src/sj-main.c:717
+#: ../src/sj-main.c:570 ../src/sj-main.c:669 ../src/sj-main.c:760
 msgid "Could not read the CD"
 msgstr "无法读取 CD"
 
-#: ../src/sj-main.c:594 ../src/sj-main.c:683
+#: ../src/sj-main.c:571 ../src/sj-main.c:670
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "音乐榨汁机无法读取此 CD 的音轨列表。"
 
 #. Set statusbar message
-#: ../src/sj-main.c:667
+#: ../src/sj-main.c:651
 msgid "Retrieving track listing...please wait."
 msgstr "正在获取音轨列表...请稍候。"
 
-#: ../src/sj-main.c:711
+#: ../src/sj-main.c:733
+msgid "Extracting audio from CD"
+msgstr "从 CD 中提取音乐"
+
+#: ../src/sj-main.c:754
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "音乐榨汁机无法访问光盘驱动器“%s”"
 
-#: ../src/sj-main.c:760
+#: ../src/sj-main.c:804
 msgid "No CD-ROM drives found"
 msgstr "找不到光驱"
 
-#: ../src/sj-main.c:761
+#: ../src/sj-main.c:805
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "音乐榨汁机找不到任何可以读取数据的光驱。"
 
-#: ../src/sj-main.c:793
+#: ../src/sj-main.c:836
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "目前所选的音频配置文件在您的系统中不可用。"
 
-#: ../src/sj-main.c:795
+#: ../src/sj-main.c:838
 msgid "_Change Profile"
 msgstr "更改配置文件(_C)"
 
-#: ../src/sj-main.c:957
+#: ../src/sj-main.c:1000
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "未知的列 %d 已被修改"
 
-#: ../src/sj-main.c:1012 ../src/sj-prefs.c:141
+#: ../src/sj-main.c:1055 ../src/sj-prefs.c:141
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -451,36 +459,44 @@ msgstr ""
 "无法显示音乐榨汁机的帮助\n"
 "%s"
 
-#: ../src/sj-main.c:1144
+#: ../src/sj-main.c:1189
 msgid "Could not create GConf client.\n"
 msgstr "无法创建 GConf 客户。\n"
 
-#: ../src/sj-main.c:1174
+#: ../src/sj-main.c:1219
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "音乐榨汁机的界面文件无法读取。"
 
-#: ../src/sj-main.c:1224
+#: ../src/sj-main.c:1267
 msgid "Track"
 msgstr "音轨"
 
-#: ../src/sj-main.c:1259
+#: ../src/sj-main.c:1302
 msgid "Duration"
 msgstr "长度"
+
+#: ../src/sj-metadata-cdtext.c:124
+msgid "CD-TEXT metadata plugin failed to initialise."
+msgstr "CD-TEXT 元数据插件初始化失败。"
+
+#: ../src/sj-metadata-cdtext.c:175
+msgid "Cannot read CD"
+msgstr "无法读取 CD"
 
 #: ../src/sj-metadata-musicbrainz.c:89
 msgid "Cannot create MusicBrainz client"
 msgstr "无法创建 MusicBrainz 客户"
 
-#: ../src/sj-metadata-musicbrainz.c:194 ../src/sj-metadata-musicbrainz.c:316
+#: ../src/sj-metadata-musicbrainz.c:194 ../src/sj-metadata-musicbrainz.c:339
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "无法读取 CD：%s"
 
-#: ../src/sj-metadata-musicbrainz.c:201 ../src/sj-metadata-musicbrainz.c:361
+#: ../src/sj-metadata-musicbrainz.c:201 ../src/sj-metadata-musicbrainz.c:384
 msgid "Unknown Artist"
 msgstr "未知艺人"
 
-#: ../src/sj-metadata-musicbrainz.c:202 ../src/sj-metadata-musicbrainz.c:369
+#: ../src/sj-metadata-musicbrainz.c:202 ../src/sj-metadata-musicbrainz.c:392
 msgid "Unknown Title"
 msgstr "未知标题"
 
@@ -495,35 +511,35 @@ msgid ""
 "for errors."
 msgstr "MusicBrainz 元数据对象无效。请在您的控制台上查看错误信息。"
 
-#: ../src/sj-metadata-musicbrainz.c:310
+#: ../src/sj-metadata-musicbrainz.c:333
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "设备“%s”不包含介质"
 
-#: ../src/sj-metadata-musicbrainz.c:313
+#: ../src/sj-metadata-musicbrainz.c:336
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "无法打开设备“%s”。请检查设备的访问权限。"
 
-#: ../src/sj-metadata-musicbrainz.c:326
+#: ../src/sj-metadata-musicbrainz.c:349
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "无法查询此 CD：%s\n"
 
-#: ../src/sj-metadata-musicbrainz.c:334
+#: ../src/sj-metadata-musicbrainz.c:357
 msgid "This CD was not found.\n"
 msgstr "没有找到此 CD。\n"
 
-#: ../src/sj-metadata-musicbrainz.c:356
+#: ../src/sj-metadata-musicbrainz.c:379
 msgid "Various"
 msgstr "多位"
 
-#: ../src/sj-metadata-musicbrainz.c:393
+#: ../src/sj-metadata-musicbrainz.c:416
 msgid "Incomplete metadata for this CD.\n"
 msgstr "此 CD 的元数据不完整。\n"
 
-#: ../src/sj-metadata-musicbrainz.c:471
+#: ../src/sj-metadata-musicbrainz.c:500
 msgid "Could not create CD lookup thread"
 msgstr "无法创建 CD 查阅线程"
 
@@ -559,12 +575,12 @@ msgstr "专辑艺人，专辑标题"
 msgid "Track Artist, Album Title"
 msgstr "音轨艺人，专辑标题"
 
-#: ../src/sj-prefs.c:54 ../src/sj-prefs.c:288
+#: ../src/sj-prefs.c:54 ../src/sj-prefs.c:289
 msgid "Album Title"
 msgstr "专辑标题"
 
 #. title
-#: ../src/sj-prefs.c:55 ../src/sj-prefs.c:289
+#: ../src/sj-prefs.c:55 ../src/sj-prefs.c:290
 msgid "Album Artist"
 msgstr "专辑艺人"
 
@@ -582,7 +598,7 @@ msgstr "编号 - 标题"
 
 #. album
 #. track number
-#: ../src/sj-prefs.c:63 ../src/sj-prefs.c:300
+#: ../src/sj-prefs.c:63 ../src/sj-prefs.c:301
 msgid "Track Title"
 msgstr "音轨标题"
 
@@ -599,7 +615,6 @@ msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "编号-音轨艺人-音轨标题(小写)"
 
 #. title
-#: ../src/sj-prefs.c:301
+#: ../src/sj-prefs.c:302
 msgid "Track Artist"
 msgstr "音轨艺人"
-
