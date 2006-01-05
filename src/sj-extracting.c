@@ -637,9 +637,9 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
 /**
  * Perform magic on a path to make it safe.
  *
- * This will always replace '/' with ' ', and optionally make the file
- * name shell-friendly. This involves removing [?*\ ] and replacing
- * with '_'.
+ * This will always replace '/' with ' ', and optionally make the file name
+ * shell-friendly. This involves removing [?*\ ] and replacing with '_'.  Also
+ * any leading periods are removed so that the files don't end up being hidden.
  *
  * This function doesn't change the input, and returns an allocated 
  * string.
@@ -648,7 +648,13 @@ static char*
 sanitize_path (const char* str)
 {
   gchar *res = NULL;
-  gchar *s = g_strdup(str);
+  gchar *s;
+
+  /* Skip leading periods, otherwise files disappear... */
+  while (*str == '.')
+    str++;
+  
+  s = g_strdup(str);
   /* Replace path seperators with a hyphen */
   g_strdelimit (s, "/", '-');
   if (strip_chars) {
