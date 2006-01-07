@@ -1,5 +1,17 @@
 2006-01-07  Ross Burton  <ross@burtonini.com>
 
+	* src/Makefile.am:
+	* src/gconf-bridge.[ch]:
+	Add GConf bridge, copied from the libgconf-bridge module.
+
+	* data/sound-juicer.glade:
+	* src/sj-main.c:
+	* src/sj-prefs.c:
+	* src/sound-juicer.h:
+	Use gconf-bridge to sync some properties, and the window size.
+
+2006-01-07  Ross Burton  <ross@burtonini.com>
+
 	* src/sj-extractor.c:
 	Protect against NULL profiles.
 

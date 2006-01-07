@@ -39,6 +39,7 @@
 #include <gst/gst.h>
 
 #include "bacon-message-connection.h"
+#include "gconf-bridge.h"
 #include "sj-about.h"
 #include "sj-metadata.h"
 #include "sj-metadata-musicbrainz.h"
@@ -88,6 +89,9 @@ static AlbumDetails *current_album;
 static char *current_submit_url = NULL;
 
 gboolean autostart = FALSE, autoplay = FALSE;
+
+/* For the default drive stuff, TODO: remove */
+static GList *cdroms = NULL;
 
 #define DEFAULT_PARANOIA 4
 #define RAISE_WINDOW "raise-window"
@@ -793,6 +797,33 @@ set_device (const char* device, gboolean ignore_no_media)
   }
 }
 
+gboolean cd_drive_exists (const char *device)
+{
+  GList *l;
+  if (device == NULL) return FALSE;
+  if (cdroms == NULL) {
+    cdroms = nautilus_burn_drive_get_list (FALSE, FALSE);
+  }
+  for (l = cdroms; l != NULL; l = l->next) {
+    if (strcmp (((NautilusBurnDrive *) (l->data))->device, device) == 0)
+      return TRUE;
+  }
+  return FALSE;
+}
+
+const char* prefs_get_default_device ()
+{
+  static const char* default_device = NULL;
+  if (default_device == NULL) {
+    NautilusBurnDrive *cd;
+    cdroms = nautilus_burn_drive_get_list (FALSE, FALSE);
+    if (cdroms == NULL) return NULL;
+    cd = cdroms->data;
+    default_device = cd->device;
+  }
+  return default_device;
+}
+
 /**
  * The GConf key for the device changed
  */
@@ -1357,13 +1388,14 @@ int main (int argc, char **argv)
   }
 
   update_ui_for_album (NULL);
+  gconf_bridge_bind_window_size(gconf_bridge_get(), GCONF_WINDOW, GTK_WINDOW (main_window));
   gtk_widget_show (main_window);
 
   sj_play_init ();
 
   selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (track_listview));
   gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
-	  
+
   http_proxy_setup (gconf_client);
   baseuri_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEURI, NULL, TRUE, NULL), NULL);
   path_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL), NULL);

@@ -30,6 +30,7 @@
 #include <profiles/gnome-media-profiles.h>
 #include <nautilus-burn-drive.h>
 #include <nautilus-burn-drive-selection.h>
+#include "gconf-bridge.h"
 #include "sj-extracting.h"
 
 extern GladeXML *glade;
@@ -39,7 +40,6 @@ static GtkWidget *audio_profile;
 static GtkWidget *prefs_dialog;
 static GtkWidget *cd_option, *path_option, *file_option, *basepath_fcb, *check_strip, *check_eject;
 static GtkWidget *path_example_label;
-static GList *cdroms = NULL;
 
 #define DEFAULT_AUDIO_PROFILE_NAME "cdlossy"
 
@@ -66,51 +66,6 @@ static const FilePattern file_patterns[] = {
   {N_("Number-Track Artist-Track Title (lowercase)"), "%tN-%tA-%tT"},
   {NULL, NULL}
 };
-
-const char* prefs_get_default_device ()
-{
-  static const char* default_device = NULL;
-  if (default_device == NULL) {
-    NautilusBurnDrive *cd;
-    cdroms = nautilus_burn_drive_get_list (FALSE, FALSE);
-    if (cdroms == NULL) return NULL;
-    cd = cdroms->data;
-    default_device = cd->device;
-  }
-  return default_device;
-}
-
-gboolean cd_drive_exists (const char *device)
-{
-  GList *l;
-  if (device == NULL) return FALSE;
-  if (cdroms == NULL) {
-    cdroms = nautilus_burn_drive_get_list (FALSE, FALSE);
-  }
-  for (l = cdroms; l != NULL; l = l->next) {
-    if (strcmp (((NautilusBurnDrive *) (l->data))->device, device) == 0)
-      return TRUE;
-  }
-  return FALSE;
-}
-
-/**
- * Changed the CD-ROM device in the prefs dialog
- */
-void prefs_cdrom_changed_cb (GtkWidget *widget, const char* device)
-{
-  gconf_client_set_string (gconf_client, GCONF_DEVICE, device != NULL ? device : "", NULL);
-}
-
-/**
- * The Eject when Finished check was toggled.
- */
-void prefs_eject_toggled (GtkToggleButton *togglebutton, gpointer user_data)
-{
-  gconf_client_set_bool (gconf_client, GCONF_EJECT,
-                         gtk_toggle_button_get_active (togglebutton),
-                         NULL);
-}
 
 void prefs_profile_changed (GtkWidget *widget, gpointer user_data)
 {
@@ -183,16 +138,6 @@ void prefs_file_option_changed (GtkComboBox *combo, gpointer user_data)
 }
 
 /**
- * The Strip Special Characters check was toggled.
- */
-void prefs_strip_toggled (GtkToggleButton *togglebutton, gpointer user_data)
-{
-  gconf_client_set_bool (gconf_client, GCONF_STRIP,
-                         gtk_toggle_button_get_active (togglebutton),
-                         NULL);
-}
-
-/**
  * The Edit Profiles button was pressed.
  */
 void prefs_edit_profile_clicked (GtkButton *button, gpointer user_data)
@@ -201,20 +146,6 @@ void prefs_edit_profile_clicked (GtkButton *button, gpointer user_data)
   dialog = gm_audio_profiles_edit_new (gconf_client, GTK_WINDOW (main_window));
   gtk_widget_show_all (dialog);
   gtk_dialog_run (GTK_DIALOG (dialog));
-}
-
-static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
-{
-  g_return_if_fail (strcmp (entry->key, GCONF_DEVICE) == 0);
-
-  if (entry->value == NULL) {
-    nautilus_burn_drive_selection_set_device (NAUTILUS_BURN_DRIVE_SELECTION (cd_option),
-                                   nautilus_burn_drive_selection_get_default_device (NAUTILUS_BURN_DRIVE_SELECTION (cd_option)));
-  } else {
-    g_return_if_fail (entry->value->type == GCONF_VALUE_STRING);
-    nautilus_burn_drive_selection_set_device (NAUTILUS_BURN_DRIVE_SELECTION (cd_option),
-                                   gconf_value_get_string (entry->value));
-  }
 }
 
 static void audio_profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
@@ -254,30 +185,6 @@ static void baseuri_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *
       gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (basepath_fcb), base_uri);
     }
   }
-}
-
-static void strip_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
-{
-  gboolean value = FALSE;
-  g_return_if_fail (strcmp (entry->key, GCONF_STRIP) == 0);
-
-  if (entry->value != NULL) {
-    g_return_if_fail (entry->value->type == GCONF_VALUE_BOOL);
-    value = gconf_value_get_bool (entry->value);
-  }
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check_strip), value);
-}
-
-static void eject_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
-{
-  gboolean value = FALSE;
-  g_return_if_fail (strcmp (entry->key, GCONF_EJECT) == 0);
-
-  if (entry->value != NULL) {
-    g_return_if_fail (entry->value->type == GCONF_VALUE_BOOL);
-    value = gconf_value_get_bool (entry->value);
-  }
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check_eject), value);
 }
 
 static void pattern_label_update (void)
@@ -410,6 +317,7 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     const char * labels[] = { "cd_label", "path_label", "folder_label", "file_label", "example_label", "profile_label" };
     guint i;
     GtkSizeGroup *group;
+    GConfBridge *bridge = gconf_bridge_get ();
 
     prefs_dialog = glade_xml_get_widget (glade, "prefs_dialog");
     g_assert (prefs_dialog != NULL);
@@ -442,19 +350,16 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     g_signal_connect (file_option, "changed", G_CALLBACK (prefs_file_option_changed), NULL);
 
     /* Connect to GConf to update the UI */
-    gconf_client_notify_add (gconf_client, GCONF_DEVICE, device_changed_cb, NULL, NULL, NULL);
+    gconf_bridge_bind_property (bridge, GCONF_EJECT, G_OBJECT (check_eject), "active");
+    gconf_bridge_bind_property (bridge, GCONF_STRIP, G_OBJECT (check_strip), "active");
+    gconf_bridge_bind_property (bridge, GCONF_DEVICE, G_OBJECT (cd_option), "device");
     gconf_client_notify_add (gconf_client, GCONF_BASEURI, baseuri_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_AUDIO_PROFILE, audio_profile_changed_cb, NULL, NULL, NULL);
-    gconf_client_notify_add (gconf_client, GCONF_STRIP, strip_changed_cb, NULL, NULL, NULL);
-    gconf_client_notify_add (gconf_client, GCONF_EJECT, eject_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_PATH_PATTERN, path_pattern_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_FILE_PATTERN, file_pattern_changed_cb, NULL, NULL, NULL);
   }
   baseuri_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEURI, NULL, TRUE, NULL), NULL);
-  device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), NULL);
   audio_profile_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_AUDIO_PROFILE, NULL, TRUE, NULL), NULL);
-  strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);
-  eject_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_EJECT, NULL, TRUE, NULL), NULL);
   file_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL), NULL);
   path_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL), NULL);
 

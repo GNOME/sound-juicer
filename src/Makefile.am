@@ -50,6 +50,8 @@ sound_juicer_SOURCES = \
 	sj-about.c \
 	sj-extracting.h \
 	sj-extracting.c \
+	gconf-bridge.h \
+	gconf-bridge.c \
 	bacon-volume.c \
 	bacon-volume.h \
 	$(BACON_FILES) \
