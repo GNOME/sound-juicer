@@ -55,6 +55,13 @@ static void mb_set_proxy_port (SjMetadata *metadata, const int port);
 static void mb_list_albums (SjMetadata *metadata, GError **error);
 static char *mb_get_submit_url (SjMetadata *metadata);
 
+#define GCONF_PROXY_USE_PROXY "/system/http_proxy/use_http_proxy"
+#define GCONF_PROXY_HOST "/system/http_proxy/host"
+#define GCONF_PROXY_PORT "/system/http_proxy/port"
+#define GCONF_PROXY_USE_AUTHENTICATION "/system/http_proxy/use_authentication"
+#define GCONF_PROXY_USERNAME "/system/http_proxy/authentication_user"
+#define GCONF_PROXY_PASSWORD "/system/http_proxy/authentication_password"
+
 /**
  * GObject methods
  */
@@ -101,6 +108,23 @@ sj_metadata_musicbrainz_instance_init (GTypeInstance *instance, gpointer g_class
     mb_SetServer (self->priv->mb, server_name, 80);
     g_free (server_name);
   }
+  
+  /* Set the HTTP proxy */
+  if (gconf_client_get_bool (gconf_client, GCONF_PROXY_USE_PROXY, NULL)) {
+    mb_SetProxy (self->priv->mb,
+                 gconf_client_get_string (gconf_client, GCONF_PROXY_HOST, NULL),
+                 gconf_client_get_int (gconf_client, GCONF_PROXY_PORT, NULL));
+    if (gconf_client_get_bool (gconf_client, GCONF_PROXY_USE_AUTHENTICATION, NULL)) {
+#if HAVE_MB_SETPROXYCREDS
+      mb_SetProxyCreds (self->priv->mb,
+                        gconf_client_get_string (gconf_client, GCONF_PROXY_USERNAME, NULL),
+                        gconf_client_get_string (gconf_client, GCONF_PROXY_USERNAME, NULL));
+#else
+      g_warning ("mb_SetProxyCreds() not found, no proxy authorisation possible.");
+#endif
+    }
+  }
+
   g_object_unref (gconf_client);
 
   /* TODO: optimal setting? mb_SetDepth (self->priv->mb, 1); */
