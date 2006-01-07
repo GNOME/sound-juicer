@@ -32,6 +32,7 @@
 #include <gconf/gconf-client.h>
 #include <nautilus-burn-drive.h>
 #include <libgnome/gnome-help.h>
+#include <libgnome/gnome-url.h>
 #include <libgnomeui/gnome-ui-init.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <profiles/gnome-media-profiles.h>
@@ -70,6 +71,7 @@ static GtkWidget *title_entry, *artist_entry, *duration_label, *genre_entry;
 static GtkWidget *track_listview, *extract_button, *play_button;
 static GtkWidget *status_bar;
 static GtkWidget *extract_menuitem, *play_menuitem, *next_menuitem, *prev_menuitem, *select_all_menuitem, *deselect_all_menuitem;
+static GtkWidget *submit_menuitem;
 GtkListStore *track_store;
 static BaconMessageConnection *connection;
 GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer;
@@ -83,6 +85,7 @@ gboolean extracting = FALSE;
 static gint total_no_of_tracks;
 static gint no_of_tracks_selected;
 static AlbumDetails *current_album;
+static char *current_submit_url = NULL;
 
 gboolean autostart = FALSE, autoplay = FALSE;
 
@@ -652,6 +655,10 @@ static void reread_cd (gboolean ignore_no_media)
 
   d(if (!drive) g_printerr("Attempting to re-read NULL drive\n"));
 
+  g_free (current_submit_url);
+  current_submit_url = NULL;
+  gtk_widget_set_sensitive (submit_menuitem, FALSE);
+
   if (!is_audio_cd (drive)) {
     d(g_printerr("Media is not an audio CD\n"));
     update_ui_for_album (NULL);
@@ -660,7 +667,12 @@ static void reread_cd (gboolean ignore_no_media)
       gdk_window_set_cursor (main_window->window, NULL);
     return;
   }
-  
+
+  current_submit_url = sj_metadata_get_submit_url (metadata);
+  if (current_submit_url) {
+    gtk_widget_set_sensitive (submit_menuitem, TRUE);
+  }
+
   sj_metadata_list_albums (metadata, &error);
 
   if (error && !(error->code == SJ_ERROR_CD_NO_MEDIA && ignore_no_media)) {
@@ -902,6 +914,35 @@ void http_proxy_port_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry 
 void on_reread_activate (GtkWidget *button, gpointer user_data)
 {
   reread_cd (FALSE);
+}
+
+/**
+ * Clicked the Submit menu item in the UI
+ */
+void on_submit_activate (GtkWidget *menuitem, gpointer user_data)
+{
+  GError *error = NULL;
+
+  if (current_submit_url) {
+    if (!gnome_url_show (current_submit_url, &error)) {
+      GtkWidget *dialog;
+
+      dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
+                                       GTK_DIALOG_DESTROY_WITH_PARENT,
+                                       GTK_MESSAGE_ERROR,
+                                       GTK_BUTTONS_CLOSE,
+                                       "<b>%s</b>\n\n%s\n%s: %s",
+				       _("Could not open URL"),
+				       _("Sound Juicer could not open the submission URL"),
+				       _("Reason"),
+				       error->message);
+      gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
+      gtk_dialog_run (GTK_DIALOG (dialog));
+      gtk_widget_destroy (dialog);
+      g_error_free (error);
+    }
+  }
+
 }
 
 /**
@@ -1226,6 +1267,7 @@ int main (int argc, char **argv)
   main_window = glade_xml_get_widget (glade, "main_window");
   select_all_menuitem = glade_xml_get_widget (glade, "select_all");
   deselect_all_menuitem = glade_xml_get_widget (glade, "deselect_all");
+  submit_menuitem = glade_xml_get_widget (glade, "submit");
   title_entry = glade_xml_get_widget (glade, "title_entry");
   artist_entry = glade_xml_get_widget (glade, "artist_entry");
   duration_label = glade_xml_get_widget (glade, "duration_label");

@@ -53,6 +53,7 @@ static void mb_set_cdrom (SjMetadata *metadata, const char* device);
 static void mb_set_proxy (SjMetadata *metadata, const char* proxy);
 static void mb_set_proxy_port (SjMetadata *metadata, const int port);
 static void mb_list_albums (SjMetadata *metadata, GError **error);
+static char *mb_get_submit_url (SjMetadata *metadata);
 
 /**
  * GObject methods
@@ -117,6 +118,7 @@ metadata_interface_init (gpointer g_iface, gpointer iface_data)
   klass->set_proxy = mb_set_proxy;
   klass->set_proxy_port = mb_set_proxy_port;
   klass->list_albums = mb_list_albums;
+  klass->get_submit_url = mb_get_submit_url;
 }
 
 static void
@@ -499,5 +501,22 @@ mb_list_albums (SjMetadata *metadata, GError **error)
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
                  _("Could not create CD lookup thread"));
     return;
+  }
+}
+
+static char *
+mb_get_submit_url (SjMetadata *metadata)
+{
+  SjMetadataMusicbrainzPrivate *priv;
+  char url[1025];
+
+  g_return_val_if_fail (metadata != NULL, NULL);
+
+  priv = SJ_METADATA_MUSICBRAINZ (metadata)->priv;
+
+  if (mb_GetWebSubmitURL(priv->mb, url, 1024)) {
+    return g_strdup(url);
+  } else {
+    return NULL;
   }
 }
