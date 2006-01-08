@@ -59,7 +59,8 @@ sj_metadata_cdtext_finalize (GObject *object)
   g_error_free (priv->construct_error);
   g_free (priv->cdrom);
   g_list_deep_free (priv->albums, (GFunc)album_details_free);
-  g_error_free (priv->error);
+  if (priv->error)
+    g_error_free (priv->error);
 }
 
 static void
@@ -205,7 +206,7 @@ cdtext_list_albums (SjMetadata *metadata, GError **error)
     } else {
       g_print ("No CD-TEXT for track %u\n", cdtrack);
     }
-    /* TODO: get track duration */
+    track->duration = cdio_get_track_sec_count (cdio, cdtrack) / CDIO_CD_FRAMES_PER_SEC;
 
     album->tracks = g_list_append (album->tracks, track);
     album->number++;
