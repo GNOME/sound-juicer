@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-07 23:13+0700\n"
-"PO-Revision-Date: 2006-01-07 23:23+0700\n"
+"POT-Creation-Date: 2006-01-09 12:22+0700\n"
+"PO-Revision-Date: 2006-01-09 12:25+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <L10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
@@ -186,8 +186,8 @@ msgid "_Strip special characters"
 msgstr "_ลบตัวอักษรพิเศษออก"
 
 #: data/sound-juicer.glade.h:38
-msgid "_Submit ..."
-msgstr "_ส่ง ..."
+msgid "_Submit..."
+msgstr "_ส่ง..."
 
 #: data/sound-juicer.glade.h:39
 msgid "label"
@@ -277,6 +277,15 @@ msgstr "+"
 #: src/bacon-volume.c:203
 msgid "-"
 msgstr "-"
+
+#: src/gconf-bridge.c:1175
+#, c-format
+msgid "GConf error: %s"
+msgstr "ข้อผิดพลาดเกี่ยวกับ GConf: %s"
+
+#: src/gconf-bridge.c:1185
+msgid "All further errors shown only on terminal."
+msgstr "ข้อผิดพลาดอื่นจะแสดงในเทอร์มินัลเท่านั้น"
 
 #: src/sj-about.c:53
 msgid "An Audio CD Extractor"
@@ -498,11 +507,11 @@ msgstr "ร่องเสียง"
 msgid "Duration"
 msgstr "ความยาว"
 
-#: src/sj-metadata-cdtext.c:124
+#: src/sj-metadata-cdtext.c:125
 msgid "CD-TEXT metadata plugin failed to initialise."
 msgstr "ปลั๊กอิน CD-TEXT metadata เริ่มทำงานไม่สำเร็จ"
 
-#: src/sj-metadata-cdtext.c:175
+#: src/sj-metadata-cdtext.c:176
 msgid "Cannot read CD"
 msgstr "ไม่สามารถอ่านซีดี"
 
@@ -510,16 +519,16 @@ msgstr "ไม่สามารถอ่านซีดี"
 msgid "Cannot create MusicBrainz client"
 msgstr "ไม่สามารถสร้างตัวใช้บริการ MusicBrainz"
 
-#: src/sj-metadata-musicbrainz.c:220 src/sj-metadata-musicbrainz.c:365
+#: src/sj-metadata-musicbrainz.c:220 src/sj-metadata-musicbrainz.c:475
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "ไม่สามารถอ่านซีดี: %s"
 
-#: src/sj-metadata-musicbrainz.c:227 src/sj-metadata-musicbrainz.c:410
+#: src/sj-metadata-musicbrainz.c:227 src/sj-metadata-musicbrainz.c:513
 msgid "Unknown Artist"
 msgstr "ไม่รู้ชื่อศิลปิน"
 
-#: src/sj-metadata-musicbrainz.c:228 src/sj-metadata-musicbrainz.c:418
+#: src/sj-metadata-musicbrainz.c:228 src/sj-metadata-musicbrainz.c:521
 msgid "Unknown Title"
 msgstr "ไม่รู้ชื่ออัลบัม"
 
@@ -534,35 +543,32 @@ msgid ""
 "for errors."
 msgstr "อ็อบเจกต์ metadata ของ MusicBrainz ใช้ไม่ได้ โปรดตรวจข้อผิดพลาดได้ในเทอร์มินัล"
 
-#: src/sj-metadata-musicbrainz.c:359
+#: src/sj-metadata-musicbrainz.c:417 src/sj-metadata-musicbrainz.c:424
+#: src/sj-metadata-musicbrainz.c:434
+#, c-format
+msgid "This CD could not be queried: %s\n"
+msgstr "ไม่สามารถสืบค้นข้อมูลของซีดีได้: %s\n"
+
+#: src/sj-metadata-musicbrainz.c:469
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "ไม่มีแผ่นอยู่ในอุปกรณ์ '%s'"
 
-#: src/sj-metadata-musicbrainz.c:362
+#: src/sj-metadata-musicbrainz.c:472
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "ไม่สามารถเปิดใช้อุปกรณ์ '%s' โปรดตรวจดูสิทธิ์การเข้าใช้อุปกรณ์"
 
-#: src/sj-metadata-musicbrainz.c:375
-#, c-format
-msgid "This CD could not be queried: %s\n"
-msgstr "ไม่สามารถสืบค้นข้อมูลของซีดีได้: %s\n"
-
-#: src/sj-metadata-musicbrainz.c:383
-msgid "This CD was not found.\n"
-msgstr "ไม่พบซีดีนี้\n"
-
-#: src/sj-metadata-musicbrainz.c:405
+#: src/sj-metadata-musicbrainz.c:508
 msgid "Various"
 msgstr "รวมศิลปิน"
 
-#: src/sj-metadata-musicbrainz.c:442
-msgid "Incomplete metadata for this CD.\n"
-msgstr "metadata ไม่สมบูรณ์สำหรับซีดีนี้\n"
+#: src/sj-metadata-musicbrainz.c:545
+msgid "Incomplete metadata for this CD"
+msgstr "metadata ของซีดีนี้ไม่สมบูรณ์"
 
-#: src/sj-metadata-musicbrainz.c:526
+#: src/sj-metadata-musicbrainz.c:632
 msgid "Could not create CD lookup thread"
 msgstr "ไม่สามารถสร้างเธรดสำหรับค้นข้อมูลซีดี"
 
@@ -641,6 +647,9 @@ msgstr "หมายเลข-ศิลปินเพลง-ชื่อเพ�
 #: src/sj-prefs.c:209
 msgid "Track Artist"
 msgstr "ศิลปินเพลง"
+
+#~ msgid "This CD was not found.\n"
+#~ msgstr "ไม่พบซีดีนี้\n"
 
 #~ msgid "Sound Juicer CD Ripper"
 #~ msgstr "คัดลอกเพลงจากซีดีด้วย Sound Juicer"
