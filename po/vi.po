@@ -1,20 +1,20 @@
 # Vietnamese translation for Sound-Juicer.
-# Copyright © 2005 Gnome i18n Project for Vietnamese.
-# Clytie Siddall <clytie@riverland.net.au>, 2005.
+# Copyright © 2005-2006 Gnome i18n Project for Vietnamese.
+# Clytie Siddall <clytie@riverland.net.au>, 2005, 2006.
 # 
 msgid ""
 ""
 msgstr "Project-Id-Version: sound-juicer HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-30 07:02+0100\n"
-"PO-Revision-Date: 2005-12-30 20:06+1030\n"
+"POT-Creation-Date: 2006-01-08 23:18+0100\n"
+"PO-Revision-Date: 2006-01-09 16:26+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: LocFactoryEditor 1.5.1b\n"
+"X-Generator: LocFactoryEditor 1.6b23\n"
 
 #:../data/sound-juicer.desktop.in.h:1
 msgid "CD Extractor"
@@ -117,8 +117,8 @@ msgid "Skip to the previous track"
 msgstr "Nhảy tới rãnh trước"
 
 #:../data/sound-juicer.glade.h:23 ../src/sj-about.c:52
-#:../src/sj-extractor.c:492 ../src/sj-main.c:158 ../src/sj-main.c:160
-#:../src/sj-main.c:1164
+#:../src/sj-extractor.c:493 ../src/sj-main.c:165 ../src/sj-main.c:167
+#:../src/sj-main.c:1236
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -133,7 +133,7 @@ msgstr "Có lẽ CD này chứa nhiều bộ nhạc. Hãy chọn bộ nhạc nà
 msgid "_Contents"
 msgstr "_Nội dung"
 
-#:../data/sound-juicer.glade.h:26 ../src/sj-main.c:221
+#:../data/sound-juicer.glade.h:26 ../src/sj-main.c:228
 msgid "_Continue"
 msgstr "_Tiếp tục"
 
@@ -182,6 +182,10 @@ msgid "_Strip special characters"
 msgstr "Tước _ký tự đặc biệt"
 
 #:../data/sound-juicer.glade.h:38
+msgid "_Submit..."
+msgstr "_Đệ trình..."
+
+#:../data/sound-juicer.glade.h:39
 msgid "label"
 msgstr "nhãn"
 
@@ -282,6 +286,15 @@ msgstr "+"
 msgid "-"
 msgstr "-"
 
+#:../src/gconf-bridge.c:1175
+#,c-format
+msgid "GConf error: %s"
+msgstr "Lỗi GConf: %s"
+
+#:../src/gconf-bridge.c:1185
+msgid "All further errors shown only on terminal."
+msgstr "Lỗi nữa nào được hiển thị chỉ trong thiết bị cuối."
+
 #:../src/sj-about.c:53
 msgid "An Audio CD Extractor"
 msgstr "Bộ nhổ đĩa CD Âm thanh"
@@ -346,122 +359,131 @@ msgstr "Mô tả sơ lược Âm thanh GNOME"
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "Sử dụng Mô tả sơ lược Âm thanh GNOME này để mã hóa âm thanh"
 
-#:../src/sj-extractor.c:305
+#:../src/sj-extractor.c:306
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "Không tạo được bộ đọc cdparanoia loại GStreamer"
 
-#:../src/sj-extractor.c:330
+#:../src/sj-extractor.c:331
 #,c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Không tạo được bộ mã hóa loại GStreamer cho « %s »."
 
-#:../src/sj-extractor.c:341
+#:../src/sj-extractor.c:342
 msgid "Could not create GStreamer file output"
 msgstr "Không tạo được dữ liệu xuất tập tin loại GStreamer"
 
-#:../src/sj-extractor.c:379
+#:../src/sj-extractor.c:380
 msgid "Could not get current track position"
 msgstr "Không gọi được vị trí rãnh hiện có"
 
-#:../src/sj-extractor.c:411
+#:../src/sj-extractor.c:412
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
-msgstr "Đối tượng trình nhổ không hợp lệ. Đây là nghiệm trọng nên hãy kiểm tra bàn giao tiếp để xem lỗi."
+msgstr "Đối tượng trình nhổ không hợp lệ. Đây là nghiệm trọng nên hãy kiểm tra bàn "
+"giao tiếp để xem lỗi."
 
-#:../src/sj-extractor.c:528
+#:../src/sj-extractor.c:529
 msgid "Could not seek to track"
 msgstr "Không thể tìm kiếm vào rãnh"
 
-#:../src/sj-extractor.c:533
+#:../src/sj-extractor.c:534
 msgid "Could not get track start position"
 msgstr "Không gọi được vị trí đầu rãnh"
 
-#:../src/sj-extractor.c:563
+#:../src/sj-extractor.c:564
 msgid "The plugin necessary for CD access was not found"
 msgstr "Chưa tìm thấy bộ cầm phít (plugin) cho phép truy cập đĩa CD"
 
-#:../src/sj-extractor.c:571
+#:../src/sj-extractor.c:572
 msgid "The plugin necessary for file access was not found"
 msgstr "Chưa tìm thấy trình cầm phít (plugin) cho phép truy cập tập tin"
 
-#:../src/sj-main.c:135
+#:../src/sj-main.c:142
 msgid "E_xtract"
 msgstr "_Nhổ"
 
-#:../src/sj-main.c:173
+#:../src/sj-main.c:180
 msgid "Could not start Sound Juicer"
 msgstr "Không khởi chạy được trình Sound Juicer"
 
-#:../src/sj-main.c:174 ../src/sj-main.c:572 ../src/sj-main.c:671
-#:../src/sj-main.c:762
+#:../src/sj-main.c:181 ../src/sj-main.c:579 ../src/sj-main.c:687
+#:../src/sj-main.c:778 ../src/sj-main.c:968
 msgid "Reason"
 msgstr "Lý do"
 
-#:../src/sj-main.c:176
+#:../src/sj-main.c:183
 msgid "Please consult the documentation for assistance."
 msgstr "Hãy xem hướng dẫn để tìm thấy trợ giúp."
 
-#:../src/sj-main.c:219
+#:../src/sj-main.c:226
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Hiện thì bạn nhổ một đĩa CD. Muốn thoát bây giờ hay tiếp tục không?"
 
-#:../src/sj-main.c:279 ../src/sj-main.c:381
+#:../src/sj-main.c:286 ../src/sj-main.c:388
 msgid "(unknown)"
 msgstr "(không biết)"
 
-#:../src/sj-main.c:423 ../src/sj-main.c:1282
+#:../src/sj-main.c:430 ../src/sj-main.c:1355
 msgid "Title"
 msgstr "Tên"
 
-#:../src/sj-main.c:429 ../src/sj-main.c:1291
+#:../src/sj-main.c:436 ../src/sj-main.c:1364
 msgid "Artist"
 msgstr "Tác giả"
 
-#:../src/sj-main.c:570 ../src/sj-main.c:669 ../src/sj-main.c:760
+#:../src/sj-main.c:577 ../src/sj-main.c:685 ../src/sj-main.c:776
 msgid "Could not read the CD"
 msgstr "Không đọc được đĩa CD này"
 
-#:../src/sj-main.c:571 ../src/sj-main.c:670
+#:../src/sj-main.c:578 ../src/sj-main.c:686
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Bộ Sound Juicer không đọc được danh sách rãnh trên đĩa CD này."
 
 #.Set statusbar message
-#:../src/sj-main.c:651
+#:../src/sj-main.c:658
 msgid "Retrieving track listing...please wait."
 msgstr "Đang gọi danh sách rãnh ... hãy đời một chút."
 
-#:../src/sj-main.c:733
+#:../src/sj-main.c:749
 msgid "Extracting audio from CD"
 msgstr "Đang nhổ âm nhạc ra đĩa CD"
 
-#:../src/sj-main.c:754
+#:../src/sj-main.c:770
 #,c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Bộ Sound Juicer không truy cập được thiết bị đĩa CD-ROM « %s »."
 
-#:../src/sj-main.c:804
+#:../src/sj-main.c:847
 msgid "No CD-ROM drives found"
 msgstr "Không tìm thấy ổ đĩa CD-ROM nào"
 
-#:../src/sj-main.c:805
+#:../src/sj-main.c:848
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Bộ Sound Juicer không tìm thấy được ổ đĩa CD-ROM cần đọc."
 
-#:../src/sj-main.c:836
+#:../src/sj-main.c:879
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Không có mô tả sơ lược âm thanh đã chọn trên máy vi tính này."
 
-#:../src/sj-main.c:838
+#:../src/sj-main.c:881
 msgid "_Change Profile"
 msgstr "_Chuyển mô tả sơ lược"
 
-#:../src/sj-main.c:1000
+#:../src/sj-main.c:966
+msgid "Could not open URL"
+msgstr "Không thể mở địa chỉ Mạng"
+
+#:../src/sj-main.c:967
+msgid "Sound Juicer could not open the submission URL"
+msgstr "Bộ Sound Juicer không thể mở địa chỉ Mạng đệ trình"
+
+#:../src/sj-main.c:1072
 #,c-format
 msgid "Unknown column %d was edited"
 msgstr "Đã hiệu chỉnh cột không biết « %d »"
 
-#:../src/sj-main.c:1055 ../src/sj-prefs.c:141
+#:../src/sj-main.c:1127 ../src/sj-prefs.c:96
 #,c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -469,88 +491,85 @@ msgid ""
 msgstr "Không trình bày được trợ giúp Sound Juicer\n"
 "%s"
 
-#:../src/sj-main.c:1189
+#:../src/sj-main.c:1261
 msgid "Could not create GConf client.\n"
 msgstr "Không tạo được khách GConf.\n"
 
-#:../src/sj-main.c:1219
+#:../src/sj-main.c:1291
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Không đọc được tập tin giao diện cho trình Sound Juicer."
 
-#:../src/sj-main.c:1267
+#:../src/sj-main.c:1340
 msgid "Track"
 msgstr "Rãnh ghi"
 
-#:../src/sj-main.c:1302
+#:../src/sj-main.c:1375
 msgid "Duration"
 msgstr "Thời gian"
 
-#:../src/sj-metadata-cdtext.c:124
+#:../src/sj-metadata-cdtext.c:125
 msgid "CD-TEXT metadata plugin failed to initialise."
 msgstr "Bộ cầm phít siêu dữ liệu CD-TEXT không khởi động được."
 
-#:../src/sj-metadata-cdtext.c:175
+#:../src/sj-metadata-cdtext.c:176
 msgid "Cannot read CD"
 msgstr "Không thể đọc đĩa CD"
 
-#:../src/sj-metadata-musicbrainz.c:89
+#:../src/sj-metadata-musicbrainz.c:97
 msgid "Cannot create MusicBrainz client"
 msgstr "Không tạo được khách MusicBrainz"
 
-#:../src/sj-metadata-musicbrainz.c:194 ../src/sj-metadata-musicbrainz.c:339
+#:../src/sj-metadata-musicbrainz.c:220 ../src/sj-metadata-musicbrainz.c:475
 #,c-format
 msgid "Cannot read CD: %s"
 msgstr "Không đọc được đĩa CD: %s"
 
-#:../src/sj-metadata-musicbrainz.c:201 ../src/sj-metadata-musicbrainz.c:384
+#:../src/sj-metadata-musicbrainz.c:227 ../src/sj-metadata-musicbrainz.c:513
 msgid "Unknown Artist"
 msgstr "Không biết tác giả"
 
-#:../src/sj-metadata-musicbrainz.c:202 ../src/sj-metadata-musicbrainz.c:392
+#:../src/sj-metadata-musicbrainz.c:228 ../src/sj-metadata-musicbrainz.c:521
 msgid "Unknown Title"
 msgstr "Không biết tên"
 
-#:../src/sj-metadata-musicbrainz.c:208
+#:../src/sj-metadata-musicbrainz.c:234
 #,c-format
 msgid "Track %d"
 msgstr "Rãnh ghi %d"
 
-#:../src/sj-metadata-musicbrainz.c:236
+#:../src/sj-metadata-musicbrainz.c:262
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
 msgstr "Đối tượng dữ liệu về dữ liệu MusicBrainz không hợp lệ. Đây là nghiệm trọng "
 "nên hãy kiểm tra bàn giao tiếp để xem lỗi."
 
-#:../src/sj-metadata-musicbrainz.c:333
+#:../src/sj-metadata-musicbrainz.c:417 ../src/sj-metadata-musicbrainz.c:424
+#:../src/sj-metadata-musicbrainz.c:434
+#,c-format
+msgid "This CD could not be queried: %s\n"
+msgstr "Không yêu cầu được đĩa CD này: %s\n"
+
+#:../src/sj-metadata-musicbrainz.c:469
 #,c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Thiết bị « %s » không chứa vật chứa nào"
 
-#:../src/sj-metadata-musicbrainz.c:336
+#:../src/sj-metadata-musicbrainz.c:472
 #,c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "Không mở được thiết bị « %s ». Hãy kiểm tra quyền truy cập thiết bị ấy."
 
-#:../src/sj-metadata-musicbrainz.c:349
-#,c-format
-msgid "This CD could not be queried: %s\n"
-msgstr "Không yêu cầu được đĩa CD này: %s\n"
-
-#:../src/sj-metadata-musicbrainz.c:357
-msgid "This CD was not found.\n"
-msgstr "Không tìm thấy đĩa CD này.\n"
-
-#:../src/sj-metadata-musicbrainz.c:379
+#:../src/sj-metadata-musicbrainz.c:508
 msgid "Various"
 msgstr "Khác nhau"
 
-#:../src/sj-metadata-musicbrainz.c:416
-msgid "Incomplete metadata for this CD.\n"
-msgstr "Dữ liệu về dữ liệu cho đĩa CD này không hoàn thành.\n"
+#:../src/sj-metadata-musicbrainz.c:545
+msgid "Incomplete metadata for this CD"
+msgstr "Siêu dữ liệu cho đĩa CD này chưa hoàn tất"
 
-#:../src/sj-metadata-musicbrainz.c:500
+#:../src/sj-metadata-musicbrainz.c:632
 msgid "Could not create CD lookup thread"
 msgstr "Không tạo được mạch tra cứu CD"
 
@@ -585,12 +604,12 @@ msgstr "Tác giả Bộ nhạc, Tên Bộ nhạc"
 msgid "Track Artist, Album Title"
 msgstr "Tác giả Rãnh ghi, Tên Bộ nhạc"
 
-#:../src/sj-prefs.c:54 ../src/sj-prefs.c:289
+#:../src/sj-prefs.c:54 ../src/sj-prefs.c:196
 msgid "Album Title"
 msgstr "Tên Bộ nhac"
 
 #.title
-#:../src/sj-prefs.c:55 ../src/sj-prefs.c:290
+#:../src/sj-prefs.c:55 ../src/sj-prefs.c:197
 msgid "Album Artist"
 msgstr "Tác giả Bộ nhạc"
 
@@ -608,7 +627,7 @@ msgstr "Số - Tên"
 
 #.album
 #.track number
-#:../src/sj-prefs.c:63 ../src/sj-prefs.c:301
+#:../src/sj-prefs.c:63 ../src/sj-prefs.c:208
 msgid "Track Title"
 msgstr "Tên Rãnh ghi"
 
@@ -625,6 +644,6 @@ msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Số — Tac giả Rãnh ghi — Tên Rãnh ghi (chữ thường)"
 
 #.title
-#:../src/sj-prefs.c:302
+#:../src/sj-prefs.c:209
 msgid "Track Artist"
 msgstr "Tác giả Rãnh ghi"
