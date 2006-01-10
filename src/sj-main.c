@@ -791,9 +791,11 @@ set_device (const char* device, gboolean ignore_no_media)
   sj_metadata_set_cdrom (metadata, device);
   sj_extractor_set_device (extractor, device);
   
-  tray_opened = nautilus_burn_drive_door_is_open (drive);
-  if (tray_opened == FALSE) {
-    reread_cd (ignore_no_media);
+  if (drive != NULL) {
+    tray_opened = nautilus_burn_drive_door_is_open (drive);
+    if (tray_opened == FALSE) {
+      reread_cd (ignore_no_media);
+    }
   }
 }
 
