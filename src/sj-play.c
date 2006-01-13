@@ -20,6 +20,8 @@
  * Authors: Ronald S. Bultje <rbultje@ronald.bitfreak.net>
  */
 
+#if 0
+
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
@@ -652,3 +654,9 @@ sj_play_init (void)
   volume_button = glade_xml_get_widget (glade, "volume_button");
   statusbar = glade_xml_get_widget (glade, "status_bar");
 }
+#else
+void sj_play_init (void) {}
+void stop_playback (void) {}
+void stop_ui_hack (void) {}
+void on_tracklist_row_activate (void* treeview, void* path, void* col, void* user_data) {}
+#endif
