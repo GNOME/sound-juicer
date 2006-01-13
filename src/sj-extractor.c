@@ -38,8 +38,8 @@
 
 /* Properties */
 enum {
-	PROP_0,
-	PROP_PROFILE,
+  PROP_0,
+  PROP_PROFILE,
 };
 
 /* Signals */
@@ -50,10 +50,12 @@ enum {
   LAST_SIGNAL
 };
 
-static guint sje_table_signals[LAST_SIGNAL] = { 0 };
+static guint signals[LAST_SIGNAL] = { 0 };
 
+/* Default profile name */
 #define DEFAULT_AUDIO_PROFILE_NAME "cdlossy"
 
+/* Element names */
 #define CD_SRC "cdparanoiasrc"
 #define FILE_SINK "gnomevfssink"
 
@@ -101,7 +103,7 @@ static void sj_extractor_class_init (SjExtractorClass *klass)
 				   g_param_spec_pointer("profile", _("GNOME Audio Profile"), _("The GNOME Audio Profile used for encoding audio"), G_PARAM_READWRITE));
 							
   /* Signals */
-  sje_table_signals[PROGRESS] =
+  signals[PROGRESS] =
     g_signal_new ("progress",
                   G_TYPE_FROM_CLASS (object_class),
                   G_SIGNAL_RUN_LAST,
@@ -109,7 +111,7 @@ static void sj_extractor_class_init (SjExtractorClass *klass)
                   NULL, NULL,
                   g_cclosure_marshal_VOID__INT,
                   G_TYPE_NONE, 1, G_TYPE_INT);
-  sje_table_signals[COMPLETION] =
+  signals[COMPLETION] =
     g_signal_new ("completion",
                   G_TYPE_FROM_CLASS (object_class),
                   G_SIGNAL_RUN_LAST,
@@ -117,7 +119,7 @@ static void sj_extractor_class_init (SjExtractorClass *klass)
                   NULL, NULL,
                   g_cclosure_marshal_VOID__VOID,
                   G_TYPE_NONE, 0);
-  sje_table_signals[ERROR] =
+  signals[ERROR] =
     g_signal_new ("error",
                   G_TYPE_FROM_CLASS (object_class),
                   G_SIGNAL_RUN_LAST,
@@ -188,7 +190,7 @@ static void eos_cb (GstBus *bus, GstMessage *message, gpointer user_data)
 
   extractor->priv->rebuild_pipeline = TRUE;
 
-  g_signal_emit (extractor, sje_table_signals [COMPLETION], 0);
+  g_signal_emit (extractor, signals[COMPLETION], 0);
 }
 
 /* Stolen from gst-plugins-good/ext/gconf/gconf.c */
@@ -286,7 +288,7 @@ static void error_cb (GstBus *bus, GstMessage *message, gpointer user_data)
   gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
 
   gst_message_parse_error (message, &error, NULL);
-  g_signal_emit (extractor, sje_table_signals[ERROR], 0, error);
+  g_signal_emit (extractor, signals[ERROR], 0, error);
 }
 
 /**
@@ -395,7 +397,7 @@ static gboolean tick_timeout_cb(SjExtractor *extractor)
 
   secs = nanos / GST_SECOND;
   if (secs != extractor->priv->seconds) {
-    g_signal_emit (extractor, sje_table_signals[PROGRESS], 0, secs - extractor->priv->track_start);
+    g_signal_emit (extractor, signals[PROGRESS], 0, secs - extractor->priv->track_start);
   }
 
   return TRUE;
