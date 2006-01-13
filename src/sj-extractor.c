@@ -578,7 +578,7 @@ gboolean sj_extractor_supports_encoding (GError **error)
 {
   GstElement *element = NULL;
 
-  element = gst_element_factory_make ("cdparanoia", "cdparanoia");
+  element = gst_element_factory_make ("cdparanoiasrc", "cdparanoiasrc");
   if (element == NULL) {
     g_set_error (error, SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
                  _("The plugin necessary for CD access was not found"));
