@@ -54,6 +54,9 @@ static guint sje_table_signals[LAST_SIGNAL] = { 0 };
 
 #define DEFAULT_AUDIO_PROFILE_NAME "cdlossy"
 
+#define CD_SRC "cdparanoiasrc"
+#define FILE_SINK "gnomevfssink"
+
 struct SjExtractorPrivate {
   /** The current audio profile */
   GMAudioProfile *profile;
@@ -62,16 +65,11 @@ struct SjExtractorPrivate {
   /* The gstreamer pipeline elements */
   GstElement *pipeline, *cdparanoia, *queue, *thread, *encoder, *filesink;
   GstFormat track_format;
-  GstPad *source_pad;
   char *device_path;
   int paranoia_mode;
   int track_start;
   int seconds;
   GError *construct_error;
-  /* Variables used by the thread to push signals into the main thread */
-  guint idle_id;
-  GMutex *idle_mutex;
-  GAsyncQueue *idle_queue;
 };
 
 static void build_pipeline (SjExtractor *extractor);
@@ -135,9 +133,6 @@ static void sj_extractor_init (SjExtractor *extractor)
   extractor->priv = g_new0 (SjExtractorPrivate, 1);
   extractor->priv->profile = gm_audio_profile_lookup(DEFAULT_AUDIO_PROFILE_NAME);
   extractor->priv->rebuild_pipeline = TRUE;
-  extractor->priv->idle_id = 0;
-  extractor->priv->idle_mutex = g_mutex_new ();
-  extractor->priv->idle_queue = g_async_queue_new ();
 }
 
 static void sj_extractor_set_property (GObject *object, guint property_id,
@@ -173,8 +168,6 @@ static void sj_extractor_finalize (GObject *object)
   if (extractor->priv->pipeline)
     gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
   /* TODO: free the members of priv */
-  g_mutex_free (extractor->priv->idle_mutex);
-  g_async_queue_unref (extractor->priv->idle_queue);
   g_free (extractor->priv);
   extractor->priv = NULL;
   G_OBJECT_CLASS (sj_extractor_parent_class)->finalize (object);
@@ -184,9 +177,12 @@ static void sj_extractor_finalize (GObject *object)
  * Private Methods
  */
 
-static void eos_cb (GstElement *gstelement, SjExtractor *extractor)
+static void eos_cb (GstBus *bus, GstMessage *message, gpointer user_data)
 {
-  g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
+  SjExtractor *extractor = SJ_EXTRACTOR (user_data);
+  SjExtractorPrivate *priv;
+
+  priv = (SjExtractorPrivate*)extractor->priv;
   
   gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
 
@@ -322,7 +318,7 @@ static void build_pipeline (SjExtractor *extractor)
   g_signal_connect (G_OBJECT (bus), "message::error", G_CALLBACK (error_cb), extractor);
 
   /* Read from CD */
-  priv->cdparanoia = gst_element_factory_make ("cdparanoiasrc", "cdparanoiasrc");
+  priv->cdparanoia = gst_element_factory_make (CD_SRC, "cd_src");
   if (priv->cdparanoia == NULL) {
     g_set_error (&priv->construct_error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
@@ -330,15 +326,12 @@ static void build_pipeline (SjExtractor *extractor)
     return;
   }
 
-  g_object_set (G_OBJECT (priv->cdparanoia), "location", priv->device_path, NULL);
+  g_object_set (G_OBJECT (priv->cdparanoia), "device", priv->device_path, NULL);
   g_object_set (G_OBJECT (priv->cdparanoia), "paranoia-mode", priv->paranoia_mode, NULL);
 
   /* Get the track format for seeking later */
   priv->track_format = gst_format_get_by_nick ("track");
-  g_assert (priv->track_format != 0); /* TODO: GError */
-  /* Get the source pad for seeking */
-  priv->source_pad = gst_element_get_pad (priv->cdparanoia, "src");
-  g_assert (priv->source_pad); /* TODO: GError */
+  g_assert (priv->track_format != 0);
 
   priv->queue = gst_element_factory_make ("queue", "queue");
   /* Nice big buffers... */
@@ -353,10 +346,10 @@ static void build_pipeline (SjExtractor *extractor)
     return;
   }
   /* Connect to the eos so we know when its finished */
-  g_signal_connect (priv->encoder, "eos", G_CALLBACK (eos_cb), extractor);
+  g_signal_connect (bus, "message::eos", G_CALLBACK (eos_cb), extractor);
 
   /* Write to disk */
-  priv->filesink = gst_element_factory_make ("gnomevfssink", "gnomevfssink");
+  priv->filesink = gst_element_factory_make (FILE_SINK, "file_sink");
   if (priv->filesink == NULL) {
     g_set_error (&priv->construct_error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
@@ -395,7 +388,7 @@ static gboolean tick_timeout_cb(SjExtractor *extractor)
   }
 #endif
 
-  if (!gst_pad_query_position (extractor->priv->source_pad, &format, &nanos)) {
+  if (!gst_element_query_position (extractor->priv->cdparanoia, &format, &nanos)) {
     g_warning (_("Could not get current track position"));
     return TRUE;
   }
@@ -439,7 +432,7 @@ void sj_extractor_set_device (SjExtractor *extractor, const char* device)
   extractor->priv->device_path = g_strdup (device);
 
   if (extractor->priv->cdparanoia != NULL)
-    g_object_set (G_OBJECT (extractor->priv->cdparanoia), "location", device, NULL);
+    g_object_set (G_OBJECT (extractor->priv->cdparanoia), "device", device, NULL);
 }
 
 void sj_extractor_set_paranoia (SjExtractor *extractor, const int paranoia_mode)
@@ -481,7 +474,8 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   }
 
   /* Set extract speed */
-  g_object_set (G_OBJECT (priv->cdparanoia), "read-speed", 0, NULL);
+  //g_object_set (G_OBJECT (priv->cdparanoia), "read-speed", -1, NULL);
+  g_object_set (G_OBJECT (priv->cdparanoia), "blocksize", 1024 * 1024, NULL);
 
   /* Set the output filename */
   gst_element_set_state (priv->filesink, GST_STATE_NULL);
@@ -517,12 +511,14 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
                                  GST_TAG_GENRE, track->album->genre,
                                  NULL);
       }
+#if 0
       if (track->album->release_date) {
         gst_tag_setter_add_tags (tagger,
                                  GST_TAG_MERGE_APPEND,
                                  GST_TAG_DATE, g_date_get_julian (track->album->release_date),
                                  NULL);
       }
+#endif
       gst_object_unref (tagger);
       break;
     case GST_ITERATOR_RESYNC:
@@ -547,7 +543,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
                     GST_SEEK_TYPE_SET, track->number-1,
                     GST_SEEK_TYPE_SET, track->number);
 
-  if (!gst_pad_query_position (priv->source_pad, &format, &nanos)) {
+  if (!gst_element_query_position (priv->cdparanoia, &format, &nanos)) {
     g_warning (_("Could not get track start position"));
     return;
   }
@@ -578,7 +574,7 @@ gboolean sj_extractor_supports_encoding (GError **error)
 {
   GstElement *element = NULL;
 
-  element = gst_element_factory_make ("cdparanoiasrc", "cdparanoiasrc");
+  element = gst_element_factory_make (CD_SRC, "test");
   if (element == NULL) {
     g_set_error (error, SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
                  _("The plugin necessary for CD access was not found"));
@@ -586,7 +582,7 @@ gboolean sj_extractor_supports_encoding (GError **error)
   }
   g_object_unref (element);
 
-  element = gst_element_factory_make ("filesink", "filesink");
+  element = gst_element_factory_make (FILE_SINK, "test");
   if (element == NULL) {
     g_set_error (error, SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
                  _("The plugin necessary for file access was not found"));
