@@ -521,14 +521,12 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
                                  GST_TAG_GENRE, track->album->genre,
                                  NULL);
       }
-#if 0
       if (track->album->release_date) {
         gst_tag_setter_add_tags (tagger,
                                  GST_TAG_MERGE_APPEND,
-                                 GST_TAG_DATE, g_date_get_julian (track->album->release_date),
+                                 GST_TAG_DATE, track->album->release_date,
                                  NULL);
       }
-#endif
       gst_object_unref (tagger);
       break;
     case GST_ITERATOR_RESYNC:
