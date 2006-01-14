@@ -72,6 +72,7 @@ struct SjExtractorPrivate {
   int track_start;
   int seconds;
   GError *construct_error;
+  guint tick_id;
 };
 
 static void build_pipeline (SjExtractor *extractor);
@@ -133,7 +134,7 @@ static void sj_extractor_class_init (SjExtractorClass *klass)
 static void sj_extractor_init (SjExtractor *extractor)
 {
   extractor->priv = g_new0 (SjExtractorPrivate, 1);
-  extractor->priv->profile = gm_audio_profile_lookup(DEFAULT_AUDIO_PROFILE_NAME);
+  extractor->priv->profile = gm_audio_profile_lookup (DEFAULT_AUDIO_PROFILE_NAME);
   extractor->priv->rebuild_pipeline = TRUE;
 }
 
@@ -143,7 +144,7 @@ static void sj_extractor_set_property (GObject *object, guint property_id,
   SjExtractorPrivate *priv = (SjExtractorPrivate*)SJ_EXTRACTOR(object)->priv;
   switch (property_id) {
   case PROP_PROFILE:
-    priv->profile = (GMAudioProfile *) g_value_get_pointer (value);
+    priv->profile = (GMAudioProfile *)g_value_get_pointer (value);
     priv->rebuild_pipeline = TRUE;
     break;
   default:
@@ -184,9 +185,13 @@ static void eos_cb (GstBus *bus, GstMessage *message, gpointer user_data)
   SjExtractor *extractor = SJ_EXTRACTOR (user_data);
   SjExtractorPrivate *priv;
 
+  g_printerr("EOS_CB\n");
+
   priv = (SjExtractorPrivate*)extractor->priv;
   
   gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
+
+  g_source_remove (priv->tick_id);
 
   extractor->priv->rebuild_pipeline = TRUE;
 
@@ -284,6 +289,8 @@ static void error_cb (GstBus *bus, GstMessage *message, gpointer user_data)
   SjExtractor *extractor = SJ_EXTRACTOR (user_data);
   GError *error = NULL;
 
+  g_printerr("ERROR_CB\n");
+
   /* Make sure the pipeline is not running any more */
   gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
 
@@ -316,6 +323,7 @@ static void build_pipeline (SjExtractor *extractor)
   }
   priv->pipeline = gst_pipeline_new ("pipeline");
   bus = gst_element_get_bus (priv->pipeline);
+  gst_bus_add_signal_watch (bus);
 
   g_signal_connect (G_OBJECT (bus), "message::error", G_CALLBACK (error_cb), extractor);
 
@@ -378,17 +386,17 @@ static gboolean tick_timeout_cb(SjExtractor *extractor)
 {
   gint64 nanos;
   gint secs;
+  GstState state;
   static GstFormat format = GST_FORMAT_TIME;
 
   g_return_val_if_fail (extractor != NULL, FALSE);
   g_return_val_if_fail (SJ_IS_EXTRACTOR (extractor), FALSE);
 
-#if 0
-  if (gst_element_get_state (extractor->priv->pipeline) != GST_STATE_PLAYING) {
+  gst_element_get_state (extractor->priv->pipeline, &state, NULL, GST_CLOCK_TIME_NONE);
+  if (state != GST_STATE_PLAYING) {
     extractor->priv->rebuild_pipeline = TRUE;
     return FALSE;
   }
-#endif
 
   if (!gst_element_query_position (extractor->priv->cdparanoia, &format, &nanos)) {
     g_warning (_("Could not get current track position"));
@@ -539,7 +547,8 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   
   /* Let's get ready to rumble! */
   gst_element_set_state (priv->pipeline, GST_STATE_PAUSED);
-  
+  gst_element_get_state (priv->pipeline, NULL, NULL, GST_CLOCK_TIME_NONE);
+
   /* Seek to the right track */
   gst_element_seek (priv->cdparanoia, 1.0, priv->track_format, 0,
                     GST_SEEK_TYPE_SET, track->number-1,
@@ -553,7 +562,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
 
   gst_element_set_state (priv->pipeline, GST_STATE_PLAYING);
   
-  g_timeout_add (200, (GSourceFunc)tick_timeout_cb, extractor);
+  priv->tick_id = g_timeout_add (250, (GSourceFunc)tick_timeout_cb, extractor);
 }
 
 void sj_extractor_cancel_extract (SjExtractor *extractor)
@@ -601,6 +610,7 @@ gboolean sj_extractor_supports_profile (GMAudioProfile *profile)
   GError *error = NULL;
   char *pipeline;
   
+  /* TODO: don't need audioconvert here */
   pipeline = g_strdup_printf ("audioconvert ! %s", gm_audio_profile_get_pipeline (profile));
   element = gst_parse_launch (pipeline, &error);
   /* TODO: check error */
