@@ -351,7 +351,7 @@ static void build_pipeline (SjExtractor *extractor)
 
   priv->queue = gst_element_factory_make ("queue", "queue");
   /* Nice big buffers... */
-  g_object_set (priv->queue, "max-size-time", 60 * GST_SECOND, NULL);
+  g_object_set (priv->queue, "max-size-time", 120 * GST_SECOND, NULL);
   
   /* Encode */
   priv->encoder = build_encoder (extractor);
