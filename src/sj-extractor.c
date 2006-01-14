@@ -75,8 +75,6 @@ struct SjExtractorPrivate {
   guint tick_id;
 };
 
-static void build_pipeline (SjExtractor *extractor);
-
 /*
  * GObject methods
  */
@@ -92,7 +90,7 @@ G_DEFINE_TYPE(SjExtractor, sj_extractor, G_TYPE_OBJECT);
 static void sj_extractor_class_init (SjExtractorClass *klass)
 {
   GObjectClass *object_class;
-  object_class = (GObjectClass *) klass;
+  object_class = (GObjectClass *)klass;
 
   /* GObject */
   object_class->set_property = sj_extractor_set_property;
@@ -101,7 +99,11 @@ static void sj_extractor_class_init (SjExtractorClass *klass)
 
   /* Properties */
   g_object_class_install_property (object_class, PROP_PROFILE,
-				   g_param_spec_pointer("profile", _("GNOME Audio Profile"), _("The GNOME Audio Profile used for encoding audio"), G_PARAM_READWRITE));
+                                   g_param_spec_object ("profile",
+                                                        _("Audio Profile"),
+                                                        _("The GNOME Audio Profile used for encoding audio"),
+                                                        GM_AUDIO_TYPE_PROFILE,
+                                                        G_PARAM_READWRITE));
 							
   /* Signals */
   signals[PROGRESS] =
@@ -141,10 +143,10 @@ static void sj_extractor_init (SjExtractor *extractor)
 static void sj_extractor_set_property (GObject *object, guint property_id,
                                        const GValue *value, GParamSpec *pspec)
 {
-  SjExtractorPrivate *priv = (SjExtractorPrivate*)SJ_EXTRACTOR(object)->priv;
+  SjExtractorPrivate *priv = (SjExtractorPrivate*)SJ_EXTRACTOR (object)->priv;
   switch (property_id) {
   case PROP_PROFILE:
-    priv->profile = (GMAudioProfile *)g_value_get_pointer (value);
+    priv->profile = g_value_get_object (value);
     priv->rebuild_pipeline = TRUE;
     break;
   default:
@@ -155,10 +157,10 @@ static void sj_extractor_set_property (GObject *object, guint property_id,
 static void sj_extractor_get_property (GObject *object, guint property_id,
                                        GValue *value, GParamSpec *pspec)
 {
-  SjExtractorPrivate *priv = (SjExtractorPrivate*)SJ_EXTRACTOR(object)->priv;
+  SjExtractorPrivate *priv = (SjExtractorPrivate*)SJ_EXTRACTOR (object)->priv;
   switch (property_id) {
   case PROP_PROFILE:
-    g_value_set_pointer (value, priv->profile);
+    g_value_set_object (value, priv->profile);
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -168,11 +170,18 @@ static void sj_extractor_get_property (GObject *object, guint property_id,
 static void sj_extractor_finalize (GObject *object)
 {
   SjExtractor *extractor = (SjExtractor *)object;
+
   if (extractor->priv->pipeline)
     gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
+
+  if (extractor->priv->tick_id != 0)
+    g_source_remove (extractor->priv->tick_id);
+
   /* TODO: free the members of priv */
   g_free (extractor->priv);
+
   extractor->priv = NULL;
+
   G_OBJECT_CLASS (sj_extractor_parent_class)->finalize (object);
 }
 
@@ -185,15 +194,14 @@ static void eos_cb (GstBus *bus, GstMessage *message, gpointer user_data)
   SjExtractor *extractor = SJ_EXTRACTOR (user_data);
   SjExtractorPrivate *priv;
 
-  g_printerr("EOS_CB\n");
-
   priv = (SjExtractorPrivate*)extractor->priv;
   
   gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
 
   g_source_remove (priv->tick_id);
+  priv->tick_id = 0;
 
-  extractor->priv->rebuild_pipeline = TRUE;
+  //extractor->priv->rebuild_pipeline = TRUE;
 
   g_signal_emit (extractor, signals[COMPLETION], 0);
 }
@@ -289,10 +297,9 @@ static void error_cb (GstBus *bus, GstMessage *message, gpointer user_data)
   SjExtractor *extractor = SJ_EXTRACTOR (user_data);
   GError *error = NULL;
 
-  g_printerr("ERROR_CB\n");
-
   /* Make sure the pipeline is not running any more */
   gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
+  extractor->priv->rebuild_pipeline = TRUE;
 
   gst_message_parse_error (message, &error, NULL);
   g_signal_emit (extractor, signals[ERROR], 0, error);
@@ -313,7 +320,6 @@ static void build_pipeline (SjExtractor *extractor)
   SjExtractorPrivate *priv;
   GstBus *bus;
 
-  g_return_if_fail (extractor != NULL);
   g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
 
   priv = extractor->priv;
@@ -345,7 +351,7 @@ static void build_pipeline (SjExtractor *extractor)
 
   priv->queue = gst_element_factory_make ("queue", "queue");
   /* Nice big buffers... */
-  g_object_set (priv->queue, "max-size-time", 20 * GST_SECOND, NULL);
+  g_object_set (priv->queue, "max-size-time", 60 * GST_SECOND, NULL);
   
   /* Encode */
   priv->encoder = build_encoder (extractor);
@@ -389,12 +395,10 @@ static gboolean tick_timeout_cb(SjExtractor *extractor)
   GstState state;
   static GstFormat format = GST_FORMAT_TIME;
 
-  g_return_val_if_fail (extractor != NULL, FALSE);
   g_return_val_if_fail (SJ_IS_EXTRACTOR (extractor), FALSE);
 
   gst_element_get_state (extractor->priv->pipeline, &state, NULL, GST_CLOCK_TIME_NONE);
   if (state != GST_STATE_PLAYING) {
-    extractor->priv->rebuild_pipeline = TRUE;
     return FALSE;
   }
 
@@ -434,7 +438,6 @@ GError *sj_extractor_get_new_error (SjExtractor *extractor)
 
 void sj_extractor_set_device (SjExtractor *extractor, const char* device)
 {
-  g_return_if_fail (extractor != NULL);
   g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
   g_return_if_fail (device != NULL);
 
@@ -447,7 +450,6 @@ void sj_extractor_set_device (SjExtractor *extractor, const char* device)
 
 void sj_extractor_set_paranoia (SjExtractor *extractor, const int paranoia_mode)
 {
-  g_return_if_fail (extractor != NULL);
   g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
 
   extractor->priv->paranoia_mode = paranoia_mode;
@@ -464,7 +466,6 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   GstTagSetter *tagger;
   gboolean done;
 
-  g_return_if_fail (extractor != NULL);
   g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
 
   g_return_if_fail (url != NULL);
@@ -483,10 +484,6 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
     }
   }
 
-  /* Set extract speed */
-  //g_object_set (G_OBJECT (priv->cdparanoia), "read-speed", -1, NULL);
-  g_object_set (G_OBJECT (priv->cdparanoia), "blocksize", 1024 * 1024, NULL);
-
   /* Set the output filename */
   gst_element_set_state (priv->filesink, GST_STATE_NULL);
   g_object_set (G_OBJECT (priv->filesink), "location", url, NULL);
@@ -494,7 +491,6 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   /* Set the metadata */
   iter = gst_bin_iterate_all_by_interface (GST_BIN (priv->pipeline), GST_TYPE_TAG_SETTER);
   done = FALSE;
-  
   while (!done) {
     switch (gst_iterator_next (iter, (gpointer)&tagger)) {
     case GST_ITERATOR_OK:
@@ -542,15 +538,13 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
     }
   }
   gst_iterator_free (iter);
+
+  /* Seek to the right track */
+  g_object_set (G_OBJECT (priv->cdparanoia), "track", track->number, NULL);
   
   /* Let's get ready to rumble! */
   gst_element_set_state (priv->pipeline, GST_STATE_PAUSED);
   gst_element_get_state (priv->pipeline, NULL, NULL, GST_CLOCK_TIME_NONE);
-
-  /* Seek to the right track */
-  gst_element_seek (priv->cdparanoia, 1.0, priv->track_format, 0,
-                    GST_SEEK_TYPE_SET, track->number-1,
-                    GST_SEEK_TYPE_SET, track->number);
 
   if (!gst_element_query_position (priv->cdparanoia, &format, &nanos)) {
     g_warning (_("Could not get track start position"));
@@ -567,7 +561,6 @@ void sj_extractor_cancel_extract (SjExtractor *extractor)
 {
   GstState state;
 
-  g_return_if_fail (extractor != NULL);
   g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
 
   gst_element_get_state (extractor->priv->pipeline, &state, NULL, GST_CLOCK_TIME_NONE);
