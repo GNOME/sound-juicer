@@ -492,10 +492,6 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
                             GST_TAG_ALBUM, track->album->title,
                             GST_TAG_ENCODER, _("Sound Juicer"),
                             GST_TAG_ENCODER_VERSION, VERSION,
-                            GST_TAG_MUSICBRAINZ_ALBUMID, track->album->album_id,
-                            GST_TAG_MUSICBRAINZ_ALBUMARTISTID, track->album->artist_id,
-                            GST_TAG_MUSICBRAINZ_ARTISTID, track->artist_id,
-                            GST_TAG_MUSICBRAINZ_TRACKID, track->track_id,
                             NULL);
         if (track->album->genre != NULL && strcmp (track->album->genre, "") != 0) {
           gst_tag_setter_add (GST_TAG_SETTER (elt->data),
@@ -509,6 +505,36 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
                               GST_TAG_DATE, g_date_get_julian (track->album->release_date),
                               NULL);
         }
+	if (track->album->album_id != NULL && strcmp (track->album->album_id, "") != 0) {
+	  gst_tag_setter_add (GST_TAG_SETTER (elt->data),
+                              GST_TAG_MERGE_APPEND,
+			      GST_TAG_MUSICBRAINZ_ALBUMID, track->album->album_id,
+			      NULL);
+	}
+	if (track->album->artist_id != NULL && strcmp (track->album->artist_id, "") != 0) {
+	  gst_tag_setter_add (GST_TAG_SETTER (elt->data),
+                              GST_TAG_MERGE_APPEND,
+			      GST_TAG_MUSICBRAINZ_ALBUMARTISTID, track->album->artist_id,
+			      NULL);
+	}
+	if (track->artist_id != NULL && strcmp (track->artist_id, "") != 0) {
+	  gst_tag_setter_add (GST_TAG_SETTER (elt->data),
+                              GST_TAG_MERGE_APPEND,
+			      GST_TAG_MUSICBRAINZ_ARTISTID, track->artist_id,
+			      NULL);
+	}
+	if (track->track_id != NULL && strcmp (track->track_id, "") != 0) {
+	  gst_tag_setter_add (GST_TAG_SETTER (elt->data),
+                              GST_TAG_MERGE_APPEND,
+			      GST_TAG_MUSICBRAINZ_TRACKID, track->track_id,
+			      NULL);
+	}
+	if (track->artist_sortname != NULL && strcmp (track->artist_sortname, "") != 0) {
+	  gst_tag_setter_add (GST_TAG_SETTER (elt->data),
+                              GST_TAG_MERGE_APPEND,
+			      GST_TAG_MUSICBRAINZ_SORTNAME, track->artist_sortname,
+			      NULL);
+	}
         taggable = TRUE;
       }
     }

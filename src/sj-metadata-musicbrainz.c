@@ -506,11 +506,17 @@ lookup_cd (SjMetadata *metadata)
       album->artist_id = g_strdup (data);
       if (g_ascii_strncasecmp (MBI_VARIOUS_ARTIST_ID, data, 64) == 0) {
         album->artist = g_strdup (_("Various"));
+        album->artist_sortname = g_strdup (album->artist);
       } else {
         if (data && mb_GetResultData1(priv->mb, MBE_AlbumGetArtistName, data, sizeof (data), 1)) {
           album->artist = g_strdup (data);
         } else {
           album->artist = g_strdup (_("Unknown Artist"));
+        }
+        if (data && mb_GetResultData1(priv->mb, MBE_AlbumGetArtistSortName, data, sizeof (data), 1)) {
+          album->artist_sortname = g_strdup (data);
+        } else {
+          album->artist_sortname = g_strdup (album->artist);
         }
       }
     }
@@ -540,6 +546,7 @@ lookup_cd (SjMetadata *metadata)
     num_tracks = mb_GetResultInt(priv->mb, MBE_AlbumGetNumTracks);
     if (num_tracks < 1) {
       g_free (album->artist);
+      g_free (album->artist_sortname);
       g_free (album->title);
       g_free (album);
       g_warning (_("Incomplete metadata for this CD"));
@@ -576,6 +583,10 @@ lookup_cd (SjMetadata *metadata)
 
       if (track->artist == NULL && mb_GetResultData1(priv->mb, MBE_AlbumGetArtistName, data, sizeof (data), j)) {
         track->artist = g_strdup (data);
+      }
+
+      if (mb_GetResultData1(priv->mb, MBE_AlbumGetArtistSortName, data, sizeof (data), j)) {
+        track->artist_sortname = g_strdup (data);
       }
 
       if (mb_GetResultData1(priv->mb, MBE_AlbumGetTrackDuration, data, sizeof (data), j)) {

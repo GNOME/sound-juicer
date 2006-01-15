@@ -50,10 +50,14 @@ typedef struct {
 
 static const FilePattern path_patterns[] = {
   {N_("Album Artist, Album Title"), "%aa/%at"},
+  {N_("Album Artist (sortable), Album Title"), "%as/%at"},
   {N_("Track Artist, Album Title"), "%ta/%at"},
+  {N_("Track Artist (sortable), Album Title"), "%ts/%at"},
   {N_("Album Title"), "%at"},
   {N_("Album Artist"), "%aa"},
+  {N_("Album Artist (sortable)"), "%as"},
   {N_("Album Artist - Album Title"), "%aa - %at"},
+  {N_("Album Artist (sortable) - Album Title"), "%as - %at"},
   {N_("[none]"), ""},
   {NULL, NULL}
 };
@@ -62,8 +66,11 @@ static const FilePattern file_patterns[] = {
   {N_("Number - Title"), "%tN - %tt"},
   {N_("Track Title"), "%tt"},
   {N_("Track Artist - Track Title"), "%ta - %tt"},
+  {N_("Track Artist (sortable) - Track Title"), "%ts - %tt"},
   {N_("Number. Track Artist - Track Title"), "%tN. %ta - %tt"},
+  /* {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"}, */
   {N_("Number-Track Artist-Track Title (lowercase)"), "%tN-%tA-%tT"},
+  /* {N_("Number-Track Artist (sortable)-Track Title (lowercase)"), "%tN-%tS-%tT"}, */
   {NULL, NULL}
 };
 
@@ -195,30 +202,34 @@ static void pattern_label_update (void)
   static AlbumDetails sample_album = {
     N_("Album Title"), /* title */
     N_("Album Artist"), /* artist */
+    N_("Album Artist's Sortable Name"), /* sortname */
     NULL, /* genre */
     0, /* number of tracks*/
     NULL, /* track list */
     NULL, /* release date */
     NULL, /* album ID */
-    NULL, /* artist ID */
+    NULL /* artist ID */
   };
   static TrackDetails sample_track = {
     &sample_album,  /*album */
     9, /* track number */
     N_("Track Title"), /* title */
     N_("Track Artist"), /* artist */
+    N_("Track Artist's Sortable Name"), /* sortname */
     60, /* duration */
     NULL, /* track ID */
     NULL, /* artist ID */
-    {0,0,0,0} /* treeview iterator */
+    {0,0,0,0}, /* treeview iterator */
   };
   /* Magic to i18n-ize the sample strings. */
   static gboolean been_here = FALSE;
   if (!been_here) {
     sample_album.title = _(sample_album.title);
     sample_album.artist = _(sample_album.artist);
+    sample_album.artist_sortname = _(sample_album.artist_sortname);
     sample_track.title = _(sample_track.title);
     sample_track.artist = _(sample_track.artist);
+    sample_track.artist_sortname = _(sample_track.artist_sortname);
     been_here = TRUE;
   }
   /* TODO: sucky. Replace with get-gconf-key-with-default mojo */

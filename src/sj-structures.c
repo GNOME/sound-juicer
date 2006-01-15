@@ -35,6 +35,7 @@ void track_details_free(TrackDetails *track)
   g_free (track->artist);
   g_free (track->track_id);
   g_free (track->artist_id);
+  g_free (track->artist_sortname);
   g_free (track);
 }
 
@@ -50,5 +51,6 @@ void album_details_free(AlbumDetails *album)
   g_free (album->album_id);
   if (album->release_date) g_date_free (album->release_date);
   g_list_deep_free (album->tracks, (GFunc)track_details_free);
+  g_free (album->artist_sortname);
   g_free (album);
 }

@@ -678,10 +678,16 @@ sanitize_path (const char* str)
  * Valid markers so far are:
  * %at -- album title
  * %aa -- album artist
+ * %aA -- album artist (lowercase)
+ * %as -- album artist sortname
+ * %aS -- album artist sortname (lowercase)
  * %tn -- track number (i.e 8)
  * %tN -- track number, zero padded (i.e 08)
  * %tt -- track title
  * %ta -- track artist
+ * %tA -- track artist (lowercase)
+ * %ts -- track artist sortname
+ * %tS -- track artist sortname (lowercase)
  */
 char*
 filepath_parse_pattern (const char* pattern, const TrackDetails *track)
@@ -738,6 +744,18 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
+      case 's':
+        i = temp = sanitize_path (track->album->artist_sortname);
+        while (*i) *s++ = *i++;
+        g_free (temp);
+        break;
+      case 'S':
+	tmp = g_utf8_strdown (track->album->artist_sortname, -1);
+	i = temp = sanitize_path (tmp);
+	g_free(tmp);
+        while (*i) *s++ = *i++;
+        g_free (temp);
+        break;
       default:
         *s++ = '%'; *s++ = 'a'; *s++ = *p;
       }
@@ -771,6 +789,18 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
+      case 's':
+        i = temp = sanitize_path (track->artist_sortname);
+        while (*i) *s++ = *i++;
+        g_free (temp);
+        break;
+      case 'S':
+	tmp = g_utf8_strdown (track->artist_sortname, -1);
+        i = temp = sanitize_path (tmp);
+	g_free(tmp);
+	while (*i) *s++ = *i++;
+	g_free (temp);
+	break;
       case 'n':
         /* Track number */
         i = temp = g_strdup_printf ("%d", track->number);
