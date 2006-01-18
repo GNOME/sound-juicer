@@ -303,6 +303,7 @@ static void error_cb (GstBus *bus, GstMessage *message, gpointer user_data)
 
   gst_message_parse_error (message, &error, NULL);
   g_signal_emit (extractor, signals[ERROR], 0, error);
+  g_error_free (error);
 }
 
 /**
