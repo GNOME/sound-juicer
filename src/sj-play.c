@@ -360,10 +360,9 @@ setup (GError **err)
     g_object_set (G_OBJECT (volume), "volume", vol, NULL);
     out = gst_element_factory_make ("gconfaudiosink", "out"); g_assert (out);
 
-    //gst_element_link_many (cdp, queue, conv, resample, volume, out, NULL);
-    //gst_bin_add_many (GST_BIN (pipeline), cdp, queue, conv, resample, volume, out, NULL);
-    gst_element_link_many (cdp, conv, out, NULL);
-    gst_bin_add_many (GST_BIN (pipeline), cdp, conv, out, NULL);
+    if (!gst_element_link_many (cdp, queue, conv, resample, volume, out, NULL))
+      g_warning (_("Failed to link pipeline"));
+    gst_bin_add_many (GST_BIN (pipeline), cdp, queue, conv, resample, volume, out, NULL);
 
     /* if something went wrong, cleanup here is easier... */
     if (!out) {
@@ -376,7 +375,7 @@ setup (GError **err)
     if (!gtk_tree_model_get_iter_first (GTK_TREE_MODEL (track_store), &current_iter))
       g_warning ("Cannot get first iter");
   }
-
+  
   return TRUE;
 }
 
