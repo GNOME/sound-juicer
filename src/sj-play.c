@@ -228,7 +228,6 @@ static gboolean
 cb_set_time (gpointer data)
 {
   GstElement *cd;
-  GstPad *pad;
   GstFormat fmt = GST_FORMAT_TIME;
   gint64 pos, len;
 
@@ -236,10 +235,9 @@ cb_set_time (gpointer data)
     return TRUE;
 
   cd = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "cd-source");
-  pad = gst_element_get_pad (cd, "src");
 
-  if (gst_pad_query_duration (pad, &fmt, &len) &&
-      gst_pad_query_position (pad, &fmt, &pos)) {
+  if (gst_element_query_duration (cd, &fmt, &len) &&
+      gst_element_query_position (cd, &fmt, &pos)) {
     internal_update = TRUE;
     gtk_range_set_value (GTK_RANGE (seek_scale), (gdouble) pos / len);
     set_statusbar_pos (pos / GST_SECOND, len / GST_SECOND);
@@ -318,7 +316,18 @@ setup (GError **err)
 {
   if (!pipeline) {
     GstBus *bus;
-    GstElement *out, *conv, *scale, *cdp, *queue, *volume;
+    GstElement *out, *conv, *resample, *cdp, *queue, *volume;
+
+    /* TODO:
+     * replace with playbin.  Tim says:
+     * 
+     * just create playbin and your audio sink, then do g_object_set (playbin,
+     * "audio-sink", audiosink, NULL); and set cdda://<track-number> as URI on
+     * playbin and set it to PLAYING.  and then go
+     * gst_element_query_duration/position(playbin) and
+     * gst_element_seek(playbin, .... track_format, track-1, ...) for changing
+     * track
+     */
 
     pipeline = gst_pipeline_new ("playback");
 
@@ -327,7 +336,7 @@ setup (GError **err)
 
     g_signal_connect (bus, "message::eos", G_CALLBACK (cb_hop_track), NULL);
     g_signal_connect (bus, "message::error", G_CALLBACK (cb_error), NULL);
-    g_signal_connect (bus, "message::state-change", G_CALLBACK (cb_state), NULL);
+    g_signal_connect (bus, "message::state-changed", G_CALLBACK (cb_state), NULL);
 
     cdp = gst_element_factory_make ("cdparanoiasrc", "cd-source");
     if (!cdp) {
@@ -341,24 +350,26 @@ setup (GError **err)
     /* TODO: will not notice drive changes, should monitor */
     g_object_set (G_OBJECT (cdp),
                   "read-speed", 2,
-                  "device", drive->device, NULL);
+                  "device", drive->device,
+                  NULL);
 
-    queue = gst_element_factory_make ("queue", "queue");
-    conv = gst_element_factory_make ("audioconvert", "conv");
-    scale = gst_element_factory_make ("audioscale", "scale");
-    volume = gst_element_factory_make ("volume", "vol");
+    queue = gst_element_factory_make ("queue", "queue"); g_assert (queue);
+    conv = gst_element_factory_make ("audioconvert", "conv"); g_assert (conv);
+    resample = gst_element_factory_make ("audioresample", "resample"); g_assert (resample);
+    volume = gst_element_factory_make ("volume", "vol"); g_assert (volume);
     g_object_set (G_OBJECT (volume), "volume", vol, NULL);
-    out = gst_element_factory_make ("autoaudiosink", "out");
+    out = gst_element_factory_make ("gconfaudiosink", "out"); g_assert (out);
 
-    gst_element_link_many (cdp, queue, conv, scale, volume, out, NULL);
-    gst_bin_add_many (GST_BIN (pipeline), cdp, queue, conv, scale, volume, out, NULL);
+    //gst_element_link_many (cdp, queue, conv, resample, volume, out, NULL);
+    //gst_bin_add_many (GST_BIN (pipeline), cdp, queue, conv, resample, volume, out, NULL);
+    gst_element_link_many (cdp, conv, out, NULL);
+    gst_bin_add_many (GST_BIN (pipeline), cdp, conv, out, NULL);
 
     /* if something went wrong, cleanup here is easier... */
     if (!out) {
       gst_object_unref (GST_OBJECT (pipeline));
       pipeline = NULL;
-      g_set_error (err, 0, 0,
-          _("Failed to create audio output"));
+      g_set_error (err, 0, 0, _("Failed to create audio output"));
       return FALSE;
     }
 
