@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the sound-juicer package.
 # Takeshi AIHANA <aihana@gnome.gr.jp>, 2003-2005.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2004.
-# Satoru SATOH <ss@gnome.gr.jp>, 2004.
+# Satoru SATOH <ss@gnome.gr.jp>, 2004, 2006
 #
 # 訳語の凡例 (since 2005-11-24):
 # Audio: 音楽 or オーディオ
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-24 22:23+0900\n"
-"PO-Revision-Date: 2005-11-24 22:21+0900\n"
-"Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
+"POT-Creation-Date: 2006-01-19 09:27+0900\n"
+"PO-Revision-Date: 2006-01-19 02:21+0900\n"
+"Last-Translator: Satoru SATOH <ss@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -121,8 +121,8 @@ msgid "Skip to the previous track"
 msgstr "前のトラックへスキップします"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-about.c:52
-#: ../src/sj-extractor.c:492 ../src/sj-main.c:158 ../src/sj-main.c:160
-#: ../src/sj-main.c:1164
+#: ../src/sj-extractor.c:493 ../src/sj-main.c:165 ../src/sj-main.c:167
+#: ../src/sj-main.c:1238
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -138,7 +138,7 @@ msgstr ""
 msgid "_Contents"
 msgstr "目次(_C)"
 
-#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:221
+#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:228
 msgid "_Continue"
 msgstr "続行(_C)"
 
@@ -187,6 +187,10 @@ msgid "_Strip special characters"
 msgstr "特殊な文字を無視する(_S)"
 
 #: ../data/sound-juicer.glade.h:38
+msgid "_Submit..."
+msgstr "投稿(_S)..."
+
+#: ../data/sound-juicer.glade.h:39
 msgid "label"
 msgstr "label"
 
@@ -280,6 +284,15 @@ msgstr "+"
 msgid "-"
 msgstr "-"
 
+#: ../src/gconf-bridge.c:1175
+#, c-format
+msgid "GConf error: %s"
+msgstr "GConf エラー: %s"
+
+#: ../src/gconf-bridge.c:1185
+msgid "All further errors shown only on terminal."
+msgstr "全てのさらなるエラーについては端末上でのみ表示されます"
+
 #: ../src/sj-about.c:53
 msgid "An Audio CD Extractor"
 msgstr "音楽 CD 切り出しツール (Extractor)"
@@ -350,127 +363,135 @@ msgstr "GNOME オーディオ・プロファイル"
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "楽曲を切り出す際に使用する GNOME オーディオ・プロファイル"
 
-#: ../src/sj-extractor.c:305
+#: ../src/sj-extractor.c:306
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "プラグイン GStreamer cdparanoia リーダを生成できませんでした"
 
-#: ../src/sj-extractor.c:330
+#: ../src/sj-extractor.c:331
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "%s 用の GStreamer エンコーダを生成できませんでした"
 
-#: ../src/sj-extractor.c:341
+#: ../src/sj-extractor.c:342
 msgid "Could not create GStreamer file output"
 msgstr "GStreamer ファイル出力を生成できませんでした"
 
-#: ../src/sj-extractor.c:379
+#: ../src/sj-extractor.c:380
 msgid "Could not get current track position"
 msgstr "現在のトラック位置を取得できませんでした"
 
-#: ../src/sj-extractor.c:411
+#: ../src/sj-extractor.c:412
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "切り出しオブジェクトが不正です。この状態は最悪です。端末からエラーを確認して"
 "下さい。"
 
-#: ../src/sj-extractor.c:528
+#: ../src/sj-extractor.c:555
 msgid "Could not seek to track"
 msgstr "トラックをシークできませんでした"
 
-#: ../src/sj-extractor.c:533
+#: ../src/sj-extractor.c:560
 msgid "Could not get track start position"
 msgstr "トラックの開始位置を取得できませんでした"
 
-#: ../src/sj-extractor.c:563
+#: ../src/sj-extractor.c:590
 msgid "The plugin necessary for CD access was not found"
 msgstr "音楽 CD へのアクセスに必要なプラグインが見つかりませんでした"
 
-#: ../src/sj-extractor.c:571
+#: ../src/sj-extractor.c:598
 msgid "The plugin necessary for file access was not found"
 msgstr "ファイルへのアクセスに必要なプラグインが見つかりませんでした"
 
-#: ../src/sj-main.c:135
+#: ../src/sj-main.c:142
 msgid "E_xtract"
 msgstr "切り出し(_X)"
 
-#: ../src/sj-main.c:173
+#: ../src/sj-main.c:180
 msgid "Could not start Sound Juicer"
 msgstr "Sound Juicer を起動できませんでした"
 
-#: ../src/sj-main.c:174 ../src/sj-main.c:572 ../src/sj-main.c:671
-#: ../src/sj-main.c:762
+#: ../src/sj-main.c:181 ../src/sj-main.c:579 ../src/sj-main.c:687
+#: ../src/sj-main.c:778 ../src/sj-main.c:970
 msgid "Reason"
 msgstr "原因"
 
-#: ../src/sj-main.c:176
+#: ../src/sj-main.c:183
 msgid "Please consult the documentation for assistance."
 msgstr "アシスタンスのヘルプをご覧下さい。"
 
-#: ../src/sj-main.c:219
+#: ../src/sj-main.c:226
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr ""
 "音楽 CD の切り出しが完了しました。今すぐ Sound Juicer を終了しますか？ または"
 "続行しますか？"
 
-#: ../src/sj-main.c:279 ../src/sj-main.c:381
+#: ../src/sj-main.c:286 ../src/sj-main.c:388
 msgid "(unknown)"
 msgstr "(不明)"
 
-#: ../src/sj-main.c:423 ../src/sj-main.c:1282
+#: ../src/sj-main.c:430 ../src/sj-main.c:1357
 msgid "Title"
 msgstr "タイトル"
 
-#: ../src/sj-main.c:429 ../src/sj-main.c:1291
+#: ../src/sj-main.c:436 ../src/sj-main.c:1366
 msgid "Artist"
 msgstr "演奏者"
 
-#: ../src/sj-main.c:570 ../src/sj-main.c:669 ../src/sj-main.c:760
+#: ../src/sj-main.c:577 ../src/sj-main.c:685 ../src/sj-main.c:776
 msgid "Could not read the CD"
 msgstr "音楽 CD を読み込めませんでした"
 
-#: ../src/sj-main.c:571 ../src/sj-main.c:670
+#: ../src/sj-main.c:578 ../src/sj-main.c:686
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr ""
 "Sound Juicer はこの音楽 CD のトラック一覧を読み込むことができませんでした。"
 
 #. Set statusbar message
-#: ../src/sj-main.c:651
+#: ../src/sj-main.c:658
 msgid "Retrieving track listing...please wait."
 msgstr "トラック一覧の問い合わせ中...少々、お待ち下さい"
 
-#: ../src/sj-main.c:733
+#: ../src/sj-main.c:749
 msgid "Extracting audio from CD"
 msgstr "CD から楽曲の切り出し中"
 
-#: ../src/sj-main.c:754
+#: ../src/sj-main.c:770
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer は CD-ROM デバイス '%s' にアクセスできませんでした。"
 
-#: ../src/sj-main.c:804
+#: ../src/sj-main.c:849
 msgid "No CD-ROM drives found"
 msgstr "CD-ROM のドライバが見つかりません"
 
-#: ../src/sj-main.c:805
+#: ../src/sj-main.c:850
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer は CD-ROM ドライバを見つけることができませんでした。"
 
-#: ../src/sj-main.c:836
+#: ../src/sj-main.c:881
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "指定したオーディオ・プロファイルは利用できません。"
 
-#: ../src/sj-main.c:838
+#: ../src/sj-main.c:883
 msgid "_Change Profile"
 msgstr "プロファイルの変更(_C)"
 
-#: ../src/sj-main.c:1000
+#: ../src/sj-main.c:968
+msgid "Could not open URL"
+msgstr "URL を開けませんでした"
+
+#: ../src/sj-main.c:969
+msgid "Sound Juicer could not open the submission URL"
+msgstr "Sound Juicer は投稿するための URL を開けませんでした"
+
+#: ../src/sj-main.c:1074
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "不明なエントリ %d が変更されました"
 
-#: ../src/sj-main.c:1055 ../src/sj-prefs.c:141
+#: ../src/sj-main.c:1129 ../src/sj-prefs.c:103
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -479,54 +500,54 @@ msgstr ""
 "Sound Juicer のヘルプを表示できませんでした。\n"
 "%s"
 
-#: ../src/sj-main.c:1189
+#: ../src/sj-main.c:1263
 msgid "Could not create GConf client.\n"
 msgstr "GConf クライアントを生成できませんでした。\n"
 
-#: ../src/sj-main.c:1219
+#: ../src/sj-main.c:1293
 msgid "The interface file for Sound Juicer could not be read."
 msgstr ""
 "Sound Juicer のインタフェース・ファイル (.glade) を読み込めませんでした。"
 
-#: ../src/sj-main.c:1267
+#: ../src/sj-main.c:1342
 msgid "Track"
 msgstr "トラック"
 
-#: ../src/sj-main.c:1302
+#: ../src/sj-main.c:1377
 msgid "Duration"
 msgstr "演奏時間"
 
-#: ../src/sj-metadata-cdtext.c:124
+#: ../src/sj-metadata-cdtext.c:125
 msgid "CD-TEXT metadata plugin failed to initialise."
 msgstr "CD-TEXT メタデータのプラグインを初期化できませんでした。"
 
-#: ../src/sj-metadata-cdtext.c:175
+#: ../src/sj-metadata-cdtext.c:176
 msgid "Cannot read CD"
 msgstr "CD を読み込めません"
 
-#: ../src/sj-metadata-musicbrainz.c:89
+#: ../src/sj-metadata-musicbrainz.c:97
 msgid "Cannot create MusicBrainz client"
 msgstr "MusicBrainz クライアントを生成できません"
 
-#: ../src/sj-metadata-musicbrainz.c:194 ../src/sj-metadata-musicbrainz.c:339
+#: ../src/sj-metadata-musicbrainz.c:220 ../src/sj-metadata-musicbrainz.c:475
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "音楽 CD を読み込めません: %s"
 
-#: ../src/sj-metadata-musicbrainz.c:201 ../src/sj-metadata-musicbrainz.c:384
+#: ../src/sj-metadata-musicbrainz.c:227 ../src/sj-metadata-musicbrainz.c:514
 msgid "Unknown Artist"
 msgstr "演奏者が不明です"
 
-#: ../src/sj-metadata-musicbrainz.c:202 ../src/sj-metadata-musicbrainz.c:392
+#: ../src/sj-metadata-musicbrainz.c:228 ../src/sj-metadata-musicbrainz.c:527
 msgid "Unknown Title"
 msgstr "タイトルが不明です"
 
-#: ../src/sj-metadata-musicbrainz.c:208
+#: ../src/sj-metadata-musicbrainz.c:234
 #, c-format
 msgid "Track %d"
 msgstr "トラック #%d"
 
-#: ../src/sj-metadata-musicbrainz.c:236
+#: ../src/sj-metadata-musicbrainz.c:262
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
@@ -534,12 +555,18 @@ msgstr ""
 "MusicBrainz メタデータ・'オブジェクトが不正です。この状態は最悪です。端末から"
 "エラーをチェックして下さい。"
 
-#: ../src/sj-metadata-musicbrainz.c:333
+#: ../src/sj-metadata-musicbrainz.c:417 ../src/sj-metadata-musicbrainz.c:424
+#: ../src/sj-metadata-musicbrainz.c:434
+#, c-format
+msgid "This CD could not be queried: %s\n"
+msgstr "この音楽 CD を音楽 DB に問い合わせできませんでした: %s\n"
+
+#: ../src/sj-metadata-musicbrainz.c:469
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "デバイス '%s' にはメディアが挿入されていません"
 
-#: ../src/sj-metadata-musicbrainz.c:336
+#: ../src/sj-metadata-musicbrainz.c:472
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
@@ -547,24 +574,15 @@ msgstr ""
 "デバイス '%s' を開けませんでした。デバイスへのアクセス権限をチェックして下さ"
 "い。"
 
-#: ../src/sj-metadata-musicbrainz.c:349
-#, c-format
-msgid "This CD could not be queried: %s\n"
-msgstr "この音楽 CD を音楽 DB に問い合わせできませんでした: %s\n"
-
-#: ../src/sj-metadata-musicbrainz.c:357
-msgid "This CD was not found.\n"
-msgstr "この音楽 CD が見つかりませんでした。\n"
-
-#: ../src/sj-metadata-musicbrainz.c:379
+#: ../src/sj-metadata-musicbrainz.c:508
 msgid "Various"
 msgstr "いろいろ"
 
-#: ../src/sj-metadata-musicbrainz.c:416
-msgid "Incomplete metadata for this CD.\n"
-msgstr "この CD のメタデータが不完全です。\n"
+#: ../src/sj-metadata-musicbrainz.c:552
+msgid "Incomplete metadata for this CD"
+msgstr "この CD のメタデータが不完全です"
 
-#: ../src/sj-metadata-musicbrainz.c:500
+#: ../src/sj-metadata-musicbrainz.c:643
 msgid "Could not create CD lookup thread"
 msgstr "音楽 CD の問い合わせスレッドを生成できませんでした"
 
@@ -597,49 +615,83 @@ msgid "Album Artist, Album Title"
 msgstr "アルバムの演奏者, アルバムのタイトル"
 
 #: ../src/sj-prefs.c:53
+msgid "Album Artist (sortable), Album Title"
+msgstr "アルバムの演奏者(分類可能), アルバムのタイトル"
+
+#: ../src/sj-prefs.c:54
 msgid "Track Artist, Album Title"
 msgstr "トラックの演奏者, アルバムのタイトル"
 
-#: ../src/sj-prefs.c:54 ../src/sj-prefs.c:289
+#: ../src/sj-prefs.c:55
+msgid "Track Artist (sortable), Album Title"
+msgstr "トラックの演奏者(分類可能), アルバムのタイトル"
+
+#: ../src/sj-prefs.c:56 ../src/sj-prefs.c:203
 msgid "Album Title"
 msgstr "アルバムのタイトル"
 
 #. title
-#: ../src/sj-prefs.c:55 ../src/sj-prefs.c:290
+#: ../src/sj-prefs.c:57 ../src/sj-prefs.c:204
 msgid "Album Artist"
 msgstr "アルバムの演奏者"
 
-#: ../src/sj-prefs.c:56
+#: ../src/sj-prefs.c:58
+msgid "Album Artist (sortable)"
+msgstr "アルバムの演奏者(分類可能)"
+
+#: ../src/sj-prefs.c:59
 msgid "Album Artist - Album Title"
 msgstr "アルバムの演奏者 - アルバムのタイトル"
 
-#: ../src/sj-prefs.c:57
+#: ../src/sj-prefs.c:60
+msgid "Album Artist (sortable) - Album Title"
+msgstr "アルバムの演奏者(分類可能) - アルバムのタイトル"
+
+#: ../src/sj-prefs.c:61
 msgid "[none]"
 msgstr "[なし]"
 
-#: ../src/sj-prefs.c:62
+#: ../src/sj-prefs.c:66
 msgid "Number - Title"
 msgstr "トラック番号 - タイトル"
 
 #. album
 #. track number
-#: ../src/sj-prefs.c:63 ../src/sj-prefs.c:301
+#: ../src/sj-prefs.c:67 ../src/sj-prefs.c:216
 msgid "Track Title"
 msgstr "トラックのタイトル"
 
-#: ../src/sj-prefs.c:64
+#: ../src/sj-prefs.c:68
 msgid "Track Artist - Track Title"
 msgstr "トラックの演奏者 - トラックの番号"
 
-#: ../src/sj-prefs.c:65
+#: ../src/sj-prefs.c:69
+msgid "Track Artist (sortable) - Track Title"
+msgstr "トラックの演奏者(分類可能) - トラックの番号"
+
+#: ../src/sj-prefs.c:70
 msgid "Number. Track Artist - Track Title"
 msgstr "トラックの番号. トラックの演奏者 - トラックのタイトル"
 
-#: ../src/sj-prefs.c:66
+#. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
+#: ../src/sj-prefs.c:72
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "トラックの番号. トラックの演奏者 - トラックのタイトル (小文字)"
 
+#. artist
+#: ../src/sj-prefs.c:205
+msgid "Album Artist's Sortable Name"
+msgstr "アルバムの演奏者の分類可能な名前"
+
 #. title
-#: ../src/sj-prefs.c:302
+#: ../src/sj-prefs.c:217
 msgid "Track Artist"
 msgstr "トラックの演奏者"
+
+#. artist
+#: ../src/sj-prefs.c:218
+msgid "Track Artist's Sortable Name"
+msgstr "トラックの演奏者の分類可能な名前"
+
+#~ msgid "This CD was not found.\n"
+#~ msgstr "この音楽 CD が見つかりませんでした。\n"
