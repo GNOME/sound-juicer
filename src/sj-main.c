@@ -211,6 +211,7 @@ void on_eject_activate (GtkMenuItem *item, gpointer user_data)
   /* first make sure we're not playing */
   stop_playback ();
 
+  nautilus_burn_drive_unlock (drive);
   nautilus_burn_drive_eject (drive);
 }
 
