@@ -83,7 +83,7 @@ select_track (void)
 
   gst_element_set_state (pipeline, GST_STATE_PAUSED);
   cd = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "cd-source");
-  gst_element_seek (cd, 1.0, gst_format_get_by_nick ("track"), GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, seek_to_track, GST_SEEK_TYPE_NONE, 0);
+  gst_element_seek (pipeline, 1.0, gst_format_get_by_nick ("track"), GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, seek_to_track, GST_SEEK_TYPE_NONE, -1);
   current_track = seek_to_track;
   seek_to_track = -1;
 
@@ -316,7 +316,7 @@ setup (GError **err)
 {
   if (!pipeline) {
     GstBus *bus;
-    GstElement *out, *conv, *resample, *cdp, *queue, *volume;
+    GstElement *out, *queue, *conv, *resample, *cdp, *volume;
 
     /* TODO:
      * replace with playbin.  Tim says:
@@ -360,9 +360,9 @@ setup (GError **err)
     g_object_set (G_OBJECT (volume), "volume", vol, NULL);
     out = gst_element_factory_make ("gconfaudiosink", "out"); g_assert (out);
 
+    gst_bin_add_many (GST_BIN (pipeline), cdp, queue, conv, resample, volume, out, NULL);
     if (!gst_element_link_many (cdp, queue, conv, resample, volume, out, NULL))
       g_warning (_("Failed to link pipeline"));
-    gst_bin_add_many (GST_BIN (pipeline), cdp, queue, conv, resample, volume, out, NULL);
 
     /* if something went wrong, cleanup here is easier... */
     if (!out) {
@@ -599,7 +599,7 @@ on_seek_release (GtkWidget * scale, GdkEventButton * event, gpointer user_data)
   cd = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "cd-source");
   seeking = FALSE;
 
-  gst_element_seek (cd, 1.0, GST_FORMAT_TIME, GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, slen * val, GST_SEEK_TYPE_NONE, 0);
+  gst_element_seek (pipeline, 1.0, GST_FORMAT_TIME, GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, slen * val, GST_SEEK_TYPE_NONE, -1);
 
   return FALSE;
 }
