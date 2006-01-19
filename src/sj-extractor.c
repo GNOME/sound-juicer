@@ -201,7 +201,8 @@ static void eos_cb (GstBus *bus, GstMessage *message, gpointer user_data)
   g_source_remove (priv->tick_id);
   priv->tick_id = 0;
 
-  //extractor->priv->rebuild_pipeline = TRUE;
+  /* TODO: shouldn't need to do this, see #327197 */
+  extractor->priv->rebuild_pipeline = TRUE;
 
   g_signal_emit (extractor, signals[COMPLETION], 0);
 }
