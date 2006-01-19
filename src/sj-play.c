@@ -25,8 +25,6 @@
 #endif
 
 #include <gst/gst.h>
-#include <gst/gconf/gconf.h>
-
 #include <gtk/gtkwidget.h>
 #include <gtk/gtktreeview.h>
 #include <gtk/gtkbutton.h>
@@ -85,10 +83,7 @@ select_track (void)
 
   gst_element_set_state (pipeline, GST_STATE_PAUSED);
   cd = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "cd-source");
-  gst_pad_send_event (gst_element_get_pad (cd, "src"),
-      gst_event_new_segment_seek (GST_SEEK_FLAG_FLUSH |
-          gst_format_get_by_nick ("track") | GST_SEEK_METHOD_SET,
-          seek_to_track, seek_to_track + 1));
+  gst_element_seek (pipeline, 1.0, gst_format_get_by_nick ("track"), GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, seek_to_track, GST_SEEK_TYPE_NONE, -1);
   current_track = seek_to_track;
   seek_to_track = -1;
 
@@ -144,8 +139,8 @@ is_playing (void)
  * callbacks.
  */
 
-static gboolean
-cb_hop_track (gpointer data)
+static void
+cb_hop_track (GstBus *bus, GstMessage *message, gpointer user_data)
 {
   GtkTreeModel *model;
   gint tracks, next_track = current_track + 1;
@@ -183,39 +178,23 @@ cb_hop_track (gpointer data)
     g_free (title);
     play ();
   }
-
-  /* once */
-  return FALSE;
 }
 
 static void
-cb_eos (GstElement * p, gpointer data)
-{
-  g_idle_add ((GSourceFunc) cb_hop_track, NULL);
-}
-
-static gboolean
-idle_error (GError * err)
+cb_error (GstBus *bus, GstMessage *message, gpointer user_data)
 {
   GtkWidget *dialog;
+  GError *error;
 
+  gst_message_parse_error (message, &error, NULL);
   dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
 				   GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
 				   _("Error playing CD.\n\nReason: %s"),
-				   err->message);
+				   error->message);
   gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_destroy (dialog);
-  g_error_free (err);
-
-  /* once */
-  return FALSE;
-}
-
-static void
-cb_error (GstElement * p, GstElement * source, GError * err, gchar * debug,
-    gpointer data)
-{
-  g_idle_add ((GSourceFunc) idle_error, g_error_copy (err));
+  
+  g_error_free (error);
 }
 
 static gchar *
@@ -249,7 +228,6 @@ static gboolean
 cb_set_time (gpointer data)
 {
   GstElement *cd;
-  GstPad *pad;
   GstFormat fmt = GST_FORMAT_TIME;
   gint64 pos, len;
 
@@ -257,10 +235,9 @@ cb_set_time (gpointer data)
     return TRUE;
 
   cd = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "cd-source");
-  pad = gst_element_get_pad (cd, "src");
 
-  if (gst_pad_query (pad, GST_QUERY_TOTAL, &fmt, &len) &&
-      gst_pad_query (pad, GST_QUERY_POSITION, &fmt, &pos)) {
+  if (gst_element_query_duration (cd, &fmt, &len) &&
+      gst_element_query_position (cd, &fmt, &pos)) {
     internal_update = TRUE;
     gtk_range_set_value (GTK_RANGE (seek_scale), (gdouble) pos / len);
     set_statusbar_pos (pos / GST_SECOND, len / GST_SECOND);
@@ -283,12 +260,16 @@ cb_change_button (gpointer data)
   return FALSE;
 }
 
-static gboolean
-idle_state (gpointer data)
+static void
+cb_state (GstBus *bus, GstMessage *message, gpointer user_data)
 {
-  gint transition = GPOINTER_TO_INT (data);
+  GstState old_state, new_state;
+  GstStateChange transition;
 
-  if (transition == GST_STATE_READY_TO_PAUSED) {
+  gst_message_parse_state_changed (message, &old_state, &new_state, NULL);
+  transition = GST_STATE_TRANSITION (old_state, new_state);
+
+  if (transition == GST_STATE_CHANGE_READY_TO_PAUSED) {
     char *title;
     gtk_widget_show (seek_scale);
     gtk_widget_show (volume_button);
@@ -298,7 +279,7 @@ idle_state (gpointer data)
         &current_iter, COLUMN_TITLE, &title, -1);
     sj_main_set_title (title);
     g_free (title);
-  } else if (transition == GST_STATE_PAUSED_TO_READY) {
+  } else if (transition == GST_STATE_CHANGE_PAUSED_TO_READY) {
     gtk_widget_hide (seek_scale);
     gtk_widget_hide (volume_button);
     gtk_statusbar_pop (GTK_STATUSBAR (statusbar), 0);
@@ -308,14 +289,14 @@ idle_state (gpointer data)
     sj_main_set_title (NULL);
     gtk_statusbar_push (GTK_STATUSBAR (statusbar), 0, "");
     current_track = -1;
-  } else if (transition == GST_STATE_PAUSED_TO_PLAYING) {
+  } else if (transition == GST_STATE_CHANGE_PAUSED_TO_PLAYING) {
     gtk_button_set_label (GTK_BUTTON (play_button), GTK_STOCK_MEDIA_PAUSE);
     id = g_timeout_add (100, (GSourceFunc) cb_set_time, NULL);
     if (button_change_id) {
       g_source_remove (button_change_id);
       button_change_id = 0;
     }
-  } else if (transition == GST_STATE_PLAYING_TO_PAUSED) {
+  } else if (transition == GST_STATE_CHANGE_PLAYING_TO_PAUSED) {
     if (id) {
       g_source_remove (id);
       id = 0;
@@ -324,17 +305,6 @@ idle_state (gpointer data)
     button_change_id =
         g_timeout_add (500, (GSourceFunc) cb_change_button, play_button);
   }
-
-  /* once */
-  return FALSE;
-}
-
-static void
-cb_state (GstElement * p, GstElementState old_state, GstElementState new_state,
-    gpointer data)
-{
-  g_idle_add ((GSourceFunc) idle_state,
-      GINT_TO_POINTER (old_state << 8 | new_state));
 }
 
 /**
@@ -345,14 +315,30 @@ static gboolean
 setup (GError **err)
 {
   if (!pipeline) {
-    GstElement *internal_t, *out, *conv, *scale, *cdp, *queue, *volume;
+    GstBus *bus;
+    GstElement *out, *queue, *conv, *resample, *cdp, *volume;
 
-    pipeline = gst_thread_new ("playback");
-    g_signal_connect (pipeline, "eos", G_CALLBACK (cb_eos), NULL);
-    g_signal_connect (pipeline, "error", G_CALLBACK (cb_error), NULL);
-    g_signal_connect (pipeline, "state-change", G_CALLBACK (cb_state), NULL);
+    /* TODO:
+     * replace with playbin.  Tim says:
+     * 
+     * just create playbin and your audio sink, then do g_object_set (playbin,
+     * "audio-sink", audiosink, NULL); and set cdda://<track-number> as URI on
+     * playbin and set it to PLAYING.  and then go
+     * gst_element_query_duration/position(playbin) and
+     * gst_element_seek(playbin, .... track_format, track-1, ...) for changing
+     * track
+     */
 
-    cdp = gst_element_factory_make ("cdparanoia", "cd-source");
+    pipeline = gst_pipeline_new ("playback");
+
+    bus = gst_element_get_bus (pipeline);
+    gst_bus_add_signal_watch (bus);
+
+    g_signal_connect (bus, "message::eos", G_CALLBACK (cb_hop_track), NULL);
+    g_signal_connect (bus, "message::error", G_CALLBACK (cb_error), NULL);
+    g_signal_connect (bus, "message::state-changed", G_CALLBACK (cb_state), NULL);
+
+    cdp = gst_element_factory_make ("cdparanoiasrc", "cd-source");
     if (!cdp) {
       gst_object_unref (GST_OBJECT (pipeline));
       pipeline = NULL;
@@ -362,34 +348,34 @@ setup (GError **err)
     /* do not set to 1, that messes up buffering. 2 is enough to keep
      * noise from the drive down. */
     /* TODO: will not notice drive changes, should monitor */
-    g_object_set (G_OBJECT (cdp), "read-speed", 2,
-        "device", drive->device, NULL);
+    g_object_set (G_OBJECT (cdp),
+                  "read-speed", 2,
+                  "device", drive->device,
+                  NULL);
 
-    internal_t = gst_thread_new ("output");
-    queue = gst_element_factory_make ("queue", "queue");
-    conv = gst_element_factory_make ("audioconvert", "conv");
-    scale = gst_element_factory_make ("audioscale", "scale");
-    volume = gst_element_factory_make ("volume", "vol");
+    queue = gst_element_factory_make ("queue", "queue"); g_assert (queue);
+    conv = gst_element_factory_make ("audioconvert", "conv"); g_assert (conv);
+    resample = gst_element_factory_make ("audioresample", "resample"); g_assert (resample);
+    volume = gst_element_factory_make ("volume", "vol"); g_assert (volume);
     g_object_set (G_OBJECT (volume), "volume", vol, NULL);
-    out = gst_gconf_get_default_audio_sink ();
+    out = gst_element_factory_make ("gconfaudiosink", "out"); g_assert (out);
 
-    gst_element_link_many (cdp, queue, conv, scale, volume, out, NULL);
-    gst_bin_add_many (GST_BIN (internal_t), conv, scale, volume, out, NULL);
-    gst_bin_add_many (GST_BIN (pipeline), cdp, queue, internal_t, NULL);
+    gst_bin_add_many (GST_BIN (pipeline), cdp, queue, conv, resample, volume, out, NULL);
+    if (!gst_element_link_many (cdp, queue, conv, resample, volume, out, NULL))
+      g_warning (_("Failed to link pipeline"));
 
     /* if something went wrong, cleanup here is easier... */
     if (!out) {
       gst_object_unref (GST_OBJECT (pipeline));
       pipeline = NULL;
-      g_set_error (err, 0, 0,
-          _("Failed to create audio output"));
+      g_set_error (err, 0, 0, _("Failed to create audio output"));
       return FALSE;
     }
 
     if (!gtk_tree_model_get_iter_first (GTK_TREE_MODEL (track_store), &current_iter))
       g_warning ("Cannot get first iter");
   }
-
+  
   return TRUE;
 }
 
@@ -499,7 +485,7 @@ on_tracklist_row_activate (GtkTreeView * treeview, GtkTreePath * path,
 void
 on_next_track_activate(GtkWidget *button, gpointer data)
 {
-  cb_hop_track (NULL);
+  cb_hop_track (NULL, NULL, NULL);
 }
 
 void
@@ -613,9 +599,7 @@ on_seek_release (GtkWidget * scale, GdkEventButton * event, gpointer user_data)
   cd = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "cd-source");
   seeking = FALSE;
 
-  gst_pad_send_event (gst_element_get_pad (cd, "src"),
-      gst_event_new_seek (GST_SEEK_FLAG_FLUSH | GST_FORMAT_TIME |
-          GST_SEEK_METHOD_SET, slen * val));
+  gst_element_seek (pipeline, 1.0, GST_FORMAT_TIME, GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, slen * val, GST_SEEK_TYPE_NONE, -1);
 
   return FALSE;
 }

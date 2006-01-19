@@ -1216,27 +1216,31 @@ int main (int argc, char **argv)
   GError *error = NULL;
   GtkTreeSelection *selection;
   char *device = NULL;
-  struct poptOption options[] = {
-    { NULL, '\0', POPT_ARG_INCLUDE_TABLE, NULL, 0, "GStreamer", NULL },
-    { "auto-start", 'a', POPT_ARG_NONE, &autostart, 0, "Start extracting immediately", NULL},
-    { "play", 'p', POPT_ARG_NONE, &autoplay, 0, "Start playing immediately", NULL},
-    { "device", 'd', POPT_ARG_STRING, &device, 0, "What CD device to read", NULL},
-    POPT_TABLEEND
+  GOptionContext *ctx;
+  const GOptionEntry entries[] = {
+    { "auto-start", 'a', 0, G_OPTION_ARG_NONE, &autostart, N_("Start extracting immediately"), NULL },
+    { "play", 'p', 0, G_OPTION_ARG_NONE, &autoplay, N_("Start playing immediately"), NULL},
+    { "device", 'd', 0, G_OPTION_ARG_FILENAME, &device, N_("What CD device to read"), N_("DEVICE") },
+    { NULL }
   };
 
   bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
   
-  options[0].arg = (void *) gst_init_get_popt_table ();
-  gnome_program_init ("sound-juicer",
-                      VERSION, LIBGNOMEUI_MODULE,
-                      argc, argv,
-                      GNOME_PROGRAM_STANDARD_PROPERTIES,
-                      GNOME_PARAM_POPT_TABLE, options,
-                      NULL);
   g_set_application_name (_("Sound Juicer"));
+  
+  ctx = g_option_context_new ("- Sound Juicer");
+  g_option_context_add_main_entries (ctx, entries, GETTEXT_PACKAGE);  
+  g_option_context_add_group (ctx, gtk_get_option_group (FALSE));
+  g_option_context_add_group (ctx, gst_init_get_option_group ());
+  if (!g_option_context_parse (ctx, &argc, &argv, &error)) {
+    g_critical ("Failed to initialize: %s\n", error->message);
+    g_error_free (error);
+    return 1;
+  }
 
+  gtk_init (&argc, &argv);
   sj_stock_init ();
 
   gtk_window_set_default_icon_from_file (PIXMAPDIR"/sound-juicer.png", NULL);
