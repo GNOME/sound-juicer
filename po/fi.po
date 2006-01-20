@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-16 21:30+0200\n"
-"PO-Revision-Date: 2006-01-16 21:34+0200\n"
+"POT-Creation-Date: 2006-01-20 07:26+0200\n"
+"PO-Revision-Date: 2006-01-20 07:30+0200\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -121,8 +121,8 @@ msgid "Skip to the previous track"
 msgstr "Siirry edelliseen kappaleeseen"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-about.c:52
-#: ../src/sj-extractor.c:493 ../src/sj-main.c:165 ../src/sj-main.c:167
-#: ../src/sj-main.c:1238
+#: ../src/sj-extractor.c:507 ../src/sj-main.c:165 ../src/sj-main.c:167
+#: ../src/sj-main.c:1232
 msgid "Sound Juicer"
 msgstr "Musiikkimaija"
 
@@ -138,7 +138,7 @@ msgstr ""
 msgid "_Contents"
 msgstr "_Sisältö"
 
-#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:228
+#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:229
 msgid "_Continue"
 msgstr "_Jatka"
 
@@ -242,11 +242,11 @@ msgstr "Jos niin tiedostonimistä poistetaan erikoismerkit"
 
 #: ../data/sound-juicer.schemas.in.h:9
 msgid ""
-"Paranoia mode, 3 settings: 0 (no paranoia), 4 (cdda2wav-style overlap "
-"checking) and 255 (full paranoia)"
+"Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) "
+"full"
 msgstr ""
-"Paranoia-tapa, 3 vaihtoehtoa: 0 (ei vainoharhaisuutta), 4 (cdd2wav-tyylinen "
-"limittäisyyden tarkistus) ja 255 (täysin vainoharhainen)"
+"Paranoia-tila: 0) älä käytä 2) palanen 4) päällekkäinen 8) naarmu 16) korjaa "
+"255) täysi"
 
 #: ../data/sound-juicer.schemas.in.h:10
 msgid "The GNOME Audio Profile with which to encode."
@@ -353,51 +353,47 @@ msgstr "Raitojen kopiointi onnistui."
 msgid "_Eject"
 msgstr "_Poista levy"
 
-#: ../src/sj-extractor.c:105
-msgid "GNOME Audio Profile"
-msgstr "Gnome-ääniprofiili"
+#: ../src/sj-extractor.c:103
+msgid "Audio Profile"
+msgstr "Ääniprofiili"
 
-#: ../src/sj-extractor.c:105
+#: ../src/sj-extractor.c:104
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "Gnome-ääniprofiili, jota äänen koodaamisessa käytetään"
 
-#: ../src/sj-extractor.c:306
+#: ../src/sj-extractor.c:343
 msgid "Could not create GStreamer cdparanoia reader"
 msgstr "Ei voitu luoda GStreamer-cdparanoia-lukijaa"
 
-#: ../src/sj-extractor.c:331
+#: ../src/sj-extractor.c:363
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "GStreamer-kooderia tiedostolle %s ei voitu luoda"
 
-#: ../src/sj-extractor.c:342
+#: ../src/sj-extractor.c:374
 msgid "Could not create GStreamer file output"
 msgstr "GStreamer-tiedostoulostuloa ei voitu luoda"
 
-#: ../src/sj-extractor.c:380
+#: ../src/sj-extractor.c:408
 msgid "Could not get current track position"
 msgstr "Nykyistä raidan sijaintia ei voitu määrittää"
 
-#: ../src/sj-extractor.c:412
+#: ../src/sj-extractor.c:435
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Kopiointi-objekti on virheellinen.  Tämä ei näytä hyvältä, tarkista "
 "päätteeltäsi virheet."
 
-#: ../src/sj-extractor.c:555
-msgid "Could not seek to track"
-msgstr "Ei voitu hakea raitaa"
-
-#: ../src/sj-extractor.c:560
+#: ../src/sj-extractor.c:578
 msgid "Could not get track start position"
 msgstr "Ei saatu raidan lähtösijaintia"
 
-#: ../src/sj-extractor.c:590
+#: ../src/sj-extractor.c:610
 msgid "The plugin necessary for CD access was not found"
 msgstr "CD-pääsyyn tarvittavaa liitännäistä ei löytynyt"
 
-#: ../src/sj-extractor.c:598
+#: ../src/sj-extractor.c:618
 msgid "The plugin necessary for file access was not found"
 msgstr "Tiedoston käsittelyyn tarvittavaa liitännäistä ei löytynyt"
 
@@ -409,8 +405,8 @@ msgstr "_Kopioi"
 msgid "Could not start Sound Juicer"
 msgstr "Musiikkimaijaa ei voitu käynnistää"
 
-#: ../src/sj-main.c:181 ../src/sj-main.c:579 ../src/sj-main.c:687
-#: ../src/sj-main.c:778 ../src/sj-main.c:970
+#: ../src/sj-main.c:181 ../src/sj-main.c:580 ../src/sj-main.c:688
+#: ../src/sj-main.c:779 ../src/sj-main.c:971
 msgid "Reason"
 msgstr "Syy"
 
@@ -418,76 +414,76 @@ msgstr "Syy"
 msgid "Please consult the documentation for assistance."
 msgstr "Katso ohjeista neuvoja."
 
-#: ../src/sj-main.c:226
+#: ../src/sj-main.c:227
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Olet juuri nyt kopioimassa CD:tä. Haluatko lopettaa nyt vaiko jatkaa?"
 
-#: ../src/sj-main.c:286 ../src/sj-main.c:388
+#: ../src/sj-main.c:287 ../src/sj-main.c:389
 msgid "(unknown)"
 msgstr "(tuntematon)"
 
-#: ../src/sj-main.c:430 ../src/sj-main.c:1357
+#: ../src/sj-main.c:431 ../src/sj-main.c:1362
 msgid "Title"
 msgstr "Nimi"
 
-#: ../src/sj-main.c:436 ../src/sj-main.c:1366
+#: ../src/sj-main.c:437 ../src/sj-main.c:1371
 msgid "Artist"
 msgstr "Esittäjä"
 
-#: ../src/sj-main.c:577 ../src/sj-main.c:685 ../src/sj-main.c:776
+#: ../src/sj-main.c:578 ../src/sj-main.c:686 ../src/sj-main.c:777
 msgid "Could not read the CD"
 msgstr "CD:tä ei voitu lukea"
 
-#: ../src/sj-main.c:578 ../src/sj-main.c:686
+#: ../src/sj-main.c:579 ../src/sj-main.c:687
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Musiikkimaija ei voinut lukea raitaluetteloa tältä CD:ltä."
 
 #. Set statusbar message
-#: ../src/sj-main.c:658
+#: ../src/sj-main.c:659
 msgid "Retrieving track listing...please wait."
 msgstr "Noudetaan raitaluetteloa...odota."
 
-#: ../src/sj-main.c:749
+#: ../src/sj-main.c:750
 msgid "Extracting audio from CD"
 msgstr "Kopioidaan musiikkia CD-levyltä"
 
-#: ../src/sj-main.c:770
+#: ../src/sj-main.c:771
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Musiikkimaija ei voinut käsitellä CD-ROM-laitetta \"%s\""
 
-#: ../src/sj-main.c:849
+#: ../src/sj-main.c:850
 msgid "No CD-ROM drives found"
 msgstr "CD-ROM-asemia ei löytynyt"
 
-#: ../src/sj-main.c:850
+#: ../src/sj-main.c:851
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Musiikkimaija ei löytänyt yhtään CD-ROM-asemaa luettavaksi."
 
-#: ../src/sj-main.c:881
+#: ../src/sj-main.c:882
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr ""
 "Tällä hetkellä valittua ääniprofiilia ei ole saatavilla asennuksessasi."
 
-#: ../src/sj-main.c:883
+#: ../src/sj-main.c:884
 msgid "_Change Profile"
 msgstr "_Vaihda profiilia"
 
-#: ../src/sj-main.c:968
+#: ../src/sj-main.c:969
 msgid "Could not open URL"
 msgstr "URLia ei voitu avata"
 
-#: ../src/sj-main.c:969
+#: ../src/sj-main.c:970
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Musiikkimaija ei voinut avata lähetys-URLia"
 
-#: ../src/sj-main.c:1074
+#: ../src/sj-main.c:1075
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Tuntematonta saraketta %d muokattiin"
 
-#: ../src/sj-main.c:1129 ../src/sj-prefs.c:103
+#: ../src/sj-main.c:1130 ../src/sj-prefs.c:103
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -496,19 +492,35 @@ msgstr ""
 "Musiikkimaijan ohjetta ei voitu näyttää\n"
 "%s"
 
-#: ../src/sj-main.c:1263
+#: ../src/sj-main.c:1222
+msgid "Start extracting immediately"
+msgstr "Aloita kopiointi heti"
+
+#: ../src/sj-main.c:1223
+msgid "Start playing immediately"
+msgstr "Aloita soittaminen heti"
+
+#: ../src/sj-main.c:1224
+msgid "What CD device to read"
+msgstr "Miltä CD-asemalta luetaan"
+
+#: ../src/sj-main.c:1224
+msgid "DEVICE"
+msgstr "LAITE"
+
+#: ../src/sj-main.c:1268
 msgid "Could not create GConf client.\n"
 msgstr "GConf-asiakasta ei voitu luoda.\n"
 
-#: ../src/sj-main.c:1293
+#: ../src/sj-main.c:1298
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Musiikkimaijan käyttöliittymätiedostoa ei voitu lukea."
 
-#: ../src/sj-main.c:1342
+#: ../src/sj-main.c:1347
 msgid "Track"
 msgstr "Raita"
 
-#: ../src/sj-main.c:1377
+#: ../src/sj-main.c:1382
 msgid "Duration"
 msgstr "Kesto"
 
@@ -579,7 +591,7 @@ msgstr "CD:n metatiedot eivät ovat puutteellisia"
 msgid "Could not create CD lookup thread"
 msgstr "CD-hakusäiettä ei voitu luoda"
 
-#: ../src/sj-play.c:204 ../src/sj-play.c:444 ../src/sj-play.c:491
+#: ../src/sj-play.c:192 ../src/sj-play.c:430 ../src/sj-play.c:477
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -590,15 +602,19 @@ msgstr ""
 "\n"
 "Syy: %s"
 
-#: ../src/sj-play.c:359
+#: ../src/sj-play.c:345
 msgid "Failed to create CD source element"
 msgstr "CD-lähde-elementin luonti epäonnistui"
 
-#: ../src/sj-play.c:385
+#: ../src/sj-play.c:365
+msgid "Failed to link pipeline"
+msgstr "Putkea ei voitu linkittää"
+
+#: ../src/sj-play.c:371
 msgid "Failed to create audio output"
 msgstr "Ääniulostulon luonti epäonnistui"
 
-#: ../src/sj-play.c:601
+#: ../src/sj-play.c:587
 #, c-format
 msgid "Seeking to %s"
 msgstr "Kelataan kohtaan %s"
@@ -685,6 +701,16 @@ msgstr "Raidan esittäjä"
 #: ../src/sj-prefs.c:218
 msgid "Track Artist's Sortable Name"
 msgstr "Raidan esittäjän järjestettävissä oleva nimi"
+
+#~ msgid ""
+#~ "Paranoia mode, 3 settings: 0 (no paranoia), 4 (cdda2wav-style overlap "
+#~ "checking) and 255 (full paranoia)"
+#~ msgstr ""
+#~ "Paranoia-tapa, 3 vaihtoehtoa: 0 (ei vainoharhaisuutta), 4 (cdd2wav-"
+#~ "tyylinen limittäisyyden tarkistus) ja 255 (täysin vainoharhainen)"
+
+#~ msgid "Could not seek to track"
+#~ msgstr "Ei voitu hakea raitaa"
 
 #~ msgid "This CD was not found.\n"
 #~ msgstr "Tätä CD:tä ei löytynyt.\n"
