@@ -743,7 +743,7 @@ set_drive_from_device (const char *device)
 
   if (! device)
     return;
-
+  
   drive = nautilus_burn_drive_new_from_path (device);
   g_assert (drive);
 
@@ -1228,20 +1228,20 @@ int main (int argc, char **argv)
   bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
-  
+
   g_set_application_name (_("Sound Juicer"));
   
   ctx = g_option_context_new ("- Sound Juicer");
   g_option_context_add_main_entries (ctx, entries, GETTEXT_PACKAGE);  
-  g_option_context_add_group (ctx, gtk_get_option_group (FALSE));
   g_option_context_add_group (ctx, gst_init_get_option_group ());
-  if (!g_option_context_parse (ctx, &argc, &argv, &error)) {
-    g_critical ("Failed to initialize: %s\n", error->message);
-    g_error_free (error);
-    return 1;
-  }
 
-  gtk_init (&argc, &argv);
+  gnome_program_init ("sound-juicer", 	 
+                      VERSION, LIBGNOMEUI_MODULE, 	 
+                      argc, argv, 	 
+                      GNOME_PROGRAM_STANDARD_PROPERTIES,
+                      GNOME_PARAM_GOPTION_CONTEXT, ctx,
+                      NULL);
+
   sj_stock_init ();
 
   gtk_window_set_default_icon_from_file (PIXMAPDIR"/sound-juicer.png", NULL);
