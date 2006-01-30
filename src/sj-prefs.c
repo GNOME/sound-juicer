@@ -198,7 +198,6 @@ static void pattern_label_update (void)
 {
   char *file_pattern, *path_pattern;
   char *file_value, *path_value, *example, *format;
-  gboolean strip;
   static AlbumDetails sample_album = {
     N_("Album Title"), /* title */
     N_("Album Artist"), /* artist */
@@ -241,7 +240,6 @@ static void pattern_label_update (void)
   if (path_pattern == NULL) {
     path_pattern = g_strdup(path_patterns[0].pattern);
   }
-  strip = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_strip));
 
   file_value = filepath_parse_pattern (file_pattern, &sample_track);
   path_value = filepath_parse_pattern (path_pattern, &sample_track);
