@@ -1235,6 +1235,7 @@ int main (int argc, char **argv)
   ctx = g_option_context_new ("- Sound Juicer");
   g_option_context_add_main_entries (ctx, entries, GETTEXT_PACKAGE);  
   g_option_context_add_group (ctx, gst_init_get_option_group ());
+  g_option_context_set_ignore_unknown_options (ctx, TRUE);
 
   gnome_program_init ("sound-juicer", 	 
                       VERSION, LIBGNOMEUI_MODULE, 	 
