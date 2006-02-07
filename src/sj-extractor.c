@@ -512,31 +512,31 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
 
 #ifdef GST_TAG_MUSICBRAINZ_ALBUMID
       if (track->album->album_id != NULL && strcmp (track->album->album_id, "") != 0) {
-        gst_tag_setter_add_tags (GST_TAG_SETTER (elt->data),
+        gst_tag_setter_add_tags (tagger,
                             GST_TAG_MERGE_APPEND,
                             GST_TAG_MUSICBRAINZ_ALBUMID, track->album->album_id,
                             NULL);
       }
       if (track->album->artist_id != NULL && strcmp (track->album->artist_id, "") != 0) {
-        gst_tag_setter_add_tags (GST_TAG_SETTER (elt->data),
+        gst_tag_setter_add_tags (tagger,
                             GST_TAG_MERGE_APPEND,
                             GST_TAG_MUSICBRAINZ_ALBUMARTISTID, track->album->artist_id,
                             NULL);
       }
       if (track->artist_id != NULL && strcmp (track->artist_id, "") != 0) {
-        gst_tag_setter_add_tags (GST_TAG_SETTER (elt->data),
+        gst_tag_setter_add_tags (tagger,
                             GST_TAG_MERGE_APPEND,
                             GST_TAG_MUSICBRAINZ_ARTISTID, track->artist_id,
                             NULL);
       }
       if (track->track_id != NULL && strcmp (track->track_id, "") != 0) {
-        gst_tag_setter_add_tags (GST_TAG_SETTER (elt->data),
+        gst_tag_setter_add_tags (tagger,
                             GST_TAG_MERGE_APPEND,
                             GST_TAG_MUSICBRAINZ_TRACKID, track->track_id,
                             NULL);
       }
       if (track->artist_sortname != NULL && strcmp (track->artist_sortname, "") != 0) {
-        gst_tag_setter_add_tags (GST_TAG_SETTER (elt->data),
+        gst_tag_setter_add_tags (tagger,
                             GST_TAG_MERGE_APPEND,
                             GST_TAG_MUSICBRAINZ_SORTNAME, track->artist_sortname,
                             NULL);
