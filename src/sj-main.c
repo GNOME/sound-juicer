@@ -1119,6 +1119,7 @@ void on_genre_edit_changed(GtkEditable *widget, gpointer user_data) {
 void on_contents_activate(GtkWidget *button, gpointer user_data) {
   GError *error = NULL;
 
+  /* If/when we drop libgnome, simply spawn the URI ghelp:sound-juicer. */
   gnome_help_display ("sound-juicer", NULL, &error);
   if (error) {
     GtkWidget *dialog;
