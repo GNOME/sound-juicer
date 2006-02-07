@@ -337,7 +337,7 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (extract_button, FALSE);
     gtk_widget_set_sensitive (extract_menuitem, FALSE);
     gtk_widget_set_sensitive (select_all_menuitem, FALSE);
-    gtk_widget_set_sensitive (deselect_all_menuitem, TRUE);
+    gtk_widget_set_sensitive (deselect_all_menuitem, FALSE);
     gtk_widget_set_sensitive (prev_menuitem, FALSE);
     gtk_widget_set_sensitive (next_menuitem, FALSE);
   } else {
