@@ -46,7 +46,7 @@ PKG_CHECK_MODULES(UI, gtk+-2.0 >= 2.6  libglade-2.0  gconf-2.0  libgnomeui-2.0  
 AC_SUBST(UI_CFLAGS)
 AC_SUBST(UI_LIBS)
 
-PKG_CHECK_MODULES(GSTREAMER, gstreamer-0.10)
+PKG_CHECK_MODULES(GSTREAMER, gstreamer-0.10 gstreamer-plugins-base-0.10)
 AC_SUBST(GSTREAMER_CFLAGS)
 AC_SUBST(GSTREAMER_LIBS)
 
@@ -56,11 +56,6 @@ AM_GST_ELEMENT_CHECK(vorbisenc,,AC_MSG_WARN([The 'vorbisenc' element was not fou
 AM_GST_ELEMENT_CHECK(flacenc,,AC_MSG_WARN([The 'flacenc' element was not found. This will cause encoding to FLAC to fail.]))
 AM_GST_ELEMENT_CHECK(wavenc,,AC_MSG_WARN([The 'wavenc' element was not found. This will cause encoding to Wave to fail.]))
 AM_GST_ELEMENT_CHECK(gnomevfssink,,AC_MSG_WARN([The 'gnomevfssink' element was not found. This will cause Sound Juicer to fail at runtime.]))
-
-oldlibs=$LIBS ; LIBS=$GSTREAMER_LIBS
-AC_CHECK_FUNCS(gst_tag_register_musicbrainz_tags)
-LIBS=$oldlibs
-
 
 # Find GNOME Media Profiles
 PKG_CHECK_MODULES(MEDIA_PROFILES, gnome-media-profiles >= 2.11.91)

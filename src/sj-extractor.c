@@ -30,9 +30,7 @@
 #include <glib/gi18n.h>
 #include <glib-object.h>
 #include <gst/gst.h>
-#if HAVE_GST_TAG_REGISTER_MUSICBRAINZ_TAGS
 #include <gst/tag/tag.h>
-#endif
 #include <profiles/gnome-media-profiles.h>
 #include "sj-extractor.h"
 #include "sj-structures.h"
@@ -512,7 +510,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
                                GST_TAG_ENCODER_VERSION, VERSION,
                                NULL);
 
-#if HAVE_GST_TAG_REGISTER_MUSICBRAINZ_TAGS
+#ifdef GST_TAG_MUSICBRAINZ_ALBUMID
       if (track->album->album_id != NULL && strcmp (track->album->album_id, "") != 0) {
         gst_tag_setter_add_tags (GST_TAG_SETTER (elt->data),
                             GST_TAG_MERGE_APPEND,
