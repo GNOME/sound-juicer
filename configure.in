@@ -57,6 +57,11 @@ AM_GST_ELEMENT_CHECK(flacenc,,AC_MSG_WARN([The 'flacenc' element was not found. 
 AM_GST_ELEMENT_CHECK(wavenc,,AC_MSG_WARN([The 'wavenc' element was not found. This will cause encoding to Wave to fail.]))
 AM_GST_ELEMENT_CHECK(gnomevfssink,,AC_MSG_WARN([The 'gnomevfssink' element was not found. This will cause Sound Juicer to fail at runtime.]))
 
+oldlibs=$LIBS ; LIBS=$GSTREAMER_LIBS
+AC_CHECK_FUNCS(gst_tag_register_musicbrainz_tags)
+LIBS=$oldlibs
+
+
 # Find GNOME Media Profiles
 PKG_CHECK_MODULES(MEDIA_PROFILES, gnome-media-profiles >= 2.11.91)
 AC_SUBST(MEDIA_PROFILES_CFLAGS)

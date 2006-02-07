@@ -30,11 +30,15 @@
 #include <glib/gi18n.h>
 #include <glib-object.h>
 #include <gst/gst.h>
+#if HAVE_GST_TAG_REGISTER_MUSICBRAINZ_TAGS
+#include <gst/tag/tag.h>
+#endif
 #include <profiles/gnome-media-profiles.h>
 #include "sj-extractor.h"
 #include "sj-structures.h"
 #include "sj-error.h"
 #include "sj-util.h"
+
 
 /* Properties */
 enum {
@@ -507,7 +511,8 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
                                GST_TAG_ENCODER, _("Sound Juicer"),
                                GST_TAG_ENCODER_VERSION, VERSION,
                                NULL);
-#if 0
+
+#if HAVE_GST_TAG_REGISTER_MUSICBRAINZ_TAGS
       if (track->album->album_id != NULL && strcmp (track->album->album_id, "") != 0) {
         gst_tag_setter_add_tags (GST_TAG_SETTER (elt->data),
                             GST_TAG_MERGE_APPEND,
@@ -539,6 +544,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
                             NULL);
       }
 #endif
+
       if (track->album->genre != NULL && strcmp (track->album->genre, "") != 0) {
         gst_tag_setter_add_tags (tagger,
                                  GST_TAG_MERGE_APPEND,
