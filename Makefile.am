@@ -25,3 +25,11 @@ DISTCLEANFILES = po/.intltool-merge-cache \
 	$(INTLTOOL_BUILT)
 
 DISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper
+
+
+WEBROOT := $(HOME)/WebSites/Burtonini/htdocs
+release: dist
+	cp -f doap.rdf $(WEBROOT)/blosxom/computers/sound-juicer
+	cp -f $(PACKAGE)-$(VERSION).tar.gz $(WEBROOT)/computing
+	scp $(PACKAGE)-$(VERSION).tar.gz master.gnome.org:
+	ssh master.gnome.org install-module $(PACKAGE)-$(VERSION).tar.gz
