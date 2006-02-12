@@ -33,3 +33,4 @@ release: dist
 	cp -f $(PACKAGE)-$(VERSION).tar.gz $(WEBROOT)/computing
 	scp $(PACKAGE)-$(VERSION).tar.gz master.gnome.org:
 	ssh master.gnome.org install-module $(PACKAGE)-$(VERSION).tar.gz
+	gcq $(WEBROOT)/blosxom/computers/sound-juicer/sj-$(VERSION).txt
