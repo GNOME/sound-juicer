@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2003 Ross Burton <ross@burtonini.com>
+ * Copyright (C) 2003-2005 Ross Burton <ross@burtonini.com>
  *
  * Sound Juicer - sj-about.c
  *
@@ -36,6 +36,7 @@ void on_about_activate (void)
     NULL
   };
   const gchar *documentors[] = {
+    "Shaun McCance <shaunm@gnome.org>",
     "Mike Hearn <mike@theoretic.com>",
     NULL
   };
@@ -44,9 +45,10 @@ void on_about_activate (void)
     gtk_window_present (GTK_WINDOW (win));
     return;
   }
-  
-  /* TODO: pass a GError */
-  pixbuf = gdk_pixbuf_new_from_file (PKGDATADIR"/orange-slice.png", NULL);
+
+  /* Don't care if the icon cannot be found */
+  pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (), "sound-juicer", 128, 0, NULL);
+  /* TODO: leaks theme */
 
   win = g_object_new (GTK_TYPE_ABOUT_DIALOG,
                       "name", _("Sound Juicer"),
