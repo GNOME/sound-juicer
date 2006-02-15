@@ -250,7 +250,7 @@ static void pattern_label_update (void)
   g_free (path_value);
   g_free (path_pattern);
 
-  format = g_strconcat ("<i><small>", example, "</small></i>", NULL);
+  format = g_strconcat ("<small><i><b>Example Path:</b> ", example, "</i></small>", NULL);
   g_free (example);
   
   gtk_label_set_markup (GTK_LABEL (path_example_label), format);
@@ -323,7 +323,7 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
   int rc;
 
   if (prefs_dialog == NULL) {
-    const char * labels[] = { "cd_label", "path_label", "folder_label", "file_label", "example_label", "profile_label" };
+    const char * labels[] = { "cd_label", "path_label", "folder_label", "file_label", "profile_label" };
     guint i;
     GtkSizeGroup *group;
     GConfBridge *bridge = gconf_bridge_get ();
