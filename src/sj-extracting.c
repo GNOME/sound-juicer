@@ -356,7 +356,7 @@ update_speed_progress (SjExtractor *extractor, float speed, int eta)
   char *eta_str;
 
   if (eta >= 0) {
-    eta_str = g_strdup_printf (_("Estimated time left: %d:%02d (at %0.1fx)"), eta / 60, eta % 60, speed);	
+    eta_str = g_strdup_printf (_("Estimated time left: %d:%02d (at %0.1f\303\227)"), eta / 60, eta % 60, speed);	
   } else {
     eta_str = g_strdup (_("Estimated time left: unknown"));  
   }
