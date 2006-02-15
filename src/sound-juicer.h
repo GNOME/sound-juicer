@@ -154,6 +154,11 @@ extern GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer;
 #define SJ_STOCK_RECORDING "sj-stock-recording"
 #define SJ_STOCK_EXTRACT "sj-stock-extract"
 
+/**
+ * What CD source to use.
+ */
+#define CD_SRC "cdparanoiasrc"
+
 /* TODO: need to add a SjWindow object or something */
 void sj_main_set_title (const char* detail);
 

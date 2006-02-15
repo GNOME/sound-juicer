@@ -338,7 +338,7 @@ setup (GError **err)
     g_signal_connect (bus, "message::error", G_CALLBACK (cb_error), NULL);
     g_signal_connect (bus, "message::state-changed", G_CALLBACK (cb_state), NULL);
 
-    cdp = gst_element_factory_make ("cdparanoiasrc", "cd-source");
+    cdp = gst_element_factory_make (CD_SRC, "cd-source");
     if (!cdp) {
       gst_object_unref (GST_OBJECT (pipeline));
       pipeline = NULL;

@@ -32,6 +32,7 @@
 #include <gst/gst.h>
 #include <gst/tag/tag.h>
 #include <profiles/gnome-media-profiles.h>
+#include "sound-juicer.h"
 #include "sj-extractor.h"
 #include "sj-structures.h"
 #include "sj-error.h"
@@ -58,7 +59,6 @@ static guint signals[LAST_SIGNAL] = { 0 };
 #define DEFAULT_AUDIO_PROFILE_NAME "cdlossy"
 
 /* Element names */
-#define CD_SRC "cdparanoiasrc"
 #define FILE_SINK "gnomevfssink"
 
 struct SjExtractorPrivate {
@@ -67,7 +67,7 @@ struct SjExtractorPrivate {
   /** If the pipeline needs to be re-created */
   gboolean rebuild_pipeline;
   /* The gstreamer pipeline elements */
-  GstElement *pipeline, *cdparanoia, *queue, *thread, *encoder, *filesink;
+  GstElement *pipeline, *cdsrc, *queue, *thread, *encoder, *filesink;
   GstFormat track_format;
   char *device_path;
   int paranoia_mode;
@@ -338,16 +338,16 @@ static void build_pipeline (SjExtractor *extractor)
   g_signal_connect (G_OBJECT (bus), "message::error", G_CALLBACK (error_cb), extractor);
 
   /* Read from CD */
-  priv->cdparanoia = gst_element_factory_make (CD_SRC, "cd_src");
-  if (priv->cdparanoia == NULL) {
+  priv->cdsrc = gst_element_factory_make (CD_SRC, "cd_src");
+  if (priv->cdsrc == NULL) {
     g_set_error (&priv->construct_error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-                 _("Could not create GStreamer cdparanoia reader"));
+                 _("Could not create GStreamer CD reader"));
     return;
   }
 
-  g_object_set (G_OBJECT (priv->cdparanoia), "device", priv->device_path, NULL);
-  g_object_set (G_OBJECT (priv->cdparanoia), "paranoia-mode", priv->paranoia_mode, NULL);
+  g_object_set (G_OBJECT (priv->cdsrc), "device", priv->device_path, NULL);
+  g_object_set (G_OBJECT (priv->cdsrc), "paranoia-mode", priv->paranoia_mode, NULL);
 
   /* Get the track format for seeking later */
   priv->track_format = gst_format_get_by_nick ("track");
@@ -379,10 +379,10 @@ static void build_pipeline (SjExtractor *extractor)
   g_signal_connect (G_OBJECT (priv->filesink), "allow-overwrite", G_CALLBACK (just_say_yes), extractor);
 
   /* Add the elements to the pipeline */
-  gst_bin_add_many (GST_BIN (priv->pipeline), priv->cdparanoia, priv->queue, priv->encoder, priv->filesink, NULL);
+  gst_bin_add_many (GST_BIN (priv->pipeline), priv->cdsrc, priv->queue, priv->encoder, priv->filesink, NULL);
 
   /* Link it all together */
-  if (!gst_element_link_many (priv->cdparanoia, priv->queue, priv->encoder, priv->filesink, NULL)) {
+  if (!gst_element_link_many (priv->cdsrc, priv->queue, priv->encoder, priv->filesink, NULL)) {
     /* TODO: need to produce a GError here */
     g_warning ("Cannot link pipeline, very bad!");
     g_object_unref (priv->pipeline);
@@ -406,7 +406,7 @@ static gboolean tick_timeout_cb(SjExtractor *extractor)
     return FALSE;
   }
 
-  if (!gst_element_query_position (extractor->priv->cdparanoia, &format, &nanos)) {
+  if (!gst_element_query_position (extractor->priv->cdsrc, &format, &nanos)) {
     g_warning (_("Could not get current track position"));
     return TRUE;
   }
@@ -448,8 +448,8 @@ void sj_extractor_set_device (SjExtractor *extractor, const char* device)
   g_free (extractor->priv->device_path);
   extractor->priv->device_path = g_strdup (device);
 
-  if (extractor->priv->cdparanoia != NULL)
-    g_object_set (G_OBJECT (extractor->priv->cdparanoia), "device", device, NULL);
+  if (extractor->priv->cdsrc != NULL)
+    g_object_set (G_OBJECT (extractor->priv->cdsrc), "device", device, NULL);
 }
 
 void sj_extractor_set_paranoia (SjExtractor *extractor, const int paranoia_mode)
@@ -457,8 +457,8 @@ void sj_extractor_set_paranoia (SjExtractor *extractor, const int paranoia_mode)
   g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
 
   extractor->priv->paranoia_mode = paranoia_mode;
-  if (extractor->priv->cdparanoia != NULL)
-    g_object_set (G_OBJECT (extractor->priv->cdparanoia), "paranoia-mode", paranoia_mode, NULL);
+  if (extractor->priv->cdsrc != NULL)
+    g_object_set (G_OBJECT (extractor->priv->cdsrc), "paranoia-mode", paranoia_mode, NULL);
 }
 
 void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, const char* url, GError **error)
@@ -572,13 +572,13 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   gst_iterator_free (iter);
 
   /* Seek to the right track */
-  g_object_set (G_OBJECT (priv->cdparanoia), "track", track->number, NULL);
+  g_object_set (G_OBJECT (priv->cdsrc), "track", track->number, NULL);
   
   /* Let's get ready to rumble! */
   gst_element_set_state (priv->pipeline, GST_STATE_PAUSED);
   gst_element_get_state (priv->pipeline, NULL, NULL, GST_CLOCK_TIME_NONE);
 
-  if (!gst_element_query_position (priv->cdparanoia, &format, &nanos)) {
+  if (!gst_element_query_position (priv->cdsrc, &format, &nanos)) {
     g_warning (_("Could not get track start position"));
     return;
   }
