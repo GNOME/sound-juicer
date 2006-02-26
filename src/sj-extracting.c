@@ -726,9 +726,9 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
         g_free (temp);
         break;
       case 'T':
-	tmp = g_utf8_strdown (track->album->title, -1);
+        tmp = g_utf8_strdown (track->album->title, -1);
         i = temp = sanitize_path (tmp);
-	g_free(tmp);
+        g_free(tmp);
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
@@ -738,9 +738,9 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
         g_free (temp);
         break;
       case 'A':
-	tmp = g_utf8_strdown (track->album->artist, -1);
+        tmp = g_utf8_strdown (track->album->artist, -1);
         i = temp = sanitize_path (tmp);
-	g_free(tmp);
+        g_free(tmp);
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
@@ -750,9 +750,9 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
         g_free (temp);
         break;
       case 'S':
-	tmp = g_utf8_strdown (track->album->artist_sortname, -1);
-	i = temp = sanitize_path (tmp);
-	g_free(tmp);
+        tmp = g_utf8_strdown (track->album->artist_sortname, -1);
+        i = temp = sanitize_path (tmp);
+        g_free(tmp);
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
@@ -771,9 +771,9 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
         g_free (temp);
         break;
       case 'T':
-	tmp = g_utf8_strdown (track->title, -1);
+        tmp = g_utf8_strdown (track->title, -1);
         i = temp = sanitize_path (tmp);
-	g_free(tmp);
+        g_free(tmp);
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
@@ -783,9 +783,9 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
         g_free (temp);
         break;
       case 'A':
-	tmp = g_utf8_strdown (track->artist, -1);
+        tmp = g_utf8_strdown (track->artist, -1);
         i = temp = sanitize_path (tmp);
-	g_free(tmp);
+        g_free(tmp);
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
@@ -795,12 +795,12 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
         g_free (temp);
         break;
       case 'S':
-	tmp = g_utf8_strdown (track->artist_sortname, -1);
+        tmp = g_utf8_strdown (track->artist_sortname, -1);
         i = temp = sanitize_path (tmp);
-	g_free(tmp);
-	while (*i) *s++ = *i++;
-	g_free (temp);
-	break;
+        g_free(tmp);
+        while (*i) *s++ = *i++;
+        g_free (temp);
+        break;
       case 'n':
         /* Track number */
         i = temp = g_strdup_printf ("%d", track->number);
