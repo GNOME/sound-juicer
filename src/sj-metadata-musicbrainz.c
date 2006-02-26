@@ -127,7 +127,8 @@ sj_metadata_musicbrainz_instance_init (GTypeInstance *instance, gpointer g_class
 
   g_object_unref (gconf_client);
 
-  /* TODO: optimal setting? mb_SetDepth (self->priv->mb, 1); */
+  //mb_SetDepth (self->priv->mb, 1);
+
   if (g_getenv("MUSICBRAINZ_DEBUG")) {
     mb_SetDebug (self->priv->mb, TRUE);
   }
@@ -331,13 +332,14 @@ artist_and_title_from_title (TrackDetails *track, gpointer data)
   g_strfreev (split);
 }
 
+#if WITH_CACHE
 /**
  * Write the RDF in the MusicBrainz object to the file specified.
  */
 static void
 cache_rdf (musicbrainz_t mb, const char *filename)
 {
-  GError *error;
+  GError *error = NULL;
   int len;
   char *path, *rdf;
 
@@ -395,6 +397,16 @@ get_cached_rdf (musicbrainz_t mb, const char *cachepath)
     g_free (rdf);
     return ret;
 }
+#else
+static gboolean
+get_cached_rdf (musicbrainz_t mb, const char *cachepath)
+{
+  return FALSE;
+}
+static void
+cache_rdf (musicbrainz_t mb, const char *filename) {
+}
+#endif
 
 /**
  * Fill the MusicBrainz object with RDF.  Basically get the CD Index and check
