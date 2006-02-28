@@ -150,6 +150,7 @@ static void sj_extractor_set_property (GObject *object, guint property_id,
   case PROP_PROFILE:
     priv->profile = g_value_get_object (value);
     priv->rebuild_pipeline = TRUE;
+    g_object_notify (object, "profile");
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
