@@ -198,10 +198,15 @@ static void pattern_label_update (void)
 {
   char *file_pattern, *path_pattern;
   char *file_value, *path_value, *example, *format;
+  GMAudioProfile *profile;
+
   static AlbumDetails sample_album = {
-    N_("Album Title"), /* title */
-    N_("Album Artist"), /* artist */
-    N_("Album Artist's Sortable Name"), /* sortname */
+    /* Translators: this is the title of a common album. You don't need to change it */
+    N_("Help!"), /* title */
+    /* Translators: this is the artist of a common album. You don't need to change it */
+    N_("The Beatles"), /* artist */
+    /* Translators: this is the artist sortname of a common album. You don't need to change it */
+    N_("Beatles, The"), /* sortname */
     NULL, /* genre */
     0, /* number of tracks*/
     NULL, /* track list */
@@ -211,11 +216,14 @@ static void pattern_label_update (void)
   };
   static TrackDetails sample_track = {
     &sample_album,  /*album */
-    9, /* track number */
-    N_("Track Title"), /* title */
-    N_("Track Artist"), /* artist */
-    N_("Track Artist's Sortable Name"), /* sortname */
-    60, /* duration */
+    7, /* track number */
+    /* Translators: this is the title of a common song. You don't need to change it */
+    N_("Ticket To Ride"), /* title */
+    /* Translators: this is the artist of a common song. You don't need to change it */
+    N_("The Beatles"), /* artist */
+    /* Translators: this is the artist sortname of a common song. You don't need to change it */
+    N_("Beatles, The"), /* sortname */
+    0, /* duration */
     NULL, /* track ID */
     NULL, /* artist ID */
     {0,0,0,0}, /* treeview iterator */
@@ -231,6 +239,9 @@ static void pattern_label_update (void)
     sample_track.artist_sortname = _(sample_track.artist_sortname);
     been_here = TRUE;
   }
+  
+  g_object_get (extractor, "profile", &profile, NULL);
+  
   /* TODO: sucky. Replace with get-gconf-key-with-default mojo */
   file_pattern = gconf_client_get_string (gconf_client, GCONF_FILE_PATTERN, NULL);
   if (file_pattern == NULL) {
@@ -250,7 +261,11 @@ static void pattern_label_update (void)
   g_free (path_value);
   g_free (path_pattern);
 
-  format = g_strconcat ("<small><i><b>Example Path:</b> ", example, "</i></small>", NULL);
+  format = g_strconcat ("<small><i><b>Example Path:</b> ",
+                        example,
+                        ".",
+                        gm_audio_profile_get_extension(profile),
+                        "</i></small>", NULL);
   g_free (example);
   
   gtk_label_set_markup (GTK_LABEL (path_example_label), format);
@@ -366,6 +381,8 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     gconf_client_notify_add (gconf_client, GCONF_AUDIO_PROFILE, audio_profile_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_PATH_PATTERN, path_pattern_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_FILE_PATTERN, file_pattern_changed_cb, NULL, NULL, NULL);
+
+    g_signal_connect (extractor, "notify::profile", pattern_label_update, NULL);
   }
   baseuri_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEURI, NULL, TRUE, NULL), NULL);
   audio_profile_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_AUDIO_PROFILE, NULL, TRUE, NULL), NULL);
