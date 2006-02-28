@@ -68,7 +68,6 @@ void on_about_activate (void)
   g_object_unref (pixbuf);
   
   g_signal_connect (win, "response", G_CALLBACK (gtk_widget_destroy), NULL);
-  gtk_window_set_icon_from_file (GTK_WINDOW (win), PIXMAPDIR"/sound-juicer.png", NULL);
   gtk_window_set_transient_for (GTK_WINDOW (win), GTK_WINDOW (main_window));
   gtk_window_set_destroy_with_parent (GTK_WINDOW (win), TRUE);
   
