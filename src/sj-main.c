@@ -1246,8 +1246,8 @@ int main (int argc, char **argv)
 
   sj_stock_init ();
 
-  gtk_window_set_default_icon_from_file (PIXMAPDIR"/sound-juicer.png", NULL);
-
+  gtk_window_set_default_icon_name ("sound-juicer");
+  
   connection = bacon_message_connection_new ("sound-juicer");
   if (bacon_message_connection_get_is_server (connection) == FALSE) {
 	  bacon_message_connection_send (connection, RAISE_WINDOW);
