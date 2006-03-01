@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-26 21:26+0100\n"
-"PO-Revision-Date: 2006-02-26 21:26+0100\n"
+"POT-Creation-Date: 2006-03-01 16:45+0100\n"
+"PO-Revision-Date: 2006-03-01 16:45+0100\n"
 "Last-Translator: Lasse Bang Mikkelsen <lbm@fatalerror.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -113,7 +113,7 @@ msgid "Skip to the previous track"
 msgstr "Spring til forrige spor"
 
 #: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:54
-#: ../src/sj-extractor.c:509 ../src/sj-main.c:165 ../src/sj-main.c:167
+#: ../src/sj-extractor.c:510 ../src/sj-main.c:165 ../src/sj-main.c:167
 #: ../src/sj-main.c:1233
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
@@ -353,38 +353,38 @@ msgstr "Lydprofil"
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "Gnome-lydprofilen som bruges til at kode lyd med"
 
-#: ../src/sj-extractor.c:345
+#: ../src/sj-extractor.c:346
 msgid "Could not create GStreamer CD reader"
 msgstr "Kunne ikke oprette GStreamer cd-læser"
 
-#: ../src/sj-extractor.c:365
+#: ../src/sj-extractor.c:366
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Kunne ikke oprette GStreamer-kodere til %s"
 
-#: ../src/sj-extractor.c:376
+#: ../src/sj-extractor.c:377
 msgid "Could not create GStreamer file output"
 msgstr "Kunne ikke oprette GStreamer-filuddata"
 
-#: ../src/sj-extractor.c:410
+#: ../src/sj-extractor.c:411
 msgid "Could not get current track position"
 msgstr "Kunne ikke opnå aktuel sporposition"
 
-#: ../src/sj-extractor.c:437
+#: ../src/sj-extractor.c:438
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Udtrækningsobjekt er ikke gyldigt. Dette er skidt, tjek terminalen for fejl."
 
-#: ../src/sj-extractor.c:582
+#: ../src/sj-extractor.c:583
 msgid "Could not get track start position"
 msgstr "Kunne ikke opnå sporstartposition"
 
-#: ../src/sj-extractor.c:614
+#: ../src/sj-extractor.c:615
 msgid "The plugin necessary for CD access was not found"
 msgstr "Udvidelsesmodulet til cd-tilgang blev ikke fundet"
 
-#: ../src/sj-extractor.c:622
+#: ../src/sj-extractor.c:623
 msgid "The plugin necessary for file access was not found"
 msgstr "Udvidelsesmodulet til filtilgang blev ikke fundet"
 
@@ -629,12 +629,11 @@ msgstr "Sporkunstner, albumtitel"
 msgid "Track Artist (sortable), Album Title"
 msgstr "Sporkunstner (sortérbar), albumtitel"
 
-#: ../src/sj-prefs.c:56 ../src/sj-prefs.c:202
+#: ../src/sj-prefs.c:56
 msgid "Album Title"
 msgstr "Albumtitel"
 
-#. title
-#: ../src/sj-prefs.c:57 ../src/sj-prefs.c:203
+#: ../src/sj-prefs.c:57
 msgid "Album Artist"
 msgstr "Albumkunstner"
 
@@ -658,9 +657,7 @@ msgstr "[ingen]"
 msgid "Number - Title"
 msgstr "Nummer - Titel"
 
-#. album
-#. track number
-#: ../src/sj-prefs.c:67 ../src/sj-prefs.c:215
+#: ../src/sj-prefs.c:67
 msgid "Track Title"
 msgstr "Sportitel"
 
@@ -681,17 +678,30 @@ msgstr "Nummer. Sporkunstner - sportitel"
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Nummer-Spor Kunstner-Spor Titel (små bogstaver)"
 
-#. artist
-#: ../src/sj-prefs.c:204
-msgid "Album Artist's Sortable Name"
-msgstr "Albumkunstners sortérbare navn"
+#. Translators: this is the title of a common album. You don't need to change it
+#: ../src/sj-prefs.c:205
+msgid "Help!"
+msgstr "Hjælp!"
 
 #. title
-#: ../src/sj-prefs.c:216
-msgid "Track Artist"
-msgstr "Sporkunstner"
+#. Translators: this is the artist of a common album. You don't need to change it
+#. title
+#. Translators: this is the artist of a common song. You don't need to change it
+#: ../src/sj-prefs.c:207 ../src/sj-prefs.c:223
+msgid "The Beatles"
+msgstr "The Beatles"
 
 #. artist
-#: ../src/sj-prefs.c:217
-msgid "Track Artist's Sortable Name"
-msgstr "Sporkunstners sortérbare navn"
+#. Translators: this is the artist sortname of a common album. You don't need to change it
+#. artist
+#. Translators: this is the artist sortname of a common song. You don't need to change it
+#: ../src/sj-prefs.c:209 ../src/sj-prefs.c:225
+msgid "Beatles, The"
+msgstr "The, Beatles"
+
+#. album
+#. track number
+#. Translators: this is the title of a common song. You don't need to change it
+#: ../src/sj-prefs.c:221
+msgid "Ticket To Ride"
+msgstr "Ticket To Ride"
