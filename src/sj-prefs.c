@@ -201,12 +201,9 @@ static void pattern_label_update (void)
   GMAudioProfile *profile;
 
   static AlbumDetails sample_album = {
-    /* Translators: this is the title of a common album. You don't need to change it */
-    N_("Help!"), /* title */
-    /* Translators: this is the artist of a common album. You don't need to change it */
-    N_("The Beatles"), /* artist */
-    /* Translators: this is the artist sortname of a common album. You don't need to change it */
-    N_("Beatles, The"), /* sortname */
+    "Help!", /* title */
+    "The Beatles", /* artist */
+    "Beatles, The", /* sortname */
     NULL, /* genre */
     0, /* number of tracks*/
     NULL, /* track list */
@@ -217,28 +214,14 @@ static void pattern_label_update (void)
   static TrackDetails sample_track = {
     &sample_album,  /*album */
     7, /* track number */
-    /* Translators: this is the title of a common song. You don't need to change it */
-    N_("Ticket To Ride"), /* title */
-    /* Translators: this is the artist of a common song. You don't need to change it */
-    N_("The Beatles"), /* artist */
-    /* Translators: this is the artist sortname of a common song. You don't need to change it */
-    N_("Beatles, The"), /* sortname */
+    "Ticket To Ride", /* title */
+    "The Beatles", /* artist */
+    "Beatles, The", /* sortname */
     0, /* duration */
     NULL, /* track ID */
     NULL, /* artist ID */
     {0,0,0,0}, /* treeview iterator */
   };
-  /* Magic to i18n-ize the sample strings. */
-  static gboolean been_here = FALSE;
-  if (!been_here) {
-    sample_album.title = _(sample_album.title);
-    sample_album.artist = _(sample_album.artist);
-    sample_album.artist_sortname = _(sample_album.artist_sortname);
-    sample_track.title = _(sample_track.title);
-    sample_track.artist = _(sample_track.artist);
-    sample_track.artist_sortname = _(sample_track.artist_sortname);
-    been_here = TRUE;
-  }
   
   g_object_get (extractor, "profile", &profile, NULL);
   
