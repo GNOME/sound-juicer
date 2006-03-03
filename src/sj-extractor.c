@@ -349,6 +349,8 @@ static void build_pipeline (SjExtractor *extractor)
 
   g_object_set (G_OBJECT (priv->cdsrc), "device", priv->device_path, NULL);
   g_object_set (G_OBJECT (priv->cdsrc), "paranoia-mode", priv->paranoia_mode, NULL);
+  /* Need to do this, as playback will have locked the read speed to 2x previously */
+  g_object_set (G_OBJECT (priv->cdsrc), "read-speed", G_MAXINT, NULL);
 
   /* Get the track format for seeking later */
   priv->track_format = gst_format_get_by_nick ("track");
