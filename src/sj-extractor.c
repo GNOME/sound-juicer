@@ -316,8 +316,9 @@ static void build_pipeline (SjExtractor *extractor)
 
   /* Link it all together */
   if (!gst_element_link_many (priv->cdsrc, priv->queue, priv->encoder, priv->filesink, NULL)) {
-    /* TODO: need to produce a GError here */
-    g_warning ("Cannot link pipeline, very bad!");
+    g_set_error (&priv->construct_error,
+                 SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
+                 _("Could not link pipeline"));
     g_object_unref (priv->pipeline);
     return;
   }
