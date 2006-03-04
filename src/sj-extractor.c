@@ -319,7 +319,6 @@ static void build_pipeline (SjExtractor *extractor)
     g_set_error (&priv->construct_error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
                  _("Could not link pipeline"));
-    g_object_unref (priv->pipeline);
     return;
   }
 
