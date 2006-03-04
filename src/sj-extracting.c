@@ -139,6 +139,13 @@ build_filename (const TrackDetails *track)
 static void
 cleanup (void)
 {
+  /* We're not extracting any more */
+  extracting = FALSE;
+
+  /* Remove any state icons from the model */
+  gtk_list_store_set (track_store, &track->iter,
+                 COLUMN_STATE, STATE_IDLE, -1);
+  
   /* Free the used data */
   if (paths) {
     g_list_deep_free (paths, NULL);
@@ -293,7 +300,7 @@ pop_and_extract (void)
       return;
     }
    
-	/* Update the state stock image */
+    /* Update the state stock image */
     gtk_list_store_set (track_store, &track->iter,
                    COLUMN_STATE, STATE_EXTRACTING, -1);
 		
@@ -447,7 +454,6 @@ show_finished_dialog (void)
   g_list_foreach (paths, (GFunc)base_finder, &base);
 
   cleanup ();
-  extracting = FALSE;
 
   dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
                                    GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -512,9 +518,6 @@ on_error_cb (SjExtractor *extractor, GError *error, gpointer data)
 {
   GtkWidget *dialog;
   char *text;
-  /* We've come to a screeching halt... */
-  gtk_list_store_set (track_store, &track->iter,
-                 COLUMN_STATE, STATE_IDLE, -1);
   /* Display a nice dialog */
   text = g_strdup_printf (_("Sound Juicer could not extract this CD.\nReason: %s"), error->message);
 
@@ -529,7 +532,6 @@ on_error_cb (SjExtractor *extractor, GError *error, gpointer data)
 
   /* No need to free the error passed in */
   cleanup ();
-  extracting = FALSE;
 }
 
 /**
@@ -539,10 +541,7 @@ void
 on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
 {
   sj_extractor_cancel_extract (extractor);
-  gtk_list_store_set (track_store, &track->iter,
-                 COLUMN_STATE, STATE_IDLE, -1);
   cleanup ();
-  extracting = FALSE;
 }
 
 /**
