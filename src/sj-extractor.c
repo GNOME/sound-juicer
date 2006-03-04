@@ -210,76 +210,6 @@ static void eos_cb (GstBus *bus, GstMessage *message, gpointer user_data)
   g_signal_emit (extractor, signals[COMPLETION], 0);
 }
 
-/* Stolen from gst-plugins-good/ext/gconf/gconf.c */
-static GstPad *
-my_gst_bin_find_unconnected_pad (GstBin * bin, GstPadDirection direction)
-{
-  GstPad *pad = NULL;
-  GList *elements = NULL;
-  const GList *pads = NULL;
-  GstElement *element = NULL;
-
-  GST_OBJECT_LOCK (bin);
-  elements = bin->children;
-  /* traverse all elements looking for unconnected pads */
-  while (elements && pad == NULL) {
-    element = GST_ELEMENT (elements->data);
-    GST_OBJECT_LOCK (element);
-    pads = element->pads;
-    while (pads) {
-      GstPad *testpad = GST_PAD (pads->data);
-
-      /* check if the direction matches */
-      if (GST_PAD_DIRECTION (testpad) == direction) {
-        GST_OBJECT_LOCK (testpad);
-        if (GST_PAD_PEER (testpad) == NULL) {
-          GST_OBJECT_UNLOCK (testpad);
-          /* found it ! */
-          pad = testpad;
-          break;
-        }
-        GST_OBJECT_UNLOCK (testpad);
-      }
-      pads = g_list_next (pads);
-    }
-    GST_OBJECT_UNLOCK (element);
-    elements = g_list_next (elements);
-  }
-  GST_OBJECT_UNLOCK (bin);
-
-  return pad;
-}
-
-/* Stolen from gst-plugins-good/ext/gconf/gconf.c */
-static GstElement *
-my_gst_gconf_render_bin_from_description (const gchar * description)
-{
-  GstElement *bin = NULL;
-  GstPad *pad = NULL;
-  GError *error = NULL;
-  gchar *desc = NULL;
-
-  /* parse the pipeline to a bin */
-  desc = g_strdup_printf ("bin.( %s )", description);
-  bin = GST_ELEMENT (gst_parse_launch (desc, &error));
-  g_free (desc);
-  if (error) {
-    GST_ERROR ("gstgconf: error parsing pipeline %s\n%s\n",
-        description, error->message);
-    g_error_free (error);
-    return NULL;
-  }
-
-  /* find pads and ghost them if necessary */
-  if ((pad = my_gst_bin_find_unconnected_pad (GST_BIN (bin), GST_PAD_SRC))) {
-    gst_element_add_pad (bin, gst_ghost_pad_new ("src", pad));
-  }
-  if ((pad = my_gst_bin_find_unconnected_pad (GST_BIN (bin), GST_PAD_SINK))) {
-    gst_element_add_pad (bin, gst_ghost_pad_new ("sink", pad));
-  }
-  return bin;
-}
-
 static GstElement* build_encoder (SjExtractor *extractor)
 {
   SjExtractorPrivate *priv;
@@ -291,7 +221,7 @@ static GstElement* build_encoder (SjExtractor *extractor)
   g_return_val_if_fail (priv->profile != NULL, NULL);
  
   pipeline = g_strdup_printf ("audioconvert ! %s", gm_audio_profile_get_pipeline (priv->profile));
-  element = my_gst_gconf_render_bin_from_description (pipeline);
+  element = gst_parse_bin_from_description (pipeline, TRUE, NULL); /* TODO: return error */
   g_free(pipeline);
   return element;
 }
