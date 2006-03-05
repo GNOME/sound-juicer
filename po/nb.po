@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.13.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-19 23:04+0100\n"
-"PO-Revision-Date: 2006-02-19 23:05+0100\n"
+"POT-Creation-Date: 2006-03-05 15:17+0100\n"
+"PO-Revision-Date: 2006-03-05 15:18+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -110,7 +110,7 @@ msgid "Skip to the previous track"
 msgstr "Hopp til forrige spor"
 
 #: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:54
-#: ../src/sj-extractor.c:509 ../src/sj-main.c:165 ../src/sj-main.c:167
+#: ../src/sj-extractor.c:442 ../src/sj-main.c:165 ../src/sj-main.c:167
 #: ../src/sj-main.c:1233
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
@@ -288,7 +288,7 @@ msgstr "Program for å hente ut sanger fra CDer"
 msgid "translator-credits"
 msgstr "Kjartan Maraas <kmaraas@gnome.org>"
 
-#: ../src/sj-extracting.c:207
+#: ../src/sj-extracting.c:214
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -297,17 +297,17 @@ msgstr ""
 "En fil med navn «%s» eksisterer, størrelsen er %s.\n"
 "Vil du hoppe over dette sporet eller overskrive den?"
 
-#: ../src/sj-extracting.c:211
+#: ../src/sj-extracting.c:218
 msgid "_Skip"
 msgstr "_Hopp over"
 
-#: ../src/sj-extracting.c:212
+#: ../src/sj-extracting.c:219
 msgid "_Overwrite"
 msgstr "_Overskriv"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:274 ../src/sj-extracting.c:309
-#: ../src/sj-extracting.c:519
+#: ../src/sj-extracting.c:281 ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:522
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -316,21 +316,21 @@ msgstr ""
 "Sound Juicer kunne ikke hente ut denne CDen.\n"
 "Årsak: %s"
 
-#: ../src/sj-extracting.c:359
+#: ../src/sj-extracting.c:366
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Estimert tid som gjenstår: %d:%02d (ved %0.1fx)"
 
-#: ../src/sj-extracting.c:361
+#: ../src/sj-extracting.c:368
 msgid "Estimated time left: unknown"
 msgstr "Beregnet tid som gjenstår: ukjent"
 
 #. TODO: need to have a better message here
-#: ../src/sj-extracting.c:457
+#: ../src/sj-extracting.c:463
 msgid "The tracks have been copied successfully."
 msgstr "Kopiering av spor fullført."
 
-#: ../src/sj-extracting.c:462
+#: ../src/sj-extracting.c:468
 msgid "_Eject"
 msgstr "_Løs ut"
 
@@ -342,38 +342,42 @@ msgstr "Lydprofil"
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "GNOME lydprofil som brukes for koding av lyd"
 
-#: ../src/sj-extractor.c:345
+#: ../src/sj-extractor.c:276
 msgid "Could not create GStreamer CD reader"
 msgstr "Kunne ikke opprette CD-leser for GStreamer"
 
-#: ../src/sj-extractor.c:365
+#: ../src/sj-extractor.c:298
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Kunne ikke opprette GStreamer-koder for %s"
 
-#: ../src/sj-extractor.c:376
+#: ../src/sj-extractor.c:309
 msgid "Could not create GStreamer file output"
 msgstr "Kunne ikke opprette GStreamer utdata for fil"
 
-#: ../src/sj-extractor.c:410
+#: ../src/sj-extractor.c:321
+msgid "Could not link pipeline"
+msgstr "Kunne ikke sette sammen rør"
+
+#: ../src/sj-extractor.c:343
 msgid "Could not get current track position"
 msgstr "Kunne ikke finne posisjon i aktivt spor"
 
-#: ../src/sj-extractor.c:437
+#: ../src/sj-extractor.c:370
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Ekstraktobjektet er ikke gyldig. Dette er ikke bra. Sjekk konsollet for feil."
 
-#: ../src/sj-extractor.c:582
+#: ../src/sj-extractor.c:515
 msgid "Could not get track start position"
 msgstr "Kunne ikke finne startposisjon for spor"
 
-#: ../src/sj-extractor.c:614
+#: ../src/sj-extractor.c:547
 msgid "The plugin necessary for CD access was not found"
 msgstr "Tillegg som kreves for aksess til CD ble ikke funnet"
 
-#: ../src/sj-extractor.c:622
+#: ../src/sj-extractor.c:555
 msgid "The plugin necessary for file access was not found"
 msgstr "Tillegg som kreves for filaksess ble ikke funnet"
 
@@ -515,25 +519,25 @@ msgstr "Kan ikke lese CD"
 msgid "Cannot create MusicBrainz client"
 msgstr "Kan ikke starte MusicBrainz-klient"
 
-#: ../src/sj-metadata-musicbrainz.c:220 ../src/sj-metadata-musicbrainz.c:475
+#: ../src/sj-metadata-musicbrainz.c:221 ../src/sj-metadata-musicbrainz.c:487
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Kan ikke lese CD: %s"
 
-#: ../src/sj-metadata-musicbrainz.c:227 ../src/sj-metadata-musicbrainz.c:514
+#: ../src/sj-metadata-musicbrainz.c:228 ../src/sj-metadata-musicbrainz.c:526
 msgid "Unknown Artist"
 msgstr "Ukjent artist"
 
-#: ../src/sj-metadata-musicbrainz.c:228 ../src/sj-metadata-musicbrainz.c:527
+#: ../src/sj-metadata-musicbrainz.c:229 ../src/sj-metadata-musicbrainz.c:539
 msgid "Unknown Title"
 msgstr "Ukjent tittel"
 
-#: ../src/sj-metadata-musicbrainz.c:234
+#: ../src/sj-metadata-musicbrainz.c:235
 #, c-format
 msgid "Track %d"
 msgstr "Spor %d"
 
-#: ../src/sj-metadata-musicbrainz.c:262
+#: ../src/sj-metadata-musicbrainz.c:263
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
@@ -541,32 +545,32 @@ msgstr ""
 "Metadataobjekt fra MusicBrainz er ikke gyldig. Dette er ikke bra. Sjekk "
 "konsollet for feil."
 
-#: ../src/sj-metadata-musicbrainz.c:417 ../src/sj-metadata-musicbrainz.c:424
-#: ../src/sj-metadata-musicbrainz.c:434
+#: ../src/sj-metadata-musicbrainz.c:429 ../src/sj-metadata-musicbrainz.c:436
+#: ../src/sj-metadata-musicbrainz.c:446
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "Kunne ikke kjøre spørring på denne CDen: %s\n"
 
-#: ../src/sj-metadata-musicbrainz.c:469
+#: ../src/sj-metadata-musicbrainz.c:481
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Enhet «%s» inneholder ikke et medie"
 
-#: ../src/sj-metadata-musicbrainz.c:472
+#: ../src/sj-metadata-musicbrainz.c:484
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "Enhet «%s» kunne ikke åpnes. Sjekk tilgangsrettighetene på enheten."
 
-#: ../src/sj-metadata-musicbrainz.c:508
+#: ../src/sj-metadata-musicbrainz.c:520
 msgid "Various"
 msgstr "Forskjellig"
 
-#: ../src/sj-metadata-musicbrainz.c:552
+#: ../src/sj-metadata-musicbrainz.c:564
 msgid "Incomplete metadata for this CD"
 msgstr "Ukomplette metadata for denne CD'en"
 
-#: ../src/sj-metadata-musicbrainz.c:643
+#: ../src/sj-metadata-musicbrainz.c:655
 msgid "Could not create CD lookup thread"
 msgstr "Kunne ikke opprette tråd for CD-oppslag"
 
@@ -614,12 +618,11 @@ msgstr "Sporets artist, Tittel på plate"
 msgid "Track Artist (sortable), Album Title"
 msgstr "Sporets artist (sorterbar), Tittel på plate"
 
-#: ../src/sj-prefs.c:56 ../src/sj-prefs.c:202
+#: ../src/sj-prefs.c:56
 msgid "Album Title"
 msgstr "Tittel på plate"
 
-#. title
-#: ../src/sj-prefs.c:57 ../src/sj-prefs.c:203
+#: ../src/sj-prefs.c:57
 msgid "Album Artist"
 msgstr "Platens artist"
 
@@ -643,9 +646,7 @@ msgstr "[ingen]"
 msgid "Number - Title"
 msgstr "Nummer - Tittel"
 
-#. album
-#. track number
-#: ../src/sj-prefs.c:67 ../src/sj-prefs.c:215
+#: ../src/sj-prefs.c:67
 msgid "Track Title"
 msgstr "Tittel på spor"
 
@@ -665,18 +666,3 @@ msgstr "Nummer. Sporets artist - Tittel på spor"
 #: ../src/sj-prefs.c:72
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Sporets nummer Artist-Spor Tittel (små bokstaver)"
-
-#. artist
-#: ../src/sj-prefs.c:204
-msgid "Album Artist's Sortable Name"
-msgstr "Sorterbart navn for platens artist"
-
-#. title
-#: ../src/sj-prefs.c:216
-msgid "Track Artist"
-msgstr "Sporets artist"
-
-#. artist
-#: ../src/sj-prefs.c:217
-msgid "Track Artist's Sortable Name"
-msgstr "Sorterbart navn for sporets artist"
