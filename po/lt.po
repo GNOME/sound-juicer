@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-23 00:47+0200\n"
-"PO-Revision-Date: 2006-02-23 00:50+0200\n"
+"POT-Creation-Date: 2006-03-05 17:26+0200\n"
+"PO-Revision-Date: 2006-03-05 17:26+0200\n"
 "Last-Translator: Žygimantas Beručka <zygis@gnome.org>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
@@ -109,7 +109,7 @@ msgid "Skip to the previous track"
 msgstr "Peršokti į ankstesnį takelį"
 
 #: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:54
-#: ../src/sj-extractor.c:509 ../src/sj-main.c:165 ../src/sj-main.c:167
+#: ../src/sj-extractor.c:442 ../src/sj-main.c:165 ../src/sj-main.c:167
 #: ../src/sj-main.c:1233
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
@@ -293,7 +293,7 @@ msgstr ""
 "Žygimantas Beručka <zygis@gnome.org>,\n"
 "Justina Klingaitė <justina.klingaite@gmail.com>"
 
-#: ../src/sj-extracting.c:207
+#: ../src/sj-extracting.c:214
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -302,17 +302,17 @@ msgstr ""
 "Rinkmena pavadinimu „%s“ jau egzistuoja, dydis %s.\n"
 "Ar norite praleisti šį takelį ar jį perrašyti?"
 
-#: ../src/sj-extracting.c:211
+#: ../src/sj-extracting.c:218
 msgid "_Skip"
 msgstr "_Prašokti"
 
-#: ../src/sj-extracting.c:212
+#: ../src/sj-extracting.c:219
 msgid "_Overwrite"
 msgstr "_Perrašyti"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:274 ../src/sj-extracting.c:309
-#: ../src/sj-extracting.c:519
+#: ../src/sj-extracting.c:281 ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:522
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -321,21 +321,21 @@ msgstr ""
 "Sound Juicer negalėjo įrašyti iš šio CD.\n"
 "Priežastis: %s"
 
-#: ../src/sj-extracting.c:359
+#: ../src/sj-extracting.c:366
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Apytiksliai liko laiko: %d:%02d (greičiu %0.1f×)"
 
-#: ../src/sj-extracting.c:361
+#: ../src/sj-extracting.c:368
 msgid "Estimated time left: unknown"
 msgstr "Apytiksliai liko laiko: nežinoma"
 
 #. TODO: need to have a better message here
-#: ../src/sj-extracting.c:457
+#: ../src/sj-extracting.c:463
 msgid "The tracks have been copied successfully."
 msgstr "Takeliai buvo sėkmingai nukopijuoti."
 
-#: ../src/sj-extracting.c:462
+#: ../src/sj-extracting.c:468
 msgid "_Eject"
 msgstr "Išm_esti"
 
@@ -347,38 +347,42 @@ msgstr "Audio profilis"
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "Garso kodavimui naudojamas GNOME audio profilis"
 
-#: ../src/sj-extractor.c:345
+#: ../src/sj-extractor.c:276
 msgid "Could not create GStreamer CD reader"
 msgstr "Nepavyko sukurti GStreamer CD skaitytuvo"
 
-#: ../src/sj-extractor.c:365
+#: ../src/sj-extractor.c:298
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Nepavyko sukurti GStreamer %s enkoderio"
 
-#: ../src/sj-extractor.c:376
+#: ../src/sj-extractor.c:309
 msgid "Could not create GStreamer file output"
 msgstr "Nepavyko sukurti GStreamer rinkmenos išvesties"
 
-#: ../src/sj-extractor.c:410
+#: ../src/sj-extractor.c:321
+msgid "Could not link pipeline"
+msgstr "Nepavyko susieti konvejerio"
+
+#: ../src/sj-extractor.c:343
 msgid "Could not get current track position"
 msgstr "Nepavyko gauti šio takelio pozicijos"
 
-#: ../src/sj-extractor.c:437
+#: ../src/sj-extractor.c:370
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Ekstraktoriaus objektas yra netinkamas. Blogai, dėl klaidų žiūrėkite konsolę."
 
-#: ../src/sj-extractor.c:582
+#: ../src/sj-extractor.c:515
 msgid "Could not get track start position"
 msgstr "Nepavyko rasti takelio pradinės pozicijos"
 
-#: ../src/sj-extractor.c:614
+#: ../src/sj-extractor.c:547
 msgid "The plugin necessary for CD access was not found"
 msgstr "Įskiepis, būtinas CD skaitymui, buvo nerastas"
 
-#: ../src/sj-extractor.c:622
+#: ../src/sj-extractor.c:555
 msgid "The plugin necessary for file access was not found"
 msgstr "Įskiepis, būtinas priėjimui prie rinkmenų, nerastas"
 
@@ -520,25 +524,25 @@ msgstr "Nepavyko perskaityti CD"
 msgid "Cannot create MusicBrainz client"
 msgstr "Nepavyko sukurti MusicBrainz kliento"
 
-#: ../src/sj-metadata-musicbrainz.c:220 ../src/sj-metadata-musicbrainz.c:475
+#: ../src/sj-metadata-musicbrainz.c:221 ../src/sj-metadata-musicbrainz.c:487
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Nepavyko nuskaityti CD: %s"
 
-#: ../src/sj-metadata-musicbrainz.c:227 ../src/sj-metadata-musicbrainz.c:514
+#: ../src/sj-metadata-musicbrainz.c:228 ../src/sj-metadata-musicbrainz.c:526
 msgid "Unknown Artist"
 msgstr "Nežinomas atlikėjas"
 
-#: ../src/sj-metadata-musicbrainz.c:228 ../src/sj-metadata-musicbrainz.c:527
+#: ../src/sj-metadata-musicbrainz.c:229 ../src/sj-metadata-musicbrainz.c:539
 msgid "Unknown Title"
 msgstr "Nežinomas pavadinimas"
 
-#: ../src/sj-metadata-musicbrainz.c:234
+#: ../src/sj-metadata-musicbrainz.c:235
 #, c-format
 msgid "Track %d"
 msgstr "Takelis %d"
 
-#: ../src/sj-metadata-musicbrainz.c:262
+#: ../src/sj-metadata-musicbrainz.c:263
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
@@ -546,18 +550,18 @@ msgstr ""
 "MusicBrainz metaduomenų objektas yra netinkamas. Blogai, pažiūrėkite Jūsų "
 "konsolėje klaidų."
 
-#: ../src/sj-metadata-musicbrainz.c:417 ../src/sj-metadata-musicbrainz.c:424
-#: ../src/sj-metadata-musicbrainz.c:434
+#: ../src/sj-metadata-musicbrainz.c:429 ../src/sj-metadata-musicbrainz.c:436
+#: ../src/sj-metadata-musicbrainz.c:446
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "Šis CD negalėjo būti užklaustas: %s\n"
 
-#: ../src/sj-metadata-musicbrainz.c:469
+#: ../src/sj-metadata-musicbrainz.c:481
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Įrenginyje „%s“ nėra jokios laikmenos"
 
-#: ../src/sj-metadata-musicbrainz.c:472
+#: ../src/sj-metadata-musicbrainz.c:484
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
@@ -565,15 +569,15 @@ msgstr ""
 "Įrenginys „%s“ negali būti atidarytas. Patikrinkit priėjimo prie įrenginio "
 "leidimus."
 
-#: ../src/sj-metadata-musicbrainz.c:508
+#: ../src/sj-metadata-musicbrainz.c:520
 msgid "Various"
 msgstr "Įvairūs"
 
-#: ../src/sj-metadata-musicbrainz.c:552
+#: ../src/sj-metadata-musicbrainz.c:564
 msgid "Incomplete metadata for this CD"
 msgstr "Nepilni šio CD metaduomenys"
 
-#: ../src/sj-metadata-musicbrainz.c:643
+#: ../src/sj-metadata-musicbrainz.c:655
 msgid "Could not create CD lookup thread"
 msgstr "Nepavyko sukurti CD paieškos gijos"
 
@@ -621,12 +625,11 @@ msgstr "Takelio atlikėjas, Albumo pavadinimas"
 msgid "Track Artist (sortable), Album Title"
 msgstr "Takelio atlikėjas (rūšiuojamas), Albumo pavadinimas"
 
-#: ../src/sj-prefs.c:56 ../src/sj-prefs.c:202
+#: ../src/sj-prefs.c:56
 msgid "Album Title"
 msgstr "Albumo pavadinimas"
 
-#. title
-#: ../src/sj-prefs.c:57 ../src/sj-prefs.c:203
+#: ../src/sj-prefs.c:57
 msgid "Album Artist"
 msgstr "Albumo atlikėjas"
 
@@ -650,9 +653,7 @@ msgstr "[nėra]"
 msgid "Number - Title"
 msgstr "Numeris - Pavadinimas"
 
-#. album
-#. track number
-#: ../src/sj-prefs.c:67 ../src/sj-prefs.c:215
+#: ../src/sj-prefs.c:67
 msgid "Track Title"
 msgstr "Takelio pavadinimas"
 
@@ -673,20 +674,14 @@ msgstr "Numeris. Takelio atlikėjas - Takelio pavadinimas"
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Numeris-Takelio atlikėjas-Takelio pavadinimas (maž.raidės)"
 
-#. artist
-#: ../src/sj-prefs.c:204
-msgid "Album Artist's Sortable Name"
-msgstr "Albumo atlikėjo rūšiuojamas pavadinimas"
+#~ msgid "Album Artist's Sortable Name"
+#~ msgstr "Albumo atlikėjo rūšiuojamas pavadinimas"
 
-#. title
-#: ../src/sj-prefs.c:216
-msgid "Track Artist"
-msgstr "Takelio atlikėjas"
+#~ msgid "Track Artist"
+#~ msgstr "Takelio atlikėjas"
 
-#. artist
-#: ../src/sj-prefs.c:217
-msgid "Track Artist's Sortable Name"
-msgstr "Takelio atlikėjo rūšiuojamas pavadinimas"
+#~ msgid "Track Artist's Sortable Name"
+#~ msgstr "Takelio atlikėjo rūšiuojamas pavadinimas"
 
 #~ msgid "<i>path_example_label</i>"
 #~ msgstr "<i>kelio_pavyzdys</i>"
