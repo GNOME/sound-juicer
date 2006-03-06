@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-02 22:55+0100\n"
-"PO-Revision-Date: 2006-03-02 23:09+0100\n"
+"POT-Creation-Date: 2006-03-06 22:19+0100\n"
+"PO-Revision-Date: 2006-03-06 22:19+0100\n"
 "Last-Translator: Hendrik Richter <hendrikr@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../data/sound-juicer.desktop.in.h:1
 msgid "CD Extractor"
@@ -110,7 +110,7 @@ msgid "Skip to the previous track"
 msgstr "Zum vorhergehenden Titel springen"
 
 #: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:54
-#: ../src/sj-extractor.c:510 ../src/sj-main.c:165 ../src/sj-main.c:167
+#: ../src/sj-extractor.c:442 ../src/sj-main.c:165 ../src/sj-main.c:167
 #: ../src/sj-main.c:1233
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
@@ -233,8 +233,8 @@ msgid ""
 "Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) "
 "full"
 msgstr ""
-"Paranoia-Modus: 0) deaktivieren 2) Fragment 4) überlappen 8) Kratzer 16 ) "
-" reparieren 255) komplett"
+"Paranoia-Modus: 0) deaktivieren 2) Fragment 4) überlappen 8) Kratzer 16 )  "
+"reparieren 255) komplett"
 
 #: ../data/sound-juicer.schemas.in.h:10
 msgid "The GNOME Audio Profile with which to encode."
@@ -293,7 +293,7 @@ msgstr "Eine Anwendung zum Auslesen von Audio-CDs"
 msgid "translator-credits"
 msgstr "Christian Neumair <chris@gnome-de.org>"
 
-#: ../src/sj-extracting.c:207
+#: ../src/sj-extracting.c:214
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -302,17 +302,17 @@ msgstr ""
 "Eine Datei namens »%s« der Größe %s KB existiert bereits.\n"
 "Wollen Sie diesen Titel überspringen oder überschreiben?"
 
-#: ../src/sj-extracting.c:211
+#: ../src/sj-extracting.c:218
 msgid "_Skip"
 msgstr "Übers_pringen"
 
-#: ../src/sj-extracting.c:212
+#: ../src/sj-extracting.c:219
 msgid "_Overwrite"
 msgstr "Über_schreiben"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:274 ../src/sj-extracting.c:309
-#: ../src/sj-extracting.c:519
+#: ../src/sj-extracting.c:281 ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:522
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -321,21 +321,21 @@ msgstr ""
 "Sound Juicer konnte diese CD nicht auslesen.\n"
 "Grund: %s"
 
-#: ../src/sj-extracting.c:359
+#: ../src/sj-extracting.c:366
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Geschätzte Restzeit: %d:%02d (bei %0.1fx)"
 
-#: ../src/sj-extracting.c:361
+#: ../src/sj-extracting.c:368
 msgid "Estimated time left: unknown"
 msgstr "Geschätzte Restzeit: unbekannt"
 
 #. TODO: need to have a better message here
-#: ../src/sj-extracting.c:457
+#: ../src/sj-extracting.c:463
 msgid "The tracks have been copied successfully."
 msgstr "Die Titel wurden erfolgreich kopiert."
 
-#: ../src/sj-extracting.c:462
+#: ../src/sj-extracting.c:468
 msgid "_Eject"
 msgstr "Auswer_fen"
 
@@ -348,40 +348,45 @@ msgid "The GNOME Audio Profile used for encoding audio"
 msgstr ""
 "Das GNOME-Audioprofil das zum Kodieren von Audiodaten verwendet werden soll"
 
-#: ../src/sj-extractor.c:346
+#: ../src/sj-extractor.c:276
 msgid "Could not create GStreamer CD reader"
 msgstr "GStreamer-CD-Leser konnte nicht angelegt werden"
 
-#: ../src/sj-extractor.c:366
+#: ../src/sj-extractor.c:298
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "GStreamer-Kodierer konnte für %s nicht angelegt werden"
 
-#: ../src/sj-extractor.c:377
+#: ../src/sj-extractor.c:309
 msgid "Could not create GStreamer file output"
 msgstr "GStreamer-Dateiausgabeelement konnte nicht angelegt werden"
 
-#: ../src/sj-extractor.c:411
+# CHECK
+#: ../src/sj-extractor.c:321
+msgid "Could not link pipeline"
+msgstr "Pipeline konnte nicht vergeknüpft werden"
+
+#: ../src/sj-extractor.c:343
 msgid "Could not get current track position"
 msgstr "Momentane Position im Titel konnte nicht festgestellt werden"
 
-#: ../src/sj-extractor.c:438
+#: ../src/sj-extractor.c:370
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Extrahierobjekt nicht gültig. Das ist schlecht, überprüfen Sie Ihre Konsole "
 "auf Fehler."
 
-#: ../src/sj-extractor.c:583
+#: ../src/sj-extractor.c:515
 msgid "Could not get track start position"
 msgstr "Anfangsposition der Titelnummer konnte nicht ermittelt werden"
 
-#: ../src/sj-extractor.c:615
+#: ../src/sj-extractor.c:547
 msgid "The plugin necessary for CD access was not found"
 msgstr ""
 "Das zum Zugriff auf die CD notwendige Plugin konnte nicht gefunden werden"
 
-#: ../src/sj-extractor.c:623
+#: ../src/sj-extractor.c:555
 msgid "The plugin necessary for file access was not found"
 msgstr ""
 "Das zum Zugriff auf die CD notwendige Plugin konnte nicht gefunden werden"
@@ -681,30 +686,3 @@ msgstr "Titelnummer. Titelinterpret - Titel"
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Titelnummer-Titelinterpret-Titel (Kleinschreibung)"
 
-#~ msgid "Sound Juicer CD Ripper"
-#~ msgstr "Sound Juicer CD-Ripper"
-
-#~ msgid "<i>path_example_label</i>"
-#~ msgstr "<i>pfad_beispiel_name</i>"
-
-#~ msgid "Example Path:"
-#~ msgstr "Beispielpfad:"
-
-#~ msgid "label"
-#~ msgstr "Beschriftung"
-
-#~ msgid ""
-#~ "Paranoia mode, 3 settings: 0 (no paranoia), 4 (cdda2wav-style overlap "
-#~ "checking) and 255 (full paranoia)"
-#~ msgstr ""
-#~ "Paranoia-Modus. Zulässige Werte: 0 (Keine Paranoia), 4 (cdda2wav-artige "
-#~ "Überprüfung auf Überlappung) sowie 255 (vollständige Paranoia)"
-
-#~ msgid "Could not seek to track"
-#~ msgstr "An Titelnummer konnte nicht gesprungen werden"
-
-#~ msgid "This CD was not found.\n"
-#~ msgstr "Diese CD wurde nicht gefunden.\n"
-
-#~ msgid "Track Artist"
-#~ msgstr "Titelinterpret"
