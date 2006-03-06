@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-03 15:06+0200\n"
+"POT-Creation-Date: 2006-03-06 13:25+0200\n"
 "PO-Revision-Date: 2006-03-03 16:10+0300\n"
 "Last-Translator: Maxim V. Dziumanenko <mvd@mylinux.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -109,7 +109,7 @@ msgid "Skip to the previous track"
 msgstr "Перехід на попередню доріжку"
 
 #: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:54
-#: ../src/sj-extractor.c:510 ../src/sj-main.c:165 ../src/sj-main.c:167
+#: ../src/sj-extractor.c:442 ../src/sj-main.c:165 ../src/sj-main.c:167
 #: ../src/sj-main.c:1233
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
@@ -231,7 +231,8 @@ msgstr "Чи вилучати спеціальні символи з назв ф
 msgid ""
 "Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) "
 "full"
-msgstr "Режим Paranoia: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) "
+msgstr ""
+"Режим Paranoia: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) "
 "full"
 
 #: ../data/sound-juicer.schemas.in.h:10
@@ -291,7 +292,7 @@ msgstr ""
 "Максим Дзюманенко <mvd@mylinux.com.ua>\n"
 "Юрій Сирота <rasta@cvs.gnome.org>"
 
-#: ../src/sj-extracting.c:207
+#: ../src/sj-extracting.c:214
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -300,17 +301,17 @@ msgstr ""
 "Файл з назвою \"%s\" вже існує, розмір %s.\n"
 "Бажаєте пропустити цю доріжку чи перезаписати його?"
 
-#: ../src/sj-extracting.c:211
+#: ../src/sj-extracting.c:218
 msgid "_Skip"
 msgstr "_Пропустити"
 
-#: ../src/sj-extracting.c:212
+#: ../src/sj-extracting.c:219
 msgid "_Overwrite"
 msgstr "Пере_записати"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:274 ../src/sj-extracting.c:309
-#: ../src/sj-extracting.c:519
+#: ../src/sj-extracting.c:281 ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:522
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -319,21 +320,21 @@ msgstr ""
 "Програмі Sound Juicer не вдається отримати звук з цього компакт-диску.\n"
 "Причина: %s"
 
-#: ../src/sj-extracting.c:359
+#: ../src/sj-extracting.c:366
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Залишилось часу: %d:%02d (у %0.1f×)"
 
-#: ../src/sj-extracting.c:361
+#: ../src/sj-extracting.c:368
 msgid "Estimated time left: unknown"
 msgstr "Залишилось часу: невідомо"
 
 #. TODO: need to have a better message here
-#: ../src/sj-extracting.c:457
+#: ../src/sj-extracting.c:463
 msgid "The tracks have been copied successfully."
 msgstr "Доріжки успішно скопійовано."
 
-#: ../src/sj-extracting.c:462
+#: ../src/sj-extracting.c:468
 msgid "_Eject"
 msgstr "Ви_тягнути"
 
@@ -345,38 +346,42 @@ msgstr "Звуковий профіль"
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "Звуковий профіль GNOME для кодування звуку"
 
-#: ../src/sj-extractor.c:346
+#: ../src/sj-extractor.c:276
 msgid "Could not create GStreamer CD reader"
 msgstr "Не вдається створити GStreamer CD reader"
 
-#: ../src/sj-extractor.c:366
+#: ../src/sj-extractor.c:298
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Не вдається створити об'єкт кодування GStreamer для %s"
 
-#: ../src/sj-extractor.c:377
+#: ../src/sj-extractor.c:309
 msgid "Could not create GStreamer file output"
 msgstr "Не вдається створити файл виводу GStreamer"
 
-#: ../src/sj-extractor.c:411
+#: ../src/sj-extractor.c:321
+msgid "Could not link pipeline"
+msgstr "Не вдається зв'язатись з каналом"
+
+#: ../src/sj-extractor.c:343
 msgid "Could not get current track position"
 msgstr "Не вдається отримати поточну позицію доріжки"
 
-#: ../src/sj-extractor.c:438
+#: ../src/sj-extractor.c:370
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Об'єкт отримання звуку неправильний. Це погано, помилки дивіться у консолі."
 
-#: ../src/sj-extractor.c:583
+#: ../src/sj-extractor.c:515
 msgid "Could not get track start position"
 msgstr "Не вдається отримати початкову позицію доріжки"
 
-#: ../src/sj-extractor.c:615
+#: ../src/sj-extractor.c:547
 msgid "The plugin necessary for CD access was not found"
 msgstr "Не знайдено необхідний модуль для доступу до CD"
 
-#: ../src/sj-extractor.c:623
+#: ../src/sj-extractor.c:555
 msgid "The plugin necessary for file access was not found"
 msgstr "Не знайдено необхідний модуль для доступу до файлу"
 
