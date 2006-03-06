@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-28 23:37+0100\n"
-"PO-Revision-Date: 2006-03-01 11:07+0530\n"
+"POT-Creation-Date: 2006-03-06 07:26+0100\n"
+"PO-Revision-Date: 2006-03-06 13:19+0530\n"
 "Last-Translator: Ankit Patel <ankit644@yahoo.com>\n"
 "Language-Team: Gujarati <indianoss-gujarati@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -13,6 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -117,7 +118,7 @@ msgid "Skip to the previous track"
 msgstr "પહેલાના ટ્રેક સુધી રદ કરો"
 
 #: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:54
-#: ../src/sj-extractor.c:510 ../src/sj-main.c:165 ../src/sj-main.c:167
+#: ../src/sj-extractor.c:442 ../src/sj-main.c:165 ../src/sj-main.c:167
 #: ../src/sj-main.c:1233
 msgid "Sound Juicer"
 msgstr "સાઉન્ડ જ્યુસર"
@@ -292,7 +293,7 @@ msgstr "ઓડિયો CD નો અર્ક કાઢનાર"
 msgid "translator-credits"
 msgstr "અંકિત પટેલ <ankit644@yahoo.com>"
 
-#: ../src/sj-extracting.c:207
+#: ../src/sj-extracting.c:214
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -301,17 +302,17 @@ msgstr ""
 "'%s' નામની ફાઈલ અસ્તિત્વમાં છે, માપ %s.\n"
 "શું તમે આ ટ્રેક રદ કરવા માંગો છો અથવા તેના પર ફરીથી લખવા માંગો છો?"
 
-#: ../src/sj-extracting.c:211
+#: ../src/sj-extracting.c:218
 msgid "_Skip"
 msgstr "રદ કરો (_S)"
 
-#: ../src/sj-extracting.c:212
+#: ../src/sj-extracting.c:219
 msgid "_Overwrite"
 msgstr "ઉપર ફરીથી લખવું (_O)"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:274 ../src/sj-extracting.c:309
-#: ../src/sj-extracting.c:519
+#: ../src/sj-extracting.c:281 ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:522
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -320,21 +321,21 @@ msgstr ""
 "સાઉન્ડ જ્યુસર આ CD નો અર્ક કાઢી શક્યું નહિં.\n"
 "કારણ: %s"
 
-#: ../src/sj-extracting.c:359
+#: ../src/sj-extracting.c:366
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "અંદાજીત બાકી રહેલ સમય: %d:%02d (%0.1fx આગળ)"
 
-#: ../src/sj-extracting.c:361
+#: ../src/sj-extracting.c:368
 msgid "Estimated time left: unknown"
 msgstr "અંદાજિત બાકી રહેલ સમય: અજ્ઞાત"
 
 #. TODO: need to have a better message here
-#: ../src/sj-extracting.c:457
+#: ../src/sj-extracting.c:463
 msgid "The tracks have been copied successfully."
 msgstr "ટ્રેક સફળતાપૂર્વક નકલ થઈ ગયેલા છે."
 
-#: ../src/sj-extracting.c:462
+#: ../src/sj-extracting.c:468
 msgid "_Eject"
 msgstr "બહાર કાઢો (_E)"
 
@@ -346,36 +347,40 @@ msgstr "ઓડિયો રૂપરેખા"
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "ઓડિયો એનકોડીંગ કરવા માટે ઉપયોગી જીનોમ ઓડિયો રૂપરેખા"
 
-#: ../src/sj-extractor.c:346
+#: ../src/sj-extractor.c:276
 msgid "Could not create GStreamer CD reader"
 msgstr "જીસ્ટ્રીમર CD વાંચનાર બનાવી શક્યા નહિં"
 
-#: ../src/sj-extractor.c:366
+#: ../src/sj-extractor.c:298
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "%s માટે GStreamer એનકોડરો બનાવી શક્યા નહિં"
 
-#: ../src/sj-extractor.c:377
+#: ../src/sj-extractor.c:309
 msgid "Could not create GStreamer file output"
 msgstr "જીસ્ટ્રીમર ફાઈલ આઉટપુટ બનાવી શક્યા નહિં"
 
-#: ../src/sj-extractor.c:411
+#: ../src/sj-extractor.c:321
+msgid "Could not link pipeline"
+msgstr "પાઈપલાઈન કડી કરી શક્યા નહિં"
+
+#: ../src/sj-extractor.c:343
 msgid "Could not get current track position"
 msgstr "વર્તમાન ટ્રેકની સ્થિતિ મેળવી શક્યા નહિં"
 
-#: ../src/sj-extractor.c:438
+#: ../src/sj-extractor.c:370
 msgid "Extractor object is not valid. This is bad, check your console for errors."
 msgstr "વિસ્તારક ઓબ્જેક્ટ માન્ય નથી. આ ખરાબ છે, તમારા કન્સોલને ભૂલો માટે ચકાસો."
 
-#: ../src/sj-extractor.c:583
+#: ../src/sj-extractor.c:515
 msgid "Could not get track start position"
 msgstr "ટ્રેકની શરુઆતની સ્થિતિ મેળવી શક્યા નહિં"
 
-#: ../src/sj-extractor.c:615
+#: ../src/sj-extractor.c:547
 msgid "The plugin necessary for CD access was not found"
 msgstr "CD ચલાવવા માટે જરુરી પ્લગઈન મળ્યું નહતું"
 
-#: ../src/sj-extractor.c:623
+#: ../src/sj-extractor.c:555
 msgid "The plugin necessary for file access was not found"
 msgstr "ફાઈલ ચલાવવા માટે જરુરી પ્લગઈન મળ્યું નહતું"
 
@@ -662,32 +667,4 @@ msgstr "નંબર. ટ્રેક કલાકાર - ટ્રેક શ�
 #: ../src/sj-prefs.c:72
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "નંબર-ટ્રેક કલાકાર-ટ્રેક શીર્ષક (નાના અક્ષરોમાં)"
-
-#. Translators: this is the title of a common album. You don't need to change it
-#: ../src/sj-prefs.c:205
-msgid "Help!"
-msgstr "મદદ!"
-
-#. title
-#. Translators: this is the artist of a common album. You don't need to change it
-#. title
-#. Translators: this is the artist of a common song. You don't need to change it
-#: ../src/sj-prefs.c:207 ../src/sj-prefs.c:223
-msgid "The Beatles"
-msgstr "બીટલ્સ"
-
-#. artist
-#. Translators: this is the artist sortname of a common album. You don't need to change it
-#. artist
-#. Translators: this is the artist sortname of a common song. You don't need to change it
-#: ../src/sj-prefs.c:209 ../src/sj-prefs.c:225
-msgid "Beatles, The"
-msgstr "બીટલ્સ, એક"
-
-#. album
-#. track number
-#. Translators: this is the title of a common song. You don't need to change it
-#: ../src/sj-prefs.c:221
-msgid "Ticket To Ride"
-msgstr "ફરવાની ટિકીટ"
 
