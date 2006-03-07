@@ -1,3 +1,4 @@
+# translation of sound-juicer.HEAD.po to Russian
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 # Leonid Kanter <leon@asplinux.ru>, 2004, 2005, 2006.
@@ -5,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-01 09:00+0100\n"
-"PO-Revision-Date: 2006-03-01 13:41+0200\n"
+"POT-Creation-Date: 2006-03-07 08:54+0100\n"
+"PO-Revision-Date: 2006-03-07 11:53+0200\n"
 "Last-Translator: Leonid Kanter\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -108,7 +109,7 @@ msgid "Skip to the previous track"
 msgstr "Перейти к предыдущей дорожке"
 
 #: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:54
-#: ../src/sj-extractor.c:510 ../src/sj-main.c:165 ../src/sj-main.c:167
+#: ../src/sj-extractor.c:442 ../src/sj-main.c:165 ../src/sj-main.c:167
 #: ../src/sj-main.c:1233
 msgid "Sound Juicer"
 msgstr "Звуковыжималка"
@@ -285,7 +286,7 @@ msgstr "Программа копирования звуковых дисков"
 msgid "translator-credits"
 msgstr "Леонид Кантер <leon@asplinux.ru>"
 
-#: ../src/sj-extracting.c:207
+#: ../src/sj-extracting.c:214
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -294,17 +295,17 @@ msgstr ""
 "Файл с именем \"%s\" уже существует, размер %s.\n"
 "Пропустить эту дорожку или перезаписать её?"
 
-#: ../src/sj-extracting.c:211
+#: ../src/sj-extracting.c:218
 msgid "_Skip"
 msgstr "П_ропустить"
 
-#: ../src/sj-extracting.c:212
+#: ../src/sj-extracting.c:219
 msgid "_Overwrite"
 msgstr "_Перезаписать"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:274 ../src/sj-extracting.c:309
-#: ../src/sj-extracting.c:519
+#: ../src/sj-extracting.c:281 ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:522
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -313,21 +314,21 @@ msgstr ""
 "Звуковыжималка не может копировать этот CD.\n"
 "Причина: %s"
 
-#: ../src/sj-extracting.c:359
+#: ../src/sj-extracting.c:366
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Ожидаемое время завершения время: %d:%02d (в %0.1fx)"
 
-#: ../src/sj-extracting.c:361
+#: ../src/sj-extracting.c:368
 msgid "Estimated time left: unknown"
 msgstr "Ожидаемое время завершения: неизвестно"
 
 #. TODO: need to have a better message here
-#: ../src/sj-extracting.c:457
+#: ../src/sj-extracting.c:463
 msgid "The tracks have been copied successfully."
 msgstr "Дорожка была успешно скопирована."
 
-#: ../src/sj-extracting.c:462
+#: ../src/sj-extracting.c:468
 msgid "_Eject"
 msgstr "_Извлечь"
 
@@ -339,36 +340,40 @@ msgstr "Звуковой профиль"
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "Звуковой профиль GNOME для кодирования звука"
 
-#: ../src/sj-extractor.c:346
+#: ../src/sj-extractor.c:276
 msgid "Could not create GStreamer CD reader"
-msgstr "Не удается создать GStreamer CD reader"
+msgstr "Не удаётся создать GStreamer CD reader"
 
-#: ../src/sj-extractor.c:366
+#: ../src/sj-extractor.c:298
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
-msgstr "Не удается создать кодировщик GStreamer для %s"
+msgstr "Не удаётся создать кодировщик GStreamer для %s"
 
-#: ../src/sj-extractor.c:377
+#: ../src/sj-extractor.c:309
 msgid "Could not create GStreamer file output"
-msgstr "Не удается создать вывод файла GStreamer"
+msgstr "Не удаётся создать вывод файла GStreamer"
 
-#: ../src/sj-extractor.c:411
+#: ../src/sj-extractor.c:321
+msgid "Could not link pipeline"
+msgstr "Не удаётся создать ссылку на канал"
+
+#: ../src/sj-extractor.c:343
 msgid "Could not get current track position"
-msgstr "Не удается получить текущую позицию дорожки"
+msgstr "Не удаётся получить текущую позицию дорожки"
 
-#: ../src/sj-extractor.c:438
+#: ../src/sj-extractor.c:370
 msgid "Extractor object is not valid. This is bad, check your console for errors."
 msgstr "Extractor object is not valid. This is bad, check your console for errors."
 
-#: ../src/sj-extractor.c:583
+#: ../src/sj-extractor.c:515
 msgid "Could not get track start position"
-msgstr "Не удается плучить позицию начала дорожки"
+msgstr "Не удаётся плучить позицию начала дорожки"
 
-#: ../src/sj-extractor.c:615
+#: ../src/sj-extractor.c:547
 msgid "The plugin necessary for CD access was not found"
 msgstr "Не найден модуль, необходимый для доступа к CD"
 
-#: ../src/sj-extractor.c:623
+#: ../src/sj-extractor.c:555
 msgid "The plugin necessary for file access was not found"
 msgstr "Не найден модуль, необходимый для доступа к файлу"
 
@@ -378,7 +383,7 @@ msgstr "_Извлечь"
 
 #: ../src/sj-main.c:180
 msgid "Could not start Sound Juicer"
-msgstr "Не удается запустить Звуковыжималку"
+msgstr "Не удаётся запустить Звуковыжималку"
 
 #: ../src/sj-main.c:181 ../src/sj-main.c:580 ../src/sj-main.c:688
 #: ../src/sj-main.c:779 ../src/sj-main.c:971
@@ -409,7 +414,7 @@ msgstr "Исполнитель"
 
 #: ../src/sj-main.c:578 ../src/sj-main.c:686 ../src/sj-main.c:777
 msgid "Could not read the CD"
-msgstr "Не удается прочитать этот CD"
+msgstr "Не удаётся прочитать этот CD"
 
 #: ../src/sj-main.c:579 ../src/sj-main.c:687
 msgid "Sound Juicer could not read the track listing on this CD."
@@ -447,7 +452,7 @@ msgstr "_Изменить профиль"
 
 #: ../src/sj-main.c:969
 msgid "Could not open URL"
-msgstr "Не удается открыть URL"
+msgstr "Не удаётся открыть URL"
 
 #: ../src/sj-main.c:970
 msgid "Sound Juicer could not open the submission URL"
@@ -464,7 +469,7 @@ msgid ""
 "Could not display help for Sound Juicer\n"
 "%s"
 msgstr ""
-"Не удается отобразить справку Звуковыжималки\n"
+"Не удаётся отобразить справку Звуковыжималки\n"
 "%s"
 
 #: ../src/sj-main.c:1223
@@ -485,11 +490,11 @@ msgstr "DEVICE"
 
 #: ../src/sj-main.c:1270
 msgid "Could not create GConf client.\n"
-msgstr "Не удается создать клиента GConf.\n"
+msgstr "Не удаётся создать клиента GConf.\n"
 
 #: ../src/sj-main.c:1300
 msgid "The interface file for Sound Juicer could not be read."
-msgstr "Не удается прочитать файл интерфейса Звуковыжималки."
+msgstr "Не удаётся прочитать файл интерфейса Звуковыжималки."
 
 #: ../src/sj-main.c:1349
 msgid "Track"
@@ -505,16 +510,16 @@ msgstr "Сбой инициализации модуля метаданных CD
 
 #: ../src/sj-metadata-cdtext.c:176
 msgid "Cannot read CD"
-msgstr "Не удается прочитать CD"
+msgstr "Не удаётся прочитать CD"
 
 #: ../src/sj-metadata-musicbrainz.c:97
 msgid "Cannot create MusicBrainz client"
-msgstr "Не удается создать клиента MusicBrainz"
+msgstr "Не удаётся создать клиента MusicBrainz"
 
 #: ../src/sj-metadata-musicbrainz.c:221 ../src/sj-metadata-musicbrainz.c:487
 #, c-format
 msgid "Cannot read CD: %s"
-msgstr "Не удается прочитать CD: %s"
+msgstr "Не удаётся прочитать CD: %s"
 
 #: ../src/sj-metadata-musicbrainz.c:228 ../src/sj-metadata-musicbrainz.c:526
 msgid "Unknown Artist"
@@ -565,7 +570,7 @@ msgstr "Незавершенные метаданные для этого CD"
 
 #: ../src/sj-metadata-musicbrainz.c:655
 msgid "Could not create CD lookup thread"
-msgstr "Не удается создать поток просмотра CD"
+msgstr "Не удаётся создать поток просмотра CD"
 
 #: ../src/sj-play.c:192 ../src/sj-play.c:430 ../src/sj-play.c:477
 #, c-format
@@ -580,15 +585,15 @@ msgstr ""
 
 #: ../src/sj-play.c:345
 msgid "Failed to create CD source element"
-msgstr "Не удается создать элемент источника CD"
+msgstr "Не удаётся создать элемент источника CD"
 
 #: ../src/sj-play.c:365
 msgid "Failed to link pipeline"
-msgstr "Не удается создать ссылку на канал"
+msgstr "Не удаётся создать ссылку на канал"
 
 #: ../src/sj-play.c:371
 msgid "Failed to create audio output"
-msgstr "Не удается создать вывод звука"
+msgstr "Не удаётся создать вывод звука"
 
 #: ../src/sj-play.c:587
 #, c-format
@@ -659,32 +664,3 @@ msgstr "Номер. Исполнитель дорожки - Название д�
 #: ../src/sj-prefs.c:72
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Номер - Исполнитель - Название (нижн. рег.)"
-
-#. Translators: this is the title of a common album. You don't need to change it
-#: ../src/sj-prefs.c:205
-msgid "Help!"
-msgstr "Help!"
-
-#. title
-#. Translators: this is the artist of a common album. You don't need to change it
-#. title
-#. Translators: this is the artist of a common song. You don't need to change it
-#: ../src/sj-prefs.c:207 ../src/sj-prefs.c:223
-msgid "The Beatles"
-msgstr "The Beatles"
-
-#. artist
-#. Translators: this is the artist sortname of a common album. You don't need to change it
-#. artist
-#. Translators: this is the artist sortname of a common song. You don't need to change it
-#: ../src/sj-prefs.c:209 ../src/sj-prefs.c:225
-msgid "Beatles, The"
-msgstr "Beatles, The"
-
-#. album
-#. track number
-#. Translators: this is the title of a common song. You don't need to change it
-#: ../src/sj-prefs.c:221
-msgid "Ticket To Ride"
-msgstr "Ticket To Ride"
-
