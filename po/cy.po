@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-25 14:28+0000\n"
-"PO-Revision-Date: 2006-02-23 19:28-0000\n"
+"POT-Creation-Date: 2006-03-08 13:47+0000\n"
+"PO-Revision-Date: 2006-03-08 12:28-0000\n"
 "Last-Translator: Rhys Jones <rhys@sucs.org>\n"
 "Language-Team: Welsh <gnome-cy@lists.linux.org.uk>\n"
 "MIME-Version: 1.0\n"
@@ -108,7 +108,7 @@ msgid "Skip to the previous track"
 msgstr "Sgipio at y trac blaenorol"
 
 #: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:54
-#: ../src/sj-extractor.c:509 ../src/sj-main.c:165 ../src/sj-main.c:167
+#: ../src/sj-extractor.c:442 ../src/sj-main.c:165 ../src/sj-main.c:167
 #: ../src/sj-main.c:1233
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
@@ -292,7 +292,7 @@ msgstr ""
 "Dafydd Harries <daf@muse.19inch.net>\n"
 "Rhys Jones <rhys@sucs.org>"
 
-#: ../src/sj-extracting.c:207
+#: ../src/sj-extracting.c:214
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -301,17 +301,17 @@ msgstr ""
 "Mae ffeil o'r enw '%s' yn bodoli, maint %s.\n"
 "Ydych chi am sgipio'r trac neu'i drosysgrifo?"
 
-#: ../src/sj-extracting.c:211
+#: ../src/sj-extracting.c:218
 msgid "_Skip"
 msgstr "_Hepgor"
 
-#: ../src/sj-extracting.c:212
+#: ../src/sj-extracting.c:219
 msgid "_Overwrite"
 msgstr "_Trosysgrifo"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:274 ../src/sj-extracting.c:309
-#: ../src/sj-extracting.c:519
+#: ../src/sj-extracting.c:281 ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:522
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -320,21 +320,21 @@ msgstr ""
 "Methodd Sound Juicer echdynnu'r CD hwn.\n"
 "Rheswm: %s"
 
-#: ../src/sj-extracting.c:359
+#: ../src/sj-extracting.c:366
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Amcangyfrif amser ar ôl: %d:%02d (am %0.1f×)"
 
-#: ../src/sj-extracting.c:361
+#: ../src/sj-extracting.c:368
 msgid "Estimated time left: unknown"
 msgstr "Amcangyfrif amser ar ôl: anhysbys"
 
 #. TODO: need to have a better message here
-#: ../src/sj-extracting.c:457
+#: ../src/sj-extracting.c:463
 msgid "The tracks have been copied successfully."
 msgstr "Copïwyd y traciau'n llwyddiannus."
 
-#: ../src/sj-extracting.c:462
+#: ../src/sj-extracting.c:468
 msgid "_Eject"
 msgstr "_Allfwrw"
 
@@ -346,39 +346,43 @@ msgstr "Proffil Sain"
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "Proffil Sain GNOME ddefnyddir er mwyn amgodio sain"
 
-#: ../src/sj-extractor.c:345
+#: ../src/sj-extractor.c:276
 msgid "Could not create GStreamer CD reader"
 msgstr "Methu creu darllenydd CD GStreamer"
 
-#: ../src/sj-extractor.c:365
+#: ../src/sj-extractor.c:298
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Methu creu amgodwyr GStreamer ar gyfer %s"
 
-#: ../src/sj-extractor.c:376
+#: ../src/sj-extractor.c:309
 msgid "Could not create GStreamer file output"
 msgstr "Methwyd creu allbwn ffeil GStreamer"
 
-#: ../src/sj-extractor.c:410
+#: ../src/sj-extractor.c:321
+msgid "Could not link pipeline"
+msgstr "Methu cysylltu pibell"
+
+#: ../src/sj-extractor.c:343
 msgid "Could not get current track position"
 msgstr "Methu canfod safle'r trac presennol"
 
-#: ../src/sj-extractor.c:437
+#: ../src/sj-extractor.c:370
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Gwrthrych echdynnu ddim yn ddilys. Mae hyn yn wael; edrychwch ar eich consol "
 "am wallau."
 
-#: ../src/sj-extractor.c:582
+#: ../src/sj-extractor.c:515
 msgid "Could not get track start position"
 msgstr "Methwyd cael safon cychwyn trac"
 
-#: ../src/sj-extractor.c:614
+#: ../src/sj-extractor.c:547
 msgid "The plugin necessary for CD access was not found"
 msgstr "Heb ganfod yr ategyn angenrheidiol ar gyfer cyrchu CD"
 
-#: ../src/sj-extractor.c:622
+#: ../src/sj-extractor.c:555
 msgid "The plugin necessary for file access was not found"
 msgstr "Heb ganfod yr ategyn angenrheidiol ar gyfer cyrchu ffeil"
 
@@ -521,25 +525,25 @@ msgstr "Methu darllen CD"
 msgid "Cannot create MusicBrainz client"
 msgstr "Methu creu cleient MusicBrainz"
 
-#: ../src/sj-metadata-musicbrainz.c:220 ../src/sj-metadata-musicbrainz.c:475
+#: ../src/sj-metadata-musicbrainz.c:221 ../src/sj-metadata-musicbrainz.c:487
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Methu darllen CD: %s"
 
-#: ../src/sj-metadata-musicbrainz.c:227 ../src/sj-metadata-musicbrainz.c:514
+#: ../src/sj-metadata-musicbrainz.c:228 ../src/sj-metadata-musicbrainz.c:526
 msgid "Unknown Artist"
 msgstr "Artist Anhysbys"
 
-#: ../src/sj-metadata-musicbrainz.c:228 ../src/sj-metadata-musicbrainz.c:527
+#: ../src/sj-metadata-musicbrainz.c:229 ../src/sj-metadata-musicbrainz.c:539
 msgid "Unknown Title"
 msgstr "Teitl Anhysbys"
 
-#: ../src/sj-metadata-musicbrainz.c:234
+#: ../src/sj-metadata-musicbrainz.c:235
 #, c-format
 msgid "Track %d"
 msgstr "Trac %d"
 
-#: ../src/sj-metadata-musicbrainz.c:262
+#: ../src/sj-metadata-musicbrainz.c:263
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
@@ -547,32 +551,32 @@ msgstr ""
 "Gwrthrych metadata MusicBrainz ddim yn ddilys. Mae hyn yn wael; edrychwch ar "
 "eich consol am wallau."
 
-#: ../src/sj-metadata-musicbrainz.c:417 ../src/sj-metadata-musicbrainz.c:424
-#: ../src/sj-metadata-musicbrainz.c:434
+#: ../src/sj-metadata-musicbrainz.c:429 ../src/sj-metadata-musicbrainz.c:436
+#: ../src/sj-metadata-musicbrainz.c:446
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "Methu holi ynghylch y CD: %s\n"
 
-#: ../src/sj-metadata-musicbrainz.c:469
+#: ../src/sj-metadata-musicbrainz.c:481
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Nid yw'r ddyfais '%s' yn cynnwys unrhyw gyfrwng"
 
-#: ../src/sj-metadata-musicbrainz.c:472
+#: ../src/sj-metadata-musicbrainz.c:484
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "Methu agor dyfais '%s'. Gwiriwch ganiatadau cyrchu'r ddyfais."
 
-#: ../src/sj-metadata-musicbrainz.c:508
+#: ../src/sj-metadata-musicbrainz.c:520
 msgid "Various"
 msgstr "Amrywiol"
 
-#: ../src/sj-metadata-musicbrainz.c:552
+#: ../src/sj-metadata-musicbrainz.c:564
 msgid "Incomplete metadata for this CD"
 msgstr "Metadata anghyflawn ar gyfer y CD hwn"
 
-#: ../src/sj-metadata-musicbrainz.c:643
+#: ../src/sj-metadata-musicbrainz.c:655
 msgid "Could not create CD lookup thread"
 msgstr "Methu creu edefyn er mwyn chwilio gwybodaeth am y CD"
 
@@ -620,12 +624,11 @@ msgstr "Artist y Trac, Teitl y Trac"
 msgid "Track Artist (sortable), Album Title"
 msgstr "Artist y Trac (gellir ei drefnu), Teitl y Trac"
 
-#: ../src/sj-prefs.c:56 ../src/sj-prefs.c:202
+#: ../src/sj-prefs.c:56
 msgid "Album Title"
 msgstr "Teitl yr Albwm"
 
-#. title
-#: ../src/sj-prefs.c:57 ../src/sj-prefs.c:203
+#: ../src/sj-prefs.c:57
 msgid "Album Artist"
 msgstr "Artist yr Albwm"
 
@@ -649,9 +652,7 @@ msgstr "[dim]"
 msgid "Number - Title"
 msgstr "Rhif - Teitl"
 
-#. album
-#. track number
-#: ../src/sj-prefs.c:67 ../src/sj-prefs.c:215
+#: ../src/sj-prefs.c:67
 msgid "Track Title"
 msgstr "Teitl y Trac"
 
@@ -672,20 +673,14 @@ msgstr "Rhif. Artist y Trac - Teitl y Trac"
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Rhif-Artist y Trac-Teitl y Trac (llythrennau bach)"
 
-#. artist
-#: ../src/sj-prefs.c:204
-msgid "Album Artist's Sortable Name"
-msgstr "Enw Artist yr Albwm - Gellir ei Drefnu"
+#~ msgid "Album Artist's Sortable Name"
+#~ msgstr "Enw Artist yr Albwm - Gellir ei Drefnu"
 
-#. title
-#: ../src/sj-prefs.c:216
-msgid "Track Artist"
-msgstr "Artist Trac"
+#~ msgid "Track Artist"
+#~ msgstr "Artist Trac"
 
-#. artist
-#: ../src/sj-prefs.c:217
-msgid "Track Artist's Sortable Name"
-msgstr "Enw Artist y Trac - Gellir ei Drefnu"
+#~ msgid "Track Artist's Sortable Name"
+#~ msgstr "Enw Artist y Trac - Gellir ei Drefnu"
 
 #~ msgid "Sound Juicer CD Ripper"
 #~ msgstr "Rhwygwr CD Sound Juicer"
