@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-01 15:33+0100\n"
-"PO-Revision-Date: 2006-03-01 23:04+0100\n"
+"POT-Creation-Date: 2006-03-08 23:23+0100\n"
+"PO-Revision-Date: 2006-03-08 23:49+0100\n"
 "Last-Translator: Arangel Angov <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
 "MIME-Version: 1.0\n"
@@ -116,7 +116,7 @@ msgid "Skip to the previous track"
 msgstr "Прескокни до претходната песна"
 
 #: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:54
-#: ../src/sj-extractor.c:510 ../src/sj-main.c:165 ../src/sj-main.c:167
+#: ../src/sj-extractor.c:442 ../src/sj-main.c:165 ../src/sj-main.c:167
 #: ../src/sj-main.c:1233
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
@@ -237,8 +237,8 @@ msgid ""
 "Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) "
 "full"
 msgstr ""
-"Параноја режим 0) исклучено 2) фрагмент 4) поклопено 8) скреч 16) поправка 255) "
-"целосно"
+"Параноја режим 0) исклучено 2) фрагмент 4) поклопено 8) скреч 16) поправка "
+"255) целосно"
 
 #: ../data/sound-juicer.schemas.in.h:10
 msgid "The GNOME Audio Profile with which to encode."
@@ -297,7 +297,7 @@ msgstr ""
 "Арангел Ангов (ufo@linux.net.mk)\n"
 "http://gnomk.sf.net"
 
-#: ../src/sj-extracting.c:207
+#: ../src/sj-extracting.c:214
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -306,17 +306,17 @@ msgstr ""
 "Датотеката со името '%s', со големина %s.\n"
 "Дали сакате да ја прескокнете оваа песна или пак да ја замените со новата?"
 
-#: ../src/sj-extracting.c:211
+#: ../src/sj-extracting.c:218
 msgid "_Skip"
 msgstr "_Skip"
 
-#: ../src/sj-extracting.c:212
+#: ../src/sj-extracting.c:219
 msgid "_Overwrite"
 msgstr "_Замени"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:274 ../src/sj-extracting.c:309
-#: ../src/sj-extracting.c:519
+#: ../src/sj-extracting.c:281 ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:522
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -325,21 +325,21 @@ msgstr ""
 "Sound Juicer не може да извади песни од ова CD.\n"
 "Причина: %s"
 
-#: ../src/sj-extracting.c:359
+#: ../src/sj-extracting.c:366
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Преостанато време: %d:%02d (at %0.1f×)"
 
-#: ../src/sj-extracting.c:361
+#: ../src/sj-extracting.c:368
 msgid "Estimated time left: unknown"
 msgstr "Преостанато време: непознато"
 
 #. TODO: need to have a better message here
-#: ../src/sj-extracting.c:457
+#: ../src/sj-extracting.c:463
 msgid "The tracks have been copied successfully."
 msgstr "Песните се копирани успешно."
 
-#: ../src/sj-extracting.c:462
+#: ../src/sj-extracting.c:468
 msgid "_Eject"
 msgstr "_Извади"
 
@@ -351,38 +351,42 @@ msgstr "Аудио профил"
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "Гном аудио профилот се користи за енкодирање на аудио"
 
-#: ../src/sj-extractor.c:346
+#: ../src/sj-extractor.c:276
 msgid "Could not create GStreamer CD reader"
 msgstr "Не може да креира GStreamer cdparanoia читач"
 
-#: ../src/sj-extractor.c:366
+#: ../src/sj-extractor.c:298
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Не можам да креира енкодер за GStreamer %s"
 
-#: ../src/sj-extractor.c:377
+#: ../src/sj-extractor.c:309
 msgid "Could not create GStreamer file output"
 msgstr "Не може да креира GStreamer датотека на излез"
 
-#: ../src/sj-extractor.c:411
+#: ../src/sj-extractor.c:321
+msgid "Could not link pipeline"
+msgstr "Не успеав да врзам pipeline"
+
+#: ../src/sj-extractor.c:343
 msgid "Could not get current track position"
 msgstr "Не може да ја најде моменталната позицијата на песната"
 
-#: ../src/sj-extractor.c:438
+#: ../src/sj-extractor.c:370
 msgid "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Исфрлувачкиот предмет не е валиден. Ова не добро, провери ја твојата конзола "
 "за грешки."
 
-#: ../src/sj-extractor.c:583
+#: ../src/sj-extractor.c:515
 msgid "Could not get track start position"
 msgstr "Не може да ја земе песната од позицијата старт"
 
-#: ../src/sj-extractor.c:615
+#: ../src/sj-extractor.c:547
 msgid "The plugin necessary for CD access was not found"
 msgstr "Не беше пронајден потребниот додаток за пристап до CD"
 
-#: ../src/sj-extractor.c:623
+#: ../src/sj-extractor.c:555
 msgid "The plugin necessary for file access was not found"
 msgstr "Не беше пронајден потребниот додаток за пристап"
 
@@ -673,32 +677,4 @@ msgstr "Број. Песна Изведувач - Песна Наслов"
 #: ../src/sj-prefs.c:72
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Број-Песна Изведувач-Песна Наслов (мали букви)"
-
-#. Translators: this is the title of a common album. You don't need to change it
-#: ../src/sj-prefs.c:205
-msgid "Help!"
-msgstr "Помош!"
-
-#. title
-#. Translators: this is the artist of a common album. You don't need to change it
-#. title
-#. Translators: this is the artist of a common song. You don't need to change it
-#: ../src/sj-prefs.c:207 ../src/sj-prefs.c:223
-msgid "The Beatles"
-msgstr "The Beatles"
-
-#. artist
-#. Translators: this is the artist sortname of a common album. You don't need to change it
-#. artist
-#. Translators: this is the artist sortname of a common song. You don't need to change it
-#: ../src/sj-prefs.c:209 ../src/sj-prefs.c:225
-msgid "Beatles, The"
-msgstr "Beatles, The"
-
-#. album
-#. track number
-#. Translators: this is the title of a common song. You don't need to change it
-#: ../src/sj-prefs.c:221
-msgid "Ticket To Ride"
-msgstr "Ticket To Ride"
 
