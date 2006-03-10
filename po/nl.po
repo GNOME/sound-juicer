@@ -5,6 +5,13 @@
 # Michiel Sikkes <michiel@sikkes.xs4all.nl> 2004.
 # -------------
 # Extract: Uitpakken vervangen door rippen? kopieren?
+# track           - nummer
+# track title     - nummertitel
+# track artist    - nummerartiest
+# we gebruiken geen spaties tussen nummer en artiest/titel omdat een spatie
+# (of zelfs een verbindingsstreepje) ook als format wordt gebruikt en dat
+# levert alleen maar verwarring op.
+#
 # Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>, 2003.
 # Elros Cyriatan <cyriatan@fastmail.fm>, 2003.
 # Tino Meinen <a.t.meinen@chello.nl>, 2003, 2004, 2005, 2006.
@@ -14,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-05 23:33+0100\n"
-"PO-Revision-Date: 2006-03-06 00:21+0100\n"
+"POT-Creation-Date: 2006-03-10 07:15+0100\n"
+"PO-Revision-Date: 2006-03-10 10:50+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,18 +34,25 @@ msgstr ""
 msgid "CD Extractor"
 msgstr "Kopiëren van cd's"
 
+# Dit is de tooltip die bij soundjuicer verschijnt.
 # muziek van uw cds uitpakken
 # is lelijk.
 # Mogelijk: Muziek van uw CDs halen
-# kopieren is het beste in dit geval
+# rippen er tussen haakjes achtergezet. dit kan omdat
+# het een tooltip is.
 #: ../data/sound-juicer.desktop.in.h:2
 msgid "Extract music from your CDs"
-msgstr "Muziek van uw cd's kopiëren"
+msgstr "Muziek van uw cd's kopiëren (ook wel rippen genoemd)"
 
+# cd-kopieerprogramma: hier is kopieren wel verwarrend omdat
+# het lijkt als het een programma is waarmee je kopietjes van
+# een cd kunt branden.
+# extraheerder/uitpakker (allemaal lelijk)
 #: ../data/sound-juicer.desktop.in.h:3
 msgid "Sound Juicer CD Extractor"
-msgstr "Sound Juicer cd-kopieerpogramma"
+msgstr "Sound Juicer cd-ripper"
 
+# Apparaat/station/Speler
 #: ../data/sound-juicer.glade.h:1
 msgid "<b>Device</b>"
 msgstr "<b>Station</b>"
@@ -56,10 +70,12 @@ msgstr "<b>Format</b>"
 msgid "<b>Music Folder</b>"
 msgstr "<b>Muziekmap</b>"
 
-# nummerlijst/titels
+# nummerlijst/titels (letterl. de titels van de nummers)
+# maar het is het kopje dat hoort bij het onderdeel waarbij je
+# de uiteindelijke vorm van de naam van het bestand kiest.
 #: ../data/sound-juicer.glade.h:5
 msgid "<b>Track Names</b>"
-msgstr "<b>Titels</b>"
+msgstr "<b>Vorm van de bestandsnaam</b>"
 
 #: ../data/sound-juicer.glade.h:6
 msgid "<b>_Artist:</b>"
@@ -71,11 +87,11 @@ msgstr "<b>_Genre:</b>"
 
 #: ../data/sound-juicer.glade.h:8
 msgid "<b>_Title:</b>"
-msgstr "<b>_Titel:</b>"
+msgstr "<b>_Albumtitel:</b>"
 
 #: ../data/sound-juicer.glade.h:9
 msgid "CD _drive:"
-msgstr "cd-_speler:"
+msgstr "_cd-speler:"
 
 #: ../data/sound-juicer.glade.h:10
 msgid "E_ject"
@@ -89,22 +105,25 @@ msgstr "_Profielen bewerken..."
 msgid "File _name:"
 msgstr "_Bestandsnaam:"
 
+# _Map wordt al gebruikt
+# meervoud is beter hier
 #: ../data/sound-juicer.glade.h:13
 msgid "Folder hie_rarchy:"
-msgstr "_Mapstructuur:"
+msgstr "Mappen_structuur:"
 
 #: ../data/sound-juicer.glade.h:14
 msgid "Multiple Albums Found"
 msgstr "Meerdere albums gevonden"
 
+# de _u wordt gebruikt in sl_uiten
 # uitgang/uitvoer
 #: ../data/sound-juicer.glade.h:15
 msgid "O_utput Format:"
-msgstr "_Uitvoerformat:"
+msgstr "Uit_voerformat:"
 
 #: ../data/sound-juicer.glade.h:16
 msgid "Pre_vious Track"
-msgstr "Vo_rig nummer"
+msgstr "Vo_rige nummer"
 
 #: ../data/sound-juicer.glade.h:17
 msgid "Preferences"
@@ -157,9 +176,10 @@ msgstr "_Schijf"
 msgid "_Edit"
 msgstr "Be_werken"
 
+# de _u wordt gebruikt in sl_uiten
 #: ../data/sound-juicer.glade.h:28
 msgid "_Eject when finished"
-msgstr "Na afloop _uitwerpen"
+msgstr "_Na afloop uitwerpen"
 
 #: ../data/sound-juicer.glade.h:29
 msgid "_Folder:"
@@ -171,16 +191,17 @@ msgstr "_Hulp"
 
 #: ../data/sound-juicer.glade.h:31
 msgid "_Next Track"
-msgstr "_Volgende nummer"
+msgstr "V_olgende nummer"
 
 #: ../data/sound-juicer.glade.h:32
 msgid "_Play / Pause"
 msgstr "_Afspelen / Pauzeren"
 
 # overniew/opnieuw
+# de _o wordt gebruikt bij v_olgende
 #: ../data/sound-juicer.glade.h:33
 msgid "_Re-read Disc"
-msgstr "_Opnieuw lezen"
+msgstr "Op_nieuw lezen"
 
 #: ../data/sound-juicer.glade.h:34
 msgid "_Select All"
@@ -200,10 +221,7 @@ msgid ""
 "%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
 "album artist (lowercase) %tt -- track title %tT -- track title (lowercase) %"
 "ta -- track artist %tA -- track artist (lowercase)"
-msgstr ""
-"%at -- albumnaam %aT -- albumnaam (kleine letters) %aa -- album artiest %aA "
-"-- album arties (kleine letters) %tt -- titel %tT -- titel (kleine letters) %"
-"ta -- nummer artiest %tA -- nummer artiest (kleine letters)"
+msgstr "%at -- albumnaam %aT -- albumnaam (kleine letters) %aa -- albumartiest %aA -- albumartiest (kleine letters) %tt -- nummertitel %tT -- nummertitel (kleine letters) %ta -- nummerartiest %tA -- nummerartiest (kleine letters)"
 
 #: ../data/sound-juicer.schemas.in.h:3
 msgid "Audio Profile with which to encode"
@@ -217,12 +235,7 @@ msgid ""
 "number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
 "tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
 "(lowercase)"
-msgstr ""
-"Geef geen extensie. %at -- albumnaam %aT -- albumnaam (kleine letters) %aa "
-"-- album artiest %aA -- album artiest (kleine letters) %tn -- nummer getal "
-"(bijv. 8) %tN -- nummer getal, nul-aangevuld (bijv. 08) %tt -- titel %tT -- "
-"titel (kleine letters) %ta -- nummer artiest %tA -- nummer artiest (kleine "
-"letters)"
+msgstr "Geef geen extensie. %at -- albumnaam %aT -- albumnaam (kleine letters) %aa -- albumartiest %aA -- albumartiest (kleine letters) %tn -- nummer getal (bijv. 8) %tN -- nummergetal, nul-aangevuld (bijv. 08) %tt -- nummertitel %tT -- nummertitel (kleine letters) %ta -- nummerartiest %tA -- nummerartiest (kleine letters)"
 
 #: ../data/sound-juicer.schemas.in.h:6
 msgid ""
@@ -296,7 +309,7 @@ msgstr "Alle volgende fouten alleen op de terminal tonen"
 
 #: ../src/sj-about.c:55
 msgid "An Audio CD Extractor"
-msgstr "Een kopieerprogramma voor audio-cd's"
+msgstr "Een muziekkopieerprogramma voor audio-cd's"
 
 #.
 #. * Note to translators: put here your name and email so it will show
@@ -435,6 +448,8 @@ msgstr "U bent een cd aan het kopiëren. Wilt u nu afsluiten of doorgaan?"
 msgid "(unknown)"
 msgstr "(onbekend)"
 
+# dit zijn de tabelkoppen in de 'track listing'
+# dit is de titel van het nummer
 #: ../src/sj-main.c:431 ../src/sj-main.c:1364
 msgid "Title"
 msgstr "Titel"
@@ -507,7 +522,7 @@ msgid ""
 "Could not display help for Sound Juicer\n"
 "%s"
 msgstr ""
-"Kon hulp niet weergeven voor Sound Juicer\n"
+"Kon de hulp voor Sound Juicer niet weergeven\n"
 "%s"
 
 #: ../src/sj-main.c:1223
@@ -642,21 +657,19 @@ msgstr "Doorspoelen naar %s"
 
 #: ../src/sj-prefs.c:52
 msgid "Album Artist, Album Title"
-msgstr "Album artiest, Albumnaam"
+msgstr "Albumartiest, Albumnaam"
 
 #: ../src/sj-prefs.c:53
 msgid "Album Artist (sortable), Album Title"
-msgstr "Album artiest (sorteerbaar), Albumnaam"
+msgstr "Albumartiest (sorteerbaar), Albumnaam"
 
-# misschien aan elkaar? Nummerartiest, albumtitel?
 #: ../src/sj-prefs.c:54
 msgid "Track Artist, Album Title"
-msgstr "Nummer artiest, Albumnaam"
+msgstr "Nummerartiest, Albumnaam"
 
-# misschien aan elkaar? Nummerartiest, albumtitel?
 #: ../src/sj-prefs.c:55
 msgid "Track Artist (sortable), Album Title"
-msgstr "Nummer artiest (sorteerbaar), Albumnaam"
+msgstr "Nummerartiest (sorteerbaar), Albumnaam"
 
 #: ../src/sj-prefs.c:56
 msgid "Album Title"
@@ -664,19 +677,19 @@ msgstr "Albumnaam"
 
 #: ../src/sj-prefs.c:57
 msgid "Album Artist"
-msgstr "Album artiest"
+msgstr "Albumartiest"
 
 #: ../src/sj-prefs.c:58
 msgid "Album Artist (sortable)"
-msgstr "Album artiest (sorteerbaar)"
+msgstr "Albumartiest (sorteerbaar)"
 
 #: ../src/sj-prefs.c:59
 msgid "Album Artist - Album Title"
-msgstr "Album artiest - Albumnaam"
+msgstr "Albumartiest - Albumnaam"
 
 #: ../src/sj-prefs.c:60
 msgid "Album Artist (sortable) - Album Title"
-msgstr "Album artiest (sorteerbaar) - Albumnaam"
+msgstr "Albumartiest (sorteerbaar) - Albumnaam"
 
 #: ../src/sj-prefs.c:61
 msgid "[none]"
@@ -689,26 +702,26 @@ msgstr "Getal - Titel"
 # de titel van het nummer, hoe het nummer heet
 #: ../src/sj-prefs.c:67
 msgid "Track Title"
-msgstr "Titel"
+msgstr "Nummertitel"
 
 #: ../src/sj-prefs.c:68
 msgid "Track Artist - Track Title"
-msgstr "Nummer artiest - Titel"
+msgstr "Nummerartiest - Nummertitel"
 
 #: ../src/sj-prefs.c:69
 msgid "Track Artist (sortable) - Track Title"
-msgstr "Nummer artiest (sorteerbaar) - Titel"
+msgstr "Nummerartiest (sorteerbaar) - Nummertitel"
 
 #: ../src/sj-prefs.c:70
 msgid "Number. Track Artist - Track Title"
-msgstr "Getal. Nummer artiest - Titel"
+msgstr "Getal. Nummerartiest - Nummertitel"
 
 # fout in Engels: Number-Track Artist-Track Title
 # Geen spaties rond teken: -
 #. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
 #: ../src/sj-prefs.c:72
 msgid "Number-Track Artist-Track Title (lowercase)"
-msgstr "Getal - Nummer artiest - Titel (kleine letters)"
+msgstr "Getal - Nummerartiest - Nummertitel (kleine letters)"
 
 #~ msgid "Help!"
 #~ msgstr "Help!"
@@ -721,15 +734,6 @@ msgstr "Getal - Nummer artiest - Titel (kleine letters)"
 
 #~ msgid "Ticket To Ride"
 #~ msgstr "Ticket To Ride"
-
-#~ msgid "Album Artist's Sortable Name"
-#~ msgstr "Album artiest sorteerbare naam"
-
-#~ msgid "Track Artist"
-#~ msgstr "Nummer artiest"
-
-#~ msgid "Track Artist's Sortable Name"
-#~ msgstr "Nummer artiest sorteerbare naam"
 
 #~ msgid "<i>path_example_label</i>"
 #~ msgstr "<i>pad_voorbeeld_label</i>"
