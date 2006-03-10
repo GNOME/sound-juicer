@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-28 15:19+0100\n"
-"PO-Revision-Date: 2006-02-28 22:15+0100\n"
+"POT-Creation-Date: 2006-03-10 15:28+0100\n"
+"PO-Revision-Date: 2006-03-10 17:38+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -106,7 +106,7 @@ msgid "Skip to the previous track"
 msgstr "Přeskočit na předchozí stopu"
 
 #: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:54
-#: ../src/sj-extractor.c:510 ../src/sj-main.c:165 ../src/sj-main.c:167
+#: ../src/sj-extractor.c:442 ../src/sj-main.c:165 ../src/sj-main.c:167
 #: ../src/sj-main.c:1233
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
@@ -284,7 +284,7 @@ msgstr "Extraktor zvukových CD"
 msgid "translator-credits"
 msgstr "Miloslav Trmač <mitr@volny.cz>"
 
-#: ../src/sj-extracting.c:207
+#: ../src/sj-extracting.c:214
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -293,17 +293,17 @@ msgstr ""
 "Soubor pojmenovaný '%s' existuje, velikost %s.\n"
 "Chcete tuto stopu přeskočit nebo jej přepsat?"
 
-#: ../src/sj-extracting.c:211
+#: ../src/sj-extracting.c:218
 msgid "_Skip"
 msgstr "Pře_skočit"
 
-#: ../src/sj-extracting.c:212
+#: ../src/sj-extracting.c:219
 msgid "_Overwrite"
 msgstr "_Přepsat"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:274 ../src/sj-extracting.c:309
-#: ../src/sj-extracting.c:519
+#: ../src/sj-extracting.c:281 ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:522
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -312,21 +312,21 @@ msgstr ""
 "Sound Juicer nemohl extrahovat toto CD.\n"
 "Důvod: %s"
 
-#: ../src/sj-extracting.c:359
+#: ../src/sj-extracting.c:366
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Odhad zbývajícího času: %d:%02d (při %0.1f×)"
 
-#: ../src/sj-extracting.c:361
+#: ../src/sj-extracting.c:368
 msgid "Estimated time left: unknown"
 msgstr "Odhad zbývajícího času: neznámý"
 
 #. TODO: need to have a better message here
-#: ../src/sj-extracting.c:457
+#: ../src/sj-extracting.c:463
 msgid "The tracks have been copied successfully."
 msgstr "Stopy byly úspěšně zkopírovány."
 
-#: ../src/sj-extracting.c:462
+#: ../src/sj-extracting.c:468
 msgid "_Eject"
 msgstr "_Vysunout"
 
@@ -338,39 +338,43 @@ msgstr "Profil zvuku"
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "Profil zvuku GNOME používaný pro kódování zvuku"
 
-#: ../src/sj-extractor.c:346
+#: ../src/sj-extractor.c:276
 msgid "Could not create GStreamer CD reader"
 msgstr "Nemohu vytvořit GStreamer čteč CD"
 
-#: ../src/sj-extractor.c:366
+#: ../src/sj-extractor.c:298
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Nemohu vytvořit GStreamer enkodéry pro %s"
 
-#: ../src/sj-extractor.c:377
+#: ../src/sj-extractor.c:309
 msgid "Could not create GStreamer file output"
 msgstr "Nemohu vytvořit GStreamer výstup do souboru"
 
-#: ../src/sj-extractor.c:411
+#: ../src/sj-extractor.c:321
+msgid "Could not link pipeline"
+msgstr "Nemohu propojit rouru"
+
+#: ../src/sj-extractor.c:343
 msgid "Could not get current track position"
 msgstr "Nemohu získat aktuální pozici stopy"
 
-#: ../src/sj-extractor.c:438
+#: ../src/sj-extractor.c:370
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Objekt extraktoru není platný. To je špatné, přečtěte si chyby na své "
 "konzole."
 
-#: ../src/sj-extractor.c:583
+#: ../src/sj-extractor.c:515
 msgid "Could not get track start position"
 msgstr "Nemohu získat počáteční pozici stopy"
 
-#: ../src/sj-extractor.c:615
+#: ../src/sj-extractor.c:547
 msgid "The plugin necessary for CD access was not found"
 msgstr "Nebyl nalezen zásuvný modul potřebný pro přístup k CD"
 
-#: ../src/sj-extractor.c:623
+#: ../src/sj-extractor.c:555
 msgid "The plugin necessary for file access was not found"
 msgstr "Nebyl nalezen zásuvný modul potřebný pro přístup k souborům"
 
@@ -661,30 +665,14 @@ msgstr "Číslo. stopy umělec - název stopy"
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Číslo-Umělec stopy-Název stopy (malými písmeny)"
 
-#. Translators: this is the title of a common album. You don't need to change it
-#: ../src/sj-prefs.c:205
-msgid "Help!"
-msgstr "Help!"
+#~ msgid "Help!"
+#~ msgstr "Help!"
 
-#. title
-#. Translators: this is the artist of a common album. You don't need to change it
-#. title
-#. Translators: this is the artist of a common song. You don't need to change it
-#: ../src/sj-prefs.c:207 ../src/sj-prefs.c:223
-msgid "The Beatles"
-msgstr "The Beatles"
+#~ msgid "The Beatles"
+#~ msgstr "The Beatles"
 
-#. artist
-#. Translators: this is the artist sortname of a common album. You don't need to change it
-#. artist
-#. Translators: this is the artist sortname of a common song. You don't need to change it
-#: ../src/sj-prefs.c:209 ../src/sj-prefs.c:225
-msgid "Beatles, The"
-msgstr "Beatles, The"
+#~ msgid "Beatles, The"
+#~ msgstr "Beatles, The"
 
-#. album
-#. track number
-#. Translators: this is the title of a common song. You don't need to change it
-#: ../src/sj-prefs.c:221
-msgid "Ticket To Ride"
-msgstr "Ticket To Ride"
+#~ msgid "Ticket To Ride"
+#~ msgstr "Ticket To Ride"
