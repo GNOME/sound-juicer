@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-28 18:51+0100\n"
-"PO-Revision-Date: 2006-02-28 18:52+0100\n"
+"POT-Creation-Date: 2006-03-10 17:55+0100\n"
+"PO-Revision-Date: 2006-03-10 17:55+0100\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -114,7 +114,7 @@ msgid "Skip to the previous track"
 msgstr "Salta hasta la pista anterior"
 
 #: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:54
-#: ../src/sj-extractor.c:510 ../src/sj-main.c:165 ../src/sj-main.c:167
+#: ../src/sj-extractor.c:442 ../src/sj-main.c:165 ../src/sj-main.c:167
 #: ../src/sj-main.c:1233
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
@@ -231,7 +231,8 @@ msgstr ""
 
 #: ../data/sound-juicer.schemas.in.h:8
 msgid "If to strip special characters from filenames"
-msgstr "Indica si deben quitarse los caracteres especiales de los nombres de archivo"
+msgstr ""
+"Indica si deben quitarse los caracteres especiales de los nombres de archivo"
 
 #: ../data/sound-juicer.schemas.in.h:9
 msgid ""
@@ -298,7 +299,7 @@ msgstr ""
 "Francisco F. Serrador <serrador@cvs.gnome.org>\n"
 "Enrique Rodríguez <krm@futurnet.es>"
 
-#: ../src/sj-extracting.c:207
+#: ../src/sj-extracting.c:214
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -307,17 +308,17 @@ msgstr ""
 "Ya existe un archivo llamado «%s», tamaño %s.\n"
 "¿Quiere saltarse esta pista o sobreescribirla?"
 
-#: ../src/sj-extracting.c:211
+#: ../src/sj-extracting.c:218
 msgid "_Skip"
 msgstr "_Saltar"
 
-#: ../src/sj-extracting.c:212
+#: ../src/sj-extracting.c:219
 msgid "_Overwrite"
 msgstr "S_obreescribir"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:274 ../src/sj-extracting.c:309
-#: ../src/sj-extracting.c:519
+#: ../src/sj-extracting.c:281 ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:522
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -326,21 +327,21 @@ msgstr ""
 "Sound Juicer no pudo extraer este CD.\n"
 "Razón: %s"
 
-#: ../src/sj-extracting.c:359
+#: ../src/sj-extracting.c:366
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Tiempo restante estimado: %d:%02d (a %0.1fx)"
 
-#: ../src/sj-extracting.c:361
+#: ../src/sj-extracting.c:368
 msgid "Estimated time left: unknown"
 msgstr "Tiempo restante estimado: desconocido"
 
 #. TODO: need to have a better message here
-#: ../src/sj-extracting.c:457
+#: ../src/sj-extracting.c:463
 msgid "The tracks have been copied successfully."
 msgstr "Las pistas se han copiado con éxito."
 
-#: ../src/sj-extracting.c:462
+#: ../src/sj-extracting.c:468
 msgid "_Eject"
 msgstr "Ex_pulsar"
 
@@ -352,36 +353,42 @@ msgstr "Perfil de sonido"
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "El perfil de sonido de Gnome que se usará para codificar el sonido"
 
-#: ../src/sj-extractor.c:346
+#: ../src/sj-extractor.c:276
 msgid "Could not create GStreamer CD reader"
 msgstr "No se pudo crear el lector de CD GStreamer"
 
-#: ../src/sj-extractor.c:366
+#: ../src/sj-extractor.c:298
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "No se pudo crear el codificador GStreamer para %s"
 
-#: ../src/sj-extractor.c:377
+#: ../src/sj-extractor.c:309
 msgid "Could not create GStreamer file output"
 msgstr "No se pudo crear el archivo de salida GStreamer"
 
-#: ../src/sj-extractor.c:411
+#: ../src/sj-extractor.c:321
+msgid "Could not link pipeline"
+msgstr "No se pudo enlazar el conducto"
+
+#: ../src/sj-extractor.c:343
 msgid "Could not get current track position"
 msgstr "No se pudo obtener la posición de la pista actual"
 
-#: ../src/sj-extractor.c:438
-msgid "Extractor object is not valid. This is bad, check your console for errors."
-msgstr "El objeto extractor no es válido. Esto es malo, busque errores en su consola."
+#: ../src/sj-extractor.c:370
+msgid ""
+"Extractor object is not valid. This is bad, check your console for errors."
+msgstr ""
+"El objeto extractor no es válido. Esto es malo, busque errores en su consola."
 
-#: ../src/sj-extractor.c:583
+#: ../src/sj-extractor.c:515
 msgid "Could not get track start position"
 msgstr "No se pudo obtener la posición de comienzo de la pista"
 
-#: ../src/sj-extractor.c:615
+#: ../src/sj-extractor.c:547
 msgid "The plugin necessary for CD access was not found"
 msgstr "No se ha encontrado el complemento necesario para el acceder al CD"
 
-#: ../src/sj-extractor.c:623
+#: ../src/sj-extractor.c:555
 msgid "The plugin necessary for file access was not found"
 msgstr "No se ha encontrado el complemento necesario para acceder al archivo"
 
@@ -449,7 +456,8 @@ msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer no pudo encontrar ninguna unidad de CD-ROM para leer."
 
 #: ../src/sj-main.c:882
-msgid "The currently selected audio profile is not available on your installation."
+msgid ""
+"The currently selected audio profile is not available on your installation."
 msgstr ""
 "El perfil de sonido seleccionado actualmente no está disponible para su "
 "instalación."
@@ -563,7 +571,8 @@ msgstr "El dispositivo «%s» no contiene un soporte"
 
 #: ../src/sj-metadata-musicbrainz.c:484
 #, c-format
-msgid "Device '%s' could not be opened. Check the access permissions on the device."
+msgid ""
+"Device '%s' could not be opened. Check the access permissions on the device."
 msgstr ""
 " El dispositivo «%s» no se pudo abrir. Compruebe los permisos de acceso del "
 "dispositivo."
@@ -673,31 +682,14 @@ msgstr "Número. Artista de la pista - Título de pista"
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Número-Artista de la pista-Título de pista (minúsculas)"
 
-#. Translators: this is the title of a common album. You don't need to change it
-#: ../src/sj-prefs.c:205
-msgid "Help!"
-msgstr "Help!"
+#~ msgid "Help!"
+#~ msgstr "Help!"
 
-#. title
-#. Translators: this is the artist of a common album. You don't need to change it
-#. title
-#. Translators: this is the artist of a common song. You don't need to change it
-#: ../src/sj-prefs.c:207 ../src/sj-prefs.c:223
-msgid "The Beatles"
-msgstr "The Beatles"
+#~ msgid "The Beatles"
+#~ msgstr "The Beatles"
 
-#. artist
-#. Translators: this is the artist sortname of a common album. You don't need to change it
-#. artist
-#. Translators: this is the artist sortname of a common song. You don't need to change it
-#: ../src/sj-prefs.c:209 ../src/sj-prefs.c:225
-msgid "Beatles, The"
-msgstr "Beatles, The"
+#~ msgid "Beatles, The"
+#~ msgstr "Beatles, The"
 
-#. album
-#. track number
-#. Translators: this is the title of a common song. You don't need to change it
-#: ../src/sj-prefs.c:221
-msgid "Ticket To Ride"
-msgstr "Ticket To Ride"
-
+#~ msgid "Ticket To Ride"
+#~ msgstr "Ticket To Ride"
