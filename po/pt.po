@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-03 23:54+0000\n"
-"PO-Revision-Date: 2006-03-04 00:15+0000\n"
+"POT-Creation-Date: 2006-03-11 00:39+0000\n"
+"PO-Revision-Date: 2006-03-11 00:40+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -108,7 +108,7 @@ msgid "Skip to the previous track"
 msgstr "Saltar para a faixa anterior"
 
 #: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:54
-#: ../src/sj-extractor.c:512 ../src/sj-main.c:165 ../src/sj-main.c:167
+#: ../src/sj-extractor.c:442 ../src/sj-main.c:165 ../src/sj-main.c:167
 #: ../src/sj-main.c:1233
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
@@ -231,8 +231,8 @@ msgid ""
 "Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) "
 "full"
 msgstr ""
-"Modo paranóico: 0) inactivo 2) fragmento 4) sobrepor 8) riscar 16) reparar 255) "
-"completo"
+"Modo paranóico: 0) inactivo 2) fragmento 4) sobrepor 8) riscar 16) reparar "
+"255) completo"
 
 #: ../data/sound-juicer.schemas.in.h:10
 msgid "The GNOME Audio Profile with which to encode."
@@ -289,7 +289,7 @@ msgstr "Um Extractor de CDs Áudio"
 msgid "translator-credits"
 msgstr "Duarte Loreto <happyguy_pt@hotmail.com>"
 
-#: ../src/sj-extracting.c:207
+#: ../src/sj-extracting.c:214
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -298,17 +298,17 @@ msgstr ""
 "Já existe um ficheiro chamado '%s', de tamanho %s.\n"
 "Deseja saltar esta pista ou sobrepô-la?"
 
-#: ../src/sj-extracting.c:211
+#: ../src/sj-extracting.c:218
 msgid "_Skip"
 msgstr "_Saltar"
 
-#: ../src/sj-extracting.c:212
+#: ../src/sj-extracting.c:219
 msgid "_Overwrite"
 msgstr "_Sobrepor"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:274 ../src/sj-extracting.c:309
-#: ../src/sj-extracting.c:519
+#: ../src/sj-extracting.c:281 ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:522
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -317,21 +317,21 @@ msgstr ""
 "Sound Juicer incapaz de extrair este CD.\n"
 "Motivo: %s"
 
-#: ../src/sj-extracting.c:359
+#: ../src/sj-extracting.c:366
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Tempo remanescente estimado: %d:%02d (a %0.1f×)"
 
-#: ../src/sj-extracting.c:361
+#: ../src/sj-extracting.c:368
 msgid "Estimated time left: unknown"
 msgstr "Tempo remanescente estimado: desconhecido"
 
 #. TODO: need to have a better message here
-#: ../src/sj-extracting.c:457
+#: ../src/sj-extracting.c:463
 msgid "The tracks have been copied successfully."
 msgstr "As pistas foram copiadas com sucesso."
 
-#: ../src/sj-extracting.c:462
+#: ../src/sj-extracting.c:468
 msgid "_Eject"
 msgstr "_Ejectar"
 
@@ -343,39 +343,43 @@ msgstr "Perfil Áudio"
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "O Perfil Áudio GNOME utilizado para codificar áudio"
 
-#: ../src/sj-extractor.c:346
+#: ../src/sj-extractor.c:276
 msgid "Could not create GStreamer CD reader"
 msgstr "Incapaz de criar leitor de CD GStreamer"
 
-#: ../src/sj-extractor.c:368
+#: ../src/sj-extractor.c:298
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Incapaz de criar codificador GStreamer para %s"
 
-#: ../src/sj-extractor.c:379
+#: ../src/sj-extractor.c:309
 msgid "Could not create GStreamer file output"
 msgstr "Incapaz de criar ficheiro de saída GStreamer"
 
-#: ../src/sj-extractor.c:413
+#: ../src/sj-extractor.c:321
+msgid "Could not link pipeline"
+msgstr "Incapaz de se ligar ao pipeline"
+
+#: ../src/sj-extractor.c:343
 msgid "Could not get current track position"
 msgstr "Incapaz de obter posição actual da pista"
 
-#: ../src/sj-extractor.c:440
+#: ../src/sj-extractor.c:370
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Objecto extractor inválido. Isto é mau, verifique se existem erros na sua "
 "consola."
 
-#: ../src/sj-extractor.c:585
+#: ../src/sj-extractor.c:515
 msgid "Could not get track start position"
 msgstr "Incapaz de obter a posição inicial da pista"
 
-#: ../src/sj-extractor.c:617
+#: ../src/sj-extractor.c:547
 msgid "The plugin necessary for CD access was not found"
 msgstr "Não foi encontrado o plugin necessário para acesso ao CD"
 
-#: ../src/sj-extractor.c:625
+#: ../src/sj-extractor.c:555
 msgid "The plugin necessary for file access was not found"
 msgstr "Não foi encontrado o plugin necessário para acesso a ficheiros"
 
