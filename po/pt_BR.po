@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-28 23:37+0100\n"
-"PO-Revision-Date: 2006-03-01 10:34-0300\n"
+"POT-Creation-Date: 2006-03-11 23:26+0100\n"
+"PO-Revision-Date: 2006-03-12 00:59-0300\n"
 "Last-Translator: Raphael Higino <raphaelh@uai.com.br>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -110,7 +110,7 @@ msgid "Skip to the previous track"
 msgstr "Pula para a faixa anterior"
 
 #: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:54
-#: ../src/sj-extractor.c:510 ../src/sj-main.c:165 ../src/sj-main.c:167
+#: ../src/sj-extractor.c:442 ../src/sj-main.c:165 ../src/sj-main.c:167
 #: ../src/sj-main.c:1233
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
@@ -293,7 +293,7 @@ msgstr ""
 "Afonso Celso Medina <afmedina@uol.com.br>\n"
 "Evandro Fernandes Giovanini <evandrofg@ig.com.br>"
 
-#: ../src/sj-extracting.c:207
+#: ../src/sj-extracting.c:214
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -302,17 +302,17 @@ msgstr ""
 "Um arquivo chamado '%s' já existe, seu tamanho é %s.\n"
 "Você deseja ignorar esta faixa ou sobrescrevê-la?"
 
-#: ../src/sj-extracting.c:211
+#: ../src/sj-extracting.c:218
 msgid "_Skip"
 msgstr "_Pular"
 
-#: ../src/sj-extracting.c:212
+#: ../src/sj-extracting.c:219
 msgid "_Overwrite"
 msgstr "_Sobrescrever"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:274 ../src/sj-extracting.c:309
-#: ../src/sj-extracting.c:519
+#: ../src/sj-extracting.c:281 ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:522
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -321,21 +321,21 @@ msgstr ""
 "O Sound Juicer não pôde extrair este CD.\n"
 "Razão: %s"
 
-#: ../src/sj-extracting.c:359
+#: ../src/sj-extracting.c:366
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Tempo restante estimado: %d:%02d (a %0.1fx)"
 
-#: ../src/sj-extracting.c:361
+#: ../src/sj-extracting.c:368
 msgid "Estimated time left: unknown"
 msgstr "Tempo restante estimado: desconhecido"
 
 #. TODO: need to have a better message here
-#: ../src/sj-extracting.c:457
+#: ../src/sj-extracting.c:463
 msgid "The tracks have been copied successfully."
 msgstr "As faixas foram copiadas com sucesso."
 
-#: ../src/sj-extracting.c:462
+#: ../src/sj-extracting.c:468
 msgid "_Eject"
 msgstr "_Ejetar"
 
@@ -347,38 +347,42 @@ msgstr "Perfil de Áudio"
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "O Perfil de Áudio do GNOME usado para codificar áudio"
 
-#: ../src/sj-extractor.c:346
+#: ../src/sj-extractor.c:276
 msgid "Could not create GStreamer CD reader"
 msgstr "Não foi possível criar o leitor de CDs do GStreamer"
 
-#: ../src/sj-extractor.c:366
+#: ../src/sj-extractor.c:298
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Não foi possível criar os codificadores do GStreamer para %s"
 
-#: ../src/sj-extractor.c:377
+#: ../src/sj-extractor.c:309
 msgid "Could not create GStreamer file output"
 msgstr "Não foi possível criar a saída do arquivo do GStreamer"
 
-#: ../src/sj-extractor.c:411
+#: ../src/sj-extractor.c:321
+msgid "Could not link pipeline"
+msgstr "Erro ao ligar pipeline"
+
+#: ../src/sj-extractor.c:343
 msgid "Could not get current track position"
 msgstr "Não foi possível obter a posição atual da faixa"
 
-#: ../src/sj-extractor.c:438
+#: ../src/sj-extractor.c:370
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "O objeto extrator não é válido. Isso é ruim. Verifique erros no seu console."
 
-#: ../src/sj-extractor.c:583
+#: ../src/sj-extractor.c:515
 msgid "Could not get track start position"
 msgstr "Não foi possível obter a posição de início da faixa"
 
-#: ../src/sj-extractor.c:615
+#: ../src/sj-extractor.c:547
 msgid "The plugin necessary for CD access was not found"
 msgstr "O plugin necessário para acesso ao CD não foi encontrado"
 
-#: ../src/sj-extractor.c:623
+#: ../src/sj-extractor.c:555
 msgid "The plugin necessary for file access was not found"
 msgstr "O plugin necessário para acesso ao arquivo não foi encontrado"
 
@@ -673,33 +677,17 @@ msgstr "Número. Artista da Faixa - Título da Faixa"
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Número-Artista da Faixa-Título da Faixa (minúsculas)"
 
-#. Translators: this is the title of a common album. You don't need to change it
-#: ../src/sj-prefs.c:205
-msgid "Help!"
-msgstr "Help!"
+#~ msgid "Help!"
+#~ msgstr "Help!"
 
-#. title
-#. Translators: this is the artist of a common album. You don't need to change it
-#. title
-#. Translators: this is the artist of a common song. You don't need to change it
-#: ../src/sj-prefs.c:207 ../src/sj-prefs.c:223
-msgid "The Beatles"
-msgstr "The Beatles"
+#~ msgid "The Beatles"
+#~ msgstr "The Beatles"
 
-#. artist
-#. Translators: this is the artist sortname of a common album. You don't need to change it
-#. artist
-#. Translators: this is the artist sortname of a common song. You don't need to change it
-#: ../src/sj-prefs.c:209 ../src/sj-prefs.c:225
-msgid "Beatles, The"
-msgstr "Beatles, The"
+#~ msgid "Beatles, The"
+#~ msgstr "Beatles, The"
 
-#. album
-#. track number
-#. Translators: this is the title of a common song. You don't need to change it
-#: ../src/sj-prefs.c:221
-msgid "Ticket To Ride"
-msgstr "Ticket To Ride"
+#~ msgid "Ticket To Ride"
+#~ msgstr "Ticket To Ride"
 
 #~ msgid "Album Artist's Sortable Name"
 #~ msgstr "Nome Ordenável do Artista do Álbum"
