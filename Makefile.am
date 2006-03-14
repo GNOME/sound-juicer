@@ -28,7 +28,7 @@ DISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper
 
 
 WEBROOT := $(HOME)/WebSites/Burtonini/htdocs
-release: dist
+release: dist doap.rdf
 # TODO: tag
 	cp -f doap.rdf $(WEBROOT)/blosxom/computers/sound-juicer
 	cp -f $(PACKAGE)-$(VERSION).tar.gz $(WEBROOT)/computing
