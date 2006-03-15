@@ -9,15 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-21 19:05+0200\n"
-"PO-Revision-Date: 2006-02-21 19:03+0200\n"
+"POT-Creation-Date: 2006-03-15 11:42+0200\n"
+"PO-Revision-Date: 2006-03-15 11:43+0200\n"
 "Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.11.1\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);"
 
 #: ../data/sound-juicer.desktop.in.h:1
 msgid "CD Extractor"
@@ -112,7 +111,7 @@ msgid "Skip to the previous track"
 msgstr "Μεταπήδηση στο προηγούμενο κομμάτι"
 
 #: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:54
-#: ../src/sj-extractor.c:509 ../src/sj-main.c:165 ../src/sj-main.c:167
+#: ../src/sj-extractor.c:442 ../src/sj-main.c:165 ../src/sj-main.c:167
 #: ../src/sj-main.c:1233
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
@@ -292,7 +291,7 @@ msgstr "Μια εφαρμογή εξαγωγής ήχου από CD"
 msgid "translator-credits"
 msgstr "Κώστας Παπαδήμας <pkst@gnome.org>"
 
-#: ../src/sj-extracting.c:207
+#: ../src/sj-extracting.c:214
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -301,17 +300,17 @@ msgstr ""
 "Ένα αρχείο με όνομα '%s' υπάρχει, μέγεθος %s.\n"
 "Θέλετε να προσπεράσετε αυτό το κομμάτι ή να το αντικαταστήσετε;"
 
-#: ../src/sj-extracting.c:211
+#: ../src/sj-extracting.c:218
 msgid "_Skip"
 msgstr "_Προσπέραση"
 
-#: ../src/sj-extracting.c:212
+#: ../src/sj-extracting.c:219
 msgid "_Overwrite"
 msgstr "_Αντικατάσταση"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:274 ../src/sj-extracting.c:309
-#: ../src/sj-extracting.c:519
+#: ../src/sj-extracting.c:281 ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:522
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -320,21 +319,21 @@ msgstr ""
 "Ο Sound Juicer δε μπορεί να εξάγει από αυτό το CD.\n"
 "Λόγος: %s"
 
-#: ../src/sj-extracting.c:359
+#: ../src/sj-extracting.c:366
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Εκτίμηση χρόνου που απομένει: ·%d:%02d (σε %0.1f×)"
 
-#: ../src/sj-extracting.c:361
+#: ../src/sj-extracting.c:368
 msgid "Estimated time left: unknown"
 msgstr "Εκτίμηση χρόνου που απομένει: άγνωστο"
 
 #. TODO: need to have a better message here
-#: ../src/sj-extracting.c:457
+#: ../src/sj-extracting.c:463
 msgid "The tracks have been copied successfully."
 msgstr "Τα κομμάτια αντιγράφηκαν με επιτυχία."
 
-#: ../src/sj-extracting.c:462
+#: ../src/sj-extracting.c:468
 msgid "_Eject"
 msgstr "Αποβο_λή"
 
@@ -346,40 +345,44 @@ msgstr "Προφίλ ήχου"
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "Το προφίλ ήχου GNOME που χρησιμοποιείται για την αποκωδικοποίηση ήχου"
 
-#: ../src/sj-extractor.c:345
+#: ../src/sj-extractor.c:276
 msgid "Could not create GStreamer CD reader"
 msgstr "Αδυναμία δημιουργίας αναγνώστη GStreamer CD"
 
-#: ../src/sj-extractor.c:365
+#: ../src/sj-extractor.c:298
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Αδυναμία δημιουργίας κωδικοποιητών GStreamer για (%s)"
 
-#: ../src/sj-extractor.c:376
+#: ../src/sj-extractor.c:309
 msgid "Could not create GStreamer file output"
 msgstr "Αδυναμία δημιουργίας αρχείου εξόδου GStreamer"
 
-#: ../src/sj-extractor.c:410
+#: ../src/sj-extractor.c:321
+msgid "Could not link pipeline"
+msgstr "Αποτυχία δημιουργίας δεσμού στο pipeline"
+
+#: ../src/sj-extractor.c:343
 msgid "Could not get current track position"
 msgstr "Αδυναμία λήψης τρέχουσας θέσης κομματιού"
 
-#: ../src/sj-extractor.c:437
+#: ../src/sj-extractor.c:370
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Το αντικείμενο εξαγωγής δεν είναι έγκυρο. Αυτό είναι κακό, ελέγξτε την "
 "κονσόλα σας για σφάλματα."
 
-#: ../src/sj-extractor.c:582
+#: ../src/sj-extractor.c:515
 msgid "Could not get track start position"
 msgstr "Αδυναμία λήψης θέσης εκκίνησης"
 
-#: ../src/sj-extractor.c:614
+#: ../src/sj-extractor.c:547
 msgid "The plugin necessary for CD access was not found"
 msgstr ""
 "Η πρόσθετη λειτουργία που είναι απαραίτητη για την πρόσβαση στο CD δε βρέθηκε"
 
-#: ../src/sj-extractor.c:622
+#: ../src/sj-extractor.c:555
 msgid "The plugin necessary for file access was not found"
 msgstr ""
 "Η πρόσθετη λειτουργία που είναι απαραίτητη για την πρόσβαση στο αρχείο δε "
@@ -528,25 +531,25 @@ msgstr "Αδυναμία ανάγνωσης CD"
 msgid "Cannot create MusicBrainz client"
 msgstr "Αδυναμία δημιουργίας πελάτη MusicBrainz"
 
-#: ../src/sj-metadata-musicbrainz.c:220 ../src/sj-metadata-musicbrainz.c:475
+#: ../src/sj-metadata-musicbrainz.c:221 ../src/sj-metadata-musicbrainz.c:487
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Αδυναμία ανάγνωσης CD: %s"
 
-#: ../src/sj-metadata-musicbrainz.c:227 ../src/sj-metadata-musicbrainz.c:514
+#: ../src/sj-metadata-musicbrainz.c:228 ../src/sj-metadata-musicbrainz.c:526
 msgid "Unknown Artist"
 msgstr "Άγνωστος Καλλιτέχνης"
 
-#: ../src/sj-metadata-musicbrainz.c:228 ../src/sj-metadata-musicbrainz.c:527
+#: ../src/sj-metadata-musicbrainz.c:229 ../src/sj-metadata-musicbrainz.c:539
 msgid "Unknown Title"
 msgstr "Άγνωστος Τίτλος"
 
-#: ../src/sj-metadata-musicbrainz.c:234
+#: ../src/sj-metadata-musicbrainz.c:235
 #, c-format
 msgid "Track %d"
 msgstr "Κομμάτι %d"
 
-#: ../src/sj-metadata-musicbrainz.c:262
+#: ../src/sj-metadata-musicbrainz.c:263
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
@@ -554,18 +557,18 @@ msgstr ""
 "Το αντικείμενο MusicBrainz metadata δεν είναι έγκυρο. Ελέγξτε την κονσόλα "
 "σας για σφάλματα."
 
-#: ../src/sj-metadata-musicbrainz.c:417 ../src/sj-metadata-musicbrainz.c:424
-#: ../src/sj-metadata-musicbrainz.c:434
+#: ../src/sj-metadata-musicbrainz.c:429 ../src/sj-metadata-musicbrainz.c:436
+#: ../src/sj-metadata-musicbrainz.c:446
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "Δεν είναι δυνατό το ερώτημα σε αυτό το CD: %s\n"
 
-#: ../src/sj-metadata-musicbrainz.c:469
+#: ../src/sj-metadata-musicbrainz.c:481
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Η συσκευή '%s' δεν περιέχει κάποιο μέσο"
 
-#: ../src/sj-metadata-musicbrainz.c:472
+#: ../src/sj-metadata-musicbrainz.c:484
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
@@ -573,15 +576,15 @@ msgstr ""
 "Δεν είναι δυνατό το άνοιγμα της συσκευής '%s'. Ελέγξτε τα δικαιώματα "
 "πρόσβασης στη συσκευή."
 
-#: ../src/sj-metadata-musicbrainz.c:508
+#: ../src/sj-metadata-musicbrainz.c:520
 msgid "Various"
 msgstr "Διάφορα"
 
-#: ../src/sj-metadata-musicbrainz.c:552
+#: ../src/sj-metadata-musicbrainz.c:564
 msgid "Incomplete metadata for this CD"
 msgstr "Μη ολοκληρωμένα μετα-δεδομένα για αυτό το CD"
 
-#: ../src/sj-metadata-musicbrainz.c:643
+#: ../src/sj-metadata-musicbrainz.c:655
 msgid "Could not create CD lookup thread"
 msgstr "Αδυναμία δημιουργίας CD lookup thread"
 
@@ -629,12 +632,11 @@ msgstr "Καλλιτέχνης Κομματιού, Τίτλος Άλμπουμ"
 msgid "Track Artist (sortable), Album Title"
 msgstr "Καλλιτέχνης Κομματιού (με ταξινόμηση), Τίτλος Άλμπουμ"
 
-#: ../src/sj-prefs.c:56 ../src/sj-prefs.c:202
+#: ../src/sj-prefs.c:56
 msgid "Album Title"
 msgstr "Τίτλος Άλμπουμ"
 
-#. title
-#: ../src/sj-prefs.c:57 ../src/sj-prefs.c:203
+#: ../src/sj-prefs.c:57
 msgid "Album Artist"
 msgstr "Καλλιτέχνης Άλμπουμ"
 
@@ -658,9 +660,7 @@ msgstr "[κανένα]"
 msgid "Number - Title"
 msgstr "Αριθμός - Τίτλος"
 
-#. album
-#. track number
-#: ../src/sj-prefs.c:67 ../src/sj-prefs.c:215
+#: ../src/sj-prefs.c:67
 msgid "Track Title"
 msgstr "Τίτλος Κομματιού"
 
@@ -681,17 +681,11 @@ msgstr "Αριθμός. Καλλιτέχνης Κομματιού - Τίτλος
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Αριθμός - Καλλιτέχνης Κομματιού - Τίτλος Κομματιού (lowercase)"
 
-#. artist
-#: ../src/sj-prefs.c:204
-msgid "Album Artist's Sortable Name"
-msgstr "Όνομα (με ταξινόμηση) Καλλιτέχνη Άλμπουμ"
+#~ msgid "Album Artist's Sortable Name"
+#~ msgstr "Όνομα (με ταξινόμηση) Καλλιτέχνη Άλμπουμ"
 
-#. title
-#: ../src/sj-prefs.c:216
-msgid "Track Artist"
-msgstr "Καλλιτέχνης Κομματιού"
+#~ msgid "Track Artist"
+#~ msgstr "Καλλιτέχνης Κομματιού"
 
-#. artist
-#: ../src/sj-prefs.c:217
-msgid "Track Artist's Sortable Name"
-msgstr "Όνομα (με ταξινόμηση) Καλλιτέχνη Κομματιού"
+#~ msgid "Track Artist's Sortable Name"
+#~ msgstr "Όνομα (με ταξινόμηση) Καλλιτέχνη Κομματιού"
