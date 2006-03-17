@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-21 08:47+0700\n"
-"PO-Revision-Date: 2006-02-21 09:25+0700\n"
+"POT-Creation-Date: 2006-03-17 14:27+0700\n"
+"PO-Revision-Date: 2006-03-17 14:33+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <L10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
@@ -111,7 +111,7 @@ msgid "Skip to the previous track"
 msgstr "ข้ามไปร่องเสียงก่อนหน้า"
 
 #: data/sound-juicer.glade.h:21 src/sj-about.c:54
-#: src/sj-extractor.c:509 src/sj-main.c:165 src/sj-main.c:167
+#: src/sj-extractor.c:442 src/sj-main.c:165 src/sj-main.c:167
 #: src/sj-main.c:1233
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
@@ -203,8 +203,8 @@ msgid ""
 "tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
 "(lowercase)"
 msgstr ""
-"อย่าใส่นามสกุล  %at -- ชื่ออัลบัม %aT -- ชื่ออัลบัม (ตัวพิมพ์เล็ก) %aa -- เจ้าของอัลบัม %aA "
-"-- เจ้าของอัลบัม (ตัวพิมพ์เล็ก) %tn -- หมายเลขเพลง (เช่น 8) %tN -- "
+"อย่าใส่นามสกุล  %at -- ชื่ออัลบัม %aT -- ชื่ออัลบัม (ตัวพิมพ์เล็ก) %aa -- เจ้าของอัลบัม %aA -- "
+"เจ้าของอัลบัม (ตัวพิมพ์เล็ก) %tn -- หมายเลขเพลง (เช่น 8) %tN -- "
 "หมายเลขเพลงนำหน้าด้วยศูนย์ (เช่น 08) %tt -- ชื่อเพลง %tT -- ชื่อเพลง (ตัวพิมพ์เล็ก) %ta "
 "-- ศิลปินเพลง %tA -- ศิลปินเพลง (ตัวพิมพ์เล็ก)"
 
@@ -290,7 +290,7 @@ msgstr ""
 "ถ้ามีเวลาโปรดมาช่วยกันแปล ;-)\n"
 "http://gnome-th.sf.net"
 
-#: src/sj-extracting.c:207
+#: src/sj-extracting.c:214
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -299,17 +299,17 @@ msgstr ""
 "มีแฟ้มชื่อ '%s' อยู่แล้ว ซึ่งมีขนาด %s\n"
 "คุณต้องการข้ามร่องเสียงนี้ หรือจะเขียนทับแฟ้ม?"
 
-#: src/sj-extracting.c:211
+#: src/sj-extracting.c:218
 msgid "_Skip"
 msgstr "ข้_าม"
 
-#: src/sj-extracting.c:212
+#: src/sj-extracting.c:219
 msgid "_Overwrite"
 msgstr "เ_ขียนทับ"
 
 #. Display a nice dialog
-#: src/sj-extracting.c:274 src/sj-extracting.c:309
-#: src/sj-extracting.c:519
+#: src/sj-extracting.c:281 src/sj-extracting.c:316
+#: src/sj-extracting.c:522
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -318,21 +318,21 @@ msgstr ""
 "Sound Juicer คัดลอกเพลงจากซีดีนี้ไม่สำเร็จ\n"
 "สาเหตุ: %s"
 
-#: src/sj-extracting.c:359
+#: src/sj-extracting.c:366
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "เวลาที่เหลือโดยประมาณ: %d:%02d (ที่ความเร็ว %0.1f×)"
 
-#: src/sj-extracting.c:361
+#: src/sj-extracting.c:368
 msgid "Estimated time left: unknown"
 msgstr "เวลาที่เหลือโดยประมาณ: ไม่ทราบ"
 
 #. TODO: need to have a better message here
-#: src/sj-extracting.c:457
+#: src/sj-extracting.c:463
 msgid "The tracks have been copied successfully."
 msgstr "คัดลอกร่องเสียงเหล่านี้สำเร็จเรียบร้อย"
 
-#: src/sj-extracting.c:462
+#: src/sj-extracting.c:468
 msgid "_Eject"
 msgstr "_ดันแผ่นออก"
 
@@ -344,37 +344,41 @@ msgstr "โพรไฟล์เสียง"
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "โพรไฟล์เสียงของ GNOME ที่จะใช้ลงรหัสข้อมูลเสียง"
 
-#: src/sj-extractor.c:345
+#: src/sj-extractor.c:276
 msgid "Could not create GStreamer CD reader"
 msgstr "ไม่สามารถสร้างองค์ประกอบอ่านซีดีของ GStreamer"
 
-#: src/sj-extractor.c:365
+#: src/sj-extractor.c:298
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "ไม่สามารถสร้างองค์ประกอบลงรหัสข้อมูลของ GStreamer สำหรับ %s"
 
-#: src/sj-extractor.c:376
+#: src/sj-extractor.c:309
 msgid "Could not create GStreamer file output"
 msgstr "ไม่สามารถสร้างแฟ้มเขียนออกของ GStreamer"
 
-#: src/sj-extractor.c:410
+#: src/sj-extractor.c:321
+msgid "Could not link pipeline"
+msgstr "ไม่สามารถเชื่อมต่อไปป์ไลน์ได้"
+
+#: src/sj-extractor.c:343
 msgid "Could not get current track position"
 msgstr "ไม่ทราบตำแหน่งร่องเสียงปัจจุบัน"
 
-#: src/sj-extractor.c:437
+#: src/sj-extractor.c:370
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr "อ็อบเจกต์ extractor ใช้ไม่ได้ คงไม่ดีแน่ๆ ดูข้อผิดพลาดเพิ่มเติมได้ในเทอร์มินัล"
 
-#: src/sj-extractor.c:582
+#: src/sj-extractor.c:515
 msgid "Could not get track start position"
 msgstr "ไม่ทราบตำแหน่งเริ่มต้นของร่องเสียง"
 
-#: src/sj-extractor.c:614
+#: src/sj-extractor.c:547
 msgid "The plugin necessary for CD access was not found"
 msgstr "ไม่พบปลั๊กอินที่จำเป็นสำหรับการอ่านข้อมูลซีดี"
 
-#: src/sj-extractor.c:622
+#: src/sj-extractor.c:555
 msgid "The plugin necessary for file access was not found"
 msgstr "ไม่พบปลั๊กอินที่จำเป็นสำหรับการอ่านเขียนแฟ้ม"
 
@@ -517,56 +521,56 @@ msgstr "ไม่สามารถอ่านซีดี"
 msgid "Cannot create MusicBrainz client"
 msgstr "ไม่สามารถสร้างตัวใช้บริการ MusicBrainz"
 
-#: src/sj-metadata-musicbrainz.c:220 src/sj-metadata-musicbrainz.c:475
+#: src/sj-metadata-musicbrainz.c:221 src/sj-metadata-musicbrainz.c:487
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "ไม่สามารถอ่านซีดี: %s"
 
-#: src/sj-metadata-musicbrainz.c:227 src/sj-metadata-musicbrainz.c:514
+#: src/sj-metadata-musicbrainz.c:228 src/sj-metadata-musicbrainz.c:526
 msgid "Unknown Artist"
 msgstr "ศิลปินไม่ทราบชื่อ"
 
-#: src/sj-metadata-musicbrainz.c:228 src/sj-metadata-musicbrainz.c:527
+#: src/sj-metadata-musicbrainz.c:229 src/sj-metadata-musicbrainz.c:539
 msgid "Unknown Title"
 msgstr "อัลบัมไม่ทราบชื่อ"
 
-#: src/sj-metadata-musicbrainz.c:234
+#: src/sj-metadata-musicbrainz.c:235
 #, c-format
 msgid "Track %d"
 msgstr "ร่องเสียง %d"
 
-#: src/sj-metadata-musicbrainz.c:262
+#: src/sj-metadata-musicbrainz.c:263
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
 msgstr "อ็อบเจกต์ metadata ของ MusicBrainz ใช้ไม่ได้ โปรดตรวจข้อผิดพลาดได้ในเทอร์มินัล"
 
-#: src/sj-metadata-musicbrainz.c:417 src/sj-metadata-musicbrainz.c:424
-#: src/sj-metadata-musicbrainz.c:434
+#: src/sj-metadata-musicbrainz.c:429 src/sj-metadata-musicbrainz.c:436
+#: src/sj-metadata-musicbrainz.c:446
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "ไม่สามารถสืบค้นข้อมูลของซีดีได้: %s\n"
 
-#: src/sj-metadata-musicbrainz.c:469
+#: src/sj-metadata-musicbrainz.c:481
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "ไม่มีแผ่นอยู่ในอุปกรณ์ '%s'"
 
-#: src/sj-metadata-musicbrainz.c:472
+#: src/sj-metadata-musicbrainz.c:484
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "ไม่สามารถเปิดใช้อุปกรณ์ '%s' โปรดตรวจดูสิทธิ์การเข้าใช้อุปกรณ์"
 
-#: src/sj-metadata-musicbrainz.c:508
+#: src/sj-metadata-musicbrainz.c:520
 msgid "Various"
 msgstr "รวมศิลปิน"
 
-#: src/sj-metadata-musicbrainz.c:552
+#: src/sj-metadata-musicbrainz.c:564
 msgid "Incomplete metadata for this CD"
 msgstr "metadata ของซีดีนี้ไม่สมบูรณ์"
 
-#: src/sj-metadata-musicbrainz.c:643
+#: src/sj-metadata-musicbrainz.c:655
 msgid "Could not create CD lookup thread"
 msgstr "ไม่สามารถสร้างเธรดสำหรับค้นข้อมูลซีดี"
 
@@ -614,12 +618,11 @@ msgstr "ศิลปินเพลง, ชื่ออัลบัม"
 msgid "Track Artist (sortable), Album Title"
 msgstr "ศิลปินเพลง (เรียงลำดับได้), ชื่ออัลบัม"
 
-#: src/sj-prefs.c:56 src/sj-prefs.c:202
+#: src/sj-prefs.c:56
 msgid "Album Title"
 msgstr "ชื่ออัลบัม"
 
-#. title
-#: src/sj-prefs.c:57 src/sj-prefs.c:203
+#: src/sj-prefs.c:57
 msgid "Album Artist"
 msgstr "เจ้าของอัลบัม"
 
@@ -643,9 +646,7 @@ msgstr "[ไม่ใช้]"
 msgid "Number - Title"
 msgstr "หมายเลข - ชื่อเพลง"
 
-#. album
-#. track number
-#: src/sj-prefs.c:67 src/sj-prefs.c:215
+#: src/sj-prefs.c:67
 msgid "Track Title"
 msgstr "ชื่อเพลง"
 
@@ -666,20 +667,14 @@ msgstr "หมายเลข. ศิลปินเพลง - ชื่อเ�
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "หมายเลข-ศิลปินเพลง-ชื่อเพลง (ตัวพิมพ์เล็ก)"
 
-#. artist
-#: src/sj-prefs.c:204
-msgid "Album Artist's Sortable Name"
-msgstr "ชื่อที่เรียงลำดับได้ของเจ้าของอัลบัม"
+#~ msgid "Album Artist's Sortable Name"
+#~ msgstr "ชื่อที่เรียงลำดับได้ของเจ้าของอัลบัม"
 
-#. title
-#: src/sj-prefs.c:216
-msgid "Track Artist"
-msgstr "ศิลปินเพลง"
+#~ msgid "Track Artist"
+#~ msgstr "ศิลปินเพลง"
 
-#. artist
-#: src/sj-prefs.c:217
-msgid "Track Artist's Sortable Name"
-msgstr "ชื่อที่เรียงลำดับได้ของศิลปินเพลง"
+#~ msgid "Track Artist's Sortable Name"
+#~ msgstr "ชื่อที่เรียงลำดับได้ของศิลปินเพลง"
 
 # From the functinality, just "file name" is ok
 #~ msgid "<i>path_example_label</i>"
