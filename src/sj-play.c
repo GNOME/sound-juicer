@@ -64,8 +64,9 @@ select_track (void)
       gboolean do_play;
       GtkTreeIter next_iter;
 
-      gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
-          &next_iter, NULL, seek_to_track);
+      if (!gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
+                                          &next_iter, NULL, seek_to_track))
+        return FALSE;
       gtk_tree_model_get (GTK_TREE_MODEL (track_store), &next_iter,
           COLUMN_EXTRACT, &do_play, -1);
       if (do_play)
@@ -78,8 +79,9 @@ select_track (void)
     }
   }
 
-  gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
-      &current_iter, NULL, seek_to_track);
+  if (gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
+                                     &current_iter, NULL, seek_to_track))
+    return FALSE;
 
   gst_element_set_state (pipeline, GST_STATE_PAUSED);
   cd = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "cd-source");
@@ -152,8 +154,8 @@ cb_hop_track (GstBus *bus, GstMessage *message, gpointer user_data)
   while (next_track < tracks) {
     gboolean do_play;
 
-    gtk_tree_model_iter_nth_child (model,
-        &next_iter, NULL, next_track);
+    if (!gtk_tree_model_iter_nth_child (model, &next_iter, NULL, next_track))
+      return;
     gtk_tree_model_get (GTK_TREE_MODEL (track_store), &next_iter,
         COLUMN_EXTRACT, &do_play, -1);
     if (do_play)
@@ -405,11 +407,13 @@ on_play_activate (GtkWidget *button, gpointer user_data)
     play ();
   } else if (setup (&err)) {
     char *title;
-    if (current_track != -1)
-      gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
-          &current_iter, NULL, current_track);
+    if (current_track != -1) {
+      if (!gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
+                                          &current_iter, NULL, current_track))
+        return;
+    }
     gtk_list_store_set (track_store, &current_iter,
-        COLUMN_STATE, STATE_IDLE, -1);
+                        COLUMN_STATE, STATE_IDLE, -1);
     if (select_track ()) {
       gtk_list_store_set (track_store, &current_iter,
           COLUMN_STATE, STATE_PLAYING, -1);
@@ -445,7 +449,8 @@ on_tracklist_row_activate (GtkTreeView * treeview, GtkTreePath * path,
   gint track;
 
   model = gtk_tree_view_get_model (treeview);
-  gtk_tree_model_get_iter (model, &iter, path);
+  if (!gtk_tree_model_get_iter (model, &iter, path))
+    return;
   gtk_tree_model_get (model, &iter, COLUMN_NUMBER, &track, -1);
   if (gtk_list_store_iter_is_valid (GTK_LIST_STORE (model), &current_iter))
       gtk_list_store_set (track_store, &current_iter, COLUMN_STATE, STATE_IDLE, -1);
@@ -454,9 +459,11 @@ on_tracklist_row_activate (GtkTreeView * treeview, GtkTreePath * path,
     char *title;
     seek_to_track = track - 1;
 
-    if (current_track != -1)
-      gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
-          &current_iter, NULL, current_track);
+    if (current_track != -1) {
+      if (!gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
+                                          &current_iter, NULL, current_track))
+        return;
+    }
 
     gtk_list_store_set (track_store, &current_iter,
         COLUMN_STATE, STATE_IDLE, -1);
@@ -501,8 +508,8 @@ on_previous_track_activate(GtkWidget *button, gpointer data)
   while (prev_track >= 0) {
     gboolean do_play;
 
-    gtk_tree_model_iter_nth_child (model,
-        &prev_iter, NULL, prev_track);
+    if (!gtk_tree_model_iter_nth_child (model, &prev_iter, NULL, prev_track))
+      return;
     gtk_tree_model_get (GTK_TREE_MODEL (track_store), &prev_iter,
         COLUMN_EXTRACT, &do_play, -1);
     if (do_play)

@@ -1009,7 +1009,9 @@ static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
 {
   gboolean extract;
   GtkTreeIter iter;
-  gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (track_store), &iter, path);
+
+  if (!gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (track_store), &iter, path))
+      return;
   gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, COLUMN_EXTRACT, &extract, -1);
   /* extract is the old state here, so toggle */
   extract = !extract;
@@ -1054,7 +1056,9 @@ static void on_cell_edited (GtkCellRendererText *renderer,
   GtkTreeIter iter;
   TrackDetails *track;
   char *artist, *title;
-  gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (track_store), &iter, path);
+
+  if (!gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (track_store), &iter, path))
+    return;
   gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter,
                       COLUMN_ARTIST, &artist,
                       COLUMN_TITLE, &title,
