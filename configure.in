@@ -79,17 +79,6 @@ else
         AC_MSG_WARN([libcdio not found, cannot get track names from CD-TEXT])
 fi
 
-# Find TagLib for the internal copy of id3mux
-PKG_CHECK_MODULES(TAGLIB, taglib, HAVE_TAGLIB=yes, HAVE_TAGLIB=no)
-if test "x$HAVE_TAGLIB" = "xyes"; then
-        AM_CONDITIONAL(HAVE_TAGLIB, true)
-        AC_SUBST(TAGLIB_CFLAGS)
-        AC_SUBST(TAGLIB_LIBS)
-else
-        AM_CONDITIONAL(HAVE_TAGLIB, false)
-        AC_MSG_WARN([taglib not found, cannot handle missing id3mux])
-fi
-
 # Find how and where to put the GConf schemas
 AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
 if test x"$GCONFTOOL" = xno; then
