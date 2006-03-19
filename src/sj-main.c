@@ -1230,8 +1230,6 @@ int main (int argc, char **argv)
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
 
-  g_set_application_name (_("Sound Juicer"));
-  
   ctx = g_option_context_new ("- Sound Juicer");
   g_option_context_add_main_entries (ctx, entries, GETTEXT_PACKAGE);  
   g_option_context_add_group (ctx, gst_init_get_option_group ());
@@ -1243,6 +1241,8 @@ int main (int argc, char **argv)
                       GNOME_PROGRAM_STANDARD_PROPERTIES,
                       GNOME_PARAM_GOPTION_CONTEXT, ctx,
                       NULL);
+
+  g_set_application_name (_("Sound Juicer"));
 
   sj_stock_init ();
 
