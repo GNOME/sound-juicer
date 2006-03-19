@@ -1,5 +1,5 @@
 Sound Juicer
-Copyright (C) 2003-5 Ross Burton
+Copyright (C) 2003-6 Ross Burton
 
 Licensed under the GPL, version 2 or greater.
 
@@ -7,11 +7,11 @@ Licensed under the GPL, version 2 or greater.
 This is Sound Juicer, a CD ripping tool using GTK+ and GStreamer.
 
 Requirements:
-* GNOME 2.12 Platform (libgnomeui, gconf, libglade, libnautilus-burn)
-* GStreamer 0.8.1 and above
+* GNOME 2.14 Platform (libgnomeui, gconf, libglade, libnautilus-burn)
+* GStreamer 0.10 and above
 
 Do the usual configure/make/make install malarky, and run "sound-juicer" in
-$(prefix)/bin or "Sound Juicer CD Ripper" in Applications -> Sound & Video.
+$(prefix)/bin or "Sound Juicer CD Extractor" in Applications -> Sound & Video.
 
 If the CD lookup is returning weird data, export MUSICBRAINZ_DEBUG
 before running sound-juicer to turn debugging on in MusicBrainz. This
@@ -39,7 +39,8 @@ installed.
 
 To encode to MP3 you need the GStreamer Lame plugin.  Most distributions don't
 ship this due to patents and licence fees, so you will have to build lame
-yourself, and then rebuild gstreamer-plugins.
+yourself, and then rebuild gstreamer-plugins.  Details of the pipeline
+required is in the documentation.
 
 
 "It won't rip my CD!"
@@ -49,17 +50,3 @@ these work it is possible to rip the CD so file a bug with Sound Juicer.  If
 none of these work, you've probably got a copy protected CD which your drive
 won't read.  If it does work, try different output formats in Sound Juicer and
 if some work while others don't, file a bug explaining what happens.
-
-
-Known Issues
-============
-
-For a complete To Do list, see the file TODO and the sound-juicer
-product in the GNOME Bugzilla at http://bugzilla.gnome.org./
-
-GStreamer 0.6.1 is required for the Ogg tagging to work correctly --
-with 0.6.0 the comment field is encoded incorrectly and will give an
-error message, but the other fields are written correctly.
-
-Musicbrainz 2.0.1 is required. It should be a 10 minute hack to make
-it work for 2.0.0, and maybe even for 1.1.0.
