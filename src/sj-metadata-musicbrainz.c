@@ -127,8 +127,6 @@ sj_metadata_musicbrainz_instance_init (GTypeInstance *instance, gpointer g_class
 
   g_object_unref (gconf_client);
 
-  //mb_SetDepth (self->priv->mb, 1);
-
   if (g_getenv("MUSICBRAINZ_DEBUG")) {
     mb_SetDebug (self->priv->mb, TRUE);
   }
@@ -417,12 +415,13 @@ get_rdf (SjMetadata *metadata)
 {
   SjMetadataMusicbrainzPrivate *priv;
   char data[256];
-  char *cdindex, *cachepath;
+  char *cdindex = NULL, *cachepath = NULL;
 
   g_assert (metadata != NULL);
 
   priv = SJ_METADATA_MUSICBRAINZ (metadata)->priv;
 
+#if WITH_CACHE
   /* Get the Table of Contents */
   if (!mb_Query (priv->mb, MBQ_GetCDTOC)) {
     mb_GetQueryError (priv->mb, data, sizeof (data));
@@ -439,9 +438,13 @@ get_rdf (SjMetadata *metadata)
   cdindex = g_strdup (data);
 
   cachepath = g_build_filename (g_get_home_dir (), ".gnome2", "sound-juicer", "cache", cdindex, NULL);
+#endif
   
   if (!get_cached_rdf (priv->mb, cachepath)) {
-    if (!mb_QueryWithArgs (priv->mb, MBQ_GetCDInfoFromCDIndexId, (char*[]) {cdindex, NULL})) {
+    /* Don't re-use the CD Index as that doesn't send enough data to the server.
+       By doing this we also pass track lengths, which can be proxied to FreeDB
+       if required. */
+    if (!mb_Query (priv->mb, MBQ_GetCDInfo)) {
       mb_GetQueryError (priv->mb, data, sizeof (data));
       g_print (_("This CD could not be queried: %s\n"), data);
       goto done;
