@@ -526,7 +526,7 @@ void paranoia_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry,
     sj_extractor_set_paranoia (extractor, DEFAULT_PARANOIA);
   } else {
     int value = gconf_value_get_int (entry->value);
-    if (value == 0 || value == 4 || value == 255) {
+    if (value == 0 || value == 2 || value == 4 || value == 8 || value == 16 || value == 255) {
       sj_extractor_set_paranoia (extractor, value);
     }
   }
