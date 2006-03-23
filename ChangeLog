@@ -1,3 +1,17 @@
+2006-03-23  Christian Neumair  <chris@gnome-de.org>
+
+	* src/sj-main.c:
+	Ensure that play/pause button size stays constant.
+
+	* src/sj-play.c:
+	Don't process state change notifications from pipeline elements.
+	Remove pending button_change_id/cb_set_time timeouts when registering
+	them.
+	Work around GStreamer bug (#326311) when seeking or changing song.
+	This won't be neccessary when depending on GStreamer 0.10.5.
+
+	Fixes #326311.
+
 2006-03-23  Ross Burton  <ross@burtonini.com>
 
 	* src/sj-main.c:

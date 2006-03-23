@@ -86,6 +86,8 @@ select_track (void)
   gst_element_set_state (pipeline, GST_STATE_PAUSED);
   cd = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "cd-source");
   gst_element_seek (pipeline, 1.0, gst_format_get_by_nick ("track"), GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, seek_to_track, GST_SEEK_TYPE_NONE, -1);
+  /* get_state neccessary because of bug #326311 */
+  gst_element_get_state (pipeline, NULL, NULL, -1);
   current_track = seek_to_track;
   seek_to_track = -1;
 
@@ -271,6 +273,12 @@ cb_state (GstBus *bus, GstMessage *message, gpointer user_data)
   gst_message_parse_state_changed (message, &old_state, &new_state, NULL);
   transition = GST_STATE_TRANSITION (old_state, new_state);
 
+  /* all pipe elements will receive state transition messages,
+   * so we filter those out. This won't be neccessary after
+   * the playbin migration */
+  if ((GstElement*)GST_MESSAGE_SRC(message) != pipeline)
+    return;
+
   if (transition == GST_STATE_CHANGE_READY_TO_PAUSED) {
     char *title;
     gtk_widget_show (seek_scale);
@@ -293,6 +301,8 @@ cb_state (GstBus *bus, GstMessage *message, gpointer user_data)
     current_track = -1;
   } else if (transition == GST_STATE_CHANGE_PAUSED_TO_PLAYING) {
     gtk_button_set_label (GTK_BUTTON (play_button), GTK_STOCK_MEDIA_PAUSE);
+    if (id)
+      g_source_remove (id);
     id = g_timeout_add (100, (GSourceFunc) cb_set_time, NULL);
     if (button_change_id) {
       g_source_remove (button_change_id);
@@ -304,6 +314,8 @@ cb_state (GstBus *bus, GstMessage *message, gpointer user_data)
       id = 0;
     }
     /* otherwise button flickers on track-switch */
+    if (button_change_id)
+      g_source_remove (button_change_id);
     button_change_id =
         g_timeout_add (500, (GSourceFunc) cb_change_button, play_button);
   }
@@ -606,7 +618,11 @@ on_seek_release (GtkWidget * scale, GdkEventButton * event, gpointer user_data)
   cd = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "cd-source");
   seeking = FALSE;
 
+  /* set_state/get_state neccessary because of bug #326311 */
+  gst_element_set_state (pipeline, GST_STATE_PAUSED);
   gst_element_seek (pipeline, 1.0, GST_FORMAT_TIME, GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, slen * val, GST_SEEK_TYPE_NONE, -1);
+  gst_element_get_state (pipeline, NULL, NULL, -1);
+  gst_element_set_state (pipeline, GST_STATE_PLAYING);
 
   return FALSE;
 }

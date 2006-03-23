@@ -1325,6 +1325,27 @@ int main (int argc, char **argv)
   prev_menuitem = glade_xml_get_widget (glade, "previous_track_menuitem");
   status_bar = glade_xml_get_widget (glade, "status_bar");
 
+  { /* ensure that the play/pause button's size is constant */
+    GtkWidget *fake_button1, *fake_button2;
+    GtkSizeGroup *size_group;
+
+    size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
+
+    fake_button1 = gtk_button_new_from_stock (GTK_STOCK_MEDIA_PLAY);
+    gtk_size_group_add_widget (size_group, fake_button1);
+    g_signal_connect_swapped (play_button, "destroy",
+		    	      G_CALLBACK (gtk_widget_destroy),
+			      fake_button1);
+
+    fake_button2 = gtk_button_new_from_stock (GTK_STOCK_MEDIA_PAUSE);
+    gtk_size_group_add_widget (size_group, fake_button2);
+    g_signal_connect_swapped (play_button, "destroy",
+		    	      G_CALLBACK (gtk_widget_destroy),
+			      fake_button2);
+
+    gtk_size_group_add_widget (size_group, play_button);
+  }
+
   {
     GtkEntryCompletion *completion;
     completion = gtk_entry_completion_new ();
