@@ -15,11 +15,19 @@ AM_CPPFLAGS = \
 	@MUSICBRAINZ_CFLAGS@ @GSTREAMER_CFLAGS@ \
 	@MEDIA_PROFILES_CFLAGS@ @BURN_CFLAGS@ @UI_CFLAGS@
 
+if HAVE_TAGLIB
+AM_CPPFLAGS += @TAGLIB_CFLAGS@
+endif
+
 # We always build Sound Juicer
 bin_PROGRAMS = sound-juicer
 
 if HAVE_CDIO
 CDIO_SOURCES = 	sj-metadata-cdtext.h sj-metadata-cdtext.c
+endif
+
+if HAVE_TAGLIB
+ID3MUX_FILES = gsttaglib.cc gsttaglib.h
 endif
 
 sound_juicer_SOURCES = \
@@ -52,11 +60,15 @@ sound_juicer_SOURCES = \
 	bacon-volume.c \
 	bacon-volume.h \
 	$(BACON_FILES) \
+	$(ID3MUX_FILES) \
 	$(MARSHALFILES)
 
 sound_juicer_LDFLAGS = @MUSICBRAINZ_LIBS@ @MEDIA_PROFILES_LIBS@ @GSTREAMER_LIBS@ @BURN_LIBS@ @UI_LIBS@
 if HAVE_CDIO
 sound_juicer_LDFLAGS += @CDIO_LIBS@
+endif
+if HAVE_TAGLIB
+sound_juicer_LDFLAGS += @TAGLIB_LIBS@ -lgsttag-0.10
 endif
 
 #

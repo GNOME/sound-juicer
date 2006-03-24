@@ -1427,6 +1427,12 @@ int main (int argc, char **argv)
 
   sj_play_init ();
 
+#if HAVE_TAGLIB
+  /* See if the system supports id3mux, and if not register our own */
+  if (!gst_default_registry_check_feature_version ("id3mux", 0, 10, 0))
+    id3mux_register ();
+#endif
+
   selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (track_listview));
   gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
 

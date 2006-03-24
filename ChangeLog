@@ -1,3 +1,19 @@
+2006-03-24  Ross Burton  <ross@burtonini.com>
+
+	* help/sound-juicer/C/sound-juicer.xml:
+	Tell people use to id3mux in the MP3 pipeline.
+	
+	* configure.in:
+	Check for Taglib.
+
+	* src/gsttaglib.cc:
+	* src/gsttaglib.h:
+	Add internal copy of GStreamer's taglib-based tagger.  Will remove
+	when this is in gst-plugins-good.
+
+	* src/sj-main.c:
+	If there is no id3mux element available, register our copy.
+
 2006-03-23  Christian Neumair  <chris@gnome-de.org>
 
 	* src/sj-main.c:

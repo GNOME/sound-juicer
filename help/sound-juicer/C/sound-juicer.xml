@@ -353,7 +353,7 @@ Status: Draft
 
         <para>Select the MP3 profile and click the <guibutton>Edit</guibutton>
         button.  Set <guilabel>GStreamer Pipeline</guilabel> to
-        <literallayout><userinput>audio/x-raw-int,rate=44100,channels=2 ! lame name=enc</userinput></literallayout></para>
+        <literallayout><userinput>audio/x-raw-int,rate=44100,channels=2 ! lame name=enc ! id3mux</userinput></literallayout></para>
 
         <para>Set the <guilabel>File Extension</guilabel> to
         <userinput>mp3</userinput>, and select the <guibutton>Active</guibutton>
