@@ -1219,6 +1219,7 @@ on_message_received (const char *message, gpointer user_data)
 
 int main (int argc, char **argv)
 {
+  GnomeProgram *program;
   GError *error = NULL;
   GtkTreeSelection *selection;
   char *device = NULL;
@@ -1239,7 +1240,7 @@ int main (int argc, char **argv)
   g_option_context_add_group (ctx, gst_init_get_option_group ());
   g_option_context_set_ignore_unknown_options (ctx, TRUE);
 
-  gnome_program_init ("sound-juicer", 	 
+  program = gnome_program_init ("sound-juicer", 	 
                       VERSION, LIBGNOMEUI_MODULE, 	 
                       argc, argv, 	 
                       GNOME_PROGRAM_STANDARD_PROPERTIES,
@@ -1459,5 +1460,6 @@ int main (int argc, char **argv)
   g_object_unref (metadata);
   g_object_unref (extractor);
   g_object_unref (gconf_client);
+  g_object_unref (program);
   return 0;
 }
