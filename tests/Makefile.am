@@ -7,7 +7,7 @@ AM_CPPFLAGS = \
 	@MUSICBRAINZ_CFLAGS@ @GSTREAMER_CFLAGS@ \
 	@MEDIA_PROFILES_CFLAGS@ @BURN_CFLAGS@ @UI_CFLAGS@
 
-AM_CFLAGS = -g -Wall -export-dynamic -Wunused
+AM_CFLAGS = -export-dynamic @WARN_CFLAGS@
 
 noinst_PROGRAMS = mb-test
 
