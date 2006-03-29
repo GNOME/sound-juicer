@@ -1423,8 +1423,6 @@ int main (int argc, char **argv)
   }
 
   update_ui_for_album (NULL);
-  gconf_bridge_bind_window_size(gconf_bridge_get(), GCONF_WINDOW, GTK_WINDOW (main_window));
-  gtk_widget_show (main_window);
 
   sj_play_init ();
 
@@ -1456,7 +1454,10 @@ int main (int argc, char **argv)
     return 0;
   }
 
+  gconf_bridge_bind_window_size(gconf_bridge_get(), GCONF_WINDOW, GTK_WINDOW (main_window));
+  gtk_widget_show (main_window);
   gtk_main ();
+
   g_object_unref (metadata);
   g_object_unref (extractor);
   g_object_unref (gconf_client);
