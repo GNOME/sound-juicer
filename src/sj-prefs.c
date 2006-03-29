@@ -224,7 +224,11 @@ static void pattern_label_update (void)
   };
   
   g_object_get (extractor, "profile", &profile, NULL);
-  
+  /* It's possible the profile isn't set, in which case do nothing */
+  if (!profile) {
+    return;
+  }
+
   /* TODO: sucky. Replace with get-gconf-key-with-default mojo */
   file_pattern = gconf_client_get_string (gconf_client, GCONF_FILE_PATTERN, NULL);
   if (file_pattern == NULL) {
@@ -247,7 +251,7 @@ static void pattern_label_update (void)
   format = g_strconcat ("<small><i><b>Example Path:</b> ",
                         example,
                         ".",
-                        gm_audio_profile_get_extension(profile),
+                        gm_audio_profile_get_extension (profile),
                         "</i></small>", NULL);
   g_free (example);
   
