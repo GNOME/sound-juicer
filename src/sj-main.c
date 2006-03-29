@@ -1368,7 +1368,7 @@ int main (int argc, char **argv)
                                                        toggle_renderer,
                                                        "active", COLUMN_EXTRACT,
                                                        NULL);
-    gtk_tree_view_column_set_resizable (column, TRUE);
+    gtk_tree_view_column_set_resizable (column, FALSE);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
     column = gtk_tree_view_column_new ();
@@ -1410,7 +1410,7 @@ int main (int argc, char **argv)
     column = gtk_tree_view_column_new_with_attributes (_("Duration"),
                                                        renderer,
                                                        NULL);
-    gtk_tree_view_column_set_resizable (column, TRUE);
+    gtk_tree_view_column_set_resizable (column, FALSE);
     gtk_tree_view_column_set_cell_data_func (column, renderer, duration_cell_data_cb, NULL, NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
   }
