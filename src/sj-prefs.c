@@ -37,7 +37,6 @@ extern GladeXML *glade;
 extern GtkWidget *main_window;
 
 static GtkWidget *audio_profile;
-static GtkWidget *prefs_dialog;
 static GtkWidget *cd_option, *path_option, *file_option, *basepath_fcb, *check_strip, *check_eject;
 static GtkWidget *path_example_label;
 
@@ -88,7 +87,7 @@ void prefs_profile_changed (GtkWidget *widget, gpointer user_data)
 /**
  * Show the gnome help browser
  */
-void show_help ()
+void show_help (GtkWindow *parent)
 {
   GError *error = NULL;
 
@@ -96,7 +95,7 @@ void show_help ()
   if (error) {
     GtkWidget *dialog;
 
-    dialog = gtk_message_dialog_new (GTK_WINDOW (prefs_dialog),
+    dialog = gtk_message_dialog_new (parent,
                                      GTK_DIALOG_DESTROY_WITH_PARENT,
                                      GTK_MESSAGE_ERROR,
                                      GTK_BUTTONS_CLOSE,
@@ -317,21 +316,35 @@ static void populate_pattern_combo (GtkComboBox *combo, const FilePattern *patte
   gtk_combo_box_set_model (combo, GTK_TREE_MODEL (store));
 }
 
+static void
+on_response (GtkDialog *dialog, gint response, gpointer user_data)
+{
+  if (response == GTK_RESPONSE_HELP) {
+    show_help (GTK_WINDOW (dialog));
+  } else {
+    gtk_widget_hide (GTK_WIDGET (dialog));
+  }
+}
+
 /**
  * Clicked on Preferences in the UI
  */
 void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
 {
-  int rc;
+  static GtkWidget *prefs_dialog = NULL;
 
-  if (prefs_dialog == NULL) {
-    const char * labels[] = { "cd_label", "path_label", "folder_label", "file_label", "profile_label" };
+  if (prefs_dialog) {
+    gtk_window_present (GTK_WINDOW (prefs_dialog));
+  } else {
+    const char *labels[] = { "cd_label", "path_label", "folder_label", "file_label", "profile_label" };
     guint i;
     GtkSizeGroup *group;
     GConfBridge *bridge = gconf_bridge_get ();
 
     prefs_dialog = glade_xml_get_widget (glade, "prefs_dialog");
     g_assert (prefs_dialog != NULL);
+    g_object_add_weak_pointer (G_OBJECT (prefs_dialog), (gpointer*)&prefs_dialog);
+
     gtk_window_set_transient_for (GTK_WINDOW (prefs_dialog), GTK_WINDOW (main_window));
 
     group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
@@ -370,22 +383,14 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     gconf_client_notify_add (gconf_client, GCONF_FILE_PATTERN, file_pattern_changed_cb, NULL, NULL, NULL);
 
     g_signal_connect (extractor, "notify::profile", pattern_label_update, NULL);
+
+    baseuri_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEURI, NULL, TRUE, NULL), NULL);
+    audio_profile_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_AUDIO_PROFILE, NULL, TRUE, NULL), NULL);
+    file_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL), NULL);
+    path_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL), NULL);
+
+    g_signal_connect (GTK_DIALOG (prefs_dialog), "response", G_CALLBACK (on_response), NULL);
+
+    gtk_widget_show_all (prefs_dialog);
   }
-  baseuri_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEURI, NULL, TRUE, NULL), NULL);
-  audio_profile_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_AUDIO_PROFILE, NULL, TRUE, NULL), NULL);
-  file_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL), NULL);
-  path_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL), NULL);
-
-  gtk_widget_show_all (prefs_dialog);
-
-  while (1) {
-      rc = gtk_dialog_run (GTK_DIALOG (prefs_dialog));
-
-      if (rc == GTK_RESPONSE_HELP)
-	  show_help();
-      else if (rc == GTK_RESPONSE_CLOSE || rc == GTK_RESPONSE_DELETE_EVENT)
-	  break;
-      }
-      
-  gtk_widget_hide (prefs_dialog);
 }
