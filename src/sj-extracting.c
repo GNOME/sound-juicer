@@ -744,12 +744,12 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
         g_free (temp);
         break;
       case 's':
-        i = temp = sanitize_path (track->album->artist_sortname ?: track->album->artist);
+        i = temp = sanitize_path (track->album->artist_sortname ? track->album->artist_sortname : track->album->artist);
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
       case 'S':
-        tmp = g_utf8_strdown (track->album->artist_sortname ?: track->album->artist, -1);
+        tmp = g_utf8_strdown (track->album->artist_sortname ? track->album->artist_sortname : track->album->artist, -1);
         i = temp = sanitize_path (tmp);
         g_free(tmp);
         while (*i) *s++ = *i++;
@@ -789,12 +789,12 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
         g_free (temp);
         break;
       case 's':
-        i = temp = sanitize_path (track->artist_sortname ?: track->artist);
+        i = temp = sanitize_path (track->artist_sortname ? track->album->artist_sortname : track->artist);
         while (*i) *s++ = *i++;
         g_free (temp);
         break;
       case 'S':
-        tmp = g_utf8_strdown (track->artist_sortname ?: track->artist, -1);
+        tmp = g_utf8_strdown (track->artist_sortname ? track->album->artist_sortname : track->artist, -1);
         i = temp = sanitize_path (tmp);
         g_free(tmp);
         while (*i) *s++ = *i++;
