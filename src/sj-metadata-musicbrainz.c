@@ -521,7 +521,6 @@ lookup_cd (SjMetadata *metadata)
       album->artist_id = g_strdup (data);
       if (g_ascii_strncasecmp (MBI_VARIOUS_ARTIST_ID, data, 64) == 0) {
         album->artist = g_strdup (_("Various"));
-        album->artist_sortname = g_strdup (album->artist);
       } else {
         if (data && mb_GetResultData1(priv->mb, MBE_AlbumGetArtistName, data, sizeof (data), 1)) {
           album->artist = g_strdup (data);
@@ -530,8 +529,6 @@ lookup_cd (SjMetadata *metadata)
         }
         if (data && mb_GetResultData1(priv->mb, MBE_AlbumGetArtistSortName, data, sizeof (data), 1)) {
           album->artist_sortname = g_strdup (data);
-        } else {
-          album->artist_sortname = g_strdup (album->artist);
         }
       }
     }
