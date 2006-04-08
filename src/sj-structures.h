@@ -35,18 +35,11 @@ struct _TrackDetails {
   int number; /* track number */
   char *title;
   char *artist;
-  char* artist_sortname;
+  char* artist_sortname; /* Can be NULL, so fall back onto artist */
   int duration; /* seconds */
   char* track_id;
   char* artist_id;
   GtkTreeIter iter; /* Temporary iterator for internal use */
-};
-
-struct _Date {
-  /* TODO: use GLib date structures? */
-  guint year;
-  guint month;
-  guint day;
 };
 
 struct _AlbumDetails {
