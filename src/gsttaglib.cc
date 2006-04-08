@@ -555,7 +555,7 @@ plugin_init (GstPlugin * plugin)
   return TRUE;
 }
 
-GST_PLUGIN_DEFINE_STATIC (GST_VERSION_MAJOR,
+GST_PLUGIN_DEFINE (GST_VERSION_MAJOR,
     GST_VERSION_MINOR,
     "taglib",
     "Tag-writing plug-in based on taglib",
@@ -564,5 +564,5 @@ GST_PLUGIN_DEFINE_STATIC (GST_VERSION_MAJOR,
 void
 id3mux_register(void)
 {
-  _gst_plugin_static_init__plugin_init ();
+  _gst_plugin_register_static (&gst_plugin_desc);
 }
