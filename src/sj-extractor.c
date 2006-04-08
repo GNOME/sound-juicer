@@ -414,8 +414,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   if (priv->rebuild_pipeline != FALSE) {
     build_pipeline (extractor);
     if (priv->construct_error != NULL) {
-      *error = g_error_copy (priv->construct_error);
-      g_error_free (priv->construct_error);
+      g_propagate_error (error, priv->construct_error);
       priv->construct_error = NULL;
       return;
     }
@@ -439,8 +438,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
                                GST_TAG_TRACK_NUMBER, track->number,
                                GST_TAG_TRACK_COUNT, track->album->number,
                                GST_TAG_ALBUM, track->album->title,
-                               GST_TAG_ENCODER, _("Sound Juicer"),
-                               GST_TAG_ENCODER_VERSION, VERSION,
+                               GST_TAG_DURATION, track->duration * GST_SECOND,
                                NULL);
 
 #ifdef GST_TAG_MUSICBRAINZ_ALBUMID
@@ -492,6 +490,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
       break;
     case GST_ITERATOR_RESYNC:
       // TODO?
+      g_warning ("Got GST_ITERATOR_RESYNC, not sure what to do");
       gst_iterator_resync (iter);
       break;
     case GST_ITERATOR_ERROR:
