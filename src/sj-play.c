@@ -128,6 +128,8 @@ stop (void)
   gtk_widget_set_sensitive (next_menuitem, FALSE);
   gtk_widget_set_sensitive (prev_menuitem, FALSE);
   gtk_widget_set_sensitive (reread_menuitem, TRUE);
+  /* Call this to ensure that the UI is reset */
+  sj_main_set_title (NULL);
 }
 
 /**
