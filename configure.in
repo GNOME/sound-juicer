@@ -15,7 +15,7 @@ ACLOCAL="$ACLOCAL $ACLOCAL_FLAGS"
 GETTEXT_PACKAGE=sound-juicer
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [The name of the gettext package.])
 AC_SUBST(GETTEXT_PACKAGE)
-ALL_LINGUAS="`cat "$srcdir/po/LINGUAS" | grep -v '^#'`"
+ALL_LINGUAS="`grep -v '^#' "$srcdir/po/LINGUAS"`"
 AC_SUBST([CONFIG_STATUS_DEPENDENCIES],['$(top_srcdir)/po/LINGUAS'])
 AM_GLIB_GNU_GETTEXT
 
