@@ -323,6 +323,9 @@ static void update_ui_for_album (AlbumDetails *album)
   char* duration_text;
   total_no_of_tracks=0;
 
+  /* Really really make sure we don't have a playing title */
+  sj_main_set_title (NULL);
+
   if (album == NULL) {
     gtk_list_store_clear (track_store);
     gtk_entry_set_text (GTK_ENTRY (title_entry), "");
