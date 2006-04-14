@@ -65,8 +65,10 @@ select_track (void)
       GtkTreeIter next_iter;
 
       if (!gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
-                                          &next_iter, NULL, seek_to_track))
+                                          &next_iter, NULL, seek_to_track)) {
+        g_warning (G_STRLOC ": cannot get nth child");
         return FALSE;
+      }
       gtk_tree_model_get (GTK_TREE_MODEL (track_store), &next_iter,
           COLUMN_EXTRACT, &do_play, -1);
       if (do_play)
@@ -78,10 +80,11 @@ select_track (void)
       return FALSE;
     }
   }
-
-  if (gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
-                                     &current_iter, NULL, seek_to_track))
+  if (!gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
+                                     &current_iter, NULL, seek_to_track)) {
+    g_warning (G_STRLOC ": cannot get nth child");
     return FALSE;
+  }
 
   gst_element_set_state (pipeline, GST_STATE_PAUSED);
   cd = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "cd-source");
@@ -442,9 +445,10 @@ on_play_activate (GtkWidget *button, gpointer user_data)
       g_free (title);
 
       play ();
-    }
-    else
+    } else {
+      g_warning (G_STRLOC ": failed to select track");
       stop ();
+    }
   } else {
     GtkWidget *dialog;
 
