@@ -24,10 +24,10 @@
 
 G_BEGIN_DECLS
 
-typedef struct _GstTagLibMuxPriv GstTagLibMuxPriv;
+typedef struct _SjTagLibMuxPriv SjTagLibMuxPriv;
 
 /* Definition of structure storing data for this element. */
-typedef struct _GstTagLibMux {
+typedef struct _SjTagLibMux {
   GstElement element;
 
   GstPad *sinkpad, *srcpad;
@@ -35,24 +35,24 @@ typedef struct _GstTagLibMux {
   gsize tag_size;
   gboolean render_tag;
 
-} GstTagLibMux;
+} SjTagLibMux;
 
 /* Standard definition defining a class for this element. */
-typedef struct _GstTagLibMuxClass {
+typedef struct _SjTagLibMuxClass {
   GstElementClass parent_class;
-} GstTagLibMuxClass;
+} SjTagLibMuxClass;
 
 /* Standard macros for defining types for this element.  */
-#define GST_TYPE_TAGLIB_MUX \
-  (gst_tag_lib_mux_get_type())
-#define GST_TAGLIB_MUX(obj) \
-  (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_TAGLIB_MUX,GstTagLibMux))
-#define GST_TAGLIB_MUX_CLASS(klass) \
-  (G_TYPE_CHECK_CLASS_CAST((klass),GST_TYPE_TAGLIB_MUX,GstTagLibMuxClass))
-#define GST_IS_TAGLIB_MUX(obj) \
-  (G_TYPE_CHECK_INSTANCE_TYPE((obj),GST_TYPE_TAGLIB_MUX))
-#define GST_IS_TAGLIB_MUX_CLASS(klass) \
-  (G_TYPE_CHECK_CLASS_TYPE((klass),GST_TYPE_TAGLIB_MUX))
+#define SJ_TYPE_TAGLIB_MUX \
+  (sj_tag_lib_mux_get_type())
+#define SJ_TAGLIB_MUX(obj) \
+  (G_TYPE_CHECK_INSTANCE_CAST((obj),SJ_TYPE_TAGLIB_MUX,SjTagLibMux))
+#define SJ_TAGLIB_MUX_CLASS(klass) \
+  (G_TYPE_CHECK_CLASS_CAST((klass),SJ_TYPE_TAGLIB_MUX,SjTagLibMuxClass))
+#define SJ_IS_TAGLIB_MUX(obj) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((obj),SJ_TYPE_TAGLIB_MUX))
+#define SJ_IS_TAGLIB_MUX_CLASS(klass) \
+  (G_TYPE_CHECK_CLASS_TYPE((klass),SJ_TYPE_TAGLIB_MUX))
 
 /* Standard function returning type information. */
 GType gst_my_filter_get_type (void);

@@ -58,11 +58,11 @@
 
 using namespace TagLib;
 
-GST_DEBUG_CATEGORY_STATIC (gst_tag_lib_mux_debug);
-#define GST_CAT_DEFAULT gst_tag_lib_mux_debug
+GST_DEBUG_CATEGORY_STATIC (sj_tag_lib_mux_debug);
+#define GST_CAT_DEFAULT sj_tag_lib_mux_debug
 
 static void
-gst_tag_lib_mux_iface_init (GType taglib_type)
+sj_tag_lib_mux_iface_init (GType taglib_type)
 {
   static const GInterfaceInfo tag_setter_info = {
     NULL,
@@ -74,20 +74,20 @@ gst_tag_lib_mux_iface_init (GType taglib_type)
       &tag_setter_info);
 }
 
-GST_BOILERPLATE_FULL (GstTagLibMux, gst_tag_lib_mux,
-    GstElement, GST_TYPE_ELEMENT, gst_tag_lib_mux_iface_init);
+GST_BOILERPLATE_FULL (SjTagLibMux, sj_tag_lib_mux,
+    GstElement, GST_TYPE_ELEMENT, sj_tag_lib_mux_iface_init);
 
 
 static GstStateChangeReturn
-gst_tag_lib_mux_change_state (GstElement * element, GstStateChange transition);
-static GstFlowReturn gst_tag_lib_mux_chain (GstPad * pad, GstBuffer * buffer);
-static gboolean gst_tag_lib_mux_sink_event (GstPad * pad, GstEvent * event);
+sj_tag_lib_mux_change_state (GstElement * element, GstStateChange transition);
+static GstFlowReturn sj_tag_lib_mux_chain (GstPad * pad, GstBuffer * buffer);
+static gboolean sj_tag_lib_mux_sink_event (GstPad * pad, GstEvent * event);
 
 
 static void
-gst_tag_lib_mux_finalize (GObject * obj)
+sj_tag_lib_mux_finalize (GObject * obj)
 {
-  GstTagLibMux *taglib = GST_TAGLIB_MUX (obj);
+  SjTagLibMux *taglib = SJ_TAGLIB_MUX (obj);
 
   if (taglib->tags) {
     gst_tag_list_free (taglib->tags);
@@ -97,14 +97,14 @@ gst_tag_lib_mux_finalize (GObject * obj)
 }
 
 
-static GstStaticPadTemplate gst_tag_lib_mux_sink_template =
+static GstStaticPadTemplate sj_tag_lib_mux_sink_template =
 GST_STATIC_PAD_TEMPLATE ("sink",
     GST_PAD_SINK,
     GST_PAD_ALWAYS,
     GST_STATIC_CAPS ("audio/mpeg"));
 
 
-static GstStaticPadTemplate gst_tag_lib_mux_src_template =
+static GstStaticPadTemplate sj_tag_lib_mux_src_template =
 GST_STATIC_PAD_TEMPLATE ("src",
     GST_PAD_SRC,
     GST_PAD_ALWAYS,
@@ -112,11 +112,11 @@ GST_STATIC_PAD_TEMPLATE ("src",
 
 
 static void
-gst_tag_lib_mux_base_init (gpointer g_class)
+sj_tag_lib_mux_base_init (gpointer g_class)
 {
   GstElementClass *element_class = GST_ELEMENT_CLASS (g_class);
 
-  static GstElementDetails gst_tag_lib_mux_details = {
+  static GstElementDetails sj_tag_lib_mux_details = {
     "TagLib ID3 Muxer",
     "Formatter/Metadata",
     "Adds an ID3v2 header to the beginning of MP3 files",
@@ -125,14 +125,14 @@ gst_tag_lib_mux_base_init (gpointer g_class)
 
 
   gst_element_class_add_pad_template (element_class,
-      gst_static_pad_template_get (&gst_tag_lib_mux_src_template));
+      gst_static_pad_template_get (&sj_tag_lib_mux_src_template));
   gst_element_class_add_pad_template (element_class,
-      gst_static_pad_template_get (&gst_tag_lib_mux_sink_template));
-  gst_element_class_set_details (element_class, &gst_tag_lib_mux_details);
+      gst_static_pad_template_get (&sj_tag_lib_mux_sink_template));
+  gst_element_class_set_details (element_class, &sj_tag_lib_mux_details);
 }
 
 static void
-gst_tag_lib_mux_class_init (GstTagLibMuxClass * klass)
+sj_tag_lib_mux_class_init (SjTagLibMuxClass * klass)
 {
   GObjectClass *gobject_class;
   GstElementClass *gstelement_class;
@@ -140,14 +140,14 @@ gst_tag_lib_mux_class_init (GstTagLibMuxClass * klass)
   gobject_class = (GObjectClass *) klass;
   gstelement_class = (GstElementClass *) klass;
 
-  gobject_class->finalize = GST_DEBUG_FUNCPTR (gst_tag_lib_mux_finalize);
+  gobject_class->finalize = GST_DEBUG_FUNCPTR (sj_tag_lib_mux_finalize);
   gstelement_class->change_state =
-      GST_DEBUG_FUNCPTR (gst_tag_lib_mux_change_state);
+      GST_DEBUG_FUNCPTR (sj_tag_lib_mux_change_state);
 }
 
 static void
-gst_tag_lib_mux_init (GstTagLibMux * taglib,
-    GstTagLibMuxClass * taglibmux_class)
+sj_tag_lib_mux_init (SjTagLibMux * taglib,
+    SjTagLibMuxClass * taglibmux_class)
 {
   GstElementClass *klass = GST_ELEMENT_CLASS (taglibmux_class);
 
@@ -158,9 +158,9 @@ gst_tag_lib_mux_init (GstTagLibMux * taglib,
   gst_pad_set_setcaps_function (taglib->sinkpad,
       GST_DEBUG_FUNCPTR (gst_pad_proxy_setcaps));
   gst_pad_set_chain_function (taglib->sinkpad,
-      GST_DEBUG_FUNCPTR (gst_tag_lib_mux_chain));
+      GST_DEBUG_FUNCPTR (sj_tag_lib_mux_chain));
   gst_pad_set_event_function (taglib->sinkpad,
-      GST_DEBUG_FUNCPTR (gst_tag_lib_mux_sink_event));
+      GST_DEBUG_FUNCPTR (sj_tag_lib_mux_sink_event));
   gst_element_add_pad (GST_ELEMENT (taglib), taglib->sinkpad);
 
   /* pad through which data goes out of the element */
@@ -381,7 +381,7 @@ add_one_tag (const GstTagList * list, const gchar * tag, gpointer user_data)
 
 
 static GstBuffer *
-gst_tag_lib_mux_render_tag (GstTagLibMux * taglib)
+sj_tag_lib_mux_render_tag (SjTagLibMux * taglib)
 {
   ID3v2::Tag id3v2tag;
   ByteVector rendered_tag;
@@ -422,15 +422,15 @@ gst_tag_lib_mux_render_tag (GstTagLibMux * taglib)
 
 
 static GstFlowReturn
-gst_tag_lib_mux_chain (GstPad * pad, GstBuffer * buffer)
+sj_tag_lib_mux_chain (GstPad * pad, GstBuffer * buffer)
 {
-  GstTagLibMux *taglib = GST_TAGLIB_MUX (GST_OBJECT_PARENT (pad));
+  SjTagLibMux *taglib = SJ_TAGLIB_MUX (GST_OBJECT_PARENT (pad));
 
   if (taglib->render_tag) {
     GstFlowReturn ret;
 
     GST_INFO ("Adding tags to stream");
-    ret = gst_pad_push (taglib->srcpad, gst_tag_lib_mux_render_tag (taglib));
+    ret = gst_pad_push (taglib->srcpad, sj_tag_lib_mux_render_tag (taglib));
     if (ret != GST_FLOW_OK) {
       gst_buffer_unref (buffer);
       return ret;
@@ -443,12 +443,12 @@ gst_tag_lib_mux_chain (GstPad * pad, GstBuffer * buffer)
 }
 
 static gboolean
-gst_tag_lib_mux_sink_event (GstPad * pad, GstEvent * event)
+sj_tag_lib_mux_sink_event (GstPad * pad, GstEvent * event)
 {
-  GstTagLibMux *taglib;
+  SjTagLibMux *taglib;
   gboolean result;
 
-  taglib = GST_TAGLIB_MUX (gst_pad_get_parent (pad));
+  taglib = SJ_TAGLIB_MUX (gst_pad_get_parent (pad));
   result = FALSE;
 
   switch (GST_EVENT_TYPE (event)) {
@@ -511,12 +511,12 @@ gst_tag_lib_mux_sink_event (GstPad * pad, GstEvent * event)
 
 
 static GstStateChangeReturn
-gst_tag_lib_mux_change_state (GstElement * element, GstStateChange transition)
+sj_tag_lib_mux_change_state (GstElement * element, GstStateChange transition)
 {
-  GstTagLibMux *taglib;
+  SjTagLibMux *taglib;
   GstStateChangeReturn result;
 
-  taglib = GST_TAGLIB_MUX (element);
+  taglib = SJ_TAGLIB_MUX (element);
 
   result = GST_ELEMENT_CLASS (parent_class)->change_state (element, transition);
   if (result != GST_STATE_CHANGE_SUCCESS) {
@@ -544,10 +544,10 @@ static gboolean
 plugin_init (GstPlugin * plugin)
 {
   if (!gst_element_register (plugin, "id3mux", GST_RANK_NONE,
-          GST_TYPE_TAGLIB_MUX))
+          SJ_TYPE_TAGLIB_MUX))
     return FALSE;
 
-  GST_DEBUG_CATEGORY_INIT (gst_tag_lib_mux_debug, "taglibmux", 0,
+  GST_DEBUG_CATEGORY_INIT (sj_tag_lib_mux_debug, "taglibmux", 0,
       "ID3 Tag Muxer");
 
   gst_tag_register_musicbrainz_tags ();
