@@ -27,9 +27,8 @@
 
 void on_about_activate (void)
 {
-  static GtkWidget *win = NULL;
-  GdkPixbuf *pixbuf;
-  
+  char *license_trans;
+    
   const gchar *authors[] = {
     "Ross Burton <ross@burtonini.com>",
     "And many others who have contributed patches.",
@@ -40,38 +39,46 @@ void on_about_activate (void)
     "Mike Hearn <mike@theoretic.com>",
     NULL
   };
+  const gchar *artists[] = {
+    "Lapo Calamandrei <l.calamandrei@neri.it>",
+    NULL
+  };
+  const char *license[] = {
+    N_("Sound Juicer is free software; you can redistribute it and/or modify "
+       "it under the terms of the GNU General Public License as published by "
+       "the Free Software Foundation; either version 2 of the License, or "
+       "(at your option) any later version."),
+    N_("Sound Juicer is distributed in the hope that it will be useful, "
+       "but WITHOUT ANY WARRANTY; without even the implied warranty of "
+       "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
+       "GNU General Public License for more details."),
+    N_("You should have received a copy of the GNU General Public License "
+       "along with Sound Juicer; if not, write to the Free Software Foundation, Inc., "
+       "59 Temple Place, Suite 330, Boston, MA  02111-1307  USA")
+  };
 
-  if (win != NULL) {
-    gtk_window_present (GTK_WINDOW (win));
-    return;
-  }
-
-  /* Don't care if the icon cannot be found */
-  pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (), "sound-juicer", 128, 0, NULL);
-  /* TODO: leaks theme */
-
-  win = g_object_new (GTK_TYPE_ABOUT_DIALOG,
-                      "name", _("Sound Juicer"),
-                      "comments", _("An Audio CD Extractor"),
-                      "version", VERSION,
-                      "copyright", "Copyright \xc2\xa9 2003-2005 Ross Burton",
-                      "authors", authors,
-                      "documenters", documentors,
-                      /*
-                       * Note to translators: put here your name and email so it will show
-                       * up in the "about" box
-                       */
-                      "translator-credits", _("translator-credits"),
-                      "logo", pixbuf,
-                      NULL);
-
-  g_object_unref (pixbuf);
+  license_trans = g_strconcat (_(license[0]), "\n\n",
+                               _(license[1]), "\n\n",
+                               _(license[2]), "\n\n",
+                               NULL);
   
-  g_signal_connect (win, "response", G_CALLBACK (gtk_widget_destroy), NULL);
-  gtk_window_set_transient_for (GTK_WINDOW (win), GTK_WINDOW (main_window));
-  gtk_window_set_destroy_with_parent (GTK_WINDOW (win), TRUE);
+  gtk_show_about_dialog (GTK_WINDOW (main_window),
+                         "comments", _("An Audio CD Extractor"),
+                         "version", VERSION,
+                         "copyright", "Copyright \xc2\xa9 2003-2006 Ross Burton",
+                         "authors", authors,
+                         "documenters", documentors,
+                         "artists", artists,
+                         /*
+                          * Note to translators: put here your name and email so it will show
+                          * up in the "about" box
+                          */
+                         "translator-credits", _("translator-credits"),
+                         "logo-icon-name", "sound-juicer",
+                         "license", license_trans,
+                         "wrap-license", TRUE,
+                         "website", "http://burtonini.com/blog/computers/sound-juicer",
+                         NULL);
   
-  g_object_add_weak_pointer (G_OBJECT (win), (gpointer) & win);
-  
-  gtk_window_present (GTK_WINDOW (win));
+  g_free (license_trans);
 }
