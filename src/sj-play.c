@@ -370,6 +370,11 @@ setup (GError **err)
                   NULL);
 
     queue = gst_element_factory_make ("queue", "queue"); g_assert (queue);
+    /* Set the buffer size to protect against underflow on busy systems */
+    g_object_set (queue,
+                  "min-threshold-time", (guint64) 200 * GST_MSECOND,
+                  "max-size-time", (guint64) 2 * GST_SECOND,
+                  NULL);
     conv = gst_element_factory_make ("audioconvert", "conv"); g_assert (conv);
     resample = gst_element_factory_make ("audioresample", "resample"); g_assert (resample);
     volume = gst_element_factory_make ("volume", "vol"); g_assert (volume);
