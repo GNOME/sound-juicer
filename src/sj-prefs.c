@@ -247,7 +247,9 @@ static void pattern_label_update (void)
   g_free (path_value);
   g_free (path_pattern);
 
-  format = g_strconcat ("<small><i><b>Example Path:</b> ",
+  format = g_strconcat ("<small><i><b>",
+                        _("Example Path"),
+                        ":</b> ",
                         example,
                         ".",
                         gm_audio_profile_get_extension (profile),
