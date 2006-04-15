@@ -692,27 +692,35 @@ char*
 filepath_parse_pattern (const char* pattern, const TrackDetails *track)
 {
   /* p is the pattern iterator, i is a general purpose iterator */
-  const char *p, *i;
-  /* string is the output string, s is the iterator, t is a general string */
-  char *string, *s, *temp;
-  s = string = g_new0 (char, 256); /* TODO: bad hardcoding */
+  const char *p;
+  char *tmp, *str;
+  GString *s;
+
+  if (pattern == NULL || pattern[0] == 0)
+    return g_strdup (" ");
+
+  s = g_string_new (NULL);
 
   p = pattern;
   while (*p) {
-    gchar *tmp; 
+    char *string = NULL;
+    gboolean go_next = TRUE;
+
     /* If not a % marker, copy and continue */
     if (*p != '%') {
-      *s++ = *p++;
+      g_string_append_unichar (s, g_utf8_get_char (p));
+      p = g_utf8_next_char (p);
       /* Explicit increment as we continue past the increment */
       continue;
     }
+
     /* Is a % marker, go to next and see what to do */
     switch (*++p) {
     case '%':
       /*
        * Literal %
        */
-      *s++ = '%';
+      g_string_append_c (s, '%');
       break;
     case 'a':
       /*
@@ -720,43 +728,37 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
        */
       switch (*++p) {
       case 't':
-        i = temp = sanitize_path (track->album->title);
-        while (*i) *s++ = *i++;
-        g_free (temp);
+        string = sanitize_path (track->album->title);
         break;
       case 'T':
         tmp = g_utf8_strdown (track->album->title, -1);
-        i = temp = sanitize_path (tmp);
-        g_free(tmp);
-        while (*i) *s++ = *i++;
-        g_free (temp);
+        string = sanitize_path (tmp);
+        g_free (tmp);
         break;
       case 'a':
-        i = temp = sanitize_path (track->album->artist);
-        while (*i) *s++ = *i++;
-        g_free (temp);
+        string = sanitize_path (track->album->artist);
         break;
       case 'A':
         tmp = g_utf8_strdown (track->album->artist, -1);
-        i = temp = sanitize_path (tmp);
-        g_free(tmp);
-        while (*i) *s++ = *i++;
-        g_free (temp);
+        string = sanitize_path (tmp);
+        g_free (tmp);
         break;
       case 's':
-        i = temp = sanitize_path (track->album->artist_sortname ? track->album->artist_sortname : track->album->artist);
-        while (*i) *s++ = *i++;
-        g_free (temp);
+        string = sanitize_path (track->album->artist_sortname ? track->album->artist_sortname : track->album->artist);
         break;
       case 'S':
         tmp = g_utf8_strdown (track->album->artist_sortname ? track->album->artist_sortname : track->album->artist, -1);
-        i = temp = sanitize_path (tmp);
+        string = sanitize_path (tmp);
         g_free(tmp);
-        while (*i) *s++ = *i++;
-        g_free (temp);
         break;
       default:
-        *s++ = '%'; *s++ = 'a'; *s++ = *p;
+        /* append "%a", and then the unicode character */
+        g_string_append (s, "%a");
+        p += 2;
+
+        g_string_append_unichar (s, g_utf8_get_char (p));
+        p = g_utf8_next_char (p);
+        go_next = FALSE;
       }
       break;
     case 't':
@@ -765,63 +767,65 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
        */
       switch (*++p) {
       case 't':
-        i = temp = sanitize_path (track->title);
-        while (*i) *s++ = *i++;
-        g_free (temp);
+        string = sanitize_path (track->title);
         break;
       case 'T':
         tmp = g_utf8_strdown (track->title, -1);
-        i = temp = sanitize_path (tmp);
+        string = sanitize_path (tmp);
         g_free(tmp);
-        while (*i) *s++ = *i++;
-        g_free (temp);
         break;
       case 'a':
-        i = temp = sanitize_path (track->artist);
-        while (*i) *s++ = *i++;
-        g_free (temp);
+        string = sanitize_path (track->artist);
         break;
       case 'A':
         tmp = g_utf8_strdown (track->artist, -1);
-        i = temp = sanitize_path (tmp);
+        string = sanitize_path (tmp);
         g_free(tmp);
-        while (*i) *s++ = *i++;
-        g_free (temp);
         break;
       case 's':
-        i = temp = sanitize_path (track->artist_sortname ? track->album->artist_sortname : track->artist);
-        while (*i) *s++ = *i++;
-        g_free (temp);
+        string = sanitize_path (track->artist_sortname ? track->album->artist_sortname : track->artist);
         break;
       case 'S':
         tmp = g_utf8_strdown (track->artist_sortname ? track->album->artist_sortname : track->artist, -1);
-        i = temp = sanitize_path (tmp);
+        string = sanitize_path (tmp);
         g_free(tmp);
-        while (*i) *s++ = *i++;
-        g_free (temp);
         break;
       case 'n':
         /* Track number */
-        i = temp = g_strdup_printf ("%d", track->number);
-        while (*i) *s++ = *i++;
-        g_free (temp);
+        string = g_strdup_printf ("%d", track->number);
         break;
       case 'N':
         /* Track number, zero-padded */
-        i = temp = g_strdup_printf ("%02d", track->number);
-        while (*i) *s++ = *i++;
-        g_free (temp);
+        string = g_strdup_printf ("%02d", track->number);
         break;
       default:
-        *s++ = '%'; *s++ = 't'; *s++ = *p;
+        /* append "%a", and then the unicode character */
+        g_string_append (s, "%t");
+        p += 2;
+
+        g_string_append_unichar (s, g_utf8_get_char (p));
+        p = g_utf8_next_char (p);
+        go_next = FALSE;
       }
       break;
-    default:
-      *s++ = '%';
-      *s++ = *p;
+      default:
+      /* append "%", and then the unicode character */
+      g_string_append_c (s, '%');
+      p += 1;
+
+      g_string_append_unichar (s, g_utf8_get_char (p));
+      p = g_utf8_next_char (p);
     }
-    ++p;
+
+    if (string)
+      g_string_append (s, string);
+    g_free (string);
+
+    if (go_next)
+      ++p;
   }
-  *s = '\0';
-  return string;
+
+  str = s->str;
+  g_string_free (s, FALSE);
+  return str;
 }
