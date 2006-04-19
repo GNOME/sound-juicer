@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-05 12:02+0100\n"
-"PO-Revision-Date: 2006-03-17 11:00+0200\n"
+"POT-Creation-Date: 2006-04-14 21:46+0200\n"
+"PO-Revision-Date: 2006-04-15 02:28+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -112,25 +112,24 @@ msgstr "Liigu järgmisele loole"
 msgid "Skip to the previous track"
 msgstr "Liigu eelmisele loole"
 
-#: ../data/sound-juicer.glade.h:21
-#: ../src/sj-about.c:54
-#: ../src/sj-extractor.c:442
-#: ../src/sj-main.c:165
-#: ../src/sj-main.c:167
-#: ../src/sj-main.c:1233
+#: ../data/sound-juicer.glade.h:21 ../src/sj-main.c:165 ../src/sj-main.c:167
+#: ../src/sj-main.c:1268
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
 #: ../data/sound-juicer.glade.h:22
-msgid "This CD could be more than one album. Please select which album it is below and press <i>Continue</i>."
-msgstr "Selle albumi kohta leiti mitu vastet. Palun vali allpool, millise albumiga on tegu ning vajuta <i>Jätka</i>."
+msgid ""
+"This CD could be more than one album. Please select which album it is below "
+"and press <i>Continue</i>."
+msgstr ""
+"Selle albumi kohta leiti mitu vastet. Palun vali allpool, millise albumiga "
+"on tegu ning vajuta <i>Jätka</i>."
 
 #: ../data/sound-juicer.glade.h:23
 msgid "_Contents"
 msgstr "_Sisukord"
 
-#: ../data/sound-juicer.glade.h:24
-#: ../src/sj-main.c:229
+#: ../data/sound-juicer.glade.h:24 ../src/sj-main.c:229
 msgid "_Continue"
 msgstr "_Jätka"
 
@@ -184,55 +183,92 @@ msgstr "_Saada lugude nimed..."
 
 #: ../data/sound-juicer.schemas.in.h:2
 #, no-c-format
-msgid "%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- album artist (lowercase) %tt -- track title %tT -- track title (lowercase) %ta -- track artist %tA -- track artist (lowercase)"
-msgstr "%at -- albumi pealkiri %aT -- albumi pealkiri (väiketähed) %aa -- albumi esitaja %aA -- albumi esitaja (väiketähed) %tt -- loo pealkiri %tT -- loo pealkiri (väiketähed) %ta -- loo esitaja %tA -- loo esitaja (väiketähed)"
+msgid ""
+"%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
+"album artist (lowercase) %as -- album artist (sortable) %aS -- album artist "
+"(sortable lowercase) %tt -- track title %tT -- track title (lowercase) %ta "
+"-- track artist %tA -- track artist (lowercase) %ts -- track artist "
+"(sortable) %tS -- track artist (sortable lowercase)"
+msgstr ""
+"%at -- albumi pealkiri %aT -- albumi pealkiri (väiketähed) %aa -- albumi "
+"esitaja %aA -- albumi esitaja (väiketähed) %as -- albumi esitaja (sorditav) "
+"%aS -- albumi esitaja (sorditav, väiketähed) %tt -- loo pealkiri %tT -- loo "
+"pealkiri (väiketähed) %ta -- loo esitaja %tA -- loo esitaja (väiketähed) "
+"%ts -- loo esitaja (sorditav) %tS -- loo esitaja (sorditav, väiketähed)"
 
 #: ../data/sound-juicer.schemas.in.h:3
 msgid "Audio Profile with which to encode"
 msgstr "Kodeerimiseks kasutatava audioprofiil"
 
-#: ../data/sound-juicer.schemas.in.h:5
-#, no-c-format
-msgid "Do not specify an extension. %at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- album artist (lowercase) %tn -- track number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %tT -- track title (lowercase) %ta -- track artist %tA -- track artist (lowercase)"
-msgstr "Ära määra faililaiendit. %at -- albumi pealkiri %aT -- albumi pealkiri (väiketähed) %aa -- albumi esitaja %aA -- albumi esitaja (väiketähed) %tn -- loo number (nt. 8) %tN -- loo number, nullidega täitetud (nt. 08) %tt -- loo pealkiri %tT -- loo pealkiri (väiketähed) %ta -- loo esitaja %tA -- loo esitaja (väiketähed)"
+#: ../data/sound-juicer.schemas.in.h:4
+msgid "Audio volume"
+msgstr "Helitugevus"
 
 #: ../data/sound-juicer.schemas.in.h:6
-msgid "If enabled, special characters such as space, wildcards and backslashes will be removed from the output filename."
-msgstr "Kui lubatud, siis spetsiaalsümbolid nagu tühikud, metamärgid ja kurakaldkriipsud kaotatakse failinimedest."
+#, no-c-format
+msgid ""
+"Do not specify an extension. %at -- album title %aT -- album title "
+"(lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album "
+"artist (sortable) %aS -- album artist (sortable lowercase) %tn -- track "
+"number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
+"tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
+"(lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable "
+"lowercase)"
+msgstr ""
+"Ära määra faililaiendit. "
+"%at -- albumi pealkiri %aT -- albumi pealkiri (väiketähed) %aa -- albumi "
+"esitaja %aA -- albumi esitaja (väiketähed) %as -- albumi esitaja (sorditav) "
+"%aS -- albumi esitaja (sorditav, väiketähed) %tt -- loo pealkiri %tT -- loo "
+"pealkiri (väiketähed) %ta -- loo esitaja %tA -- loo esitaja (väiketähed) "
+"%ts -- loo esitaja (sorditav) %tS -- loo esitaja (sorditav, väiketähed)"
 
 #: ../data/sound-juicer.schemas.in.h:7
-msgid "If specified, this value will override the default MusicBrainz server."
-msgstr "Kui määratud, siis seda väärtust kasutatakse vaikimisi MusicBrainz'i serveri asemel."
+msgid ""
+"If enabled, special characters such as space, wildcards and backslashes will "
+"be removed from the output filename."
+msgstr ""
+"Kui lubatud, siis spetsiaalsümbolid nagu tühikud, metamärgid ja "
+"kurakaldkriipsud kaotatakse failinimedest."
 
 #: ../data/sound-juicer.schemas.in.h:8
+msgid "If specified, this value will override the default MusicBrainz server."
+msgstr ""
+"Kui määratud, siis seda väärtust kasutatakse vaikimisi MusicBrainz'i serveri "
+"asemel."
+
+#: ../data/sound-juicer.schemas.in.h:9
 msgid "If to strip special characters from filenames"
 msgstr "Kas kaotada spetsiaalsümbolid failinimedest"
 
-#: ../data/sound-juicer.schemas.in.h:9
-msgid "Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) full"
-msgstr "Paranoia režiim: 0) keelatud 2) killustamine 4) ülekattumine 8) kriimustamine 16) parandamine 255) täielik"
-
 #: ../data/sound-juicer.schemas.in.h:10
+msgid ""
+"Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) "
+"full"
+msgstr ""
+"Paranoia režiim: 0) keelatud 2) killustamine 4) ülekattumine 8) "
+"kriimustamine 16) parandamine 255) täielik"
+
+#: ../data/sound-juicer.schemas.in.h:11
 msgid "The GNOME Audio Profile with which to encode."
 msgstr "Audio kodeerimiseks kasutatav GNOME'i audioprofiil."
 
-#: ../data/sound-juicer.schemas.in.h:11
+#: ../data/sound-juicer.schemas.in.h:12
 msgid "The MusicBrainz server to use"
 msgstr "MusicBrainz'i server, mida kasutada"
 
-#: ../data/sound-juicer.schemas.in.h:12
+#: ../data/sound-juicer.schemas.in.h:13
 msgid "The directory structure for the files"
 msgstr "Failikataloogide struktuur"
 
-#: ../data/sound-juicer.schemas.in.h:13
+#: ../data/sound-juicer.schemas.in.h:14
 msgid "The name pattern for files"
 msgstr "Failide nimemuster"
 
-#: ../data/sound-juicer.schemas.in.h:14
+#: ../data/sound-juicer.schemas.in.h:15
 msgid "The paranoia mode to use"
 msgstr "Kasutatav paranoia režiim"
 
-#: ../data/sound-juicer.schemas.in.h:15
+#: ../data/sound-juicer.schemas.in.h:16
 msgid "Whether to eject the CD when finished extracting."
 msgstr "Kas plaadirippimise lõppedes väljastatakse plaat."
 
@@ -255,7 +291,41 @@ msgstr "GConf'i viga: %s"
 msgid "All further errors shown only on terminal."
 msgstr "Kõik edasised vead näidatakse ainult terminalil."
 
+#: ../src/sj-about.c:47
+msgid ""
+"Sound Juicer is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version."
+msgstr ""
+"Sound Juicer on vaba tarkvara. Te võite seda edasi levitada ja/või muuta\n"
+"vastavalt GNU Üldise Avaliku Litsentsi tingimustele, nagu need on\n"
+"Vaba Tarkvara Fondi poolt avaldatud; kas Litsentsi versioon number 2\n"
+"või (vastavalt Teie valikule) ükskõik milline hilisem versioon."
+
+#: ../src/sj-about.c:51
+msgid ""
+"Sound Juicer is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details."
+msgstr ""
+"Sound Juicer'i levitatakse lootuses, et see on kasulik, kuid ILMA\n"
+"IGASUGUSE GARANTIITA; isegi KESKMISE/TAVALISE KVALITEEDI\n"
+"GARANTIITAvõi SOBIVUSELE TEATUD KINDLAKS EESMÄRGIKS.\n"
+"Üksikasjade suhtes vaata GNU Üldist Avalikku Litsentsi."
+
 #: ../src/sj-about.c:55
+msgid ""
+"You should have received a copy of the GNU General Public License along with "
+"Sound Juicer; if not, write to the Free Software Foundation, Inc., 59 Temple "
+"Place, Suite 330, Boston, MA  02111-1307  USA"
+msgstr ""
+"Te peaks olema saanud GNU Üldise Avaliku Litsentsi koopia koos\n"
+"Sound Juicer'iga, kui ei, siis võtke ühendust Free Software Foundation'iga,\n"
+"59 Temple Place - Suite 330, Boston, MA 02111-1307, USA"
+
+#: ../src/sj-about.c:66
 msgid "An Audio CD Extractor"
 msgstr "Audio CD-de rippija"
 
@@ -263,7 +333,7 @@ msgstr "Audio CD-de rippija"
 #. * Note to translators: put here your name and email so it will show
 #. * up in the "about" box
 #.
-#: ../src/sj-about.c:64
+#: ../src/sj-about.c:76
 msgid "translator-credits"
 msgstr ""
 "Priit Laes <amd@store20.com>, 2005. 2006\n"
@@ -287,8 +357,7 @@ msgid "_Overwrite"
 msgstr "_Kirjuta üle"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:281
-#: ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:281 ../src/sj-extracting.c:316
 #: ../src/sj-extracting.c:522
 #, c-format
 msgid ""
@@ -346,18 +415,21 @@ msgid "Could not get current track position"
 msgstr "Aktiivse raja asukohta ei suudeta leida"
 
 #: ../src/sj-extractor.c:370
-msgid "Extractor object is not valid. This is bad, check your console for errors."
-msgstr "Rippimisobjekt ei ole kehtiv. See on halb, kontrolli konsoolilt võimalike veateadete olemasolu."
+msgid ""
+"Extractor object is not valid. This is bad, check your console for errors."
+msgstr ""
+"Rippimisobjekt ei ole kehtiv. See on halb, kontrolli konsoolilt võimalike "
+"veateadete olemasolu."
 
-#: ../src/sj-extractor.c:515
+#: ../src/sj-extractor.c:514
 msgid "Could not get track start position"
 msgstr "Loo alguspunkti pole võimalik tuvastada"
 
-#: ../src/sj-extractor.c:547
+#: ../src/sj-extractor.c:546
 msgid "The plugin necessary for CD access was not found"
 msgstr "Selle plaadi kasutamiseks vajalikku pluginat ei leitud"
 
-#: ../src/sj-extractor.c:555
+#: ../src/sj-extractor.c:554
 msgid "The plugin necessary for file access was not found"
 msgstr "Failidele juurdepääsemiseks vajalikku pluginat ei leitud"
 
@@ -369,11 +441,8 @@ msgstr "_Ripi"
 msgid "Could not start Sound Juicer"
 msgstr "Sound Juicer'i käivitamine pole võimalik"
 
-#: ../src/sj-main.c:181
-#: ../src/sj-main.c:580
-#: ../src/sj-main.c:688
-#: ../src/sj-main.c:779
-#: ../src/sj-main.c:971
+#: ../src/sj-main.c:181 ../src/sj-main.c:598 ../src/sj-main.c:706
+#: ../src/sj-main.c:797 ../src/sj-main.c:989
 msgid "Reason"
 msgstr "Põhjus"
 
@@ -383,79 +452,74 @@ msgstr "Abi saamiseks vaata dokumentatsioonist järele."
 
 #: ../src/sj-main.c:227
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
-msgstr "Sa ripid hetkel seda CD-d. Kas sa soovid praegu väljuda või hoopis jätkata."
+msgstr ""
+"Sa ripid hetkel seda CD-d. Kas sa soovid praegu väljuda või hoopis jätkata."
 
-#: ../src/sj-main.c:287
-#: ../src/sj-main.c:389
+#: ../src/sj-main.c:287 ../src/sj-main.c:392
 msgid "(unknown)"
 msgstr "(tundmatu)"
 
-#: ../src/sj-main.c:431
-#: ../src/sj-main.c:1364
+#: ../src/sj-main.c:434 ../src/sj-main.c:1409
 msgid "Title"
 msgstr "Pealkiri"
 
-#: ../src/sj-main.c:437
-#: ../src/sj-main.c:1373
+#: ../src/sj-main.c:440 ../src/sj-main.c:1418
 msgid "Artist"
 msgstr "Esitaja"
 
-#: ../src/sj-main.c:578
-#: ../src/sj-main.c:686
-#: ../src/sj-main.c:777
+#: ../src/sj-main.c:596 ../src/sj-main.c:704 ../src/sj-main.c:795
 msgid "Could not read the CD"
 msgstr "CD-plaati pole võimalik lugeda"
 
-#: ../src/sj-main.c:579
-#: ../src/sj-main.c:687
+#: ../src/sj-main.c:597 ../src/sj-main.c:705
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer ei suuda lugeda CD-l asuvate radade nimekirja."
 
 #. Set statusbar message
-#: ../src/sj-main.c:659
+#: ../src/sj-main.c:677
 msgid "Retrieving track listing...please wait."
 msgstr "Lugude nimekirja allalaadimine...palun oota."
 
-#: ../src/sj-main.c:750
+#: ../src/sj-main.c:768
 msgid "Extracting audio from CD"
 msgstr "Muusika rippimine CD-lt"
 
-#: ../src/sj-main.c:771
+#: ../src/sj-main.c:789
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer ei pääse CD-ROM seadmele '%s' ligi"
 
-#: ../src/sj-main.c:850
+#: ../src/sj-main.c:868
 msgid "No CD-ROM drives found"
 msgstr "CD-ROM seadmeid ei leitud"
 
-#: ../src/sj-main.c:851
+#: ../src/sj-main.c:869
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer ei leidnud ühtegi loetavat CD-ROM ketast."
 
-#: ../src/sj-main.c:882
-msgid "The currently selected audio profile is not available on your installation."
+#: ../src/sj-main.c:900
+msgid ""
+"The currently selected audio profile is not available on your installation."
 msgstr "Hetkel valitud heliprofiil ei ole sinu paigaldusega kättesaadav."
 
-#: ../src/sj-main.c:884
+#: ../src/sj-main.c:902
 msgid "_Change Profile"
 msgstr "_Muuda profiili"
 
-#: ../src/sj-main.c:969
+#: ../src/sj-main.c:987
 msgid "Could not open URL"
 msgstr "URL-i pole võimalik avada"
 
-#: ../src/sj-main.c:970
+#: ../src/sj-main.c:988
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer ei suuda avada andmete saatmise URL-i."
 
-#: ../src/sj-main.c:1075
+#: ../src/sj-main.c:1097
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Tundmatut tulpa %d on redigeeritud"
 
-#: ../src/sj-main.c:1131
-#: ../src/sj-prefs.c:103
+#: ../src/sj-main.c:1153 ../src/sj-prefs.c:102
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -464,35 +528,35 @@ msgstr ""
 "Sound Juicer'i abiteavet pole võimalik kuvada\n"
 "%s"
 
-#: ../src/sj-main.c:1223
+#: ../src/sj-main.c:1246
 msgid "Start extracting immediately"
 msgstr "Rippimise kohene alustamine"
 
-#: ../src/sj-main.c:1224
+#: ../src/sj-main.c:1247
 msgid "Start playing immediately"
 msgstr "Esitamise kohene alustamine"
 
-#: ../src/sj-main.c:1225
+#: ../src/sj-main.c:1248
 msgid "What CD device to read"
 msgstr "Millist CD-seadet lugeda"
 
-#: ../src/sj-main.c:1225
+#: ../src/sj-main.c:1248
 msgid "DEVICE"
 msgstr "SEADE"
 
-#: ../src/sj-main.c:1270
+#: ../src/sj-main.c:1293
 msgid "Could not create GConf client.\n"
 msgstr "GConf klienti pole võimalik luua.\n"
 
-#: ../src/sj-main.c:1300
+#: ../src/sj-main.c:1324
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Sound Juicer'i liidesefail ei ole loetav."
 
-#: ../src/sj-main.c:1349
+#: ../src/sj-main.c:1394
 msgid "Track"
 msgstr "Lugu"
 
-#: ../src/sj-main.c:1384
+#: ../src/sj-main.c:1429
 msgid "Duration"
 msgstr "Kestus"
 
@@ -508,49 +572,50 @@ msgstr "CD-plaati pole võimalik lugeda"
 msgid "Cannot create MusicBrainz client"
 msgstr "MusicBrainz'i klienti pole võimalik luua"
 
-#: ../src/sj-metadata-musicbrainz.c:221
-#: ../src/sj-metadata-musicbrainz.c:487
+#: ../src/sj-metadata-musicbrainz.c:219 ../src/sj-metadata-musicbrainz.c:490
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "CD-plaati pole võimalik lugeda: %s"
 
-#: ../src/sj-metadata-musicbrainz.c:228
-#: ../src/sj-metadata-musicbrainz.c:526
+#: ../src/sj-metadata-musicbrainz.c:226 ../src/sj-metadata-musicbrainz.c:528
 msgid "Unknown Artist"
 msgstr "Tundmatu esitaja"
 
-#: ../src/sj-metadata-musicbrainz.c:229
-#: ../src/sj-metadata-musicbrainz.c:539
+#: ../src/sj-metadata-musicbrainz.c:227 ../src/sj-metadata-musicbrainz.c:539
 msgid "Unknown Title"
 msgstr "Tundmatu pealkiri"
 
-#: ../src/sj-metadata-musicbrainz.c:235
+#: ../src/sj-metadata-musicbrainz.c:233
 #, c-format
 msgid "Track %d"
 msgstr "%d lugu"
 
-#: ../src/sj-metadata-musicbrainz.c:263
-msgid "MusicBrainz metadata object is not valid. This is bad, check your console for errors."
-msgstr "MusicBrainz'i metaandmete objekt ei ole paikapidav. See on halb, vaata tekkinud veateateid konsoolilt."
+#: ../src/sj-metadata-musicbrainz.c:261
+msgid ""
+"MusicBrainz metadata object is not valid. This is bad, check your console "
+"for errors."
+msgstr ""
+"MusicBrainz'i metaandmete objekt ei ole paikapidav. See on halb, vaata "
+"tekkinud veateateid konsoolilt."
 
-#: ../src/sj-metadata-musicbrainz.c:429
-#: ../src/sj-metadata-musicbrainz.c:436
-#: ../src/sj-metadata-musicbrainz.c:446
+#: ../src/sj-metadata-musicbrainz.c:428 ../src/sj-metadata-musicbrainz.c:435
+#: ../src/sj-metadata-musicbrainz.c:449
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "Selle plaadi kohta pole võimalik teavet pärida: %s\n"
 
-#: ../src/sj-metadata-musicbrainz.c:481
+#: ../src/sj-metadata-musicbrainz.c:484
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Seade '%s' ei sisalda meediat"
 
-#: ../src/sj-metadata-musicbrainz.c:484
+#: ../src/sj-metadata-musicbrainz.c:487
 #, c-format
-msgid "Device '%s' could not be opened. Check the access permissions on the device."
+msgid ""
+"Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "Seadet '%s' ei suudetud avada. Kontrolli seadme juurdepääsuõiguseid."
 
-#: ../src/sj-metadata-musicbrainz.c:520
+#: ../src/sj-metadata-musicbrainz.c:523
 msgid "Various"
 msgstr "Erinevad"
 
@@ -562,9 +627,7 @@ msgstr "Selle CD jaoks pole täielikke metaandmeid"
 msgid "Could not create CD lookup thread"
 msgstr "Plaadinime lahendamiseks vajaliku lõime pole võimalik luua"
 
-#: ../src/sj-play.c:192
-#: ../src/sj-play.c:430
-#: ../src/sj-play.c:477
+#: ../src/sj-play.c:201 ../src/sj-play.c:457 ../src/sj-play.c:507
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -575,126 +638,143 @@ msgstr ""
 "\n"
 "Põhjus: %s"
 
-#: ../src/sj-play.c:345
+#: ../src/sj-play.c:364
 msgid "Failed to create CD source element"
 msgstr "Tõrge CD allika loomisel"
 
-#: ../src/sj-play.c:365
+#: ../src/sj-play.c:389
 msgid "Failed to link pipeline"
 msgstr "Tõrge konveieri ühendamisel"
 
-#: ../src/sj-play.c:371
+#: ../src/sj-play.c:395
 msgid "Failed to create audio output"
 msgstr "Tõrge audioväljundi loomisel"
 
-#: ../src/sj-play.c:587
+#: ../src/sj-play.c:618
 #, c-format
 msgid "Seeking to %s"
 msgstr "Hüppamine positsioonile %s"
 
-#: ../src/sj-prefs.c:52
+#: ../src/sj-prefs.c:51
 msgid "Album Artist, Album Title"
 msgstr "Albumi esitaja, albumi pealkiri"
 
-#: ../src/sj-prefs.c:53
+#: ../src/sj-prefs.c:52
 msgid "Album Artist (sortable), Album Title"
 msgstr "Albumi esitaja (sorditav), albumi pealkiri"
 
-#: ../src/sj-prefs.c:54
+#: ../src/sj-prefs.c:53
 msgid "Track Artist, Album Title"
 msgstr "Loo esitaja, albumi pealkiri"
 
-#: ../src/sj-prefs.c:55
+#: ../src/sj-prefs.c:54
 msgid "Track Artist (sortable), Album Title"
 msgstr "Loo esitaja (sorditav), albumi pealkiri"
 
-#: ../src/sj-prefs.c:56
+#: ../src/sj-prefs.c:55
 msgid "Album Title"
 msgstr "Albumi pealkiri"
 
-#: ../src/sj-prefs.c:57
+#: ../src/sj-prefs.c:56
 msgid "Album Artist"
 msgstr "Albumi esitaja"
 
-#: ../src/sj-prefs.c:58
+#: ../src/sj-prefs.c:57
 msgid "Album Artist (sortable)"
 msgstr "Albumi esitaja (sorditav)"
 
-#: ../src/sj-prefs.c:59
+#: ../src/sj-prefs.c:58
 msgid "Album Artist - Album Title"
 msgstr "Albumi esitaja - albumi pealkiri"
 
-#: ../src/sj-prefs.c:60
+#: ../src/sj-prefs.c:59
 msgid "Album Artist (sortable) - Album Title"
 msgstr "Albumi esitaja (sorditav) - albumi pealkiri"
 
-#: ../src/sj-prefs.c:61
+#: ../src/sj-prefs.c:60
 msgid "[none]"
 msgstr "[puudub]"
 
-#: ../src/sj-prefs.c:66
+#: ../src/sj-prefs.c:65
 msgid "Number - Title"
 msgstr "Number - pealkiri"
 
-#: ../src/sj-prefs.c:67
+#: ../src/sj-prefs.c:66
 msgid "Track Title"
 msgstr "Loo pealkiri"
 
-#: ../src/sj-prefs.c:68
+#: ../src/sj-prefs.c:67
 msgid "Track Artist - Track Title"
 msgstr "Loo esitaja - loo pealkiri"
 
-#: ../src/sj-prefs.c:69
+#: ../src/sj-prefs.c:68
 msgid "Track Artist (sortable) - Track Title"
 msgstr "Loo esitaja (sorditav) - loo pealkiri"
 
-#: ../src/sj-prefs.c:70
+#: ../src/sj-prefs.c:69
 msgid "Number. Track Artist - Track Title"
 msgstr "Number. Loo esitaja - Loo pealkiri"
 
 #. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
-#: ../src/sj-prefs.c:72
+#: ../src/sj-prefs.c:71
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Number-Lugu Esitaja-Lugu Pealkiri (väiketähed)"
 
+#: ../src/sj-prefs.c:251
+msgid "Example Path"
+msgstr "Näidisrada"
+
 #~ msgid "Album Artist's Sortable Name"
 #~ msgstr "Albumi esitaja sorditav nimi"
+
 #~ msgid "Track Artist"
 #~ msgstr "Loo esitaja"
+
 #~ msgid "Track Artist's Sortable Name"
 #~ msgstr "Loo esitaja sorditav nimi"
+
 #~ msgid "<i>path_example_label</i>"
 #~ msgstr "<i>path_example_label</i>"
-#~ msgid "Example Path:"
-#~ msgstr "Näidisrada:"
+
 #~ msgid "label"
 #~ msgstr "etikett"
+
 #~ msgid ""
 #~ "Paranoia mode, 3 settings: 0 (no paranoia), 4 (cdda2wav-style overlap "
 #~ "checking) and 255 (full paranoia)"
 #~ msgstr ""
 #~ "Paranoia režiim, 3 võimalikku sätet: 0 (ära kasuta), 4 (cdda2wav-stiilis "
 #~ "kattumise kontroll) ja 255 (täielik paranoia)"
+
 #~ msgid "Could not seek to track"
 #~ msgstr "Rada ei suudeta leida"
+
 #~ msgid "This CD was not found.\n"
 #~ msgstr "Seda plaati ei leitud.\n"
+
 #~ msgid "Sound Juicer CD Ripper"
 #~ msgstr "Sound Juicer plaadirippija"
+
 #~ msgid "<b>Album Progress</b>"
 #~ msgstr "<b>Albumi edenemine</b>"
+
 #~ msgid "<b>Track Progress</b>"
 #~ msgstr "<b>Raja edenemine</b>"
+
 #~ msgid "Progress"
 #~ msgstr "Edenemine"
+
 #~ msgid "Unknown"
 #~ msgstr "Tundmatu"
+
 #~ msgid "Extracting '%s'"
 #~ msgstr "Võtan rada '%s'"
+
 #~ msgid "%d:%02d (at %0.1fx)"
 #~ msgstr "%d:%02d (%0.1fx)"
+
 #~ msgid "Unknown (at 0.0x)"
 #~ msgstr "Tundmatu (kiirusel 0.0x)"
+
 #~ msgid "_CD"
 #~ msgstr "_Plaat"
-
