@@ -561,21 +561,6 @@ void eject_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gp
   }
 }
 
-/**
- * The GConf key for audio volume changes
- */
-void audio_volume_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
-{
-  g_assert (strcmp (entry->key, GCONF_AUDIO_VOLUME) == 0);
-  
- GtkWidget *volb = glade_xml_get_widget (glade, "volume_button");
- if (entry->value == NULL) {
-    bacon_volume_button_set_value (BACON_VOLUME_BUTTON (volb), 1.0);
-  } else {
-  	bacon_volume_button_set_value (BACON_VOLUME_BUTTON (volb), gconf_value_get_float (entry->value));
-  }
-}
-
 static void
 metadata_cb (SjMetadata *m, GList *albums, GError *error)
 {
@@ -1253,7 +1238,7 @@ int main (int argc, char **argv)
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
 
-  ctx = g_option_context_new (("- Extract music from your CDs"));
+  ctx = g_option_context_new ("- Sound Juicer");
   g_option_context_add_main_entries (ctx, entries, GETTEXT_PACKAGE);  
   g_option_context_add_group (ctx, gst_init_get_option_group ());
   g_option_context_set_ignore_unknown_options (ctx, TRUE);
@@ -1305,7 +1290,6 @@ int main (int argc, char **argv)
   gconf_client_notify_add (gconf_client, GCONF_PARANOIA, paranoia_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_PATH_PATTERN, path_pattern_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_FILE_PATTERN, file_pattern_changed_cb, NULL, NULL, NULL);
-  gconf_client_notify_add (gconf_client, GCONF_AUDIO_VOLUME, audio_volume_changed_cb, NULL, NULL, NULL);
   gconf_client_add_dir (gconf_client, GCONF_PROXY_ROOT, GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
   gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY_ENABLE, http_proxy_enable_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY, http_proxy_changed_cb, NULL, NULL, NULL);
@@ -1462,7 +1446,6 @@ int main (int argc, char **argv)
   paranoia_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PARANOIA, NULL, TRUE, NULL), NULL);
   strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);
   eject_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_EJECT, NULL, TRUE, NULL), NULL);
-  audio_volume_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_AUDIO_VOLUME, NULL, TRUE, NULL), NULL);
   if (device == NULL) {
     device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), GINT_TO_POINTER (TRUE));
   } else {

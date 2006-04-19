@@ -141,7 +141,6 @@ extern GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer;
 #define GCONF_STRIP GCONF_ROOT "/strip-special"
 #define GCONF_MUSICBRAINZ_SERVER GCONF_ROOT "/musicbrainz_server"
 #define GCONF_WINDOW GCONF_ROOT "/window"
-#define GCONF_AUDIO_VOLUME GCONF_ROOT "/volume"
 
 #define GCONF_PROXY_ROOT "/system/http_proxy"
 #define GCONF_HTTP_PROXY_ENABLE GCONF_PROXY_ROOT "/use_http_proxy"

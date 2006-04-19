@@ -589,8 +589,7 @@ on_volume_changed (GtkWidget * volb, gpointer data)
 
     volume = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "vol");
     g_object_set (G_OBJECT (volume), "volume", vol, NULL);
-  }  
-  gconf_client_set_float (gconf_client, GCONF_AUDIO_VOLUME, vol, NULL);
+  }
 }
 
 /*
