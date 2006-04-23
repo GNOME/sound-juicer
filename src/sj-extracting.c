@@ -306,7 +306,7 @@ pop_and_extract (void)
 		
     /* Update the progress bars */
     gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (progress_bar),
-                                   CLAMP (1.0 - ((g_list_length (pending) + 1)  / (float)total_extracting), 0.0, 1.0));
+                                   CLAMP ((float)current_duration / (float)total_duration, 0.0, 1.0));
 
     /* Now actually do the extraction */
     sj_extractor_extract_track (extractor, track, file_path, &error);
