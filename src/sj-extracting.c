@@ -491,12 +491,15 @@ show_finished_dialog (void)
 static void
 on_completion_cb (SjExtractor *extractor, gpointer data)
 {
-  gtk_list_store_set (track_store, &track->iter,
-                    COLUMN_STATE, STATE_IDLE, -1);
+  /* Only manipulate the track state if we have an album, as we might be here if
+     the disk was ejected mid-rip. */
+  if (gtk_tree_model_iter_n_children (GTK_TREE_MODEL (track_store), NULL) > 0) {
+    /* Remove the track state */
+    gtk_list_store_set (track_store, &track->iter, COLUMN_STATE, STATE_IDLE, -1);
+    /* Uncheck the Extract check box */
+    gtk_list_store_set (track_store, &track->iter, COLUMN_EXTRACT, FALSE, -1);
+  }
   
-  /* Uncheck the Extract check box */
-  gtk_list_store_set (track_store, &track->iter, COLUMN_EXTRACT, FALSE, -1);
-
   if (pending == NULL) {
     show_finished_dialog ();
     if (autostart) {
