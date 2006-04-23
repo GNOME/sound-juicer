@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer 2.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-24 10:01+0100\n"
-"PO-Revision-Date: 2006-02-23 12:51+0800\n"
+"POT-Creation-Date: 2006-04-17 21:51+0200\n"
+"PO-Revision-Date: 2006-04-18 10:37+0800\n"
 "Last-Translator: Woodman Tuen <wmtuen@gmail.com>\n"
 "Language-Team: Chinesei (Taiwan) <community@linuxhall.org>\n"
 "MIME-Version: 1.0\n"
@@ -109,9 +109,8 @@ msgstr "跳至下一首歌曲"
 msgid "Skip to the previous track"
 msgstr "跳回上一首歌曲"
 
-#: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:54
-#: ../src/sj-extractor.c:509 ../src/sj-main.c:165 ../src/sj-main.c:167
-#: ../src/sj-main.c:1233
+#: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:54 ../src/sj-main.c:165
+#: ../src/sj-main.c:167 ../src/sj-main.c:1253
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -299,7 +298,7 @@ msgstr ""
 "Woodman Tuen <wmtuen@gmail.com>, 2005\n"
 "Abel Cheung <abel@oaka.org>, 2003, 2004"
 
-#: ../src/sj-extracting.c:207
+#: ../src/sj-extracting.c:214
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -308,17 +307,17 @@ msgstr ""
 "檔案名為‘%s’已經存在，大小為 %s。\n"
 "你想略過這首歌曲，還是要覆寫檔案？"
 
-#: ../src/sj-extracting.c:211
+#: ../src/sj-extracting.c:218
 msgid "_Skip"
 msgstr "略過(_S)"
 
-#: ../src/sj-extracting.c:212
+#: ../src/sj-extracting.c:219
 msgid "_Overwrite"
 msgstr "覆寫(_O)"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:274 ../src/sj-extracting.c:309
-#: ../src/sj-extracting.c:519
+#: ../src/sj-extracting.c:281 ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:522
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -327,21 +326,21 @@ msgstr ""
 "Sound Juicer 無法擷取這光碟。\n"
 "原因：%s"
 
-#: ../src/sj-extracting.c:359
+#: ../src/sj-extracting.c:366
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "預計剩餘時間：%d:%02d (在 %0.1f×)"
 
-#: ../src/sj-extracting.c:361
+#: ../src/sj-extracting.c:368
 msgid "Estimated time left: unknown"
 msgstr "預計剩餘時間：不明"
 
 #. TODO: need to have a better message here
-#: ../src/sj-extracting.c:457
+#: ../src/sj-extracting.c:463
 msgid "The tracks have been copied successfully."
 msgstr "歌曲已經複製完成。"
 
-#: ../src/sj-extracting.c:462
+#: ../src/sj-extracting.c:468
 msgid "_Eject"
 msgstr "退出碟片(_E)"
 
@@ -353,37 +352,41 @@ msgstr "音效設定組合"
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "音效編碼所使用的 GNOME 音效設定組合"
 
-#: ../src/sj-extractor.c:345
+#: ../src/sj-extractor.c:276
 msgid "Could not create GStreamer CD reader"
 msgstr "無法建立 GStreamer CD 讀取程式"
 
-#: ../src/sj-extractor.c:365
+#: ../src/sj-extractor.c:298
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "無法替 %s 建立 GStreamer 編碼器"
 
-#: ../src/sj-extractor.c:376
+#: ../src/sj-extractor.c:309
 msgid "Could not create GStreamer file output"
 msgstr "無法產生 GStreamer 檔案輸出程序"
 
-#: ../src/sj-extractor.c:410
+#: ../src/sj-extractor.c:321
+msgid "Could not link pipeline"
+msgstr "無法連接管道"
+
+#: ../src/sj-extractor.c:343
 msgid "Could not get current track position"
 msgstr "無法取得目前歌曲的位置"
 
-#: ../src/sj-extractor.c:437
+#: ../src/sj-extractor.c:370
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr "擷取程式物件是無效的。這是壞的，請使用終端機檢查錯誤。"
 
-#: ../src/sj-extractor.c:582
+#: ../src/sj-extractor.c:514
 msgid "Could not get track start position"
 msgstr "無法取得歌曲開始的位置"
 
-#: ../src/sj-extractor.c:614
+#: ../src/sj-extractor.c:546
 msgid "The plugin necessary for CD access was not found"
 msgstr "找不到存取光碟所需的外掛程式"
 
-#: ../src/sj-extractor.c:622
+#: ../src/sj-extractor.c:554
 msgid "The plugin necessary for file access was not found"
 msgstr "找不到存取檔案所需的外掛程式"
 
@@ -395,8 +398,8 @@ msgstr "擷取(_X)"
 msgid "Could not start Sound Juicer"
 msgstr "無法啟動 Sound Juicer"
 
-#: ../src/sj-main.c:181 ../src/sj-main.c:580 ../src/sj-main.c:688
-#: ../src/sj-main.c:779 ../src/sj-main.c:971
+#: ../src/sj-main.c:181 ../src/sj-main.c:583 ../src/sj-main.c:691
+#: ../src/sj-main.c:782 ../src/sj-main.c:974
 msgid "Reason"
 msgstr "原因"
 
@@ -408,71 +411,71 @@ msgstr "請參閱說明文件以取得協助。"
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "你正在擷取光碟。你現在想離開，或是要繼續？"
 
-#: ../src/sj-main.c:287 ../src/sj-main.c:389
+#: ../src/sj-main.c:287 ../src/sj-main.c:392
 msgid "(unknown)"
 msgstr "（不明）"
 
-#: ../src/sj-main.c:431 ../src/sj-main.c:1364
+#: ../src/sj-main.c:434 ../src/sj-main.c:1393
 msgid "Title"
 msgstr "標題"
 
-#: ../src/sj-main.c:437 ../src/sj-main.c:1373
+#: ../src/sj-main.c:440 ../src/sj-main.c:1402
 msgid "Artist"
 msgstr "藝人"
 
-#: ../src/sj-main.c:578 ../src/sj-main.c:686 ../src/sj-main.c:777
+#: ../src/sj-main.c:581 ../src/sj-main.c:689 ../src/sj-main.c:780
 msgid "Could not read the CD"
 msgstr "無法讀取光碟"
 
-#: ../src/sj-main.c:579 ../src/sj-main.c:687
+#: ../src/sj-main.c:582 ../src/sj-main.c:690
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer 無法讀取在本光碟上的曲目清單。"
 
 #. Set statusbar message
-#: ../src/sj-main.c:659
+#: ../src/sj-main.c:662
 msgid "Retrieving track listing...please wait."
 msgstr "正在取得曲目清單....請稍候。"
 
-#: ../src/sj-main.c:750
+#: ../src/sj-main.c:753
 msgid "Extracting audio from CD"
 msgstr "從光碟中擷取音樂"
 
-#: ../src/sj-main.c:771
+#: ../src/sj-main.c:774
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer 無法存取光碟裝置‘%s’"
 
-#: ../src/sj-main.c:850
+#: ../src/sj-main.c:853
 msgid "No CD-ROM drives found"
 msgstr "找不到光碟機"
 
-#: ../src/sj-main.c:851
+#: ../src/sj-main.c:854
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer 找不到任何可以讀取資料的光碟機。"
 
-#: ../src/sj-main.c:882
+#: ../src/sj-main.c:885
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "在系統裏找不到你所指定的音效編碼設定組合。"
 
-#: ../src/sj-main.c:884
+#: ../src/sj-main.c:887
 msgid "_Change Profile"
 msgstr "更改設定組合(_C)"
 
-#: ../src/sj-main.c:969
+#: ../src/sj-main.c:972
 msgid "Could not open URL"
 msgstr "無法開啟 URL"
 
-#: ../src/sj-main.c:970
+#: ../src/sj-main.c:973
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer 無法開啟提交 URL"
 
-#: ../src/sj-main.c:1075
+#: ../src/sj-main.c:1082
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "不明的欄 %d 已被編輯"
 
-#: ../src/sj-main.c:1131 ../src/sj-prefs.c:103
+#: ../src/sj-main.c:1138 ../src/sj-prefs.c:102
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -481,35 +484,35 @@ msgstr ""
 "無法顯示 Sound Juicer 的說明文件\n"
 "%s"
 
-#: ../src/sj-main.c:1223
+#: ../src/sj-main.c:1231
 msgid "Start extracting immediately"
 msgstr "立即開始擷取"
 
-#: ../src/sj-main.c:1224
+#: ../src/sj-main.c:1232
 msgid "Start playing immediately"
 msgstr "立即開始播放"
 
-#: ../src/sj-main.c:1225
+#: ../src/sj-main.c:1233
 msgid "What CD device to read"
 msgstr "讀取那個 CD 裝置"
 
-#: ../src/sj-main.c:1225
+#: ../src/sj-main.c:1233
 msgid "DEVICE"
 msgstr "DEVICE"
 
-#: ../src/sj-main.c:1270
+#: ../src/sj-main.c:1278
 msgid "Could not create GConf client.\n"
 msgstr "無法產生 GConf 客戶端。\n"
 
-#: ../src/sj-main.c:1300
+#: ../src/sj-main.c:1308
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "無法讀取 Sound Juicer 介面檔案。"
 
-#: ../src/sj-main.c:1349
+#: ../src/sj-main.c:1378
 msgid "Track"
 msgstr "歌曲編號"
 
-#: ../src/sj-main.c:1384
+#: ../src/sj-main.c:1413
 msgid "Duration"
 msgstr "長度"
 
@@ -525,61 +528,61 @@ msgstr "無法讀取光碟"
 msgid "Cannot create MusicBrainz client"
 msgstr "無法產生 MusicBrainz 客戶端"
 
-#: ../src/sj-metadata-musicbrainz.c:220 ../src/sj-metadata-musicbrainz.c:475
+#: ../src/sj-metadata-musicbrainz.c:219 ../src/sj-metadata-musicbrainz.c:490
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "無法讀取光碟：%s"
 
-#: ../src/sj-metadata-musicbrainz.c:227 ../src/sj-metadata-musicbrainz.c:514
+#: ../src/sj-metadata-musicbrainz.c:226 ../src/sj-metadata-musicbrainz.c:528
 msgid "Unknown Artist"
 msgstr "藝人不詳"
 
-#: ../src/sj-metadata-musicbrainz.c:228 ../src/sj-metadata-musicbrainz.c:527
+#: ../src/sj-metadata-musicbrainz.c:227 ../src/sj-metadata-musicbrainz.c:539
 msgid "Unknown Title"
 msgstr "標題不詳"
 
-#: ../src/sj-metadata-musicbrainz.c:234
+#: ../src/sj-metadata-musicbrainz.c:233
 #, c-format
 msgid "Track %d"
 msgstr "歌曲 %d"
 
-#: ../src/sj-metadata-musicbrainz.c:262
+#: ../src/sj-metadata-musicbrainz.c:261
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
 msgstr "MusicBrainz 詮釋資料格式物件是無效的。這是壞的，請使用終端機檢查錯誤。"
 
-#: ../src/sj-metadata-musicbrainz.c:417 ../src/sj-metadata-musicbrainz.c:424
-#: ../src/sj-metadata-musicbrainz.c:434
+#: ../src/sj-metadata-musicbrainz.c:428 ../src/sj-metadata-musicbrainz.c:435
+#: ../src/sj-metadata-musicbrainz.c:449
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "無法查詢這片光碟：%s\n"
 
-#: ../src/sj-metadata-musicbrainz.c:469
+#: ../src/sj-metadata-musicbrainz.c:484
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "裝置‘%s’中沒有任何媒體"
 
-#: ../src/sj-metadata-musicbrainz.c:472
+#: ../src/sj-metadata-musicbrainz.c:487
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "無法開啟裝置‘%s’。請檢查是否有權限存取該裝置。"
 
 # This mean various artists -- Abel
-#: ../src/sj-metadata-musicbrainz.c:508
+#: ../src/sj-metadata-musicbrainz.c:523
 msgid "Various"
 msgstr "不同藝人"
 
-#: ../src/sj-metadata-musicbrainz.c:552
+#: ../src/sj-metadata-musicbrainz.c:564
 msgid "Incomplete metadata for this CD"
 msgstr "這光碟的元資料 (metadata) 不完整。"
 
-#: ../src/sj-metadata-musicbrainz.c:643
+#: ../src/sj-metadata-musicbrainz.c:655
 msgid "Could not create CD lookup thread"
 msgstr "無法建立光碟查詢執行緒。"
 
-#: ../src/sj-play.c:192 ../src/sj-play.c:430 ../src/sj-play.c:477
+#: ../src/sj-play.c:201 ../src/sj-play.c:457 ../src/sj-play.c:507
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -590,105 +593,96 @@ msgstr ""
 "\n"
 "原因：%s"
 
-#: ../src/sj-play.c:345
+#: ../src/sj-play.c:364
 msgid "Failed to create CD source element"
 msgstr "無法建立 CD 來源元素"
 
-#: ../src/sj-play.c:365
+#: ../src/sj-play.c:389
 msgid "Failed to link pipeline"
-msgstr "無法連接 pipeline"
+msgstr "無法連接管線"
 
-#: ../src/sj-play.c:371
+#: ../src/sj-play.c:395
 msgid "Failed to create audio output"
 msgstr "無法建立音效輸出"
 
-#: ../src/sj-play.c:587
+#: ../src/sj-play.c:617
 #, c-format
 msgid "Seeking to %s"
 msgstr "移至 %s"
 
-#: ../src/sj-prefs.c:52
+#: ../src/sj-prefs.c:51
 msgid "Album Artist, Album Title"
 msgstr "專輯藝人、專輯標題"
 
-#: ../src/sj-prefs.c:53
+#: ../src/sj-prefs.c:52
 msgid "Album Artist (sortable), Album Title"
 msgstr "專輯藝人（可排序），專輯標題"
 
-#: ../src/sj-prefs.c:54
+#: ../src/sj-prefs.c:53
 msgid "Track Artist, Album Title"
 msgstr "歌曲藝人、專輯標題"
 
-#: ../src/sj-prefs.c:55
+#: ../src/sj-prefs.c:54
 msgid "Track Artist (sortable), Album Title"
 msgstr "歌曲藝人（可排序），專輯標題"
 
-#: ../src/sj-prefs.c:56 ../src/sj-prefs.c:202
+#: ../src/sj-prefs.c:55
 msgid "Album Title"
 msgstr "專輯標題"
 
-#. title
-#: ../src/sj-prefs.c:57 ../src/sj-prefs.c:203
+#: ../src/sj-prefs.c:56
 msgid "Album Artist"
 msgstr "專輯藝人"
 
-#: ../src/sj-prefs.c:58
+#: ../src/sj-prefs.c:57
 msgid "Album Artist (sortable)"
 msgstr "專輯藝人（可排序）"
 
-#: ../src/sj-prefs.c:59
+#: ../src/sj-prefs.c:58
 msgid "Album Artist - Album Title"
 msgstr "專輯藝人 - 專輯標題"
 
-#: ../src/sj-prefs.c:60
+#: ../src/sj-prefs.c:59
 msgid "Album Artist (sortable) - Album Title"
 msgstr "專輯藝人（可排序）- 專輯標題"
 
-#: ../src/sj-prefs.c:61
+#: ../src/sj-prefs.c:60
 msgid "[none]"
 msgstr "[沒有]"
 
-#: ../src/sj-prefs.c:66
+#: ../src/sj-prefs.c:65
 msgid "Number - Title"
 msgstr "數字 - 標題"
 
-#. album
-#. track number
-#: ../src/sj-prefs.c:67 ../src/sj-prefs.c:215
+#: ../src/sj-prefs.c:66
 msgid "Track Title"
 msgstr "歌曲標題"
 
-#: ../src/sj-prefs.c:68
+#: ../src/sj-prefs.c:67
 msgid "Track Artist - Track Title"
 msgstr "歌曲藝人 - 歌曲標題"
 
-#: ../src/sj-prefs.c:69
+#: ../src/sj-prefs.c:68
 msgid "Track Artist (sortable) - Track Title"
 msgstr "歌曲藝人（可排序） - 歌曲標題"
 
-#: ../src/sj-prefs.c:70
+#: ../src/sj-prefs.c:69
 msgid "Number. Track Artist - Track Title"
 msgstr "數字. 歌曲藝人 - 歌曲標題"
 
 #. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
-#: ../src/sj-prefs.c:72
+#: ../src/sj-prefs.c:71
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "數字-歌曲藝人-歌曲標題（小寫）"
 
-#. artist
-#: ../src/sj-prefs.c:204
-msgid "Album Artist's Sortable Name"
-msgstr "專輯藝人的可排序名稱"
+#~ msgid "Album Artist's Sortable Name"
+#~ msgstr "專輯藝人的可排序名稱"
 
-#. title
-#: ../src/sj-prefs.c:216
-msgid "Track Artist"
-msgstr "歌曲藝人"
+#~ msgid "Track Artist"
+#~ msgstr "歌曲藝人"
 
-#. artist
-#: ../src/sj-prefs.c:217
-msgid "Track Artist's Sortable Name"
-msgstr "歌曲藝人的可排序名稱"
+#~ msgid "Track Artist's Sortable Name"
+#~ msgstr "歌曲藝人的可排序名稱"
 
 #~ msgid "<i>path_example_label</i>"
 #~ msgstr "<i>path_example_label</i>"
