@@ -72,7 +72,7 @@ AC_CHECK_FUNCS(mb_SetProxyCreds)
 LIBS=$oldlibs
 
 # Find the optional dependency libcdio
-PKG_CHECK_MODULES(CDIO, libcdio, HAVE_CDIO=yes, HAVE_CDIO=no)
+PKG_CHECK_MODULES(CDIO, libcdio >= 0.70, HAVE_CDIO=yes, HAVE_CDIO=no)
 if test "x$HAVE_CDIO" = "xyes"; then
         AM_CONDITIONAL(HAVE_CDIO, true)
 else
