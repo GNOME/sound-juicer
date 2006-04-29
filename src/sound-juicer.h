@@ -81,6 +81,14 @@ typedef enum {
   STATE_EXTRACTING
 } TrackState;
 
+typedef enum {
+  DEBUG_ALL = 1 << 0,
+  DEBUG_CD = 1 << 1,
+  DEBUG_METADATA = 1 << 2,
+  DEBUG_EXTRACTING = 1 << 3,
+  DEBUG_PLAYING = 1 << 4,
+} SjDebugDomain;
+
 /**
  * The GtkTreeModel which all of the tracks are stored in
  */
@@ -127,6 +135,11 @@ extern gboolean autostart;
 extern GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer;
 
 /**
+ * Debug
+ */
+void sj_debug (SjDebugDomain domain, const gchar* format, ...);
+
+/**
  * GConf key names
  */
 #define GCONF_ROOT "/apps/sound-juicer"
@@ -162,12 +175,5 @@ extern GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer;
 
 /* TODO: need to add a SjWindow object or something */
 void sj_main_set_title (const char* detail);
-
-/* Debug macros */
-#ifdef ENABLE_DEBUG
-#define d(x) x
-#else
-#define d(x)
-#endif
 
 #endif /* SOUND_JUICER_H */

@@ -93,6 +93,8 @@ gboolean autostart = FALSE, autoplay = FALSE;
 /* For the default drive stuff, TODO: remove */
 static GList *cdroms = NULL;
 
+static guint debug_flags;
+
 #define DEFAULT_PARANOIA 4
 #define RAISE_WINDOW "raise-window"
 #define SOURCE_GLADE "../data/sound-juicer.glade"
@@ -168,6 +170,42 @@ sj_main_set_title (const char* detail)
     gtk_window_set_title (GTK_WINDOW (main_window), s);
     g_free (s);
   }
+}
+
+void sj_debug (SjDebugDomain domain, const gchar* format, ...)
+{
+  va_list args;
+  gchar *string;
+
+  if (debug_flags & domain) {
+    va_start (args, format);
+    string = g_strdup_vprintf (format, args);
+    va_end (args);
+    g_printerr (string);
+    g_free (string);
+  }
+}
+
+static void sj_debug_init (void)
+{
+  const char *str;
+  const GDebugKey debug_keys[] = {
+    { "all", DEBUG_ALL },
+    { "cd", DEBUG_CD },
+    { "metadata", DEBUG_METADATA },
+    { "playing", DEBUG_PLAYING },
+    { "extracting", DEBUG_EXTRACTING }
+  };
+
+  str = g_getenv ("SJ_DEBUG");
+  if (str != NULL) {
+    debug_flags = g_parse_debug_string (str, debug_keys, G_N_ELEMENTS (debug_keys));
+  } else {
+    debug_flags = 0;
+  }
+  
+  if (debug_flags & DEBUG_ALL)
+    debug_flags = 0xFFFFFFFF;
 }
 
 static void error_on_start (GError *error)
@@ -676,14 +714,15 @@ static void reread_cd (gboolean ignore_no_media)
   /* Set statusbar message */
   gtk_statusbar_push(GTK_STATUSBAR(status_bar), 0, _("Retrieving track listing...please wait."));
 
-  d(if (!drive) g_printerr("Attempting to re-read NULL drive\n"));
+  if (!drive)
+    sj_debug (DEBUG_CD, "Attempting to re-read NULL drive\n");
 
   g_free (current_submit_url);
   current_submit_url = NULL;
   gtk_widget_set_sensitive (submit_menuitem, FALSE);
 
   if (!is_audio_cd (drive)) {
-    d(g_printerr("Media is not an audio CD\n"));
+    sj_debug (DEBUG_CD, "Media is not an audio CD\n");
     update_ui_for_album (NULL);
     gtk_statusbar_pop(GTK_STATUSBAR(status_bar), 0);
     if (realized)
@@ -730,7 +769,7 @@ media_added_cb (NautilusBurnDrive *drive,
     /* FIXME: recover? */
   }
 
-  d(g_printerr ("** media added to device %s\n", drive->device));
+  sj_debug (DEBUG_CD, "Media added to device %s\n", drive->device);
   reread_cd (TRUE);
 }
 
@@ -742,7 +781,7 @@ media_removed_cb (NautilusBurnDrive *drive,
     /* FIXME: recover? */
   }
 
-  d(g_printerr ("** media removed from device %s\n", drive->device));
+  sj_debug (DEBUG_CD, "Media removed from device %s\n", drive->device);
   stop_ui_hack ();
   update_ui_for_album (NULL);
 }
@@ -1266,6 +1305,8 @@ int main (int argc, char **argv)
                       NULL);
 
   g_set_application_name (_("Sound Juicer"));
+
+  sj_debug_init ();
 
   sj_stock_init ();
 
