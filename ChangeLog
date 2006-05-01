@@ -1,3 +1,17 @@
+2006-05-01  Wouter Bolsterlee  <uws+gnome@xs4all.nl>
+
+	* po/LINGUAS: Remove this file and revert to the old
+	method of listing all linguas in configure.ac directly
+	instead of a separate file. The temporary po/LINGUAS
+	hack causes problems with newer intltool versions (see
+	below). HEAD uses the correct method using
+	IT_PROG_INTLTOOL, which should not be used for the
+	gnome-2-14 branch.
+
+	* configure.in: Put ALL_LINGUAS on one line to fix the
+	build with newer intltools. See #338423 and related
+	gnome-applets bug #339007.
+
 2006-04-23  Ross Burton  <ross@burtonini.com>
 
 	* src/sj-extracting.c:
