@@ -599,16 +599,29 @@ window_binding_perform_scheduled_sync (WindowBinding *binding)
         if (binding->bind_size) {
                 int width, height;
                 char *key;
+                GdkWindowState state;
 
-                gtk_window_get_size (binding->window, &width, &height);
+                state = gdk_window_get_state (GTK_WIDGET (binding->window)->window);
 
-                key = g_strconcat (binding->key_prefix, "_width", NULL);
-                gconf_client_set_int (bridge->client, key, width, NULL);
-                g_free (key);
+                if (state & GDK_WINDOW_STATE_MAXIMIZED) {
+                        key = g_strconcat (binding->key_prefix, "_maximized", NULL);
+                        gconf_client_set_bool (bridge->client, key, TRUE, NULL);
+                        g_free (key);
+                } else {
+                        gtk_window_get_size (binding->window, &width, &height);
 
-                key = g_strconcat (binding->key_prefix, "_height", NULL);
-                gconf_client_set_int (bridge->client, key, height, NULL);
-                g_free (key);
+                        key = g_strconcat (binding->key_prefix, "_width", NULL);
+                        gconf_client_set_int (bridge->client, key, width, NULL);
+                        g_free (key);
+
+                        key = g_strconcat (binding->key_prefix, "_height", NULL);
+                        gconf_client_set_int (bridge->client, key, height, NULL);
+                        g_free (key);
+
+                        key = g_strconcat (binding->key_prefix, "_maximized", NULL);
+                        gconf_client_set_bool (bridge->client, key, FALSE, NULL);
+                        g_free (key);
+                }
         }
 
         if (binding->bind_pos) {
@@ -652,6 +665,17 @@ window_binding_configure_event_cb (GtkWindow         *window,
         return FALSE;
 }
 
+/* Called when the window state is being changed */
+static gboolean
+window_binding_state_event_cb (GtkWindow           *window,
+                               GdkEventWindowState *event,
+                               WindowBinding       *binding)
+{
+        window_binding_perform_scheduled_sync (binding);
+
+        return FALSE;
+}
+
 /* Called when the window is being unmapped */
 static gboolean
 window_binding_unmap_cb (GtkWindow     *window,
@@ -690,7 +714,8 @@ window_binding_window_destroyed (gpointer user_data,
  * @bind_pos: TRUE to bind the position of @window
  * 
  * On calling this function @window will be resized to the values
- * specified by "@key_prefix<!-- -->_width" and "@key_prefix<!-- -->_height" if
+ * specified by "@key_prefix<!-- -->_width" and "@key_prefix<!-- -->_height"
+ * and maximixed if "@key_prefix<!-- -->_maximized is TRUE if
  * @bind_size is TRUE, and moved to the values specified by
  * "@key_prefix<!-- -->_x" and "@key_prefix<!-- -->_y" if @bind_pos is TRUE.
  * The respective GConf values will be updated when the window is resized
@@ -725,7 +750,7 @@ gconf_bridge_bind_window (GConfBridge *bridge,
         /* Set up GConf keys & sync window to GConf values */
         if (bind_size) {
                 char *key;
-                GConfValue *width_val, *height_val;
+                GConfValue *width_val, *height_val, *maximized_val;
 
                 key = g_strconcat (key_prefix, "_width", NULL);
                 width_val = gconf_client_get (bridge->client, key, NULL);
@@ -733,6 +758,10 @@ gconf_bridge_bind_window (GConfBridge *bridge,
 
                 key = g_strconcat (key_prefix, "_height", NULL);
                 height_val = gconf_client_get (bridge->client, key, NULL);
+                g_free (key);
+
+                key = g_strconcat (key_prefix, "_maximized", NULL);
+                maximized_val = gconf_client_get (bridge->client, key, NULL);
                 g_free (key);
 
                 if (width_val && height_val) {
@@ -747,7 +776,14 @@ gconf_bridge_bind_window (GConfBridge *bridge,
                 } else if (height_val) {
                         gconf_value_free (height_val);
                 }
-        } 
+
+                if (maximized_val) {
+                        if (gconf_value_get_bool (maximized_val)) {
+                                gtk_window_maximize (window);
+                        }
+                        gconf_value_free (maximized_val);
+                }
+        }
 
         if (bind_pos) {
                 char *key;
@@ -781,6 +817,13 @@ gconf_bridge_bind_window (GConfBridge *bridge,
                                   "configure-event",
                                   G_CALLBACK
                                         (window_binding_configure_event_cb),
+                                  binding);
+
+        binding->configure_event_id =
+                g_signal_connect (window,
+                                  "window_state_event",
+                                  G_CALLBACK
+                                        (window_binding_state_event_cb),
                                   binding);
         binding->unmap_id =
                 g_signal_connect (window,
