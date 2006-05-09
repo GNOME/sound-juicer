@@ -1,10 +1,10 @@
 AM_CPPFLAGS = \
 	-I$(top_srcdir)/libjuicer \
+	-I$(top_srcdir)/src \
 	-DGNOME_DISABLE_DEPRECATED=1 \
 	-DGTK_DISABLE_DEPRECATED=1 \
 	-DGDK_DISABLE_DEPRECATED=1 \
 	-DG_DISABLE_DEPRECATED=1 \
-	-I$(top_srcdir)/src \
 	@MUSICBRAINZ_CFLAGS@ @GSTREAMER_CFLAGS@ \
 	@MEDIA_PROFILES_CFLAGS@ @BURN_CFLAGS@ @UI_CFLAGS@
 
@@ -17,6 +17,6 @@ mb_test_SOURCES = \
 	$(top_srcdir)/libjuicer/sj-metadata.c \
 	$(top_srcdir)/libjuicer/sj-metadata-musicbrainz.c \
 	$(top_srcdir)/libjuicer/sj-metadata-marshal.c \
-	$(top_srcdir)/src/sj-error.c
+	$(top_srcdir)/libjuicer/sj-error.c
 
 mb_test_LDADD = @BURN_LIBS@ @UI_LIBS@ @MUSICBRAINZ_LIBS@
