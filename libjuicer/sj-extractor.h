@@ -30,6 +30,11 @@
 
 G_BEGIN_DECLS
 
+/**
+ * What CD source to use.
+ */
+#define CD_SRC "cdparanoiasrc"
+
 #define SJ_TYPE_EXTRACTOR              (sj_extractor_get_type ())
 #define SJ_EXTRACTOR(obj)              (G_TYPE_CHECK_INSTANCE_CAST ((obj), SJ_TYPE_EXTRACTOR, SjExtractor))
 #define SJ_EXTRACTOR_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST ((klass), SJ_TYPE_EXTRACTOR, SjExtractorClass))

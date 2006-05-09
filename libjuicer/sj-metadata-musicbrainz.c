@@ -18,15 +18,19 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "sound-juicer.h"
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif /* HAVE_CONFIG_H */
 
 #include <string.h>
+#include <stdio.h>
 #include <glib-object.h>
 #include <glib/gi18n.h>
 #include <glib/gerror.h>
 #include <glib/glist.h>
 #include <glib/gstrfuncs.h>
 #include <glib/gmessages.h>
+#include <gconf/gconf-client.h>
 #include <musicbrainz/queries.h>
 #include <musicbrainz/mb_c.h>
 #include <nautilus-burn-drive.h>
@@ -55,6 +59,7 @@ static void mb_set_proxy_port (SjMetadata *metadata, const int port);
 static void mb_list_albums (SjMetadata *metadata, GError **error);
 static char *mb_get_submit_url (SjMetadata *metadata);
 
+#define GCONF_MUSICBRAINZ_SERVER "/apps/sound-juicer/musicbrainz_server"
 #define GCONF_PROXY_USE_PROXY "/system/http_proxy/use_http_proxy"
 #define GCONF_PROXY_HOST "/system/http_proxy/host"
 #define GCONF_PROXY_PORT "/system/http_proxy/port"

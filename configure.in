@@ -3,8 +3,8 @@ AC_INIT(sound-juicer, 2.15.1, http://www.burtonini.com/)
 AC_PREREQ(2.52)
 AM_INIT_AUTOMAKE([check-news 1.6])
 AC_CONFIG_MACRO_DIR([m4])
-AC_CONFIG_SRCDIR(src/sj-extractor.c)
-AM_CONFIG_HEADER(src/config.h)
+AC_CONFIG_SRCDIR(libjuicer/sj-extractor.c)
+AM_CONFIG_HEADER(config.h)
 AM_MAINTAINER_MODE
 
 # Honour user-set aclocal flags
@@ -129,6 +129,7 @@ help/Makefile
 help/sound-juicer/Makefile
 data/Makefile
 po/Makefile.in
+libjuicer/Makefile
 src/Makefile
 tests/Makefile
 ])

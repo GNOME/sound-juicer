@@ -1,4 +1,4 @@
-SUBDIRS = po data src tests help
+SUBDIRS = po data libjuicer src tests help
 
 INTLTOOL_BUILT = \
         intltool-extract \

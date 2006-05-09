@@ -32,7 +32,6 @@
 #include <gst/gst.h>
 #include <gst/tag/tag.h>
 #include <profiles/gnome-media-profiles.h>
-#include "sound-juicer.h"
 #include "sj-extractor.h"
 #include "sj-structures.h"
 #include "sj-error.h"

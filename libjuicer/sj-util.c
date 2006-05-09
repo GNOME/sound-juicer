@@ -20,7 +20,9 @@
  * Authors: Ross Burton <ross@burtonini.com>
  */
 
-#include "sound-juicer.h"
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif /* HAVE_CONFIG_H */
 #include "sj-util.h"
 
 #include <libgnomevfs/gnome-vfs-ops.h>

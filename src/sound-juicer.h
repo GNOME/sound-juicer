@@ -152,7 +152,6 @@ void sj_debug (SjDebugDomain domain, const gchar* format, ...);
 #define GCONF_AUDIO_PROFILE GCONF_ROOT "/audio_profile"
 #define GCONF_PARANOIA GCONF_ROOT "/paranoia"
 #define GCONF_STRIP GCONF_ROOT "/strip-special"
-#define GCONF_MUSICBRAINZ_SERVER GCONF_ROOT "/musicbrainz_server"
 #define GCONF_WINDOW GCONF_ROOT "/window"
 #define GCONF_AUDIO_VOLUME GCONF_ROOT "/volume"
 
@@ -167,11 +166,6 @@ void sj_debug (SjDebugDomain domain, const gchar* format, ...);
 #define SJ_STOCK_PLAYING "sj-stock-playing"
 #define SJ_STOCK_RECORDING "sj-stock-recording"
 #define SJ_STOCK_EXTRACT "sj-stock-extract"
-
-/**
- * What CD source to use.
- */
-#define CD_SRC "cdparanoiasrc"
 
 /* TODO: need to add a SjWindow object or something */
 void sj_main_set_title (const char* detail);
