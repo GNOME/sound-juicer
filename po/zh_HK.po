@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer 2.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-24 10:01+0100\n"
-"PO-Revision-Date: 2006-02-23 12:51+0800\n"
+"POT-Creation-Date: 2006-05-14 06:48+0800\n"
+"PO-Revision-Date: 2006-04-18 10:37+0800\n"
 "Last-Translator: Woodman Tuen <wmtuen@gmail.com>\n"
 "Language-Team: Chinesei (Taiwan) <community@linuxhall.org>\n"
 "MIME-Version: 1.0\n"
@@ -109,9 +109,8 @@ msgstr "跳至下一首歌曲"
 msgid "Skip to the previous track"
 msgstr "跳回上一首歌曲"
 
-#: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:54
-#: ../src/sj-extractor.c:509 ../src/sj-main.c:165 ../src/sj-main.c:167
-#: ../src/sj-main.c:1233
+#: ../data/sound-juicer.glade.h:21 ../src/sj-main.c:168 ../src/sj-main.c:170
+#: ../src/sj-main.c:1308
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -125,7 +124,7 @@ msgstr "本光碟可能多於一個專輯。請從下面選擇相應的專輯及
 msgid "_Contents"
 msgstr "內容(_C)"
 
-#: ../data/sound-juicer.glade.h:24 ../src/sj-main.c:229
+#: ../data/sound-juicer.glade.h:24 ../src/sj-main.c:268
 msgid "_Continue"
 msgstr "繼續(_C)"
 
@@ -178,11 +177,13 @@ msgid "_Submit Track Names..."
 msgstr "提交歌曲名稱(_S)..."
 
 #: ../data/sound-juicer.schemas.in.h:2
-#, no-c-format
+#, fuzzy, no-c-format
 msgid ""
 "%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
-"album artist (lowercase) %tt -- track title %tT -- track title (lowercase) %"
-"ta -- track artist %tA -- track artist (lowercase)"
+"album artist (lowercase) %as -- album artist (sortable) %aS -- album artist "
+"(sortable lowercase) %tt -- track title %tT -- track title (lowercase) %ta "
+"-- track artist %tA -- track artist (lowercase) %ts -- track artist "
+"(sortable) %tS -- track artist (sortable lowercase)"
 msgstr ""
 "%at -- 專輯標題\n"
 "%aT -- 專輯標題（小寫）\n"
@@ -197,14 +198,21 @@ msgstr ""
 msgid "Audio Profile with which to encode"
 msgstr "編碼時使用的音效設定組合"
 
-#: ../data/sound-juicer.schemas.in.h:5
-#, no-c-format
+#: ../data/sound-juicer.schemas.in.h:4
+#, fuzzy
+msgid "Audio volume"
+msgstr "音效設定組合"
+
+#: ../data/sound-juicer.schemas.in.h:6
+#, fuzzy, no-c-format
 msgid ""
 "Do not specify an extension. %at -- album title %aT -- album title "
-"(lowercase) %aa -- album artist %aA -- album artist (lowercase) %tn -- track "
+"(lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album "
+"artist (sortable) %aS -- album artist (sortable lowercase) %tn -- track "
 "number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
 "tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
-"(lowercase)"
+"(lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable "
+"lowercase)"
 msgstr ""
 "這裏不要指定延伸檔名。\n"
 "%at -- 專輯標題\n"
@@ -216,7 +224,7 @@ msgstr ""
 "%ta -- 歌曲藝人\n"
 "%tA -- 歌曲藝人（小寫）"
 
-#: ../data/sound-juicer.schemas.in.h:6
+#: ../data/sound-juicer.schemas.in.h:7
 msgid ""
 "If enabled, special characters such as space, wildcards and backslashes will "
 "be removed from the output filename."
@@ -224,43 +232,159 @@ msgstr ""
 "如啟用本選項，輸出檔的名稱中將不會有任何特殊字元 (例如空格、萬用字元、反斜"
 "號)。"
 
-#: ../data/sound-juicer.schemas.in.h:7
+#: ../data/sound-juicer.schemas.in.h:8
 msgid "If specified, this value will override the default MusicBrainz server."
 msgstr "如果自行指定，本數值會取締預設的 MusicBrainz 伺服器。"
 
-#: ../data/sound-juicer.schemas.in.h:8
+#: ../data/sound-juicer.schemas.in.h:9
 msgid "If to strip special characters from filenames"
 msgstr "檔案名稱是否捨棄特殊字元"
 
-#: ../data/sound-juicer.schemas.in.h:9
+#: ../data/sound-juicer.schemas.in.h:10
 msgid ""
 "Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) "
 "full"
 msgstr "Paranoia 模式：0) 停用 1)片斷 4)重疊 8)scratch 16)修復 255)全部"
 
-#: ../data/sound-juicer.schemas.in.h:10
+#: ../data/sound-juicer.schemas.in.h:11
 msgid "The GNOME Audio Profile with which to encode."
 msgstr "編碼時使用的 GNOME 音效設定組合。"
 
-#: ../data/sound-juicer.schemas.in.h:11
+#: ../data/sound-juicer.schemas.in.h:12
 msgid "The MusicBrainz server to use"
 msgstr "使用的 MusicBrainz 伺服器"
 
-#: ../data/sound-juicer.schemas.in.h:12
+#: ../data/sound-juicer.schemas.in.h:13
 msgid "The directory structure for the files"
 msgstr "寫入檔案時所用的目錄結構"
 
-#: ../data/sound-juicer.schemas.in.h:13
+#: ../data/sound-juicer.schemas.in.h:14
 msgid "The name pattern for files"
 msgstr "檔案名稱的樣式"
 
-#: ../data/sound-juicer.schemas.in.h:14
+#: ../data/sound-juicer.schemas.in.h:15
 msgid "The paranoia mode to use"
 msgstr "使用的 paranoia 模式"
 
-#: ../data/sound-juicer.schemas.in.h:15
+#: ../data/sound-juicer.schemas.in.h:16
 msgid "Whether to eject the CD when finished extracting."
 msgstr "完成讀取光碟後是否退出碟片。"
+
+#: ../libjuicer/sj-extractor.c:104
+msgid "Audio Profile"
+msgstr "音效設定組合"
+
+#: ../libjuicer/sj-extractor.c:105
+msgid "The GNOME Audio Profile used for encoding audio"
+msgstr "音效編碼所使用的 GNOME 音效設定組合"
+
+#: ../libjuicer/sj-extractor.c:275
+msgid "Could not create GStreamer CD reader"
+msgstr "無法建立 GStreamer CD 讀取程式"
+
+#: ../libjuicer/sj-extractor.c:297
+#, c-format
+msgid "Could not create GStreamer encoders for %s"
+msgstr "無法替 %s 建立 GStreamer 編碼器"
+
+#: ../libjuicer/sj-extractor.c:308
+msgid "Could not create GStreamer file output"
+msgstr "無法產生 GStreamer 檔案輸出程序"
+
+#: ../libjuicer/sj-extractor.c:320
+msgid "Could not link pipeline"
+msgstr "無法連接管道"
+
+#: ../libjuicer/sj-extractor.c:342
+msgid "Could not get current track position"
+msgstr "無法取得目前歌曲的位置"
+
+#: ../libjuicer/sj-extractor.c:369
+msgid ""
+"Extractor object is not valid. This is bad, check your console for errors."
+msgstr "擷取程式物件是無效的。這是壞的，請使用終端機檢查錯誤。"
+
+#: ../libjuicer/sj-extractor.c:513
+msgid "Could not get track start position"
+msgstr "無法取得歌曲開始的位置"
+
+#: ../libjuicer/sj-extractor.c:545
+msgid "The plugin necessary for CD access was not found"
+msgstr "找不到存取光碟所需的外掛程式"
+
+#: ../libjuicer/sj-extractor.c:553
+msgid "The plugin necessary for file access was not found"
+msgstr "找不到存取檔案所需的外掛程式"
+
+#: ../libjuicer/sj-metadata-cdtext.c:127
+msgid "CD-TEXT metadata plugin failed to initialise."
+msgstr "CD-TEXT 元資料外掛程式無法初始化。"
+
+#: ../libjuicer/sj-metadata-cdtext.c:178
+msgid "Cannot read CD"
+msgstr "無法讀取光碟"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:102
+msgid "Cannot create MusicBrainz client"
+msgstr "無法產生 MusicBrainz 客戶端"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:224
+#: ../libjuicer/sj-metadata-musicbrainz.c:495
+#, c-format
+msgid "Cannot read CD: %s"
+msgstr "無法讀取光碟：%s"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:231
+#: ../libjuicer/sj-metadata-musicbrainz.c:533
+msgid "Unknown Artist"
+msgstr "藝人不詳"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:232
+#: ../libjuicer/sj-metadata-musicbrainz.c:544
+msgid "Unknown Title"
+msgstr "標題不詳"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:238
+#, c-format
+msgid "Track %d"
+msgstr "歌曲 %d"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:266
+msgid ""
+"MusicBrainz metadata object is not valid. This is bad, check your console "
+"for errors."
+msgstr "MusicBrainz 詮釋資料格式物件是無效的。這是壞的，請使用終端機檢查錯誤。"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:433
+#: ../libjuicer/sj-metadata-musicbrainz.c:440
+#: ../libjuicer/sj-metadata-musicbrainz.c:454
+#, c-format
+msgid "This CD could not be queried: %s\n"
+msgstr "無法查詢這片光碟：%s\n"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:489
+#, c-format
+msgid "Device '%s' does not contain any media"
+msgstr "裝置‘%s’中沒有任何媒體"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:492
+#, c-format
+msgid ""
+"Device '%s' could not be opened. Check the access permissions on the device."
+msgstr "無法開啟裝置‘%s’。請檢查是否有權限存取該裝置。"
+
+# This mean various artists -- Abel
+#: ../libjuicer/sj-metadata-musicbrainz.c:528
+msgid "Various"
+msgstr "不同藝人"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:569
+msgid "Incomplete metadata for this CD"
+msgstr "這光碟的元資料 (metadata) 不完整。"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:660
+msgid "Could not create CD lookup thread"
+msgstr "無法建立光碟查詢執行緒。"
 
 #. +
 #: ../src/bacon-volume.c:187
@@ -272,16 +396,39 @@ msgstr "+"
 msgid "-"
 msgstr "-"
 
-#: ../src/gconf-bridge.c:1175
+#: ../src/gconf-bridge.c:1218
 #, c-format
 msgid "GConf error: %s"
 msgstr "GConf 錯誤：%s"
 
-#: ../src/gconf-bridge.c:1185
+#: ../src/gconf-bridge.c:1228
 msgid "All further errors shown only on terminal."
 msgstr "更多的錯誤訊息只會在終端機中顯示。"
 
+#: ../src/sj-about.c:47
+msgid ""
+"Sound Juicer is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version."
+msgstr ""
+
+#: ../src/sj-about.c:51
+msgid ""
+"Sound Juicer is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details."
+msgstr ""
+
 #: ../src/sj-about.c:55
+msgid ""
+"You should have received a copy of the GNU General Public License along with "
+"Sound Juicer; if not, write to the Free Software Foundation, Inc., 59 Temple "
+"Place, Suite 330, Boston, MA  02111-1307  USA"
+msgstr ""
+
+#: ../src/sj-about.c:66
 msgid "An Audio CD Extractor"
 msgstr "音樂擷取程式"
 
@@ -289,7 +436,7 @@ msgstr "音樂擷取程式"
 #. * Note to translators: put here your name and email so it will show
 #. * up in the "about" box
 #.
-#: ../src/sj-about.c:64
+#: ../src/sj-about.c:76
 msgid "translator-credits"
 msgstr ""
 "如對翻譯有任何意見，請送一封電郵給\n"
@@ -299,7 +446,7 @@ msgstr ""
 "Woodman Tuen <wmtuen@gmail.com>, 2005\n"
 "Abel Cheung <abel@oaka.org>, 2003, 2004"
 
-#: ../src/sj-extracting.c:207
+#: ../src/sj-extracting.c:214
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -308,17 +455,17 @@ msgstr ""
 "檔案名為‘%s’已經存在，大小為 %s。\n"
 "你想略過這首歌曲，還是要覆寫檔案？"
 
-#: ../src/sj-extracting.c:211
+#: ../src/sj-extracting.c:218
 msgid "_Skip"
 msgstr "略過(_S)"
 
-#: ../src/sj-extracting.c:212
+#: ../src/sj-extracting.c:219
 msgid "_Overwrite"
 msgstr "覆寫(_O)"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:274 ../src/sj-extracting.c:309
-#: ../src/sj-extracting.c:519
+#: ../src/sj-extracting.c:281 ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:525
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -327,152 +474,110 @@ msgstr ""
 "Sound Juicer 無法擷取這光碟。\n"
 "原因：%s"
 
-#: ../src/sj-extracting.c:359
+#: ../src/sj-extracting.c:366
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "預計剩餘時間：%d:%02d (在 %0.1f×)"
 
-#: ../src/sj-extracting.c:361
+#: ../src/sj-extracting.c:368
 msgid "Estimated time left: unknown"
 msgstr "預計剩餘時間：不明"
 
 #. TODO: need to have a better message here
-#: ../src/sj-extracting.c:457
+#: ../src/sj-extracting.c:463
 msgid "The tracks have been copied successfully."
 msgstr "歌曲已經複製完成。"
 
-#: ../src/sj-extracting.c:462
+#: ../src/sj-extracting.c:468
 msgid "_Eject"
 msgstr "退出碟片(_E)"
 
-#: ../src/sj-extractor.c:105
-msgid "Audio Profile"
-msgstr "音效設定組合"
-
-#: ../src/sj-extractor.c:106
-msgid "The GNOME Audio Profile used for encoding audio"
-msgstr "音效編碼所使用的 GNOME 音效設定組合"
-
-#: ../src/sj-extractor.c:345
-msgid "Could not create GStreamer CD reader"
-msgstr "無法建立 GStreamer CD 讀取程式"
-
-#: ../src/sj-extractor.c:365
-#, c-format
-msgid "Could not create GStreamer encoders for %s"
-msgstr "無法替 %s 建立 GStreamer 編碼器"
-
-#: ../src/sj-extractor.c:376
-msgid "Could not create GStreamer file output"
-msgstr "無法產生 GStreamer 檔案輸出程序"
-
-#: ../src/sj-extractor.c:410
-msgid "Could not get current track position"
-msgstr "無法取得目前歌曲的位置"
-
-#: ../src/sj-extractor.c:437
-msgid ""
-"Extractor object is not valid. This is bad, check your console for errors."
-msgstr "擷取程式物件是無效的。這是壞的，請使用終端機檢查錯誤。"
-
-#: ../src/sj-extractor.c:582
-msgid "Could not get track start position"
-msgstr "無法取得歌曲開始的位置"
-
-#: ../src/sj-extractor.c:614
-msgid "The plugin necessary for CD access was not found"
-msgstr "找不到存取光碟所需的外掛程式"
-
-#: ../src/sj-extractor.c:622
-msgid "The plugin necessary for file access was not found"
-msgstr "找不到存取檔案所需的外掛程式"
-
-#: ../src/sj-main.c:142
+#: ../src/sj-main.c:145
 msgid "E_xtract"
 msgstr "擷取(_X)"
 
-#: ../src/sj-main.c:180
+#: ../src/sj-main.c:219
 msgid "Could not start Sound Juicer"
 msgstr "無法啟動 Sound Juicer"
 
-#: ../src/sj-main.c:181 ../src/sj-main.c:580 ../src/sj-main.c:688
-#: ../src/sj-main.c:779 ../src/sj-main.c:971
+#: ../src/sj-main.c:220 ../src/sj-main.c:637 ../src/sj-main.c:746
+#: ../src/sj-main.c:837 ../src/sj-main.c:1029
 msgid "Reason"
 msgstr "原因"
 
-#: ../src/sj-main.c:183
+#: ../src/sj-main.c:222
 msgid "Please consult the documentation for assistance."
 msgstr "請參閱說明文件以取得協助。"
 
-#: ../src/sj-main.c:227
+#: ../src/sj-main.c:266
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "你正在擷取光碟。你現在想離開，或是要繼續？"
 
-#: ../src/sj-main.c:287 ../src/sj-main.c:389
+#: ../src/sj-main.c:326 ../src/sj-main.c:431
 msgid "(unknown)"
 msgstr "（不明）"
 
-#: ../src/sj-main.c:431 ../src/sj-main.c:1364
+#: ../src/sj-main.c:473 ../src/sj-main.c:1451
 msgid "Title"
 msgstr "標題"
 
-#: ../src/sj-main.c:437 ../src/sj-main.c:1373
+#: ../src/sj-main.c:479 ../src/sj-main.c:1460
 msgid "Artist"
 msgstr "藝人"
 
-#: ../src/sj-main.c:578 ../src/sj-main.c:686 ../src/sj-main.c:777
+#: ../src/sj-main.c:635 ../src/sj-main.c:744 ../src/sj-main.c:835
 msgid "Could not read the CD"
 msgstr "無法讀取光碟"
 
-#: ../src/sj-main.c:579 ../src/sj-main.c:687
+#: ../src/sj-main.c:636 ../src/sj-main.c:745
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer 無法讀取在本光碟上的曲目清單。"
 
 #. Set statusbar message
-#: ../src/sj-main.c:659
+#: ../src/sj-main.c:716
 msgid "Retrieving track listing...please wait."
 msgstr "正在取得曲目清單....請稍候。"
 
-#: ../src/sj-main.c:750
+#: ../src/sj-main.c:808
 msgid "Extracting audio from CD"
 msgstr "從光碟中擷取音樂"
 
-#: ../src/sj-main.c:771
+#: ../src/sj-main.c:829
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer 無法存取光碟裝置‘%s’"
 
-#: ../src/sj-main.c:850
+#: ../src/sj-main.c:908
 msgid "No CD-ROM drives found"
 msgstr "找不到光碟機"
 
-#: ../src/sj-main.c:851
+#: ../src/sj-main.c:909
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer 找不到任何可以讀取資料的光碟機。"
 
-#: ../src/sj-main.c:882
+#: ../src/sj-main.c:940
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "在系統裏找不到你所指定的音效編碼設定組合。"
 
-#: ../src/sj-main.c:884
+#: ../src/sj-main.c:942
 msgid "_Change Profile"
 msgstr "更改設定組合(_C)"
 
-#: ../src/sj-main.c:969
+#: ../src/sj-main.c:1027
 msgid "Could not open URL"
 msgstr "無法開啟 URL"
 
-#: ../src/sj-main.c:970
+#: ../src/sj-main.c:1028
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer 無法開啟提交 URL"
 
-#: ../src/sj-main.c:1075
+#: ../src/sj-main.c:1137
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "不明的欄 %d 已被編輯"
 
-#: ../src/sj-main.c:1131 ../src/sj-prefs.c:103
+#: ../src/sj-main.c:1193 ../src/sj-prefs.c:102
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -481,105 +586,44 @@ msgstr ""
 "無法顯示 Sound Juicer 的說明文件\n"
 "%s"
 
-#: ../src/sj-main.c:1223
+#: ../src/sj-main.c:1286
 msgid "Start extracting immediately"
 msgstr "立即開始擷取"
 
-#: ../src/sj-main.c:1224
+#: ../src/sj-main.c:1287
 msgid "Start playing immediately"
 msgstr "立即開始播放"
 
-#: ../src/sj-main.c:1225
+#: ../src/sj-main.c:1288
 msgid "What CD device to read"
 msgstr "讀取那個 CD 裝置"
 
-#: ../src/sj-main.c:1225
+#: ../src/sj-main.c:1288
 msgid "DEVICE"
 msgstr "DEVICE"
 
-#: ../src/sj-main.c:1270
+#: ../src/sj-main.c:1296
+#, fuzzy
+msgid "- Extract music from your CDs"
+msgstr "從光碟中擷取音樂"
+
+#: ../src/sj-main.c:1335
 msgid "Could not create GConf client.\n"
 msgstr "無法產生 GConf 客戶端。\n"
 
-#: ../src/sj-main.c:1300
+#: ../src/sj-main.c:1366
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "無法讀取 Sound Juicer 介面檔案。"
 
-#: ../src/sj-main.c:1349
+#: ../src/sj-main.c:1436
 msgid "Track"
 msgstr "歌曲編號"
 
-#: ../src/sj-main.c:1384
+#: ../src/sj-main.c:1471
 msgid "Duration"
 msgstr "長度"
 
-#: ../src/sj-metadata-cdtext.c:125
-msgid "CD-TEXT metadata plugin failed to initialise."
-msgstr "CD-TEXT 元資料外掛程式無法初始化。"
-
-#: ../src/sj-metadata-cdtext.c:176
-msgid "Cannot read CD"
-msgstr "無法讀取光碟"
-
-#: ../src/sj-metadata-musicbrainz.c:97
-msgid "Cannot create MusicBrainz client"
-msgstr "無法產生 MusicBrainz 客戶端"
-
-#: ../src/sj-metadata-musicbrainz.c:220 ../src/sj-metadata-musicbrainz.c:475
-#, c-format
-msgid "Cannot read CD: %s"
-msgstr "無法讀取光碟：%s"
-
-#: ../src/sj-metadata-musicbrainz.c:227 ../src/sj-metadata-musicbrainz.c:514
-msgid "Unknown Artist"
-msgstr "藝人不詳"
-
-#: ../src/sj-metadata-musicbrainz.c:228 ../src/sj-metadata-musicbrainz.c:527
-msgid "Unknown Title"
-msgstr "標題不詳"
-
-#: ../src/sj-metadata-musicbrainz.c:234
-#, c-format
-msgid "Track %d"
-msgstr "歌曲 %d"
-
-#: ../src/sj-metadata-musicbrainz.c:262
-msgid ""
-"MusicBrainz metadata object is not valid. This is bad, check your console "
-"for errors."
-msgstr "MusicBrainz 詮釋資料格式物件是無效的。這是壞的，請使用終端機檢查錯誤。"
-
-#: ../src/sj-metadata-musicbrainz.c:417 ../src/sj-metadata-musicbrainz.c:424
-#: ../src/sj-metadata-musicbrainz.c:434
-#, c-format
-msgid "This CD could not be queried: %s\n"
-msgstr "無法查詢這片光碟：%s\n"
-
-#: ../src/sj-metadata-musicbrainz.c:469
-#, c-format
-msgid "Device '%s' does not contain any media"
-msgstr "裝置‘%s’中沒有任何媒體"
-
-#: ../src/sj-metadata-musicbrainz.c:472
-#, c-format
-msgid ""
-"Device '%s' could not be opened. Check the access permissions on the device."
-msgstr "無法開啟裝置‘%s’。請檢查是否有權限存取該裝置。"
-
-# This mean various artists -- Abel
-#: ../src/sj-metadata-musicbrainz.c:508
-msgid "Various"
-msgstr "不同藝人"
-
-#: ../src/sj-metadata-musicbrainz.c:552
-msgid "Incomplete metadata for this CD"
-msgstr "這光碟的元資料 (metadata) 不完整。"
-
-#: ../src/sj-metadata-musicbrainz.c:643
-msgid "Could not create CD lookup thread"
-msgstr "無法建立光碟查詢執行緒。"
-
-#: ../src/sj-play.c:192 ../src/sj-play.c:430 ../src/sj-play.c:477
+#: ../src/sj-play.c:201 ../src/sj-play.c:457 ../src/sj-play.c:507
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -590,111 +634,104 @@ msgstr ""
 "\n"
 "原因：%s"
 
-#: ../src/sj-play.c:345
+#: ../src/sj-play.c:364
 msgid "Failed to create CD source element"
 msgstr "無法建立 CD 來源元素"
 
-#: ../src/sj-play.c:365
+#: ../src/sj-play.c:389
 msgid "Failed to link pipeline"
-msgstr "無法連接 pipeline"
+msgstr "無法連接管線"
 
-#: ../src/sj-play.c:371
+#: ../src/sj-play.c:395
 msgid "Failed to create audio output"
 msgstr "無法建立音效輸出"
 
-#: ../src/sj-play.c:587
+#: ../src/sj-play.c:618
 #, c-format
 msgid "Seeking to %s"
 msgstr "移至 %s"
 
-#: ../src/sj-prefs.c:52
+#: ../src/sj-prefs.c:51
 msgid "Album Artist, Album Title"
 msgstr "專輯藝人、專輯標題"
 
-#: ../src/sj-prefs.c:53
+#: ../src/sj-prefs.c:52
 msgid "Album Artist (sortable), Album Title"
 msgstr "專輯藝人（可排序），專輯標題"
 
-#: ../src/sj-prefs.c:54
+#: ../src/sj-prefs.c:53
 msgid "Track Artist, Album Title"
 msgstr "歌曲藝人、專輯標題"
 
-#: ../src/sj-prefs.c:55
+#: ../src/sj-prefs.c:54
 msgid "Track Artist (sortable), Album Title"
 msgstr "歌曲藝人（可排序），專輯標題"
 
-#: ../src/sj-prefs.c:56 ../src/sj-prefs.c:202
+#: ../src/sj-prefs.c:55
 msgid "Album Title"
 msgstr "專輯標題"
 
-#. title
-#: ../src/sj-prefs.c:57 ../src/sj-prefs.c:203
+#: ../src/sj-prefs.c:56
 msgid "Album Artist"
 msgstr "專輯藝人"
 
-#: ../src/sj-prefs.c:58
+#: ../src/sj-prefs.c:57
 msgid "Album Artist (sortable)"
 msgstr "專輯藝人（可排序）"
 
-#: ../src/sj-prefs.c:59
+#: ../src/sj-prefs.c:58
 msgid "Album Artist - Album Title"
 msgstr "專輯藝人 - 專輯標題"
 
-#: ../src/sj-prefs.c:60
+#: ../src/sj-prefs.c:59
 msgid "Album Artist (sortable) - Album Title"
 msgstr "專輯藝人（可排序）- 專輯標題"
 
-#: ../src/sj-prefs.c:61
+#: ../src/sj-prefs.c:60
 msgid "[none]"
 msgstr "[沒有]"
 
-#: ../src/sj-prefs.c:66
+#: ../src/sj-prefs.c:65
 msgid "Number - Title"
 msgstr "數字 - 標題"
 
-#. album
-#. track number
-#: ../src/sj-prefs.c:67 ../src/sj-prefs.c:215
+#: ../src/sj-prefs.c:66
 msgid "Track Title"
 msgstr "歌曲標題"
 
-#: ../src/sj-prefs.c:68
+#: ../src/sj-prefs.c:67
 msgid "Track Artist - Track Title"
 msgstr "歌曲藝人 - 歌曲標題"
 
-#: ../src/sj-prefs.c:69
+#: ../src/sj-prefs.c:68
 msgid "Track Artist (sortable) - Track Title"
 msgstr "歌曲藝人（可排序） - 歌曲標題"
 
-#: ../src/sj-prefs.c:70
+#: ../src/sj-prefs.c:69
 msgid "Number. Track Artist - Track Title"
 msgstr "數字. 歌曲藝人 - 歌曲標題"
 
 #. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
-#: ../src/sj-prefs.c:72
+#: ../src/sj-prefs.c:71
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "數字-歌曲藝人-歌曲標題（小寫）"
 
-#. artist
-#: ../src/sj-prefs.c:204
-msgid "Album Artist's Sortable Name"
-msgstr "專輯藝人的可排序名稱"
+#: ../src/sj-prefs.c:251
+#, fuzzy
+msgid "Example Path"
+msgstr "檔案路徑樣式："
 
-#. title
-#: ../src/sj-prefs.c:216
-msgid "Track Artist"
-msgstr "歌曲藝人"
+#~ msgid "Album Artist's Sortable Name"
+#~ msgstr "專輯藝人的可排序名稱"
 
-#. artist
-#: ../src/sj-prefs.c:217
-msgid "Track Artist's Sortable Name"
-msgstr "歌曲藝人的可排序名稱"
+#~ msgid "Track Artist"
+#~ msgstr "歌曲藝人"
+
+#~ msgid "Track Artist's Sortable Name"
+#~ msgstr "歌曲藝人的可排序名稱"
 
 #~ msgid "<i>path_example_label</i>"
 #~ msgstr "<i>path_example_label</i>"
-
-#~ msgid "Example Path:"
-#~ msgstr "檔案路徑樣式："
 
 # this label is shown before total CD time is known -- Abel
 #~ msgid "label"
