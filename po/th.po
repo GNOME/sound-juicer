@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-17 14:27+0700\n"
-"PO-Revision-Date: 2006-03-17 14:33+0700\n"
+"POT-Creation-Date: 2006-05-23 20:40+0700\n"
+"PO-Revision-Date: 2006-05-23 21:21+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <L10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
@@ -110,9 +110,8 @@ msgstr "ข้ามไปร่องเสียงถัดไป"
 msgid "Skip to the previous track"
 msgstr "ข้ามไปร่องเสียงก่อนหน้า"
 
-#: data/sound-juicer.glade.h:21 src/sj-about.c:54
-#: src/sj-extractor.c:442 src/sj-main.c:165 src/sj-main.c:167
-#: src/sj-main.c:1233
+#: data/sound-juicer.glade.h:21 src/sj-main.c:168 src/sj-main.c:170
+#: src/sj-main.c:1308
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -127,7 +126,7 @@ msgstr ""
 msgid "_Contents"
 msgstr "เ_นื้อหา"
 
-#: data/sound-juicer.glade.h:24 src/sj-main.c:229
+#: data/sound-juicer.glade.h:24 src/sj-main.c:268
 msgid "_Continue"
 msgstr "_ต่อไป"
 
@@ -183,46 +182,58 @@ msgstr "_ส่งชื่อเพลง..."
 #, no-c-format
 msgid ""
 "%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
-"album artist (lowercase) %tt -- track title %tT -- track title (lowercase) %"
-"ta -- track artist %tA -- track artist (lowercase)"
+"album artist (lowercase) %as -- album artist (sortable) %aS -- album artist "
+"(sortable lowercase) %tt -- track title %tT -- track title (lowercase) %ta "
+"-- track artist %tA -- track artist (lowercase) %ts -- track artist "
+"(sortable) %tS -- track artist (sortable lowercase)"
 msgstr ""
 "%at -- ชื่ออัลบัม %aT -- ชื่ออัลบัม (ตัวพิมพ์เล็ก) %aa -- เจ้าของอัลบัม %aA -- เจ้าของอัลบัม "
-"(ตัวพิมพ์เล็ก) %tt -- ชื่อเพลง %tT -- ชื่อเพลง (ตัวพิมพ์เล็ก) %ta -- ศิลปินเพลง %tA -- "
-"ศิลปินเพลง (ตัวพิมพ์เล็ก)"
+"(ตัวพิมพ์เล็ก) %as -- เจ้าของอัลบัม (เรียงลำดับได้) %aS -- เจ้าของอัลบัม (เรียงลำดับได้ "
+"ตัวพิมพ์เล็ก) %tt -- ชื่อเพลง %tT -- ชื่อเพลง (ตัวพิมพ์เล็ก) %ta -- ศิลปินเพลง %tA -- "
+"ศิลปินเพลง (ตัวพิมพ์เล็ก) %ts -- ศิลปินเพลง (เรียงลำดับได้) %tS -- ศิลปินเพลง (เรียงลำดับได้ "
+"ตัวพิมพ์เล็ก)"
 
 #: data/sound-juicer.schemas.in.h:3
 msgid "Audio Profile with which to encode"
 msgstr "โพรไฟล์เสียงที่จะใช้ลงรหัสข้อมูล"
 
-#: data/sound-juicer.schemas.in.h:5
+#: data/sound-juicer.schemas.in.h:4
+msgid "Audio volume"
+msgstr "ความดังของเสียง"
+
+#: data/sound-juicer.schemas.in.h:6
 #, no-c-format
 msgid ""
 "Do not specify an extension. %at -- album title %aT -- album title "
-"(lowercase) %aa -- album artist %aA -- album artist (lowercase) %tn -- track "
+"(lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album "
+"artist (sortable) %aS -- album artist (sortable lowercase) %tn -- track "
 "number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
 "tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
-"(lowercase)"
+"(lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable "
+"lowercase)"
 msgstr ""
 "อย่าใส่นามสกุล  %at -- ชื่ออัลบัม %aT -- ชื่ออัลบัม (ตัวพิมพ์เล็ก) %aa -- เจ้าของอัลบัม %aA -- "
-"เจ้าของอัลบัม (ตัวพิมพ์เล็ก) %tn -- หมายเลขเพลง (เช่น 8) %tN -- "
+"เจ้าของอัลบัม (ตัวพิมพ์เล็ก) %as -- เจ้าของอัลบัม (เรียงลำดับได้) %aS -- เจ้าของอัลบัม "
+"(เรียงลำดับได้ ตัวพิมพ์เล็ก) %tn -- หมายเลขเพลง (เช่น 8) %tN -- "
 "หมายเลขเพลงนำหน้าด้วยศูนย์ (เช่น 08) %tt -- ชื่อเพลง %tT -- ชื่อเพลง (ตัวพิมพ์เล็ก) %ta "
-"-- ศิลปินเพลง %tA -- ศิลปินเพลง (ตัวพิมพ์เล็ก)"
+"-- ศิลปินเพลง %tA -- ศิลปินเพลง (ตัวพิมพ์เล็ก) %ts -- ศิลปินเพลง (เรียงลำดับได้) %tS -- "
+"ศิลปินเพลง (เรียงลำดับได้ ตัวพิมพ์เล็ก)"
 
-#: data/sound-juicer.schemas.in.h:6
+#: data/sound-juicer.schemas.in.h:7
 msgid ""
 "If enabled, special characters such as space, wildcards and backslashes will "
 "be removed from the output filename."
 msgstr "ถ้าตั้ง อักษรพิเศษเช่น \"?*\\\" หรือช่องว่าง จะถูกลบออกจากชื่อแฟ้ม"
 
-#: data/sound-juicer.schemas.in.h:7
+#: data/sound-juicer.schemas.in.h:8
 msgid "If specified, this value will override the default MusicBrainz server."
 msgstr "ถ้าระบุ ค่านี้จะใช้แทนเซิร์ฟเวอร์ MusicBrainz ปริยาย"
 
-#: data/sound-juicer.schemas.in.h:8
+#: data/sound-juicer.schemas.in.h:9
 msgid "If to strip special characters from filenames"
 msgstr "กำหนดว่าจะลบอักษรพิเศษออกจากชื่อแฟ้มหรือไม่"
 
-#: data/sound-juicer.schemas.in.h:9
+#: data/sound-juicer.schemas.in.h:10
 msgid ""
 "Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) "
 "full"
@@ -230,29 +241,144 @@ msgstr ""
 "โหมด paranoia: 0) ไม่ใช้ 2) การแยกส่วน 4) การซ้อนทับ 8) รอยขีดข่วน 16) ซ่อม 255) "
 "เต็มรูปแบบ"
 
-#: data/sound-juicer.schemas.in.h:10
+#: data/sound-juicer.schemas.in.h:11
 msgid "The GNOME Audio Profile with which to encode."
 msgstr "โพรไฟล์เสียงของ GNOME ที่จะใช้ลงรหัสเสียง"
 
-#: data/sound-juicer.schemas.in.h:11
+#: data/sound-juicer.schemas.in.h:12
 msgid "The MusicBrainz server to use"
 msgstr "เซิร์ฟเวอร์ MusicBrainz ที่จะใช้"
 
-#: data/sound-juicer.schemas.in.h:12
+#: data/sound-juicer.schemas.in.h:13
 msgid "The directory structure for the files"
 msgstr "โครงสร้างโฟลเดอร์สำหรับแฟ้มเพลงที่จะสร้าง"
 
-#: data/sound-juicer.schemas.in.h:13
+#: data/sound-juicer.schemas.in.h:14
 msgid "The name pattern for files"
 msgstr "รูปแบบสำหรับชื่อแฟ้ม"
 
-#: data/sound-juicer.schemas.in.h:14
+#: data/sound-juicer.schemas.in.h:15
 msgid "The paranoia mode to use"
 msgstr "โหมด paranoia ที่จะใช้"
 
-#: data/sound-juicer.schemas.in.h:15
+#: data/sound-juicer.schemas.in.h:16
 msgid "Whether to eject the CD when finished extracting."
 msgstr "กำหนดว่าควรดันแผ่นซีดีออกหลังจากคัดลอกเสร็จหรือไม่"
+
+#: libjuicer/sj-extractor.c:104
+msgid "Audio Profile"
+msgstr "โพรไฟล์เสียง"
+
+#: libjuicer/sj-extractor.c:105
+msgid "The GNOME Audio Profile used for encoding audio"
+msgstr "โพรไฟล์เสียงของ GNOME ที่จะใช้ลงรหัสข้อมูลเสียง"
+
+#: libjuicer/sj-extractor.c:275
+msgid "Could not create GStreamer CD reader"
+msgstr "ไม่สามารถสร้างองค์ประกอบอ่านซีดีของ GStreamer"
+
+#: libjuicer/sj-extractor.c:297
+#, c-format
+msgid "Could not create GStreamer encoders for %s"
+msgstr "ไม่สามารถสร้างองค์ประกอบลงรหัสข้อมูลของ GStreamer สำหรับ %s"
+
+#: libjuicer/sj-extractor.c:308
+msgid "Could not create GStreamer file output"
+msgstr "ไม่สามารถสร้างแฟ้มเขียนออกของ GStreamer"
+
+#: libjuicer/sj-extractor.c:320
+msgid "Could not link pipeline"
+msgstr "ไม่สามารถเชื่อมต่อไปป์ไลน์ได้"
+
+#: libjuicer/sj-extractor.c:342
+msgid "Could not get current track position"
+msgstr "ไม่ทราบตำแหน่งร่องเสียงปัจจุบัน"
+
+#: libjuicer/sj-extractor.c:369
+msgid ""
+"Extractor object is not valid. This is bad, check your console for errors."
+msgstr "อ็อบเจกต์ extractor ใช้ไม่ได้ คงไม่ดีแน่ๆ ดูข้อผิดพลาดเพิ่มเติมได้ในเทอร์มินัล"
+
+#: libjuicer/sj-extractor.c:513
+msgid "Could not get track start position"
+msgstr "ไม่ทราบตำแหน่งเริ่มต้นของร่องเสียง"
+
+#: libjuicer/sj-extractor.c:545
+msgid "The plugin necessary for CD access was not found"
+msgstr "ไม่พบปลั๊กอินที่จำเป็นสำหรับการอ่านข้อมูลซีดี"
+
+#: libjuicer/sj-extractor.c:553
+msgid "The plugin necessary for file access was not found"
+msgstr "ไม่พบปลั๊กอินที่จำเป็นสำหรับการอ่านเขียนแฟ้ม"
+
+#: libjuicer/sj-metadata-cdtext.c:127
+msgid "CD-TEXT metadata plugin failed to initialise."
+msgstr "เริ่มการทำงานปลั๊กอิน CD-TEXT metadata ไม่สำเร็จ"
+
+#: libjuicer/sj-metadata-cdtext.c:178
+msgid "Cannot read CD"
+msgstr "ไม่สามารถอ่านซีดี"
+
+#: libjuicer/sj-metadata-musicbrainz.c:102
+msgid "Cannot create MusicBrainz client"
+msgstr "ไม่สามารถสร้างตัวใช้บริการ MusicBrainz"
+
+#: libjuicer/sj-metadata-musicbrainz.c:224
+#: libjuicer/sj-metadata-musicbrainz.c:495
+#, c-format
+msgid "Cannot read CD: %s"
+msgstr "ไม่สามารถอ่านซีดี: %s"
+
+#: libjuicer/sj-metadata-musicbrainz.c:231
+#: libjuicer/sj-metadata-musicbrainz.c:533
+msgid "Unknown Artist"
+msgstr "ศิลปินไม่ทราบชื่อ"
+
+#: libjuicer/sj-metadata-musicbrainz.c:232
+#: libjuicer/sj-metadata-musicbrainz.c:544
+msgid "Unknown Title"
+msgstr "อัลบัมไม่ทราบชื่อ"
+
+#: libjuicer/sj-metadata-musicbrainz.c:238
+#, c-format
+msgid "Track %d"
+msgstr "ร่องเสียง %d"
+
+#: libjuicer/sj-metadata-musicbrainz.c:266
+msgid ""
+"MusicBrainz metadata object is not valid. This is bad, check your console "
+"for errors."
+msgstr "อ็อบเจกต์ metadata ของ MusicBrainz ใช้ไม่ได้ โปรดตรวจข้อผิดพลาดได้ในเทอร์มินัล"
+
+#: libjuicer/sj-metadata-musicbrainz.c:433
+#: libjuicer/sj-metadata-musicbrainz.c:440
+#: libjuicer/sj-metadata-musicbrainz.c:454
+#, c-format
+msgid "This CD could not be queried: %s\n"
+msgstr "ไม่สามารถสืบค้นข้อมูลของซีดีได้: %s\n"
+
+#: libjuicer/sj-metadata-musicbrainz.c:489
+#, c-format
+msgid "Device '%s' does not contain any media"
+msgstr "ไม่มีแผ่นอยู่ในอุปกรณ์ '%s'"
+
+#: libjuicer/sj-metadata-musicbrainz.c:492
+#, c-format
+msgid ""
+"Device '%s' could not be opened. Check the access permissions on the device."
+msgstr "ไม่สามารถเปิดใช้อุปกรณ์ '%s' โปรดตรวจดูสิทธิ์การเข้าใช้อุปกรณ์"
+
+#: libjuicer/sj-metadata-musicbrainz.c:528
+msgid "Various"
+msgstr "รวมศิลปิน"
+
+#: libjuicer/sj-metadata-musicbrainz.c:569
+msgid "Incomplete metadata for this CD"
+msgstr "metadata ของซีดีนี้ไม่สมบูรณ์"
+
+#: libjuicer/sj-metadata-musicbrainz.c:660
+msgid "Could not create CD lookup thread"
+msgstr "ไม่สามารถสร้างเธรดสำหรับค้นข้อมูลซีดี"
 
 #. +
 #: src/bacon-volume.c:187
@@ -264,16 +390,49 @@ msgstr "+"
 msgid "-"
 msgstr "-"
 
-#: src/gconf-bridge.c:1175
+#: src/gconf-bridge.c:1218
 #, c-format
 msgid "GConf error: %s"
 msgstr "ข้อผิดพลาดเกี่ยวกับ GConf: %s"
 
-#: src/gconf-bridge.c:1185
+#: src/gconf-bridge.c:1228
 msgid "All further errors shown only on terminal."
 msgstr "ข้อผิดพลาดอื่นจะแสดงในเทอร์มินัลเท่านั้น"
 
+#: src/sj-about.c:47
+msgid ""
+"Sound Juicer is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version."
+msgstr ""
+"Sound Juicer เป็นซอฟต์แวร์เสรี คุณสามารถแจกจ่ายต่อ และ/หรือ แก้ไขโปรแกรมได้"
+"ภายใต้เงื่อนไขของ GNU General Public License ที่เผยแพร่โดยมูลนิธิซอฟต์แวร์เสรี"
+"ไม่ว่าจะเป็นสัญญาอนุญาตรุ่นที่ 2 หรือรุ่นถัดมา (ตามแต่คุณจะเลือก)"
+
+#: src/sj-about.c:51
+msgid ""
+"Sound Juicer is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details."
+msgstr ""
+"Sound Juicer เผยแพร่ด้วยความหวังว่าโปรแกรมจะมีประโยชน์"
+"แต่ _ไม่มีการรับประกันใดๆ_ ไม่มีแม้การรับประกัน _อรรถประโยชน์เชิงพาณิชย์_"
+"หรือ _ความเหมาะสมสำหรับวัตถุประสงค์เฉพาะกิจใดๆ_ กรุณาอ่าน "
+"GNU General Public License เพื่อดูรายละเอียดเพิ่มเติม"
+
 #: src/sj-about.c:55
+msgid ""
+"You should have received a copy of the GNU General Public License along with "
+"Sound Juicer; if not, write to the Free Software Foundation, Inc., 59 Temple "
+"Place, Suite 330, Boston, MA  02111-1307  USA"
+msgstr ""
+"คุณควรจะได้รับสำเนาของ GNU General Public License มาพร้อมกับ Sound Juicer "
+"ถ้าคุณไม่ได้รับ กรุณาติดต่อไปที่ Free Software Foundation, Inc., \n"
+"59 Temple Place, Suite 330, Boston, MA  02111-1307  USA"
+
+#: src/sj-about.c:66
 msgid "An Audio CD Extractor"
 msgstr "โปรแกรมคัดลอกเพลงจากซีดี"
 
@@ -281,7 +440,7 @@ msgstr "โปรแกรมคัดลอกเพลงจากซีดี
 #. * Note to translators: put here your name and email so it will show
 #. * up in the "about" box
 #.
-#: src/sj-about.c:64
+#: src/sj-about.c:76
 msgid "translator-credits"
 msgstr ""
 "ไพศาข์ สีเหลืองสวัสดิ์\n"
@@ -309,7 +468,7 @@ msgstr "เ_ขียนทับ"
 
 #. Display a nice dialog
 #: src/sj-extracting.c:281 src/sj-extracting.c:316
-#: src/sj-extracting.c:522
+#: src/sj-extracting.c:525
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -336,139 +495,93 @@ msgstr "คัดลอกร่องเสียงเหล่านี้ส
 msgid "_Eject"
 msgstr "_ดันแผ่นออก"
 
-#: src/sj-extractor.c:105
-msgid "Audio Profile"
-msgstr "โพรไฟล์เสียง"
-
-#: src/sj-extractor.c:106
-msgid "The GNOME Audio Profile used for encoding audio"
-msgstr "โพรไฟล์เสียงของ GNOME ที่จะใช้ลงรหัสข้อมูลเสียง"
-
-#: src/sj-extractor.c:276
-msgid "Could not create GStreamer CD reader"
-msgstr "ไม่สามารถสร้างองค์ประกอบอ่านซีดีของ GStreamer"
-
-#: src/sj-extractor.c:298
-#, c-format
-msgid "Could not create GStreamer encoders for %s"
-msgstr "ไม่สามารถสร้างองค์ประกอบลงรหัสข้อมูลของ GStreamer สำหรับ %s"
-
-#: src/sj-extractor.c:309
-msgid "Could not create GStreamer file output"
-msgstr "ไม่สามารถสร้างแฟ้มเขียนออกของ GStreamer"
-
-#: src/sj-extractor.c:321
-msgid "Could not link pipeline"
-msgstr "ไม่สามารถเชื่อมต่อไปป์ไลน์ได้"
-
-#: src/sj-extractor.c:343
-msgid "Could not get current track position"
-msgstr "ไม่ทราบตำแหน่งร่องเสียงปัจจุบัน"
-
-#: src/sj-extractor.c:370
-msgid ""
-"Extractor object is not valid. This is bad, check your console for errors."
-msgstr "อ็อบเจกต์ extractor ใช้ไม่ได้ คงไม่ดีแน่ๆ ดูข้อผิดพลาดเพิ่มเติมได้ในเทอร์มินัล"
-
-#: src/sj-extractor.c:515
-msgid "Could not get track start position"
-msgstr "ไม่ทราบตำแหน่งเริ่มต้นของร่องเสียง"
-
-#: src/sj-extractor.c:547
-msgid "The plugin necessary for CD access was not found"
-msgstr "ไม่พบปลั๊กอินที่จำเป็นสำหรับการอ่านข้อมูลซีดี"
-
-#: src/sj-extractor.c:555
-msgid "The plugin necessary for file access was not found"
-msgstr "ไม่พบปลั๊กอินที่จำเป็นสำหรับการอ่านเขียนแฟ้ม"
-
-#: src/sj-main.c:142
+#: src/sj-main.c:145
 msgid "E_xtract"
 msgstr "_คัดลอก"
 
-#: src/sj-main.c:180
+#: src/sj-main.c:219
 msgid "Could not start Sound Juicer"
 msgstr "ไม่สามารถเริ่มการทำงานของ Sound Juicer"
 
-#: src/sj-main.c:181 src/sj-main.c:580 src/sj-main.c:688
-#: src/sj-main.c:779 src/sj-main.c:971
+#: src/sj-main.c:220 src/sj-main.c:637 src/sj-main.c:746
+#: src/sj-main.c:837 src/sj-main.c:1029
 msgid "Reason"
 msgstr "สาเหตุ"
 
 # This refers more to build/installation notes than the "Help Contents"
-#: src/sj-main.c:183
+#: src/sj-main.c:222
 msgid "Please consult the documentation for assistance."
 msgstr "โปรดอ่านเอกสารคู่มือเพื่อแก้ปัญหา"
 
-#: src/sj-main.c:227
+#: src/sj-main.c:266
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "คุณกำลังคัดลอกเพลงจากซีดีอยู่ ต้องการจะออกจากโปรแกรมเดี๋ยวนี้ หรือคัดลอกต่อ?"
 
-#: src/sj-main.c:287 src/sj-main.c:389
+#: src/sj-main.c:326 src/sj-main.c:431
 msgid "(unknown)"
 msgstr "(ไม่รู้จัก)"
 
-#: src/sj-main.c:431 src/sj-main.c:1364
+#: src/sj-main.c:473 src/sj-main.c:1451
 msgid "Title"
 msgstr "ชื่อ"
 
-#: src/sj-main.c:437 src/sj-main.c:1373
+#: src/sj-main.c:479 src/sj-main.c:1460
 msgid "Artist"
 msgstr "ศิลปิน"
 
-#: src/sj-main.c:578 src/sj-main.c:686 src/sj-main.c:777
+#: src/sj-main.c:635 src/sj-main.c:744 src/sj-main.c:835
 msgid "Could not read the CD"
 msgstr "ไม่สามารถอ่านซีดีนี้"
 
-#: src/sj-main.c:579 src/sj-main.c:687
+#: src/sj-main.c:636 src/sj-main.c:745
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer ไม่สามารถอ่านสารบัญร่องเสียงของซีดีนี้"
 
 #. Set statusbar message
-#: src/sj-main.c:659
+#: src/sj-main.c:716
 msgid "Retrieving track listing...please wait."
 msgstr "กำลังอ่านสารบัญร่องเสียง...โปรดรอสักครู่"
 
-#: src/sj-main.c:750
+#: src/sj-main.c:808
 msgid "Extracting audio from CD"
 msgstr "กำลังคัดลอกเพลงจากซีดี"
 
-#: src/sj-main.c:771
+#: src/sj-main.c:829
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer ไม่สามารถเข้าใช้อุปกรณ์ซีดี '%s'"
 
-#: src/sj-main.c:850
+#: src/sj-main.c:908
 msgid "No CD-ROM drives found"
 msgstr "ไม่พบอุปกรณ์อ่านซีดี"
 
-#: src/sj-main.c:851
+#: src/sj-main.c:909
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer ไม่พบอุปกรณ์อ่านซีดีในเครื่อง"
 
-#: src/sj-main.c:882
+#: src/sj-main.c:940
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "โพรไฟล์เสียงที่เลือกอยู่ไม่ปรากฏว่ามีในการติดตั้งของคุณ"
 
-#: src/sj-main.c:884
+#: src/sj-main.c:942
 msgid "_Change Profile"
 msgstr "เ_ปลี่ยนโพรไฟล์"
 
-#: src/sj-main.c:969
+#: src/sj-main.c:1027
 msgid "Could not open URL"
 msgstr "ไม่สามารถเปิด URL"
 
-#: src/sj-main.c:970
+#: src/sj-main.c:1028
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer เปิด URL สำหรับส่งข้อมูลไม่สำเร็จ"
 
-#: src/sj-main.c:1075
+#: src/sj-main.c:1137
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "คอลัมน์ %d ถูกแก้ไข ซึ่งไม่น่าจะถูกต้อง"
 
-#: src/sj-main.c:1131 src/sj-prefs.c:103
+#: src/sj-main.c:1193 src/sj-prefs.c:102
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -477,104 +590,43 @@ msgstr ""
 "ไม่สามารถแสดงวิธีใช้ของ Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:1223
+#: src/sj-main.c:1286
 msgid "Start extracting immediately"
 msgstr "เริ่มดึงเพลงทันที"
 
-#: src/sj-main.c:1224
+#: src/sj-main.c:1287
 msgid "Start playing immediately"
 msgstr "เริ่มเล่นเพลงทันที"
 
-#: src/sj-main.c:1225
+#: src/sj-main.c:1288
 msgid "What CD device to read"
 msgstr "อุปกรณ์ซีดีที่จะอ่าน"
 
-#: src/sj-main.c:1225
+#: src/sj-main.c:1288
 msgid "DEVICE"
 msgstr "DEVICE"
 
-#: src/sj-main.c:1270
+#: src/sj-main.c:1296
+msgid "- Extract music from your CDs"
+msgstr "- คัดลอกเพลงจากซีดี"
+
+#: src/sj-main.c:1335
 msgid "Could not create GConf client.\n"
 msgstr "ไม่สามารถสร้างตัวใช้บริการ GConf\n"
 
-#: src/sj-main.c:1300
+#: src/sj-main.c:1366
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "ไม่สามารถอ่านข้อมูลส่วนติดต่อผู้ใช้ของ Sound Juicer ได้"
 
-#: src/sj-main.c:1349
+#: src/sj-main.c:1436
 msgid "Track"
 msgstr "ร่องเสียง"
 
-#: src/sj-main.c:1384
+#: src/sj-main.c:1471
 msgid "Duration"
 msgstr "ความยาว"
 
-#: src/sj-metadata-cdtext.c:125
-msgid "CD-TEXT metadata plugin failed to initialise."
-msgstr "เริ่มการทำงานปลั๊กอิน CD-TEXT metadata ไม่สำเร็จ"
-
-#: src/sj-metadata-cdtext.c:176
-msgid "Cannot read CD"
-msgstr "ไม่สามารถอ่านซีดี"
-
-#: src/sj-metadata-musicbrainz.c:97
-msgid "Cannot create MusicBrainz client"
-msgstr "ไม่สามารถสร้างตัวใช้บริการ MusicBrainz"
-
-#: src/sj-metadata-musicbrainz.c:221 src/sj-metadata-musicbrainz.c:487
-#, c-format
-msgid "Cannot read CD: %s"
-msgstr "ไม่สามารถอ่านซีดี: %s"
-
-#: src/sj-metadata-musicbrainz.c:228 src/sj-metadata-musicbrainz.c:526
-msgid "Unknown Artist"
-msgstr "ศิลปินไม่ทราบชื่อ"
-
-#: src/sj-metadata-musicbrainz.c:229 src/sj-metadata-musicbrainz.c:539
-msgid "Unknown Title"
-msgstr "อัลบัมไม่ทราบชื่อ"
-
-#: src/sj-metadata-musicbrainz.c:235
-#, c-format
-msgid "Track %d"
-msgstr "ร่องเสียง %d"
-
-#: src/sj-metadata-musicbrainz.c:263
-msgid ""
-"MusicBrainz metadata object is not valid. This is bad, check your console "
-"for errors."
-msgstr "อ็อบเจกต์ metadata ของ MusicBrainz ใช้ไม่ได้ โปรดตรวจข้อผิดพลาดได้ในเทอร์มินัล"
-
-#: src/sj-metadata-musicbrainz.c:429 src/sj-metadata-musicbrainz.c:436
-#: src/sj-metadata-musicbrainz.c:446
-#, c-format
-msgid "This CD could not be queried: %s\n"
-msgstr "ไม่สามารถสืบค้นข้อมูลของซีดีได้: %s\n"
-
-#: src/sj-metadata-musicbrainz.c:481
-#, c-format
-msgid "Device '%s' does not contain any media"
-msgstr "ไม่มีแผ่นอยู่ในอุปกรณ์ '%s'"
-
-#: src/sj-metadata-musicbrainz.c:484
-#, c-format
-msgid ""
-"Device '%s' could not be opened. Check the access permissions on the device."
-msgstr "ไม่สามารถเปิดใช้อุปกรณ์ '%s' โปรดตรวจดูสิทธิ์การเข้าใช้อุปกรณ์"
-
-#: src/sj-metadata-musicbrainz.c:520
-msgid "Various"
-msgstr "รวมศิลปิน"
-
-#: src/sj-metadata-musicbrainz.c:564
-msgid "Incomplete metadata for this CD"
-msgstr "metadata ของซีดีนี้ไม่สมบูรณ์"
-
-#: src/sj-metadata-musicbrainz.c:655
-msgid "Could not create CD lookup thread"
-msgstr "ไม่สามารถสร้างเธรดสำหรับค้นข้อมูลซีดี"
-
-#: src/sj-play.c:192 src/sj-play.c:430 src/sj-play.c:477
+#: src/sj-play.c:201 src/sj-play.c:457 src/sj-play.c:507
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -585,87 +637,92 @@ msgstr ""
 "\n"
 "สาเหตุ: %s"
 
-#: src/sj-play.c:345
+#: src/sj-play.c:364
 msgid "Failed to create CD source element"
 msgstr "ไม่สามารถเปิดช่องข้อมูลเข้าจากซีดีได้"
 
-#: src/sj-play.c:365
+#: src/sj-play.c:389
 msgid "Failed to link pipeline"
 msgstr "ไม่สามารถเชื่อมต่อไปป์ไลน์ได้"
 
-#: src/sj-play.c:371
+#: src/sj-play.c:395
 msgid "Failed to create audio output"
 msgstr "ไม่สามารถเปิดเอาต์พุตเสียง"
 
-#: src/sj-play.c:587
+#: src/sj-play.c:618
 #, c-format
 msgid "Seeking to %s"
 msgstr "กำลังเลื่อนไปที่ %s"
 
-#: src/sj-prefs.c:52
+#: src/sj-prefs.c:51
 msgid "Album Artist, Album Title"
 msgstr "เจ้าของอัลบัม, ชื่ออัลบัม"
 
-#: src/sj-prefs.c:53
+#: src/sj-prefs.c:52
 msgid "Album Artist (sortable), Album Title"
 msgstr "เจ้าของอัลบัม (เรียงลำดับได้), ชื่ออัลบัม"
 
-#: src/sj-prefs.c:54
+#: src/sj-prefs.c:53
 msgid "Track Artist, Album Title"
 msgstr "ศิลปินเพลง, ชื่ออัลบัม"
 
-#: src/sj-prefs.c:55
+#: src/sj-prefs.c:54
 msgid "Track Artist (sortable), Album Title"
 msgstr "ศิลปินเพลง (เรียงลำดับได้), ชื่ออัลบัม"
 
-#: src/sj-prefs.c:56
+#: src/sj-prefs.c:55
 msgid "Album Title"
 msgstr "ชื่ออัลบัม"
 
-#: src/sj-prefs.c:57
+#: src/sj-prefs.c:56
 msgid "Album Artist"
 msgstr "เจ้าของอัลบัม"
 
-#: src/sj-prefs.c:58
+#: src/sj-prefs.c:57
 msgid "Album Artist (sortable)"
 msgstr "เจ้าของอัลบัม (เรียงลำดับได้)"
 
-#: src/sj-prefs.c:59
+#: src/sj-prefs.c:58
 msgid "Album Artist - Album Title"
 msgstr "เจ้าของอัลบัม - ชื่ออัลบัม"
 
-#: src/sj-prefs.c:60
+#: src/sj-prefs.c:59
 msgid "Album Artist (sortable) - Album Title"
 msgstr "เจ้าของอัลบัม (เรียงลำดับได้) - ชื่ออัลบัม"
 
-#: src/sj-prefs.c:61
+#: src/sj-prefs.c:60
 msgid "[none]"
 msgstr "[ไม่ใช้]"
 
-#: src/sj-prefs.c:66
+#: src/sj-prefs.c:65
 msgid "Number - Title"
 msgstr "หมายเลข - ชื่อเพลง"
 
-#: src/sj-prefs.c:67
+#: src/sj-prefs.c:66
 msgid "Track Title"
 msgstr "ชื่อเพลง"
 
-#: src/sj-prefs.c:68
+#: src/sj-prefs.c:67
 msgid "Track Artist - Track Title"
 msgstr "ศิลปินเพลง - ชื่อเพลง"
 
-#: src/sj-prefs.c:69
+#: src/sj-prefs.c:68
 msgid "Track Artist (sortable) - Track Title"
 msgstr "ศิลปินเพลง (เรียงลำดับได้) - ชื่อเพลง"
 
-#: src/sj-prefs.c:70
+#: src/sj-prefs.c:69
 msgid "Number. Track Artist - Track Title"
 msgstr "หมายเลข. ศิลปินเพลง - ชื่อเพลง"
 
 #. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
-#: src/sj-prefs.c:72
+#: src/sj-prefs.c:71
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "หมายเลข-ศิลปินเพลง-ชื่อเพลง (ตัวพิมพ์เล็ก)"
+
+# This sounds better in the dialog box.
+#: src/sj-prefs.c:251
+msgid "Example Path"
+msgstr "ตัวอย่างชื่อแฟ้ม"
 
 #~ msgid "Album Artist's Sortable Name"
 #~ msgstr "ชื่อที่เรียงลำดับได้ของเจ้าของอัลบัม"
@@ -679,10 +736,6 @@ msgstr "หมายเลข-ศิลปินเพลง-ชื่อเพ�
 # From the functinality, just "file name" is ok
 #~ msgid "<i>path_example_label</i>"
 #~ msgstr "<i>ตัวอย่างชื่อพาธ</i>"
-
-# This sounds better in the dialog box.
-#~ msgid "Example Path:"
-#~ msgstr "ตัวอย่างชื่อแฟ้ม:"
 
 #~ msgid "label"
 #~ msgstr "ฉลาก"
