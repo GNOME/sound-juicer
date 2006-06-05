@@ -31,7 +31,7 @@
 #include <gtk/gtk.h>
 #include <glade/glade.h>
 #include <gconf/gconf-client.h>
-#include <nautilus-burn-drive.h>
+#include <nautilus-burn.h>
 #include <libgnome/gnome-help.h>
 #include <libgnome/gnome-url.h>
 #include <libgnomeui/gnome-ui-init.h>
@@ -90,9 +90,6 @@ static AlbumDetails *current_album;
 static char *current_submit_url = NULL;
 
 gboolean autostart = FALSE, autoplay = FALSE;
-
-/* For the default drive stuff, TODO: remove */
-static GList *cdroms = NULL;
 
 static guint debug_flags;
 
@@ -770,7 +767,7 @@ media_added_cb (NautilusBurnDrive *drive,
     /* FIXME: recover? */
   }
 
-  sj_debug (DEBUG_CD, "Media added to device %s\n", drive->device);
+  sj_debug (DEBUG_CD, "Media added to device %s\n", nautilus_burn_drive_get_device (drive));
   reread_cd (TRUE);
 }
 
@@ -782,7 +779,7 @@ media_removed_cb (NautilusBurnDrive *drive,
     /* FIXME: recover? */
   }
 
-  sj_debug (DEBUG_CD, "Media removed from device %s\n", drive->device);
+  sj_debug (DEBUG_CD, "Media removed from device %s\n", nautilus_burn_drive_get_device (drive));
   stop_ui_hack ();
   update_ui_for_album (NULL);
 }
@@ -791,7 +788,8 @@ static void
 set_drive_from_device (const char *device)
 {
   gboolean is_locked;
-  char    *reason;
+  char *reason;
+  NautilusBurnDriveMonitor *monitor;
 
   if (drive) {
     nautilus_burn_drive_unlock (drive);
@@ -801,8 +799,9 @@ set_drive_from_device (const char *device)
 
   if (! device)
     return;
-  
-  drive = nautilus_burn_drive_new_from_path (device);
+
+  monitor = nautilus_burn_get_drive_monitor ();
+  drive = nautilus_burn_drive_monitor_get_drive_for_device (monitor, device);
   g_assert (drive);
 
   is_locked = nautilus_burn_drive_lock (drive, _("Extracting audio from CD"), &reason);
@@ -811,7 +810,6 @@ set_drive_from_device (const char *device)
     g_free (reason);
   }
 
-  g_object_set (drive, "enable-monitor", TRUE, NULL);
   g_signal_connect (drive, "media-added", G_CALLBACK (media_added_cb), NULL);
   g_signal_connect (drive, "media-removed", G_CALLBACK (media_removed_cb), NULL);
 }
@@ -860,27 +858,41 @@ set_device (const char* device, gboolean ignore_no_media)
 
 gboolean cd_drive_exists (const char *device)
 {
-  GList *l;
-  if (device == NULL) return FALSE;
-  if (cdroms == NULL) {
-    cdroms = nautilus_burn_drive_get_list (FALSE, FALSE);
-  }
-  for (l = cdroms; l != NULL; l = l->next) {
-    if (strcmp (((NautilusBurnDrive *) (l->data))->device, device) == 0)
-      return TRUE;
-  }
-  return FALSE;
+  NautilusBurnDriveMonitor *monitor;
+  NautilusBurnDrive *drive;
+  gboolean exists;
+
+  if (device == NULL)
+    return FALSE;
+
+  monitor = nautilus_burn_get_drive_monitor ();
+  drive = nautilus_burn_drive_monitor_get_drive_for_device (monitor, device);
+  exists = (drive != NULL);
+  nautilus_burn_drive_unref (drive);
+
+  return exists;
 }
 
-const char* prefs_get_default_device ()
+const char *
+prefs_get_default_device (void)
 {
-  static const char* default_device = NULL;
+  static const char * default_device = NULL;
+
   if (default_device == NULL) {
-    NautilusBurnDrive *cd;
-    cdroms = nautilus_burn_drive_get_list (FALSE, FALSE);
-    if (cdroms == NULL) return NULL;
-    cd = cdroms->data;
-    default_device = cd->device;
+    NautilusBurnDriveMonitor *monitor;
+    NautilusBurnDrive *drive;
+    GList *drives;
+
+    monitor = nautilus_burn_get_drive_monitor ();
+    drives = nautilus_burn_drive_monitor_get_drives (monitor);
+    if (drives == NULL)
+      return NULL;
+
+    drive = drives->data;
+    default_device = nautilus_burn_drive_get_device (drive);
+
+    g_list_foreach (drives, (GFunc)nautilus_burn_drive_unref, NULL);
+    g_list_free (drives);
   }
   return default_device;
 }
@@ -1311,6 +1323,8 @@ int main (int argc, char **argv)
 
   sj_stock_init ();
 
+  nautilus_burn_init ();
+
   gtk_window_set_default_icon_name ("sound-juicer");
   
   connection = bacon_message_connection_new ("sound-juicer");
@@ -1519,6 +1533,8 @@ int main (int argc, char **argv)
   gconf_bridge_bind_window_size(gconf_bridge_get(), GCONF_WINDOW, GTK_WINDOW (main_window));
   gtk_widget_show (main_window);
   gtk_main ();
+
+  nautilus_burn_shutdown ();
 
   g_object_unref (metadata);
   g_object_unref (extractor);

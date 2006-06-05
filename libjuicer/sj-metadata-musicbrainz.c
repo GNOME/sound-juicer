@@ -33,7 +33,7 @@
 #include <gconf/gconf-client.h>
 #include <musicbrainz/queries.h>
 #include <musicbrainz/mb_c.h>
-#include <nautilus-burn-drive.h>
+#include <nautilus-burn.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -472,6 +472,8 @@ lookup_cd (SjMetadata *metadata)
   char data[256];
   int num_albums, i, j;
   NautilusBurnMediaType type;
+  NautilusBurnDriveMonitor *monitor;
+  NautilusBurnDrive *drive;
 
   /* TODO: fire error signal */
   g_return_val_if_fail (metadata != NULL, NULL);
@@ -480,7 +482,17 @@ lookup_cd (SjMetadata *metadata)
   g_return_val_if_fail (priv->cdrom != NULL, NULL);
   priv->error = NULL; /* TODO: hack */
 
-  type = nautilus_burn_drive_get_media_type_from_path (priv->cdrom);
+  if (! nautilus_burn_initialized ()) {
+    nautilus_burn_init ();
+  }
+  monitor = nautilus_burn_get_drive_monitor ();
+  drive = nautilus_burn_drive_monitor_get_drive_for_device (monitor, priv->cdrom);
+  if (drive == NULL) {
+    return NULL;
+  }
+  type = nautilus_burn_drive_get_media_type (drive);
+  nautilus_burn_drive_unref (drive);
+
   if (type == NAUTILUS_BURN_MEDIA_TYPE_ERROR) {
     char *msg;
     SjError err;

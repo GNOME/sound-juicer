@@ -369,7 +369,7 @@ setup (GError **err)
     /* TODO: will not notice drive changes, should monitor */
     g_object_set (G_OBJECT (cdp),
                   "read-speed", 2,
-                  "device", drive->device,
+                  "device", nautilus_burn_drive_get_device (drive),
                   NULL);
 
     queue = gst_element_factory_make ("queue", "queue"); g_assert (queue);
