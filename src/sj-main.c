@@ -386,10 +386,10 @@ static void update_ui_for_album (AlbumDetails *album)
     g_signal_handlers_block_by_func (artist_entry, on_artist_edit_changed, NULL);
     gtk_entry_set_text (GTK_ENTRY (title_entry), album->title);
     gtk_entry_set_text (GTK_ENTRY (artist_entry), album->artist);
-    /* Clear the genre field, it's from the user */
-    gtk_entry_set_text (GTK_ENTRY (genre_entry), "");
     g_signal_handlers_unblock_by_func (title_entry, on_title_edit_changed, NULL);
     g_signal_handlers_unblock_by_func (artist_entry, on_artist_edit_changed, NULL);
+    /* Clear the genre field, it's from the user */
+    gtk_entry_set_text (GTK_ENTRY (genre_entry), "");
 
     gtk_widget_set_sensitive (title_entry, TRUE);
     gtk_widget_set_sensitive (artist_entry, TRUE);
