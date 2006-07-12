@@ -423,7 +423,7 @@ AlbumDetails* multiple_album_dialog(GList *albums)
 
   if (dialog == NULL) {
     GtkTreeViewColumn *column;
-    GtkCellRenderer *text_renderer = text_renderer = gtk_cell_renderer_text_new ();
+    GtkCellRenderer *text_renderer = gtk_cell_renderer_text_new ();
 
     dialog = glade_xml_get_widget (glade, "multiple_dialog");
     g_assert (dialog != NULL);
