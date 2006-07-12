@@ -235,6 +235,9 @@ static void error_cb (GstBus *bus, GstMessage *message, gpointer user_data)
   gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
   extractor->priv->rebuild_pipeline = TRUE;
 
+  g_source_remove (extractor->priv->tick_id);
+  extractor->priv->tick_id = 0;
+
   gst_message_parse_error (message, &error, NULL);
   g_signal_emit (extractor, signals[ERROR], 0, error);
   g_error_free (error);
@@ -329,13 +332,14 @@ static gboolean tick_timeout_cb(SjExtractor *extractor)
 {
   gint64 nanos;
   gint secs;
-  GstState state;
+  GstState state, pending_state;
   static GstFormat format = GST_FORMAT_TIME;
 
   g_return_val_if_fail (SJ_IS_EXTRACTOR (extractor), FALSE);
 
-  gst_element_get_state (extractor->priv->pipeline, &state, NULL, GST_CLOCK_TIME_NONE);
-  if (state != GST_STATE_PLAYING) {
+  gst_element_get_state (extractor->priv->pipeline, &state, &pending_state, 0);
+  if (state != GST_STATE_PLAYING && pending_state != GST_STATE_PLAYING) {
+    extractor->priv->tick_id = 0;
     return FALSE;
   }
 
@@ -396,6 +400,7 @@ void sj_extractor_set_paranoia (SjExtractor *extractor, const int paranoia_mode)
 
 void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, const char* url, GError **error)
 {
+  GstStateChangeReturn state_ret;
   SjExtractorPrivate *priv;
   static GstFormat format = GST_FORMAT_TIME;
   gint64 nanos;
@@ -508,7 +513,26 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   
   /* Let's get ready to rumble! */
   gst_element_set_state (priv->pipeline, GST_STATE_PAUSED);
-  gst_element_get_state (priv->pipeline, NULL, NULL, GST_CLOCK_TIME_NONE);
+
+  /* Wait for state change to either complete or fail */
+  state_ret = gst_element_get_state (priv->pipeline, NULL, NULL, GST_CLOCK_TIME_NONE);
+
+  if (state_ret == GST_STATE_CHANGE_FAILURE) {
+    GstMessage *msg;
+
+    msg = gst_bus_poll (GST_ELEMENT_BUS (priv->pipeline), GST_MESSAGE_ERROR, 0);
+    if (msg) {
+      gst_message_parse_error (msg, error, NULL);
+      gst_message_unref (msg);
+    } else if (error) {
+      /* this should never happen, create generic error just in case */
+      *error = g_error_new (SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
+                            "Error starting ripping pipeline");
+    }
+    gst_element_set_state (priv->pipeline, GST_STATE_NULL);
+    priv->rebuild_pipeline = TRUE;
+    return;
+  }
 
   if (!gst_element_query_position (priv->cdsrc, &format, &nanos)) {
     g_warning (_("Could not get track start position"));
