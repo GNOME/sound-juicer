@@ -11,10 +11,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: sound-juicer 2.14.4\n"
+"Project-Id-Version: sound-juicer 2.15.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-21 18:56+0200\n"
-"PO-Revision-Date: 2006-07-21 18:47+0200\n"
+"POT-Creation-Date: 2006-07-22 16:01+0200\n"
+"PO-Revision-Date: 2006-07-22 15:55+0200\n"
 "Last-Translator: Jonathan Ernst <jonathan@ernstfamily.ch>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -183,7 +183,7 @@ msgid "_Submit Track Names..."
 msgstr "_Soumettre le nom des pistes..."
 
 #: ../data/sound-juicer.schemas.in.h:2
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
 "album artist (lowercase) %as -- album artist (sortable) %aS -- album artist "
@@ -191,22 +191,22 @@ msgid ""
 "-- track artist %tA -- track artist (lowercase) %ts -- track artist "
 "(sortable) %tS -- track artist (sortable lowercase)"
 msgstr ""
-"%at -- titre de l'album %aT -- titre de l'album (minuscule) %aa -- artiste "
-"de l'album %aA -- artiste de l'album (minuscule) %tt -- titre de la piste %"
-"tT -- titre de la piste (minuscule) %ta -- artiste de la piste %tA -- "
-"artiste de la piste (minuscule)"
+"%at -- titre de l'album %aT -- titre de l'album (en minuscules) %aa -- "
+"artiste de l'album %aA -- artiste de l'album (en minuscules) %tt -- titre de "
+"la piste %tT -- titre de la piste (en minuscules) %ta -- artiste de la piste "
+"%tA -- artiste de la piste (en minuscules) %ts -- artiste de la piste "
+"(triable) %tS -- artiste de la piste (triable et en miniscules)"
 
 #: ../data/sound-juicer.schemas.in.h:3
 msgid "Audio Profile with which to encode"
 msgstr "Profil audio avec lequel coder"
 
 #: ../data/sound-juicer.schemas.in.h:4
-#, fuzzy
 msgid "Audio volume"
-msgstr "Profil audio"
+msgstr "Volume audio"
 
 #: ../data/sound-juicer.schemas.in.h:6
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Do not specify an extension. %at -- album title %aT -- album title "
 "(lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album "
@@ -217,11 +217,12 @@ msgid ""
 "lowercase)"
 msgstr ""
 "Ne spécifiez pas d'extensions. %at -- titre de l'album %aT -- titre de "
-"l'album (minuscule) %aa -- artiste de l'album %aA -- artiste de l'album "
-"(minuscule) %tn -- numéro de la piste (ex : 8) %tN -- numéro de la piste, "
-"précédé par des zéros (ex : 08) %tt -- titre de la piste %tT -- titre de la "
-"piste (minuscule) %ta -- artiste de la piste %tA -- artiste de la piste "
-"(minuscule)"
+"l'album (en minuscules) %aa -- artiste de l'album %aA -- artiste de l'album "
+"(en minuscules) %tn -- numéro de la piste (ex : 8) %tN -- numéro de la "
+"piste, précédé par des zéros (ex : 08) %tt -- titre de la piste %tT -- titre "
+"de la piste (en minuscules) %ta -- artiste de la piste %tA -- artiste de la "
+"piste (en minuscules) %ts -- artiste de la piste (triable) %tS -- artiste de "
+"la piste (triable et en miniscules)"
 
 #: ../data/sound-juicer.schemas.in.h:7
 msgid ""
@@ -391,7 +392,7 @@ msgstr "Métadonnée incomplète pour ce CD"
 
 #: ../libjuicer/sj-metadata-musicbrainz.c:672
 msgid "Could not create CD lookup thread"
-msgstr "Impossible de créer le processus de recherche de CD"
+msgstr "Impossible de créer le thread de recherche de CD"
 
 #. +
 #: ../src/bacon-volume.c:187
@@ -419,6 +420,10 @@ msgid ""
 "Software Foundation; either version 2 of the License, or (at your option) "
 "any later version."
 msgstr ""
+"Sound Juicer est un logiciel libre ; vous pouvez le redistribuer et/ou le "
+"modifier selon les termes de la Licence Publique Générale GNU publiée par la "
+"Free Software Foundation ; soit la version 2 de la license, soit (à votre "
+"discrétion) toute version ultérieure."
 
 #: ../src/sj-about.c:51
 msgid ""
@@ -427,6 +432,10 @@ msgid ""
 "FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
 "more details."
 msgstr ""
+"Sound Juicer est distribué dans l'espoir qu'il puisse vous être utile, mais "
+"SANS AUCUNE GARANTIE ; sans même de garantie de VALEUR MARCHANDE ou "
+"d'ADÉQUATION A UN BESOIN PARTICULIER. Consultez la Licence Publique Générale "
+"GNU pour plus de détails."
 
 #: ../src/sj-about.c:55
 msgid ""
@@ -434,6 +443,9 @@ msgid ""
 "Sound Juicer; if not, write to the Free Software Foundation, Inc., 59 Temple "
 "Place, Suite 330, Boston, MA  02111-1307  USA"
 msgstr ""
+"Vous devez avoir reçu une copie de la Licence Publique Générale GNU en même "
+"temps que Sound Juicer ; si ce n'est pas le cas, écrivez à la Free Software "
+"Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307, USA"
 
 #: ../src/sj-about.c:66
 msgid "An Audio CD Extractor"
@@ -451,7 +463,8 @@ msgstr ""
 "\n"
 "Contributeurs :\n"
 "Yann Laviolette <yann_laviolette@gnome.org>\n"
-"Christophe Merlet (RedFox) <redfox@redfoxcenter.org>"
+"Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
+"Jonathan Ernst <jonathan@ernstfamily.ch>"
 
 #: ../src/sj-extracting.c:214
 #, c-format
@@ -612,9 +625,8 @@ msgid "DEVICE"
 msgstr "PERIPHÉRIQUE"
 
 #: ../src/sj-main.c:1310
-#, fuzzy
 msgid "- Extract music from your CDs"
-msgstr "Extrait la musique de vos CDs audio"
+msgstr "- Extrait la musique de vos CDs"
 
 #: ../src/sj-main.c:1351
 msgid "Could not create GConf client.\n"
@@ -723,8 +735,8 @@ msgstr "Numéro - Artiste de la piste - Titre de la piste"
 #. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
 #: ../src/sj-prefs.c:71
 msgid "Number-Track Artist-Track Title (lowercase)"
-msgstr "Numéro - Artiste de la piste - Titre de la piste (minuscule)"
+msgstr "Numéro - Artiste de la piste - Titre de la piste (en minuscules)"
 
 #: ../src/sj-prefs.c:251
 msgid "Example Path"
-msgstr ""
+msgstr "Exemple de chemin"
