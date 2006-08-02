@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
-"POT-Creation-Date: 2006-06-17 00:13+0200\n"
-"PO-Revision-Date: 2006-06-17 00:12+0200\n"
+"POT-Creation-Date: 2006-08-02 11:18+0200\n"
+"PO-Revision-Date: 2006-08-02 11:19+0200\n"
 "Last-Translator: FRancisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team:  <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1143,6 +1143,10 @@ msgstr "McCance"
 msgid "shaunm@gnome.org"
 msgstr "shaunm@gnome.org"
 
+#: ../C/sound-juicer.xml:53(revnumber)
+msgid "2.10"
+msgstr "2.10"
+
 #: ../C/sound-juicer.xml:54(date)
 msgid "2005-03-06"
 msgstr "2005-03-06"
@@ -1167,7 +1171,7 @@ msgstr "Este manual describe el uso de Sound Juicer."
 msgid "Introduction"
 msgstr "Introducción"
 
-#: ../C/sound-juicer.xml:83(primary)
+#: ../C/sound-juicer.xml:83(primary) ../C/sound-juicer.xml:0(application)
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -1210,8 +1214,8 @@ msgstr ""
 "\">MusicBrainz</ulink>."
 
 #: ../C/sound-juicer.xml:106(phrase)
-msgid "<application>Sound Juicer</application> on startup"
-msgstr "<application>Sound Juicer</application> al inicio"
+msgid "<placeholder-1/> on startup"
+msgstr "<placeholder-1> al inicio"
 
 #: ../C/sound-juicer.xml:114(title)
 msgid "Entering Track Data"
@@ -1692,13 +1696,9 @@ msgstr ""
 msgid ""
 "Select the MP3 profile and click the <guibutton>Edit</guibutton> button. Set "
 "<guilabel>GStreamer Pipeline</guilabel> to <literallayout><userinput>audio/x-"
-"raw-int,rate=44100,channels=2 ! lame name=enc ! id3mux</userinput></"
-"literallayout>"
-msgstr ""
-"Seleccione el perfil MP3 y pulse el botón <guibutton>Editar</guibutton>. "
-"Establezca el <guilabel>Cauce GStreamer</guilabel> a "
-"<literallayout><userinput>audio/x-raw-int,rate=44100,channels=2 ! lame "
-"name=enc ! id3mux</userinput></literallayout>"
+"raw-int,rate=44100,channels=2 ! lame name=enc vbr=0 bitrate=196 ! id3v2mux</"
+"userinput></literallayout>"
+msgstr "Seleccione el perfil MP3 y pulse el botón <guibutton>Editar</guibutton>. Establezca el <guilabel>Cauce GStreamer</guilabel> a <literallayout><userinput>audio/x-raw-int,rate=44100,channels=2 ! lame name=enc vbr=0 bitrate=196 ! id3v2mux</userinput></literallayout>"
 
 #: ../C/sound-juicer.xml:358(para)
 msgid ""
@@ -1725,3 +1725,6 @@ msgid "translator-credits"
 msgstr ""
 "Jorge González González <jorge.gonzalez.gonzalez@hispalinux.es>, 2005\n"
 "Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2006"
+
+#~ msgid "<application>Sound Juicer</application> on startup"
+#~ msgstr "<application>Sound Juicer</application> al inicio"
