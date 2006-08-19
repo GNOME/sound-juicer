@@ -1,8 +1,9 @@
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer docs\n"
+"PO-Revision-Date: 2006-08-19 19:37+0100\n"
 "POT-Creation-Date: 2006-05-31 19:24+0200\n"
-"PO-Revision-Date: 2006-07-23 16:24+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -654,9 +655,10 @@ msgstr "Du kan klicka på knappen <guibutton>Redigera profiler</guibutton> för 
 msgid "If you need to store tracks in the MP3 format (for example, if your portable music player only supports MP3 and not Ogg Vorbis), you will need to create a new profile. To do this, click on <guibutton>Edit Profiles</guibutton>, click <guibutton>New</guibutton>, and name the profile <userinput>MP3</userinput>."
 msgstr "Om du behöver lagra spår i MP3-formatet (till exempel, om din bärbara musikuppspelare endast har stöd för MP3 och inte Ogg Vorbis), behöver du skapa en ny profil. För att göra detta, klicka på <guibutton>Redigera profiler</guibutton>, klicka sedan på <guibutton>Ny</guibutton> och namnet på profilen <userinput>MP3</userinput>."
 
+#!Select the MP3 profile and click the <guibutton>Edit</guibutton> button. Set <guilabel>GStreamer Pipeline</guilabel> to <literallayout><userinput>audio/x-raw-int,rate=44100,channels=2 ! lame name=enc {+vbr=0 bitrate=196 +}! id3{+v2+}mux</userinput></literallayout>
 #: /tmp/doc-l10n/cvs/sound-juicer.HEAD/C/sound-juicer.xml:354(para)
-msgid "Select the MP3 profile and click the <guibutton>Edit</guibutton> button. Set <guilabel>GStreamer Pipeline</guilabel> to <literallayout><userinput>audio/x-raw-int,rate=44100,channels=2 ! lame name=enc ! id3mux</userinput></literallayout>"
-msgstr "Välj  MP3-profilen och klicka på knappen <guibutton>Redigera</guibutton>. Ställ in <guilabel>GStreamer-rör</guilabel> till <literallayout><userinput>audio/x-raw-int,rate=44100,channels=2 ! lame name=enc ! id3mux</userinput></literallayout>"
+msgid "Select the MP3 profile and click the <guibutton>Edit</guibutton> button. Set <guilabel>GStreamer Pipeline</guilabel> to <literallayout><userinput>audio/x-raw-int,rate=44100,channels=2 ! lame name=enc vbr=0 bitrate=196 ! id3v2mux</userinput></literallayout>"
+msgstr "Välj MP3-profilen och klicka på knappen <guibutton>Redigera</guibutton>. Ställ in <guilabel>GStreamer-rörledning</guilabel> till <literallayout><userinput>audio/x-raw-int,rate=44100,channels=2 ! lame name=enc vbr=0 bitrate=196 ! id3v2mux</userinput></literallayout>"
 
 #: /tmp/doc-l10n/cvs/sound-juicer.HEAD/C/sound-juicer.xml:358(para)
 msgid "Set the <guilabel>File Extension</guilabel> to <userinput>mp3</userinput>, and select the <guibutton>Active</guibutton> check box. You will have to restart <application>Sound Juicer</application> to see the new audio profile."
