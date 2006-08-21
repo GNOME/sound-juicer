@@ -116,14 +116,17 @@ sj_metadata_musicbrainz_instance_init (GTypeInstance *instance, gpointer g_class
   
   /* Set the HTTP proxy */
   if (gconf_client_get_bool (gconf_client, GCONF_PROXY_USE_PROXY, NULL)) {
-    mb_SetProxy (self->priv->mb,
-                 gconf_client_get_string (gconf_client, GCONF_PROXY_HOST, NULL),
+    char *proxy_host = gconf_client_get_string (gconf_client, GCONF_PROXY_HOST, NULL);
+    mb_SetProxy (self->priv->mb, proxy_host,
                  gconf_client_get_int (gconf_client, GCONF_PROXY_PORT, NULL));
+    g_free (proxy_host);
     if (gconf_client_get_bool (gconf_client, GCONF_PROXY_USE_AUTHENTICATION, NULL)) {
 #if HAVE_MB_SETPROXYCREDS
-      mb_SetProxyCreds (self->priv->mb,
-                        gconf_client_get_string (gconf_client, GCONF_PROXY_USERNAME, NULL),
-                        gconf_client_get_string (gconf_client, GCONF_PROXY_USERNAME, NULL));
+      char *username = gconf_client_get_string (gconf_client, GCONF_PROXY_USERNAME, NULL);
+      char *password = gconf_client_get_string (gconf_client, GCONF_PROXY_PASSWORD, NULL);
+      mb_SetProxyCreds (self->priv->mb, username, password);
+      g_free (username);
+      g_free (password);
 #else
       g_warning ("mb_SetProxyCreds() not found, no proxy authorisation possible.");
 #endif

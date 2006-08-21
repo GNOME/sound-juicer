@@ -979,6 +979,7 @@ http_proxy_setup (GConfClient *client)
 
     host = gconf_client_get_string (client, GCONF_HTTP_PROXY, NULL);
     sj_metadata_set_proxy (metadata, host);
+    g_free (host);
     port = gconf_client_get_int (client, GCONF_HTTP_PROXY_PORT, NULL);
     sj_metadata_set_proxy_port (metadata, port);
   }

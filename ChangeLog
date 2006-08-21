@@ -1,3 +1,11 @@
+2006-08-21  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* libjuicer/sj-metadata-musicbrainz.c:
+	(sj_metadata_musicbrainz_instance_init):
+	Don't pass username twice to mb_SetProxyCreds and
+	don't leak the gconf strings.
+	* src/sj-main.c: (http_proxy_setup): Plug a leak.
+
 2006-08-20  Ross Burton  <ross@burtonini.com>
 
 	* configure.in:
