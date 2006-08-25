@@ -5,4 +5,4 @@ DOC_MODULE = sound-juicer
 DOC_ENTITIES = 
 DOC_INCLUDES = legal.xml fdl-appendix.xml
 
-DOC_LINGUAS = el es nl sv uk
+DOC_LINGUAS = el es fr nl sv uk
