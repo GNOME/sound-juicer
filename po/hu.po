@@ -1,22 +1,22 @@
 # Hungarian translation of sound-juicer.
-# Copyright (C) 2004, 2005 Free Software Foundation, Inc.
+# Copyright (C) 2004, 2005, 2006 Free Software Foundation, Inc.
 # This file is distributed under the same license as the sound-juicer package.
-# Gabor Kelemen <kelemeng@gnome.hu>, 2004, 2005.
-# Laszlo Dvornik <dvornik@gnome.hu>, 2004, 2005.
 #
+# Gabor Kelemen <kelemeng@gnome.hu>, 2004, 2005, 2006.
+# Laszlo Dvornik <dvornik@gnome.hu>, 2004, 2005.
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-15 12:36+0200\n"
-"PO-Revision-Date: 2005-09-26 13:13+0200\n"
+"POT-Creation-Date: 2006-08-26 12:37+0200\n"
+"PO-Revision-Date: 2006-08-30 09:04+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
-"Plural-Forms:   nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../data/sound-juicer.desktop.in.h:1
 msgid "CD Extractor"
@@ -111,7 +111,7 @@ msgid "Skip to the previous track"
 msgstr "Ugrás az előző számra"
 
 #: ../data/sound-juicer.glade.h:21 ../src/sj-main.c:165 ../src/sj-main.c:167
-#: ../src/sj-main.c:1322
+#: ../src/sj-main.c:1323
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -180,7 +180,7 @@ msgid "_Submit Track Names..."
 msgstr "Számcímek be_küldése..."
 
 #: ../data/sound-juicer.schemas.in.h:2
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
 "album artist (lowercase) %as -- album artist (sortable) %aS -- album artist "
@@ -189,20 +189,21 @@ msgid ""
 "(sortable) %tS -- track artist (sortable lowercase)"
 msgstr ""
 "%at -- album címe %aT -- album címe (kisbetűs) %aa -- album előadója %aA -- "
-"album előadója (kisbetűs) %tt -- szám címe %tT -- szám címe (kisbetűs) %ta "
-"-- szám előadója %tA -- szám előadója (kisbetűs)"
+"album előadója (kisbetűs) %as -- album előadója (rendezhető) %aS -- album előadója"
+"(kisbetűs, rendezhető) %tt -- szám címe %tT -- szám címe (kisbetűs) %ta "
+"-- szám előadója %tA -- szám előadója (kisbetűs) %ts -- szám előadója"
+"(rendezhető) %tS -- szám előadója (kisbetűs, rendezhető)"
 
 #: ../data/sound-juicer.schemas.in.h:3
 msgid "Audio Profile with which to encode"
 msgstr "Tömörítéshez használandó hangprofil"
 
 #: ../data/sound-juicer.schemas.in.h:4
-#, fuzzy
 msgid "Audio volume"
-msgstr "Hangprofil"
+msgstr "Hangerő"
 
 #: ../data/sound-juicer.schemas.in.h:6
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Do not specify an extension. %at -- album title %aT -- album title "
 "(lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album "
@@ -211,12 +212,7 @@ msgid ""
 "tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
 "(lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable "
 "lowercase)"
-msgstr ""
-"Nem kell megadni kiterjesztést. %at -- album címe %aT -- album címe "
-"(kisbetűs) %aa -- album előadója %aA -- album előadója (kisbetűs) %tn -- "
-"szám száma (pl. 8) %tN -- szám száma, 0-val az elején (pl. 08) %tt -- szám "
-"címe %tT -- szám címe (kisbetűs) %ta -- szám előadója %tA -- szám előadója "
-"(kisbetűs)"
+msgstr "Nem kell megadni kiterjesztést. %at -- album címe %aT -- album címe (kisbetűs) %aa -- album előadója %aA -- album előadója (kisbetűs) %as -- album előadója (rendezhető) %aS -- album előadója(kisbetűs, rendezhető) %tn -- szám száma (pl. 8) %tN -- szám száma, 0-val az elején (pl. 08) %tt -- szám címe %tT -- szám címe (kisbetűs) %ta -- szám előadója %tA -- szám előadója (kisbetűs) %ts -- szám előadója (rendezhető) %tS -- szám előadója (kisbetűs, rendezhető)"
 
 #: ../data/sound-juicer.schemas.in.h:7
 msgid ""
@@ -299,8 +295,7 @@ msgid "Could not get current track position"
 msgstr "A jelenlegi szám kezdőpozíciója nem kérhető le"
 
 #: ../libjuicer/sj-extractor.c:373
-msgid ""
-"Extractor object is not valid. This is bad, check your console for errors."
+msgid "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "A beolvasó objektum érvénytelen. Ez baj, a hibák megtekintéséhez nézze meg a "
 "konzolt."
@@ -329,28 +324,28 @@ msgstr "A CD nem olvasható"
 msgid "Cannot create MusicBrainz client"
 msgstr "Nem hozható létre MusicBrainz kliens"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:224
-#: ../libjuicer/sj-metadata-musicbrainz.c:507
+#: ../libjuicer/sj-metadata-musicbrainz.c:227
+#: ../libjuicer/sj-metadata-musicbrainz.c:510
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "A CD nem olvasható: %s"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:231
-#: ../libjuicer/sj-metadata-musicbrainz.c:545
+#: ../libjuicer/sj-metadata-musicbrainz.c:234
+#: ../libjuicer/sj-metadata-musicbrainz.c:548
 msgid "Unknown Artist"
 msgstr "Ismeretlen előadó"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:232
-#: ../libjuicer/sj-metadata-musicbrainz.c:556
+#: ../libjuicer/sj-metadata-musicbrainz.c:235
+#: ../libjuicer/sj-metadata-musicbrainz.c:559
 msgid "Unknown Title"
 msgstr "Ismeretlen cím"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:238
+#: ../libjuicer/sj-metadata-musicbrainz.c:241
 #, c-format
 msgid "Track %d"
 msgstr "%d. szám"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:266
+#: ../libjuicer/sj-metadata-musicbrainz.c:269
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
@@ -358,35 +353,34 @@ msgstr ""
 "A MusicBrainz metaadat-objektum érvénytelen. Ez baj, a hibák megtekintéséhez "
 "nézze meg a konzolt."
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:433
-#: ../libjuicer/sj-metadata-musicbrainz.c:440
-#: ../libjuicer/sj-metadata-musicbrainz.c:454
+#: ../libjuicer/sj-metadata-musicbrainz.c:436
+#: ../libjuicer/sj-metadata-musicbrainz.c:443
+#: ../libjuicer/sj-metadata-musicbrainz.c:457
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "Ez a CD nem kérdezhető le: %s\n"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:501
+#: ../libjuicer/sj-metadata-musicbrainz.c:504
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "A(z) \"%s\" eszköz nem tartalmaz adathordozót"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:504
+#: ../libjuicer/sj-metadata-musicbrainz.c:507
 #, c-format
-msgid ""
-"Device '%s' could not be opened. Check the access permissions on the device."
+msgid "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr ""
 "A(z) \"%s\" eszköz nem nyitható meg. Ellenőrizze az eszközhöz tartozó "
 "hozzáférési jogosultságokat."
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:540
+#: ../libjuicer/sj-metadata-musicbrainz.c:543
 msgid "Various"
 msgstr "Különböző"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:581
+#: ../libjuicer/sj-metadata-musicbrainz.c:584
 msgid "Incomplete metadata for this CD"
 msgstr "Befejezetlen metaadatok ehhez a CD-hez."
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:672
+#: ../libjuicer/sj-metadata-musicbrainz.c:675
 msgid "Could not create CD lookup thread"
 msgstr "A CD lekérdező szál nem hozható létre"
 
@@ -415,7 +409,7 @@ msgid ""
 "under the terms of the GNU General Public License as published by the Free "
 "Software Foundation; either version 2 of the License, or (at your option) "
 "any later version."
-msgstr ""
+msgstr "A Sound Juicer szabad szoftver, terjesztheti és/vagy módosíthatja a Free Software Foundation által kiadott GNU General Public License második (vagy bármely későbbi) változatában foglaltak alapján."
 
 #: ../src/sj-about.c:51
 msgid ""
@@ -423,14 +417,14 @@ msgid ""
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
 "FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
 "more details."
-msgstr ""
+msgstr "A Sound Juicer programot abban a reményben terjesztjük, hogy hasznos lesz, de nem vállalunk SEMMIFÉLE GARANCIÁT, még olyan értelemben sem, hogy a program alkalmas-e a KÖZREADÁSRA vagy EGY BIZONYOS FELADAT ELVÉGZÉSÉRE. További részletekért tanulmányozza a GNU GPL licencet."
 
 #: ../src/sj-about.c:55
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "Sound Juicer; if not, write to the Free Software Foundation, Inc., 59 Temple "
 "Place, Suite 330, Boston, MA  02111-1307  USA"
-msgstr ""
+msgstr "A Sound Juicer programhoz a GNU General Public License egy példánya is jár, ha nem kapta meg, írjon a Free Software Foundation Inc.-nek. Levélcímük: 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA."
 
 #: ../src/sj-about.c:66
 msgid "An Audio CD Extractor"
@@ -501,7 +495,7 @@ msgid "Could not start Sound Juicer"
 msgstr "A Sound Juicer nem indítható el"
 
 #: ../src/sj-main.c:217 ../src/sj-main.c:636 ../src/sj-main.c:745
-#: ../src/sj-main.c:837 ../src/sj-main.c:1043
+#: ../src/sj-main.c:837 ../src/sj-main.c:1044
 msgid "Reason"
 msgstr "Ok"
 
@@ -517,11 +511,11 @@ msgstr "Jelenleg épp beolvas egy CD-t. Kilép vagy folytatja?"
 msgid "(unknown)"
 msgstr "(ismeretlen)"
 
-#: ../src/sj-main.c:472 ../src/sj-main.c:1467
+#: ../src/sj-main.c:472 ../src/sj-main.c:1468
 msgid "Title"
 msgstr "Cím"
 
-#: ../src/sj-main.c:478 ../src/sj-main.c:1476
+#: ../src/sj-main.c:478 ../src/sj-main.c:1477
 msgid "Artist"
 msgstr "Előadó"
 
@@ -556,28 +550,27 @@ msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "A Sound Juicer nem talált olvasható CD-ROM meghajtót."
 
 #: ../src/sj-main.c:954
-msgid ""
-"The currently selected audio profile is not available on your installation."
+msgid "The currently selected audio profile is not available on your installation."
 msgstr "A jelenleg kiválasztott hangprofil nem érhető el a rendszeren."
 
 #: ../src/sj-main.c:956
 msgid "_Change Profile"
 msgstr "Profil _megváltoztatása"
 
-#: ../src/sj-main.c:1041
+#: ../src/sj-main.c:1042
 msgid "Could not open URL"
 msgstr "Az URL nem nyitható meg"
 
-#: ../src/sj-main.c:1042
+#: ../src/sj-main.c:1043
 msgid "Sound Juicer could not open the submission URL"
 msgstr "A Sound Juicer nem tudta megnyitni a beküldési URL-t."
 
-#: ../src/sj-main.c:1151
+#: ../src/sj-main.c:1152
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "%d. ismeretlen oszlop szerkesztve"
 
-#: ../src/sj-main.c:1207 ../src/sj-prefs.c:102
+#: ../src/sj-main.c:1208 ../src/sj-prefs.c:102
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -586,40 +579,39 @@ msgstr ""
 "A Sound Juicer súgója nem jeleníthető meg\n"
 "%s"
 
-#: ../src/sj-main.c:1300
+#: ../src/sj-main.c:1301
 msgid "Start extracting immediately"
 msgstr "Beolvasás indítása azonnal"
 
-#: ../src/sj-main.c:1301
+#: ../src/sj-main.c:1302
 msgid "Start playing immediately"
 msgstr "Lejátszás indítása azonnal"
 
-#: ../src/sj-main.c:1302
+#: ../src/sj-main.c:1303
 msgid "What CD device to read"
 msgstr "Olvasandó CD eszköz"
 
-#: ../src/sj-main.c:1302
+#: ../src/sj-main.c:1303
 msgid "DEVICE"
 msgstr "ESZKÖZ"
 
-#: ../src/sj-main.c:1310
-#, fuzzy
+#: ../src/sj-main.c:1311
 msgid "- Extract music from your CDs"
-msgstr "Zene beolvasása CD lemezekről"
+msgstr "- Zene beolvasása CD lemezekről"
 
-#: ../src/sj-main.c:1351
+#: ../src/sj-main.c:1352
 msgid "Could not create GConf client.\n"
 msgstr "A GConf kliens nem hozható létre.\n"
 
-#: ../src/sj-main.c:1382
+#: ../src/sj-main.c:1383
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Nem olvasható a felületi fájl a Sound Juicerhez."
 
-#: ../src/sj-main.c:1452
+#: ../src/sj-main.c:1453
 msgid "Track"
 msgstr "Szám"
 
-#: ../src/sj-main.c:1487
+#: ../src/sj-main.c:1488
 msgid "Duration"
 msgstr "Időtartam"
 
@@ -718,4 +710,5 @@ msgstr "Sorszám-Szám előadója-Szám címe (kisbetűs)"
 
 #: ../src/sj-prefs.c:251
 msgid "Example Path"
-msgstr ""
+msgstr "Példa útvonal"
+
