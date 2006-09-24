@@ -219,7 +219,8 @@ static GstElement* build_encoder (SjExtractor *extractor)
   priv = (SjExtractorPrivate*)extractor->priv;
   g_return_val_if_fail (priv->profile != NULL, NULL);
  
-  pipeline = g_strdup_printf ("audioconvert ! %s", gm_audio_profile_get_pipeline (priv->profile));
+  pipeline = g_strdup_printf ("audioresample ! audioconvert ! %s",
+                              gm_audio_profile_get_pipeline (priv->profile));
   element = gst_parse_bin_from_description (pipeline, TRUE, NULL); /* TODO: return error */
   g_free(pipeline);
   return element;
