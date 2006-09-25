@@ -302,6 +302,24 @@ static void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
 }
 
 /**
+ * The GConf key for the strip characters option changed
+ */
+static void strip_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+{
+  /* NOTE that strip_changed_cb in sj-main.c will also be called, and will also update
+     the global value strip_chars - but which function will get called first?
+     Make sure strip_chars is up to date BEFORE calling pattern_label_update */
+  g_return_if_fail (strcmp (entry->key, GCONF_STRIP) == 0);
+
+  if (entry->value == NULL) {
+    strip_chars = FALSE;
+  } else {
+    strip_chars = gconf_value_get_bool (entry->value);
+  }
+  pattern_label_update ();
+}
+
+/**
  * Given a FilePattern array, populate the combo box.
  */
 static void populate_pattern_combo (GtkComboBox *combo, const FilePattern *patterns)
@@ -383,6 +401,7 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     gconf_client_notify_add (gconf_client, GCONF_AUDIO_PROFILE, audio_profile_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_PATH_PATTERN, path_pattern_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_FILE_PATTERN, file_pattern_changed_cb, NULL, NULL, NULL);
+    gconf_client_notify_add (gconf_client, GCONF_STRIP, strip_changed_cb, NULL, NULL, NULL);
 
     g_signal_connect (extractor, "notify::profile", pattern_label_update, NULL);
 
