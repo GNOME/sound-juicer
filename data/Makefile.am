@@ -15,10 +15,11 @@ gtk_update_icon_cache = gtk-update-icon-cache -f -t $(datadir)/icons/hicolor
 
 install-icons:
 # This sucks
-	for size in 16x16 22x22 24x24 scalable; do mkdir --parents $(DESTDIR)/$(datadir)/icons/hicolor/$$size/apps; done
+	for size in 16x16 22x22 24x24 32x32 scalable; do mkdir --parents $(DESTDIR)/$(datadir)/icons/hicolor/$$size/apps; done
 	install -m 644 $(srcdir)/sound-juicer-16.png $(DESTDIR)/$(datadir)/icons/hicolor/16x16/apps/sound-juicer.png
 	install -m 644 $(srcdir)/sound-juicer-22.png $(DESTDIR)/$(datadir)/icons/hicolor/22x22/apps/sound-juicer.png
 	install -m 644 $(srcdir)/sound-juicer-24.png $(DESTDIR)/$(datadir)/icons/hicolor/24x24/apps/sound-juicer.png
+	install -m 644 $(srcdir)/sound-juicer-32.png $(DESTDIR)/$(datadir)/icons/hicolor/32x32/apps/sound-juicer.png
 	install -m 644 $(srcdir)/sound-juicer.svg $(DESTDIR)/$(datadir)/icons/hicolor/scalable/apps/sound-juicer.svg
 
 	@-if test -z "$(DESTDIR)"; then \
