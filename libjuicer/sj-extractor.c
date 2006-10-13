@@ -70,7 +70,6 @@ struct SjExtractorPrivate {
   GstFormat track_format;
   char *device_path;
   int paranoia_mode;
-  int track_start;
   int seconds;
   GError *construct_error;
   guint tick_id;
@@ -350,7 +349,7 @@ static gboolean tick_timeout_cb(SjExtractor *extractor)
 
   secs = nanos / GST_SECOND;
   if (secs != extractor->priv->seconds) {
-    g_signal_emit (extractor, signals[PROGRESS], 0, secs - extractor->priv->track_start);
+    g_signal_emit (extractor, signals[PROGRESS], 0, secs);
   }
 
   return TRUE;
@@ -512,10 +511,13 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   g_object_set (G_OBJECT (priv->cdsrc), "track", track->number, NULL);
   
   /* Let's get ready to rumble! */
-  gst_element_set_state (priv->pipeline, GST_STATE_PAUSED);
+  state_ret = gst_element_set_state (priv->pipeline, GST_STATE_PLAYING);
 
-  /* Wait for state change to either complete or fail */
-  state_ret = gst_element_get_state (priv->pipeline, NULL, NULL, GST_CLOCK_TIME_NONE);
+  if (state_ret == GST_STATE_CHANGE_ASYNC) {
+    /* Wait for state change to either complete or fail, but not for too long,
+     * just to catch immediate errors. The rest we'll handle asynchronously */
+    state_ret = gst_element_get_state (priv->pipeline, NULL, NULL, GST_SECOND / 2);
+  }
 
   if (state_ret == GST_STATE_CHANGE_FAILURE) {
     GstMessage *msg;
@@ -534,14 +536,6 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
     return;
   }
 
-  if (!gst_element_query_position (priv->cdsrc, &format, &nanos)) {
-    g_warning (_("Could not get track start position"));
-    return;
-  }
-  priv->track_start = nanos / GST_SECOND;
-
-  gst_element_set_state (priv->pipeline, GST_STATE_PLAYING);
-  
   priv->tick_id = g_timeout_add (250, (GSourceFunc)tick_timeout_cb, extractor);
 }
 
