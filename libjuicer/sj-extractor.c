@@ -401,8 +401,6 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
 {
   GstStateChangeReturn state_ret;
   SjExtractorPrivate *priv;
-  static GstFormat format = GST_FORMAT_TIME;
-  gint64 nanos;
   GstIterator *iter;
   GstTagSetter *tagger;
   gboolean done;

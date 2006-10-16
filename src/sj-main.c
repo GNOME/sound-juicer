@@ -35,6 +35,7 @@
 #include <libgnome/gnome-help.h>
 #include <libgnome/gnome-url.h>
 #include <libgnomeui/gnome-ui-init.h>
+#include <libgnomeui/gnome-authentication-manager.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <profiles/gnome-media-profiles.h>
 #include <gst/gst.h>
@@ -974,7 +975,7 @@ http_proxy_setup (GConfClient *client)
   if (!gconf_client_get_bool (client, GCONF_HTTP_PROXY_ENABLE, NULL)) {
     sj_metadata_set_proxy (metadata, NULL);
   } else {
-    const char *host;
+    char *host;
     int port;
 
     host = gconf_client_get_string (client, GCONF_HTTP_PROXY, NULL);
@@ -1321,6 +1322,8 @@ int main (int argc, char **argv)
                       NULL);
 
   g_set_application_name (_("Sound Juicer"));
+
+  gnome_authentication_manager_init ();
 
   sj_debug_init ();
 
