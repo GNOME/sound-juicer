@@ -1,30 +1,4 @@
-# General compiler flags
-AM_CFLAGS = -export-dynamic @WARN_CFLAGS@
-
-# General CPP flags. When I can demand automake 1.8, this can become
-# sound_juicer_CPPFLAGS.
-AM_CPPFLAGS = \
-	-I$(top_srcdir)/libjuicer \
-	@DISABLE_DEPRECATED_CFLAGS@ \
-	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"  \
-	-DDATADIR=\""$(datadir)"\" \
-	-DPREFIX=\""$(prefix)"\" \
-	-DLIBDIR=\""$(libdir)"\" \
-	-DSYSCONFDIR=\""$(sysconfdir)"\" \
-	-DPIXMAPDIR=\""$(datadir)/pixmaps"\" \
-	-DPKGDATADIR=\""$(datadir)/sound-juicer"\" \
-	@GSTREAMER_CFLAGS@ @MEDIA_PROFILES_CFLAGS@ @BURN_CFLAGS@ @UI_CFLAGS@
-
-if HAVE_TAGLIB
-AM_CPPFLAGS += @TAGLIB_CFLAGS@
-endif
-
-# We always build Sound Juicer
 bin_PROGRAMS = sound-juicer
-
-if HAVE_TAGLIB
-ID3MUX_FILES = gsttaglib.cc gsttaglib.h
-endif
 
 sound_juicer_SOURCES = \
 	dummy.cpp \
@@ -42,13 +16,57 @@ sound_juicer_SOURCES = \
 	gconf-bridge.c \
 	bacon-volume.c \
 	bacon-volume.h \
-	$(BACON_FILES) \
-	$(ID3MUX_FILES)
+	$(BACON_FILES)
 
-sound_juicer_LDADD = $(top_builddir)/libjuicer/libjuicer.la
-sound_juicer_LDFLAGS = @MEDIA_PROFILES_LIBS@ @GSTREAMER_LIBS@ @BURN_LIBS@ @UI_LIBS@
+sound_juicer_CPPFLAGS = \
+	-I$(top_srcdir)/libjuicer \
+	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"  \
+	-DDATADIR=\""$(datadir)"\" \
+	-DPREFIX=\""$(prefix)"\" \
+	-DLIBDIR=\""$(libdir)"\" \
+	-DSYSCONFDIR=\""$(sysconfdir)"\" \
+	-DPIXMAPDIR=\""$(datadir)/pixmaps"\" \
+	-DPKGDATADIR=\""$(datadir)/sound-juicer"\" \
+	$(DISABLE_DEPRECATED) \
+	$(AM_CPPFLAGS)
+
+sound_juicer_CFLAGS = \
+	$(GSTREAMER_CFLAGS) \
+ 	$(MEDIA_PROFILES_CFLAGS) \
+ 	$(BURN_CFLAGS) \
+	$(UI_CFLAGS) \
+	$(WARN_CFLAGS) \
+	$(AM_CFLAGS)
+
+sound_juicer_CXXFLAGS = \
+	$(GSTREAMER_CFLAGS) \
+ 	$(MEDIA_PROFILES_CFLAGS) \
+ 	$(BURN_CFLAGS) \
+	$(UI_CFLAGS) \
+	$(WARN_CXXFLAGS) \
+	$(AM_CXXFLAGS)
+
+sound_juicer_LDADD = \
+	$(top_builddir)/libjuicer/libjuicer.la \
+	$(MEDIA_PROFILES_LIBS) \
+	$(GSTREAMER_LIBS) \
+ 	$(BURN_LIBS) \
+	$(UI_LIBS)
+
+sound_juicer_LDFLAGS = \
+	$(AM_LDFLAGS)
+
 if HAVE_TAGLIB
-sound_juicer_LDFLAGS += @TAGLIB_LIBS@ -lgsttag-0.10
+sound_juicer_SOURCES += \
+	gsttaglib.cc \
+	gsttaglib.h
+
+sound_juicer_CXXFLAGS += \
+	$(TAGLIB_CFLAGS)
+
+sound_juicer_LDADD += \
+	$(TAGLIB_LIBS)	\
+ 	-lgsttag-0.10
 endif
 
 BACON_DIR=$(srcdir)/../../libbacon/src/

@@ -1,5 +1,7 @@
 SUBDIRS = po data libjuicer src tests help
 
+ACLOCAL_AMFLAGS = -I m4
+
 INTLTOOL_BUILT = \
         intltool-extract \
         intltool-merge \

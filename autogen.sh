@@ -5,10 +5,8 @@ srcdir=`dirname $0`
 test -z "$srcdir" && srcdir=.
 
 PKG_NAME="sound-juicer"
-REQUIRED_AUTOMAKE_VERSION=1.9
-export REQUIRED_AUTOMAKE_VERSION
 
-(test -f $srcdir/configure.in) || {
+(test -f $srcdir/src/sound-juicer.h) || {
     echo "**Error**: Directory "\`$srcdir\'" does not look like the top-level $PKG_NAME directory"
     exit 1
 }
@@ -18,4 +16,4 @@ which gnome-autogen.sh || {
 	exit 1
 }
 
-. gnome-autogen.sh
+REQUIRED_AUTOMAKE_VERSION=1.9 USE_GNOME2_MACROS=1 . gnome-autogen.sh

@@ -1,15 +1,15 @@
-# Initial blurb
-AC_INIT(sound-juicer, 2.16.1, http://www.burtonini.com/)
+AC_INIT([Sound Juicer],[2.16.1],[http://bugzilla.gnome.org/enter_bug.cgi?product=sound-juicer],[sound-juicer])
+
 AC_PREREQ(2.52)
-AM_INIT_AUTOMAKE([check-news 1.6])
+
+AM_INIT_AUTOMAKE([1.9 no-dist-gzip dist-bzip2 check-news])
 AC_CONFIG_MACRO_DIR([m4])
-AC_CONFIG_SRCDIR(libjuicer/sj-extractor.c)
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_SRCDIR([libjuicer/sj-extractor.c])
+AM_CONFIG_HEADER([config.h])
+
 AM_MAINTAINER_MODE
 
-# Honour user-set aclocal flags
-ACLOCAL="$ACLOCAL $ACLOCAL_FLAGS"
-
+GNOME_COMMON_INIT
 
 # Do the gettext/i18n stuff
 GETTEXT_PACKAGE=sound-juicer
@@ -25,9 +25,13 @@ AM_PROG_CC_STDC
 AC_HEADER_STDC
 AC_PROG_CXX
 AC_PROG_LIBTOOL
+AC_PROG_INSTALL
 IT_PROG_INTLTOOL([0.35.0])
 
-GNOME_COMPILE_WARNINGS
+GNOME_COMPILE_WARNINGS([maximum])
+GNOME_CXX_WARNINGS
+GNOME_DEBUG_CHECK
+GNOME_MAINTAINER_MODE_DEFINES
 
 # Use the GNOME documentation framework
 GNOME_DOC_INIT
@@ -43,7 +47,7 @@ AC_SUBST(BURN_CFLAGS)
 AC_SUBST(BURN_LIBS)
 
 # Find the UI libraries
-PKG_CHECK_MODULES(UI, gtk+-2.0 >= 2.8  libglade-2.0  gconf-2.0  libgnomeui-2.0 >= 2.13.0  gnome-vfs-2.0 >= 2.9 gnome-vfs-module-2.0 > 2.9 gmodule-2.0)
+PKG_CHECK_MODULES(UI, gtk+-2.0 >= 2.8  libglade-2.0  gconf-2.0  libgnomeui-2.0 >= 2.13.0  gnome-vfs-2.0 >= 2.9 gnome-vfs-module-2.0 > 2.9 gmodule-export-2.0)
 AC_SUBST(UI_CFLAGS)
 AC_SUBST(UI_LIBS)
 
@@ -67,33 +71,37 @@ AC_SUBST(MEDIA_PROFILES_LIBS)
 PKG_CHECK_MODULES(MUSICBRAINZ, libmusicbrainz >= 2.1.0)
 AC_SUBST(MUSICBRAINZ_CFLAGS)
 AC_SUBST(MUSICBRAINZ_LIBS)
-oldlibs=$LIBS ; LIBS=$MUSICBRAINZ_LIBS
+
+oldlibs=$LIBS
+LIBS="$LIBS $MUSICBRAINZ_LIBS"
 AC_CHECK_FUNCS(mb_SetProxyCreds)
-LIBS=$oldlibs
+LIBS="$oldlibs"
 
 # Find the optional dependency libcdio
-PKG_CHECK_MODULES(CDIO, libcdio >= 0.70, HAVE_CDIO=yes, HAVE_CDIO=no)
-if test "x$HAVE_CDIO" = "xyes"; then
-        AM_CONDITIONAL(HAVE_CDIO, true)
-else
-        AM_CONDITIONAL(HAVE_CDIO, false)
-        AC_MSG_WARN([libcdio not found, cannot get track names from CD-TEXT])
+PKG_CHECK_MODULES([CDIO],[libcdio >= 0.70],[have_cdio=yes],[have_cdio=no])
+AC_SUBST([CDIO_CFLAGS])
+AC_SUBST([CDIO_LIBS])
+
+if test "$have_cdio" != "yes"; then
+	AC_MSG_WARN([libcdio not found, cannot get track names from CD-TEXT])
 fi
 
+AM_CONDITIONAL([HAVE_CDIO],[test "$have_cdio" = "yes"])
+
 # Find TagLib for the internal copy of id3mux
-PKG_CHECK_MODULES(TAGLIB, taglib, HAVE_TAGLIB=yes, HAVE_TAGLIB=no)
-if test "x$HAVE_TAGLIB" = "xyes"; then
-        AM_CONDITIONAL(HAVE_TAGLIB, true)
-        AC_SUBST(TAGLIB_CFLAGS)
-        AC_SUBST(TAGLIB_LIBS)
-else
-        AM_CONDITIONAL(HAVE_TAGLIB, false)
-        AC_MSG_WARN([taglib not found, cannot handle missing id3mux])
+PKG_CHECK_MODULES([TAGLIB],[taglib],[have_taglib=yes],[have_taglib=no])
+AC_SUBST([TAGLIB_CFLAGS]) 
+AC_SUBST([TAGLIB_LIBS])
+
+if test "$have_taglib" != "yes"; then
+	AC_MSG_WARN([taglib not found, cannot handle missing id3mux])
 fi
+
+AM_CONDITIONAL([HAVE_TAGLIB],[test "$have_taglib" = "yes"])
 
 # Find how and where to put the GConf schemas
 AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
-if test x"$GCONFTOOL" = xno; then
+if test "$GCONFTOOL" = "no"; then
         AC_MSG_ERROR([gconftool-2 executable not found in your path - should be installed with GConf])
 fi
 AM_GCONF_SOURCE_2
@@ -101,35 +109,38 @@ AM_GCONF_SOURCE_2
 
 # Optionally enable G* deprecations
 AC_MSG_CHECKING([whether to enable deprecation warnings])
-AC_ARG_ENABLE(deprecations,
-        [AC_HELP_STRING([--enable-deprecations],
-        [enable deprecation warnings [default=no]])],,
-        [enable_deprecations=no])
-if test "x$enable_deprecations" = "xyes"; then
-        AC_MSG_RESULT([yes])
-        DISABLE_DEPRECATED_CFLAGS="\
-                -DG_DISABLE_DEPRECATED  -DGDK_DISABLE_DEPRECATED \
-                -DGTK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED \
-                -DGCONF_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED"
-        AC_SUBST(DISABLE_DEPRECATED_CFLAGS)
-else
-        AC_MSG_RESULT([no])
+AC_ARG_ENABLE([deprecations],
+        [AS_HELP_STRING([--enable-deprecations],
+        [enable deprecation warnings [default=no]])],
+        [],[enable_deprecations=no])
+AC_MSG_RESULT([$enable_deprecations])
+
+if test "$enable_deprecations" = "no"; then
+	DISABLE_DEPRECATED=""
+	AC_SUBST(DISABLE_DEPRECATED)
 fi
 
 # We require Scroll Keeper 0.3.5 or above for the help
 SCROLLKEEPER_BUILD_REQUIRED=0.3.5
 AC_SUBST(SCROLLKEEPER_BUILD_REQUIRED)
 
+AC_SUBST([AM_CPPFLAGS])
+AC_SUBST([AM_CFLAGS])
+AC_SUBST([AM_CXXFLAGS])
+AC_SUBST([AM_LDFLAGS])
 
 # Finally, generate the files
-AC_OUTPUT([
+AC_CONFIG_FILES([
 sound-juicer.spec
 Makefile
+data/Makefile
+data/sound-juicer.desktop.in
 help/Makefile
 help/sound-juicer/Makefile
-data/Makefile
-po/Makefile.in
 libjuicer/Makefile
+po/Makefile.in
 src/Makefile
 tests/Makefile
 ])
+
+AC_OUTPUT
