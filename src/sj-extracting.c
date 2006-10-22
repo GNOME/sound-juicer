@@ -711,7 +711,11 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
 
     /* If not a % marker, copy and continue */
     if (*p != '%') {
-      g_string_append_unichar (s, g_utf8_get_char (p));
+      if ((*p == ' ') && (strip_chars)) {
+        g_string_append_c (s, '_');
+      } else {
+        g_string_append_unichar (s, g_utf8_get_char (p));
+      }
       p = g_utf8_next_char (p);
       /* Explicit increment as we continue past the increment */
       continue;
