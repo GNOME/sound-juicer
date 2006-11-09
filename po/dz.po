@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer.HEAD.dz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-03 23:22+0200\n"
-"PO-Revision-Date: 2006-05-23 09:22+0530\n"
+"POT-Creation-Date: 2006-11-08 07:57+0100\n"
+"PO-Revision-Date: 2006-11-08 15:04+0530\n"
 "Last-Translator: Mindu Dorji\n"
 "Language-Team: DZONGKHA <pgeyleg@dit.gov.bt>\n"
 "MIME-Version: 1.0\n"
@@ -18,15 +18,15 @@ msgstr ""
 "X-Poedit-Country: BHUTAN\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: ../data/sound-juicer.desktop.in.h:1
+#: ../data/sound-juicer.desktop.in.in.h:1
 msgid "CD Extractor"
 msgstr "སི་ཌི་ཕྱིར་འདོན་འབད།"
 
-#: ../data/sound-juicer.desktop.in.h:2
+#: ../data/sound-juicer.desktop.in.in.h:2
 msgid "Extract music from your CDs"
 msgstr "ཁྱོད་རའི་སི་ཌི་ནང་ལས་ གླུ་དབྱངས་ཕྱིར་འདོན་འབད།"
 
-#: ../data/sound-juicer.desktop.in.h:3
+#: ../data/sound-juicer.desktop.in.in.h:3
 msgid "Sound Juicer CD Extractor"
 msgstr "སའུན་ཇུའི་སར་སི་ཌི་ཕྱིར་འདོན་པ།"
 
@@ -111,9 +111,9 @@ msgid "Skip to the previous track"
 msgstr "གླུ་རིམ་ཧེ་མམ་ལུ་གོམ་འགྱོ།"
 
 #: ../data/sound-juicer.glade.h:21
-#: ../src/sj-main.c:167
-#: ../src/sj-main.c:169
-#: ../src/sj-main.c:1307
+#: ../src/sj-main.c:166
+#: ../src/sj-main.c:168
+#: ../src/sj-main.c:1324
 msgid "Sound Juicer"
 msgstr "སའུན་ཇུའི་སར།"
 
@@ -126,7 +126,7 @@ msgid "_Contents"
 msgstr "ནང་དོན་ཚུ།(_C)"
 
 #: ../data/sound-juicer.glade.h:24
-#: ../src/sj-main.c:267
+#: ../src/sj-main.c:266
 msgid "_Continue"
 msgstr "འཕྲོ་མཐུད།(_C)"
 
@@ -236,15 +236,134 @@ msgstr "ལག་ལེན་འཐབ་ནིའི་ པེ་ར་ནོ�
 msgid "Whether to eject the CD when finished extracting."
 msgstr "ཕྱིར་འདོན་མཇུག་བསྡུ་ཞིནམ་ལས་ སི་ཌི་ཕྱིར་བཏོན་འབད་ནི་ཨིན་ན།"
 
+#: ../libjuicer/sj-extractor.c:103
+msgid "Audio Profile"
+msgstr "རྣར་ཉན་གསལ་སྡུད།"
+
+#: ../libjuicer/sj-extractor.c:104
+msgid "The GNOME Audio Profile used for encoding audio"
+msgstr "རྣར་ཉན་ཨིན་ཀོ་ཌིང་གི་དོན་ལུ་ ལག་ལེན་འཐབ་མི་ ཇི་ནོམ་རྣར་ཉན་གསལ་སྡུད།"
+
+#: ../libjuicer/sj-extractor.c:278
+msgid "Could not create GStreamer CD reader"
+msgstr "ཇི་སིཊི་མར་སི་ཌི་ལྷག་བྱེད་ གསར་བསྐྲུན་འབད་མ་ཚུགས།"
+
+#: ../libjuicer/sj-extractor.c:298
+#, c-format
+msgid "Could not create GStreamer encoders for %s"
+msgstr "(%s)གི་དོན་ལུ་ ཇི་སི་ཊིམར་ཨིན་ཀོ་ཌརསི་ གསར་བསྐྲུན་འབད་མ་ཚུགས།"
+
+#: ../libjuicer/sj-extractor.c:309
+msgid "Could not create GStreamer file output"
+msgstr "ཇི་སི་ཊི་མར་ཡིག་སྣོད་ཀྱི་ ཨའུཊི་པུཊི་ གསར་བསྐྲུན་འབད་མ་ཚུགས།"
+
+#: ../libjuicer/sj-extractor.c:321
+msgid "Could not link pipeline"
+msgstr "རྒྱུད་དུང་འབྲེལ་ལམ་ལུ་ འབྲེལ་མཐུད་འབད་མ་ཚུགས།"
+
+#: ../libjuicer/sj-extractor.c:344
+msgid "Could not get current track position"
+msgstr "ད་ལྟོའི་གླུ་རིམ་གནས་ས་ འཐོབ་མ་ཚུགས།"
+
+#: ../libjuicer/sj-extractor.c:371
+msgid "Extractor object is not valid. This is bad, check your console for errors."
+msgstr "ཕྱིར་འདོན་དངོས་པོ་ ནུས་མེད་ཨིན་པས། ཚགས་ཁར་མ་ཚུད་ འཛོལ་བ་བལྟ་ནིའི་དོན་ལུ་ ཁྱོད་རའི་མ་སྒྲོམ་ ཞིབ་དཔྱད་འབད།"
+
+#: ../libjuicer/sj-extractor.c:563
+msgid "The plugin necessary for CD access was not found"
+msgstr "སི་ཌི་འཛུལ་སྤྱོད་ཀྱི་དོན་ལུ་ མཁོ་ཆེའི་པ་ལག་ཨིན་དེ་ མ་འཐོབ་པས།"
+
+#: ../libjuicer/sj-extractor.c:571
+msgid "The plugin necessary for file access was not found"
+msgstr "ཡིག་སྣོད་འཛུལ་སྤྱོད་ཀྱི་དོན་ལུ་ མཁོ་ཆེའི་པ་ལག་ཨིན་དེ་ མ་འཐོབ་པས།"
+
+#: ../libjuicer/sj-metadata-cdtext.c:127
+msgid "CD-TEXT metadata plugin failed to initialise."
+msgstr "སི་ཌི་ཚིག་ཡིག་ མེ་ཊ་གནད་སྡུད་ཀྱི་པ་ལག་ཨིན་ འགོ་འབྱེད་འབད་མ་ཚུགས།"
+
+#: ../libjuicer/sj-metadata-cdtext.c:178
+msgid "Cannot read CD"
+msgstr "སི་ཌི་ལྷག་མི་ཚུགས་པས།"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:102
+msgid "Cannot create MusicBrainz client"
+msgstr "མུས་སིཀ་བེརེནཛི་ ཞབས་ཏོག་སྤྱོད་མི་ གསར་བསྐྲུན་འབད་མ་ཚུགས།"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:227
+#: ../libjuicer/sj-metadata-musicbrainz.c:510
+#, c-format
+msgid "Cannot read CD: %s"
+msgstr "སི་ཌི་: %s ལྷག་མི་ཚུགས་པས།"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:234
+#: ../libjuicer/sj-metadata-musicbrainz.c:548
+msgid "Unknown Artist"
+msgstr "ངོ་མ་ཤེས་པའི་གླུ་གཞསཔ།"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:235
+#: ../libjuicer/sj-metadata-musicbrainz.c:559
+msgid "Unknown Title"
+msgstr "མ་ཤེས་པའི་མགོ་མིང་།"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:241
+#, c-format
+msgid "Track %d"
+msgstr "གླུ་རིམ་%d"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:269
+msgid "MusicBrainz metadata object is not valid. This is bad, check your console for errors."
+msgstr "མུས་སིཀ་བེརེནཛི་ མེ་ཊ་ཌེ་ཊ་ དངོས་པོ་དེ་ ནུས་མེད་ཨིན་པས། འདི་བྱང་ཉེས་ཨིན། འཛོལ་བ་བལྟ་ནིའི་དོན་ལུ་ ཁྱོད་རའི་མ་སྒྲོམ་ལུ་ ཞིབ་དཔྱད་འབད།"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:436
+#: ../libjuicer/sj-metadata-musicbrainz.c:443
+#: ../libjuicer/sj-metadata-musicbrainz.c:457
+#, c-format
+msgid "This CD could not be queried: %s\n"
+msgstr "སི་ཌི་འདི་ལུ་ དྲི་དཔྱད་འབད་མ་ཚུགས། : %s\n"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:504
+#, c-format
+msgid "Device '%s' does not contain any media"
+msgstr "ཐབས་འཕྲུལ་'%s' ནང་ལུ་ བརྡ་ལམ་ག་ནི་ཡང་མིན་འདུག"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:507
+#, c-format
+msgid "Device '%s' could not be opened. Check the access permissions on the device."
+msgstr "ཐབས་འཕྲུལ་'%s' དེ་ ཁ་ཕྱེ་མ་ཚུགས། ཐབས་འཕྲུལ་གུ་ འཛུལ་སྤྱོད་གནང་བ་དེ་ ཞིབ་དཔྱད་འབད་བལྟ།"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:543
+msgid "Various"
+msgstr "འདྲ་མིན་སྣ་ཚོགས།"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:584
+msgid "Incomplete metadata for this CD"
+msgstr "སི་ཌི་འདི་གི་དོན་ལུ་ ཆ་མ་ཚང་བའི་མེ་ཊ་གནད་སྡུད།"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:675
+msgid "Could not create CD lookup thread"
+msgstr "སི་ཌི་བལྟ་ནིའི་ ཐེ་རེཌི་ གསར་བསྐྲུན་འབད་མ་ཚུགས།"
+
+#: ../src/bacon-volume.c:181
+msgid "Volume"
+msgstr "སྐད་ཤུགས་"
+
 #. +
-#: ../src/bacon-volume.c:187
+#: ../src/bacon-volume.c:214
 msgid "+"
 msgstr "+"
 
+#: ../src/bacon-volume.c:216
+msgid "Volume Down"
+msgstr "སྐད་ཤུགས་ཕབ་"
+
 #. -
-#: ../src/bacon-volume.c:203
+#: ../src/bacon-volume.c:232
 msgid "-"
 msgstr "-"
+
+#: ../src/bacon-volume.c:234
+msgid "Volume Up"
+msgstr "སྐད་ཤུགས་སེང་"
 
 #: ../src/gconf-bridge.c:1218
 #, c-format
@@ -326,145 +445,100 @@ msgstr "གླུ་རིམ་ཚུ་ མཐར་འཁྱོལ་ཅན�
 msgid "_Eject"
 msgstr "ཕྱིར་བཏོན།(_E)"
 
-#: ../src/sj-extractor.c:105
-msgid "Audio Profile"
-msgstr "རྣར་ཉན་གསལ་སྡུད།"
-
-#: ../src/sj-extractor.c:106
-msgid "The GNOME Audio Profile used for encoding audio"
-msgstr "རྣར་ཉན་ཨིན་ཀོ་ཌིང་གི་དོན་ལུ་ ལག་ལེན་འཐབ་མི་ ཇི་ནོམ་རྣར་ཉན་གསལ་སྡུད།"
-
-#: ../src/sj-extractor.c:276
-msgid "Could not create GStreamer CD reader"
-msgstr "ཇི་སིཊི་མར་སི་ཌི་ལྷག་བྱེད་ གསར་བསྐྲུན་འབད་མ་ཚུགས།"
-
-#: ../src/sj-extractor.c:298
-#, c-format
-msgid "Could not create GStreamer encoders for %s"
-msgstr "(%s)གི་དོན་ལུ་ ཇི་སི་ཊིམར་ཨིན་ཀོ་ཌརསི་ གསར་བསྐྲུན་འབད་མ་ཚུགས།"
-
-#: ../src/sj-extractor.c:309
-msgid "Could not create GStreamer file output"
-msgstr "ཇི་སི་ཊི་མར་ཡིག་སྣོད་ཀྱི་ ཨའུཊི་པུཊི་ གསར་བསྐྲུན་འབད་མ་ཚུགས།"
-
-#: ../src/sj-extractor.c:321
-msgid "Could not link pipeline"
-msgstr "རྒྱུད་དུང་འབྲེལ་ལམ་ལུ་ འབྲེལ་མཐུད་འབད་མ་ཚུགས།"
-
-#: ../src/sj-extractor.c:343
-msgid "Could not get current track position"
-msgstr "ད་ལྟོའི་གླུ་རིམ་གནས་ས་ འཐོབ་མ་ཚུགས།"
-
-#: ../src/sj-extractor.c:370
-msgid "Extractor object is not valid. This is bad, check your console for errors."
-msgstr "ཕྱིར་འདོན་དངོས་པོ་ ནུས་མེད་ཨིན་པས། ཚགས་ཁར་མ་ཚུད་ འཛོལ་བ་བལྟ་ནིའི་དོན་ལུ་ ཁྱོད་རའི་མ་སྒྲོམ་ ཞིབ་དཔྱད་འབད།"
-
-#: ../src/sj-extractor.c:514
-msgid "Could not get track start position"
-msgstr "གླུ་རིམ་འགོ་བཙུགས་ཀྱི་ གནས་ས་འཐོབ་མ་ཚུགས།"
-
-#: ../src/sj-extractor.c:546
-msgid "The plugin necessary for CD access was not found"
-msgstr "སི་ཌི་འཛུལ་སྤྱོད་ཀྱི་དོན་ལུ་ མཁོ་ཆེའི་པ་ལག་ཨིན་དེ་ མ་འཐོབ་པས།"
-
-#: ../src/sj-extractor.c:554
-msgid "The plugin necessary for file access was not found"
-msgstr "ཡིག་སྣོད་འཛུལ་སྤྱོད་ཀྱི་དོན་ལུ་ མཁོ་ཆེའི་པ་ལག་ཨིན་དེ་ མ་འཐོབ་པས།"
-
-#: ../src/sj-main.c:144
+#: ../src/sj-main.c:143
 msgid "E_xtract"
 msgstr "ཕྱིར་འདོན།(_x)"
 
-#: ../src/sj-main.c:218
+#: ../src/sj-main.c:217
 msgid "Could not start Sound Juicer"
 msgstr "སའུན་ཇུའི་སར་ འགོ་བཙུགས་མ་ཚུགས།"
 
-#: ../src/sj-main.c:219
-#: ../src/sj-main.c:636
-#: ../src/sj-main.c:745
-#: ../src/sj-main.c:836
-#: ../src/sj-main.c:1028
+#: ../src/sj-main.c:218
+#: ../src/sj-main.c:637
+#: ../src/sj-main.c:746
+#: ../src/sj-main.c:838
+#: ../src/sj-main.c:1045
 msgid "Reason"
 msgstr "རྒྱུ་མཚན།"
 
-#: ../src/sj-main.c:221
+#: ../src/sj-main.c:220
 msgid "Please consult the documentation for assistance."
 msgstr "གྲོགས་རམ་གྱི་དོན་ལུ་ ཡིག་བཀོད་ལུ་ གྲོས་བསྟུན་འབད་གནང་།"
 
-#: ../src/sj-main.c:265
+#: ../src/sj-main.c:264
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "ད་ལྟོ་ཁྱོད་ཀྱིས་ སི་ཌི་ཅིག་ ཕྱིར་འདོན་འབད་དོ། ཁྱོད་ཀྱིས་ད་ལྟོ་སྤང་ནི་ཨིན་ན་ འཕྲོ་མཐུད་ནི་ཨིན་ན?"
 
-#: ../src/sj-main.c:325
-#: ../src/sj-main.c:430
+#: ../src/sj-main.c:324
+#: ../src/sj-main.c:431
 msgid "(unknown)"
 msgstr "(ངོ་མ་ཤེསཔ)"
 
-#: ../src/sj-main.c:472
-#: ../src/sj-main.c:1450
+#: ../src/sj-main.c:473
+#: ../src/sj-main.c:1471
 msgid "Title"
 msgstr "མགོ་མིང་།"
 
-#: ../src/sj-main.c:478
-#: ../src/sj-main.c:1459
+#: ../src/sj-main.c:479
+#: ../src/sj-main.c:1480
 msgid "Artist"
 msgstr "གླུ་གཞསཔ"
 
-#: ../src/sj-main.c:634
-#: ../src/sj-main.c:743
-#: ../src/sj-main.c:834
+#: ../src/sj-main.c:635
+#: ../src/sj-main.c:744
+#: ../src/sj-main.c:836
 msgid "Could not read the CD"
 msgstr "སི་ཌི་ལྷག་མ་ཚུགས།"
 
-#: ../src/sj-main.c:635
-#: ../src/sj-main.c:744
+#: ../src/sj-main.c:636
+#: ../src/sj-main.c:745
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "སའུན་ཇུའི་སར་གྱིས་ སི་ཌི་འདི་གུ་ གླུ་རིམ་ཐོ་ཡིག་ ལྷག་མ་ཚུགས།"
 
 #. Set statusbar message
-#: ../src/sj-main.c:715
+#: ../src/sj-main.c:716
 msgid "Retrieving track listing...please wait."
 msgstr "གླུ་རིམ་ཐོ་ཡིག་ སླར་འདྲེན་འབད་དོ་...བསྒུག་སྡོད་གནང་།"
 
-#: ../src/sj-main.c:807
+#: ../src/sj-main.c:810
 msgid "Extracting audio from CD"
 msgstr "་སི་ཌི་ནང་ལས་རྙར་ཉན་ཕྱིར་འདོན་འབད་དོ།"
 
-#: ../src/sj-main.c:828
+#: ../src/sj-main.c:830
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "སའུན་ཇུའི་སར་གྱིས་ སི་ཌི་རཱོམ་ཐབས་འཕྲུལ་'%s'ལུ་ འཛུལ་སྤྱོད་འབད་མ་ཚུགས།"
 
-#: ../src/sj-main.c:907
+#: ../src/sj-main.c:923
 msgid "No CD-ROM drives found"
 msgstr "སི་ཌི་རཱོམ་ འདྲེན་བྱེད་ འཚོལ་མ་ཐོབ།"
 
-#: ../src/sj-main.c:908
+#: ../src/sj-main.c:924
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "སའུན་ཇུའི་སར་གྱིས་ ལྷག་ནིའི་དོན་ལུ་ སི་ཌི་རཱོམ་ འདྲེན་བྱེད་འཚོལ་མ་འཐོབ།"
 
-#: ../src/sj-main.c:939
+#: ../src/sj-main.c:955
 msgid "The currently selected audio profile is not available on your installation."
 msgstr "ད་ལྟོ་སེལ་འཐུ་འབད་མི་ རྣར་ཉན་གསལ་སྡུད་དེ་ ཁྱོད་ཀྱི་གཞི་བཙུགས་ནང་ལུ་ མི་འཐོབ་པས།"
 
-#: ../src/sj-main.c:941
+#: ../src/sj-main.c:957
 msgid "_Change Profile"
 msgstr "གསལ་སྡུད་བསྒྱུར་བཅོས་འབད།(_C)"
 
-#: ../src/sj-main.c:1026
+#: ../src/sj-main.c:1043
 msgid "Could not open URL"
 msgstr "ཡུ་ཨར་ཨེལ་ལྷག་མ་ཚུགས།"
 
-#: ../src/sj-main.c:1027
+#: ../src/sj-main.c:1044
 msgid "Sound Juicer could not open the submission URL"
 msgstr "སའུན་ཇུའི་སར་གྱིས་ ཕུལ་བའི་ཡུ་ཨར་ཨེལ་ ཁ་ཕྱེ་མ་ཚུགས།"
 
-#: ../src/sj-main.c:1136
+#: ../src/sj-main.c:1153
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "ངོ་མ་ཤེས་པའི་ ཀེར་ཐིག་%d ཞུན་དག་འབད་ནུག།"
 
-#: ../src/sj-main.c:1192
+#: ../src/sj-main.c:1209
 #: ../src/sj-prefs.c:102
 #, c-format
 msgid ""
@@ -474,107 +548,41 @@ msgstr ""
 "སའུན་ཇུའི་སར་གྱི་དོན་ལུ་ གྲོགས་རམ་བཀྲམ་སྟོན་འབད་མ་ཚུགས། \n"
 "%s"
 
-#: ../src/sj-main.c:1285
+#: ../src/sj-main.c:1302
 msgid "Start extracting immediately"
 msgstr "དེ་འཕྲལ་ལས་ཕྱིར་འདོན་འབད་ནི་འགོ་བཙུགས།"
 
-#: ../src/sj-main.c:1286
+#: ../src/sj-main.c:1303
 msgid "Start playing immediately"
 msgstr "དེ་འཕྲལ་ལས་གཏང་ནི་འགོ་བཙུགས།"
 
-#: ../src/sj-main.c:1287
+#: ../src/sj-main.c:1304
 msgid "What CD device to read"
 msgstr "ལྷག་ནིའི་སི་ཌི་ཐབས་འཕྲུལ་ག་ཅི།"
 
-#: ../src/sj-main.c:1287
+#: ../src/sj-main.c:1304
 msgid "DEVICE"
 msgstr "ཐབས་འཕྲུལ།"
 
-#: ../src/sj-main.c:1295
+#: ../src/sj-main.c:1312
 msgid "- Extract music from your CDs"
 msgstr "ཁྱོད་རའི་སི་ཌི་ནང་ལས་ སྙན་ཆ་་ཕྱིར་འདོན་འབད།"
 
-#: ../src/sj-main.c:1334
+#: ../src/sj-main.c:1355
 msgid "Could not create GConf client.\n"
 msgstr "ཇི་ཀཱོནཕ་ ཞབས་ཏོག་སྤྱོད་མི་ གསར་བསྐྲུན་འབད་མ་ཚུགས། \n"
 
-#: ../src/sj-main.c:1365
+#: ../src/sj-main.c:1386
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "སའུན་ཇུའི་སར་གྱི་དོན་ལུ་ ངོས་འདྲ་བའི་ཡིག་སྣོད་དེ་ ལྷག་མ་ཚུགས།"
 
-#: ../src/sj-main.c:1435
+#: ../src/sj-main.c:1456
 msgid "Track"
 msgstr "གླུ་རིམ།"
 
-#: ../src/sj-main.c:1470
+#: ../src/sj-main.c:1491
 msgid "Duration"
 msgstr "དུས་ཡུན།"
-
-#: ../src/sj-metadata-cdtext.c:125
-msgid "CD-TEXT metadata plugin failed to initialise."
-msgstr "སི་ཌི་ཚིག་ཡིག་ མེ་ཊ་གནད་སྡུད་ཀྱི་པ་ལག་ཨིན་ འགོ་འབྱེད་འབད་མ་ཚུགས།"
-
-#: ../src/sj-metadata-cdtext.c:176
-msgid "Cannot read CD"
-msgstr "སི་ཌི་ལྷག་མི་ཚུགས་པས།"
-
-#: ../src/sj-metadata-musicbrainz.c:97
-msgid "Cannot create MusicBrainz client"
-msgstr "མུས་སིཀ་བེརེནཛི་ ཞབས་ཏོག་སྤྱོད་མི་ གསར་བསྐྲུན་འབད་མ་ཚུགས།"
-
-#: ../src/sj-metadata-musicbrainz.c:219
-#: ../src/sj-metadata-musicbrainz.c:490
-#, c-format
-msgid "Cannot read CD: %s"
-msgstr "སི་ཌི་: %s ལྷག་མི་ཚུགས་པས།"
-
-#: ../src/sj-metadata-musicbrainz.c:226
-#: ../src/sj-metadata-musicbrainz.c:528
-msgid "Unknown Artist"
-msgstr "ངོ་མ་ཤེས་པའི་གླུ་གཞསཔ།"
-
-#: ../src/sj-metadata-musicbrainz.c:227
-#: ../src/sj-metadata-musicbrainz.c:539
-msgid "Unknown Title"
-msgstr "མ་ཤེས་པའི་མགོ་མིང་།"
-
-#: ../src/sj-metadata-musicbrainz.c:233
-#, c-format
-msgid "Track %d"
-msgstr "གླུ་རིམ་%d"
-
-#: ../src/sj-metadata-musicbrainz.c:261
-msgid "MusicBrainz metadata object is not valid. This is bad, check your console for errors."
-msgstr "མུས་སིཀ་བེརེནཛི་ མེ་ཊ་ཌེ་ཊ་ དངོས་པོ་དེ་ ནུས་མེད་ཨིན་པས། འདི་བྱང་ཉེས་ཨིན། འཛོལ་བ་བལྟ་ནིའི་དོན་ལུ་ ཁྱོད་རའི་མ་སྒྲོམ་ལུ་ ཞིབ་དཔྱད་འབད།"
-
-#: ../src/sj-metadata-musicbrainz.c:428
-#: ../src/sj-metadata-musicbrainz.c:435
-#: ../src/sj-metadata-musicbrainz.c:449
-#, c-format
-msgid "This CD could not be queried: %s\n"
-msgstr "སི་ཌི་འདི་ལུ་ དྲི་དཔྱད་འབད་མ་ཚུགས། : %s\n"
-
-#: ../src/sj-metadata-musicbrainz.c:484
-#, c-format
-msgid "Device '%s' does not contain any media"
-msgstr "ཐབས་འཕྲུལ་'%s' ནང་ལུ་ བརྡ་ལམ་ག་ནི་ཡང་མིན་འདུག"
-
-#: ../src/sj-metadata-musicbrainz.c:487
-#, c-format
-msgid "Device '%s' could not be opened. Check the access permissions on the device."
-msgstr "ཐབས་འཕྲུལ་'%s' དེ་ ཁ་ཕྱེ་མ་ཚུགས། ཐབས་འཕྲུལ་གུ་ འཛུལ་སྤྱོད་གནང་བ་དེ་ ཞིབ་དཔྱད་འབད་བལྟ།"
-
-#: ../src/sj-metadata-musicbrainz.c:523
-msgid "Various"
-msgstr "འདྲ་མིན་སྣ་ཚོགས།"
-
-#: ../src/sj-metadata-musicbrainz.c:564
-msgid "Incomplete metadata for this CD"
-msgstr "སི་ཌི་འདི་གི་དོན་ལུ་ ཆ་མ་ཚང་བའི་མེ་ཊ་གནད་སྡུད།"
-
-#: ../src/sj-metadata-musicbrainz.c:655
-msgid "Could not create CD lookup thread"
-msgstr "སི་ཌི་བལྟ་ནིའི་ ཐེ་རེཌི་ གསར་བསྐྲུན་འབད་མ་ཚུགས།"
 
 #: ../src/sj-play.c:201
 #: ../src/sj-play.c:457
@@ -675,6 +683,8 @@ msgstr "ཨང་-གླུ་རིམ་གླུ་གཞསཔ་- གླུ
 msgid "Example Path"
 msgstr "དཔེར་བརྗོད་འགྲུལ་ལམ་:"
 
+#~ msgid "Could not get track start position"
+#~ msgstr "གླུ་རིམ་འགོ་བཙུགས་ཀྱི་ གནས་ས་འཐོབ་མ་ཚུགས།"
 #~ msgid "Sound Juicer CD Ripper"
 #~ msgstr "སའུན་ཇུའི་སར་ སི་ཌི་རིཔ་པར།"
 #~ msgid "<i>path_example_label</i>"
