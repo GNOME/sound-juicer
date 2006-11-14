@@ -57,7 +57,7 @@ static const FilePattern path_patterns[] = {
   {N_("Album Artist (sortable)"), "%as"},
   {N_("Album Artist - Album Title"), "%aa - %at"},
   {N_("Album Artist (sortable) - Album Title"), "%as - %at"},
-  {N_("[none]"), ""},
+  {N_("[none]"), "./"},
   {NULL, NULL}
 };
 
