@@ -35,12 +35,12 @@ release: dist doap.rdf
 	cp -f doap.rdf $(WEBROOT)/blosxom/computers/sound-juicer
 	cp -f $(PACKAGE)-$(VERSION).tar.gz $(WEBROOT)/computing
 	scp $(PACKAGE)-$(VERSION).tar.gz master.gnome.org:
-	ssh master.gnome.org install-module $(PACKAGE)-$(VERSION).tar.gz
+	ssh master.gnome.org install-module $(PACKAGE)-$(VERSION).tar.bz2
 	gcq $(WEBROOT)/blosxom/computers/sound-juicer/sj-$(VERSION).txt
 
 dev-release: dist
 	cvs tag SOUND_JUICER_$(subst .,_,$(VERSION))
 	cp -f $(PACKAGE)-$(VERSION).tar.gz $(WEBROOT)/computing
 	scp $(PACKAGE)-$(VERSION).tar.gz master.gnome.org:
-	ssh master.gnome.org install-module $(PACKAGE)-$(VERSION).tar.gz
+	ssh master.gnome.org install-module $(PACKAGE)-$(VERSION).tar.bz2
 	gcq $(WEBROOT)/blosxom/computers/sound-juicer/sj-$(VERSION).txt
