@@ -107,7 +107,6 @@ play (void)
   
   gtk_widget_set_sensitive (next_menuitem, TRUE);
   gtk_widget_set_sensitive (prev_menuitem, TRUE);
-  gtk_widget_set_sensitive (reread_menuitem, FALSE);
 }
 
 /**
