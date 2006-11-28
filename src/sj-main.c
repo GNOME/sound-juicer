@@ -782,6 +782,9 @@ media_removed_cb (NautilusBurnDrive *drive,
     /* FIXME: recover? */
   }
 
+  /* first make sure we're not playing */
+  stop_playback ();
+
   sj_debug (DEBUG_CD, "Media removed from device %s\n", nautilus_burn_drive_get_device (drive));
   stop_ui_hack ();
   update_ui_for_album (NULL);
