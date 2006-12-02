@@ -6,25 +6,25 @@ msgid ""
 ""
 msgstr "Project-Id-Version: sound-juicer HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-25 22:43+0200\n"
-"PO-Revision-Date: 2006-04-17 20:49+0930\n"
+"POT-Creation-Date: 2006-12-02 06:34+0100\n"
+"PO-Revision-Date: 2006-12-02 23:02+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: LocFactoryEditor 1.6b36\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: LocFactoryEditor 1.6fc1\n"
 
-#: ../data/sound-juicer.desktop.in.h:1
+#: ../data/sound-juicer.desktop.in.in.h:1
 msgid "CD Extractor"
 msgstr "Bộ trích đĩa CD"
 
-#: ../data/sound-juicer.desktop.in.h:2
+#: ../data/sound-juicer.desktop.in.in.h:2
 msgid "Extract music from your CDs"
 msgstr "Có thể trích âm nhạc ra các CD của bạn"
 
-#: ../data/sound-juicer.desktop.in.h:3
+#: ../data/sound-juicer.desktop.in.in.h:3
 msgid "Sound Juicer CD Extractor"
 msgstr "Bộ trích đĩa CD Sound Juicer"
 
@@ -109,9 +109,9 @@ msgid "Skip to the previous track"
 msgstr "Nhảy về rãnh trước"
 
 #: ../data/sound-juicer.glade.h:21
+#: ../src/sj-main.c:166
 #: ../src/sj-main.c:168
-#: ../src/sj-main.c:170
-#: ../src/sj-main.c:1308
+#: ../src/sj-main.c:1327
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -127,7 +127,7 @@ msgid "_Contents"
 msgstr "_Nội dung"
 
 #: ../data/sound-juicer.glade.h:24
-#: ../src/sj-main.c:268
+#: ../src/sj-main.c:266
 msgid "_Continue"
 msgstr "_Tiếp tục"
 
@@ -281,50 +281,46 @@ msgstr "Chế độ cần thận cần dùng"
 msgid "Whether to eject the CD when finished extracting."
 msgstr "Có nên nhả ra CD khi trích xong hay không."
 
-#: ../libjuicer/sj-extractor.c:104
+#: ../libjuicer/sj-extractor.c:103
 msgid "Audio Profile"
 msgstr "Hồ sơ Âm thanh"
 
-#: ../libjuicer/sj-extractor.c:105
+#: ../libjuicer/sj-extractor.c:104
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "Hồ sơ Âm thanh GNOME dùng để mã hóa âm thanh"
 
-#: ../libjuicer/sj-extractor.c:275
+#: ../libjuicer/sj-extractor.c:278
 msgid "Could not create GStreamer CD reader"
 msgstr "Không thể tạo bộ đọc đĩa CD kiểu GStreamer."
 
-#: ../libjuicer/sj-extractor.c:297
+#: ../libjuicer/sj-extractor.c:298
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Không thể tạo bộ mã hóa kiểu GStreamer cho %s."
 
-#: ../libjuicer/sj-extractor.c:308
+#: ../libjuicer/sj-extractor.c:309
 msgid "Could not create GStreamer file output"
 msgstr "Không thể tạo dữ liệu xuất tập tin kiểu GStreamer"
 
-#: ../libjuicer/sj-extractor.c:320
+#: ../libjuicer/sj-extractor.c:321
 msgid "Could not link pipeline"
 msgstr "Không thể liên kết ống dẫn"
 
-#: ../libjuicer/sj-extractor.c:342
+#: ../libjuicer/sj-extractor.c:344
 msgid "Could not get current track position"
 msgstr "Không thể lấy vị trí rãnh hiện có"
 
-#: ../libjuicer/sj-extractor.c:369
+#: ../libjuicer/sj-extractor.c:371
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr "Đối tượng trích không hợp lệ. Đây là nghiệm trọng nên hãy kiểm tra bàn giao "
 "tiếp để xem lỗi."
 
-#: ../libjuicer/sj-extractor.c:513
-msgid "Could not get track start position"
-msgstr "Không thể lấy vị trí đầu rãnh"
-
-#: ../libjuicer/sj-extractor.c:545
+#: ../libjuicer/sj-extractor.c:563
 msgid "The plugin necessary for CD access was not found"
 msgstr "Chưa tìm thấy bổ sung cho phép truy cập đĩa CD"
 
-#: ../libjuicer/sj-extractor.c:553
+#: ../libjuicer/sj-extractor.c:571
 msgid "The plugin necessary for file access was not found"
 msgstr "Chưa tìm thấy bổ sung cho phép truy cập tập tin"
 
@@ -340,73 +336,85 @@ msgstr "Không thể đọc đĩa CD"
 msgid "Cannot create MusicBrainz client"
 msgstr "Không thể tạo ứng dụng khách MusicBrainz"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:224
-#: ../libjuicer/sj-metadata-musicbrainz.c:495
+#: ../libjuicer/sj-metadata-musicbrainz.c:227
+#: ../libjuicer/sj-metadata-musicbrainz.c:510
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Không thể đọc đĩa CD: %s"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:231
-#: ../libjuicer/sj-metadata-musicbrainz.c:533
+#: ../libjuicer/sj-metadata-musicbrainz.c:234
+#: ../libjuicer/sj-metadata-musicbrainz.c:548
 msgid "Unknown Artist"
 msgstr "Nhạc sĩ lạ"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:232
-#: ../libjuicer/sj-metadata-musicbrainz.c:544
+#: ../libjuicer/sj-metadata-musicbrainz.c:235
+#: ../libjuicer/sj-metadata-musicbrainz.c:559
 msgid "Unknown Title"
 msgstr "Tựa lạ"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:238
+#: ../libjuicer/sj-metadata-musicbrainz.c:241
 #, c-format
 msgid "Track %d"
 msgstr "Rãnh %d"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:266
+#: ../libjuicer/sj-metadata-musicbrainz.c:269
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
 msgstr "Đối tượng siêu dữ liệu MusicBrainz không hợp lệ. Đây là nghiệm trọng nên hãy "
 "kiểm tra bàn giao tiếp để xem lỗi."
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:433
-#: ../libjuicer/sj-metadata-musicbrainz.c:440
-#: ../libjuicer/sj-metadata-musicbrainz.c:454
+#: ../libjuicer/sj-metadata-musicbrainz.c:436
+#: ../libjuicer/sj-metadata-musicbrainz.c:443
+#: ../libjuicer/sj-metadata-musicbrainz.c:457
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "Không thể yêu cầu đĩa CD này: %s\n"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:489
+#: ../libjuicer/sj-metadata-musicbrainz.c:504
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Thiết bị « %s » không có vật chứa nào"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:492
+#: ../libjuicer/sj-metadata-musicbrainz.c:507
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "Không thể mở thiết bị « %s ». Hãy kiểm tra quyền truy cập thiết bị ấy."
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:528
+#: ../libjuicer/sj-metadata-musicbrainz.c:543
 msgid "Various"
 msgstr "Khác nhau"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:569
+#: ../libjuicer/sj-metadata-musicbrainz.c:584
 msgid "Incomplete metadata for this CD"
 msgstr "Siêu dữ liệu cho đĩa CD này chưa hoàn tất"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:660
+#: ../libjuicer/sj-metadata-musicbrainz.c:675
 msgid "Could not create CD lookup thread"
 msgstr "Không thể tạo mạch tra tìm CD"
 
+#: ../src/bacon-volume.c:181
+msgid "Volume"
+msgstr "Âm lượng"
+
 #.+
-#: ../src/bacon-volume.c:187
+#: ../src/bacon-volume.c:214
 msgid "+"
 msgstr "+"
 
+#: ../src/bacon-volume.c:216
+msgid "Volume Down"
+msgstr "Giảm âm"
+
 #.-
-#: ../src/bacon-volume.c:203
+#: ../src/bacon-volume.c:232
 msgid "-"
 msgstr "-"
+
+#: ../src/bacon-volume.c:234
+msgid "Volume Up"
+msgstr "Tăng âm"
 
 #: ../src/gconf-bridge.c:1218
 #, c-format
@@ -506,48 +514,48 @@ msgstr "Các rãnh đã được sao chép."
 msgid "_Eject"
 msgstr "Nhả _ra"
 
-#: ../src/sj-main.c:145
+#: ../src/sj-main.c:143
 msgid "E_xtract"
 msgstr "Lấ_y"
 
-#: ../src/sj-main.c:219
+#: ../src/sj-main.c:217
 msgid "Could not start Sound Juicer"
 msgstr "Không thể khởi chạy trình Sound Juicer"
 
-#: ../src/sj-main.c:220
+#: ../src/sj-main.c:218
 #: ../src/sj-main.c:637
 #: ../src/sj-main.c:746
-#: ../src/sj-main.c:837
-#: ../src/sj-main.c:1029
+#: ../src/sj-main.c:841
+#: ../src/sj-main.c:1048
 msgid "Reason"
 msgstr "Lý do"
 
-#: ../src/sj-main.c:222
+#: ../src/sj-main.c:220
 msgid "Please consult the documentation for assistance."
 msgstr "Hãy xem tài liệu hướng dẫn để tìm thấy trợ giúp."
 
-#: ../src/sj-main.c:266
+#: ../src/sj-main.c:264
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Hiện thì bạn trích một đĩa CD. Muốn thoát bây giờ hay tiếp tục không?"
 
-#: ../src/sj-main.c:326
+#: ../src/sj-main.c:324
 #: ../src/sj-main.c:431
 msgid "(unknown)"
 msgstr "(không rõ)"
 
 #: ../src/sj-main.c:473
-#: ../src/sj-main.c:1451
+#: ../src/sj-main.c:1474
 msgid "Title"
 msgstr "Tựa"
 
 #: ../src/sj-main.c:479
-#: ../src/sj-main.c:1460
+#: ../src/sj-main.c:1483
 msgid "Artist"
 msgstr "Nhạc sĩ"
 
 #: ../src/sj-main.c:635
 #: ../src/sj-main.c:744
-#: ../src/sj-main.c:835
+#: ../src/sj-main.c:839
 msgid "Could not read the CD"
 msgstr "Không thể đọc đĩa CD này"
 
@@ -561,46 +569,46 @@ msgstr "Bộ Sound Juicer không thể đọc danh sách rãnh trên đĩa CD n�
 msgid "Retrieving track listing...please wait."
 msgstr "Đang lấy danh sách rãnh ... hãy đời một chút."
 
-#: ../src/sj-main.c:808
+#: ../src/sj-main.c:813
 msgid "Extracting audio from CD"
 msgstr "Đang trích nhạc ra đĩa CD..."
 
-#: ../src/sj-main.c:829
+#: ../src/sj-main.c:833
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Bộ Sound Juicer không thể truy cập thiết bị đĩa CD-ROM « %s »."
 
-#: ../src/sj-main.c:908
+#: ../src/sj-main.c:926
 msgid "No CD-ROM drives found"
 msgstr "Không tìm thấy ổ đĩa CD-ROM nào"
 
-#: ../src/sj-main.c:909
+#: ../src/sj-main.c:927
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Bộ Sound Juicer không tìm thấy được ổ đĩa CD-ROM cần đọc."
 
-#: ../src/sj-main.c:940
+#: ../src/sj-main.c:958
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Không có hồ sơ âm thanh đã chọn trên máy vi tính này."
 
-#: ../src/sj-main.c:942
+#: ../src/sj-main.c:960
 msgid "_Change Profile"
 msgstr "_Chuyển Hồ sơ"
 
-#: ../src/sj-main.c:1027
+#: ../src/sj-main.c:1046
 msgid "Could not open URL"
 msgstr "Không thể mở địa chỉ Mạng"
 
-#: ../src/sj-main.c:1028
+#: ../src/sj-main.c:1047
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Bộ Sound Juicer không thể mở địa chỉ Mạng đệ trình"
 
-#: ../src/sj-main.c:1137
+#: ../src/sj-main.c:1156
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Cột lạ %d đã được hiệu chỉnh"
 
-#: ../src/sj-main.c:1193
+#: ../src/sj-main.c:1212
 #: ../src/sj-prefs.c:102
 #, c-format
 msgid ""
@@ -609,45 +617,45 @@ msgid ""
 msgstr "Không thể trình bày trợ giúp Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1286
+#: ../src/sj-main.c:1305
 msgid "Start extracting immediately"
 msgstr "Trích đi ngay"
 
-#: ../src/sj-main.c:1287
+#: ../src/sj-main.c:1306
 msgid "Start playing immediately"
 msgstr "Phát đi ngay"
 
-#: ../src/sj-main.c:1288
+#: ../src/sj-main.c:1307
 msgid "What CD device to read"
 msgstr "Thiết bị đĩa CD nào cần đọc"
 
-#: ../src/sj-main.c:1288
+#: ../src/sj-main.c:1307
 msgid "DEVICE"
 msgstr "THIẾT BỊ"
 
-#: ../src/sj-main.c:1296
+#: ../src/sj-main.c:1315
 msgid "- Extract music from your CDs"
 msgstr "— Trích âm nhạc ra các CD của bạn"
 
-#: ../src/sj-main.c:1335
+#: ../src/sj-main.c:1358
 msgid "Could not create GConf client.\n"
 msgstr "Không thể tạo ứng dụng khách GConf.\n"
 
-#: ../src/sj-main.c:1366
+#: ../src/sj-main.c:1389
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Không thể đọc tập tin giao diện cho trình Sound Juicer."
 
-#: ../src/sj-main.c:1436
+#: ../src/sj-main.c:1459
 msgid "Track"
 msgstr "Rãnh"
 
-#: ../src/sj-main.c:1471
+#: ../src/sj-main.c:1494
 msgid "Duration"
 msgstr "Thời gian"
 
-#: ../src/sj-play.c:201
-#: ../src/sj-play.c:457
-#: ../src/sj-play.c:507
+#: ../src/sj-play.c:200
+#: ../src/sj-play.c:456
+#: ../src/sj-play.c:506
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -657,19 +665,19 @@ msgstr "Gặp lỗi khi phát đĩa CD.\n"
 "\n"
 "Lý do: %s"
 
-#: ../src/sj-play.c:364
+#: ../src/sj-play.c:363
 msgid "Failed to create CD source element"
 msgstr "Việc tạo yếu tố nguồn đĩa CD bị lỗi"
 
-#: ../src/sj-play.c:389
+#: ../src/sj-play.c:388
 msgid "Failed to link pipeline"
 msgstr "Việc liên kết đến ống dẫn bị lỗi"
 
-#: ../src/sj-play.c:395
+#: ../src/sj-play.c:394
 msgid "Failed to create audio output"
 msgstr "Không thể tạo dữ liệu âm thanh xuất."
 
-#: ../src/sj-play.c:618
+#: ../src/sj-play.c:617
 #, c-format
 msgid "Seeking to %s"
 msgstr "Đang tìm kiếm vào %s..."
