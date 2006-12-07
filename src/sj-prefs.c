@@ -199,7 +199,7 @@ static void pattern_label_update (void)
   char *file_value, *path_value, *example, *format;
   GMAudioProfile *profile;
 
-  static AlbumDetails sample_album = {
+  static const AlbumDetails sample_album = {
     "Help!", /* title */
     "The Beatles", /* artist */
     "Beatles, The", /* sortname */
@@ -210,7 +210,7 @@ static void pattern_label_update (void)
     NULL, /* album ID */
     NULL /* artist ID */
   };
-  static TrackDetails sample_track = {
+  static const TrackDetails sample_track = {
     &sample_album,  /*album */
     7, /* track number */
     "Ticket To Ride", /* title */

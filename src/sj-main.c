@@ -136,7 +136,7 @@ sj_stock_init (void)
   static gboolean initialized = FALSE;
   static GtkIconFactory *sj_icon_factory = NULL;
 
-  static GtkStockItem sj_stock_items[] =
+  static const GtkStockItem sj_stock_items[] =
   {
     { SJ_STOCK_PLAYING, NULL, 0, 0, NULL },
     { SJ_STOCK_RECORDING, NULL, 0, 0, NULL },
@@ -1221,7 +1221,7 @@ void on_contents_activate(GtkWidget *button, gpointer user_data) {
 }
 
 
-static const char* genres[] = {
+static const char* const genres[] = {
   "Ambient",
   "Blues",
   "Classical",
