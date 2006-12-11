@@ -24,6 +24,7 @@
 
 #include <gtk/gtkaboutdialog.h>
 #include <string.h>
+#include "sj-about.h"
 
 void on_about_activate (void)
 {

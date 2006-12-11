@@ -49,6 +49,7 @@
 #include "sj-structures.h"
 #include "sj-error.h"
 #include "sj-util.h"
+#include "sj-main.h"
 #include "sj-prefs.h"
 #include "sj-play.h"
 #include "bacon-volume.h"

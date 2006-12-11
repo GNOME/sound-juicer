@@ -32,6 +32,7 @@
 #include <nautilus-burn-drive-selection.h>
 #include "gconf-bridge.h"
 #include "sj-extracting.h"
+#include "sj-prefs.h"
 
 extern GladeXML *glade;
 extern GtkWidget *main_window;

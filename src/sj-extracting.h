@@ -28,5 +28,6 @@
 
 void on_extract_activate (GtkWidget *button, gpointer user_data);
 char *filepath_parse_pattern (const char* pattern, const TrackDetails *track);
+void on_progress_cancel_clicked (GtkWidget *button, gpointer user_data);
 
 #endif /* SJ_EXTRACTING_H */
