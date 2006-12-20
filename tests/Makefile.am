@@ -22,7 +22,10 @@ mb_test_CFLAGS = \
 	$(UI_CFLAGS) \
 	$(AM_CPPFLAGS)
 
-mb_test_LDADD = @BURN_LIBS@ @UI_LIBS@ @MUSICBRAINZ_LIBS@
+mb_test_LDADD = \
+ 	$(BURN_LIBS) \
+	$(UI_LIBS) \
+	$(MUSICBRAINZ_LIBS)
 
 mb_test_LDFLAGS = \
 	-export-dynamic \
