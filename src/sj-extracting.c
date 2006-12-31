@@ -439,6 +439,13 @@ base_finder (char *path, char **ret)
   }
 }
 
+static gboolean
+on_main_window_focus_in (GtkWidget * widget, GdkEventFocus * event, gpointer data)
+{
+	gtk_window_set_urgency_hint (GTK_WINDOW (main_window), FALSE);
+	return FALSE;
+}
+
 /**
  * Show the "Finished!" dialog, allowing the user to open Nautilus if he wants.
  */
@@ -467,6 +474,11 @@ show_finished_dialog (void)
   } else {
     gtk_dialog_add_buttons (GTK_DIALOG (dialog), _("_Eject"), 2, NULL);
   }
+
+  /* Trigger glowing effect after copy */
+  g_signal_connect (G_OBJECT (dialog), "focus-in-event",  G_CALLBACK (on_main_window_focus_in),  NULL);
+  gtk_window_set_urgency_hint (GTK_WINDOW (main_window), TRUE);
+
   gtk_dialog_add_buttons (GTK_DIALOG (dialog),
                           GTK_STOCK_OPEN, 1,
                           GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
