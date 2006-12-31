@@ -1244,7 +1244,7 @@ static const char* const genres[] = {
 
 static GtkTreeModel* create_genre_list(void) {
   GtkListStore *store;
-  const char **g = genres;
+  const char * const *g = genres;
 
   store = gtk_list_store_new (1, G_TYPE_STRING);
 
