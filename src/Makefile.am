@@ -3,6 +3,7 @@ bin_PROGRAMS = sound-juicer
 sound_juicer_SOURCES = \
 	dummy.cpp \
 	sound-juicer.h \
+	sj-main.h \
 	sj-main.c \
 	sj-prefs.h \
 	sj-prefs.c \
@@ -32,16 +33,16 @@ sound_juicer_CPPFLAGS = \
 
 sound_juicer_CFLAGS = \
 	$(GSTREAMER_CFLAGS) \
- 	$(MEDIA_PROFILES_CFLAGS) \
- 	$(BURN_CFLAGS) \
+	$(MEDIA_PROFILES_CFLAGS) \
+	$(BURN_CFLAGS) \
 	$(UI_CFLAGS) \
 	$(WARN_CFLAGS) \
 	$(AM_CFLAGS)
 
 sound_juicer_CXXFLAGS = \
 	$(GSTREAMER_CFLAGS) \
- 	$(MEDIA_PROFILES_CFLAGS) \
- 	$(BURN_CFLAGS) \
+	$(MEDIA_PROFILES_CFLAGS) \
+	$(BURN_CFLAGS) \
 	$(UI_CFLAGS) \
 	$(WARN_CXXFLAGS) \
 	$(AM_CXXFLAGS)
@@ -50,7 +51,7 @@ sound_juicer_LDADD = \
 	$(top_builddir)/libjuicer/libjuicer.la \
 	$(MEDIA_PROFILES_LIBS) \
 	$(GSTREAMER_LIBS) \
- 	$(BURN_LIBS) \
+	$(BURN_LIBS) \
 	$(UI_LIBS)
 
 sound_juicer_LDFLAGS = \
@@ -66,7 +67,7 @@ sound_juicer_CXXFLAGS += \
 
 sound_juicer_LDADD += \
 	$(TAGLIB_LIBS)	\
- 	-lgsttag-0.10
+	-lgsttag-0.10
 endif
 
 BACON_DIR=$(srcdir)/../../libbacon/src/

@@ -76,4 +76,5 @@ CLEANFILES = \
 EXTRA_DIST = \
 	$(privatedata_DATA) \
 	$(schema_in_files) \
+	$(man1_MANS) \
 	sound-juicer-16.png sound-juicer-22.png sound-juicer-24.png sound-juicer.svg
