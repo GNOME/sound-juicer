@@ -24,7 +24,7 @@ libjuicer_la_CFLAGS = \
 	$(GSTREAMER_CFLAGS) \
 	$(MEDIA_PROFILES_CFLAGS) \
 	$(BURN_CFLAGS) \
- 	$(UI_CFLAGS) \
+	$(UI_CFLAGS) \
 	$(AM_CFLAGS)
 
 libjuicer_la_LIBADD = \
@@ -63,7 +63,7 @@ sj-metadata-marshal.h: sj-metadata-marshal.list
 	&& mv marshal-header.tmp $@ ) \
 	|| ( rm -f marshal-header.tmp && exit 1 )
 
-sj-metadata-marshal.c: sj-metadata-marshal.list
+sj-metadata-marshal.c: sj-metadata-marshal.list sj-metadata-marshal.h
 	( $(GLIB_GENMARSHAL) --prefix=metadata_marshal $< \
 	--body > marshal-source.tmp \
 	&& echo "#include \"sj-metadata-marshal.h\"" > $@ \

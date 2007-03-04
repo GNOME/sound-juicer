@@ -1,11 +1,7 @@
 noinst_PROGRAMS = mb-test
 
 mb_test_SOURCES = \
-	mb-test.c \
-	$(top_srcdir)/libjuicer/sj-metadata.c \
-	$(top_srcdir)/libjuicer/sj-metadata-musicbrainz.c \
-	$(top_srcdir)/libjuicer/sj-metadata-marshal.c \
-	$(top_srcdir)/libjuicer/sj-error.c
+	mb-test.c
 
 mb_test_CPPFLAGS = \
 	-I$(top_srcdir)/libjuicer \
@@ -23,9 +19,10 @@ mb_test_CFLAGS = \
 	$(AM_CPPFLAGS)
 
 mb_test_LDADD = \
- 	$(BURN_LIBS) \
+	$(BURN_LIBS) \
 	$(UI_LIBS) \
-	$(MUSICBRAINZ_LIBS)
+	$(MUSICBRAINZ_LIBS) \
+	$(top_builddir)/libjuicer/libjuicer.la
 
 mb_test_LDFLAGS = \
 	-export-dynamic \
