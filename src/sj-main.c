@@ -729,6 +729,9 @@ media_removed_cb (NautilusBurnDrive *drive,
     /* FIXME: recover? */
   }
 
+  /* first make sure we're not playing */
+  stop_playback ();
+  
   d(g_printerr ("** media removed from device %s\n", drive->device));
   stop_ui_hack ();
   update_ui_for_album (NULL);
