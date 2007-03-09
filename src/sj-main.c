@@ -34,6 +34,7 @@
 #include <libgnome/gnome-help.h>
 #include <libgnome/gnome-url.h>
 #include <libgnomeui/gnome-ui-init.h>
+#include <libgnomeui/gnome-authentication-manager.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <profiles/gnome-media-profiles.h>
 #include <gst/gst.h>
@@ -1257,6 +1258,8 @@ int main (int argc, char **argv)
 
   g_set_application_name (_("Sound Juicer"));
 
+  gnome_authentication_manager_init ();
+  
   sj_stock_init ();
 
   gtk_window_set_default_icon_name ("sound-juicer");
