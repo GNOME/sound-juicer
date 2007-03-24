@@ -1,9 +1,10 @@
 # Danish translation of Sound Juicer.
-# Copyright (C) 2003-2006
+# Copyright (C) 2003-2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the sound juicer package.
 # Ole Laursen <olau@hardworking.dk>, 2003, 04.
 # Martin Willemoes Hansen <mwh@sysrq.dk>, 2005.
 # Lasse Bang Mikkelsen <lbm@fatalerror.dk>, 2006.
+# Peter Bach <bach.peter@gmail.com>, 2007.
 #
 # Husk at tilføje dig i credit-listen (besked id "translator-credits")
 #
@@ -11,24 +12,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-08 00:34+0100\n"
-"PO-Revision-Date: 2006-03-08 00:35+0100\n"
-"Last-Translator: Lasse Bang Mikkelsen <lbm@fatalerror.dk>\n"
-"Language-Team: Danish <dansk@klid.dk>\n"
+"POT-Creation-Date: 2007-03-24 17:46+0100\n"
+"PO-Revision-Date: 2007-03-24 21:57+0100\n"
+"Last-Translator: Peter Bach <bach.peter@gmail.com>\n"
+"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../data/sound-juicer.desktop.in.h:1
+#: ../data/sound-juicer.desktop.in.in.h:1
 msgid "CD Extractor"
 msgstr "Cd-lydudtrækker"
 
-#: ../data/sound-juicer.desktop.in.h:2
+#: ../data/sound-juicer.desktop.in.in.h:2
 msgid "Extract music from your CDs"
 msgstr "Kopiér musik fra dine cd'er"
 
-#: ../data/sound-juicer.desktop.in.h:3
+#: ../data/sound-juicer.desktop.in.in.h:3
 msgid "Sound Juicer CD Extractor"
 msgstr "Sound Juicer cd-lydudtrækker"
 
@@ -90,7 +91,7 @@ msgstr "Flere album fundet"
 
 #: ../data/sound-juicer.glade.h:15
 msgid "O_utput Format:"
-msgstr "_Lyd-format:"
+msgstr "_Lydformat:"
 
 #: ../data/sound-juicer.glade.h:16
 msgid "Pre_vious Track"
@@ -112,25 +113,23 @@ msgstr "Spring til næste spor"
 msgid "Skip to the previous track"
 msgstr "Spring til forrige spor"
 
-#: ../data/sound-juicer.glade.h:21 ../src/sj-about.c:54
-#: ../src/sj-extractor.c:442 ../src/sj-main.c:165 ../src/sj-main.c:167
-#: ../src/sj-main.c:1233
+#: ../data/sound-juicer.glade.h:21
+#: ../src/sj-main.c:167
+#: ../src/sj-main.c:169
+#: ../src/sj-main.c:1332
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
 #: ../data/sound-juicer.glade.h:22
-msgid ""
-"This CD could be more than one album. Please select which album it is below "
-"and press <i>Continue</i>."
-msgstr ""
-"Denne cd kan være mere end ét album. Vælg hvilket album det drejer sig om "
-"nedenfor og tryk <i>Fortsæt</i>."
+msgid "This CD could be more than one album. Please select which album it is below and press <i>Continue</i>."
+msgstr "Denne cd kan være mere end ét album. Vælg hvilket album det drejer sig om nedenfor og tryk <i>Fortsæt</i>."
 
 #: ../data/sound-juicer.glade.h:23
 msgid "_Contents"
 msgstr "_Indhold"
 
-#: ../data/sound-juicer.glade.h:24 ../src/sj-main.c:229
+#: ../data/sound-juicer.glade.h:24
+#: ../src/sj-main.c:267
 msgid "_Continue"
 msgstr "_Fortsæt"
 
@@ -184,104 +183,213 @@ msgstr "_Indsend navne på spor..."
 
 #: ../data/sound-juicer.schemas.in.h:2
 #, no-c-format
-msgid ""
-"%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
-"album artist (lowercase) %tt -- track title %tT -- track title (lowercase) %"
-"ta -- track artist %tA -- track artist (lowercase)"
-msgstr ""
-"%at - albumtitel %aT - albumtitel (små bogstaver) %aa - albumkunstner %aA - "
-"albumkunstner (små bogstaver) %tn - spornummer (f.eks. 8) %tt - sportitel %"
-"tT - sportitel (små bogstaver) %ta - sporkunstner %tA - sporkunstner (små "
-"bogstaver)"
+msgid "%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album artist (sortable) %aS -- album artist (sortable lowercase) %tt -- track title %tT -- track title (lowercase) %ta -- track artist %tA -- track artist (lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable lowercase)"
+msgstr "%at -- albumtitel %aT -- albumtitel (små bogstaver) %aa -- albumkunstner %aA -- albumkunstner (små bogstaver) %as -- albumkunstner (sortérbar) %aS -- albumkunstner (sortérbar små bogstaver) %tt -- sportitel %tT -- sportitel (små bogstaver) %ta -- sporkunstner %tA -- sporkunstner (små bogstaver) %ts -- sporkunstner (sortérbar) %tS -- sporkunstner (sortérbar små bogstaver)"
 
 #: ../data/sound-juicer.schemas.in.h:3
 msgid "Audio Profile with which to encode"
-msgstr "Lydprofil til at kode med"
+msgstr "Lydprofil til at indkode med"
 
-#: ../data/sound-juicer.schemas.in.h:5
-#, no-c-format
-msgid ""
-"Do not specify an extension. %at -- album title %aT -- album title "
-"(lowercase) %aa -- album artist %aA -- album artist (lowercase) %tn -- track "
-"number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
-"tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
-"(lowercase)"
-msgstr ""
-"Angiv ikke en endelse. %at - albumtitel %aT - albumtitel (små bogstaver) %aa "
-"- albumkunstner %aA - albumkunstner (små bogstaver) %tn - spornummer (f.eks. "
-"8) %tN - spornummer, udfyldt med nuller (f.eks. 08) %tn - spornummer (f.eks. "
-"8) %tt - sportitel %tT - sportitel (små bogstaver) %ta - sporkunstner %tA - "
-"sporkunstner (små bogstaver)"
+#: ../data/sound-juicer.schemas.in.h:4
+msgid "Audio volume"
+msgstr "Lydstyrke"
 
 #: ../data/sound-juicer.schemas.in.h:6
-msgid ""
-"If enabled, special characters such as space, wildcards and backslashes will "
-"be removed from the output filename."
-msgstr ""
-"Hvis sand bliver tegn som mellemrum, jokertegn og omvendte skråstreger "
-"fjernet fra uddatafilnavnet."
+#, no-c-format
+msgid "Do not specify an extension. %at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album artist (sortable) %aS -- album artist (sortable lowercase) %tn -- track number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %tT -- track title (lowercase) %ta -- track artist %tA -- track artist (lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable lowercase)"
+msgstr "Angiv ikke en endelse. %at -- albumtitel %aT -- albumtitel (små bogstaver) %aa -- albumkunstner %aA -- albumkunstner (små bogstaver) %as -- albumkunstner (sortérbar) %aS -- albumkunstner (sortérbar små bogstaver) %tn -- spornummer (fx 8) %tN -- spornummer, foranstillet nul (fx 08) %tt -- sportitel %tT -- sportitel (små bogstaver) %ta -- sporkunstner %tA -- sporkunstner (små bogstaver) %ts -- sporkunstner (sortérbar) %tS -- sporkunstner (sortérbar små bogstaver)"
 
 #: ../data/sound-juicer.schemas.in.h:7
-msgid "If specified, this value will override the default MusicBrainz server."
-msgstr ""
-"Hvis angivet, tilsidesætter denne værdi den forvalgte MusicBrainz-server."
+msgid "If enabled, special characters such as space, wildcards and backslashes will be removed from the output filename."
+msgstr "Hvis tilvalgt, bliver tegn som mellemrum, jokertegn og omvendte skråstreger fjernet fra uddatafilnavnet."
 
 #: ../data/sound-juicer.schemas.in.h:8
+msgid "If specified, this value will override the default MusicBrainz server."
+msgstr "Hvis angivet, tilsidesætter denne værdi den forvalgte MusicBrainz-server."
+
+#: ../data/sound-juicer.schemas.in.h:9
 msgid "If to strip special characters from filenames"
 msgstr "Om specialtegn skal fjernes fra filnavne"
 
-#: ../data/sound-juicer.schemas.in.h:9
-msgid ""
-"Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) "
-"full"
-msgstr ""
-"Paranoia-tilstand: 0) deaktivér 2) fragmentér 4) overlap 8) ridser 16) "
-"reparér 255) fuld"
-
 #: ../data/sound-juicer.schemas.in.h:10
-msgid "The GNOME Audio Profile with which to encode."
-msgstr "GNOME-lydprofilen til at kode med."
+msgid "Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) full"
+msgstr "Paranoia-tilstand: 0) deaktivér 2) fragment 4) overlap 8) ridser 16) reparér 255) fuld"
 
 #: ../data/sound-juicer.schemas.in.h:11
+msgid "The GNOME Audio Profile with which to encode."
+msgstr "GNOME-lydprofilen til at indkode med."
+
+#: ../data/sound-juicer.schemas.in.h:12
 msgid "The MusicBrainz server to use"
 msgstr "MusicBrainz-serveren der skal benyttes"
 
-#: ../data/sound-juicer.schemas.in.h:12
+#: ../data/sound-juicer.schemas.in.h:13
 msgid "The directory structure for the files"
 msgstr "Mappestrukturen for filerne"
 
-#: ../data/sound-juicer.schemas.in.h:13
+#: ../data/sound-juicer.schemas.in.h:14
 msgid "The name pattern for files"
 msgstr "Navnemønstret for filerne"
 
-#: ../data/sound-juicer.schemas.in.h:14
+#: ../data/sound-juicer.schemas.in.h:15
 msgid "The paranoia mode to use"
 msgstr "Paranoia-tilstand der skal anvendes"
 
-#: ../data/sound-juicer.schemas.in.h:15
+#: ../data/sound-juicer.schemas.in.h:16
 msgid "Whether to eject the CD when finished extracting."
-msgstr "Om cd skal skubbes ud når kopieringen er overstået."
+msgstr "Om cd'en skal skubbes ud når udtrækningen er overstået."
+
+#: ../libjuicer/sj-extractor.c:103
+msgid "Audio Profile"
+msgstr "Lydprofil"
+
+#: ../libjuicer/sj-extractor.c:104
+msgid "The GNOME Audio Profile used for encoding audio"
+msgstr "GNOME-lydprofilen som bruges til at indkode lyd med"
+
+#: ../libjuicer/sj-extractor.c:278
+msgid "Could not create GStreamer CD reader"
+msgstr "Kunne ikke oprette GStreamer cd-læser"
+
+#: ../libjuicer/sj-extractor.c:298
+#, c-format
+msgid "Could not create GStreamer encoders for %s"
+msgstr "Kunne ikke oprette GStreamer-indkodere til %s"
+
+#: ../libjuicer/sj-extractor.c:309
+msgid "Could not create GStreamer file output"
+msgstr "Kunne ikke oprette GStreamer-filuddata"
+
+#: ../libjuicer/sj-extractor.c:321
+msgid "Could not link pipeline"
+msgstr "Kunne ikke kæde kanal"
+
+#: ../libjuicer/sj-extractor.c:344
+msgid "Could not get current track position"
+msgstr "Kunne ikke opnå aktuel sporposition"
+
+#: ../libjuicer/sj-extractor.c:371
+msgid "Extractor object is not valid. This is bad, check your console for errors."
+msgstr "Udtrækningsobjekt er ikke gyldigt. Dette er uheldigt, kontrollér terminalen for fejl."
+
+#: ../libjuicer/sj-extractor.c:563
+msgid "The plugin necessary for CD access was not found"
+msgstr "Udvidelsesmodulet til cd-tilgang blev ikke fundet"
+
+#: ../libjuicer/sj-extractor.c:571
+msgid "The plugin necessary for file access was not found"
+msgstr "Udvidelsesmodulet til filtilgang blev ikke fundet"
+
+#: ../libjuicer/sj-metadata-cdtext.c:127
+msgid "CD-TEXT metadata plugin failed to initialise."
+msgstr "CD-TEXT metadata-udvidelsesmodul kunne ikke initialiseres."
+
+#: ../libjuicer/sj-metadata-cdtext.c:178
+msgid "Cannot read CD"
+msgstr "Kan ikke læse cd"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:102
+msgid "Cannot create MusicBrainz client"
+msgstr "Kan ikke oprette MusicBrainz-klient"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:227
+#: ../libjuicer/sj-metadata-musicbrainz.c:510
+#, c-format
+msgid "Cannot read CD: %s"
+msgstr "Kan ikke læse cd: %s"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:234
+#: ../libjuicer/sj-metadata-musicbrainz.c:548
+msgid "Unknown Artist"
+msgstr "Ukendt kunstner"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:235
+#: ../libjuicer/sj-metadata-musicbrainz.c:559
+msgid "Unknown Title"
+msgstr "Ukendt titel"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:241
+#, c-format
+msgid "Track %d"
+msgstr "Spor %d"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:269
+msgid "MusicBrainz metadata object is not valid. This is bad, check your console for errors."
+msgstr "MusicBrainz-metadataobjekt er ikke gyldigt. Dette er uheldigt, kontrollér terminalen for fejl."
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:436
+#: ../libjuicer/sj-metadata-musicbrainz.c:443
+#: ../libjuicer/sj-metadata-musicbrainz.c:457
+#, c-format
+msgid "This CD could not be queried: %s\n"
+msgstr "Denne cd kunne ikke undersøges: %s\n"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:504
+#, c-format
+msgid "Device '%s' does not contain any media"
+msgstr "Enheden \"%s\" indeholder ikke et medium"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:507
+#, c-format
+msgid "Device '%s' could not be opened. Check the access permissions on the device."
+msgstr "Det var ikke muligt at åbne enheden \"%s\". Kontrollér adgangsrettigheder for enheden."
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:543
+msgid "Various"
+msgstr "Diverse"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:584
+msgid "Incomplete metadata for this CD"
+msgstr "Ufuldstændige metadata for denne cd"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:675
+msgid "Could not create CD lookup thread"
+msgstr "Kunne ikke oprette cd-opslagstråd"
+
+#: ../src/bacon-volume.c:181
+msgid "Volume"
+msgstr "Lydstyrke"
 
 #. +
-#: ../src/bacon-volume.c:187
+#: ../src/bacon-volume.c:214
 msgid "+"
 msgstr "+"
 
+#: ../src/bacon-volume.c:216
+msgid "Volume Down"
+msgstr "Sænk lydstyrke"
+
 #. -
-#: ../src/bacon-volume.c:203
+#: ../src/bacon-volume.c:232
 msgid "-"
 msgstr "-"
 
-#: ../src/gconf-bridge.c:1175
+#: ../src/bacon-volume.c:234
+msgid "Volume Up"
+msgstr "Hæv lydstyrke"
+
+#: ../src/gconf-bridge.c:1218
 #, c-format
 msgid "GConf error: %s"
 msgstr "GConf-fejl: %s"
 
-#: ../src/gconf-bridge.c:1185
+#: ../src/gconf-bridge.c:1228
 msgid "All further errors shown only on terminal."
 msgstr "Yderligere fejlmeddelelser vises kun i terminal."
 
-#: ../src/sj-about.c:55
+#: ../src/sj-about.c:48
+msgid "Sound Juicer is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
+msgstr "Sound Juicer er fri software; det kan distribueres og/eller modificeres som betinget af GNU General Public License, udarbejdet af Free Software Foundation; enten version 2 af licensen eller, efter eget valg, enhver nyere version."
+
+#: ../src/sj-about.c:52
+msgid "Sound Juicer is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details."
+msgstr "Sound Juicer distribueres i håb om at det viser sig nyttigt, men UDEN NOGEN GARANTI; selv uden de underforståede garantier SALGBARHED eller EGNETHED TIL ET BESTEMT FORMÅL, idet der henvises til GNU General Public License for detaljer."
+
+#: ../src/sj-about.c:56
+msgid "You should have received a copy of the GNU General Public License along with Sound Juicer; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA"
+msgstr "Du bør have modtaget en kopi af GNU General Public License sammen med Sound Juicer; er dette ikke tilfældet, så skriv til Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA"
+
+#: ../src/sj-about.c:67
 msgid "An Audio CD Extractor"
 msgstr "En lyd-cd-udtrækker"
 
@@ -289,12 +397,13 @@ msgstr "En lyd-cd-udtrækker"
 #. * Note to translators: put here your name and email so it will show
 #. * up in the "about" box
 #.
-#: ../src/sj-about.c:64
+#: ../src/sj-about.c:77
 msgid "translator-credits"
 msgstr ""
 "Ole Laursen\n"
 "Martin Willemoes Hansen\n"
 "Lasse Bang Mikkelsen\n"
+"Peter Bach\n"
 "\n"
 "Dansk-gruppen <dansk@dansk-gruppen.dk>\n"
 "Mere info: http://www.dansk-gruppen.dk"
@@ -305,7 +414,7 @@ msgid ""
 "A file called '%s' exists, size %s.\n"
 "Do you want to skip this track or overwrite it?"
 msgstr ""
-"En fil ved navn '%s' eksisterer (med størrelsen %s).\n"
+"En fil ved navn \"%s\" eksisterer, størrelsen er %s.\n"
 "Ønsker du at springe over dette spor eller overskrive den?"
 
 #: ../src/sj-extracting.c:218
@@ -317,169 +426,130 @@ msgid "_Overwrite"
 msgstr "_Overskriv"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:281 ../src/sj-extracting.c:316
-#: ../src/sj-extracting.c:522
+#: ../src/sj-extracting.c:281
+#: ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:537
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
 "Reason: %s"
 msgstr ""
 "Sound Juicer kunne ikke udtrække lyden fra denne cd.\n"
-"Grund: %s"
+"Årsag: %s"
 
 #: ../src/sj-extracting.c:366
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
-msgstr "Estimeret tid tilbage: %d:%02d (med %0.1fx)"
+msgstr "Estimeret tid tilbage: %d:%02d (med %0.1f×)"
 
 #: ../src/sj-extracting.c:368
 msgid "Estimated time left: unknown"
 msgstr "Estimeret tid tilbage: ukendt"
 
 #. TODO: need to have a better message here
-#: ../src/sj-extracting.c:463
+#: ../src/sj-extracting.c:470
 msgid "The tracks have been copied successfully."
 msgstr "Sporene er blevet kopieret."
 
-#: ../src/sj-extracting.c:468
+#: ../src/sj-extracting.c:475
 msgid "_Eject"
 msgstr "Skub _ud"
 
-#: ../src/sj-extractor.c:105
-msgid "Audio Profile"
-msgstr "Lydprofil"
-
-#: ../src/sj-extractor.c:106
-msgid "The GNOME Audio Profile used for encoding audio"
-msgstr "Gnome-lydprofilen som bruges til at kode lyd med"
-
-#: ../src/sj-extractor.c:276
-msgid "Could not create GStreamer CD reader"
-msgstr "Kunne ikke oprette GStreamer cd-læser"
-
-#: ../src/sj-extractor.c:298
-#, c-format
-msgid "Could not create GStreamer encoders for %s"
-msgstr "Kunne ikke oprette GStreamer-kodere til %s"
-
-#: ../src/sj-extractor.c:309
-msgid "Could not create GStreamer file output"
-msgstr "Kunne ikke oprette GStreamer-filuddata"
-
-#: ../src/sj-extractor.c:321
-msgid "Could not link pipeline"
-msgstr "Kunne ikke kæde kanal"
-
-#: ../src/sj-extractor.c:343
-msgid "Could not get current track position"
-msgstr "Kunne ikke opnå aktuel sporposition"
-
-#: ../src/sj-extractor.c:370
-msgid ""
-"Extractor object is not valid. This is bad, check your console for errors."
-msgstr ""
-"Udtrækningsobjekt er ikke gyldigt. Dette er skidt, tjek terminalen for fejl."
-
-#: ../src/sj-extractor.c:515
-msgid "Could not get track start position"
-msgstr "Kunne ikke opnå sporstartposition"
-
-#: ../src/sj-extractor.c:547
-msgid "The plugin necessary for CD access was not found"
-msgstr "Udvidelsesmodulet til cd-tilgang blev ikke fundet"
-
-#: ../src/sj-extractor.c:555
-msgid "The plugin necessary for file access was not found"
-msgstr "Udvidelsesmodulet til filtilgang blev ikke fundet"
-
-#: ../src/sj-main.c:142
+#: ../src/sj-main.c:144
 msgid "E_xtract"
 msgstr "U_dtræk"
 
-#: ../src/sj-main.c:180
+#: ../src/sj-main.c:218
 msgid "Could not start Sound Juicer"
 msgstr "Kunne ikke starte Sound Juicer"
 
-#: ../src/sj-main.c:181 ../src/sj-main.c:580 ../src/sj-main.c:688
-#: ../src/sj-main.c:779 ../src/sj-main.c:971
+#: ../src/sj-main.c:219
+#: ../src/sj-main.c:638
+#: ../src/sj-main.c:747
+#: ../src/sj-main.c:843
+#: ../src/sj-main.c:1051
 msgid "Reason"
 msgstr "Årsag"
 
-#: ../src/sj-main.c:183
+#: ../src/sj-main.c:221
 msgid "Please consult the documentation for assistance."
 msgstr "Læs dokumentationen for yderligere hjælp."
 
-#: ../src/sj-main.c:227
+#: ../src/sj-main.c:265
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
-msgstr ""
-"Du er ved at udtrække lyden fra en cd. Ønsker du at afslutte nu eller "
-"fortsætte?"
+msgstr "Du er ved at udtrække lyden fra en cd. Ønsker du at afslutte nu eller fortsætte?"
 
-#: ../src/sj-main.c:287 ../src/sj-main.c:389
+#: ../src/sj-main.c:325
+#: ../src/sj-main.c:432
 msgid "(unknown)"
 msgstr "(ukendt)"
 
-#: ../src/sj-main.c:431 ../src/sj-main.c:1364
+#: ../src/sj-main.c:474
+#: ../src/sj-main.c:1479
 msgid "Title"
 msgstr "Titel"
 
-#: ../src/sj-main.c:437 ../src/sj-main.c:1373
+#: ../src/sj-main.c:480
+#: ../src/sj-main.c:1488
 msgid "Artist"
 msgstr "Kunstner"
 
-#: ../src/sj-main.c:578 ../src/sj-main.c:686 ../src/sj-main.c:777
+#: ../src/sj-main.c:636
+#: ../src/sj-main.c:745
+#: ../src/sj-main.c:841
 msgid "Could not read the CD"
 msgstr "Kunne ikke læse cd'en"
 
-#: ../src/sj-main.c:579 ../src/sj-main.c:687
+#: ../src/sj-main.c:637
+#: ../src/sj-main.c:746
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer kunne ikke læse sporlisten på denne cd."
 
 #. Set statusbar message
-#: ../src/sj-main.c:659
+#: ../src/sj-main.c:717
 msgid "Retrieving track listing...please wait."
-msgstr "Henter sporliste... vent venligt."
+msgstr "Henter sporliste... vent venligst."
 
-#: ../src/sj-main.c:750
+#: ../src/sj-main.c:814
 msgid "Extracting audio from CD"
 msgstr "Udtrækker lyd fra cd"
 
-#: ../src/sj-main.c:771
+#: ../src/sj-main.c:834
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer kunne ikke tilgå cd-rom-enheden \"%s\""
 
-#: ../src/sj-main.c:850
+#: ../src/sj-main.c:929
 msgid "No CD-ROM drives found"
 msgstr "Ingen cd-rom-drev fundet"
 
-#: ../src/sj-main.c:851
+#: ../src/sj-main.c:930
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer kunne ikke finde nogen cd-rom-drev at læse."
 
-#: ../src/sj-main.c:882
-msgid ""
-"The currently selected audio profile is not available on your installation."
+#: ../src/sj-main.c:961
+msgid "The currently selected audio profile is not available on your installation."
 msgstr "Den valgte lydprofil er ikke tilgængelig på din installation."
 
-#: ../src/sj-main.c:884
+#: ../src/sj-main.c:963
 msgid "_Change Profile"
 msgstr "_Skift profil"
 
-#: ../src/sj-main.c:969
+#: ../src/sj-main.c:1049
 msgid "Could not open URL"
-msgstr "Kunne ikke åbne URL"
+msgstr "Kunne ikke åbne adresse"
 
-#: ../src/sj-main.c:970
+#: ../src/sj-main.c:1050
 msgid "Sound Juicer could not open the submission URL"
-msgstr "Sound Juicer kunne ikke åbne indsendelses-URL"
+msgstr "Sound Juicer kunne ikke åbne indsendelsesadressen"
 
-#: ../src/sj-main.c:1075
+#: ../src/sj-main.c:1159
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Ukendt kolonne %d blev redigeret"
 
-#: ../src/sj-main.c:1131 ../src/sj-prefs.c:103
+#: ../src/sj-main.c:1215
+#: ../src/sj-prefs.c:103
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -488,108 +558,45 @@ msgstr ""
 "Kunne ikke vise hjælp til Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1223
+#: ../src/sj-main.c:1308
 msgid "Start extracting immediately"
 msgstr "Start udtrækning med det samme"
 
-#: ../src/sj-main.c:1224
+#: ../src/sj-main.c:1309
 msgid "Start playing immediately"
 msgstr "Start afspilning med det samme"
 
-#: ../src/sj-main.c:1225
+#: ../src/sj-main.c:1310
 msgid "What CD device to read"
 msgstr "Hvilken cd-enhed der skal læses fra"
 
-#: ../src/sj-main.c:1225
+#: ../src/sj-main.c:1310
 msgid "DEVICE"
 msgstr "ENHED"
 
-#: ../src/sj-main.c:1270
+#: ../src/sj-main.c:1320
+msgid "- Extract music from your CDs"
+msgstr "- Udtræk musik fra dine cd'er"
+
+#: ../src/sj-main.c:1363
 msgid "Could not create GConf client.\n"
 msgstr "Kunne ikke oprette GConf-klient.\n"
 
-#: ../src/sj-main.c:1300
+#: ../src/sj-main.c:1394
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Grænseflade-filen for Sound Juicer kunne ikke læses."
 
-#: ../src/sj-main.c:1349
+#: ../src/sj-main.c:1464
 msgid "Track"
 msgstr "Spor"
 
-#: ../src/sj-main.c:1384
+#: ../src/sj-main.c:1499
 msgid "Duration"
 msgstr "Varighed"
 
-#: ../src/sj-metadata-cdtext.c:125
-msgid "CD-TEXT metadata plugin failed to initialise."
-msgstr "CD-TEXT metadata-udvidelsesmodul kunne ikke initialiseres."
-
-#: ../src/sj-metadata-cdtext.c:176
-msgid "Cannot read CD"
-msgstr "Kan ikke læse cd"
-
-#: ../src/sj-metadata-musicbrainz.c:97
-msgid "Cannot create MusicBrainz client"
-msgstr "Kan ikke oprette MusicBrainz-klient"
-
-#: ../src/sj-metadata-musicbrainz.c:221 ../src/sj-metadata-musicbrainz.c:487
-#, c-format
-msgid "Cannot read CD: %s"
-msgstr "Kan ikke læse cd: %s"
-
-#: ../src/sj-metadata-musicbrainz.c:228 ../src/sj-metadata-musicbrainz.c:526
-msgid "Unknown Artist"
-msgstr "Ukendt kunstner"
-
-#: ../src/sj-metadata-musicbrainz.c:229 ../src/sj-metadata-musicbrainz.c:539
-msgid "Unknown Title"
-msgstr "Ukendt titel"
-
-#: ../src/sj-metadata-musicbrainz.c:235
-#, c-format
-msgid "Track %d"
-msgstr "Spor %d"
-
-#: ../src/sj-metadata-musicbrainz.c:263
-msgid ""
-"MusicBrainz metadata object is not valid. This is bad, check your console "
-"for errors."
-msgstr ""
-"MusicBrainz-metadataobjekt er ikke gyldigt. Dette er skidt, tjek terminalen "
-"for fejl."
-
-#: ../src/sj-metadata-musicbrainz.c:429 ../src/sj-metadata-musicbrainz.c:436
-#: ../src/sj-metadata-musicbrainz.c:446
-#, c-format
-msgid "This CD could not be queried: %s\n"
-msgstr "Denne cd kunne ikke undersøges: %s\n"
-
-#: ../src/sj-metadata-musicbrainz.c:481
-#, c-format
-msgid "Device '%s' does not contain any media"
-msgstr "Enheden '%s' indeholder ikke et medium"
-
-#: ../src/sj-metadata-musicbrainz.c:484
-#, c-format
-msgid ""
-"Device '%s' could not be opened. Check the access permissions on the device."
-msgstr ""
-"Det var ikke muligt at åbne enheden '%s'. Kontrollér adgangsrettigheder for "
-"enheden."
-
-#: ../src/sj-metadata-musicbrainz.c:520
-msgid "Various"
-msgstr "Diverse"
-
-#: ../src/sj-metadata-musicbrainz.c:564
-msgid "Incomplete metadata for this CD"
-msgstr "Ufuldstændige metadata for denne cd"
-
-#: ../src/sj-metadata-musicbrainz.c:655
-msgid "Could not create CD lookup thread"
-msgstr "Kunne ikke oprette cd-opslagstråd"
-
-#: ../src/sj-play.c:192 ../src/sj-play.c:430 ../src/sj-play.c:477
+#: ../src/sj-play.c:201
+#: ../src/sj-play.c:457
+#: ../src/sj-play.c:507
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -600,19 +607,19 @@ msgstr ""
 "\n"
 "Årsag: %s"
 
-#: ../src/sj-play.c:345
+#: ../src/sj-play.c:364
 msgid "Failed to create CD source element"
 msgstr "Fejl under oprettelse af cd-kildeelement"
 
-#: ../src/sj-play.c:365
+#: ../src/sj-play.c:389
 msgid "Failed to link pipeline"
 msgstr "Kunne ikke kæde kanal"
 
-#: ../src/sj-play.c:371
+#: ../src/sj-play.c:395
 msgid "Failed to create audio output"
 msgstr "Kunne ikke oprette lyd-uddata"
 
-#: ../src/sj-play.c:587
+#: ../src/sj-play.c:618
 #, c-format
 msgid "Seeking to %s"
 msgstr "Søger til %s"
@@ -682,14 +689,18 @@ msgstr "Nummer. Sporkunstner - sportitel"
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Nummer-Spor Kunstner-Spor Titel (små bogstaver)"
 
+#: ../src/sj-prefs.c:252
+msgid "Example Path"
+msgstr "Eksempel sti"
+
+#~ msgid "Could not get track start position"
+#~ msgstr "Kunne ikke opnå sporstartposition"
 #~ msgid "Help!"
 #~ msgstr "Hjælp!"
-
 #~ msgid "The Beatles"
 #~ msgstr "The Beatles"
-
 #~ msgid "Beatles, The"
 #~ msgstr "The, Beatles"
-
 #~ msgid "Ticket To Ride"
 #~ msgstr "Ticket To Ride"
+
