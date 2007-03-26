@@ -102,7 +102,7 @@ extern NautilusBurnDrive *drive;
 /**
  * The root path to write files too
  */
-extern const char *base_uri;
+extern char *base_uri;
 
 /**
  * The pattern to expand when naming folders
