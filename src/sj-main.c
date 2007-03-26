@@ -809,7 +809,23 @@ set_drive_from_device (const char *device)
 
   monitor = nautilus_burn_get_drive_monitor ();
   drive = nautilus_burn_drive_monitor_get_drive_for_device (monitor, device);
-  g_assert (drive);
+  if (! drive) {
+    GtkWidget *dialog;
+    char *message;
+    message = g_strdup_printf (_("Sound Juicer could not use the CD-ROM device '%s'"), device);
+    dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
+                                     GTK_DIALOG_DESTROY_WITH_PARENT,
+                                     GTK_MESSAGE_ERROR,
+                                     GTK_BUTTONS_CLOSE,
+                                     "<b>%s</b>\n\n%s",
+                                     message,
+                                     _("HAL daemon may not be running."));
+    g_free (message);
+    gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
+    gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_widget_destroy (dialog);
+    return;
+  }
 
   is_locked = nautilus_burn_drive_lock (drive, _("Extracting audio from CD"), &reason);
   if (! is_locked) {
