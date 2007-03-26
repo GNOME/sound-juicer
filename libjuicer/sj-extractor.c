@@ -271,7 +271,7 @@ static void build_pipeline (SjExtractor *extractor)
   g_signal_connect (G_OBJECT (bus), "message::error", G_CALLBACK (error_cb), extractor);
 
   /* Read from CD */
-  priv->cdsrc = gst_element_factory_make (CD_SRC, "cd_src");
+  priv->cdsrc = gst_element_make_from_uri (GST_URI_SRC, "cdda://1", "cd_src");
   if (priv->cdsrc == NULL) {
     g_set_error (&priv->construct_error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
@@ -280,7 +280,9 @@ static void build_pipeline (SjExtractor *extractor)
   }
 
   g_object_set (G_OBJECT (priv->cdsrc), "device", priv->device_path, NULL);
-  g_object_set (G_OBJECT (priv->cdsrc), "paranoia-mode", priv->paranoia_mode, NULL);
+  if (g_object_class_find_property (G_OBJECT_GET_CLASS (priv->cdsrc), "paranoia-mode")) {
+	  g_object_set (G_OBJECT (priv->cdsrc), "paranoia-mode", priv->paranoia_mode, NULL);
+  }
 
   /* Get the track format for seeking later */
   priv->track_format = gst_format_get_by_nick ("track");
@@ -557,7 +559,7 @@ gboolean sj_extractor_supports_encoding (GError **error)
 {
   GstElement *element = NULL;
 
-  element = gst_element_factory_make (CD_SRC, "test");
+  element = gst_element_make_from_uri (GST_URI_SRC, "cdda://1", "test");
   if (element == NULL) {
     g_set_error (error, SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
                  _("The plugin necessary for CD access was not found"));

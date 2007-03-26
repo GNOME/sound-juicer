@@ -357,7 +357,7 @@ setup (GError **err)
     g_signal_connect (bus, "message::error", G_CALLBACK (cb_error), NULL);
     g_signal_connect (bus, "message::state-changed", G_CALLBACK (cb_state), NULL);
 
-    cdp = gst_element_factory_make (CD_SRC, "cd-source");
+    cdp = gst_element_make_from_uri (GST_URI_SRC, "cdda://1", "cd-source");
     if (!cdp) {
       gst_object_unref (GST_OBJECT (pipeline));
       pipeline = NULL;
@@ -367,8 +367,12 @@ setup (GError **err)
     /* do not set to 1, that messes up buffering. 2 is enough to keep
      * noise from the drive down. */
     /* TODO: will not notice drive changes, should monitor */
+    if (g_object_class_find_property (G_OBJECT_GET_CLASS (cdp), "read-speed") != NULL) {
+    	g_object_set (G_OBJECT (cdp),
+    	              "read-speed", 2,
+                      NULL);
+    }
     g_object_set (G_OBJECT (cdp),
-                  "read-speed", 2,
                   "device", nautilus_burn_drive_get_device (drive),
                   NULL);
 
