@@ -450,7 +450,7 @@ on_main_window_focus_in (GtkWidget * widget, GdkEventFocus * event, gpointer dat
  * Show the "Finished!" dialog, allowing the user to open Nautilus if he wants.
  */
 static void
-show_finished_dialog (void)
+show_finished_dialog (const TrackDetails *track)
 {
   GtkWidget *dialog;
   int result;
@@ -462,12 +462,16 @@ show_finished_dialog (void)
 
   cleanup ();
 
+  char *message;
+  message = g_strdup_printf (_("%s has been copied successfully."), track->album->title);
+
   dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
                                    GTK_DIALOG_DESTROY_WITH_PARENT,
                                    GTK_MESSAGE_INFO,
                                    GTK_BUTTONS_NONE,
-                                   /* TODO: need to have a better message here */
-                                   _("The tracks have been copied successfully."));
+                                   (message));
+
+  g_free (message);
   /* If we eject when finished, eject now, otherwise add a button */
   if (eject_finished) {
     nautilus_burn_drive_eject (drive);
@@ -513,7 +517,7 @@ on_completion_cb (SjExtractor *extractor, gpointer data)
   }
   
   if (pending == NULL) {
-    show_finished_dialog ();
+    show_finished_dialog (track);
     if (autostart) {
       gtk_main_quit ();
     }
