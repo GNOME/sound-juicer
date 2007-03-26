@@ -322,7 +322,7 @@ artist_and_title_from_title (TrackDetails *track, gpointer data)
 {
   char *slash, **split;
 
-  if (g_ascii_strncasecmp (MBI_VARIOUS_ARTIST_ID, track->album->artist_id, 64) != 0 && track->album->artist_id[0] != '\0' && track->artist_id[0] != '\0') {
+  if (g_ascii_strncasecmp (track->album->album_id, "freedb:", 7) != 0 && track->album->artist_id[0] != '\0' && track->artist_id[0] != '\0') {
     track->title = g_strdup (data);
     return;
   }
