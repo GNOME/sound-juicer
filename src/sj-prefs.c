@@ -30,6 +30,7 @@
 #include <profiles/gnome-media-profiles.h>
 #include <nautilus-burn-drive.h>
 #include <nautilus-burn-drive-selection.h>
+#include "libjuicer/sj-util.h"
 #include "gconf-bridge.h"
 #include "sj-extracting.h"
 #include "sj-prefs.h"
@@ -182,11 +183,18 @@ static void baseuri_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *
   const char* base_uri, *current_uri;
   g_return_if_fail (strcmp (entry->key, GCONF_BASEURI) == 0);
 
-  if (entry->value == NULL) {
-    gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (basepath_fcb), g_get_home_dir());
+  base_uri = NULL;
+  if (entry->value != NULL)
+    base_uri = gconf_value_get_string (entry->value);
+
+  if (base_uri == NULL || base_uri[0] == '\0') {
+    char *dir;
+
+    dir = sj_get_default_music_directory ();
+    gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (basepath_fcb), dir);
+    g_free (dir);
   } else {
     g_return_if_fail (entry->value->type == GCONF_VALUE_STRING);
-    base_uri = gconf_value_get_string (entry->value);
     current_uri = gtk_file_chooser_get_current_folder_uri (GTK_FILE_CHOOSER (basepath_fcb));
     if (current_uri == NULL || strcmp (current_uri, base_uri) != 0) { 
       gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (basepath_fcb), base_uri);
@@ -382,6 +390,7 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
 
     cd_option = glade_xml_get_widget (glade, "cd_option");
     basepath_fcb = glade_xml_get_widget (glade, "path_chooser");
+    sj_add_default_dirs (GTK_FILE_CHOOSER (basepath_fcb));
     path_option = glade_xml_get_widget (glade, "path_option");
     file_option = glade_xml_get_widget (glade, "file_option");
     audio_profile = glade_xml_get_widget (glade, "audio_profile");
@@ -416,3 +425,4 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     gtk_widget_show_all (prefs_dialog);
   }
 }
+

@@ -1,3 +1,16 @@
+2007-03-26  Bastien Nocera  <hadess@hadess.net>
+
+	reviewed by: Ross Burton <ross@burtonini.com>
+
+	* libjuicer/sj-util.c: (xdg_user_dir_lookup),
+	(sj_get_default_music_directory), (sj_add_default_dirs):
+	* libjuicer/sj-util.h:
+	* src/sj-main.c: (baseuri_changed_cb), (main):
+	* src/sj-prefs.c: (baseuri_changed_cb), (on_edit_preferences_cb):
+	* src/sound-juicer.h: Use xdg-user-dirs to set a nice default target
+	for encoded files, also add the directory to the list of directories
+	listed in the drop-down menu (Closes: #404542)
+
 2007-03-15  Christian Kirbach  <Christian.Kirbach@googlemail.com>
 
 	* src/sj-main.c:
@@ -192,7 +205,7 @@
 
 	* libjuicer/sj-extractor.c:
 	Add audioresample to fix the lossless(voice) default profile
-	(#168508, thanks Tim-Philipp Müller)
+	(#168508, thanks Tim-Philipp M?ller)
 
 2006-09-04  Ross Burton  <ross@burtonini.com>
 

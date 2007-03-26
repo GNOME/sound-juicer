@@ -80,7 +80,8 @@ GtkListStore *track_store;
 static BaconMessageConnection *connection;
 GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer;
 
-const char *base_uri, *path_pattern, *file_pattern;
+const char *path_pattern, *file_pattern;
+char *base_uri;
 NautilusBurnDrive *drive = NULL;
 gboolean strip_chars;
 gboolean eject_finished;
@@ -521,10 +522,11 @@ AlbumDetails* multiple_album_dialog(GList *albums)
 void baseuri_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   g_assert (strcmp (entry->key, GCONF_BASEURI) == 0);
+  g_free (base_uri);
   if (entry->value == NULL) {
-    base_uri = gnome_vfs_get_uri_from_local_path (g_get_home_dir ());
+    base_uri = sj_get_default_music_directory ();
   } else {
-    base_uri = gconf_value_get_string (entry->value);
+    base_uri = g_strdup (gconf_value_get_string (entry->value));
   }
   /* TODO: sanity check the URI somewhat */
 }
@@ -1550,6 +1552,7 @@ int main (int argc, char **argv)
 
   nautilus_burn_shutdown ();
 
+  g_free (base_uri);
   g_object_unref (metadata);
   g_object_unref (extractor);
   g_object_unref (gconf_client);

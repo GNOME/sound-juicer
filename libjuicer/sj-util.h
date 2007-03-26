@@ -24,6 +24,7 @@
 #define SJ_UTIL_H
 
 #include <sys/types.h>
+#include <gtk/gtkfilechooser.h>
 #include <libgnomevfs/gnome-vfs-uri.h>
 #include <libgnomevfs/gnome-vfs-result.h>
 
@@ -31,5 +32,8 @@ GnomeVFSResult make_directory_with_parents_for_uri (GnomeVFSURI * uri, guint per
 GnomeVFSResult make_directory_with_parents (const gchar * text_uri, guint perm);
 
 void g_list_deep_free (GList *l, GFunc free_func);
+
+void sj_add_default_dirs (GtkFileChooser *dialog);
+char *sj_get_default_music_directory (void);
 
 #endif /* SJ_UTIL_H */
