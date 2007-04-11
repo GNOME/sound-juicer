@@ -386,7 +386,15 @@ setup (GError **err)
     resample = gst_element_factory_make ("audioresample", "resample"); g_assert (resample);
     volume = gst_element_factory_make ("volume", "vol"); g_assert (volume);
     g_object_set (G_OBJECT (volume), "volume", vol, NULL);
-    out = gst_element_factory_make ("gconfaudiosink", "out"); g_assert (out);
+    out = gst_element_factory_make ("gconfaudiosink", "out");
+    if (!out) {
+        /* fall back to autoaudiosink */
+        out = gst_element_factory_make ("autoaudiosink", "out");
+    }
+    if (out) {
+        if (g_object_class_find_property (G_OBJECT_GET_CLASS (out), "profile"))
+	    g_object_set (G_OBJECT (out), "profile", 1, NULL);
+    }
 
     gst_bin_add_many (GST_BIN (pipeline), cdp, queue, conv, resample, volume, out, NULL);
     if (!gst_element_link_many (cdp, queue, conv, resample, volume, out, NULL))
