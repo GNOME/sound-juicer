@@ -1,22 +1,22 @@
 # translation of es.po to Spanish
-# Spanish translation for Sound Juicer.
-# Copyright (C) 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
-# This file is distributed under the same license as the sound-juicer package.
 # Enrique Rodriguez <krm@futurnet.es>, 2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003-2005, 2006.
-#
+# Jorge González <jorgegonz@svn.gnome.org>, 2007.
+# Spanish translation for Sound Juicer.
+# Copyright (C) 2003, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
+# This file is distributed under the same license as the sound-juicer package.
 msgid ""
 msgstr ""
-"Project-Id-Version: es\n"
+"Project-Id-Version: sound-juicer.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-05 17:06+0100\n"
-"PO-Revision-Date: 2006-11-05 17:06+0100\n"
-"Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
+"POT-Creation-Date: 2007-03-27 03:39+0100\n"
+"PO-Revision-Date: 2007-04-21 23:23+0200\n"
+"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../data/sound-juicer.desktop.in.in.h:1
@@ -111,8 +111,8 @@ msgstr "Salta hasta la pista siguiente"
 msgid "Skip to the previous track"
 msgstr "Salta hasta la pista anterior"
 
-#: ../data/sound-juicer.glade.h:21 ../src/sj-main.c:166 ../src/sj-main.c:168
-#: ../src/sj-main.c:1324
+#: ../data/sound-juicer.glade.h:21 ../src/sj-main.c:168 ../src/sj-main.c:170
+#: ../src/sj-main.c:1350
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -125,58 +125,66 @@ msgstr ""
 "<i>Continuar</i>."
 
 #: ../data/sound-juicer.glade.h:23
+msgid "Track Progress"
+msgstr "Progreso de la pista"
+
+#: ../data/sound-juicer.glade.h:24
+msgid "Tracks"
+msgstr "Pistas"
+
+#: ../data/sound-juicer.glade.h:25
 msgid "_Contents"
 msgstr "_Índice"
 
-#: ../data/sound-juicer.glade.h:24 ../src/sj-main.c:266
+#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:268
 msgid "_Continue"
 msgstr "_Continuar"
 
-#: ../data/sound-juicer.glade.h:25
+#: ../data/sound-juicer.glade.h:27
 msgid "_Deselect All"
 msgstr "_Deseleccionar todo"
 
-#: ../data/sound-juicer.glade.h:26
+#: ../data/sound-juicer.glade.h:28
 msgid "_Disc"
 msgstr "_Disco"
 
-#: ../data/sound-juicer.glade.h:27
+#: ../data/sound-juicer.glade.h:29
 msgid "_Edit"
 msgstr "_Editar"
 
-#: ../data/sound-juicer.glade.h:28
+#: ../data/sound-juicer.glade.h:30
 msgid "_Eject when finished"
 msgstr "_Expulsar al terminar"
 
-#: ../data/sound-juicer.glade.h:29
+#: ../data/sound-juicer.glade.h:31
 msgid "_Folder:"
 msgstr "_Carpeta:"
 
-#: ../data/sound-juicer.glade.h:30
+#: ../data/sound-juicer.glade.h:32
 msgid "_Help"
 msgstr "Ay_uda"
 
-#: ../data/sound-juicer.glade.h:31
+#: ../data/sound-juicer.glade.h:33
 msgid "_Next Track"
 msgstr "Pista _siguiente"
 
-#: ../data/sound-juicer.glade.h:32
+#: ../data/sound-juicer.glade.h:34
 msgid "_Play / Pause"
 msgstr "_Reproducir / Pausar"
 
-#: ../data/sound-juicer.glade.h:33
+#: ../data/sound-juicer.glade.h:35
 msgid "_Re-read Disc"
 msgstr "_Releer disco"
 
-#: ../data/sound-juicer.glade.h:34
+#: ../data/sound-juicer.glade.h:36
 msgid "_Select All"
 msgstr "_Seleccionar todo"
 
-#: ../data/sound-juicer.glade.h:35
+#: ../data/sound-juicer.glade.h:37
 msgid "_Strip special characters"
 msgstr "_Quitar caracteres especiales"
 
-#: ../data/sound-juicer.glade.h:36
+#: ../data/sound-juicer.glade.h:38
 msgid "_Submit Track Names..."
 msgstr "_Enviar nombres de pistas…"
 
@@ -240,8 +248,7 @@ msgstr ""
 
 #: ../data/sound-juicer.schemas.in.h:9
 msgid "If to strip special characters from filenames"
-msgstr ""
-"Indica si deben quitarse los caracteres especiales de los nombres de archivo"
+msgstr "Indica si deben quitarse los caracteres especiales de los nombres de archivo"
 
 #: ../data/sound-juicer.schemas.in.h:10
 msgid ""
@@ -287,34 +294,32 @@ msgstr "El perfil de sonido de GNOME que se usará para codificar el sonido"
 msgid "Could not create GStreamer CD reader"
 msgstr "No se pudo crear el lector de CD GStreamer"
 
-#: ../libjuicer/sj-extractor.c:298
+#: ../libjuicer/sj-extractor.c:300
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "No se pudo crear el codificador GStreamer para %s"
 
-#: ../libjuicer/sj-extractor.c:309
+#: ../libjuicer/sj-extractor.c:311
 msgid "Could not create GStreamer file output"
 msgstr "No se pudo crear el archivo de salida GStreamer"
 
-#: ../libjuicer/sj-extractor.c:321
+#: ../libjuicer/sj-extractor.c:323
 msgid "Could not link pipeline"
 msgstr "No se pudo enlazar el conducto"
 
-#: ../libjuicer/sj-extractor.c:344
+#: ../libjuicer/sj-extractor.c:346
 msgid "Could not get current track position"
 msgstr "No se pudo obtener la posición de la pista actual"
 
-#: ../libjuicer/sj-extractor.c:371
-msgid ""
-"Extractor object is not valid. This is bad, check your console for errors."
-msgstr ""
-"El objeto extractor no es válido. Esto es malo, busque errores en su consola."
+#: ../libjuicer/sj-extractor.c:373
+msgid "Extractor object is not valid. This is bad, check your console for errors."
+msgstr "El objeto extractor no es válido. Esto es malo, busque errores en su consola."
 
-#: ../libjuicer/sj-extractor.c:563
+#: ../libjuicer/sj-extractor.c:565
 msgid "The plugin necessary for CD access was not found"
 msgstr "No se ha encontrado el complemento necesario para el acceder al CD"
 
-#: ../libjuicer/sj-extractor.c:571
+#: ../libjuicer/sj-extractor.c:573
 msgid "The plugin necessary for file access was not found"
 msgstr "No se ha encontrado el complemento necesario para acceder al archivo"
 
@@ -373,8 +378,7 @@ msgstr "El dispositivo «%s» no contiene un soporte"
 
 #: ../libjuicer/sj-metadata-musicbrainz.c:507
 #, c-format
-msgid ""
-"Device '%s' could not be opened. Check the access permissions on the device."
+msgid "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr ""
 " El dispositivo «%s» no se pudo abrir. Compruebe los permisos de acceso del "
 "dispositivo."
@@ -391,27 +395,35 @@ msgstr "Metadatos incompletos para este CD."
 msgid "Could not create CD lookup thread"
 msgstr "No se pudo crear el hilo de búsqueda del CD"
 
-#: ../src/bacon-volume.c:181
+#: ../src/bacon-volume.c:193
 msgid "Volume"
 msgstr "Volumen"
 
 #. +
-#: ../src/bacon-volume.c:214
+#: ../src/bacon-volume.c:221
 msgid "+"
 msgstr "+"
 
-#: ../src/bacon-volume.c:216
+#: ../src/bacon-volume.c:223
 msgid "Volume Down"
 msgstr "Bajar volumen"
 
 #. -
-#: ../src/bacon-volume.c:232
+#: ../src/bacon-volume.c:239
 msgid "-"
 msgstr "-"
 
-#: ../src/bacon-volume.c:234
+#: ../src/bacon-volume.c:241
 msgid "Volume Up"
 msgstr "Subir volumen"
+
+#: ../src/bacon-volume.c:777
+msgid "Muted"
+msgstr "Silenciado"
+
+#: ../src/bacon-volume.c:779
+msgid "Full Volume"
+msgstr "Volumen total"
 
 #: ../src/gconf-bridge.c:1218
 #, c-format
@@ -422,7 +434,7 @@ msgstr "Error en Gconf: %s"
 msgid "All further errors shown only on terminal."
 msgstr "Todos los demás errores se muestran sólo en el terminal."
 
-#: ../src/sj-about.c:47
+#: ../src/sj-about.c:48
 msgid ""
 "Sound Juicer is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -434,7 +446,7 @@ msgstr ""
 "Free Software Foundation, ya sea en su versión 2 de la licencia, como (a su "
 "elección) cualquier versión posterior."
 
-#: ../src/sj-about.c:51
+#: ../src/sj-about.c:52
 msgid ""
 "Sound Juicer is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -446,7 +458,7 @@ msgstr ""
 "ADECUACIÓN PARA UN PROPÓSITO PARTICULAR. Vea la Licencia Pública General de "
 "GNU para más detalles."
 
-#: ../src/sj-about.c:55
+#: ../src/sj-about.c:56
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "Sound Juicer; if not, write to the Free Software Foundation, Inc., 59 Temple "
@@ -456,7 +468,7 @@ msgstr ""
 "con Nautilus; si no, escriba a la Free Software Foundation, Inc, 59 Temple "
 "Place, Suite 330, Boston, MA 02111-1307,  Estados Unidos de América"
 
-#: ../src/sj-about.c:66
+#: ../src/sj-about.c:67
 msgid "An Audio CD Extractor"
 msgstr "Un extractor de sonido de CD"
 
@@ -464,9 +476,10 @@ msgstr "Un extractor de sonido de CD"
 #. * Note to translators: put here your name and email so it will show
 #. * up in the "about" box
 #.
-#: ../src/sj-about.c:76
+#: ../src/sj-about.c:77
 msgid "translator-credits"
 msgstr ""
+"Jorge González <jorgegonz@svn.gnome.org>, 2007\n"
 "Francisco F. Serrador <serrador@cvs.gnome.org>\n"
 "Enrique Rodríguez <krm@futurnet.es>"
 
@@ -489,7 +502,7 @@ msgstr "S_obreescribir"
 
 #. Display a nice dialog
 #: ../src/sj-extracting.c:281 ../src/sj-extracting.c:316
-#: ../src/sj-extracting.c:525
+#: ../src/sj-extracting.c:541
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -507,103 +520,111 @@ msgstr "Tiempo restante estimado: %d:%02d (a %0.1fx)"
 msgid "Estimated time left: unknown"
 msgstr "Tiempo restante estimado: desconocido"
 
-#. TODO: need to have a better message here
-#: ../src/sj-extracting.c:463
-msgid "The tracks have been copied successfully."
-msgstr "Las pistas se han copiado con éxito."
+#: ../src/sj-extracting.c:466
+#, c-format
+msgid "%s has been copied successfully."
+msgstr "%s se ha copiado con éxito."
 
-#: ../src/sj-extracting.c:468
+#: ../src/sj-extracting.c:479
 msgid "_Eject"
 msgstr "Ex_pulsar"
 
-#: ../src/sj-main.c:143
+#: ../src/sj-main.c:145
 msgid "E_xtract"
 msgstr "E_xtraer"
 
-#: ../src/sj-main.c:217
+#: ../src/sj-main.c:219
 msgid "Could not start Sound Juicer"
 msgstr "No se pudo iniciar Sound Juicer"
 
-#: ../src/sj-main.c:218 ../src/sj-main.c:637 ../src/sj-main.c:746
-#: ../src/sj-main.c:838 ../src/sj-main.c:1045
+#: ../src/sj-main.c:220 ../src/sj-main.c:640 ../src/sj-main.c:749
+#: ../src/sj-main.c:861 ../src/sj-main.c:1069
 msgid "Reason"
 msgstr "Razón"
 
-#: ../src/sj-main.c:220
+#: ../src/sj-main.c:222
 msgid "Please consult the documentation for assistance."
 msgstr "Consulte la documentación para asistencia."
 
-#: ../src/sj-main.c:264
+#: ../src/sj-main.c:266
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Actualmente está extrayendo un CD. ¿Quiere salir ahora o continuar?"
 
-#: ../src/sj-main.c:324 ../src/sj-main.c:431
+#: ../src/sj-main.c:326 ../src/sj-main.c:433
 msgid "(unknown)"
 msgstr "(desconocido)"
 
-#: ../src/sj-main.c:473 ../src/sj-main.c:1471
+#: ../src/sj-main.c:475 ../src/sj-main.c:1497
 msgid "Title"
 msgstr "Título"
 
-#: ../src/sj-main.c:479 ../src/sj-main.c:1480
+#: ../src/sj-main.c:481 ../src/sj-main.c:1506
 msgid "Artist"
 msgstr "Artista"
 
-#: ../src/sj-main.c:635 ../src/sj-main.c:744 ../src/sj-main.c:836
+#: ../src/sj-main.c:638 ../src/sj-main.c:747 ../src/sj-main.c:859
 msgid "Could not read the CD"
 msgstr "No se pudo leer el CD"
 
-#: ../src/sj-main.c:636 ../src/sj-main.c:745
+#: ../src/sj-main.c:639 ../src/sj-main.c:748
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer no pudo leer la lista de pistas de este CD."
 
 #. Set statusbar message
-#: ../src/sj-main.c:716
+#: ../src/sj-main.c:719
 msgid "Retrieving track listing...please wait."
 msgstr "Obteniendo la lista de pistas… espere por favor."
 
-#: ../src/sj-main.c:810
+#: ../src/sj-main.c:817
+#, c-format
+msgid "Sound Juicer could not use the CD-ROM device '%s'"
+msgstr "Sound Juicer no pudo usar el dispositivo CD-ROM «%s»"
+
+#: ../src/sj-main.c:824
+msgid "HAL daemon may not be running."
+msgstr "Puede que el demonio HAL no se esté ejecutando."
+
+#: ../src/sj-main.c:832
 msgid "Extracting audio from CD"
 msgstr "Extrayendo sonido del CD"
 
-#: ../src/sj-main.c:830
+#: ../src/sj-main.c:852
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer no pudo acceder al dispositivo CD-ROM «%s»"
 
-#: ../src/sj-main.c:923
+#: ../src/sj-main.c:947
 msgid "No CD-ROM drives found"
 msgstr "No se encontraron unidades CD-ROM"
 
-#: ../src/sj-main.c:924
+#: ../src/sj-main.c:948
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer no pudo encontrar ninguna unidad de CD-ROM para leer."
 
-#: ../src/sj-main.c:955
-msgid ""
-"The currently selected audio profile is not available on your installation."
+#: ../src/sj-main.c:979
+msgid "The currently selected audio profile is not available on your installation."
 msgstr ""
 "El perfil de sonido seleccionado actualmente no está disponible para su "
 "instalación."
 
-#: ../src/sj-main.c:957
+#: ../src/sj-main.c:981
 msgid "_Change Profile"
 msgstr "_Cambiar perfil"
 
-#: ../src/sj-main.c:1043
+#: ../src/sj-main.c:1067
 msgid "Could not open URL"
 msgstr "No se pudo abrir el URL"
 
-#: ../src/sj-main.c:1044
+#: ../src/sj-main.c:1068
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer no pudo abrir el URL de envío"
 
-#: ../src/sj-main.c:1153
+#: ../src/sj-main.c:1177
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Se ha editado la columna desconocida %d"
 
-#: ../src/sj-main.c:1209 ../src/sj-prefs.c:102
+#: ../src/sj-main.c:1233 ../src/sj-prefs.c:104
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -612,43 +633,43 @@ msgstr ""
 "No se pudo mostrar la ayuda para Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1302
+#: ../src/sj-main.c:1326
 msgid "Start extracting immediately"
 msgstr "Iniciar extracción inmediatamente"
 
-#: ../src/sj-main.c:1303
+#: ../src/sj-main.c:1327
 msgid "Start playing immediately"
 msgstr "Iniciar reproducción inmediatamente"
 
-#: ../src/sj-main.c:1304
+#: ../src/sj-main.c:1328
 msgid "What CD device to read"
 msgstr "Qué dispositivo CD leer"
 
-#: ../src/sj-main.c:1304
+#: ../src/sj-main.c:1328
 msgid "DEVICE"
 msgstr "DISPOSITIVO"
 
-#: ../src/sj-main.c:1312
+#: ../src/sj-main.c:1338
 msgid "- Extract music from your CDs"
 msgstr "- Extraiga música de sus CDs"
 
-#: ../src/sj-main.c:1355
+#: ../src/sj-main.c:1381
 msgid "Could not create GConf client.\n"
 msgstr "No se pudo crear el cliente GConf.\n"
 
-#: ../src/sj-main.c:1386
+#: ../src/sj-main.c:1412
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "El archivo de interfaz para Sound Juicer no se pudo leer."
 
-#: ../src/sj-main.c:1456
+#: ../src/sj-main.c:1482
 msgid "Track"
 msgstr "Pista"
 
-#: ../src/sj-main.c:1491
+#: ../src/sj-main.c:1517
 msgid "Duration"
 msgstr "Duración"
 
-#: ../src/sj-play.c:201 ../src/sj-play.c:457 ../src/sj-play.c:507
+#: ../src/sj-play.c:201 ../src/sj-play.c:461 ../src/sj-play.c:511
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -663,87 +684,85 @@ msgstr ""
 msgid "Failed to create CD source element"
 msgstr "Falló al crear el elemento de origen de CD"
 
-#: ../src/sj-play.c:389
+#: ../src/sj-play.c:393
 msgid "Failed to link pipeline"
 msgstr "Falló al enlazar el conducto"
 
-#: ../src/sj-play.c:395
+#: ../src/sj-play.c:399
 msgid "Failed to create audio output"
 msgstr "No se pudo crear la salida de sonido"
 
-#: ../src/sj-play.c:618
+#: ../src/sj-play.c:622
 #, c-format
 msgid "Seeking to %s"
 msgstr "Buscando %s"
 
-#: ../src/sj-prefs.c:51
+#: ../src/sj-prefs.c:53
 msgid "Album Artist, Album Title"
 msgstr "Artista del álbum, Título del álbum"
 
-#: ../src/sj-prefs.c:52
+#: ../src/sj-prefs.c:54
 msgid "Album Artist (sortable), Album Title"
 msgstr "Artista del álbum (ordenable), Título del álbum"
 
-#: ../src/sj-prefs.c:53
+#: ../src/sj-prefs.c:55
 msgid "Track Artist, Album Title"
 msgstr "Artista de la pista, Título del álbum"
 
-#: ../src/sj-prefs.c:54
+#: ../src/sj-prefs.c:56
 msgid "Track Artist (sortable), Album Title"
 msgstr "Artista de la pista (ordenable), Título del álbum"
 
-#: ../src/sj-prefs.c:55
+#: ../src/sj-prefs.c:57
 msgid "Album Title"
 msgstr "Título del álbum"
 
-#: ../src/sj-prefs.c:56
+#: ../src/sj-prefs.c:58
 msgid "Album Artist"
 msgstr "Artista del álbum"
 
-#: ../src/sj-prefs.c:57
+#: ../src/sj-prefs.c:59
 msgid "Album Artist (sortable)"
 msgstr "Artista del álbum (ordenable)"
 
-#: ../src/sj-prefs.c:58
+#: ../src/sj-prefs.c:60
 msgid "Album Artist - Album Title"
 msgstr "Artista del álbum - Título del álbum"
 
-#: ../src/sj-prefs.c:59
+#: ../src/sj-prefs.c:61
 msgid "Album Artist (sortable) - Album Title"
 msgstr "Artista del álbum (ordenable) - Título del álbum"
 
-#: ../src/sj-prefs.c:60
+#: ../src/sj-prefs.c:62
 msgid "[none]"
 msgstr "[ninguno]"
 
-#: ../src/sj-prefs.c:65
+#: ../src/sj-prefs.c:67
 msgid "Number - Title"
 msgstr "Número - Título"
 
-#: ../src/sj-prefs.c:66
+#: ../src/sj-prefs.c:68
 msgid "Track Title"
 msgstr "Título de pista"
 
-#: ../src/sj-prefs.c:67
+#: ../src/sj-prefs.c:69
 msgid "Track Artist - Track Title"
 msgstr "Artista de la pista - Título de la pista"
 
-#: ../src/sj-prefs.c:68
+#: ../src/sj-prefs.c:70
 msgid "Track Artist (sortable) - Track Title"
 msgstr "Artista de la pista (ordenable) - Título de la pista"
 
-#: ../src/sj-prefs.c:69
+#: ../src/sj-prefs.c:71
 msgid "Number. Track Artist - Track Title"
 msgstr "Número. Artista de la pista - Título de pista"
 
 #. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
-#: ../src/sj-prefs.c:71
+#: ../src/sj-prefs.c:73
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Número-Artista de la pista-Título de pista (minúsculas)"
 
-#: ../src/sj-prefs.c:251
+#: ../src/sj-prefs.c:260
 msgid "Example Path"
 msgstr "Ruta de ejemplo"
 
-#~ msgid "Could not get track start position"
-#~ msgstr "No se pudo obtener la posición de comienzo de la pista"
