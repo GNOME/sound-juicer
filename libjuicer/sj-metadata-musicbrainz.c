@@ -77,13 +77,15 @@ static void
 sj_metadata_musicbrainz_finalize (GObject *object)
 {
   SjMetadataMusicbrainzPrivate *priv;
-  g_return_if_fail (object != NULL);
+  
   priv = SJ_METADATA_MUSICBRAINZ (object)->priv;
 
   g_free (priv->http_proxy);
   g_free (priv->cdrom);
   mb_Delete (priv->mb);
   g_free (priv);
+
+  parent_class->finalize (object);
 }
 
 static void
