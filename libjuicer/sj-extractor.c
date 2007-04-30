@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2003 Ross Burton <ross@burtonini.com>
+ * Copyright (C) 2003-2007 Ross Burton <ross@burtonini.com>
  *
  * Sound Juicer - sj-extractor.c
  *
@@ -42,6 +42,8 @@
 enum {
   PROP_0,
   PROP_PROFILE,
+  PROP_PARANOIA,
+  PROP_DEVICE,
 };
 
 /* Signals */
@@ -79,30 +81,132 @@ struct SjExtractorPrivate {
  * GObject methods
  */
 
-static void sj_extractor_set_property (GObject *object, guint property_id,
-                                       const GValue *value, GParamSpec *pspec);
-static void sj_extractor_get_property (GObject *object, guint property_id,
-                                       GValue *value, GParamSpec *pspec);
-static void sj_extractor_finalize (GObject *object);
+G_DEFINE_TYPE (SjExtractor, sj_extractor, G_TYPE_OBJECT);
 
-G_DEFINE_TYPE(SjExtractor, sj_extractor, G_TYPE_OBJECT);
+#define EXTRACTOR_PRIVATE(o)                                            \
+  (G_TYPE_INSTANCE_GET_PRIVATE ((o), SJ_TYPE_EXTRACTOR, SjExtractorPrivate))
 
-static void sj_extractor_class_init (SjExtractorClass *klass)
+static void
+sj_extractor_set_property (GObject *object, guint property_id,
+                                       const GValue *value, GParamSpec *pspec)
+{
+  SjExtractorPrivate *priv = SJ_EXTRACTOR (object)->priv;
+  switch (property_id) {
+  case PROP_PROFILE:
+    if (priv->profile)
+      g_object_unref (priv->profile);
+    priv->profile = GM_AUDIO_PROFILE (g_value_dup_object (value));
+    priv->rebuild_pipeline = TRUE;
+    g_object_notify (object, "profile");
+    break;
+  case PROP_PARANOIA:
+    priv->paranoia_mode = g_value_get_int (value);
+    if (priv->cdsrc)
+      g_object_set (G_OBJECT (priv->cdsrc),
+                    "paranoia-mode", priv->paranoia_mode,
+                    NULL);
+    break;
+  case PROP_DEVICE:
+    /* We need to cache this as the source will be recreated */
+    g_free (priv->device_path);
+    priv->device_path = g_value_dup_string (value);
+    if (priv->cdsrc != NULL)
+      g_object_set (G_OBJECT (priv->cdsrc),
+                    "device", priv->device_path,
+                    NULL);
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+  }
+}
+
+static void
+sj_extractor_get_property (GObject *object, guint property_id,
+                                       GValue *value, GParamSpec *pspec)
+{
+  SjExtractorPrivate *priv = SJ_EXTRACTOR (object)->priv;
+  switch (property_id) {
+  case PROP_PROFILE:
+    g_value_set_object (value, priv->profile);
+    break;
+  case PROP_DEVICE:
+    g_value_set_string (value, priv->device_path);
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+  }
+}
+
+static void
+sj_extractor_dispose (GObject *object)
+{
+  SjExtractorPrivate *priv = SJ_EXTRACTOR (object)->priv;
+
+  if (priv->profile) {
+    g_object_unref (priv->profile);
+    priv->profile = NULL;
+  }
+
+  if (priv->pipeline) {
+    g_object_unref (priv->pipeline);
+    priv->pipeline = NULL;
+  }
+
+  G_OBJECT_CLASS (sj_extractor_parent_class)->dispose (object);
+}
+
+static void
+sj_extractor_finalize (GObject *object)
+{
+  SjExtractorPrivate *priv = SJ_EXTRACTOR (object)->priv;
+
+  if (priv->pipeline)
+    gst_element_set_state (priv->pipeline, GST_STATE_NULL);
+
+  if (priv->tick_id != 0)
+    g_source_remove (priv->tick_id);
+
+  g_free (priv->device_path);
+  if (priv->construct_error)
+    g_error_free (priv->construct_error);
+
+  G_OBJECT_CLASS (sj_extractor_parent_class)->finalize (object);
+}
+
+static void
+sj_extractor_class_init (SjExtractorClass *klass)
 {
   GObjectClass *object_class;
   object_class = (GObjectClass *)klass;
 
+  g_type_class_add_private (klass, sizeof (SjExtractorPrivate));
+
   /* GObject */
   object_class->set_property = sj_extractor_set_property;
   object_class->get_property = sj_extractor_get_property;
+  object_class->dispose = sj_extractor_dispose;
   object_class->finalize = sj_extractor_finalize;
 
   /* Properties */
+  /* TODO: make these constructors */
   g_object_class_install_property (object_class, PROP_PROFILE,
                                    g_param_spec_object ("profile",
                                                         _("Audio Profile"),
                                                         _("The GNOME Audio Profile used for encoding audio"),
                                                         GM_AUDIO_TYPE_PROFILE,
+                                                        G_PARAM_READWRITE));
+
+  g_object_class_install_property (object_class, PROP_PARANOIA,
+                                   g_param_spec_int ("paranoia",
+                                                     _("Paranoia Level"),
+                                                     _("The paranoia level"),
+                                                      0, 255, 8, G_PARAM_READWRITE));
+
+  g_object_class_install_property (object_class, PROP_DEVICE,
+                                   g_param_spec_string ("device",
+                                                        _("device"),
+                                                        _("The device"),
+                                                        "",
                                                         G_PARAM_READWRITE));
 							
   /* Signals */
@@ -133,82 +237,38 @@ static void sj_extractor_class_init (SjExtractorClass *klass)
 }
 
 
-static void sj_extractor_init (SjExtractor *extractor)
+static void
+sj_extractor_init (SjExtractor *extractor)
 {
-  extractor->priv = g_new0 (SjExtractorPrivate, 1);
+  extractor->priv = EXTRACTOR_PRIVATE (extractor);
   extractor->priv->profile = gm_audio_profile_lookup (DEFAULT_AUDIO_PROFILE_NAME);
   extractor->priv->rebuild_pipeline = TRUE;
-}
-
-static void sj_extractor_set_property (GObject *object, guint property_id,
-                                       const GValue *value, GParamSpec *pspec)
-{
-  SjExtractorPrivate *priv = (SjExtractorPrivate*)SJ_EXTRACTOR (object)->priv;
-  switch (property_id) {
-  case PROP_PROFILE:
-    priv->profile = g_value_get_object (value);
-    priv->rebuild_pipeline = TRUE;
-    g_object_notify (object, "profile");
-    break;
-  default:
-    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-  }
-}
-
-static void sj_extractor_get_property (GObject *object, guint property_id,
-                                       GValue *value, GParamSpec *pspec)
-{
-  SjExtractorPrivate *priv = (SjExtractorPrivate*)SJ_EXTRACTOR (object)->priv;
-  switch (property_id) {
-  case PROP_PROFILE:
-    g_value_set_object (value, priv->profile);
-    break;
-  default:
-    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-  }
-}
-
-static void sj_extractor_finalize (GObject *object)
-{
-  SjExtractor *extractor = (SjExtractor *)object;
-
-  if (extractor->priv->pipeline)
-    gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
-
-  if (extractor->priv->tick_id != 0)
-    g_source_remove (extractor->priv->tick_id);
-
-  /* TODO: free the members of priv */
-  g_free (extractor->priv);
-
-  extractor->priv = NULL;
-
-  G_OBJECT_CLASS (sj_extractor_parent_class)->finalize (object);
+  extractor->priv->paranoia_mode = 8; /* TODO: replace with construct params */
 }
 
 /*
  * Private Methods
  */
 
-static void eos_cb (GstBus *bus, GstMessage *message, gpointer user_data)
+static void
+eos_cb (GstBus *bus, GstMessage *message, gpointer user_data)
 {
   SjExtractor *extractor = SJ_EXTRACTOR (user_data);
-  SjExtractorPrivate *priv;
+  SjExtractorPrivate *priv = extractor->priv;
 
-  priv = (SjExtractorPrivate*)extractor->priv;
-  
-  gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
+  gst_element_set_state (priv->pipeline, GST_STATE_NULL);
 
   g_source_remove (priv->tick_id);
   priv->tick_id = 0;
 
   /* TODO: shouldn't need to do this, see #327197 */
-  extractor->priv->rebuild_pipeline = TRUE;
+  priv->rebuild_pipeline = TRUE;
 
   g_signal_emit (extractor, signals[COMPLETION], 0);
 }
 
-static GstElement* build_encoder (SjExtractor *extractor)
+static GstElement*
+build_encoder (SjExtractor *extractor)
 {
   SjExtractorPrivate *priv;
   GstElement *element = NULL;
@@ -225,17 +285,19 @@ static GstElement* build_encoder (SjExtractor *extractor)
   return element;
 }
 
-static void error_cb (GstBus *bus, GstMessage *message, gpointer user_data)
+static void
+error_cb (GstBus *bus, GstMessage *message, gpointer user_data)
 {
   SjExtractor *extractor = SJ_EXTRACTOR (user_data);
+  SjExtractorPrivate *priv = extractor->priv;
   GError *error = NULL;
 
   /* Make sure the pipeline is not running any more */
-  gst_element_set_state (extractor->priv->pipeline, GST_STATE_NULL);
+  gst_element_set_state (priv->pipeline, GST_STATE_NULL);
   extractor->priv->rebuild_pipeline = TRUE;
 
-  g_source_remove (extractor->priv->tick_id);
-  extractor->priv->tick_id = 0;
+  g_source_remove (priv->tick_id);
+  priv->tick_id = 0;
 
   gst_message_parse_error (message, &error, NULL);
   g_signal_emit (extractor, signals[ERROR], 0, error);
@@ -247,12 +309,14 @@ static void error_cb (GstBus *bus, GstMessage *message, gpointer user_data)
  * For now, Just Say Yes.  If this API will stay in 0.9, then rewrite
  * SjExtractor.
  */
-static gboolean just_say_yes (GstElement *element, gpointer filename, gpointer user_data)
+static gboolean
+just_say_yes (GstElement *element, gpointer filename, gpointer user_data)
 {
   return TRUE;
 }
 
-static void build_pipeline (SjExtractor *extractor)
+static void
+build_pipeline (SjExtractor *extractor)
 {
   SjExtractorPrivate *priv;
   GstBus *bus;
@@ -327,7 +391,8 @@ static void build_pipeline (SjExtractor *extractor)
   priv->rebuild_pipeline = FALSE;
 }
 
-static gboolean tick_timeout_cb(SjExtractor *extractor)
+static gboolean
+tick_timeout_cb(SjExtractor *extractor)
 {
   gint64 nanos;
   gint secs;
@@ -359,12 +424,14 @@ static gboolean tick_timeout_cb(SjExtractor *extractor)
  * Public Methods
  */
 
-GObject *sj_extractor_new (void)
+GObject *
+sj_extractor_new (void)
 {
-  return g_object_new (sj_extractor_get_type (), NULL);
+  return g_object_new (SJ_TYPE_EXTRACTOR, NULL);
 }
 
-GError *sj_extractor_get_new_error (SjExtractor *extractor)
+GError *
+sj_extractor_get_new_error (SjExtractor *extractor)
 {
   GError *error;
   if (extractor == NULL || extractor->priv == NULL) {
@@ -376,28 +443,25 @@ GError *sj_extractor_get_new_error (SjExtractor *extractor)
   return extractor->priv->construct_error;
 }
 
-void sj_extractor_set_device (SjExtractor *extractor, const char* device)
+void
+sj_extractor_set_device (SjExtractor *extractor, const char* device)
 {
   g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
   g_return_if_fail (device != NULL);
-
-  g_free (extractor->priv->device_path);
-  extractor->priv->device_path = g_strdup (device);
-
-  if (extractor->priv->cdsrc != NULL)
-    g_object_set (G_OBJECT (extractor->priv->cdsrc), "device", device, NULL);
+  
+  g_object_set (extractor, "device", device, NULL);
 }
 
-void sj_extractor_set_paranoia (SjExtractor *extractor, const int paranoia_mode)
+void
+sj_extractor_set_paranoia (SjExtractor *extractor, const int paranoia_mode)
 {
   g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
-
-  extractor->priv->paranoia_mode = paranoia_mode;
-  if (extractor->priv->cdsrc != NULL)
-    g_object_set (G_OBJECT (extractor->priv->cdsrc), "paranoia-mode", paranoia_mode, NULL);
+  
+  g_object_set (extractor, "paranoia", paranoia_mode, NULL);
 }
 
-void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, const char* url, GError **error)
+void
+sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, const char* url, GError **error)
 {
   GstStateChangeReturn state_ret;
   SjExtractorPrivate *priv;
@@ -540,7 +604,8 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
   priv->tick_id = g_timeout_add (250, (GSourceFunc)tick_timeout_cb, extractor);
 }
 
-void sj_extractor_cancel_extract (SjExtractor *extractor)
+void
+sj_extractor_cancel_extract (SjExtractor *extractor)
 {
   GstState state;
 
@@ -555,7 +620,8 @@ void sj_extractor_cancel_extract (SjExtractor *extractor)
   extractor->priv->rebuild_pipeline = TRUE;
 }
 
-gboolean sj_extractor_supports_encoding (GError **error)
+gboolean
+sj_extractor_supports_encoding (GError **error)
 {
   GstElement *element = NULL;
 
@@ -578,22 +644,28 @@ gboolean sj_extractor_supports_encoding (GError **error)
   return TRUE;
 }
 
-gboolean sj_extractor_supports_profile (GMAudioProfile *profile)
+gboolean
+sj_extractor_supports_profile (GMAudioProfile *profile)
 {
-  GstElement *element = NULL;
+  /* TODO: take a GError to return a message if the profile isn't supported */
+  GstElement *element;
   GError *error = NULL;
-  char *pipeline;
-  
-  /* TODO: don't need audioconvert here */
-  pipeline = g_strdup_printf ("audioconvert ! %s", gm_audio_profile_get_pipeline (profile));
-  element = gst_parse_launch (pipeline, &error);
-  /* TODO: check error */
-  g_free(pipeline);
+
+  element = gst_parse_launch (gm_audio_profile_get_pipeline (profile), &error);
+
+  /* It is possible for both element and error to be non NULL, so check both */
   if (element) {
     gst_object_unref (GST_OBJECT (element));
+    if (error) {
+      g_warning ("Profile warning: %s", error->message);
+      g_error_free (error);
+    }
     return TRUE;
   } else {
+    if (error) {
+      g_warning ("Profile error: %s", error->message);
+      g_error_free (error);
+    }
     return FALSE;
   }
 }
-
