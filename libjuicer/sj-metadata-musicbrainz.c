@@ -41,24 +41,6 @@
 #include "sj-structures.h"
 #include "sj-error.h"
 
-struct SjMetadataMusicbrainzPrivate {
-  GError *construct_error;
-  musicbrainz_t mb;
-  char *http_proxy;
-  int http_proxy_port;
-  char *cdrom;
-  /* TODO: remove and use an async queue or something l33t */
-  GList *albums;
-  GError *error;
-};
-
-static GError* mb_get_new_error (SjMetadata *metadata);
-static void mb_set_cdrom (SjMetadata *metadata, const char* device);
-static void mb_set_proxy (SjMetadata *metadata, const char* proxy);
-static void mb_set_proxy_port (SjMetadata *metadata, const int port);
-static void mb_list_albums (SjMetadata *metadata, GError **error);
-static char *mb_get_submit_url (SjMetadata *metadata);
-
 #define GCONF_MUSICBRAINZ_SERVER "/apps/sound-juicer/musicbrainz_server"
 #define GCONF_PROXY_USE_PROXY "/system/http_proxy/use_http_proxy"
 #define GCONF_PROXY_HOST "/system/http_proxy/host"
@@ -67,145 +49,48 @@ static char *mb_get_submit_url (SjMetadata *metadata);
 #define GCONF_PROXY_USERNAME "/system/http_proxy/authentication_user"
 #define GCONF_PROXY_PASSWORD "/system/http_proxy/authentication_password"
 
-/**
- * GObject methods
- */
 
-static GObjectClass *parent_class = NULL;
+struct SjMetadataMusicbrainzPrivate {
+  GError *construct_error;
+  musicbrainz_t mb;
+  char *http_proxy;
+  int http_proxy_port;
+  char *cdrom;
+  /* TODO: remove and use an async queue? */
+  GList *albums;
+  GError *error;
+};
 
-static void
-sj_metadata_musicbrainz_finalize (GObject *object)
-{
-  SjMetadataMusicbrainzPrivate *priv;
-  
-  priv = SJ_METADATA_MUSICBRAINZ (object)->priv;
+#define GET_PRIVATE(o)  \
+  (G_TYPE_INSTANCE_GET_PRIVATE ((o), SJ_TYPE_METADATA_MUSICBRAINZ, SjMetadataMusicbrainzPrivate))
 
-  g_free (priv->http_proxy);
-  g_free (priv->cdrom);
-  mb_Delete (priv->mb);
-  g_free (priv);
+enum {
+  PROP_0,
+  PROP_DEVICE,
+  PROP_USE_PROXY,
+  PROP_PROXY_HOST,
+  PROP_PROXY_PORT,
+};
 
-  parent_class->finalize (object);
-}
+static void metadata_interface_init (gpointer g_iface, gpointer iface_data);
 
-static void
-sj_metadata_musicbrainz_instance_init (GTypeInstance *instance, gpointer g_class)
-{
-  GConfClient *gconf_client;
-  char *server_name = NULL;
-  SjMetadataMusicbrainz *self = (SjMetadataMusicbrainz*)instance;
-  self->priv = g_new0 (SjMetadataMusicbrainzPrivate, 1);
-  self->priv->construct_error = NULL;
-  self->priv->mb = mb_New ();
-  /* TODO: something. :/ */
-  if (!self->priv->mb) {
-    g_set_error (&self->priv->construct_error,
-                 SJ_ERROR, SJ_ERROR_CD_LOOKUP_ERROR,
-                 _("Cannot create MusicBrainz client"));
-    return;
-  }
-  mb_UseUTF8 (self->priv->mb, TRUE);
+G_DEFINE_TYPE_EXTENDED (SjMetadataMusicbrainz,
+                        sj_metadata_musicbrainz,
+                        G_TYPE_OBJECT, 0, 
+                        G_IMPLEMENT_INTERFACE (SJ_TYPE_METADATA,
+                                               metadata_interface_init));
 
-  gconf_client = gconf_client_get_default ();
-  server_name = gconf_client_get_string (gconf_client, GCONF_MUSICBRAINZ_SERVER, NULL);
-  if (server_name) {
-    g_strstrip (server_name);
-  }
-  if (server_name && strcmp (server_name, "") != 0) {
-    mb_SetServer (self->priv->mb, server_name, 80);
-    g_free (server_name);
-  }
-  
-  /* Set the HTTP proxy */
-  if (gconf_client_get_bool (gconf_client, GCONF_PROXY_USE_PROXY, NULL)) {
-    char *proxy_host = gconf_client_get_string (gconf_client, GCONF_PROXY_HOST, NULL);
-    mb_SetProxy (self->priv->mb, proxy_host,
-                 gconf_client_get_int (gconf_client, GCONF_PROXY_PORT, NULL));
-    g_free (proxy_host);
-    if (gconf_client_get_bool (gconf_client, GCONF_PROXY_USE_AUTHENTICATION, NULL)) {
-#if HAVE_MB_SETPROXYCREDS
-      char *username = gconf_client_get_string (gconf_client, GCONF_PROXY_USERNAME, NULL);
-      char *password = gconf_client_get_string (gconf_client, GCONF_PROXY_PASSWORD, NULL);
-      mb_SetProxyCreds (self->priv->mb, username, password);
-      g_free (username);
-      g_free (password);
-#else
-      g_warning ("mb_SetProxyCreds() not found, no proxy authorisation possible.");
-#endif
-    }
-  }
 
-  g_object_unref (gconf_client);
-
-  if (g_getenv("MUSICBRAINZ_DEBUG")) {
-    mb_SetDebug (self->priv->mb, TRUE);
-  }
-}
-
-static void
-metadata_interface_init (gpointer g_iface, gpointer iface_data)
-{
-  SjMetadataClass *klass = (SjMetadataClass*)g_iface;
-  klass->get_new_error = mb_get_new_error;
-  klass->set_cdrom = mb_set_cdrom;
-  klass->set_proxy = mb_set_proxy;
-  klass->set_proxy_port = mb_set_proxy_port;
-  klass->list_albums = mb_list_albums;
-  klass->get_submit_url = mb_get_submit_url;
-}
-
-static void
-sj_metadata_musicbrainz_class_init (SjMetadataMusicbrainzClass *class)
-{
-  GObjectClass *object_class;
-  parent_class = g_type_class_peek_parent (class);
-  object_class = (GObjectClass*) class;
-  object_class->finalize = sj_metadata_musicbrainz_finalize;
-}
-
-GType
-sj_metadata_musicbrainz_get_type (void)
-{
-  static GType type = 0;
-  if (type == 0) {
-    static const GTypeInfo info = {
-      sizeof (SjMetadataMusicbrainzClass),
-      NULL,
-      NULL,
-      (GClassInitFunc)sj_metadata_musicbrainz_class_init,
-      NULL,
-      NULL,
-      sizeof (SjMetadataMusicbrainz),
-      0,
-      sj_metadata_musicbrainz_instance_init,
-      NULL
-    };
-    static const GInterfaceInfo metadata_i_info = {
-      (GInterfaceInitFunc) metadata_interface_init,
-      NULL, NULL
-    };
-    type = g_type_register_static (G_TYPE_OBJECT, "SjMetadataMusicBrainzClass", &info, 0);
-    g_type_add_interface_static (type, SJ_TYPE_METADATA, &metadata_i_info);
-  }
-  return type;
-}
-
-GObject *
-sj_metadata_musicbrainz_new (void)
-{
-  return g_object_new (sj_metadata_musicbrainz_get_type (), NULL);
-}
-
-/**
+/*
  * Private methods
  */
-
-#define BYTES_PER_SECTOR 2352
-#define BYTES_PER_SECOND (44100 / 8) / 16 / 2
 
 static int
 get_duration_from_sectors (int sectors)
 {
+#define BYTES_PER_SECTOR 2352
+#define BYTES_PER_SECOND (44100 / 8) / 16 / 2
+  
   return (sectors * BYTES_PER_SECTOR / BYTES_PER_SECOND);
 }
 
@@ -272,49 +157,6 @@ mb_get_new_error (SjMetadata *metadata)
     return error;
   }
   return SJ_METADATA_MUSICBRAINZ (metadata)->priv->construct_error;
-}
-
-static void
-mb_set_cdrom (SjMetadata *metadata, const char* device)
-{
-  SjMetadataMusicbrainzPrivate *priv;
-  g_return_if_fail (metadata != NULL);
-  g_return_if_fail (device != NULL);
-  priv = SJ_METADATA_MUSICBRAINZ (metadata)->priv;
-
-  if (priv->cdrom) {
-    g_free (priv->cdrom);
-  }
-  priv->cdrom = g_strdup (device);
-  mb_SetDevice (priv->mb, priv->cdrom);
-}
-
-static void
-mb_set_proxy (SjMetadata *metadata, const char* proxy)
-{
-  SjMetadataMusicbrainzPrivate *priv;
-  g_return_if_fail (metadata != NULL);
-  priv = SJ_METADATA_MUSICBRAINZ (metadata)->priv;
-
-  if (proxy == NULL) {
-    proxy = "";
-  }
-  if (priv->http_proxy) {
-    g_free (priv->http_proxy);
-  }
-  priv->http_proxy = g_strdup (proxy);
-  mb_SetProxy (priv->mb, priv->http_proxy, priv->http_proxy_port);
-}
-
-static void
-mb_set_proxy_port (SjMetadata *metadata, const int port)
-{
-  SjMetadataMusicbrainzPrivate *priv;
-  g_return_if_fail (metadata != NULL);
-  priv = SJ_METADATA_MUSICBRAINZ (metadata)->priv;
-
-  priv->http_proxy_port = port;
-  mb_SetProxy (priv->mb, priv->http_proxy, priv->http_proxy_port);
 }
 
 /* Data imported from FreeDB is horrendeous for compilations,
@@ -695,3 +537,167 @@ mb_get_submit_url (SjMetadata *metadata)
     return NULL;
   }
 }
+
+
+/*
+ * GObject methods
+ */
+
+static void
+metadata_interface_init (gpointer g_iface, gpointer iface_data)
+{
+  SjMetadataClass *klass = (SjMetadataClass*)g_iface;
+  klass->get_new_error = mb_get_new_error;
+  klass->list_albums = mb_list_albums;
+  klass->get_submit_url = mb_get_submit_url;
+}
+
+static void
+sj_metadata_musicbrainz_init (SjMetadataMusicbrainz *self)
+{
+  GConfClient *gconf_client;
+  char *server_name = NULL;
+
+  self->priv = GET_PRIVATE (self);
+  self->priv->construct_error = NULL;
+  self->priv->mb = mb_New ();
+  /* TODO: something. :/ */
+  if (!self->priv->mb) {
+    g_set_error (&self->priv->construct_error,
+                 SJ_ERROR, SJ_ERROR_CD_LOOKUP_ERROR,
+                 _("Cannot create MusicBrainz client"));
+    return;
+  }
+  mb_UseUTF8 (self->priv->mb, TRUE);
+
+  gconf_client = gconf_client_get_default ();
+  server_name = gconf_client_get_string (gconf_client, GCONF_MUSICBRAINZ_SERVER, NULL);
+  if (server_name) {
+    g_strstrip (server_name);
+  }
+  if (server_name && strcmp (server_name, "") != 0) {
+    mb_SetServer (self->priv->mb, server_name, 80);
+    g_free (server_name);
+  }
+  
+  /* Set the HTTP proxy */
+  if (gconf_client_get_bool (gconf_client, GCONF_PROXY_USE_PROXY, NULL)) {
+    char *proxy_host = gconf_client_get_string (gconf_client, GCONF_PROXY_HOST, NULL);
+    mb_SetProxy (self->priv->mb, proxy_host,
+                 gconf_client_get_int (gconf_client, GCONF_PROXY_PORT, NULL));
+    g_free (proxy_host);
+    if (gconf_client_get_bool (gconf_client, GCONF_PROXY_USE_AUTHENTICATION, NULL)) {
+#if HAVE_MB_SETPROXYCREDS
+      char *username = gconf_client_get_string (gconf_client, GCONF_PROXY_USERNAME, NULL);
+      char *password = gconf_client_get_string (gconf_client, GCONF_PROXY_PASSWORD, NULL);
+      mb_SetProxyCreds (self->priv->mb, username, password);
+      g_free (username);
+      g_free (password);
+#else
+      g_warning ("mb_SetProxyCreds() not found, no proxy authorisation possible.");
+#endif
+    }
+  }
+
+  g_object_unref (gconf_client);
+
+  if (g_getenv("MUSICBRAINZ_DEBUG")) {
+    mb_SetDebug (self->priv->mb, TRUE);
+  }
+}
+
+static void
+sj_metadata_musicbrainz_get_property (GObject *object, guint property_id,
+                                      GValue *value, GParamSpec *pspec)
+{
+  SjMetadataMusicbrainzPrivate *priv = SJ_METADATA_MUSICBRAINZ (object)->priv;
+  g_assert (priv);
+
+  switch (property_id) {
+  case PROP_DEVICE:
+    g_value_set_string (value, priv->cdrom);
+    break;
+  case PROP_PROXY_HOST:
+    g_value_set_string (value, priv->http_proxy);
+    break;
+  case PROP_PROXY_PORT:
+    g_value_set_int (value, priv->http_proxy_port);
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+  }
+}
+
+static void
+sj_metadata_musicbrainz_set_property (GObject *object, guint property_id,
+                                      const GValue *value, GParamSpec *pspec)
+{
+  SjMetadataMusicbrainzPrivate *priv = SJ_METADATA_MUSICBRAINZ (object)->priv;
+  g_assert (priv);
+
+  switch (property_id) {
+  case PROP_DEVICE:
+    if (priv->cdrom)
+      g_free (priv->cdrom);
+    priv->cdrom = g_value_dup_string (value);
+    if (priv->cdrom)
+      mb_SetDevice (priv->mb, priv->cdrom);
+    break;
+  case PROP_PROXY_HOST:
+    if (priv->http_proxy) {
+      g_free (priv->http_proxy);
+    }
+    priv->http_proxy = g_value_dup_string (value);
+    /* TODO: check this unsets the proxy if NULL, or should we pass "" ? */
+    mb_SetProxy (priv->mb, priv->http_proxy, priv->http_proxy_port);
+    break;
+  case PROP_PROXY_PORT:
+    priv->http_proxy_port = g_value_get_int (value);
+    mb_SetProxy (priv->mb, priv->http_proxy, priv->http_proxy_port);
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+  }
+}
+
+static void
+sj_metadata_musicbrainz_finalize (GObject *object)
+{
+  SjMetadataMusicbrainzPrivate *priv;
+  
+  priv = SJ_METADATA_MUSICBRAINZ (object)->priv;
+
+  g_free (priv->http_proxy);
+  g_free (priv->cdrom);
+  mb_Delete (priv->mb);
+
+  G_OBJECT_CLASS (sj_metadata_musicbrainz_parent_class)->finalize (object);
+}
+
+static void
+sj_metadata_musicbrainz_class_init (SjMetadataMusicbrainzClass *class)
+{
+  GObjectClass *object_class = (GObjectClass*)class;
+
+  g_type_class_add_private (class, sizeof (SjMetadataMusicbrainzPrivate));
+
+  object_class->get_property = sj_metadata_musicbrainz_get_property;
+  object_class->set_property = sj_metadata_musicbrainz_set_property;
+  object_class->finalize = sj_metadata_musicbrainz_finalize;
+
+  g_object_class_override_property (object_class, PROP_DEVICE, "device");
+  g_object_class_override_property (object_class, PROP_PROXY_HOST, "proxy-host");
+  g_object_class_override_property (object_class, PROP_PROXY_PORT, "proxy-port");
+}
+
+
+/*
+ * Public methods.
+ */
+
+GObject *
+sj_metadata_musicbrainz_new (void)
+{
+  return g_object_new (sj_metadata_musicbrainz_get_type (), NULL);
+}
+

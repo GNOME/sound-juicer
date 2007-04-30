@@ -45,9 +45,6 @@ struct _SjMetadataClass
 
   /* Virtual Table */
   GError* (*get_new_error) (SjMetadata *metadata);
-  void (*set_cdrom) (SjMetadata *metadata, const char* device);
-  void (*set_proxy) (SjMetadata *metadata, const char* proxy);
-  void (*set_proxy_port) (SjMetadata *metadata, int proxy_port);
   void (*list_albums) (SjMetadata *metadata, GError **error);
   char *(*get_submit_url) (SjMetadata *metadata);
 };
