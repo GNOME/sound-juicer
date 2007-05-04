@@ -1,16 +1,16 @@
-# translation of es.po to Spanish
-# Enrique Rodriguez <krm@futurnet.es>, 2003.
-# Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003-2005, 2006.
-# Jorge González <jorgegonz@svn.gnome.org>, 2007.
 # Spanish translation for Sound Juicer.
 # Copyright (C) 2003, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the sound-juicer package.
+#
+# Enrique Rodriguez <krm@futurnet.es>, 2003.
+# Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003-2005, 2006.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-27 03:39+0100\n"
-"PO-Revision-Date: 2007-04-21 23:23+0200\n"
+"POT-Creation-Date: 2007-05-01 03:34+0100\n"
+"PO-Revision-Date: 2007-05-04 10:47+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -282,44 +282,60 @@ msgstr "El modo paranoia que usar"
 msgid "Whether to eject the CD when finished extracting."
 msgstr "Indica si se debe expulsar el CD al terminar la extracción."
 
-#: ../libjuicer/sj-extractor.c:103
+#: ../libjuicer/sj-extractor.c:194
 msgid "Audio Profile"
 msgstr "Perfil de sonido"
 
-#: ../libjuicer/sj-extractor.c:104
+#: ../libjuicer/sj-extractor.c:195
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "El perfil de sonido de GNOME que se usará para codificar el sonido"
 
-#: ../libjuicer/sj-extractor.c:278
+#: ../libjuicer/sj-extractor.c:201
+msgid "Paranoia Level"
+msgstr "Nivel paranoia"
+
+#: ../libjuicer/sj-extractor.c:202
+msgid "The paranoia level"
+msgstr "El nivel de paranoia"
+
+#: ../libjuicer/sj-extractor.c:207
+msgid "device"
+msgstr "dispositivo"
+
+#: ../libjuicer/sj-extractor.c:208
+msgid "The device"
+msgstr "El dispositivo"
+
+#: ../libjuicer/sj-extractor.c:342
 msgid "Could not create GStreamer CD reader"
 msgstr "No se pudo crear el lector de CD GStreamer"
 
-#: ../libjuicer/sj-extractor.c:300
+#: ../libjuicer/sj-extractor.c:364
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "No se pudo crear el codificador GStreamer para %s"
 
-#: ../libjuicer/sj-extractor.c:311
+#: ../libjuicer/sj-extractor.c:375
 msgid "Could not create GStreamer file output"
 msgstr "No se pudo crear el archivo de salida GStreamer"
 
-#: ../libjuicer/sj-extractor.c:323
+#: ../libjuicer/sj-extractor.c:387
 msgid "Could not link pipeline"
 msgstr "No se pudo enlazar el conducto"
 
-#: ../libjuicer/sj-extractor.c:346
+#: ../libjuicer/sj-extractor.c:411
 msgid "Could not get current track position"
 msgstr "No se pudo obtener la posición de la pista actual"
 
-#: ../libjuicer/sj-extractor.c:373
+#: ../libjuicer/sj-extractor.c:440
 msgid "Extractor object is not valid. This is bad, check your console for errors."
 msgstr "El objeto extractor no es válido. Esto es malo, busque errores en su consola."
 
-#: ../libjuicer/sj-extractor.c:565
+#: ../libjuicer/sj-extractor.c:631
 msgid "The plugin necessary for CD access was not found"
 msgstr "No se ha encontrado el complemento necesario para el acceder al CD"
 
-#: ../libjuicer/sj-extractor.c:573
+#: ../libjuicer/sj-extractor.c:639
 msgid "The plugin necessary for file access was not found"
 msgstr "No se ha encontrado el complemento necesario para acceder al archivo"
 
@@ -331,32 +347,28 @@ msgstr "El complemento de metadatos CD-TEXT falló al inicializar."
 msgid "Cannot read CD"
 msgstr "No se puede leer el CD"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:102
-msgid "Cannot create MusicBrainz client"
-msgstr "No se puede crear el cliente MusicBrainz"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:227
-#: ../libjuicer/sj-metadata-musicbrainz.c:510
+#: ../libjuicer/sj-metadata-musicbrainz.c:114
+#: ../libjuicer/sj-metadata-musicbrainz.c:354
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "No se puede leer CD: %s"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:234
-#: ../libjuicer/sj-metadata-musicbrainz.c:548
+#: ../libjuicer/sj-metadata-musicbrainz.c:121
+#: ../libjuicer/sj-metadata-musicbrainz.c:392
 msgid "Unknown Artist"
 msgstr "Artista desconocido"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:235
-#: ../libjuicer/sj-metadata-musicbrainz.c:559
+#: ../libjuicer/sj-metadata-musicbrainz.c:122
+#: ../libjuicer/sj-metadata-musicbrainz.c:403
 msgid "Unknown Title"
 msgstr "Título desconocido"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:241
+#: ../libjuicer/sj-metadata-musicbrainz.c:128
 #, c-format
 msgid "Track %d"
 msgstr "Pista %d"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:269
+#: ../libjuicer/sj-metadata-musicbrainz.c:156
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
@@ -364,36 +376,40 @@ msgstr ""
 " El objeto de metadatos MusicBrainz no es válido. Esto es malo, busque "
 "errores en su consola."
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:436
-#: ../libjuicer/sj-metadata-musicbrainz.c:443
-#: ../libjuicer/sj-metadata-musicbrainz.c:457
+#: ../libjuicer/sj-metadata-musicbrainz.c:280
+#: ../libjuicer/sj-metadata-musicbrainz.c:287
+#: ../libjuicer/sj-metadata-musicbrainz.c:301
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "No se pudo consultar este CD: %s\n"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:504
+#: ../libjuicer/sj-metadata-musicbrainz.c:348
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "El dispositivo «%s» no contiene un soporte"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:507
+#: ../libjuicer/sj-metadata-musicbrainz.c:351
 #, c-format
 msgid "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr ""
 " El dispositivo «%s» no se pudo abrir. Compruebe los permisos de acceso del "
 "dispositivo."
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:543
+#: ../libjuicer/sj-metadata-musicbrainz.c:387
 msgid "Various"
 msgstr "Varios"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:584
+#: ../libjuicer/sj-metadata-musicbrainz.c:428
 msgid "Incomplete metadata for this CD"
 msgstr "Metadatos incompletos para este CD."
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:675
+#: ../libjuicer/sj-metadata-musicbrainz.c:519
 msgid "Could not create CD lookup thread"
 msgstr "No se pudo crear el hilo de búsqueda del CD"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:568
+msgid "Cannot create MusicBrainz client"
+msgstr "No se puede crear el cliente MusicBrainz"
 
 #: ../src/bacon-volume.c:193
 msgid "Volume"
@@ -669,7 +685,7 @@ msgstr "Pista"
 msgid "Duration"
 msgstr "Duración"
 
-#: ../src/sj-play.c:201 ../src/sj-play.c:461 ../src/sj-play.c:511
+#: ../src/sj-play.c:201 ../src/sj-play.c:469 ../src/sj-play.c:519
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -684,15 +700,15 @@ msgstr ""
 msgid "Failed to create CD source element"
 msgstr "Falló al crear el elemento de origen de CD"
 
-#: ../src/sj-play.c:393
+#: ../src/sj-play.c:401
 msgid "Failed to link pipeline"
 msgstr "Falló al enlazar el conducto"
 
-#: ../src/sj-play.c:399
+#: ../src/sj-play.c:407
 msgid "Failed to create audio output"
 msgstr "No se pudo crear la salida de sonido"
 
-#: ../src/sj-play.c:622
+#: ../src/sj-play.c:630
 #, c-format
 msgid "Seeking to %s"
 msgstr "Buscando %s"
