@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.13.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-23 18:52+0200\n"
-"PO-Revision-Date: 2007-04-23 18:53+0200\n"
+"POT-Creation-Date: 2007-05-08 21:59+0200\n"
+"PO-Revision-Date: 2007-05-08 22:00+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -276,46 +276,62 @@ msgstr "Paranoiamodus som skal brukes"
 msgid "Whether to eject the CD when finished extracting."
 msgstr "Om CDen skal løses ut når uthenting av sanger er fullført."
 
-#: ../libjuicer/sj-extractor.c:103
+#: ../libjuicer/sj-extractor.c:194
 msgid "Audio Profile"
 msgstr "Lydprofil"
 
-#: ../libjuicer/sj-extractor.c:104
+#: ../libjuicer/sj-extractor.c:195
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "GNOME lydprofil som brukes for koding av lyd"
 
-#: ../libjuicer/sj-extractor.c:278
+#: ../libjuicer/sj-extractor.c:201
+msgid "Paranoia Level"
+msgstr "Paranoianivå"
+
+#: ../libjuicer/sj-extractor.c:202
+msgid "The paranoia level"
+msgstr "Paranoianivå"
+
+#: ../libjuicer/sj-extractor.c:207
+msgid "device"
+msgstr "enhet"
+
+#: ../libjuicer/sj-extractor.c:208
+msgid "The device"
+msgstr "Enheten"
+
+#: ../libjuicer/sj-extractor.c:342
 msgid "Could not create GStreamer CD reader"
 msgstr "Kunne ikke opprette CD-leser for GStreamer"
 
-#: ../libjuicer/sj-extractor.c:300
+#: ../libjuicer/sj-extractor.c:364
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Kunne ikke opprette GStreamer-koder for %s"
 
-#: ../libjuicer/sj-extractor.c:311
+#: ../libjuicer/sj-extractor.c:375
 msgid "Could not create GStreamer file output"
 msgstr "Kunne ikke opprette GStreamer utdata for fil"
 
-#: ../libjuicer/sj-extractor.c:323
+#: ../libjuicer/sj-extractor.c:387
 msgid "Could not link pipeline"
 msgstr "Kunne ikke sette sammen rør"
 
-#: ../libjuicer/sj-extractor.c:346
+#: ../libjuicer/sj-extractor.c:411
 msgid "Could not get current track position"
 msgstr "Kunne ikke finne posisjon i aktivt spor"
 
-#: ../libjuicer/sj-extractor.c:373
+#: ../libjuicer/sj-extractor.c:440
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Ekstraktobjektet er ikke gyldig. Dette er ikke bra. Sjekk konsollet for feil."
 
-#: ../libjuicer/sj-extractor.c:565
+#: ../libjuicer/sj-extractor.c:631
 msgid "The plugin necessary for CD access was not found"
 msgstr "Tillegg som kreves for aksess til CD ble ikke funnet"
 
-#: ../libjuicer/sj-extractor.c:573
+#: ../libjuicer/sj-extractor.c:639
 msgid "The plugin necessary for file access was not found"
 msgstr "Tillegg som kreves for filaksess ble ikke funnet"
 
@@ -327,32 +343,28 @@ msgstr "Tillegg for CD-TEXT-metadata ble ikke initiert."
 msgid "Cannot read CD"
 msgstr "Kan ikke lese CD"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:102
-msgid "Cannot create MusicBrainz client"
-msgstr "Kan ikke starte MusicBrainz-klient"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:227
-#: ../libjuicer/sj-metadata-musicbrainz.c:510
+#: ../libjuicer/sj-metadata-musicbrainz.c:114
+#: ../libjuicer/sj-metadata-musicbrainz.c:354
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Kan ikke lese CD: %s"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:234
-#: ../libjuicer/sj-metadata-musicbrainz.c:548
+#: ../libjuicer/sj-metadata-musicbrainz.c:121
+#: ../libjuicer/sj-metadata-musicbrainz.c:392
 msgid "Unknown Artist"
 msgstr "Ukjent artist"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:235
-#: ../libjuicer/sj-metadata-musicbrainz.c:559
+#: ../libjuicer/sj-metadata-musicbrainz.c:122
+#: ../libjuicer/sj-metadata-musicbrainz.c:403
 msgid "Unknown Title"
 msgstr "Ukjent tittel"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:241
+#: ../libjuicer/sj-metadata-musicbrainz.c:128
 #, c-format
 msgid "Track %d"
 msgstr "Spor %d"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:269
+#: ../libjuicer/sj-metadata-musicbrainz.c:156
 msgid ""
 "MusicBrainz metadata object is not valid. This is bad, check your console "
 "for errors."
@@ -360,35 +372,39 @@ msgstr ""
 "Metadataobjekt fra MusicBrainz er ikke gyldig. Dette er ikke bra. Sjekk "
 "konsollet for feil."
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:436
-#: ../libjuicer/sj-metadata-musicbrainz.c:443
-#: ../libjuicer/sj-metadata-musicbrainz.c:457
+#: ../libjuicer/sj-metadata-musicbrainz.c:280
+#: ../libjuicer/sj-metadata-musicbrainz.c:287
+#: ../libjuicer/sj-metadata-musicbrainz.c:301
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "Kunne ikke kjøre spørring på denne CDen: %s\n"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:504
+#: ../libjuicer/sj-metadata-musicbrainz.c:348
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Enhet «%s» inneholder ikke et medie"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:507
+#: ../libjuicer/sj-metadata-musicbrainz.c:351
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "Enhet «%s» kunne ikke åpnes. Sjekk tilgangsrettighetene på enheten."
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:543
+#: ../libjuicer/sj-metadata-musicbrainz.c:387
 msgid "Various"
 msgstr "Forskjellig"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:584
+#: ../libjuicer/sj-metadata-musicbrainz.c:428
 msgid "Incomplete metadata for this CD"
 msgstr "Ukomplette metadata for denne CD'en"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:675
+#: ../libjuicer/sj-metadata-musicbrainz.c:519
 msgid "Could not create CD lookup thread"
 msgstr "Kunne ikke opprette tråd for CD-oppslag"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:568
+msgid "Cannot create MusicBrainz client"
+msgstr "Kan ikke starte MusicBrainz-klient"
 
 #: ../src/bacon-volume.c:193
 msgid "Volume"
