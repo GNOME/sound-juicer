@@ -30,7 +30,8 @@
 #include <profiles/gnome-media-profiles.h>
 #include <nautilus-burn-drive.h>
 #include <nautilus-burn-drive-selection.h>
-#include "libjuicer/sj-util.h"
+
+#include "sj-util.h"
 #include "gconf-bridge.h"
 #include "sj-extracting.h"
 #include "sj-prefs.h"
