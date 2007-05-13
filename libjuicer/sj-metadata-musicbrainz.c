@@ -309,6 +309,34 @@ get_rdf (SjMetadata *metadata)
   g_free (cdindex);
 }
 
+/*
+ * Magic character set encoding to try and repair brain-dead FreeDB encoding,
+ * converting it to the current locale's encoding (which is likely to be the
+ * intended encoding).
+ */
+static void
+convert_encoding(char **str)
+{
+  char *iso8859;
+  char *converted;
+
+  if (str == NULL || *str == NULL)
+    return;
+
+  iso8859 = g_convert (*str, -1, "ISO-8859-1", "UTF-8", NULL, NULL, NULL);
+
+  if (iso8859) {
+    converted = g_locale_to_utf8 (iso8859, -1, NULL, NULL, NULL);
+
+    if (converted) {
+      g_free (*str);
+      *str = converted;
+    }
+  }
+
+  g_free (iso8859);
+}
+
 static gpointer
 lookup_cd (SjMetadata *metadata)
 {
@@ -371,11 +399,14 @@ lookup_cd (SjMetadata *metadata)
   for (i = 1; i <= num_albums; i++) {
     int num_tracks;
     AlbumDetails *album;
+    gboolean from_freedb = FALSE;
 
     mb_Select1(priv->mb, MBS_SelectAlbum, i);
     album = g_new0 (AlbumDetails, 1);
 
     if (mb_GetResultData(priv->mb, MBE_AlbumGetAlbumId, data, sizeof (data))) {
+      from_freedb = strstr(data, "freedb:") == data;
+
       mb_GetIDFromURL (priv->mb, data, data, sizeof (data));
       album->album_id = g_strdup (data);
     }
@@ -468,9 +499,21 @@ lookup_cd (SjMetadata *metadata)
       if (mb_GetResultData1(priv->mb, MBE_AlbumGetTrackDuration, data, sizeof (data), j)) {
         track->duration = atoi (data) / 1000;
       }
+
+      if (from_freedb) {
+        convert_encoding(&track->title);
+        convert_encoding(&track->artist);
+        convert_encoding(&track->artist_sortname);
+      }
       
       album->tracks = g_list_append (album->tracks, track);
       album->number++;
+    }
+
+    if (from_freedb) {
+      convert_encoding(&album->title);
+      convert_encoding(&album->artist);
+      convert_encoding(&album->artist_sortname);
     }
 
     albums = g_list_append (albums, album);
