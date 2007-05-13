@@ -37,12 +37,6 @@
 #include "sj-error.h"
 #include "sj-util.h"
 
-static GError* cdtext_get_new_error (SjMetadata *metadata);
-static void cdtext_set_cdrom (SjMetadata *metadata, const char* device);
-static void cdtext_set_proxy (SjMetadata *metadata, const char* proxy);
-static void cdtext_set_proxy_port (SjMetadata *metadata, const int port);
-static void cdtext_list_albums (SjMetadata *metadata, GError **error);
-
 struct SjMetadataCdtextPrivate {
   GError *construct_error;
   char *cdrom;
@@ -50,56 +44,22 @@ struct SjMetadataCdtextPrivate {
   GError *error;
 };
 
-/**
- * GObject methods
- */
+#define GET_PRIVATE(o)  \
+  (G_TYPE_INSTANCE_GET_PRIVATE ((o), SJ_TYPE_METADATA_CDTEXT, SjMetadataCdtextPrivate))
 
-static void
-sj_metadata_cdtext_finalize (GObject *object)
-{
-  SjMetadataCdtextPrivate *priv = SJ_METADATA_CDTEXT (object)->priv;
-  g_error_free (priv->construct_error);
-  g_free (priv->cdrom);
-  g_list_deep_free (priv->albums, (GFunc)album_details_free);
-  if (priv->error)
-    g_error_free (priv->error);
-}
+enum {
+  PROP_0,
+  PROP_DEVICE,
+  PROP_PROXY_HOST,
+  PROP_PROXY_PORT,
+};
 
-static void
-sj_metadata_cdtext_init (SjMetadataCdtext *cdtext)
-{
-  cdtext->priv = g_new0(SjMetadataCdtextPrivate, 1);
-}
+static void metadata_iface_init (gpointer g_iface, gpointer iface_data);
 
-static void
-metadata_iface_init (gpointer g_iface, gpointer iface_data)
-{
-  SjMetadataClass *klass = (SjMetadataClass*)g_iface;
-  klass->get_new_error = cdtext_get_new_error;
-  klass->set_cdrom = cdtext_set_cdrom;
-  klass->set_proxy = cdtext_set_proxy;
-  klass->set_proxy_port = cdtext_set_proxy_port;
-  klass->list_albums = cdtext_list_albums;
-}
-
-static void
-sj_metadata_cdtext_class_init (SjMetadataCdtextClass *class)
-{
-  GObjectClass *object_class = (GObjectClass*) class;
-  object_class->finalize = sj_metadata_cdtext_finalize;
-}
-
-G_DEFINE_TYPE_EXTENDED (SjMetadataCdtext,
-                        sj_metadata_cdtext,
-                        G_TYPE_OBJECT,
-                        0,
+G_DEFINE_TYPE_EXTENDED (SjMetadataCdtext, sj_metadata_cdtext,
+                        G_TYPE_OBJECT, 0,
                         G_IMPLEMENT_INTERFACE (SJ_TYPE_METADATA, metadata_iface_init));
 
-GObject *
-sj_metadata_cdtext_new (void)
-{
-  return g_object_new (sj_metadata_cdtext_get_type (), NULL);
-}
 
 /**
  * Private methods
@@ -113,10 +73,6 @@ fire_signal_idle (SjMetadataCdtext *m)
   return FALSE;
 }
 
-/**
- * Virtual methods
- */
-
 static GError*
 cdtext_get_new_error (SjMetadata *metadata)
 {
@@ -128,34 +84,6 @@ cdtext_get_new_error (SjMetadata *metadata)
     return error;
   }
   return SJ_METADATA_CDTEXT (metadata)->priv->construct_error;
-}
-
-static void
-cdtext_set_cdrom (SjMetadata *metadata, const char* device)
-{
-  SjMetadataCdtextPrivate *priv;
-  g_return_if_fail (metadata != NULL);
-  g_return_if_fail (device != NULL);
-  priv = SJ_METADATA_CDTEXT (metadata)->priv;
-
-  if (priv->cdrom) {
-    g_free (priv->cdrom);
-  }
-  priv->cdrom = g_strdup (device);
-}
-
-static void
-cdtext_set_proxy (SjMetadata *metadata, const char* proxy)
-{
-  /* No need to do anything here */
-  return;
-}
-
-static void
-cdtext_set_proxy_port (SjMetadata *metadata, const int port)
-{
-  /* No need to do anything here */
-  return;
 }
 
 static void
@@ -223,4 +151,108 @@ cdtext_list_albums (SjMetadata *metadata, GError **error)
   priv->error = NULL;
   priv->albums = g_list_append (NULL, album);
   g_idle_add ((GSourceFunc)fire_signal_idle, metadata);
+}
+
+
+/**
+ * GObject methods
+ */
+
+static void
+sj_metadata_cdtext_get_property (GObject *object, guint property_id,
+                                      GValue *value, GParamSpec *pspec)
+{
+  SjMetadataCdtextPrivate *priv = SJ_METADATA_CDTEXT (object)->priv;
+  g_assert (priv);
+
+  switch (property_id) {
+  case PROP_DEVICE:
+    g_value_set_string (value, priv->cdrom);
+    break;
+  case PROP_PROXY_HOST:
+    /* Do nothing */
+    g_value_set_string (value, "");
+    break;
+  case PROP_PROXY_PORT:
+    /* Do nothing */
+    g_value_set_int (value, 0);
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+  }
+}
+
+static void
+sj_metadata_cdtext_set_property (GObject *object, guint property_id,
+                                      const GValue *value, GParamSpec *pspec)
+{
+  SjMetadataCdtextPrivate *priv = SJ_METADATA_CDTEXT (object)->priv;
+  g_assert (priv);
+
+  switch (property_id) {
+  case PROP_DEVICE:
+    if (priv->cdrom)
+      g_free (priv->cdrom);
+    priv->cdrom = g_value_dup_string (value);
+    break;
+  case PROP_PROXY_HOST:
+  case PROP_PROXY_PORT:
+    /* Do nothing */
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+  }
+}
+
+static void
+sj_metadata_cdtext_finalize (GObject *object)
+{
+  SjMetadataCdtextPrivate *priv = SJ_METADATA_CDTEXT (object)->priv;
+  g_error_free (priv->construct_error);
+  g_free (priv->cdrom);
+  g_list_deep_free (priv->albums, (GFunc)album_details_free);
+  if (priv->error)
+    g_error_free (priv->error);
+}
+
+static void
+sj_metadata_cdtext_init (SjMetadataCdtext *cdtext)
+{
+  cdtext->priv = GET_PRIVATE (cdtext);
+}
+
+static void
+metadata_iface_init (gpointer g_iface, gpointer iface_data)
+{
+  SjMetadataClass *klass = (SjMetadataClass*)g_iface;
+  
+  klass->get_new_error = cdtext_get_new_error;
+  klass->list_albums = cdtext_list_albums;
+}
+
+static void
+sj_metadata_cdtext_class_init (SjMetadataCdtextClass *class)
+{
+  GObjectClass *object_class = (GObjectClass*) class;
+
+  g_type_class_add_private (class, sizeof (SjMetadataCdtextPrivate));
+
+  object_class->get_property = sj_metadata_cdtext_get_property;
+  object_class->set_property = sj_metadata_cdtext_set_property;
+  object_class->finalize = sj_metadata_cdtext_finalize;
+
+  g_object_class_override_property (object_class, PROP_DEVICE, "device");
+  g_object_class_override_property (object_class, PROP_PROXY_HOST, "proxy-host");
+  g_object_class_override_property (object_class, PROP_PROXY_PORT, "proxy-port");
+}
+
+
+/*
+ * Public methods
+ */
+
+GObject *
+sj_metadata_cdtext_new (void)
+{
+  return g_object_new (sj_metadata_cdtext_get_type (), NULL);
 }
