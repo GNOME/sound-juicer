@@ -848,9 +848,12 @@ set_device (const char* device, gboolean ignore_no_media)
     set_drive_from_device (device);
   } else if (access (device, R_OK) != 0) {
     GtkWidget *dialog;
-    char *message, *error;
+    char *message;
+    const char *error;
+    
+    error = g_strerror (errno);
     message = g_strdup_printf (_("Sound Juicer could not access the CD-ROM device '%s'"), device);
-    error = g_locale_to_utf8 (strerror (errno),-1,0,0,0);
+    
     dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
                                      GTK_DIALOG_DESTROY_WITH_PARENT,
                                      GTK_MESSAGE_ERROR,
@@ -860,8 +863,8 @@ set_device (const char* device, gboolean ignore_no_media)
                                      message,
                                      _("Reason"),
                                      error);
-    g_free(error);
     g_free (message);
+
     gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);

@@ -1,5 +1,11 @@
 2007-05-14  Ross Burton  <ross@burtonini.com>
 
+	* src/sj-main.c:
+	Use g_strerror() instead of converting sterror() to UTF-8, and get
+	the error message before doing anything else (#438122).
+
+2007-05-14  Ross Burton  <ross@burtonini.com>
+
 	* libjuicer/sj-extractor.c:
 	The profile fragment does need to have an element first otherwise
 	it may not be a valid pipeline if it starts with caps. Add fakesrc.
