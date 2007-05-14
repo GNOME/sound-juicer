@@ -27,9 +27,9 @@ tag:
 	svn cp -m "Sound Juicer $(VERSION)" `svnpath` `svnpath tags/$(VERSION)`
 
 upload:
-	cp -f $(PACKAGE)-$(VERSION).tar.bz2 $(WEBROOT)/computing
 	scp $(PACKAGE)-$(VERSION).tar.bz2 master.gnome.org:
 	ssh master.gnome.org install-module $(PACKAGE)-$(VERSION).tar.bz2
+	mv -f $(PACKAGE)-$(VERSION).tar.bz2 $(WEBROOT)/computing
 
 release: distcheck tag upload
 	gcq $(WEBROOT)/blosxom/computers/sound-juicer/sj-$(VERSION).txt
