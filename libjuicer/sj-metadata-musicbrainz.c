@@ -74,11 +74,11 @@ enum {
 
 static void metadata_interface_init (gpointer g_iface, gpointer iface_data);
 
-G_DEFINE_TYPE_EXTENDED (SjMetadataMusicbrainz,
-                        sj_metadata_musicbrainz,
-                        G_TYPE_OBJECT, 0, 
-                        G_IMPLEMENT_INTERFACE (SJ_TYPE_METADATA,
-                                               metadata_interface_init));
+G_DEFINE_TYPE_WITH_CODE (SjMetadataMusicbrainz,
+                         sj_metadata_musicbrainz,
+                         G_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (SJ_TYPE_METADATA,
+                                                metadata_interface_init));
 
 
 /*
@@ -743,4 +743,3 @@ sj_metadata_musicbrainz_new (void)
 {
   return g_object_new (sj_metadata_musicbrainz_get_type (), NULL);
 }
-

@@ -56,9 +56,9 @@ enum {
 
 static void metadata_iface_init (gpointer g_iface, gpointer iface_data);
 
-G_DEFINE_TYPE_EXTENDED (SjMetadataCdtext, sj_metadata_cdtext,
-                        G_TYPE_OBJECT, 0,
-                        G_IMPLEMENT_INTERFACE (SJ_TYPE_METADATA, metadata_iface_init));
+G_DEFINE_TYPE_WITH_CODE (SjMetadataCdtext, sj_metadata_cdtext,
+                         G_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (SJ_TYPE_METADATA, metadata_iface_init));
 
 
 /**
