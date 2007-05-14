@@ -26,7 +26,7 @@
 
 G_BEGIN_DECLS
 
-#define SJ_TYPE_METADATA_MUSICBRAINZ            (sj_metadata_get_type ())
+#define SJ_TYPE_METADATA_MUSICBRAINZ            (sj_metadata_musicbrainz_get_type ())
 #define SJ_METADATA_MUSICBRAINZ(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SJ_TYPE_METADATA_MUSICBRAINZ, SjMetadataMusicbrainz))
 #define SJ_METADATA_MUSICBRAINZ_CLASS(vtable)    (G_TYPE_CHECK_CLASS_CAST ((vtable), SJ_TYPE_METADATA_MUSICBRAINZ, SjMetadataMusicbrainzClass))
 #define SJ_IS_METADATA_MUSICBRAINZ(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SJ_TYPE_METADATA_MUSICBRAINZ))

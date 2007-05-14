@@ -26,7 +26,7 @@
 
 G_BEGIN_DECLS
 
-#define SJ_TYPE_METADATA_CDTEXT            (sj_metadata_get_type ())
+#define SJ_TYPE_METADATA_CDTEXT            (sj_metadata_cdtext_get_type ())
 #define SJ_METADATA_CDTEXT(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SJ_TYPE_METADATA_CDTEXT, SjMetadataCdtext))
 #define SJ_METADATA_CDTEXT_CLASS(vtable)    (G_TYPE_CHECK_CLASS_CAST ((vtable), SJ_TYPE_METADATA_CDTEXT, SjMetadataCdtextClass))
 #define SJ_IS_METADATA_CDTEXT(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SJ_TYPE_METADATA_CDTEXT))
