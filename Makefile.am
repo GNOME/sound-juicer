@@ -21,15 +21,12 @@ DISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper
 
 
 WEBROOT := $(HOME)/WebSites/Burtonini/htdocs
-release: dist
-	cvs tag SOUND_JUICER_$(subst .,_,$(VERSION))
-	cp -f $(PACKAGE)-$(VERSION).tar.bz2 $(WEBROOT)/computing
-	scp $(PACKAGE)-$(VERSION).tar.bz2 master.gnome.org:
-	ssh master.gnome.org install-module $(PACKAGE)-$(VERSION).tar.bz2
-	gcq $(WEBROOT)/blosxom/computers/sound-juicer/sj-$(VERSION).txt
 
-dev-release: dist
-	cvs tag SOUND_JUICER_$(subst .,_,$(VERSION))
+release: dev-release
+	gcq $(WEBROOT)/blosxom/computers/sound-juicer/body.txt
+
+dev-release: distcheck
+	svn cp -m "Tag $(VERSION)" `svnpath` `svnpath tags/$(VERSION)`
 	cp -f $(PACKAGE)-$(VERSION).tar.bz2 $(WEBROOT)/computing
 	scp $(PACKAGE)-$(VERSION).tar.bz2 master.gnome.org:
 	ssh master.gnome.org install-module $(PACKAGE)-$(VERSION).tar.bz2
