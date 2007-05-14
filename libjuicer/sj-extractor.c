@@ -650,8 +650,11 @@ sj_extractor_supports_profile (GMAudioProfile *profile)
   /* TODO: take a GError to return a message if the profile isn't supported */
   GstElement *element;
   GError *error = NULL;
+  char *pipeline;
 
-  element = gst_parse_launch (gm_audio_profile_get_pipeline (profile), &error);
+  pipeline = g_strdup_printf ("fakesrc ! %s", gm_audio_profile_get_pipeline (profile));
+  element = gst_parse_launch (pipeline, &error);
+  g_free(pipeline);
 
   /* It is possible for both element and error to be non NULL, so check both */
   if (element) {

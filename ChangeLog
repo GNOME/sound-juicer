@@ -1,5 +1,11 @@
 2007-05-14  Ross Burton  <ross@burtonini.com>
 
+	* libjuicer/sj-extractor.c:
+	The profile fragment does need to have an element first otherwise
+	it may not be a valid pipeline if it starts with caps. Add fakesrc.
+
+2007-05-14  Ross Burton  <ross@burtonini.com>
+
 	* libjuicer/sj-metadata-cdtext.h:
 	* libjuicer/sj-metadata-musicbrainz.h:
 	Fix typo in the _TYPE define which broke startup. Thanks Emmanuele
