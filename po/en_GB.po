@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-27 07:11+0100\n"
-"PO-Revision-Date: 2007-03-27 07:11-0000\n"
+"POT-Creation-Date: 2007-05-15 22:55+0100\n"
+"PO-Revision-Date: 2007-05-15 22:55-0000\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: English/GB <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -113,7 +113,7 @@ msgstr "Skip to the previous track"
 #: ../data/sound-juicer.glade.h:21
 #: ../src/sj-main.c:168
 #: ../src/sj-main.c:170
-#: ../src/sj-main.c:1350
+#: ../src/sj-main.c:1353
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -244,112 +244,128 @@ msgstr "The paranoia mode to use"
 msgid "Whether to eject the CD when finished extracting."
 msgstr "Whether to eject the CD when finished extracting."
 
-#: ../libjuicer/sj-extractor.c:103
+#: ../libjuicer/sj-extractor.c:194
 msgid "Audio Profile"
 msgstr "Audio Profile"
 
-#: ../libjuicer/sj-extractor.c:104
+#: ../libjuicer/sj-extractor.c:195
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "The GNOME Audio Profile used for encoding audio"
 
-#: ../libjuicer/sj-extractor.c:278
+#: ../libjuicer/sj-extractor.c:201
+msgid "Paranoia Level"
+msgstr "Paranoia Level"
+
+#: ../libjuicer/sj-extractor.c:202
+msgid "The paranoia level"
+msgstr "The paranoia level"
+
+#: ../libjuicer/sj-extractor.c:207
+msgid "device"
+msgstr "device"
+
+#: ../libjuicer/sj-extractor.c:208
+msgid "The device"
+msgstr "The device"
+
+#: ../libjuicer/sj-extractor.c:342
 msgid "Could not create GStreamer CD reader"
 msgstr "Could not create GStreamer CD reader"
 
-#: ../libjuicer/sj-extractor.c:300
+#: ../libjuicer/sj-extractor.c:364
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Could not create GStreamer encoders for %s"
 
-#: ../libjuicer/sj-extractor.c:311
+#: ../libjuicer/sj-extractor.c:375
 msgid "Could not create GStreamer file output"
 msgstr "Could not create GStreamer file output"
 
-#: ../libjuicer/sj-extractor.c:323
+#: ../libjuicer/sj-extractor.c:387
 msgid "Could not link pipeline"
 msgstr "Could not link pipeline"
 
-#: ../libjuicer/sj-extractor.c:346
+#: ../libjuicer/sj-extractor.c:411
 msgid "Could not get current track position"
 msgstr "Could not get current track position"
 
-#: ../libjuicer/sj-extractor.c:373
+#: ../libjuicer/sj-extractor.c:440
 msgid "Extractor object is not valid. This is bad, check your console for errors."
 msgstr "Extractor object is not valid. This is bad, check your console for errors."
 
-#: ../libjuicer/sj-extractor.c:565
+#: ../libjuicer/sj-extractor.c:631
 msgid "The plugin necessary for CD access was not found"
 msgstr "The plugin necessary for CD access was not found"
 
-#: ../libjuicer/sj-extractor.c:573
+#: ../libjuicer/sj-extractor.c:639
 msgid "The plugin necessary for file access was not found"
 msgstr "The plugin necessary for file access was not found"
 
-#: ../libjuicer/sj-metadata-cdtext.c:127
+#: ../libjuicer/sj-metadata-cdtext.c:83
 msgid "CD-TEXT metadata plugin failed to initialise."
 msgstr "CD-TEXT metadata plugin failed to initialise."
 
-#: ../libjuicer/sj-metadata-cdtext.c:178
+#: ../libjuicer/sj-metadata-cdtext.c:106
 msgid "Cannot read CD"
 msgstr "Cannot read CD"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:102
-msgid "Cannot create MusicBrainz client"
-msgstr "Cannot create MusicBrainz client"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:227
-#: ../libjuicer/sj-metadata-musicbrainz.c:510
+#: ../libjuicer/sj-metadata-musicbrainz.c:114
+#: ../libjuicer/sj-metadata-musicbrainz.c:382
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Cannot read CD: %s"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:234
-#: ../libjuicer/sj-metadata-musicbrainz.c:548
+#: ../libjuicer/sj-metadata-musicbrainz.c:121
+#: ../libjuicer/sj-metadata-musicbrainz.c:423
 msgid "Unknown Artist"
 msgstr "Unknown Artist"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:235
-#: ../libjuicer/sj-metadata-musicbrainz.c:559
+#: ../libjuicer/sj-metadata-musicbrainz.c:122
+#: ../libjuicer/sj-metadata-musicbrainz.c:434
 msgid "Unknown Title"
 msgstr "Unknown Title"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:241
+#: ../libjuicer/sj-metadata-musicbrainz.c:128
 #, c-format
 msgid "Track %d"
 msgstr "Track %d"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:269
+#: ../libjuicer/sj-metadata-musicbrainz.c:156
 msgid "MusicBrainz metadata object is not valid. This is bad, check your console for errors."
 msgstr "MusicBrainz metadata object is not valid. This is bad, check your console for errors."
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:436
-#: ../libjuicer/sj-metadata-musicbrainz.c:443
-#: ../libjuicer/sj-metadata-musicbrainz.c:457
+#: ../libjuicer/sj-metadata-musicbrainz.c:280
+#: ../libjuicer/sj-metadata-musicbrainz.c:287
+#: ../libjuicer/sj-metadata-musicbrainz.c:301
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "This CD could not be queried: %s\n"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:504
+#: ../libjuicer/sj-metadata-musicbrainz.c:376
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Device '%s' does not contain any media"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:507
+#: ../libjuicer/sj-metadata-musicbrainz.c:379
 #, c-format
 msgid "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "Device '%s' could not be opened. Check the access permissions on the device."
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:543
+#: ../libjuicer/sj-metadata-musicbrainz.c:418
 msgid "Various"
 msgstr "Various"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:584
+#: ../libjuicer/sj-metadata-musicbrainz.c:459
 msgid "Incomplete metadata for this CD"
 msgstr "Incomplete metadata for this CD"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:675
+#: ../libjuicer/sj-metadata-musicbrainz.c:562
 msgid "Could not create CD lookup thread"
 msgstr "Could not create CD lookup thread"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:611
+msgid "Cannot create MusicBrainz client"
+msgstr "Cannot create MusicBrainz client"
 
 #: ../src/bacon-volume.c:193
 msgid "Volume"
@@ -474,8 +490,8 @@ msgstr "Could not start Sound Juicer"
 #: ../src/sj-main.c:220
 #: ../src/sj-main.c:640
 #: ../src/sj-main.c:749
-#: ../src/sj-main.c:861
-#: ../src/sj-main.c:1069
+#: ../src/sj-main.c:864
+#: ../src/sj-main.c:1072
 msgid "Reason"
 msgstr "Reason"
 
@@ -493,18 +509,18 @@ msgid "(unknown)"
 msgstr "(unknown)"
 
 #: ../src/sj-main.c:475
-#: ../src/sj-main.c:1497
+#: ../src/sj-main.c:1500
 msgid "Title"
 msgstr "Title"
 
 #: ../src/sj-main.c:481
-#: ../src/sj-main.c:1506
+#: ../src/sj-main.c:1509
 msgid "Artist"
 msgstr "Artist"
 
 #: ../src/sj-main.c:638
 #: ../src/sj-main.c:747
-#: ../src/sj-main.c:859
+#: ../src/sj-main.c:862
 msgid "Could not read the CD"
 msgstr "Could not read the CD"
 
@@ -531,42 +547,42 @@ msgstr "HAL daemon may not be running."
 msgid "Extracting audio from CD"
 msgstr "Extracting audio from CD"
 
-#: ../src/sj-main.c:852
+#: ../src/sj-main.c:855
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer could not access the CD-ROM device '%s'"
 
-#: ../src/sj-main.c:947
+#: ../src/sj-main.c:950
 msgid "No CD-ROM drives found"
 msgstr "No CD-ROM drives found"
 
-#: ../src/sj-main.c:948
+#: ../src/sj-main.c:951
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer could not find any CD-ROM drives to read."
 
-#: ../src/sj-main.c:979
+#: ../src/sj-main.c:982
 msgid "The currently selected audio profile is not available on your installation."
 msgstr "The currently selected audio profile is not available on your installation."
 
-#: ../src/sj-main.c:981
+#: ../src/sj-main.c:984
 msgid "_Change Profile"
 msgstr "_Change Profile"
 
-#: ../src/sj-main.c:1067
+#: ../src/sj-main.c:1070
 msgid "Could not open URL"
 msgstr "Could not open URL"
 
-#: ../src/sj-main.c:1068
+#: ../src/sj-main.c:1071
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer could not open the submission URL"
 
-#: ../src/sj-main.c:1177
+#: ../src/sj-main.c:1180
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Unknown column %d was edited"
 
-#: ../src/sj-main.c:1233
-#: ../src/sj-prefs.c:104
+#: ../src/sj-main.c:1236
+#: ../src/sj-prefs.c:105
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -575,45 +591,45 @@ msgstr ""
 "Could not display help for Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1326
+#: ../src/sj-main.c:1329
 msgid "Start extracting immediately"
 msgstr "Start extracting immediately"
 
-#: ../src/sj-main.c:1327
+#: ../src/sj-main.c:1330
 msgid "Start playing immediately"
 msgstr "Start playing immediately"
 
-#: ../src/sj-main.c:1328
+#: ../src/sj-main.c:1331
 msgid "What CD device to read"
 msgstr "What CD device to read"
 
-#: ../src/sj-main.c:1328
+#: ../src/sj-main.c:1331
 msgid "DEVICE"
 msgstr "DEVICE"
 
-#: ../src/sj-main.c:1338
+#: ../src/sj-main.c:1341
 msgid "- Extract music from your CDs"
 msgstr "- Extract music from your CDs"
 
-#: ../src/sj-main.c:1381
+#: ../src/sj-main.c:1384
 msgid "Could not create GConf client.\n"
 msgstr "Could not create GConf client.\n"
 
-#: ../src/sj-main.c:1412
+#: ../src/sj-main.c:1415
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "The interface file for Sound Juicer could not be read."
 
-#: ../src/sj-main.c:1482
+#: ../src/sj-main.c:1485
 msgid "Track"
 msgstr "Track"
 
-#: ../src/sj-main.c:1517
+#: ../src/sj-main.c:1520
 msgid "Duration"
 msgstr "Duration"
 
 #: ../src/sj-play.c:201
-#: ../src/sj-play.c:461
-#: ../src/sj-play.c:511
+#: ../src/sj-play.c:469
+#: ../src/sj-play.c:519
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -628,85 +644,85 @@ msgstr ""
 msgid "Failed to create CD source element"
 msgstr "Failed to create CD source element"
 
-#: ../src/sj-play.c:393
+#: ../src/sj-play.c:401
 msgid "Failed to link pipeline"
 msgstr "Failed to link pipeline"
 
-#: ../src/sj-play.c:399
+#: ../src/sj-play.c:407
 msgid "Failed to create audio output"
 msgstr "Failed to create audio output"
 
-#: ../src/sj-play.c:622
+#: ../src/sj-play.c:630
 #, c-format
 msgid "Seeking to %s"
 msgstr "Seeking to %s"
 
-#: ../src/sj-prefs.c:53
+#: ../src/sj-prefs.c:54
 msgid "Album Artist, Album Title"
 msgstr "Album Artist, Album Title"
 
-#: ../src/sj-prefs.c:54
+#: ../src/sj-prefs.c:55
 msgid "Album Artist (sortable), Album Title"
 msgstr "Album Artist (sortable), Album Title"
 
-#: ../src/sj-prefs.c:55
+#: ../src/sj-prefs.c:56
 msgid "Track Artist, Album Title"
 msgstr "Track Artist, Album Title"
 
-#: ../src/sj-prefs.c:56
+#: ../src/sj-prefs.c:57
 msgid "Track Artist (sortable), Album Title"
 msgstr "Track Artist (sortable), Album Title"
 
-#: ../src/sj-prefs.c:57
+#: ../src/sj-prefs.c:58
 msgid "Album Title"
 msgstr "Album Title"
 
-#: ../src/sj-prefs.c:58
+#: ../src/sj-prefs.c:59
 msgid "Album Artist"
 msgstr "Album Artist"
 
-#: ../src/sj-prefs.c:59
+#: ../src/sj-prefs.c:60
 msgid "Album Artist (sortable)"
 msgstr "Album Artist (sortable)"
 
-#: ../src/sj-prefs.c:60
+#: ../src/sj-prefs.c:61
 msgid "Album Artist - Album Title"
 msgstr "Album Artist - Album Title"
 
-#: ../src/sj-prefs.c:61
+#: ../src/sj-prefs.c:62
 msgid "Album Artist (sortable) - Album Title"
 msgstr "Album Artist (sortable) - Album Title"
 
-#: ../src/sj-prefs.c:62
+#: ../src/sj-prefs.c:63
 msgid "[none]"
 msgstr "[none]"
 
-#: ../src/sj-prefs.c:67
+#: ../src/sj-prefs.c:68
 msgid "Number - Title"
 msgstr "Number - Title"
 
-#: ../src/sj-prefs.c:68
+#: ../src/sj-prefs.c:69
 msgid "Track Title"
 msgstr "Track Title"
 
-#: ../src/sj-prefs.c:69
+#: ../src/sj-prefs.c:70
 msgid "Track Artist - Track Title"
 msgstr "Track Artist - Track Title"
 
-#: ../src/sj-prefs.c:70
+#: ../src/sj-prefs.c:71
 msgid "Track Artist (sortable) - Track Title"
 msgstr "Track Artist (sortable) - Track Title"
 
-#: ../src/sj-prefs.c:71
+#: ../src/sj-prefs.c:72
 msgid "Number. Track Artist - Track Title"
 msgstr "Number. Track Artist - Track Title"
 
 #. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
-#: ../src/sj-prefs.c:73
+#: ../src/sj-prefs.c:74
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Number-Track Artist-Track Title (lowercase)"
 
-#: ../src/sj-prefs.c:260
+#: ../src/sj-prefs.c:261
 msgid "Example Path"
 msgstr "Example Path"
 
