@@ -82,11 +82,10 @@ typedef enum {
 } TrackState;
 
 typedef enum {
-  DEBUG_ALL = 1 << 0,
-  DEBUG_CD = 1 << 1,
-  DEBUG_METADATA = 1 << 2,
-  DEBUG_EXTRACTING = 1 << 3,
-  DEBUG_PLAYING = 1 << 4,
+  DEBUG_CD = 1 << 0,
+  DEBUG_METADATA = 1 << 1,
+  DEBUG_EXTRACTING = 1 << 2,
+  DEBUG_PLAYING = 1 << 3,
 } SjDebugDomain;
 
 /**

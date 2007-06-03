@@ -94,7 +94,7 @@ static char *current_submit_url = NULL;
 
 gboolean autostart = FALSE, autoplay = FALSE;
 
-static guint debug_flags;
+static guint debug_flags = 0;
 
 #define DEFAULT_PARANOIA 4
 #define RAISE_WINDOW "raise-window"
@@ -191,7 +191,6 @@ static void sj_debug_init (void)
 {
   const char *str;
   const GDebugKey debug_keys[] = {
-    { "all", DEBUG_ALL },
     { "cd", DEBUG_CD },
     { "metadata", DEBUG_METADATA },
     { "playing", DEBUG_PLAYING },
@@ -199,14 +198,9 @@ static void sj_debug_init (void)
   };
 
   str = g_getenv ("SJ_DEBUG");
-  if (str != NULL) {
+  if (str) {
     debug_flags = g_parse_debug_string (str, debug_keys, G_N_ELEMENTS (debug_keys));
-  } else {
-    debug_flags = 0;
   }
-  
-  if (debug_flags & DEBUG_ALL)
-    debug_flags = 0xFFFFFFFF;
 }
 
 static void error_on_start (GError *error)
