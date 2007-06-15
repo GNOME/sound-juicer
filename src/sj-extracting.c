@@ -154,6 +154,8 @@ cleanup (void)
   g_list_free (pending);
   pending = NULL;
   track = NULL;
+  /* TODO: find out why GTK+ needs this to work (see #364371) */
+  gtk_button_set_label (GTK_BUTTON (extract_button), _("Extract"));
   gtk_button_set_label (GTK_BUTTON (extract_button), SJ_STOCK_EXTRACT);
   
   /* Clear the Status bar */
@@ -617,6 +619,8 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   }
   
   /* Change the label to Stop while extracting*/
+  /* TODO: find out why GTK+ needs this to work (see #364371) */
+  gtk_button_set_label (GTK_BUTTON (extract_button), _("Stop"));
   gtk_button_set_label (GTK_BUTTON (extract_button), GTK_STOCK_STOP);
   
   /* Reset the progress dialog */
