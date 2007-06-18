@@ -487,6 +487,8 @@ lookup_cd (SjMetadata *metadata)
         } else {
           track->title = g_strdup (data);
         }
+      } else {
+        track->title = g_strdup (_("[Untitled]"));
       }
 
       if (track->artist == NULL && mb_GetResultData1(priv->mb, MBE_AlbumGetArtistName, data, sizeof (data), j)) {
