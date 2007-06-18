@@ -414,17 +414,18 @@ lookup_cd (SjMetadata *metadata)
     if (mb_GetResultData (priv->mb, MBE_AlbumGetAlbumArtistId, data, sizeof (data))) {
       mb_GetIDFromURL (priv->mb, data, data, sizeof (data));
       album->artist_id = g_strdup (data);
-      if (g_ascii_strncasecmp (MBI_VARIOUS_ARTIST_ID, data, 64) == 0) {
-        album->artist = g_strdup (_("Various"));
+
+      if (mb_GetResultData (priv->mb, MBE_AlbumGetAlbumArtistName, data, sizeof (data))) {
+        album->artist = g_strdup (data);
       } else {
-        if (data && mb_GetResultData1(priv->mb, MBE_AlbumGetArtistName, data, sizeof (data), 1)) {
-          album->artist = g_strdup (data);
+        if (g_ascii_strcasecmp (MBI_VARIOUS_ARTIST_ID, album->artist_id) == 0) {
+          album->artist = g_strdup (_("Various"));
         } else {
           album->artist = g_strdup (_("Unknown Artist"));
         }
-        if (data && mb_GetResultData1(priv->mb, MBE_AlbumGetArtistSortName, data, sizeof (data), 1)) {
-          album->artist_sortname = g_strdup (data);
-        }
+      }
+      if (data && mb_GetResultData(priv->mb, MBE_AlbumGetAlbumArtistSortName, data, sizeof (data))) {
+        album->artist_sortname = g_strdup (data);
       }
     }
 
