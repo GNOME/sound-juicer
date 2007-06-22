@@ -1332,8 +1332,9 @@ int main (int argc, char **argv)
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
 
-  ctx = g_option_context_new (_("- Extract music from your CDs"));
+  ctx = g_option_context_new (N_("- Extract music from your CDs"));
   g_option_context_add_main_entries (ctx, entries, GETTEXT_PACKAGE);  
+  g_option_context_set_translation_domain(ctx, GETTEXT_PACKAGE);
   g_option_context_add_group (ctx, gst_init_get_option_group ());
   g_option_context_set_ignore_unknown_options (ctx, TRUE);
 
