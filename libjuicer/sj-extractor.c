@@ -163,7 +163,7 @@ sj_extractor_finalize (GObject *object)
   if (priv->pipeline)
     gst_element_set_state (priv->pipeline, GST_STATE_NULL);
 
-  if (priv->tick_id != 0)
+  if (priv->tick_id)
     g_source_remove (priv->tick_id);
 
   g_free (priv->device_path);
@@ -258,8 +258,10 @@ eos_cb (GstBus *bus, GstMessage *message, gpointer user_data)
 
   gst_element_set_state (priv->pipeline, GST_STATE_NULL);
 
-  g_source_remove (priv->tick_id);
-  priv->tick_id = 0;
+  if (priv->tick_id) {
+    g_source_remove (priv->tick_id);
+    priv->tick_id = 0;
+  }
 
   /* TODO: shouldn't need to do this, see #327197 */
   priv->rebuild_pipeline = TRUE;
@@ -296,8 +298,10 @@ error_cb (GstBus *bus, GstMessage *message, gpointer user_data)
   gst_element_set_state (priv->pipeline, GST_STATE_NULL);
   extractor->priv->rebuild_pipeline = TRUE;
 
-  g_source_remove (priv->tick_id);
-  priv->tick_id = 0;
+  if (priv->tick_id) {
+    g_source_remove (priv->tick_id);
+    priv->tick_id = 0;
+  }
 
   gst_message_parse_error (message, &error, NULL);
   g_signal_emit (extractor, signals[ERROR], 0, error);
