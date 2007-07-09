@@ -88,12 +88,6 @@ sj_metadata_get_type (void)
   return type;
 }
 
-GError *
-sj_metadata_get_new_error (SjMetadata *metadata)
-{
-  return SJ_METADATA_GET_CLASS (metadata)->get_new_error (metadata);
-}
-
 void
 sj_metadata_set_cdrom (SjMetadata *metadata, const char* device)
 {

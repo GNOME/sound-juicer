@@ -38,7 +38,6 @@
 #include "sj-util.h"
 
 struct SjMetadataCdtextPrivate {
-  GError *construct_error;
   char *cdrom;
   GList *albums;
   GError *error;
@@ -71,19 +70,6 @@ fire_signal_idle (SjMetadataCdtext *m)
   g_return_val_if_fail (SJ_IS_METADATA_CDTEXT (m), FALSE);
   g_signal_emit_by_name (G_OBJECT (m), "metadata", m->priv->albums, m->priv->error);
   return FALSE;
-}
-
-static GError*
-cdtext_get_new_error (SjMetadata *metadata)
-{
-  GError *error = NULL;
-  if (metadata == NULL || SJ_METADATA_CDTEXT (metadata)->priv == NULL) {
-    g_set_error (&error,
-                 SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-                 _("CD-TEXT metadata plugin failed to initialise."));
-    return error;
-  }
-  return SJ_METADATA_CDTEXT (metadata)->priv->construct_error;
 }
 
 static void
@@ -208,7 +194,6 @@ static void
 sj_metadata_cdtext_finalize (GObject *object)
 {
   SjMetadataCdtextPrivate *priv = SJ_METADATA_CDTEXT (object)->priv;
-  g_error_free (priv->construct_error);
   g_free (priv->cdrom);
   g_list_deep_free (priv->albums, (GFunc)album_details_free);
   if (priv->error)
@@ -226,7 +211,6 @@ metadata_iface_init (gpointer g_iface, gpointer iface_data)
 {
   SjMetadataClass *klass = (SjMetadataClass*)g_iface;
   
-  klass->get_new_error = cdtext_get_new_error;
   klass->list_albums = cdtext_list_albums;
 }
 

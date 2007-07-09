@@ -50,7 +50,6 @@ struct _SjMetadataClass
 };
 
 GType sj_metadata_get_type (void);
-GError *sj_metadata_get_new_error (SjMetadata *metadata);
 void sj_metadata_set_cdrom (SjMetadata *metadata, const char* device);
 void sj_metadata_set_proxy (SjMetadata *metadata, const char* proxy);
 void sj_metadata_set_proxy_port (SjMetadata *metadata, const int proxy_port);

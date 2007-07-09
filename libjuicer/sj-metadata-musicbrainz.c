@@ -51,7 +51,6 @@
 
 
 struct SjMetadataMusicbrainzPrivate {
-  GError *construct_error;
   musicbrainz_t mb;
   char *http_proxy;
   int http_proxy_port;
@@ -145,19 +144,6 @@ fire_signal_idle (SjMetadataMusicbrainz *m)
 /**
  * Virtual methods
  */
-
-static GError*
-mb_get_new_error (SjMetadata *metadata)
-{
-  GError *error = NULL;
-  if (metadata == NULL || SJ_METADATA_MUSICBRAINZ (metadata)->priv == NULL) {
-    g_set_error (&error,
-                 SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-                 _("MusicBrainz metadata object is not valid. This is bad, check your console for errors."));
-    return error;
-  }
-  return SJ_METADATA_MUSICBRAINZ (metadata)->priv->construct_error;
-}
 
 /* Data imported from FreeDB is horrendeous for compilations,
  * Try to split the 'Various' artist */
@@ -593,7 +579,6 @@ static void
 metadata_interface_init (gpointer g_iface, gpointer iface_data)
 {
   SjMetadataClass *klass = (SjMetadataClass*)g_iface;
-  klass->get_new_error = mb_get_new_error;
   klass->list_albums = mb_list_albums;
   klass->get_submit_url = mb_get_submit_url;
 }
@@ -605,15 +590,7 @@ sj_metadata_musicbrainz_init (SjMetadataMusicbrainz *self)
   char *server_name = NULL;
 
   self->priv = GET_PRIVATE (self);
-  self->priv->construct_error = NULL;
   self->priv->mb = mb_New ();
-  /* TODO: something. :/ */
-  if (!self->priv->mb) {
-    g_set_error (&self->priv->construct_error,
-                 SJ_ERROR, SJ_ERROR_CD_LOOKUP_ERROR,
-                 _("Cannot create MusicBrainz client"));
-    return;
-  }
   mb_UseUTF8 (self->priv->mb, TRUE);
 
   gconf_client = gconf_client_get_default ();

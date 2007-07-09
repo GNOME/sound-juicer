@@ -1367,11 +1367,6 @@ int main (int argc, char **argv)
   }
 
   metadata = SJ_METADATA (sj_metadata_musicbrainz_new ());
-  error = sj_metadata_get_new_error (metadata);
-  if (error) {
-    error_on_start (error);
-    exit (1);
-  }
   g_signal_connect (metadata, "metadata", G_CALLBACK (metadata_cb), NULL);
 
   gconf_client = gconf_client_get_default ();
