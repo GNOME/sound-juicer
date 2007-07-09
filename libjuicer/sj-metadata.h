@@ -44,7 +44,6 @@ struct _SjMetadataClass
   void         (*metadata) (SjMetadata *md, GList *albums, GError *error);
 
   /* Virtual Table */
-  GError* (*get_new_error) (SjMetadata *metadata);
   void (*list_albums) (SjMetadata *metadata, GError **error);
   char *(*get_submit_url) (SjMetadata *metadata);
 };
