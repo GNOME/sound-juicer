@@ -1,3 +1,10 @@
+2007-09-03  Jaap Haitsma  <jaap@haitsma.org>
+
+	* configure.in: bump gstreamer requirement to 0.10.5
+	* src/sj-play.c: (select_track), (on_seek_release):
+	Gstreamer bug #326311 was fixed. So we can remove work around. Fixes 
+	bug #472650
+
 2007-08-13  Ross Burton  <ross@burtonini.com>
 
 	* configure.in:

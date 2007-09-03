@@ -87,11 +87,8 @@ select_track (void)
     return FALSE;
   }
 
-  gst_element_set_state (pipeline, GST_STATE_PAUSED);
   cd = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "cd-source");
   gst_element_seek (pipeline, 1.0, gst_format_get_by_nick ("track"), GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, seek_to_track, GST_SEEK_TYPE_NONE, -1);
-  /* get_state neccessary because of bug #326311 */
-  gst_element_get_state (pipeline, NULL, NULL, -1);
   current_track = seek_to_track;
   seek_to_track = -1;
 
@@ -646,11 +643,7 @@ on_seek_release (GtkWidget * scale, GdkEventButton * event, gpointer user_data)
   cd = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "cd-source");
   seeking = FALSE;
 
-  /* set_state/get_state neccessary because of bug #326311 */
-  gst_element_set_state (pipeline, GST_STATE_PAUSED);
   gst_element_seek (pipeline, 1.0, GST_FORMAT_TIME, GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, slen * val, GST_SEEK_TYPE_NONE, -1);
-  gst_element_get_state (pipeline, NULL, NULL, -1);
-  gst_element_set_state (pipeline, GST_STATE_PLAYING);
 
   return FALSE;
 }
