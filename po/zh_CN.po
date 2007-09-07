@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-16 04:02+0100\n"
-"PO-Revision-Date: 2006-08-23 21:37+0800\n"
+"POT-Creation-Date: 2007-07-10 04:11+0100\n"
+"PO-Revision-Date: 2007-09-07 16:55+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
@@ -110,7 +110,7 @@ msgid "Skip to the previous track"
 msgstr "跳到上一轨"
 
 #: ../data/sound-juicer.glade.h:21 ../src/sj-main.c:168 ../src/sj-main.c:170
-#: ../src/sj-main.c:1347
+#: ../src/sj-main.c:1348
 msgid "Sound Juicer"
 msgstr "音乐榨汁机"
 
@@ -279,11 +279,11 @@ msgstr "编码音频所用的 GNOME 音频配置文件"
 
 #: ../libjuicer/sj-extractor.c:201
 msgid "Paranoia Level"
-msgstr ""
+msgstr "Paranoia 水平"
 
 #: ../libjuicer/sj-extractor.c:202
 msgid "The paranoia level"
-msgstr ""
+msgstr "Paranoia 水平"
 
 #: ../libjuicer/sj-extractor.c:207
 msgid "device"
@@ -293,108 +293,98 @@ msgstr "设备"
 msgid "The device"
 msgstr "设备"
 
-#: ../libjuicer/sj-extractor.c:342
+#: ../libjuicer/sj-extractor.c:346
 msgid "Could not create GStreamer CD reader"
 msgstr "无法创建 GStreamer CD 读取器"
 
-#: ../libjuicer/sj-extractor.c:364
+#: ../libjuicer/sj-extractor.c:368
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "无法为 %s 创建 GStreamer 编码器"
 
-#: ../libjuicer/sj-extractor.c:375
+#: ../libjuicer/sj-extractor.c:379
 msgid "Could not create GStreamer file output"
 msgstr "无法创建 GStreamer 文件输出"
 
-#: ../libjuicer/sj-extractor.c:387
+#: ../libjuicer/sj-extractor.c:391
 msgid "Could not link pipeline"
 msgstr "无法链接流水线"
 
-#: ../libjuicer/sj-extractor.c:411
+#: ../libjuicer/sj-extractor.c:415
 msgid "Could not get current track position"
 msgstr "无法获得当前音轨位置"
 
-#: ../libjuicer/sj-extractor.c:440
+#: ../libjuicer/sj-extractor.c:444
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr "提取器对象无效。在您的控制台上查看错误信息。"
 
-#: ../libjuicer/sj-extractor.c:631
+#: ../libjuicer/sj-extractor.c:635
 msgid "The plugin necessary for CD access was not found"
 msgstr "CD 访问所需的插件未找到"
 
-#: ../libjuicer/sj-extractor.c:639
+#: ../libjuicer/sj-extractor.c:643
 msgid "The plugin necessary for file access was not found"
 msgstr "文件访问所需的插件未找到"
 
-#: ../libjuicer/sj-metadata-cdtext.c:83
-msgid "CD-TEXT metadata plugin failed to initialise."
-msgstr "CD-TEXT 元数据插件初始化失败。"
-
-#: ../libjuicer/sj-metadata-cdtext.c:106
+#: ../libjuicer/sj-metadata-cdtext.c:92
 msgid "Cannot read CD"
 msgstr "无法读取 CD"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:114
-#: ../libjuicer/sj-metadata-musicbrainz.c:382
+#: ../libjuicer/sj-metadata-musicbrainz.c:113
+#: ../libjuicer/sj-metadata-musicbrainz.c:368
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "无法读取 CD：%s"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:121
-#: ../libjuicer/sj-metadata-musicbrainz.c:423
+#: ../libjuicer/sj-metadata-musicbrainz.c:120
+#: ../libjuicer/sj-metadata-musicbrainz.c:410
 msgid "Unknown Artist"
 msgstr "未知艺人"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:122
-#: ../libjuicer/sj-metadata-musicbrainz.c:434
+#: ../libjuicer/sj-metadata-musicbrainz.c:121
+#: ../libjuicer/sj-metadata-musicbrainz.c:421
 msgid "Unknown Title"
 msgstr "未知标题"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:128
+#: ../libjuicer/sj-metadata-musicbrainz.c:127
 #, c-format
 msgid "Track %d"
 msgstr "第 %d 条音轨"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:156
-msgid ""
-"MusicBrainz metadata object is not valid. This is bad, check your console "
-"for errors."
-msgstr "MusicBrainz 元数据对象无效。请在您的控制台上查看错误信息。"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:280
+#: ../libjuicer/sj-metadata-musicbrainz.c:266
+#: ../libjuicer/sj-metadata-musicbrainz.c:273
 #: ../libjuicer/sj-metadata-musicbrainz.c:287
-#: ../libjuicer/sj-metadata-musicbrainz.c:301
 #, c-format
 msgid "This CD could not be queried: %s\n"
 msgstr "无法查询此 CD：%s\n"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:376
+#: ../libjuicer/sj-metadata-musicbrainz.c:362
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "设备“%s”不包含介质"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:379
+#: ../libjuicer/sj-metadata-musicbrainz.c:365
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "无法打开设备“%s”。请检查设备的访问权限。"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:418
+#: ../libjuicer/sj-metadata-musicbrainz.c:408
 msgid "Various"
 msgstr "多位"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:459
+#: ../libjuicer/sj-metadata-musicbrainz.c:446
 msgid "Incomplete metadata for this CD"
 msgstr "此 CD 的元数据不完整"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:562
+#: ../libjuicer/sj-metadata-musicbrainz.c:477
+msgid "[Untitled]"
+msgstr "[无标题]"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:551
 msgid "Could not create CD lookup thread"
 msgstr "无法创建 CD 查阅线程"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:611
-msgid "Cannot create MusicBrainz client"
-msgstr "无法创建 MusicBrainz 客户"
 
 #: ../src/bacon-volume.c:193
 msgid "Volume"
@@ -560,11 +550,11 @@ msgstr "您现在正在提取 CD。您想退出程序或者是继续？"
 msgid "(unknown)"
 msgstr "(未知)"
 
-#: ../src/sj-main.c:469 ../src/sj-main.c:1494
+#: ../src/sj-main.c:469 ../src/sj-main.c:1490
 msgid "Title"
 msgstr "标题"
 
-#: ../src/sj-main.c:475 ../src/sj-main.c:1503
+#: ../src/sj-main.c:475 ../src/sj-main.c:1499
 msgid "Artist"
 msgstr "艺人"
 
@@ -658,19 +648,19 @@ msgstr "设备"
 msgid "- Extract music from your CDs"
 msgstr "- 从您的 CD 中提取音乐"
 
-#: ../src/sj-main.c:1378
+#: ../src/sj-main.c:1374
 msgid "Could not create GConf client.\n"
 msgstr "无法创建 GConf 客户。\n"
 
-#: ../src/sj-main.c:1409
+#: ../src/sj-main.c:1405
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "音乐榨汁机的界面文件无法读取。"
 
-#: ../src/sj-main.c:1479
+#: ../src/sj-main.c:1475
 msgid "Track"
 msgstr "音轨"
 
-#: ../src/sj-main.c:1514
+#: ../src/sj-main.c:1510
 msgid "Duration"
 msgstr "长度"
 
@@ -780,3 +770,14 @@ msgstr "编号-音轨艺人-音轨标题(小写)"
 #: ../src/sj-prefs.c:261
 msgid "Example Path"
 msgstr "示例路径"
+
+#~ msgid "CD-TEXT metadata plugin failed to initialise."
+#~ msgstr "CD-TEXT 元数据插件初始化失败。"
+
+#~ msgid ""
+#~ "MusicBrainz metadata object is not valid. This is bad, check your console "
+#~ "for errors."
+#~ msgstr "MusicBrainz 元数据对象无效。请在您的控制台上查看错误信息。"
+
+#~ msgid "Cannot create MusicBrainz client"
+#~ msgstr "无法创建 MusicBrainz 客户"
