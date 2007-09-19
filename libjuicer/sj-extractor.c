@@ -241,7 +241,8 @@ static void
 sj_extractor_init (SjExtractor *extractor)
 {
   extractor->priv = EXTRACTOR_PRIVATE (extractor);
-  extractor->priv->profile = gm_audio_profile_lookup (DEFAULT_AUDIO_PROFILE_NAME);
+  extractor->priv->profile =
+    g_object_ref (gm_audio_profile_lookup (DEFAULT_AUDIO_PROFILE_NAME));
   extractor->priv->rebuild_pipeline = TRUE;
   extractor->priv->paranoia_mode = 8; /* TODO: replace with construct params */
 }
