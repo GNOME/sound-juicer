@@ -961,9 +961,9 @@ void profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, 
   
   g_assert (strcmp (entry->key, GCONF_AUDIO_PROFILE) == 0);
   if (!entry->value) return;
-  profile = gm_audio_profile_lookup(gconf_value_get_string (entry->value));
+  profile = gm_audio_profile_lookup (gconf_value_get_string (entry->value));
   if (profile != NULL)
-    g_object_set(extractor, "profile", profile, NULL);
+    g_object_set (extractor, "profile", profile, NULL);
 
   if (profile == NULL || !sj_extractor_supports_profile(profile)) {
     GtkWidget *dialog;
