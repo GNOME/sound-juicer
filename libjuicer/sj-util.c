@@ -59,6 +59,8 @@ make_directory_with_parents_for_uri (GnomeVFSURI * uri, guint perm)
 			gnome_vfs_uri_unref ((GnomeVFSURI *) list->data);
 			list = g_list_remove (list, list->data);
 		}
+
+		return result;
 	}
 
 	while (result == GNOME_VFS_OK && list != NULL) {
