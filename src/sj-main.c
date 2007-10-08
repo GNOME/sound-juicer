@@ -789,8 +789,6 @@ media_removed_cb (NautilusBurnDrive *drive,
 static void
 set_drive_from_device (const char *device)
 {
-  gboolean is_locked;
-  char *reason;
   NautilusBurnDriveMonitor *monitor;
 
   if (drive) {
