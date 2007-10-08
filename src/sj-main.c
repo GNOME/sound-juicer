@@ -244,7 +244,6 @@ void on_eject_activate (GtkMenuItem *item, gpointer user_data)
   /* first make sure we're not playing */
   stop_playback ();
 
-  nautilus_burn_drive_unlock (drive);
   nautilus_burn_drive_eject (drive);
 }
 
@@ -795,7 +794,6 @@ set_drive_from_device (const char *device)
   NautilusBurnDriveMonitor *monitor;
 
   if (drive) {
-    nautilus_burn_drive_unlock (drive);
     nautilus_burn_drive_unref (drive);
     drive = NULL;
   }
@@ -821,12 +819,6 @@ set_drive_from_device (const char *device)
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
     return;
-  }
-
-  is_locked = nautilus_burn_drive_lock (drive, _("Extracting audio from CD"), &reason);
-  if (! is_locked) {
-    g_warning ("Could not lock drive: %s", reason);
-    g_free (reason);
   }
 
   g_signal_connect (drive, "media-added", G_CALLBACK (media_added_cb), NULL);

@@ -142,6 +142,8 @@ cleanup (void)
   /* We're not extracting any more */
   extracting = FALSE;
 
+  nautilus_burn_drive_unlock (drive);
+
   /* Remove any state icons from the model */
   gtk_list_store_set (track_store, &track->iter,
                  COLUMN_STATE, STATE_IDLE, -1);
@@ -267,9 +269,8 @@ pop_and_extract (void)
   if (pending == NULL) {
     g_assert_not_reached ();
   } else {
-    char *file_path, *directory;
+    char *file_path, *directory, *text;
     GError *error = NULL;
-    char *text;
     
     /* Pop the next track to extract */
     track = pending->data;
@@ -571,6 +572,8 @@ on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
 void
 on_extract_activate (GtkWidget *button, gpointer user_data)
 {
+  char *reason;
+  
   /* first make sure we're not playing, we cannot share the resource */
   stop_playback ();
   
@@ -645,6 +648,11 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   g_object_set (G_OBJECT (title_renderer), "editable", FALSE, NULL);
   g_object_set (G_OBJECT (artist_renderer), "editable", FALSE, NULL);
   g_signal_handlers_block_by_func (track_listview, on_tracklist_row_activate, NULL);
+
+  if (! nautilus_burn_drive_lock (drive, _("Extracting audio from CD"), &reason)) {
+    g_warning ("Could not lock drive: %s", reason);
+    g_free (reason);
+  }
 
   /* Start the extracting */
   extracting = TRUE;
