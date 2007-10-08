@@ -1,5 +1,11 @@
 2007-10-08  Ross Burton  <ross@burtonini.com>
 
+	* src/sj-extracting.c:
+	Unset the temporary iterators after a rip, and check the iterator
+	is valid before using it.  Maybe, just maybe, this fixes #403870.
+
+2007-10-08  Ross Burton  <ross@burtonini.com>
+
 	* src/sj-main.c:
 	* src/sj-extracting.c:
 	Only lock the drive when we're about to extract, and ensure its

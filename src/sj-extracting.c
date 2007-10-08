@@ -133,6 +133,19 @@ build_filename (const TrackDetails *track)
   return string;
 }
 
+static gboolean
+unset_iter_foreach_cb (GtkTreeModel *model, GtkTreePath *path,
+                       GtkTreeIter *iter, gpointer data) 
+{
+  TrackDetails *track;
+
+  gtk_tree_model_get (model, iter, COLUMN_DETAILS, &track, -1);
+  
+  track->iter.stamp = 0;
+  
+  return FALSE;
+}
+
 /**
  * Cleanup the data used, and even enable the Extract button again.
  */
@@ -145,9 +158,15 @@ cleanup (void)
   nautilus_burn_drive_unlock (drive);
 
   /* Remove any state icons from the model */
-  gtk_list_store_set (track_store, &track->iter,
-                 COLUMN_STATE, STATE_IDLE, -1);
-  
+  if (track->iter.stamp) {
+    /* TODO: has to be a better way to do that test */
+    gtk_list_store_set (track_store, &track->iter,
+                        COLUMN_STATE, STATE_IDLE, -1);
+  }
+
+  /* Unset the temporary iterators */
+  gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), unset_iter_foreach_cb, NULL);
+
   /* Free the used data */
   if (paths) {
     g_list_deep_free (paths, NULL);
