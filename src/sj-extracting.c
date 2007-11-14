@@ -44,12 +44,33 @@
 #include "sj-util.h"
 #include "sj-play.h"
 
+
 typedef struct {
   int seconds;
   struct timeval time;
   int ripped;
   int taken;
 } Progress;
+
+
+typedef enum {
+  OVERWRITE_ALL = 1,
+  SKIP_ALL = 2,
+  NORMAL = 3
+} OverWriteModes;
+
+int overwrite_mode;
+
+typedef enum {
+  BUTTON_SKIP = 1,
+  BUTTON_SKIP_ALL = 2,
+  BUTTON_OVERWRITE = 3,
+  BUTTON_OVERWRITE_ALL = 4,
+} OverwriteDialogResponse;
+
+/* files smaller than this are assumed to be corrupt */
+#define MIN_FILE_SIZE 100000
+
 
 /** If this module has been initialised yet. */
 static gboolean initialised = FALSE;
@@ -202,35 +223,44 @@ cleanup (void)
   g_signal_handlers_unblock_by_func (track_listview, on_tracklist_row_activate, NULL);
 }
 
+
 /**
  * Check if a file exists, can be written to, etc.
  * Return true on continue, false on skip.
  */
-static gboolean
-check_for_file (const char* uri)
+static GnomeVFSFileSize
+check_file_size (const char* uri)
 {
   GnomeVFSFileInfo info;
   GnomeVFSResult res;
-  GtkWidget *dialog;
-  char *filename, *size;
-  int ret;
-  
+ 
   res = gnome_vfs_get_file_info (uri, &info, GNOME_VFS_FILE_INFO_DEFAULT);
+
+  /* No existing file */
   if (res == GNOME_VFS_ERROR_NOT_FOUND)
-    return TRUE;
+    return 0;
+
+  /* unexpected error condition - bad news */
   if (res != GNOME_VFS_OK) {
     /* TODO: display an error dialog */
     g_warning ("Cannot get file info: %s", gnome_vfs_result_to_string (res));
-    return FALSE;
+    return -1;
   }
-  if (info.size < (100000)) {
-    /* The file exists but is small, assume overwriting */
-    return TRUE;
-  }
-  /* Otherwise the file exists and is large, ask user if they really
-     want to overwrite it */
+
+  /* A file with that name does exist. Report the size. */
+  return info.size;
+}
+
+
+static gboolean
+confirm_overwrite_existing_file (const char* uri, int *overwrite_mode, GnomeVFSFileSize info_size)
+{ 
+  OverwriteDialogResponse ret;
+  GtkWidget *dialog;
+  char *filename, *size;
+ 
   filename = gnome_vfs_format_uri_for_display (uri);
-  size = gnome_vfs_format_file_size_for_display (info.size);
+  size = gnome_vfs_format_file_size_for_display (info_size);
   dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), GTK_DIALOG_MODAL,
                                    GTK_MESSAGE_QUESTION,
                                    GTK_BUTTONS_NONE,
@@ -238,14 +268,39 @@ check_for_file (const char* uri)
                                    filename, size);
   g_free (filename);
   g_free (size);
-  gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Skip"), GTK_RESPONSE_CANCEL);
-  gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Overwrite"), GTK_RESPONSE_ACCEPT);
-  gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_ACCEPT);
+  gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Skip"), BUTTON_SKIP);
+  gtk_dialog_add_button (GTK_DIALOG (dialog), _("S_kip All"), BUTTON_SKIP_ALL);
+  gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Overwrite"), BUTTON_OVERWRITE);
+  gtk_dialog_add_button (GTK_DIALOG (dialog), _("Overwrite _All"), BUTTON_OVERWRITE_ALL);
+
+  gtk_dialog_set_default_response (GTK_DIALOG (dialog), BUTTON_SKIP);
   gtk_widget_show_all (dialog);
   ret = gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_destroy (dialog);
-  return ret == GTK_RESPONSE_ACCEPT;
+
+  switch (ret) {
+    case BUTTON_OVERWRITE_ALL:
+      *overwrite_mode = OVERWRITE_ALL;
+      return TRUE;
+      break;
+    case BUTTON_OVERWRITE:
+      return TRUE;
+      break;
+    case BUTTON_SKIP_ALL:
+      *overwrite_mode = SKIP_ALL;
+      return FALSE;
+      break;
+    case BUTTON_SKIP:
+    case GTK_RESPONSE_DELETE_EVENT:
+    default:
+      return FALSE;
+      break;
+  }
+
+
+return ret;
 }
+
 
 /**
  * Find the name of the directory this file is in, create it, and return the
@@ -283,7 +338,7 @@ static void on_completion_cb (SjExtractor *extractor, gpointer data);
  * update the UI, and start the extractor.
  */
 static void
-pop_and_extract (void)
+pop_and_extract (int *overwrite_mode)
 {
   if (pending == NULL) {
     g_assert_not_reached ();
@@ -316,16 +371,34 @@ pop_and_extract (void)
     }
     /* Save the directory name for later */
     paths = g_list_append (paths, directory);
-    /* See if the file exists */
-    if (!check_for_file (file_path)) {
-      on_completion_cb (NULL, NULL);
+
+
+    GnomeVFSFileSize file_size;
+    file_size = check_file_size (file_path);
+
+    /* Skip if destination file can't be accessed (unexpected error). */
+    /* Skip existing files if "skip all" is selected. */
+    if ((file_size == -1) ||
+        ((file_size > MIN_FILE_SIZE) && (*overwrite_mode == SKIP_ALL))) {
+      on_completion_cb (NULL, overwrite_mode);
+      return;
+      }
+
+    /* What if the file already exists? */
+    if ((file_size > MIN_FILE_SIZE) &&
+        (*overwrite_mode != OVERWRITE_ALL) &&
+        (confirm_overwrite_existing_file (file_path, overwrite_mode, file_size) == FALSE)) {
+      on_completion_cb (NULL, overwrite_mode);
       return;
     }
-   
+
+    /* OK, we can write/overwrite the file */
+
+
     /* Update the state stock image */
     gtk_list_store_set (track_store, &track->iter,
                    COLUMN_STATE, STATE_EXTRACTING, -1);
-		
+    
     /* Update the progress bars */
     gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (progress_bar),
                                    CLAMP ((float)current_duration / (float)total_duration, 0.0, 1.0));
@@ -385,7 +458,7 @@ update_speed_progress (SjExtractor *extractor, float speed, int eta)
   char *eta_str;
 
   if (eta >= 0) {
-    eta_str = g_strdup_printf (_("Estimated time left: %d:%02d (at %0.1f\303\227)"), eta / 60, eta % 60, speed);	
+    eta_str = g_strdup_printf (_("Estimated time left: %d:%02d (at %0.1f\303\227)"), eta / 60, eta % 60, speed);  
   } else {
     eta_str = g_strdup (_("Estimated time left: unknown"));  
   }
@@ -416,10 +489,10 @@ on_progress_cb (SjExtractor *extractor, const int seconds, gpointer data)
 
       gettimeofday(&time, NULL);
       taken = time.tv_sec + (time.tv_usec / 1000000.0)
-        - (before.time.tv_sec + (before.time.tv_usec / 1000000.0));	
+        - (before.time.tv_sec + (before.time.tv_usec / 1000000.0)); 
       if (taken >= 4) {
-	before.taken += taken;
-	before.ripped += current_duration + seconds - before.seconds;
+        before.taken += taken;
+        before.ripped += current_duration + seconds - before.seconds;
         speed = (float) before.ripped / (float) before.taken;
         update_speed_progress (extractor, speed, (int) ((total_duration - current_duration - seconds) / speed));
         before.seconds = current_duration + seconds;
@@ -464,8 +537,8 @@ base_finder (char *path, char **ret)
 static gboolean
 on_main_window_focus_in (GtkWidget * widget, GdkEventFocus * event, gpointer data)
 {
-	gtk_window_set_urgency_hint (GTK_WINDOW (main_window), FALSE);
-	return FALSE;
+  gtk_window_set_urgency_hint (GTK_WINDOW (main_window), FALSE);
+  return FALSE;
 }
 
 /**
@@ -547,7 +620,7 @@ on_completion_cb (SjExtractor *extractor, gpointer data)
     /* Increment the duration */
     current_duration += track->duration;
     /* And go and do it all again */
-    pop_and_extract ();
+    pop_and_extract ((int*)data);
   }
 }
 
@@ -601,12 +674,13 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
      on_progress_cancel_clicked (NULL, NULL);
      return;
   }
-				
+        
   /* Populate the pending list */
   pending = NULL;
   total_extracting = 0;
   current_duration = total_duration = 0;
   before.seconds = -1;
+  overwrite_mode = NORMAL;
   gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), extract_track_foreach_cb, NULL);
   /* If the pending list is still empty, return */
   if (pending == NULL) {
@@ -619,7 +693,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   if (!initialised) {
     /* Connect to the SjExtractor signals */
     g_signal_connect (extractor, "progress", G_CALLBACK (on_progress_cb), NULL);
-    g_signal_connect (extractor, "completion", G_CALLBACK (on_completion_cb), NULL);
+    g_signal_connect (extractor, "completion", G_CALLBACK (on_completion_cb), (gpointer)&overwrite_mode);
     g_signal_connect (extractor, "error", G_CALLBACK (on_error_cb), NULL);
 
     extract_button = glade_xml_get_widget (glade, "extract_button");
@@ -630,7 +704,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
     track_listview = glade_xml_get_widget (glade, "track_listview");
     progress_bar = glade_xml_get_widget (glade, "progress_bar");
     status_bar = glade_xml_get_widget (glade, "status_bar");
-	
+  
     play_menuitem = glade_xml_get_widget (glade, "play_menuitem");
     extract_menuitem = glade_xml_get_widget (glade, "extract_menuitem");
     reread_menuitem = glade_xml_get_widget (glade, "re-read");
@@ -655,7 +729,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   gtk_widget_set_sensitive (artist_entry, FALSE);
   gtk_widget_set_sensitive (genre_entry, FALSE);
 
-  /* Disable the menuitems in the main menu*/	
+  /* Disable the menuitems in the main menu*/ 
   gtk_widget_set_sensitive (play_menuitem, FALSE);
   gtk_widget_set_sensitive (extract_menuitem, FALSE);
   gtk_widget_set_sensitive (reread_menuitem, FALSE);
@@ -675,7 +749,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
 
   /* Start the extracting */
   extracting = TRUE;
-  pop_and_extract ();
+  pop_and_extract (&overwrite_mode);
 }
 
 /*
