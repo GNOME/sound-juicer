@@ -1,4 +1,3 @@
-# Slovenian translation of sound-juicer.
 # Copyright (C) 2005-2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the sound-juicer package.
 #
@@ -9,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-10 04:11+0100\n"
-"PO-Revision-Date: 2007-10-15 20:37+0100\n"
-"Last-Translator: Matej Urbančič <matej.urban@gmail.com>\n"
+"POT-Creation-Date: 2007-10-15 19:37+0100\n"
+"PO-Revision-Date: 2007-11-19 15:22+0100\n"
+"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-Country: SLOVENIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -117,7 +116,7 @@ msgstr "Preskoči na prejšnjo skladbo"
 #: ../data/sound-juicer.glade.h:21
 #: ../src/sj-main.c:168
 #: ../src/sj-main.c:170
-#: ../src/sj-main.c:1348
+#: ../src/sj-main.c:1338
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -138,7 +137,7 @@ msgid "_Contents"
 msgstr "_Vsebina"
 
 #: ../data/sound-juicer.glade.h:26
-#: ../src/sj-main.c:262
+#: ../src/sj-main.c:261
 msgid "_Continue"
 msgstr "_Nadaljuj"
 
@@ -272,36 +271,36 @@ msgstr "naprava"
 msgid "The device"
 msgstr "Naprava"
 
-#: ../libjuicer/sj-extractor.c:346
+#: ../libjuicer/sj-extractor.c:347
 msgid "Could not create GStreamer CD reader"
 msgstr "Ni mogoče ustvariti bralca CD-ja GStreamer"
 
-#: ../libjuicer/sj-extractor.c:368
+#: ../libjuicer/sj-extractor.c:369
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Ni mogoče ustvariti GStreamer kodirnikov za %s"
 
-#: ../libjuicer/sj-extractor.c:379
+#: ../libjuicer/sj-extractor.c:380
 msgid "Could not create GStreamer file output"
 msgstr "Ni mogoče ustvariti GStreamer izpisa datotek"
 
-#: ../libjuicer/sj-extractor.c:391
+#: ../libjuicer/sj-extractor.c:392
 msgid "Could not link pipeline"
 msgstr "Ni mogoče povezati cevovoda"
 
-#: ../libjuicer/sj-extractor.c:415
+#: ../libjuicer/sj-extractor.c:416
 msgid "Could not get current track position"
 msgstr "Ni mogoče dobiti trenutnega položaja skladbe"
 
-#: ../libjuicer/sj-extractor.c:444
+#: ../libjuicer/sj-extractor.c:445
 msgid "Extractor object is not valid. This is bad, check your console for errors."
 msgstr "Predmet pretvornika ni pravilen. Prosim, preverite konzolo za napake."
 
-#: ../libjuicer/sj-extractor.c:635
+#: ../libjuicer/sj-extractor.c:636
 msgid "The plugin necessary for CD access was not found"
 msgstr "Vstavek potreben za dostop do CD-ja ni najden."
 
-#: ../libjuicer/sj-extractor.c:643
+#: ../libjuicer/sj-extractor.c:644
 msgid "The plugin necessary for file access was not found"
 msgstr "Vstavek potreben za dostop do datotek ni najden."
 
@@ -429,11 +428,11 @@ msgstr ""
 "Matic Žgur <mr.zgur@gmail.com>"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:158
+#: ../src/sj-extracting.c:200
 msgid "Extract"
 msgstr "Razširi"
 
-#: ../src/sj-extracting.c:216
+#: ../src/sj-extracting.c:267
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -442,18 +441,26 @@ msgstr ""
 "Datoteka z imenom '%s', velikosti %s že obstaja.\n"
 "Želite skladbo preskočiti ali prepisati?"
 
-#: ../src/sj-extracting.c:220
+#: ../src/sj-extracting.c:271
 msgid "_Skip"
 msgstr "Pre_skoči"
 
-#: ../src/sj-extracting.c:221
+#: ../src/sj-extracting.c:272
+msgid "S_kip All"
+msgstr "Pres_koči vse"
+
+#: ../src/sj-extracting.c:273
 msgid "_Overwrite"
 msgstr "_Prepiši"
 
+#: ../src/sj-extracting.c:274
+msgid "Overwrite _All"
+msgstr "_Prepiši vse"
+
 #. Display a nice dialog
-#: ../src/sj-extracting.c:283
-#: ../src/sj-extracting.c:318
-#: ../src/sj-extracting.c:543
+#: ../src/sj-extracting.c:358
+#: ../src/sj-extracting.c:411
+#: ../src/sj-extracting.c:636
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -462,29 +469,33 @@ msgstr ""
 "Sound Juicer ne more pretvoriti tega CD-ja.\n"
 "Vzrok: %s"
 
-#: ../src/sj-extracting.c:368
+#: ../src/sj-extracting.c:461
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Ocenjen preostanek časa: %d:%02d (pri %0.1f×)"
 
-#: ../src/sj-extracting.c:370
+#: ../src/sj-extracting.c:463
 msgid "Estimated time left: unknown"
 msgstr "Predviden čas trajanja: neznan"
 
-#: ../src/sj-extracting.c:468
+#: ../src/sj-extracting.c:561
 #, c-format
 msgid "%s has been copied successfully."
 msgstr "%s je uspešno kopiran."
 
-#: ../src/sj-extracting.c:481
+#: ../src/sj-extracting.c:574
 msgid "_Eject"
 msgstr "_Izvrzi"
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:623
+#: ../src/sj-extracting.c:719
 msgid "Stop"
 msgstr "Zaustavi"
+
+#: ../src/sj-extracting.c:745
+msgid "Extracting audio from CD"
+msgstr "Pretvarjanje glasbe iz CD-ja"
 
 #: ../src/sj-main.c:145
 msgid "E_xtract"
@@ -495,10 +506,10 @@ msgid "Could not start Sound Juicer"
 msgstr "Ni mogoče zagnati programa Sound Juicer"
 
 #: ../src/sj-main.c:214
-#: ../src/sj-main.c:634
-#: ../src/sj-main.c:743
-#: ../src/sj-main.c:858
-#: ../src/sj-main.c:1066
+#: ../src/sj-main.c:633
+#: ../src/sj-main.c:742
+#: ../src/sj-main.c:848
+#: ../src/sj-main.c:1056
 msgid "Reason"
 msgstr "Vzrok"
 
@@ -506,89 +517,85 @@ msgstr "Vzrok"
 msgid "Please consult the documentation for assistance."
 msgstr "Prosim, poglejte v dokumentacijo za pomoč."
 
-#: ../src/sj-main.c:260
+#: ../src/sj-main.c:259
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Trenutno pretvarjate CD. Želite končati ali naj nadaljujem?"
 
-#: ../src/sj-main.c:320
-#: ../src/sj-main.c:427
+#: ../src/sj-main.c:319
+#: ../src/sj-main.c:426
 msgid "(unknown)"
 msgstr "(neznano)"
 
-#: ../src/sj-main.c:469
-#: ../src/sj-main.c:1490
+#: ../src/sj-main.c:468
+#: ../src/sj-main.c:1480
 msgid "Title"
 msgstr "Naslov"
 
-#: ../src/sj-main.c:475
-#: ../src/sj-main.c:1499
+#: ../src/sj-main.c:474
+#: ../src/sj-main.c:1489
 msgid "Artist"
 msgstr "Izvajalec"
 
-#: ../src/sj-main.c:632
-#: ../src/sj-main.c:741
-#: ../src/sj-main.c:856
+#: ../src/sj-main.c:631
+#: ../src/sj-main.c:740
+#: ../src/sj-main.c:846
 msgid "Could not read the CD"
 msgstr "Ni mogoče prebrati CD-ja"
 
-#: ../src/sj-main.c:633
-#: ../src/sj-main.c:742
+#: ../src/sj-main.c:632
+#: ../src/sj-main.c:741
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer ne more prebrati seznama skladb na tem CD-ju."
 
 #. Set statusbar message
-#: ../src/sj-main.c:713
+#: ../src/sj-main.c:712
 msgid "Retrieving track listing...please wait."
 msgstr "Obnavljanje seznama skladb ... Prosim, počakajte."
 
-#: ../src/sj-main.c:811
+#: ../src/sj-main.c:807
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Ni mogoč dostop do CD-pogona '%s'"
 
-#: ../src/sj-main.c:818
+#: ../src/sj-main.c:814
 msgid "HAL daemon may not be running."
 msgstr "HAL demon morda ne teče."
 
-#: ../src/sj-main.c:826
-msgid "Extracting audio from CD"
-msgstr "Pretvarjanje glasbe iz CD-ja"
-
-#: ../src/sj-main.c:849
+#: ../src/sj-main.c:839
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Ni mogoč dostop do CD-pogona '%s'"
 
-#: ../src/sj-main.c:944
+#: ../src/sj-main.c:934
 msgid "No CD-ROM drives found"
 msgstr "Ni mogoče najti pogona CD-ROM"
 
-#: ../src/sj-main.c:945
+#: ../src/sj-main.c:935
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer ne najde CD-pogona za branje."
 
-#: ../src/sj-main.c:976
+#: ../src/sj-main.c:966
 msgid "The currently selected audio profile is not available on your installation."
 msgstr "Trenutno izbran zvočni profil ni vključen na vaši namestitvi."
 
-#: ../src/sj-main.c:978
+#: ../src/sj-main.c:968
 msgid "_Change Profile"
 msgstr "_Zamenjaj profil"
 
-#: ../src/sj-main.c:1064
+#: ../src/sj-main.c:1054
 msgid "Could not open URL"
 msgstr "Ni mogoče odpreti naslova URL"
 
-#: ../src/sj-main.c:1065
+#: ../src/sj-main.c:1055
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer ne more odpreti URL naslova objave"
 
-#: ../src/sj-main.c:1174
+#: ../src/sj-main.c:1164
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Neznan stolpec %d je bil spremenjen."
 
-#: ../src/sj-main.c:1230
+#: ../src/sj-main.c:1220
 #: ../src/sj-prefs.c:105
 #, c-format
 msgid ""
@@ -598,45 +605,45 @@ msgstr ""
 "Ni mogoče prikazati pomoči programa Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1323
+#: ../src/sj-main.c:1313
 msgid "Start extracting immediately"
 msgstr "Takoj začni pretvarjati"
 
-#: ../src/sj-main.c:1324
+#: ../src/sj-main.c:1314
 msgid "Start playing immediately"
 msgstr "Takoj začni predvajati"
 
-#: ../src/sj-main.c:1325
+#: ../src/sj-main.c:1315
 msgid "What CD device to read"
 msgstr "Katera naprava CD naj bo prebrana"
 
-#: ../src/sj-main.c:1325
+#: ../src/sj-main.c:1315
 msgid "DEVICE"
 msgstr "NAPRAVA"
 
-#: ../src/sj-main.c:1335
+#: ../src/sj-main.c:1325
 msgid "- Extract music from your CDs"
 msgstr "- pretvorite glasbo iz svojih CD-jev"
 
-#: ../src/sj-main.c:1374
+#: ../src/sj-main.c:1364
 msgid "Could not create GConf client.\n"
 msgstr "Ni mogoče ustvariti GConf odjemalca.\n"
 
-#: ../src/sj-main.c:1405
+#: ../src/sj-main.c:1395
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Ni mogoče prebrati datoteke vmesnika programa Sound Juicer."
 
-#: ../src/sj-main.c:1475
+#: ../src/sj-main.c:1465
 msgid "Track"
 msgstr "Skladba"
 
-#: ../src/sj-main.c:1510
+#: ../src/sj-main.c:1500
 msgid "Duration"
 msgstr "Trajanje"
 
-#: ../src/sj-play.c:201
-#: ../src/sj-play.c:473
-#: ../src/sj-play.c:523
+#: ../src/sj-play.c:198
+#: ../src/sj-play.c:470
+#: ../src/sj-play.c:520
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -648,28 +655,28 @@ msgstr ""
 "Vzrok: %s"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:267
+#: ../src/sj-play.c:264
 msgid "Play"
 msgstr "Predvajaj"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:311
+#: ../src/sj-play.c:308
 msgid "Pause"
 msgstr "Pavza"
 
-#: ../src/sj-play.c:368
+#: ../src/sj-play.c:365
 msgid "Failed to create CD source element"
 msgstr "Ni mogoče ustvariti izvornega CD elementa"
 
-#: ../src/sj-play.c:405
+#: ../src/sj-play.c:402
 msgid "Failed to link pipeline"
 msgstr "Povezovanje cevovoda ni uspelo."
 
-#: ../src/sj-play.c:411
+#: ../src/sj-play.c:408
 msgid "Failed to create audio output"
 msgstr "Ni mogoče ustvariti zvočnega izhoda"
 
-#: ../src/sj-play.c:634
+#: ../src/sj-play.c:631
 #, c-format
 msgid "Seeking to %s"
 msgstr "iščem %s"
@@ -742,16 +749,4 @@ msgstr "Številka-Izvajalec skladbe-Naslov skladbe (male črke)"
 #: ../src/sj-prefs.c:261
 msgid "Example Path"
 msgstr "Primer pot"
-
-#~ msgid "CD-TEXT metadata plugin failed to initialise."
-#~ msgstr "Vstavek za metapodatke CD-TEXT si ni uspel inicializirati."
-#~ msgid "Cannot create MusicBrainz client"
-#~ msgstr "Ni mogoče ustvariti odjemalca MusicBrainz"
-#~ msgid ""
-#~ "MusicBrainz metadata object is not valid. This is bad, check your console "
-#~ "for errors."
-#~ msgstr ""
-#~ "Podatki MusicBrainz niso pravilni. Prosim, preverite konzolo za napake."
-#~ msgid "Could not get track start position"
-#~ msgstr "Ni mogoče dobiti začetnega položaja skladbe"
 
