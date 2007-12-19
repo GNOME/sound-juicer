@@ -463,7 +463,7 @@ static void musicbrainz_submit_message_area_response (SjMessageArea *message_are
 						      gpointer       user_data)
 {
   if (response_id == GTK_RESPONSE_OK) {
-
+    on_submit_activate (NULL, NULL);
   }
 
   set_message_area (message_area_vbox, NULL);
