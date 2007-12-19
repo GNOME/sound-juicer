@@ -1,3 +1,22 @@
+2007-12-19  Ross Burton  <ross@burtonini.com>
+
+	* libjuicer/sj-structures.h:
+	* libjuicer/sj-metadata-musicbrainz.c:
+	* libjuicer/sj-metadata-cdtext.c:
+	Add a source enumeration.
+	
+	* src/Makefile.am:
+	* src/sj-message-area.[ch]:
+	Add a message area/cluebar widget, from gedit.
+	
+	* src/sj-main.c
+	* data/sound-juicer.glade:
+	If the data is from FreeDB, show a cluebar telling the user so
+	they can add the TOC to Musicbrainz.
+
+	Thanks to Luca Cavalli for this, closing #452047.  This has a
+	redraw bug, but we'll fix that.
+
 2007-12-19  Rob Bradford  <rob@robster.org.uk>
 
 	* src/sj-main.c: (selected_album_changed), (multiple_album_dialog)

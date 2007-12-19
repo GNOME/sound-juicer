@@ -13,6 +13,8 @@ sound_juicer_SOURCES = \
 	sj-about.c \
 	sj-extracting.h \
 	sj-extracting.c \
+	sj-message-area.h \
+	sj-message-area.c \
 	gconf-bridge.h \
 	gconf-bridge.c \
 	bacon-volume.c \

@@ -134,6 +134,8 @@ cdtext_list_albums (SjMetadata *metadata, GError **error)
   album->artist = g_strdup (cdtext_get (CDTEXT_PERFORMER, cdtext));
   album->genre = g_strdup (cdtext_get (CDTEXT_GENRE, cdtext));
 
+  album->metadata_source = SOURCE_CDTEXT;
+
   priv->error = NULL;
   priv->albums = g_list_append (NULL, album);
   g_idle_add ((GSourceFunc)fire_signal_idle, metadata);

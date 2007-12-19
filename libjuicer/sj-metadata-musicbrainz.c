@@ -505,6 +505,12 @@ lookup_cd (SjMetadata *metadata)
       convert_encoding(&album->artist_sortname);
     }
 
+    if (from_freedb) {
+      album->metadata_source = SOURCE_FREEDB;
+    } else {
+      album->metadata_source = SOURCE_MUSICBRAINZ;
+    }
+
     albums = g_list_append (albums, album);
 
     mb_Select (priv->mb, MBS_Rewind);

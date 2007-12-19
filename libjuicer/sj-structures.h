@@ -26,9 +26,16 @@
 #include <glib/glist.h>
 #include <gtk/gtktreemodel.h>
 
+typedef enum _MetadataSource MetadataSource;
+
 typedef struct _AlbumDetails AlbumDetails;
 typedef struct _TrackDetails TrackDetails;
 
+enum _MetadataSource {
+  SOURCE_CDTEXT,
+  SOURCE_FREEDB,
+  SOURCE_MUSICBRAINZ
+};
 
 struct _TrackDetails {
   AlbumDetails *album;
@@ -51,6 +58,7 @@ struct _AlbumDetails {
   GDate *release_date; /* MusicBrainz support multiple releases per album */
   char* album_id;
   char* artist_id;
+  MetadataSource metadata_source;
 };
 
 void album_details_free(AlbumDetails *album);
