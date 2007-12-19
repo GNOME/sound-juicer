@@ -84,14 +84,7 @@ static GtkWidget *extract_button, *play_button, *title_entry, *artist_entry, *ge
 /** The menuitem in the main menu */
 static GtkWidget *extract_menuitem, *play_menuitem, *reread_menuitem, *select_all_menuitem, *deselect_all_menuitem;
 
-/** The current TrackDetails being extracted. */
-static TrackDetails *track;
-
-/**
- * The list of pending TrackDetails to extract. ->data points to existing
- * entries, so do not free the data, only the list.
- */
-static GList *pending;
+static GtkTreeIter current;
 
 /**
  * A list of paths we have extracted music into. Contains allocated items, free
@@ -155,15 +148,17 @@ build_filename (const TrackDetails *track)
 }
 
 static gboolean
-unset_iter_foreach_cb (GtkTreeModel *model, GtkTreePath *path,
-                       GtkTreeIter *iter, gpointer data) 
+find_next (void)
 {
-  TrackDetails *track;
-
-  gtk_tree_model_get (model, iter, COLUMN_DETAILS, &track, -1);
-  
-  track->iter.stamp = 0;
-  
+  do {
+    gboolean extract = FALSE;
+    
+    gtk_tree_model_get (GTK_TREE_MODEL (track_store), &current, COLUMN_EXTRACT, &extract, -1);
+    
+    if (extract)
+      return TRUE;
+    
+  } while (gtk_tree_model_iter_next (GTK_TREE_MODEL (track_store), &current));
   return FALSE;
 }
 
@@ -179,23 +174,19 @@ cleanup (void)
   nautilus_burn_drive_unlock (drive);
 
   /* Remove any state icons from the model */
-  if (track->iter.stamp) {
+  if (current.stamp) {
     /* TODO: has to be a better way to do that test */
-    gtk_list_store_set (track_store, &track->iter,
+    gtk_list_store_set (track_store, &current,
                         COLUMN_STATE, STATE_IDLE, -1);
   }
-
-  /* Unset the temporary iterators */
-  gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), unset_iter_foreach_cb, NULL);
 
   /* Free the used data */
   if (paths) {
     g_list_deep_free (paths, NULL);
     paths = NULL;
   }
-  g_list_free (pending);
-  pending = NULL;
-  track = NULL;
+  /* Forcibly invalidate the iterator */
+  current.stamp = 0;
   /* TODO: find out why GTK+ needs this to work (see #364371) */
   gtk_button_set_label (GTK_BUTTON (extract_button), _("Extract"));
   gtk_button_set_label (GTK_BUTTON (extract_button), SJ_STOCK_EXTRACT);
@@ -340,15 +331,16 @@ static void on_completion_cb (SjExtractor *extractor, gpointer data);
 static void
 pop_and_extract (int *overwrite_mode)
 {
-  if (pending == NULL) {
+  if (current.stamp == 0) {
+    /* TODO: remove this test? */
     g_assert_not_reached ();
   } else {
+    TrackDetails *track = NULL;
     char *file_path, *directory, *text;
     GError *error = NULL;
     
     /* Pop the next track to extract */
-    track = pending->data;
-    pending = g_list_remove (pending, track);
+    gtk_tree_model_get (GTK_TREE_MODEL (track_store), &current, COLUMN_DETAILS, &track, -1);
     /* Build the filename for this track */
     file_path = build_filename (track);
     /* And create the directory it lives in */
@@ -396,7 +388,7 @@ pop_and_extract (int *overwrite_mode)
 
 
     /* Update the state stock image */
-    gtk_list_store_set (track_store, &track->iter,
+    gtk_list_store_set (track_store, &current,
                    COLUMN_STATE, STATE_EXTRACTING, -1);
     
     /* Update the progress bars */
@@ -441,8 +433,6 @@ extract_track_foreach_cb (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *i
                       COLUMN_DETAILS, &track,
                       -1);
   if (extract) {
-    track->iter = *iter;
-    pending = g_list_append (pending, track);
     ++total_extracting;
     total_duration += track->duration;
   }
@@ -602,25 +592,31 @@ show_finished_dialog (const TrackDetails *track)
 static void
 on_completion_cb (SjExtractor *extractor, gpointer data)
 {
+  TrackDetails *track = NULL;
+
   /* Only manipulate the track state if we have an album, as we might be here if
      the disk was ejected mid-rip. */
   if (gtk_tree_model_iter_n_children (GTK_TREE_MODEL (track_store), NULL) > 0) {
     /* Remove the track state */
-    gtk_list_store_set (track_store, &track->iter, COLUMN_STATE, STATE_IDLE, -1);
+    gtk_list_store_set (track_store, &current, COLUMN_STATE, STATE_IDLE, -1);
     /* Uncheck the Extract check box */
-    gtk_list_store_set (track_store, &track->iter, COLUMN_EXTRACT, FALSE, -1);
+    gtk_list_store_set (track_store, &current, COLUMN_EXTRACT, FALSE, -1);
   }
   
-  if (pending == NULL) {
-    show_finished_dialog (track);
-    if (autostart) {
-      gtk_main_quit ();
-    }
-  } else {
+  gtk_tree_model_get (GTK_TREE_MODEL (track_store), &current,
+                      COLUMN_DETAILS, &track, -1);
+
+  if (find_next ()) {
     /* Increment the duration */
     current_duration += track->duration;
     /* And go and do it all again */
     pop_and_extract ((int*)data);
+  } else {
+    show_finished_dialog (track);
+    
+    if (autostart) {
+      gtk_main_quit ();
+    }
   }
 }
 
@@ -676,14 +672,14 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   }
         
   /* Populate the pending list */
-  pending = NULL;
+  current.stamp = 0;
   total_extracting = 0;
   current_duration = total_duration = 0;
   before.seconds = -1;
   overwrite_mode = NORMAL;
   gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), extract_track_foreach_cb, NULL);
   /* If the pending list is still empty, return */
-  if (pending == NULL) {
+  if (total_extracting == 0) {
     /* Should never reach here */
     g_warning ("No tracks selected for extracting");
     return;
@@ -749,6 +745,8 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
 
   /* Start the extracting */
   extracting = TRUE;
+  gtk_tree_model_get_iter_first (GTK_TREE_MODEL (track_store), &current);
+  find_next ();
   pop_and_extract (&overwrite_mode);
 }
 

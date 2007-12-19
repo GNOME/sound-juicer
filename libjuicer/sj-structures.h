@@ -39,7 +39,6 @@ struct _TrackDetails {
   int duration; /* seconds */
   char* track_id;
   char* artist_id;
-  GtkTreeIter iter; /* Temporary iterator for internal use */
 };
 
 struct _AlbumDetails {

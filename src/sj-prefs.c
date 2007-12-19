@@ -229,7 +229,6 @@ static void pattern_label_update (void)
     0, /* duration */
     NULL, /* track ID */
     NULL, /* artist ID */
-    {0,0,0,0}, /* treeview iterator */
   };
   
   g_object_get (extractor, "profile", &profile, NULL);
