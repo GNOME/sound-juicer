@@ -429,8 +429,7 @@ static void update_ui_for_album (AlbumDetails *album)
 }
 
 /**
- * Called by the Multiple Album dialog when the user hits return in
- * the list view
+ * Callback that gets fired when a user double clicks on a row
  */
 static void album_row_activated (GtkTreeView *treeview,
                                  GtkTreePath *arg1,
@@ -439,6 +438,22 @@ static void album_row_activated (GtkTreeView *treeview,
 {
   GtkDialog *dialog = GTK_DIALOG (user_data);
   gtk_dialog_response (dialog, GTK_RESPONSE_OK);
+}
+
+/**
+ * Callback that gets fired when an the selection changes. We use this to
+ * change the sensitivity of the continue button
+ */
+static void selected_album_changed (GtkTreeSelection *selection, 
+                                    gpointer *user_data)
+{
+  GtkWidget *ok_button = GTK_WIDGET (user_data);
+
+  if (gtk_tree_selection_get_selected (selection, NULL, NULL)) {
+    gtk_widget_set_sensitive (ok_button, TRUE);
+  } else {
+    gtk_widget_set_sensitive (ok_button, FALSE);
+  }
 }
 
 /**
@@ -452,6 +467,7 @@ AlbumDetails* multiple_album_dialog(GList *albums)
   AlbumDetails *album;
   GtkTreeIter iter;
   int response;
+  GtkWidget *ok_button = NULL;
 
   if (dialog == NULL) {
     GtkTreeViewColumn *column;
@@ -461,7 +477,8 @@ AlbumDetails* multiple_album_dialog(GList *albums)
     g_assert (dialog != NULL);
     gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (main_window));
     albums_listview = glade_xml_get_widget (glade, "albums_listview");
-    /* TODO: A little hacky */
+    ok_button = glade_xml_get_widget (glade, "ok_button");
+
     g_signal_connect (albums_listview, "row-activated", G_CALLBACK (album_row_activated), dialog);
 
     albums_store = gtk_list_store_new (3, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
@@ -479,6 +496,8 @@ AlbumDetails* multiple_album_dialog(GList *albums)
     gtk_tree_view_set_model (GTK_TREE_VIEW (albums_listview), GTK_TREE_MODEL (albums_store));
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW (albums_listview));
     gtk_tree_selection_set_mode(selection, GTK_SELECTION_BROWSE);
+    gtk_widget_set_sensitive (ok_button, FALSE);
+    g_signal_connect (selection, "changed", (GCallback)selected_album_changed, ok_button);
   }
 
   gtk_list_store_clear (albums_store);
@@ -492,11 +511,13 @@ AlbumDetails* multiple_album_dialog(GList *albums)
                         2, album,
                         -1);
   }
-  /*
-   * TODO: focus is a little broken here. The first row should be
-   * selected, so just hitting return works.
-   */
-  gtk_widget_grab_focus (albums_listview);
+
+  /* Select the first album */
+  if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (albums_store), &iter))
+  {
+    gtk_tree_selection_select_iter (selection, &iter);
+  }
+
   gtk_widget_show_all (dialog);
   response = gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_hide (dialog);
@@ -504,9 +525,13 @@ AlbumDetails* multiple_album_dialog(GList *albums)
   if (response == GTK_RESPONSE_DELETE_EVENT) {
     return NULL;
   }
-  gtk_tree_selection_get_selected (selection, NULL, &iter);
-  gtk_tree_model_get (GTK_TREE_MODEL (albums_store), &iter, 2, &album, -1);
-  return album;
+
+  if (gtk_tree_selection_get_selected (selection, NULL, &iter)) {
+    gtk_tree_model_get (GTK_TREE_MODEL (albums_store), &iter, 2, &album, -1);
+    return album;
+  } else {
+    return NULL;
+  }
 }
 
 /**
