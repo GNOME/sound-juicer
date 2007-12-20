@@ -52,7 +52,7 @@
 #include "sj-main.h"
 #include "sj-prefs.h"
 #include "sj-play.h"
-#include "sj-message-area.h"
+#include "gedit-message-area.h"
 #include "bacon-volume.h"
 
 gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data);
@@ -351,7 +351,7 @@ static void number_cell_icon_data_cb (GtkTreeViewColumn *tree_column,
 
 /* Taken from gedit */
 static void
-set_message_area_text_and_icon (SjMessageArea *message_area,
+set_message_area_text_and_icon (GeditMessageArea *message_area,
 				const gchar   *icon_stock_id,
 				const gchar   *primary_text,
 				const gchar   *secondary_text)
@@ -397,7 +397,7 @@ set_message_area_text_and_icon (SjMessageArea *message_area,
     gtk_misc_set_alignment (GTK_MISC (secondary_label), 0, 0.5);
   }
 
-  sj_message_area_set_contents (SJ_MESSAGE_AREA (message_area),
+  gedit_message_area_set_contents (GEDIT_MESSAGE_AREA (message_area),
 				   hbox_content);
 }
 
@@ -436,19 +436,19 @@ static GtkWidget* musicbrainz_submit_message_area_new (char *title,
   g_return_val_if_fail (title != NULL, NULL);
   g_return_val_if_fail (artist != NULL, NULL);
 
-  message_area = sj_message_area_new ();
+  message_area = gedit_message_area_new ();
 
-  sj_message_area_add_button (SJ_MESSAGE_AREA (message_area),
+  gedit_message_area_add_button (GEDIT_MESSAGE_AREA (message_area),
 			      _("_Submit Album"),
 			      GTK_RESPONSE_OK);
-  sj_message_area_add_button (SJ_MESSAGE_AREA (message_area),
+  gedit_message_area_add_button (GEDIT_MESSAGE_AREA (message_area),
 			      GTK_STOCK_CANCEL,
 			      GTK_RESPONSE_CANCEL);
 
   /* Translators: title, artist */
   primary_text = g_strdup_printf (_("Could not find %s by %s on MusicBrainz."), title, artist);
 
-  set_message_area_text_and_icon (SJ_MESSAGE_AREA (message_area),
+  set_message_area_text_and_icon (GEDIT_MESSAGE_AREA (message_area),
 				  "gtk-dialog-info",
 				  primary_text,
 				  _("You can improve the MusicBrainz database by adding this album."));
@@ -458,7 +458,7 @@ static GtkWidget* musicbrainz_submit_message_area_new (char *title,
   return message_area;
 }
 
-static void musicbrainz_submit_message_area_response (SjMessageArea *message_area,
+static void musicbrainz_submit_message_area_response (GeditMessageArea *message_area,
 						      gint           response_id,
 						      gpointer       user_data)
 {
@@ -566,7 +566,7 @@ static void update_ui_for_album (AlbumDetails *album)
 			G_CALLBACK (musicbrainz_submit_message_area_response),
 			NULL);
 
-      sj_message_area_set_default_response (SJ_MESSAGE_AREA (message_area),
+      gedit_message_area_set_default_response (GEDIT_MESSAGE_AREA (message_area),
 					    GTK_RESPONSE_CANCEL);
 
       gtk_widget_show (message_area);
