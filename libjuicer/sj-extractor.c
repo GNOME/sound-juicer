@@ -148,6 +148,7 @@ sj_extractor_dispose (GObject *object)
   }
 
   if (priv->pipeline) {
+    gst_element_set_state (priv->pipeline, GST_STATE_NULL);
     g_object_unref (priv->pipeline);
     priv->pipeline = NULL;
   }
@@ -159,14 +160,12 @@ static void
 sj_extractor_finalize (GObject *object)
 {
   SjExtractorPrivate *priv = SJ_EXTRACTOR (object)->priv;
-
-  if (priv->pipeline)
-    gst_element_set_state (priv->pipeline, GST_STATE_NULL);
-
+  
   if (priv->tick_id)
     g_source_remove (priv->tick_id);
 
   g_free (priv->device_path);
+  
   if (priv->construct_error)
     g_error_free (priv->construct_error);
 
