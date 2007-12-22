@@ -124,6 +124,11 @@ extern gboolean strip_chars;
 extern gboolean eject_finished;
 
 /**
+ * If the destination folder should be opened when the rip has finished.
+ */
+extern gboolean open_finished;
+
+/**
  * If we are in auto-start mode
  */
 extern gboolean autostart;
@@ -144,6 +149,7 @@ void sj_debug (SjDebugDomain domain, const gchar* format, ...);
 #define GCONF_ROOT "/apps/sound-juicer"
 #define GCONF_DEVICE GCONF_ROOT "/device"
 #define GCONF_EJECT GCONF_ROOT "/eject"
+#define GCONF_OPEN GCONF_ROOT "/open_completed"
 #define GCONF_BASEPATH GCONF_ROOT "/base_path"
 #define GCONF_BASEURI GCONF_ROOT "/base_uri"
 #define GCONF_FILE_PATTERN GCONF_ROOT "/file_pattern"

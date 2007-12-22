@@ -1,5 +1,26 @@
 2007-12-22  Ross Burton  <ross@burtonini.com>
 
+	* data/sound-juicer.schemas.in:
+	Add "open folder when finished" schema.
+
+	* data/sound-juicer.glade:
+	Add "open folder when finished" check box.
+
+	* src/sj-prefs.c:
+	Hook up GConf option to the check box.
+	
+	* src/sj-main.c:
+	* src/sound-juicer.h:
+	Add global boolean open_finished, and hook it up to GConf.
+
+	* src/sj-extracting.c:
+	Don't show a dialog when the rip is finished, instead just eject
+	or open the target folder.
+
+	Closes #504639.  Merry Christmas Luis. :)
+
+2007-12-22  Ross Burton  <ross@burtonini.com>
+
 	* src/sj-main.[ch]:
 	* src/sj-prefs.c:
 	Make the gconf callbacks static, and fix some cast/type-punned warnings.

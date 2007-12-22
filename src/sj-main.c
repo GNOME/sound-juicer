@@ -89,6 +89,7 @@ char *base_uri;
 NautilusBurnDrive *drive = NULL;
 gboolean strip_chars;
 gboolean eject_finished;
+gboolean open_finished;
 gboolean extracting = FALSE;
 
 static gint total_no_of_tracks;
@@ -764,6 +765,19 @@ static void eject_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *en
     eject_finished = FALSE;
   } else {
     eject_finished = gconf_value_get_bool (entry->value);
+  }
+}
+
+/**
+ * The GConf key for the eject when finished option changed
+ */
+static void open_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+{
+  g_assert (strcmp (entry->key, GCONF_OPEN) == 0);
+  if (entry->value == NULL) {
+    open_finished = FALSE;
+  } else {
+    open_finished = gconf_value_get_bool (entry->value);
   }
 }
 
@@ -1541,6 +1555,7 @@ int main (int argc, char **argv)
   gconf_client_add_dir (gconf_client, GCONF_ROOT, GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
   gconf_client_notify_add (gconf_client, GCONF_DEVICE, device_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_EJECT, eject_changed_cb, NULL, NULL, NULL);
+  gconf_client_notify_add (gconf_client, GCONF_OPEN, open_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_BASEURI, baseuri_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_STRIP, strip_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_AUDIO_PROFILE, profile_changed_cb, NULL, NULL, NULL);
@@ -1705,6 +1720,7 @@ int main (int argc, char **argv)
   paranoia_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PARANOIA, NULL, TRUE, NULL), NULL);
   strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);
   eject_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_EJECT, NULL, TRUE, NULL), NULL);
+  open_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_OPEN, NULL, TRUE, NULL), NULL);
   audio_volume_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_AUDIO_VOLUME, NULL, TRUE, NULL), NULL);
   if (device == NULL) {
     device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), GINT_TO_POINTER (TRUE));

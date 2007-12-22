@@ -40,7 +40,7 @@ extern GladeXML *glade;
 extern GtkWidget *main_window;
 
 static GtkWidget *audio_profile;
-static GtkWidget *cd_option, *path_option, *file_option, *basepath_fcb, *check_strip, *check_eject;
+static GtkWidget *cd_option, *path_option, *file_option, *basepath_fcb, *check_strip, *check_eject, *check_open;
 static GtkWidget *path_example_label;
 
 #define DEFAULT_AUDIO_PROFILE_NAME "cdlossy"
@@ -396,6 +396,7 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     audio_profile = glade_xml_get_widget (glade, "audio_profile");
     check_strip = glade_xml_get_widget (glade, "check_strip");
     check_eject = glade_xml_get_widget (glade, "check_eject");
+    check_open = glade_xml_get_widget (glade, "check_open");
     path_example_label = glade_xml_get_widget (glade, "path_example_label");
 
     populate_pattern_combo (GTK_COMBO_BOX (path_option), path_patterns);
@@ -405,6 +406,7 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
 
     /* Connect to GConf to update the UI */
     gconf_bridge_bind_property (bridge, GCONF_EJECT, G_OBJECT (check_eject), "active");
+    gconf_bridge_bind_property (bridge, GCONF_OPEN, G_OBJECT (check_open), "active");
     gconf_bridge_bind_property (bridge, GCONF_STRIP, G_OBJECT (check_strip), "active");
     gconf_bridge_bind_property (bridge, GCONF_DEVICE, G_OBJECT (cd_option), "device");
     gconf_client_notify_add (gconf_client, GCONF_BASEURI, baseuri_changed_cb, NULL, NULL, NULL);

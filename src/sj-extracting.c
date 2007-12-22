@@ -28,16 +28,7 @@
 #include <glib/glist.h>
 #include <libgnomevfs/gnome-vfs-ops.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
-#include <gtk/gtklabel.h>
-#include <gtk/gtkmain.h>
-#include <gtk/gtkmessagedialog.h>
-#include <gtk/gtkprogressbar.h>
-#include <gtk/gtkstatusbar.h>
-#include <gtk/gtkimage.h>
-#include <gtk/gtkstatusbar.h>
-#include <gtk/gtkimage.h>
-#include <gtk/gtkstock.h>
-#include <gtk/gtktreemodel.h>
+#include <gtk/gtk.h>
 
 #include "sj-error.h"
 #include "sj-extracting.h"
@@ -532,58 +523,35 @@ on_main_window_focus_in (GtkWidget * widget, GdkEventFocus * event, gpointer dat
 }
 
 /**
- * Show the "Finished!" dialog, allowing the user to open Nautilus if he wants.
+ * Handle any post-rip actions
  */
 static void
-show_finished_dialog (const TrackDetails *track)
+finished_actions (void)
 {
-  GtkWidget *dialog;
-  int result;
-  char *base;
-
-  base = NULL;
-  /* Find the deepest common directory. */
-  g_list_foreach (paths, (GFunc)base_finder, &base);
-
-  cleanup ();
-
-  char *message;
-  message = g_strdup_printf (_("%s has been copied successfully."), track->album->title);
-
-  dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
-                                   GTK_DIALOG_DESTROY_WITH_PARENT,
-                                   GTK_MESSAGE_INFO,
-                                   GTK_BUTTONS_NONE,
-                                   (message));
-
-  g_free (message);
-  /* If we eject when finished, eject now, otherwise add a button */
-  if (eject_finished) {
-    nautilus_burn_drive_eject (drive);
-  } else {
-    gtk_dialog_add_buttons (GTK_DIALOG (dialog), _("_Eject"), 2, NULL);
-  }
-
   /* Trigger glowing effect after copy */
-  g_signal_connect (G_OBJECT (dialog), "focus-in-event",  G_CALLBACK (on_main_window_focus_in),  NULL);
+  g_signal_connect (G_OBJECT (main_window), "focus-in-event",
+                    G_CALLBACK (on_main_window_focus_in),  NULL);
   gtk_window_set_urgency_hint (GTK_WINDOW (main_window), TRUE);
 
-  gtk_dialog_add_buttons (GTK_DIALOG (dialog),
-                          GTK_STOCK_OPEN, 1,
-                          GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
-                          NULL);
-  gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_CLOSE);
-  result = gtk_dialog_run (GTK_DIALOG (dialog));
-  gtk_widget_destroy (dialog);
-  if (result == 1) {
-    char *command;
-    command = g_strdup_printf ("gnome-open \"%s\"", base);
-    g_spawn_command_line_async (command, NULL);
-    g_free (command);
-  } else if (result == 2) {
+  /* Maybe eject */
+  if (eject_finished) {
     nautilus_burn_drive_eject (drive);
   }
-  g_free (base);
+  
+  /* Maybe open the target directory */
+  if (open_finished) {
+    char *base, *command;
+
+    base = NULL;
+    /* Find the deepest common directory. */
+    g_list_foreach (paths, (GFunc)base_finder, &base);
+    
+    command = g_strdup_printf ("gnome-open \"%s\"", base);
+    g_spawn_command_line_async (command, NULL);
+    
+    g_free (command);
+    g_free (base);
+  }
 }
 
 /**
@@ -612,8 +580,9 @@ on_completion_cb (SjExtractor *extractor, gpointer data)
     /* And go and do it all again */
     pop_and_extract ((int*)data);
   } else {
-    show_finished_dialog (track);
-    
+    finished_actions ();
+    cleanup ();
+
     if (autostart) {
       gtk_main_quit ();
     }
