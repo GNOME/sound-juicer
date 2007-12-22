@@ -35,35 +35,7 @@ void on_destroy_signal (GtkMenuItem *item, gpointer user_data);
 
 AlbumDetails* multiple_album_dialog (GList* albums);
 
-void baseuri_changed_cb (GConfClient *client, guint cnxn_id, 
-			 GConfEntry *entry, gpointer user_data);
-void path_pattern_changed_cb (GConfClient *client, guint cnxn_id, 
-			      GConfEntry *entry, gpointer user_data);
-void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, 
-			      GConfEntry *entry, gpointer user_data);
-void paranoia_changed_cb (GConfClient *client, guint cnxn_id, 
-			  GConfEntry *entry, gpointer user_data);
-void strip_changed_cb (GConfClient *client, guint cnxn_id, 
-		       GConfEntry *entry, gpointer user_data);
-void eject_changed_cb (GConfClient *client, guint cnxn_id, 
-		       GConfEntry *entry, gpointer user_data);
-void audio_volume_changed_cb (GConfClient *client, guint cnxn_id, 
-			      GConfEntry *entry, gpointer user_data);
-
 const char* prefs_get_default_device (void);
-
-void device_changed_cb (GConfClient *client, guint cnxn_id, 
-			GConfEntry *entry, gpointer user_data);
-void profile_changed_cb (GConfClient *client, guint cnxn_id, 
-			 GConfEntry *entry, gpointer user_data);
-
-void http_proxy_setup (GConfClient *client);
-void http_proxy_enable_changed_cb (GConfClient *client, guint cnxn_id, 
-				   GConfEntry *entry, gpointer user_data);
-void http_proxy_changed_cb (GConfClient *client, guint cnxn_id, 
-			    GConfEntry *entry, gpointer user_data);
-void http_proxy_port_changed_cb (GConfClient *client, guint cnxn_id, 
-				 GConfEntry *entry, gpointer user_data);
 
 void on_reread_activate (GtkWidget *button, gpointer user_data);
 void on_submit_activate (GtkWidget *menuitem, gpointer user_data);

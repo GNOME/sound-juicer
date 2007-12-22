@@ -221,7 +221,7 @@ static void pattern_label_update (void)
     NULL /* artist ID */
   };
   static const TrackDetails sample_track = {
-    &sample_album,  /*album */
+    (AlbumDetails*)&sample_album,  /*album */
     7, /* track number */
     "Ticket To Ride", /* title */
     "The Beatles", /* artist */
@@ -372,7 +372,7 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
 
     prefs_dialog = glade_xml_get_widget (glade, "prefs_dialog");
     g_assert (prefs_dialog != NULL);
-    g_object_add_weak_pointer (G_OBJECT (prefs_dialog), (gpointer*)&prefs_dialog);
+    g_object_add_weak_pointer (G_OBJECT (prefs_dialog), (gpointer)&prefs_dialog);
 
     gtk_window_set_transient_for (GTK_WINDOW (prefs_dialog), GTK_WINDOW (main_window));
 

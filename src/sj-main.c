@@ -424,7 +424,7 @@ set_message_area (GtkWidget *container,
 		      0);
 
   g_object_add_weak_pointer (G_OBJECT (current_message_area),
-			     (gpointer *)&current_message_area);
+			     (gpointer)&current_message_area);
 }
 
 static GtkWidget* musicbrainz_submit_message_area_new (char *title,
@@ -683,7 +683,7 @@ AlbumDetails* multiple_album_dialog(GList *albums)
 /**
  * The GConf key for the base path changed
  */
-void baseuri_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void baseuri_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   g_assert (strcmp (entry->key, GCONF_BASEURI) == 0);
   g_free (base_uri);
@@ -698,7 +698,7 @@ void baseuri_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, 
 /**
  * The GConf key for the directory pattern changed
  */
-void path_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void path_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   g_assert (strcmp (entry->key, GCONF_PATH_PATTERN) == 0);
   if (entry->value == NULL) {
@@ -713,7 +713,7 @@ void path_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *en
 /**
  * The GConf key for the filename pattern changed
  */
-void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   g_assert (strcmp (entry->key, GCONF_FILE_PATTERN) == 0);
   if (entry->value == NULL) {
@@ -728,7 +728,7 @@ void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *en
 /**
  * The GConf key for the paranoia mode has changed
  */
-void paranoia_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void paranoia_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   g_assert (strcmp (entry->key, GCONF_PARANOIA) == 0);
   if (entry->value == NULL) {
@@ -744,7 +744,7 @@ void paranoia_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry,
 /**
  * The GConf key for the strip characters option changed
  */
-void strip_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void strip_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   g_assert (strcmp (entry->key, GCONF_STRIP) == 0);
   if (entry->value == NULL) {
@@ -757,7 +757,7 @@ void strip_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gp
 /**
  * The GConf key for the eject when finished option changed
  */
-void eject_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void eject_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   g_assert (strcmp (entry->key, GCONF_EJECT) == 0);
   if (entry->value == NULL) {
@@ -770,7 +770,7 @@ void eject_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gp
 /**
  * The GConf key for audio volume changes
  */
-void audio_volume_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void audio_volume_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   g_assert (strcmp (entry->key, GCONF_AUDIO_VOLUME) == 0);
   
@@ -1085,7 +1085,7 @@ prefs_get_default_device (void)
 /**
  * The GConf key for the device changed
  */
-void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   const char *device;
   gboolean ignore_no_media = GPOINTER_TO_INT (user_data);
@@ -1116,7 +1116,7 @@ void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, g
   set_device (device, ignore_no_media);
 }
 
-void profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   GMAudioProfile *profile;
   
@@ -1151,7 +1151,7 @@ void profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, 
 /**
  * Configure the http proxy
  */
-void
+static void
 http_proxy_setup (GConfClient *client)
 {
   if (!gconf_client_get_bool (client, GCONF_HTTP_PROXY_ENABLE, NULL)) {
@@ -1171,7 +1171,7 @@ http_proxy_setup (GConfClient *client)
 /**
  * The GConf key for the HTTP proxy being enabled changed.
  */
-void http_proxy_enable_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void http_proxy_enable_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   g_assert (strcmp (entry->key, GCONF_HTTP_PROXY_ENABLE) == 0);
   if (entry->value == NULL) return;
@@ -1181,7 +1181,7 @@ void http_proxy_enable_changed_cb (GConfClient *client, guint cnxn_id, GConfEntr
 /**
  * The GConf key for the HTTP proxy changed.
  */
-void http_proxy_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void http_proxy_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   g_assert (strcmp (entry->key, GCONF_HTTP_PROXY) == 0);
   if (entry->value == NULL) return;
@@ -1191,7 +1191,7 @@ void http_proxy_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entr
 /**
  * The GConf key for the HTTP proxy port changed.
  */
-void http_proxy_port_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void http_proxy_port_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   g_assert (strcmp (entry->key, GCONF_HTTP_PROXY_PORT) == 0);
   if (entry->value == NULL) return;
