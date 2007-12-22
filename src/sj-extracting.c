@@ -580,6 +580,9 @@ on_completion_cb (SjExtractor *extractor, gpointer data)
     /* And go and do it all again */
     pop_and_extract ((int*)data);
   } else {
+    /* If we got here then the track state has been set to IDLE already, so
+       unset the current iterator */
+    current.stamp = 0;
     finished_actions ();
     cleanup ();
 
