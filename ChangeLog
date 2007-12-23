@@ -1,3 +1,16 @@
+2007-12-23  Ross Burton  <ross@burtonini.com>
+
+	* configure.in:
+	* src/sj-inhibit.[ch]:
+	* src/Makefile.am:
+	Add sj-inhibit, to (un)inhibit automatic suspension by
+	gnome-power-manager.
+
+	* src/sj-extracting.c:
+	Call sj-inhibit when extracting.
+
+	Closes #344947, thanks Carl-Anton Ingmarsson and GHOP.
+
 2007-12-22  Ross Burton  <ross@burtonini.com>
 
 	* src/sj-extracting.c:

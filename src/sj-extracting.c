@@ -34,6 +34,7 @@
 #include "sj-extracting.h"
 #include "sj-util.h"
 #include "sj-play.h"
+#include "sj-inhibit.h"
 
 
 typedef struct {
@@ -105,6 +106,11 @@ static int total_duration;
 static Progress before;
 
 /**
+* The cookie returned from PowerManagement
+*/
+static guint cookie;
+
+/**
  * Build the absolute filename for the specified track.
  *
  * The base path is the extern variable 'base_path', the format to use
@@ -163,6 +169,8 @@ cleanup (void)
   extracting = FALSE;
 
   nautilus_burn_drive_unlock (drive);
+
+  sj_uninhibit (cookie);
 
   /* Remove any state icons from the model */
   if (current.stamp) {
@@ -714,6 +722,9 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
     g_warning ("Could not lock drive: %s", reason);
     g_free (reason);
   }
+  
+  cookie = sj_inhibit (g_get_application_name (),
+                       _("Extracting audio from CD"));
 
   /* Start the extracting */
   extracting = TRUE;
