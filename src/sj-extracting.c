@@ -24,10 +24,13 @@
 
 #include <sys/time.h>
 #include <time.h>
+#include <string.h>
 
 #include <glib/glist.h>
 #include <libgnomevfs/gnome-vfs-ops.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
+#include <libgnomevfs/gnome-vfs-volume.h>
+#include <libgnomevfs/gnome-vfs-volume-monitor.h>
 #include <gtk/gtk.h>
 
 #include "sj-error.h"
@@ -749,7 +752,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
  * string.
  */
 static char*
-sanitize_path (const char* str)
+sanitize_path (const char* str, const char* filesystem_type)
 {
   gchar *res = NULL;
   gchar *s;
@@ -761,6 +764,15 @@ sanitize_path (const char* str)
   s = g_strdup(str);
   /* Replace path seperators with a hyphen */
   g_strdelimit (s, "/", '-');
+  
+  /* filesystem specific sanitizing */
+  if (filesystem_type) {
+    if ((strcmp (filesystem_type, "vfat") == 0) ||
+        (strcmp (filesystem_type, "ntfs") == 0)) {
+      g_strdelimit (s, "\\:*?\"<>|", ' ');
+    }
+  }
+    
   if (strip_chars) {
     /* Replace separators with a hyphen */
     g_strdelimit (s, "\\:|", '-');
@@ -798,11 +810,23 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
 {
   /* p is the pattern iterator, i is a general purpose iterator */
   const char *p;
-  char *tmp, *str;
+  char *tmp, *str, *base_path, *filesystem_type = NULL;
   GString *s;
+  GnomeVFSVolumeMonitor *monitor;
+  GnomeVFSVolume *volume;
 
   if (pattern == NULL || pattern[0] == 0)
     return g_strdup (" ");
+    
+  if ((base_path = gnome_vfs_get_local_path_from_uri (base_uri))) {
+    monitor = gnome_vfs_get_volume_monitor ();
+    
+    if ((volume = gnome_vfs_volume_monitor_get_volume_for_path (monitor, base_path))) {
+      filesystem_type = gnome_vfs_volume_get_filesystem_type (volume);
+      gnome_vfs_volume_unref (volume);
+    }
+    g_free (base_path);
+  }
 
   s = g_string_new (NULL);
 
@@ -837,27 +861,27 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
        */
       switch (*++p) {
       case 't':
-        string = sanitize_path (track->album->title);
+        string = sanitize_path (track->album->title, filesystem_type);
         break;
       case 'T':
         tmp = g_utf8_strdown (track->album->title, -1);
-        string = sanitize_path (tmp);
+        string = sanitize_path (tmp, filesystem_type);
         g_free (tmp);
         break;
       case 'a':
-        string = sanitize_path (track->album->artist);
+        string = sanitize_path (track->album->artist, filesystem_type);
         break;
       case 'A':
         tmp = g_utf8_strdown (track->album->artist, -1);
-        string = sanitize_path (tmp);
+        string = sanitize_path (tmp, filesystem_type);
         g_free (tmp);
         break;
       case 's':
-        string = sanitize_path (track->album->artist_sortname ? track->album->artist_sortname : track->album->artist);
+        string = sanitize_path (track->album->artist_sortname ? track->album->artist_sortname : track->album->artist, filesystem_type);
         break;
       case 'S':
         tmp = g_utf8_strdown (track->album->artist_sortname ? track->album->artist_sortname : track->album->artist, -1);
-        string = sanitize_path (tmp);
+        string = sanitize_path (tmp, filesystem_type);
         g_free(tmp);
         break;
       default:
@@ -876,27 +900,27 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
        */
       switch (*++p) {
       case 't':
-        string = sanitize_path (track->title);
+        string = sanitize_path (track->title, filesystem_type);
         break;
       case 'T':
         tmp = g_utf8_strdown (track->title, -1);
-        string = sanitize_path (tmp);
+        string = sanitize_path (tmp, filesystem_type);
         g_free(tmp);
         break;
       case 'a':
-        string = sanitize_path (track->artist);
+        string = sanitize_path (track->artist, filesystem_type);
         break;
       case 'A':
         tmp = g_utf8_strdown (track->artist, -1);
-        string = sanitize_path (tmp);
+        string = sanitize_path (tmp, filesystem_type);
         g_free(tmp);
         break;
       case 's':
-        string = sanitize_path (track->artist_sortname ? track->album->artist_sortname : track->artist);
+        string = sanitize_path (track->artist_sortname ? track->album->artist_sortname : track->artist, filesystem_type);
         break;
       case 'S':
         tmp = g_utf8_strdown (track->artist_sortname ? track->album->artist_sortname : track->artist, -1);
-        string = sanitize_path (tmp);
+        string = sanitize_path (tmp, filesystem_type);
         g_free(tmp);
         break;
       case 'n':
@@ -933,6 +957,8 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
     if (go_next)
       ++p;
   }
+  
+  g_free (filesystem_type); 
 
   str = s->str;
   g_string_free (s, FALSE);

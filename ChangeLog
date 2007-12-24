@@ -1,3 +1,10 @@
+2007-12-24  Ross Burton  <ross@burtonini.com>
+
+	* src/sj-extracting.c:
+	Detect the target file system and if its VFAT or NTFS, strip
+	characters which it can't handle.  Thanks to Carl-Anton Ingmarsson
+	and GHOP (#321436).
+
 2007-12-23  Ross Burton  <ross@burtonini.com>
 
 	* configure.in:
