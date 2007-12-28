@@ -682,17 +682,25 @@
       <child>
 	<widget class="GtkHBox" id="hbox13">
 	  <property name="visible">True</property>
+	  <property name="height_request">22</property>
 	  <property name="homogeneous">False</property>
 	  <property name="spacing">0</property>
 
 	  <child>
-	    <widget class="GtkProgressBar" id="progress_bar">
-	      <property name="visible">True</property>
-	      <property name="orientation">GTK_PROGRESS_LEFT_TO_RIGHT</property>
-	      <property name="fraction">0</property>
-	      <property name="pulse_step">0.10000000149</property>
-	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-	    </widget>
+	    <widget class="GtkAlignment" id="alignment1">
+              <property name="visible">True</property>
+              <property name="top_padding">2</property>
+              <property name="bottom_padding">2</property>
+              <child>
+	        <widget class="GtkProgressBar" id="progress_bar">
+	          <property name="visible">True</property>
+	          <property name="orientation">GTK_PROGRESS_LEFT_TO_RIGHT</property>
+	          <property name="fraction">0</property>
+	          <property name="pulse_step">0.10000000149</property>
+	          <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	        </widget>
+	      </child>
+            </widget>  
 	    <packing>
 	      <property name="padding">0</property>
 	      <property name="expand">False</property>
