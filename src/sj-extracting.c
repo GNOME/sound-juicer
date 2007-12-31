@@ -38,7 +38,7 @@
 #include "sj-util.h"
 #include "sj-play.h"
 #include "sj-inhibit.h"
-
+#include "sj-genres.h"
 
 typedef struct {
   int seconds;
@@ -728,6 +728,9 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   
   cookie = sj_inhibit (g_get_application_name (),
                        _("Extracting audio from CD"));
+
+  /* Save the genre */
+  save_genre (genre_entry);
 
   /* Start the extracting */
   extracting = TRUE;

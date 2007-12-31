@@ -15,6 +15,8 @@ sound_juicer_SOURCES = \
 	sj-extracting.c \
 	sj-inhibit.h \
 	sj-inhibit.c \
+	sj-genres.h \
+	sj-genres.c \
 	gedit-message-area.h \
 	gedit-message-area.c \
 	gconf-bridge.h \

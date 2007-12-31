@@ -52,6 +52,7 @@
 #include "sj-main.h"
 #include "sj-prefs.h"
 #include "sj-play.h"
+#include "sj-genres.h"
 #include "gedit-message-area.h"
 #include "bacon-volume.h"
 
@@ -1413,42 +1414,6 @@ void on_contents_activate(GtkWidget *button, gpointer user_data) {
   }
 }
 
-
-static const char* const genres[] = {
-  "Ambient",
-  "Blues",
-  "Classical",
-  "Country",
-  "Dance",
-  "Electronica",
-  "Folk",
-  "Funk",
-  "Jazz",
-  "Latin",
-  "Pop",
-  "Rap",
-  "Reggae",
-  "Rock",
-  "Soul",
-  "Spoken Word",
-  NULL
-};
-
-static GtkTreeModel* create_genre_list(void) {
-  GtkListStore *store;
-  const char * const *g = genres;
-
-  store = gtk_list_store_new (1, G_TYPE_STRING);
-
-  while (*g != NULL) {
-    GtkTreeIter iter;
-    gtk_list_store_append (store, &iter);
-    gtk_list_store_set (store, &iter, 0, *g++, -1);
-  }
-
-  return GTK_TREE_MODEL (store);
-}
-
 GtkWidget *
 sj_make_volume_button (void)
 {
@@ -1624,14 +1589,7 @@ int main (int argc, char **argv)
     gtk_size_group_add_widget (size_group, play_button);
   }
 
-  {
-    GtkEntryCompletion *completion;
-    completion = gtk_entry_completion_new ();
-    gtk_entry_completion_set_model (completion, create_genre_list ());
-    gtk_entry_completion_set_text_column (completion, 0);
-    gtk_entry_completion_set_inline_completion (completion, TRUE);
-    gtk_entry_set_completion (GTK_ENTRY (genre_entry), completion);
-  }
+  setup_genre_entry (genre_entry);
 
   track_store = gtk_list_store_new (COLUMN_TOTAL, G_TYPE_INT, G_TYPE_BOOLEAN, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_POINTER);
   gtk_tree_view_set_model (GTK_TREE_VIEW (track_listview), GTK_TREE_MODEL (track_store));
