@@ -2,18 +2,18 @@
 # Estonian translation of Sound-juicer.
 #
 # Copyright (C) 2005, 2006 The Gnome Project
-# Copyright (C) 2007 The GNOME Project.
+# Copyright (C) 2007, 2008 The GNOME Project.
 # This file is distributed under the same license as the sound-juicer package.
 #
 # Priit Laes <amd store20 com>, 2005, 2006.
-# Ivar Smolin <okul@linux.ee>, 2005-2007.
+# Ivar Smolin <okul@linux.ee>, 2005-2008.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-22 14:37+0000\n"
-"PO-Revision-Date: 2007-12-28 09:49+0200\n"
+"POT-Creation-Date: 2008-01-01 16:24+0000\n"
+"PO-Revision-Date: 2008-01-01 21:24+0200\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -113,8 +113,8 @@ msgstr "Liigu järgmisele loole"
 msgid "Skip to the previous track"
 msgstr "Liigu eelmisele loole"
 
-#: ../data/sound-juicer.glade.h:21 ../src/sj-main.c:173 ../src/sj-main.c:175
-#: ../src/sj-main.c:1523
+#: ../data/sound-juicer.glade.h:21 ../src/sj-main.c:174 ../src/sj-main.c:176
+#: ../src/sj-main.c:1488
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -138,7 +138,7 @@ msgstr "Rajad"
 msgid "_Contents"
 msgstr "_Sisukord"
 
-#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:266
+#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:267
 msgid "_Continue"
 msgstr "_Jätka"
 
@@ -493,14 +493,14 @@ msgstr "Audio CD-de rippija"
 msgid "translator-credits"
 msgstr ""
 "Priit Laes <amd@store20.com>, 2005. 2006\n"
-"Ivar Smolin <okul@linux.ee>, 2005-2007."
+"Ivar Smolin <okul@linux.ee>, 2005-2008."
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:182
+#: ../src/sj-extracting.c:193
 msgid "Extract"
 msgstr "Ripi"
 
-#: ../src/sj-extracting.c:249
+#: ../src/sj-extracting.c:260
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -509,25 +509,25 @@ msgstr ""
 "Fail nimega '%s' ja suurusega %s on olemas.\n"
 "Kas soovid selle raja vahele jätta või faili üle kirjutada?"
 
-#: ../src/sj-extracting.c:253
+#: ../src/sj-extracting.c:264
 msgid "_Skip"
 msgstr "_Jäta vahele"
 
-#: ../src/sj-extracting.c:254
+#: ../src/sj-extracting.c:265
 msgid "S_kip All"
 msgstr "Jä_ta kõik vahele"
 
-#: ../src/sj-extracting.c:255
+#: ../src/sj-extracting.c:266
 msgid "_Overwrite"
 msgstr "_Kirjuta üle"
 
-#: ../src/sj-extracting.c:256
+#: ../src/sj-extracting.c:267
 msgid "Overwrite _All"
 msgstr "Ki_rjuta kõik üle"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:341 ../src/sj-extracting.c:394
-#: ../src/sj-extracting.c:601
+#: ../src/sj-extracting.c:352 ../src/sj-extracting.c:405
+#: ../src/sj-extracting.c:615
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -536,132 +536,137 @@ msgstr ""
 "Sound Juicer ei suuda seda CD-d rippida.\n"
 "Põhjus: %s"
 
-#: ../src/sj-extracting.c:442
+#: ../src/sj-extracting.c:453
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Hinnanguliselt aega lõpuni: %d:%02d (%0.1fx-kordsel kiirusel)"
 
-#: ../src/sj-extracting.c:444
+#: ../src/sj-extracting.c:455
 msgid "Estimated time left: unknown"
 msgstr "Hinnanguliselt aega lõpuni: teadmata"
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:684
+#: ../src/sj-extracting.c:698
 msgid "Stop"
 msgstr "Seiska"
 
-#: ../src/sj-extracting.c:710
+#: ../src/sj-extracting.c:724 ../src/sj-extracting.c:730
 msgid "Extracting audio from CD"
 msgstr "Muusika rippimine CD-lt"
 
-#: ../src/sj-main.c:150
+#: ../src/sj-genres.c:185
+#, c-format
+msgid "Error while saving custom genre: %s"
+msgstr "Viga kohandatud žanri salvestamisel: %s"
+
+#: ../src/sj-main.c:151
 msgid "E_xtract"
 msgstr "_Ripi"
 
-#: ../src/sj-main.c:218
+#: ../src/sj-main.c:219
 msgid "Could not start Sound Juicer"
 msgstr "Sound Juicer'i käivitamine pole võimalik"
 
-#: ../src/sj-main.c:219 ../src/sj-main.c:818 ../src/sj-main.c:927
-#: ../src/sj-main.c:1033 ../src/sj-main.c:1241
+#: ../src/sj-main.c:220 ../src/sj-main.c:819 ../src/sj-main.c:928
+#: ../src/sj-main.c:1034 ../src/sj-main.c:1242
 msgid "Reason"
 msgstr "Põhjus"
 
-#: ../src/sj-main.c:221
+#: ../src/sj-main.c:222
 msgid "Please consult the documentation for assistance."
 msgstr "Abi saamiseks vaata dokumentatsioonist järele."
 
-#: ../src/sj-main.c:264
+#: ../src/sj-main.c:265
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr ""
 "Sa ripid hetkel seda CD-d. Kas sa soovid praegu väljuda või hoopis jätkata."
 
-#: ../src/sj-main.c:324 ../src/sj-main.c:553
+#: ../src/sj-main.c:325 ../src/sj-main.c:554
 msgid "(unknown)"
 msgstr "(tundmatu)"
 
-#: ../src/sj-main.c:443
+#: ../src/sj-main.c:444
 msgid "_Submit Album"
 msgstr "_Saada albumi andmed"
 
 #. Translators: title, artist
-#: ../src/sj-main.c:450
+#: ../src/sj-main.c:451
 #, c-format
 msgid "Could not find %s by %s on MusicBrainz."
 msgstr "Esitaja %2$s lugu %1$s pole võimalik MusicBrainz'i andmebaasist leida."
 
-#: ../src/sj-main.c:455
+#: ../src/sj-main.c:456
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr ""
 "Sul on võimalik selle albumi lisamisega täiendada MusicBrainz'i andmebaasi."
 
-#: ../src/sj-main.c:632 ../src/sj-main.c:1667
+#: ../src/sj-main.c:633 ../src/sj-main.c:1625
 msgid "Title"
 msgstr "Pealkiri"
 
-#: ../src/sj-main.c:638 ../src/sj-main.c:1676
+#: ../src/sj-main.c:639 ../src/sj-main.c:1634
 msgid "Artist"
 msgstr "Esitaja"
 
-#: ../src/sj-main.c:816 ../src/sj-main.c:925 ../src/sj-main.c:1031
+#: ../src/sj-main.c:817 ../src/sj-main.c:926 ../src/sj-main.c:1032
 msgid "Could not read the CD"
 msgstr "CD-plaati pole võimalik lugeda"
 
-#: ../src/sj-main.c:817 ../src/sj-main.c:926
+#: ../src/sj-main.c:818 ../src/sj-main.c:927
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer ei suuda lugeda CD-l asuvate radade nimekirja."
 
 #. Set statusbar message
-#: ../src/sj-main.c:897
+#: ../src/sj-main.c:898
 msgid "Retrieving track listing...please wait."
 msgstr "Lugude nimekirja allalaadimine...palun oota."
 
-#: ../src/sj-main.c:992
+#: ../src/sj-main.c:993
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Sound Juicer ei pääse CD-ROM seadmele '%s' ligi"
 
-#: ../src/sj-main.c:999
+#: ../src/sj-main.c:1000
 msgid "HAL daemon may not be running."
 msgstr "HAL-deemon võib mitte töötada."
 
-#: ../src/sj-main.c:1024
+#: ../src/sj-main.c:1025
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer ei pääse CD-ROM seadmele '%s' ligi"
 
-#: ../src/sj-main.c:1119
+#: ../src/sj-main.c:1120
 msgid "No CD-ROM drives found"
 msgstr "CD-ROM seadmeid ei leitud"
 
-#: ../src/sj-main.c:1120
+#: ../src/sj-main.c:1121
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer ei leidnud ühtegi loetavat CD-ROM ketast."
 
-#: ../src/sj-main.c:1151
+#: ../src/sj-main.c:1152
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Hetkel valitud heliprofiil ei ole sinu paigaldusega kättesaadav."
 
-#: ../src/sj-main.c:1153
+#: ../src/sj-main.c:1154
 msgid "_Change Profile"
 msgstr "_Muuda profiili"
 
-#: ../src/sj-main.c:1239
+#: ../src/sj-main.c:1240
 msgid "Could not open URL"
 msgstr "URL-i pole võimalik avada"
 
-#: ../src/sj-main.c:1240
+#: ../src/sj-main.c:1241
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer ei suuda avada andmete saatmise URL-i."
 
-#: ../src/sj-main.c:1349
+#: ../src/sj-main.c:1350
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Tundmatut tulpa %d on redigeeritud"
 
-#: ../src/sj-main.c:1405 ../src/sj-prefs.c:105
+#: ../src/sj-main.c:1406 ../src/sj-prefs.c:105
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -670,39 +675,39 @@ msgstr ""
 "Sound Juicer'i abiteavet pole võimalik kuvada\n"
 "%s"
 
-#: ../src/sj-main.c:1498
+#: ../src/sj-main.c:1463
 msgid "Start extracting immediately"
 msgstr "Rippimise kohene alustamine"
 
-#: ../src/sj-main.c:1499
+#: ../src/sj-main.c:1464
 msgid "Start playing immediately"
 msgstr "Esitamise kohene alustamine"
 
-#: ../src/sj-main.c:1500
+#: ../src/sj-main.c:1465
 msgid "What CD device to read"
 msgstr "Millist CD-seadet lugeda"
 
-#: ../src/sj-main.c:1500
+#: ../src/sj-main.c:1465
 msgid "DEVICE"
 msgstr "SEADE"
 
-#: ../src/sj-main.c:1510
+#: ../src/sj-main.c:1475
 msgid "- Extract music from your CDs"
 msgstr "- Salvesta muusikat oma CD-plaatidelt"
 
-#: ../src/sj-main.c:1549
+#: ../src/sj-main.c:1514
 msgid "Could not create GConf client.\n"
 msgstr "GConf klienti pole võimalik luua.\n"
 
-#: ../src/sj-main.c:1581
+#: ../src/sj-main.c:1546
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Sound Juicer'i liidesefail ei ole loetav."
 
-#: ../src/sj-main.c:1652
+#: ../src/sj-main.c:1610
 msgid "Track"
 msgstr "Lugu"
 
-#: ../src/sj-main.c:1687
+#: ../src/sj-main.c:1645
 msgid "Duration"
 msgstr "Kestus"
 
