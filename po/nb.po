@@ -1,15 +1,15 @@
 # Norwegian bokmål translation for sound-juicer.
 # Copyright (C) 2003-2005 Free Software Foundation.
 # This file is distributed under the same license as the sound-juicer package.
-# Kjartan Maraas <kmaraas@gnome.org>, 2003-2006.
+# Kjartan Maraas <kmaraas@gnome.org>, 2003-2008.
 # Terance Edward Sola <terance@lyse.net>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 2.13.x\n"
+"Project-Id-Version: 2.21.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-20 08:45+0100\n"
-"PO-Revision-Date: 2007-12-20 08:47+0100\n"
+"POT-Creation-Date: 2008-01-03 22:39+0100\n"
+"PO-Revision-Date: 2008-01-03 22:40+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -109,8 +109,8 @@ msgstr "Hopp til neste spor"
 msgid "Skip to the previous track"
 msgstr "Hopp til forrige spor"
 
-#: ../data/sound-juicer.glade.h:21 ../src/sj-main.c:172 ../src/sj-main.c:174
-#: ../src/sj-main.c:1509
+#: ../data/sound-juicer.glade.h:21 ../src/sj-main.c:174 ../src/sj-main.c:176
+#: ../src/sj-main.c:1495
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -134,7 +134,7 @@ msgstr "Spor"
 msgid "_Contents"
 msgstr "_Innhold"
 
-#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:265
+#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:267
 msgid "_Continue"
 msgstr "_Fortsett"
 
@@ -167,22 +167,26 @@ msgid "_Next Track"
 msgstr "_Neste spor"
 
 #: ../data/sound-juicer.glade.h:34
+msgid "_Open music folder when finished"
+msgstr "_Åpne musikkmappen ved fullføring"
+
+#: ../data/sound-juicer.glade.h:35
 msgid "_Play / Pause"
 msgstr "S_pill / Pause"
 
-#: ../data/sound-juicer.glade.h:35
+#: ../data/sound-juicer.glade.h:36
 msgid "_Re-read Disc"
 msgstr "_Gj_enles plate"
 
-#: ../data/sound-juicer.glade.h:36
+#: ../data/sound-juicer.glade.h:37
 msgid "_Select All"
 msgstr "_Velg alle"
 
-#: ../data/sound-juicer.glade.h:37
+#: ../data/sound-juicer.glade.h:38
 msgid "_Strip special characters"
 msgstr "_Fjern spesielle tegn"
 
-#: ../data/sound-juicer.glade.h:38
+#: ../data/sound-juicer.glade.h:39
 msgid "_Submit Track Names..."
 msgstr "_Send inn navn på spor..."
 
@@ -276,67 +280,71 @@ msgstr "Paranoiamodus som skal brukes"
 msgid "Whether to eject the CD when finished extracting."
 msgstr "Om CDen skal løses ut når uthenting av sanger er fullført."
 
-#: ../libjuicer/sj-extractor.c:194
+#: ../data/sound-juicer.schemas.in.h:17
+msgid "Whether to open the target directory when finished extracting."
+msgstr "Om målkatalogen skal åpnes ut når uthenting av sanger er fullført."
+
+#: ../libjuicer/sj-extractor.c:193
 msgid "Audio Profile"
 msgstr "Lydprofil"
 
-#: ../libjuicer/sj-extractor.c:195
+#: ../libjuicer/sj-extractor.c:194
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "GNOME lydprofil som brukes for koding av lyd"
 
-#: ../libjuicer/sj-extractor.c:201
+#: ../libjuicer/sj-extractor.c:200
 msgid "Paranoia Level"
 msgstr "Paranoianivå"
 
-#: ../libjuicer/sj-extractor.c:202
+#: ../libjuicer/sj-extractor.c:201
 msgid "The paranoia level"
 msgstr "Paranoianivå"
 
-#: ../libjuicer/sj-extractor.c:207
+#: ../libjuicer/sj-extractor.c:206
 msgid "device"
 msgstr "enhet"
 
-#: ../libjuicer/sj-extractor.c:208
+#: ../libjuicer/sj-extractor.c:207
 msgid "The device"
 msgstr "Enheten"
 
-#: ../libjuicer/sj-extractor.c:347
+#: ../libjuicer/sj-extractor.c:346
 #, c-format
 msgid "Could not create GStreamer CD reader"
 msgstr "Kunne ikke opprette CD-leser for GStreamer"
 
-#: ../libjuicer/sj-extractor.c:369
+#: ../libjuicer/sj-extractor.c:368
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Kunne ikke opprette GStreamer-koder for %s"
 
-#: ../libjuicer/sj-extractor.c:380
+#: ../libjuicer/sj-extractor.c:379
 #, c-format
 msgid "Could not create GStreamer file output"
 msgstr "Kunne ikke opprette GStreamer utdata for fil"
 
-#: ../libjuicer/sj-extractor.c:392
+#: ../libjuicer/sj-extractor.c:391
 #, c-format
 msgid "Could not link pipeline"
 msgstr "Kunne ikke sette sammen rør"
 
-#: ../libjuicer/sj-extractor.c:416
+#: ../libjuicer/sj-extractor.c:415
 msgid "Could not get current track position"
 msgstr "Kunne ikke finne posisjon i aktivt spor"
 
-#: ../libjuicer/sj-extractor.c:445
+#: ../libjuicer/sj-extractor.c:444
 #, c-format
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Ekstraktobjektet er ikke gyldig. Dette er ikke bra. Sjekk konsollet for feil."
 
-#: ../libjuicer/sj-extractor.c:636
+#: ../libjuicer/sj-extractor.c:635
 #, c-format
 msgid "The plugin necessary for CD access was not found"
 msgstr "Tillegg som kreves for aksess til CD ble ikke funnet"
 
-#: ../libjuicer/sj-extractor.c:644
+#: ../libjuicer/sj-extractor.c:643
 #, c-format
 msgid "The plugin necessary for file access was not found"
 msgstr "Tillegg som kreves for filaksess ble ikke funnet"
@@ -487,11 +495,11 @@ msgid "translator-credits"
 msgstr "Kjartan Maraas <kmaraas@gnome.org>"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:191
+#: ../src/sj-extracting.c:193
 msgid "Extract"
 msgstr "Hent ut"
 
-#: ../src/sj-extracting.c:258
+#: ../src/sj-extracting.c:260
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -500,25 +508,25 @@ msgstr ""
 "En fil med navn «%s» eksisterer, størrelsen er %s.\n"
 "Vil du hoppe over dette sporet eller overskrive den?"
 
-#: ../src/sj-extracting.c:262
+#: ../src/sj-extracting.c:264
 msgid "_Skip"
 msgstr "_Hopp over"
 
-#: ../src/sj-extracting.c:263
+#: ../src/sj-extracting.c:265
 msgid "S_kip All"
 msgstr "_Hopp over alle"
 
-#: ../src/sj-extracting.c:264
+#: ../src/sj-extracting.c:266
 msgid "_Overwrite"
 msgstr "_Overskriv"
 
-#: ../src/sj-extracting.c:265
+#: ../src/sj-extracting.c:267
 msgid "Overwrite _All"
 msgstr "Overskriv _alle"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:350 ../src/sj-extracting.c:403
-#: ../src/sj-extracting.c:632
+#: ../src/sj-extracting.c:352 ../src/sj-extracting.c:405
+#: ../src/sj-extracting.c:615
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -527,139 +535,135 @@ msgstr ""
 "Sound Juicer kunne ikke hente ut denne CDen.\n"
 "Årsak: %s"
 
-#: ../src/sj-extracting.c:451
+#: ../src/sj-extracting.c:453
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Estimert tid som gjenstår: %d:%02d (ved %0.1fx)"
 
-#: ../src/sj-extracting.c:453
+#: ../src/sj-extracting.c:455
 msgid "Estimated time left: unknown"
 msgstr "Beregnet tid som gjenstår: ukjent"
 
-#: ../src/sj-extracting.c:551
-#, c-format
-msgid "%s has been copied successfully."
-msgstr "Kopiering av %s er fullført."
-
-#: ../src/sj-extracting.c:564
-msgid "_Eject"
-msgstr "_Løs ut"
-
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:715
+#: ../src/sj-extracting.c:698
 msgid "Stop"
 msgstr "Stopp"
 
-#: ../src/sj-extracting.c:741
+#: ../src/sj-extracting.c:724 ../src/sj-extracting.c:730
 msgid "Extracting audio from CD"
 msgstr "Henter musikk fra CD'en"
 
-#: ../src/sj-main.c:149
+#: ../src/sj-genres.c:185
+#, c-format
+msgid "Error while saving custom genre: %s"
+msgstr "Feil under lagring av egendefinert sjanger: %s"
+
+#: ../src/sj-main.c:151
 msgid "E_xtract"
 msgstr "Hent _ut"
 
-#: ../src/sj-main.c:217
+#: ../src/sj-main.c:219
 msgid "Could not start Sound Juicer"
 msgstr "Kunne ikke starte Sound Juicer"
 
-#: ../src/sj-main.c:218 ../src/sj-main.c:804 ../src/sj-main.c:913
-#: ../src/sj-main.c:1019 ../src/sj-main.c:1227
+#: ../src/sj-main.c:220 ../src/sj-main.c:819 ../src/sj-main.c:928
+#: ../src/sj-main.c:1034 ../src/sj-main.c:1242
 msgid "Reason"
 msgstr "Årsak"
 
-#: ../src/sj-main.c:220
+#: ../src/sj-main.c:222
 msgid "Please consult the documentation for assistance."
 msgstr "Vennligst se i dokumentasjonen for hjelp."
 
-#: ../src/sj-main.c:263
+#: ../src/sj-main.c:265
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Du holder på å rippe en CD. Vil du avslutte nå eller fortsette?"
 
-#: ../src/sj-main.c:323 ../src/sj-main.c:552
+#: ../src/sj-main.c:325 ../src/sj-main.c:554
 msgid "(unknown)"
 msgstr "(ukjent)"
 
-#: ../src/sj-main.c:442
+#: ../src/sj-main.c:444
 msgid "_Submit Album"
 msgstr "_Send inn album"
 
 #. Translators: title, artist
-#: ../src/sj-main.c:449
+#: ../src/sj-main.c:451
 #, c-format
 msgid "Could not find %s by %s on MusicBrainz."
 msgstr "Kunne ikke finne %s av %s på MusicBrainz."
 
-#: ../src/sj-main.c:454
+#: ../src/sj-main.c:456
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr "Du kan forbedre MusicBrainz-databasen ved å legge til dette albumet."
 
-#: ../src/sj-main.c:631 ../src/sj-main.c:1652
+#: ../src/sj-main.c:633 ../src/sj-main.c:1632
 msgid "Title"
 msgstr "Tittel"
 
-#: ../src/sj-main.c:637 ../src/sj-main.c:1661
+#: ../src/sj-main.c:639 ../src/sj-main.c:1641
 msgid "Artist"
 msgstr "Artist"
 
-#: ../src/sj-main.c:802 ../src/sj-main.c:911 ../src/sj-main.c:1017
+#: ../src/sj-main.c:817 ../src/sj-main.c:926 ../src/sj-main.c:1032
 msgid "Could not read the CD"
 msgstr "Kunne ikke lese CDen"
 
-#: ../src/sj-main.c:803 ../src/sj-main.c:912
+#: ../src/sj-main.c:818 ../src/sj-main.c:927
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer kunne ikke lese sporlisten på denne CDen."
 
 #. Set statusbar message
-#: ../src/sj-main.c:883
+#: ../src/sj-main.c:898
 msgid "Retrieving track listing...please wait."
 msgstr "Henter sporliste...vennligst vent."
 
-#: ../src/sj-main.c:978
+#: ../src/sj-main.c:993
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Sound Juicer kunne ikke bruke CD-ROM-enhet «%s»"
 
-#: ../src/sj-main.c:985
+#: ../src/sj-main.c:1000
 msgid "HAL daemon may not be running."
 msgstr "HAL-tjenesten kjører kanskje ikke."
 
-#: ../src/sj-main.c:1010
+#: ../src/sj-main.c:1025
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer kunne ikke aksessere CD-ROM-enhet «%s»"
 
-#: ../src/sj-main.c:1105
+#: ../src/sj-main.c:1120
 msgid "No CD-ROM drives found"
 msgstr "Ingen CD-ROM-enheter funnet"
 
-#: ../src/sj-main.c:1106
+#: ../src/sj-main.c:1121
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer kunne ikke finne noen CD-ROM-enheter å lese fra."
 
-#: ../src/sj-main.c:1137
+#: ../src/sj-main.c:1152
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Valgt lydprofil er ikke tilgjengelig i din installasjon."
 
-#: ../src/sj-main.c:1139
+#: ../src/sj-main.c:1154
 msgid "_Change Profile"
 msgstr "_Endre profil"
 
-#: ../src/sj-main.c:1225
+#: ../src/sj-main.c:1240
 msgid "Could not open URL"
 msgstr "Kunne ikke åpne URL"
 
-#: ../src/sj-main.c:1226
+#: ../src/sj-main.c:1241
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer kunne ikke åpne URL for innsending"
 
-#: ../src/sj-main.c:1335
+#: ../src/sj-main.c:1350
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Ukjent kolonne %d ble redigert"
 
-#: ../src/sj-main.c:1391 ../src/sj-prefs.c:105
+#: ../src/sj-main.c:1413 ../src/sj-prefs.c:105
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -668,40 +672,40 @@ msgstr ""
 "Kunne ikke vise hjelp for Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1484
+#: ../src/sj-main.c:1470
 msgid "Start extracting immediately"
 msgstr "Start ripping med en gang"
 
-#: ../src/sj-main.c:1485
+#: ../src/sj-main.c:1471
 msgid "Start playing immediately"
 msgstr "Start avspilling med en gang"
 
-#: ../src/sj-main.c:1486
+#: ../src/sj-main.c:1472
 msgid "What CD device to read"
 msgstr "CD-enhet som skal leses"
 
-#: ../src/sj-main.c:1486
+#: ../src/sj-main.c:1472
 msgid "DEVICE"
 msgstr "ENHET"
 
-#: ../src/sj-main.c:1496
+#: ../src/sj-main.c:1482
 msgid "- Extract music from your CDs"
 msgstr "- Hent ut musikk fra dine CDer"
 
-#: ../src/sj-main.c:1535
+#: ../src/sj-main.c:1521
 msgid "Could not create GConf client.\n"
 msgstr "Kunne ikke opprette GConf-klient.\n"
 
-#: ../src/sj-main.c:1566
+#: ../src/sj-main.c:1553
 #, c-format
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Grensesnittbeskrivelsen for Sound Juicer kunne ikke leses."
 
-#: ../src/sj-main.c:1637
+#: ../src/sj-main.c:1617
 msgid "Track"
 msgstr "Spor"
 
-#: ../src/sj-main.c:1672
+#: ../src/sj-main.c:1652
 msgid "Duration"
 msgstr "Varighet"
 
