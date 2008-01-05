@@ -410,7 +410,7 @@ lookup_cd (SjMetadata *metadata)
           album->artist = g_strdup (_("Unknown Artist"));
         }
       }
-      if (data && mb_GetResultData(priv->mb, MBE_AlbumGetAlbumArtistSortName, data, sizeof (data))) {
+      if (mb_GetResultData(priv->mb, MBE_AlbumGetAlbumArtistSortName, data, sizeof (data))) {
         album->artist_sortname = g_strdup (data);
       }
     }
