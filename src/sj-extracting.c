@@ -397,6 +397,11 @@ pop_and_extract (int *overwrite_mode)
     gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (progress_bar),
                                    CLAMP ((float)current_duration / (float)total_duration, 0.0, 1.0));
 
+    /* Set the Treelist focus to the item to be extracted */
+    GtkTreePath* path = gtk_tree_model_get_path(GTK_TREE_MODEL (track_store), &current); 
+    gtk_tree_view_set_cursor(GTK_TREE_VIEW (track_listview), path, NULL, TRUE);
+    gtk_tree_path_free(path);
+
     /* Now actually do the extraction */
     sj_extractor_extract_track (extractor, track, file_path, &error);
     if (error) {

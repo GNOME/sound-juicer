@@ -46,7 +46,7 @@ static gfloat vol = 1.0;
 
 static GtkTreeIter current_iter;
 
-static GtkWidget *play_button, *next_menuitem, *prev_menuitem, *reread_menuitem, *seek_scale, *volume_button, *statusbar;
+static GtkWidget *play_button, *next_menuitem, *prev_menuitem, *reread_menuitem, *seek_scale, *volume_button, *statusbar,  *track_listview;
 
 /**
  * Select track number.
@@ -182,6 +182,12 @@ cb_hop_track (GstBus *bus, GstMessage *message, gpointer user_data)
         &current_iter, COLUMN_TITLE, &title, -1);
     sj_main_set_title (title);
     g_free (title);
+
+    /* Set the Treelist focus to the item to be extracted */
+    GtkTreePath* path = gtk_tree_model_get_path(GTK_TREE_MODEL (track_store), &current_iter); 
+    gtk_tree_view_set_cursor (GTK_TREE_VIEW (track_listview), path, NULL, TRUE);
+    gtk_tree_path_free(path);
+
     play ();
   }
 }
@@ -679,4 +685,5 @@ sj_play_init (void)
   seek_scale = glade_xml_get_widget (glade, "seek_scale");
   volume_button = glade_xml_get_widget (glade, "volume_button");
   statusbar = glade_xml_get_widget (glade, "status_bar");
+  track_listview = glade_xml_get_widget (glade, "track_listview");
 }
