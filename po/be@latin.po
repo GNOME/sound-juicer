@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-19 23:26+0200\n"
-"PO-Revision-Date: 2007-12-19 23:27+0200\n"
+"POT-Creation-Date: 2008-01-06 01:56+0200\n"
+"PO-Revision-Date: 2008-01-06 01:58+0200\n"
 "Last-Translator: Alaksandar Navicki <zolak@lacinka.org>\n"
 "Language-Team: Belarusian Latin <be-latin.open-tran.eu>\n"
 "MIME-Version: 1.0\n"
@@ -19,16 +19,12 @@ msgstr ""
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../data/sound-juicer.desktop.in.in.h:1
-msgid "CD Extractor"
-msgstr "Kapijavańnie aŭdyjo-CD"
+msgid "Audio CD Extractor"
+msgstr "Prahrama kapijavańnia huku z CD"
 
 #: ../data/sound-juicer.desktop.in.in.h:2
-msgid "Extract music from your CDs"
+msgid "Copy music from your CDs"
 msgstr "Kapijuj muzyku z dyskaŭ CD"
-
-#: ../data/sound-juicer.desktop.in.in.h:3
-msgid "Sound Juicer CD Extractor"
-msgstr "Sound Juicer – Kapijavańnie CD"
 
 #: ../data/sound-juicer.glade.h:1
 msgid "<b>Device</b>"
@@ -110,8 +106,8 @@ msgstr "Pierajdzi da nastupnaj ściežki"
 msgid "Skip to the previous track"
 msgstr "Pierajdzi da papiaredniaj ściežki"
 
-#: ../data/sound-juicer.glade.h:21 ../src/sj-main.c:172 ../src/sj-main.c:174
-#: ../src/sj-main.c:1509
+#: ../data/sound-juicer.glade.h:21 ../src/sj-main.c:177 ../src/sj-main.c:179
+#: ../src/sj-main.c:1568
 msgid "Sound Juicer"
 msgstr "Hukavy Juicer"
 
@@ -135,7 +131,7 @@ msgstr "Ściežki"
 msgid "_Contents"
 msgstr "_Źmieściva"
 
-#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:265
+#: ../data/sound-juicer.glade.h:26 ../src/sj-main.c:270
 msgid "_Continue"
 msgstr "_Praciahvaj"
 
@@ -148,42 +144,50 @@ msgid "_Disc"
 msgstr "_Dysk"
 
 #: ../data/sound-juicer.glade.h:29
+msgid "_Duplicate Disc"
+msgstr "_Skapijuj dysk"
+
+#: ../data/sound-juicer.glade.h:30
 msgid "_Edit"
 msgstr "_Redahuj"
 
-#: ../data/sound-juicer.glade.h:30
+#: ../data/sound-juicer.glade.h:31
 msgid "_Eject when finished"
 msgstr "_Vysuń paśla zakančeńnia"
 
-#: ../data/sound-juicer.glade.h:31
+#: ../data/sound-juicer.glade.h:32
 msgid "_Folder:"
 msgstr "_Kataloh:"
 
-#: ../data/sound-juicer.glade.h:32
+#: ../data/sound-juicer.glade.h:33
 msgid "_Help"
 msgstr "Dapamo_ha"
 
-#: ../data/sound-juicer.glade.h:33
+#: ../data/sound-juicer.glade.h:34
 msgid "_Next Track"
 msgstr "_Nastupnaja ściežka"
 
-#: ../data/sound-juicer.glade.h:34
+#: ../data/sound-juicer.glade.h:35
+msgid "_Open music folder when finished"
+msgstr "_Adčyni muzyčny kataloh paśla zakančeńnia"
+
+#: ../data/sound-juicer.glade.h:36
 msgid "_Play / Pause"
 msgstr "_Hraj/Paŭza"
 
-#: ../data/sound-juicer.glade.h:35
+#: ../data/sound-juicer.glade.h:37
 msgid "_Re-read Disc"
 msgstr "_Pieračytaj dysk"
 
-#: ../data/sound-juicer.glade.h:36
+#: ../data/sound-juicer.glade.h:38
 msgid "_Select All"
 msgstr "_Zaznač usio"
 
-#: ../data/sound-juicer.glade.h:37
+#: ../data/sound-juicer.glade.h:39
 msgid "_Strip special characters"
 msgstr "_Vydal admysłovyja znaki"
 
-#: ../data/sound-juicer.glade.h:38
+#: ../data/sound-juicer.glade.h:40
 msgid "_Submit Track Names..."
 msgstr "Daš_li nazvy ściežak..."
 
@@ -280,55 +284,59 @@ msgstr "Užyvany režym paranoi"
 msgid "Whether to eject the CD when finished extracting."
 msgstr "Ci vysunuć dysk CD paśla zakančeńnia kapijavańnia."
 
-#: ../libjuicer/sj-extractor.c:194
+#: ../data/sound-juicer.schemas.in.h:17
+msgid "Whether to open the target directory when finished extracting."
+msgstr "Ci adčyniać metavy kataloh paśla zakančeńnia kapijavańnia."
+
+#: ../libjuicer/sj-extractor.c:193
 msgid "Audio Profile"
 msgstr "Hukavy profil"
 
-#: ../libjuicer/sj-extractor.c:195
+#: ../libjuicer/sj-extractor.c:194
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "Hukavy profil GNOME, užyvany, kab kadavać huk"
 
-#: ../libjuicer/sj-extractor.c:201
+#: ../libjuicer/sj-extractor.c:200
 msgid "Paranoia Level"
 msgstr "Uzrovień paranoi"
 
-#: ../libjuicer/sj-extractor.c:202
+#: ../libjuicer/sj-extractor.c:201
 msgid "The paranoia level"
 msgstr "Uzrovień paranoi"
 
-#: ../libjuicer/sj-extractor.c:207
+#: ../libjuicer/sj-extractor.c:206
 msgid "device"
 msgstr "pryvod"
 
-#: ../libjuicer/sj-extractor.c:208
+#: ../libjuicer/sj-extractor.c:207
 msgid "The device"
 msgstr "Pryvod"
 
-#: ../libjuicer/sj-extractor.c:347
+#: ../libjuicer/sj-extractor.c:346
 #, c-format
 msgid "Could not create GStreamer CD reader"
 msgstr "Niemahčyma stvaryć čytnik CD dla GStreamera"
 
-#: ../libjuicer/sj-extractor.c:369
+#: ../libjuicer/sj-extractor.c:368
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Niemahčyma stvaryć koderaŭ GStreamera dla %s"
 
-#: ../libjuicer/sj-extractor.c:380
+#: ../libjuicer/sj-extractor.c:379
 #, c-format
 msgid "Could not create GStreamer file output"
 msgstr "Niemahčyma stvaryć vyjście fajłu GStreamera"
 
-#: ../libjuicer/sj-extractor.c:392
+#: ../libjuicer/sj-extractor.c:391
 #, c-format
 msgid "Could not link pipeline"
 msgstr "Niemahčyma spałučyć płyń"
 
-#: ../libjuicer/sj-extractor.c:416
+#: ../libjuicer/sj-extractor.c:415
 msgid "Could not get current track position"
 msgstr "Niemahčyma atrymać dziejnuju pazycyju ściežki"
 
-#: ../libjuicer/sj-extractor.c:445
+#: ../libjuicer/sj-extractor.c:444
 #, c-format
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
@@ -336,12 +344,12 @@ msgstr ""
 "Abjekt prahramy kapijavańnia niapravilny. Heta drenna. Pravier kansol, ci "
 "jość tam paviedamleńni pra pamyłki."
 
-#: ../libjuicer/sj-extractor.c:636
+#: ../libjuicer/sj-extractor.c:635
 #, c-format
 msgid "The plugin necessary for CD access was not found"
 msgstr "Plugin, nieabchodny dla dostupu da dysku CD, nia znojdzieny"
 
-#: ../libjuicer/sj-extractor.c:644
+#: ../libjuicer/sj-extractor.c:643
 #, c-format
 msgid "The plugin necessary for file access was not found"
 msgstr "Plugin, nieabchodny dla dostupu da fajłu, nia znojdzieny"
@@ -495,11 +503,11 @@ msgstr ""
 "Ihar Hračyška <ihar.hrachyshka@gmail.com>"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:191
+#: ../src/sj-extracting.c:193
 msgid "Extract"
 msgstr "Skapijuj"
 
-#: ../src/sj-extracting.c:258
+#: ../src/sj-extracting.c:261
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -508,25 +516,30 @@ msgstr ""
 "Fajł z nazvaj \"%s\" isnuje, pamieram %s.\n"
 "Abminuć hetuju ściežku ci nadpisać jaje?"
 
-#: ../src/sj-extracting.c:262
+#: ../src/sj-extracting.c:265
 msgid "_Skip"
 msgstr "_Abmini"
 
-#: ../src/sj-extracting.c:263
+#: ../src/sj-extracting.c:266
 msgid "S_kip All"
 msgstr "_Prapuści ŭsio"
 
-#: ../src/sj-extracting.c:264
+#: ../src/sj-extracting.c:267
 msgid "_Overwrite"
 msgstr "_Nadpišy"
 
-#: ../src/sj-extracting.c:265
+#: ../src/sj-extracting.c:268
 msgid "Overwrite _All"
 msgstr "_Nadpišy ŭsio"
 
+#: ../src/sj-extracting.c:319
+#, c-format
+msgid "Failed to create output directory: %s"
+msgstr "Nie ŭdałosia stvaryć kataloh dziela vyjścia: %s"
+
 #. Display a nice dialog
-#: ../src/sj-extracting.c:350 ../src/sj-extracting.c:403
-#: ../src/sj-extracting.c:632
+#: ../src/sj-extracting.c:355 ../src/sj-extracting.c:413
+#: ../src/sj-extracting.c:623
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -535,139 +548,135 @@ msgstr ""
 "Hukavy Juicer nia moža skapijavać hety dysk CD.\n"
 "Pryčyna: %s"
 
-#: ../src/sj-extracting.c:451
+#: ../src/sj-extracting.c:461
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Mierkavany čas da zakančeńnia: %d:%02d (chutkaść %0.1f×)"
 
-#: ../src/sj-extracting.c:453
+#: ../src/sj-extracting.c:463
 msgid "Estimated time left: unknown"
 msgstr "Mierkavany čas da zakančeńnia: nieviadomy"
 
-#: ../src/sj-extracting.c:551
-#, c-format
-msgid "%s has been copied successfully."
-msgstr "%s paśpiachova skapijavany."
-
-#: ../src/sj-extracting.c:564
-msgid "_Eject"
-msgstr "_Vysuń"
-
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:715
+#: ../src/sj-extracting.c:706
 msgid "Stop"
 msgstr "Spyni"
 
-#: ../src/sj-extracting.c:741
+#: ../src/sj-extracting.c:733 ../src/sj-extracting.c:739
 msgid "Extracting audio from CD"
 msgstr "Kapijavańnie huku z CD"
 
-#: ../src/sj-main.c:149
+#: ../src/sj-genres.c:185
+#, c-format
+msgid "Error while saving custom genre: %s"
+msgstr "Pamyłka padčas zapisu asablivaha stylu: %s"
+
+#: ../src/sj-main.c:154
 msgid "E_xtract"
 msgstr "Ska_pijuj"
 
-#: ../src/sj-main.c:217
+#: ../src/sj-main.c:222
 msgid "Could not start Sound Juicer"
 msgstr "Niemahčyma ŭruchomić Hukavy Juicer"
 
-#: ../src/sj-main.c:218 ../src/sj-main.c:804 ../src/sj-main.c:913
-#: ../src/sj-main.c:1019 ../src/sj-main.c:1227
+#: ../src/sj-main.c:223 ../src/sj-main.c:824 ../src/sj-main.c:933
+#: ../src/sj-main.c:1039 ../src/sj-main.c:1247 ../src/sj-main.c:1515
 msgid "Reason"
 msgstr "Pryčyna"
 
-#: ../src/sj-main.c:220
+#: ../src/sj-main.c:225
 msgid "Please consult the documentation for assistance."
 msgstr "Prahledź dakumentacyju, kab atrymać bolej infarmacyi."
 
-#: ../src/sj-main.c:263
+#: ../src/sj-main.c:268
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Ciapier ty kapijuješ dysk CD. Chočaš vyjści zaraz ci praciahvać?"
 
-#: ../src/sj-main.c:323 ../src/sj-main.c:552
+#: ../src/sj-main.c:328 ../src/sj-main.c:559
 msgid "(unknown)"
 msgstr "(nieviadomy)"
 
-#: ../src/sj-main.c:442
+#: ../src/sj-main.c:447
 msgid "_Submit Album"
 msgstr "_Dašli albom"
 
 #. Translators: title, artist
-#: ../src/sj-main.c:449
+#: ../src/sj-main.c:454
 #, c-format
 msgid "Could not find %s by %s on MusicBrainz."
 msgstr "Niemahčyma znajści %s ad %s na MusiBrainzy."
 
-#: ../src/sj-main.c:454
+#: ../src/sj-main.c:459
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr "Ty možaš dapoŭnić bazu źviestak MusicBrainzu, dadaŭšy hety albom."
 
-#: ../src/sj-main.c:631 ../src/sj-main.c:1652
+#: ../src/sj-main.c:638 ../src/sj-main.c:1706
 msgid "Title"
 msgstr "Nazva"
 
-#: ../src/sj-main.c:637 ../src/sj-main.c:1661
+#: ../src/sj-main.c:644 ../src/sj-main.c:1715
 msgid "Artist"
 msgstr "Vykanaŭca"
 
-#: ../src/sj-main.c:802 ../src/sj-main.c:911 ../src/sj-main.c:1017
+#: ../src/sj-main.c:822 ../src/sj-main.c:931 ../src/sj-main.c:1037
 msgid "Could not read the CD"
 msgstr "Niemahčyma adčytać dysk CD"
 
-#: ../src/sj-main.c:803 ../src/sj-main.c:912
+#: ../src/sj-main.c:823 ../src/sj-main.c:932
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Hukavy Juicer nia moža adčytać ściežku, najaŭnuju na hetym dysku CD."
 
 #. Set statusbar message
-#: ../src/sj-main.c:883
+#: ../src/sj-main.c:903
 msgid "Retrieving track listing...please wait."
 msgstr "Atrymańnie śpisu ściežak... Čakaj."
 
-#: ../src/sj-main.c:978
+#: ../src/sj-main.c:998
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Hukavy Juicer nia moža vykarystać pryvod CD-ROM \"%s\""
 
-#: ../src/sj-main.c:985
+#: ../src/sj-main.c:1005
 msgid "HAL daemon may not be running."
 msgstr "Deman HAL moža nia być uruchomleny."
 
-#: ../src/sj-main.c:1010
+#: ../src/sj-main.c:1030
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Hukavy Juicer nia moža atrymać dostup da pryvodu CD-ROM \"%s\""
 
-#: ../src/sj-main.c:1105
+#: ../src/sj-main.c:1125
 msgid "No CD-ROM drives found"
 msgstr "Pryvod CD-ROM nia znojdzieny"
 
-#: ../src/sj-main.c:1106
+#: ../src/sj-main.c:1126
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Hukavy Juicer nia moža znajści pryvodu CD-ROM, kab adčytać."
 
-#: ../src/sj-main.c:1137
+#: ../src/sj-main.c:1157
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Abrany hukavy profil niedastupny ŭ dziejnaj instalacyi."
 
-#: ../src/sj-main.c:1139
+#: ../src/sj-main.c:1159
 msgid "_Change Profile"
 msgstr "Ź_miani profil"
 
-#: ../src/sj-main.c:1225
+#: ../src/sj-main.c:1245
 msgid "Could not open URL"
 msgstr "Niemahčyma adčynić adras URL"
 
-#: ../src/sj-main.c:1226
+#: ../src/sj-main.c:1246
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Hukavy Juicer nia moža adčynić adras URL, kab vysłać"
 
-#: ../src/sj-main.c:1335
+#: ../src/sj-main.c:1355
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Nieviadomaja kalona %d była źmienienaja"
 
-#: ../src/sj-main.c:1391 ../src/sj-prefs.c:105
+#: ../src/sj-main.c:1418 ../src/sj-prefs.c:105
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -676,44 +685,52 @@ msgstr ""
 "Niemahčyma pakazać dapamohu Hukavoha Juicera\n"
 "%s"
 
-#: ../src/sj-main.c:1484
+#: ../src/sj-main.c:1513
+msgid "Could not duplicate disc"
+msgstr "Niemahčyma skapijavać dysk"
+
+#: ../src/sj-main.c:1514
+msgid "Sound Juicer could not duplicate the disc"
+msgstr "Hukavy Juicer nia moža skapijavać dysk"
+
+#: ../src/sj-main.c:1543
 msgid "Start extracting immediately"
 msgstr "Pačni adrazu kapijavać"
 
-#: ../src/sj-main.c:1485
+#: ../src/sj-main.c:1544
 msgid "Start playing immediately"
 msgstr "Pačni adrazu hrać"
 
-#: ../src/sj-main.c:1486
+#: ../src/sj-main.c:1545
 msgid "What CD device to read"
 msgstr "Jaki pryvod CD adčytać"
 
-#: ../src/sj-main.c:1486
+#: ../src/sj-main.c:1545
 msgid "DEVICE"
 msgstr "PRYVOD"
 
-#: ../src/sj-main.c:1496
+#: ../src/sj-main.c:1555
 msgid "- Extract music from your CDs"
 msgstr "– Kapijuj muzyku z dyskaŭ CD"
 
-#: ../src/sj-main.c:1535
+#: ../src/sj-main.c:1594
 msgid "Could not create GConf client.\n"
 msgstr "Niemahčyma stvaryć klijenta GConf.\n"
 
-#: ../src/sj-main.c:1566
+#: ../src/sj-main.c:1626
 #, c-format
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Niemahčyma pračytać fajł interfejsu Hukavoha Juicera."
 
-#: ../src/sj-main.c:1637
+#: ../src/sj-main.c:1691
 msgid "Track"
 msgstr "Ściežka"
 
-#: ../src/sj-main.c:1672
+#: ../src/sj-main.c:1726
 msgid "Duration"
 msgstr "Praciahłaść"
 
-#: ../src/sj-play.c:198 ../src/sj-play.c:470 ../src/sj-play.c:520
+#: ../src/sj-play.c:205 ../src/sj-play.c:477 ../src/sj-play.c:527
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -725,30 +742,30 @@ msgstr ""
 "Pryčyna: %s"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:264
+#: ../src/sj-play.c:271
 msgid "Play"
 msgstr "Hraj"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:308
+#: ../src/sj-play.c:315
 msgid "Pause"
 msgstr "Paŭza"
 
-#: ../src/sj-play.c:365
+#: ../src/sj-play.c:372
 #, c-format
 msgid "Failed to create CD source element"
 msgstr "Nie ŭdałosia stvaryć kryničny element CD"
 
-#: ../src/sj-play.c:402
+#: ../src/sj-play.c:409
 msgid "Failed to link pipeline"
 msgstr "Nie ŭdałosia dałučyć płyń"
 
-#: ../src/sj-play.c:408
+#: ../src/sj-play.c:415
 #, c-format
 msgid "Failed to create audio output"
 msgstr "Nie ŭdałosia stvaryć vyjście huku"
 
-#: ../src/sj-play.c:631
+#: ../src/sj-play.c:638
 #, c-format
 msgid "Seeking to %s"
 msgstr "Pierachod da %s"
@@ -821,3 +838,15 @@ msgstr "Numar-Vykanaŭca ściežki-Nazva ściežki (małymi litarami)"
 #: ../src/sj-prefs.c:260
 msgid "Example Path"
 msgstr "Prykład ściežki"
+
+#~ msgid "CD Extractor"
+#~ msgstr "Kapijavańnie aŭdyjo-CD"
+
+#~ msgid "Sound Juicer CD Extractor"
+#~ msgstr "Sound Juicer – Kapijavańnie CD"
+
+#~ msgid "%s has been copied successfully."
+#~ msgstr "%s paśpiachova skapijavany."
+
+#~ msgid "_Eject"
+#~ msgstr "_Vysuń"
