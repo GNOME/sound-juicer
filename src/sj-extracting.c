@@ -197,6 +197,7 @@ cleanup (void)
   gtk_statusbar_push (GTK_STATUSBAR (status_bar), 0, "");
   /* Clear the progress bar */
   gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (progress_bar), 0);
+  gtk_widget_hide (progress_bar);
   
   gtk_widget_set_sensitive (play_button, TRUE);
   gtk_widget_set_sensitive (title_entry, TRUE);
@@ -702,6 +703,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   /* TODO: find out why GTK+ needs this to work (see #364371) */
   gtk_button_set_label (GTK_BUTTON (extract_button), _("Stop"));
   gtk_button_set_label (GTK_BUTTON (extract_button), GTK_STOCK_STOP);
+  gtk_widget_show (progress_bar);
   
   /* Reset the progress dialog */
   gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (progress_bar), 0);
