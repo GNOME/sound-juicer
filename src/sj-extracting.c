@@ -315,7 +315,9 @@ create_directory_for (const char* url, GError **error)
 
   res = make_directory_with_parents_for_uri (parent, 0777);
   if (res != GNOME_VFS_OK && res != GNOME_VFS_ERROR_FILE_EXISTS) {
-    g_set_error (error, SJ_ERROR, SJ_ERROR_CD_PERMISSION_ERROR, g_strdup (gnome_vfs_result_to_string (res)));
+    g_set_error (error, SJ_ERROR, SJ_ERROR_CD_PERMISSION_ERROR,
+                 _("Failed to create output directory: %s"),
+                 gnome_vfs_result_to_string (res));
     return NULL;
   }
 
