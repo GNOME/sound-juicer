@@ -88,6 +88,7 @@ select_track (void)
   }
 
   cd = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "cd-source");
+  gst_element_set_state (pipeline, GST_STATE_PAUSED);
   gst_element_seek (pipeline, 1.0, gst_format_get_by_nick ("track"), GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, seek_to_track, GST_SEEK_TYPE_NONE, -1);
   current_track = seek_to_track;
   seek_to_track = -1;
