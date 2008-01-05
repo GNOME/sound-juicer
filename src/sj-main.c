@@ -60,6 +60,7 @@ gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data
 
 static void reread_cd (gboolean ignore_no_media);
 static void update_ui_for_album (AlbumDetails *album);
+static void set_duplication (gboolean enable);
 
 /* Prototypes for the signal blocking/unblocking in update_ui_for_album */
 void on_title_edit_changed(GtkEditable *widget, gpointer user_data);
@@ -79,6 +80,7 @@ static GtkWidget *track_listview, *extract_button, *play_button;
 static GtkWidget *status_bar;
 static GtkWidget *extract_menuitem, *play_menuitem, *next_menuitem, *prev_menuitem, *select_all_menuitem, *deselect_all_menuitem;
 static GtkWidget *submit_menuitem;
+static GtkWidget *duplicate;
 GtkListStore *track_store;
 static BaconMessageConnection *connection;
 GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer;
@@ -92,6 +94,7 @@ gboolean strip_chars;
 gboolean eject_finished;
 gboolean open_finished;
 gboolean extracting = FALSE;
+static gboolean duplication_enabled;
 
 static gint total_no_of_tracks;
 static gint no_of_tracks_selected;
@@ -501,6 +504,7 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (deselect_all_menuitem, FALSE);
     gtk_widget_set_sensitive (prev_menuitem, FALSE);
     gtk_widget_set_sensitive (next_menuitem, FALSE);
+    set_duplication (FALSE);
 
     set_message_area (message_area_vbox, NULL);
   } else {
@@ -526,6 +530,7 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (deselect_all_menuitem, TRUE);
     gtk_widget_set_sensitive (prev_menuitem, FALSE);
     gtk_widget_set_sensitive (next_menuitem, FALSE);
+    set_duplication (TRUE);
     
     for (l = album->tracks; l; l=g_list_next (l)) {
       GtkTreeIter iter;
@@ -1459,6 +1464,74 @@ on_message_received (const char *message, gpointer user_data)
   }
 }
 
+/**
+ * Searches for the nautilus-cd-burner tool in the system path.
+ * If this is found TRUE is returned, otherwise FALSE is returned.
+ */
+static gboolean
+is_nautilus_cd_burner_available()
+{
+  char **paths, *path;
+  guint n;
+  gboolean result = FALSE;
+
+  paths = g_strsplit (g_getenv ("PATH"), ":", -1);
+  for (n = 0; paths[n] != NULL; ++n) {
+    path = paths[n];
+    if (G_UNLIKELY (*path == '\0'))
+      continue;
+
+    path = g_strconcat (path, "/nautilus-cd-burner", NULL);
+    if (g_file_test (path, G_FILE_TEST_EXISTS)) {
+      result = TRUE;
+       g_free (path);
+      break;
+    }
+    g_free (path);
+  }
+  g_strfreev (paths);
+  return result;
+}
+
+/**
+ * Clicked on duplicate in the UI (button/menu)
+ */
+void on_duplicate_activate (GtkWidget *button, gpointer user_data)
+{
+  GError *error = NULL;
+  const gchar* device;
+
+  device = nautilus_burn_drive_get_device (drive);
+  if (!g_spawn_command_line_sync (g_strconcat ("nautilus-cd-burner --source-device=", device, NULL), NULL, NULL, NULL, &error)) {
+      GtkWidget *dialog;
+
+      dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
+                                       GTK_DIALOG_DESTROY_WITH_PARENT,
+                                       GTK_MESSAGE_ERROR,
+                                       GTK_BUTTONS_CLOSE,
+                                       "<b>%s</b>\n\n%s\n%s: %s",
+				       _("Could not duplicate disc"),
+				       _("Sound Juicer could not duplicate the disc"),
+				       _("Reason"),
+				       error->message);
+      gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
+      gtk_dialog_run (GTK_DIALOG (dialog));
+      gtk_widget_destroy (dialog);
+      g_error_free (error);	
+  }
+}
+
+/**
+ * Sets the duplication buttons sensitive property if duplication is enabled.
+ * This is setup in the main entry point.
+ */
+static void set_duplication(gboolean enabled)
+{
+  if (duplication_enabled) {
+    gtk_widget_set_sensitive (duplicate, enabled);
+  }
+}
+
 int main (int argc, char **argv)
 {
   GnomeProgram *program;
@@ -1574,6 +1647,7 @@ int main (int argc, char **argv)
   next_menuitem = glade_xml_get_widget (glade, "next_track_menuitem");
   prev_menuitem = glade_xml_get_widget (glade, "previous_track_menuitem");
   status_bar = glade_xml_get_widget (glade, "status_bar");
+  duplicate = glade_xml_get_widget (glade, "duplicate_menuitem");
 
   { /* ensure that the play/pause button's size is constant */
     GtkWidget *fake_button1, *fake_button2;
@@ -1696,6 +1770,15 @@ int main (int argc, char **argv)
   if (sj_extractor_supports_encoding (&error) == FALSE) {
     error_on_start (error);
     return 0;
+  }
+
+  // Set whether duplication of a cd is available using the nautilus-cd-burner tool
+  if (is_nautilus_cd_burner_available ()) {
+    duplication_enabled = TRUE;
+    set_duplication (TRUE);
+  } else {
+    duplication_enabled = FALSE;
+    gtk_widget_set_sensitive (duplicate, FALSE);
   }
 
   gconf_bridge_bind_window_size(gconf_bridge_get(), GCONF_WINDOW, GTK_WINDOW (main_window));
