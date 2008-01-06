@@ -1773,13 +1773,8 @@ int main (int argc, char **argv)
   }
 
   // Set whether duplication of a cd is available using the nautilus-cd-burner tool
-  if (is_nautilus_cd_burner_available ()) {
-    duplication_enabled = TRUE;
-    set_duplication (TRUE);
-  } else {
-    duplication_enabled = FALSE;
-    gtk_widget_set_sensitive (duplicate, FALSE);
-  }
+  gtk_widget_set_sensitive (duplicate, FALSE);
+  duplication_enabled = is_nautilus_cd_burner_available ();
 
   gconf_bridge_bind_window_size(gconf_bridge_get(), GCONF_WINDOW, GTK_WINDOW (main_window));
   gtk_widget_show (main_window);
