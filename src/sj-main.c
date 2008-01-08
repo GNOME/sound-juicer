@@ -1465,32 +1465,39 @@ on_message_received (const char *message, gpointer user_data)
 }
 
 /**
- * Searches for the nautilus-cd-burner tool in the system path.
+ * Performs various checks to ensure CD duplication is available.
  * If this is found TRUE is returned, otherwise FALSE is returned.
  */
 static gboolean
-is_nautilus_cd_burner_available()
+is_cd_duplication_available()
 {
-  char **paths, *path;
-  guint n;
-  gboolean result = FALSE;
+  // First check the nautilus-cd-burner tool is available in the path
+  gchar* nautilus_cd_burner = g_find_program_in_path ("nautilus-cd-burner");
+  if (nautilus_cd_burner == NULL) {
+    return FALSE;
+  } 
+  g_free(nautilus_cd_burner);
 
-  paths = g_strsplit (g_getenv ("PATH"), ":", -1);
-  for (n = 0; paths[n] != NULL; ++n) {
-    path = paths[n];
-    if (G_UNLIKELY (*path == '\0'))
-      continue;
+  // Second check the cdrdao tool is available in the path
+  gchar* cdrdao = g_find_program_in_path ("cdrdao");
+  if (cdrdao == NULL) {
+    return FALSE;
+  } 
+  g_free(cdrdao);  
 
-    path = g_strconcat (path, "/nautilus-cd-burner", NULL);
-    if (g_file_test (path, G_FILE_TEST_EXISTS)) {
-      result = TRUE;
-       g_free (path);
-      break;
-    }
-    g_free (path);
+  // Now check that there is at least one cd recorder available
+  GList                    *drives;
+  NautilusBurnDriveMonitor *monitor;
+
+  monitor = nautilus_burn_get_drive_monitor ();
+  drives = nautilus_burn_drive_monitor_get_recorder_drives (monitor);
+
+  if (drives == NULL) {
+     return FALSE;
   }
-  g_strfreev (paths);
-  return result;
+
+  g_list_free (drives);
+  return TRUE;
 }
 
 /**
@@ -1774,7 +1781,7 @@ int main (int argc, char **argv)
 
   // Set whether duplication of a cd is available using the nautilus-cd-burner tool
   gtk_widget_set_sensitive (duplicate, FALSE);
-  duplication_enabled = is_nautilus_cd_burner_available ();
+  duplication_enabled = is_cd_duplication_available();
 
   gconf_bridge_bind_window_size(gconf_bridge_get(), GCONF_WINDOW, GTK_WINDOW (main_window));
   gtk_widget_show (main_window);
