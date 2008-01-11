@@ -25,6 +25,7 @@
 #include <sys/time.h>
 #include <time.h>
 #include <string.h>
+#include <limits.h>
 
 #include <glib/glist.h>
 #include <libgnomevfs/gnome-vfs-ops.h>
@@ -116,15 +117,18 @@ static guint cookie;
 /**
  * Build the absolute filename for the specified track.
  *
- * The base path is the extern variable 'base_path', the format to use
- * is the extern variable 'file_pattern'. Free the result when you
+ * The base path is the extern variable 'base_uri', the formats to use are the
+ * extern variables 'path_pattern' and 'file_pattern'. Free the result when you
  * have finished with it.
  */
 static char*
-build_filename (const TrackDetails *track)
+build_filename (const TrackDetails *track, GError **error)
 {
-  GnomeVFSURI *uri, *new;
-  char *realfile, *realpath, *filename, *string;
+  GnomeVFSURI *uri, *new; 
+  gchar *realfile, *realpath, *filename, *string;
+  const gchar *extension;
+  size_t len_extension;
+  int max_realfile = INT_MAX;
   GMAudioProfile *profile;
 
   g_object_get (extractor, "profile", &profile, NULL);
@@ -136,8 +140,23 @@ build_filename (const TrackDetails *track)
   gnome_vfs_uri_unref (uri); uri = new;
   g_free (realpath);
 
+  extension = gm_audio_profile_get_extension (profile);
+  len_extension = 1 + strlen (extension);
+#if defined(NAME_MAX) && NAME_MAX > 0
+  max_realfile = NAME_MAX - len_extension;
+#endif /* NAME_MAX */
+#if defined(PATH_MAX) && PATH_MAX > 0
+  if (!strcmp (gnome_vfs_uri_get_scheme (uri), "file")) {
+    size_t len_path = strlen (gnome_vfs_uri_get_path (uri)) + 1;
+    max_realfile = MIN (max_realfile, PATH_MAX - len_path - len_extension);
+  }
+#endif /* PATH_MAX */
+  if (max_realfile <= 0) {
+    g_set_error (error, SJ_ERROR, SJ_ERROR_INTERNAL_ERROR, g_strdup (gnome_vfs_result_to_string (GNOME_VFS_ERROR_NAME_TOO_LONG)));
+    return NULL;
+  }
   realfile = filepath_parse_pattern (file_pattern, track);
-  filename = g_strdup_printf("%s.%s", realfile, gm_audio_profile_get_extension(profile));
+  filename = g_strdup_printf("%.*s.%s", max_realfile, realfile, extension);
   new = gnome_vfs_uri_append_file_name (uri, filename);
   gnome_vfs_uri_unref (uri); uri = new;
   g_free (filename); g_free (realfile);
@@ -327,8 +346,9 @@ create_directory_for (const char* url, GError **error)
   return string;
 }
 
-/* Prototype for pop_and_extract */
+/* Prototypes for pop_and_extract */
 static void on_completion_cb (SjExtractor *extractor, gpointer data);
+static void on_error_cb (SjExtractor *extractor, GError *error, gpointer data);
 
 /**
  * The work horse of this file.  Take the first entry from the pending list,
@@ -342,30 +362,20 @@ pop_and_extract (int *overwrite_mode)
     g_assert_not_reached ();
   } else {
     TrackDetails *track = NULL;
-    char *file_path, *directory, *text;
+    char *file_path = NULL, *directory;
     GError *error = NULL;
-    
+
     /* Pop the next track to extract */
     gtk_tree_model_get (GTK_TREE_MODEL (track_store), &current, COLUMN_DETAILS, &track, -1);
     /* Build the filename for this track */
-    file_path = build_filename (track);
+    file_path = build_filename (track, &error);
+    if (error) {
+      goto error;
+    }
     /* And create the directory it lives in */
     directory = create_directory_for (file_path, &error);
     if (error) {
-      GtkWidget *dialog;
-      text = g_strdup_printf (_("Sound Juicer could not extract this CD.\nReason: %s"), error->message);
-
-      dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
-                                       GTK_MESSAGE_ERROR,
-                                       GTK_BUTTONS_CLOSE,
-                                       text);
-      g_free (text);
-
-      gtk_dialog_run (GTK_DIALOG (dialog));
-      gtk_widget_destroy (dialog);
-      g_error_free (error);
-      cleanup ();
-      return;
+      goto error;
     }
     /* Save the directory name for later */
     paths = g_list_append (paths, directory);
@@ -380,7 +390,7 @@ pop_and_extract (int *overwrite_mode)
         ((file_size > MIN_FILE_SIZE) && (*overwrite_mode == SKIP_ALL))) {
       on_completion_cb (NULL, overwrite_mode);
       return;
-      }
+    }
 
     /* What if the file already exists? */
     if ((file_size > MIN_FILE_SIZE) &&
@@ -409,22 +419,13 @@ pop_and_extract (int *overwrite_mode)
     /* Now actually do the extraction */
     sj_extractor_extract_track (extractor, track, file_path, &error);
     if (error) {
-      GtkWidget *dialog;
-
-      text = g_strdup_printf (_("Sound Juicer could not extract this CD.\nReason: %s"), error->message);
-
-      dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
-                                       GTK_MESSAGE_ERROR,
-                                       GTK_BUTTONS_CLOSE,
-                                       text);
-      g_free (text);
-
-      gtk_dialog_run (GTK_DIALOG (dialog));
-      gtk_widget_destroy (dialog);
-      g_error_free (error);
-      cleanup ();
-      return;
+      goto error;
     }
+    goto local_cleanup;
+error:
+    on_error_cb (NULL, error, NULL);
+    g_error_free (error);
+local_cleanup:
     g_free (file_path);
   }
 }
