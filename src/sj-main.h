@@ -40,6 +40,7 @@ const char* prefs_get_default_device (void);
 void on_reread_activate (GtkWidget *button, gpointer user_data);
 void on_submit_activate (GtkWidget *menuitem, gpointer user_data);
 void on_genre_edit_changed(GtkEditable *widget, gpointer user_data);
+void on_year_edit_changed(GtkEditable *widget, gpointer user_data);
 void on_contents_activate(GtkWidget *button, gpointer user_data);
 void on_duplicate_activate (GtkWidget *button, gpointer user_data);
 

@@ -65,6 +65,7 @@ static void set_duplication (gboolean enable);
 /* Prototypes for the signal blocking/unblocking in update_ui_for_album */
 void on_title_edit_changed(GtkEditable *widget, gpointer user_data);
 void on_artist_edit_changed(GtkEditable *widget, gpointer user_data);
+void on_year_edit_changed(GtkEditable *widget, gpointer user_data);
 
 GladeXML *glade;
 
@@ -75,7 +76,7 @@ GConfClient *gconf_client;
 
 GtkWidget *main_window;
 static GtkWidget *message_area_vbox;
-static GtkWidget *title_entry, *artist_entry, *duration_label, *genre_entry;
+static GtkWidget *title_entry, *artist_entry, *duration_label, *genre_entry, *year_entry;
 static GtkWidget *track_listview, *extract_button, *play_button;
 static GtkWidget *status_bar;
 static GtkWidget *extract_menuitem, *play_menuitem, *next_menuitem, *prev_menuitem, *select_all_menuitem, *deselect_all_menuitem;
@@ -492,10 +493,12 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_entry_set_text (GTK_ENTRY (title_entry), "");
     gtk_entry_set_text (GTK_ENTRY (artist_entry), "");
     gtk_entry_set_text (GTK_ENTRY (genre_entry), "");
+    gtk_entry_set_text (GTK_ENTRY (year_entry), "");
     gtk_label_set_text (GTK_LABEL (duration_label), "");
     gtk_widget_set_sensitive (title_entry, FALSE);
     gtk_widget_set_sensitive (artist_entry, FALSE);
     gtk_widget_set_sensitive (genre_entry, FALSE);
+    gtk_widget_set_sensitive (year_entry, FALSE);
     gtk_widget_set_sensitive (play_button, FALSE);
     gtk_widget_set_sensitive (play_menuitem, FALSE);
     gtk_widget_set_sensitive (extract_button, FALSE);
@@ -512,16 +515,22 @@ static void update_ui_for_album (AlbumDetails *album)
 
     g_signal_handlers_block_by_func (title_entry, on_title_edit_changed, NULL);
     g_signal_handlers_block_by_func (artist_entry, on_artist_edit_changed, NULL);
+    g_signal_handlers_block_by_func (year_entry, on_year_edit_changed, NULL);
     gtk_entry_set_text (GTK_ENTRY (title_entry), album->title);
     gtk_entry_set_text (GTK_ENTRY (artist_entry), album->artist);
+    if (g_date_valid (album->release_date)) {
+      gtk_entry_set_text (GTK_ENTRY (year_entry), g_strdup_printf ("%d", g_date_get_year (album->release_date)));
+    }
     g_signal_handlers_unblock_by_func (title_entry, on_title_edit_changed, NULL);
     g_signal_handlers_unblock_by_func (artist_entry, on_artist_edit_changed, NULL);
+    g_signal_handlers_unblock_by_func (year_entry, on_year_edit_changed, NULL);
     /* Clear the genre field, it's from the user */
     gtk_entry_set_text (GTK_ENTRY (genre_entry), "");
 
     gtk_widget_set_sensitive (title_entry, TRUE);
     gtk_widget_set_sensitive (artist_entry, TRUE);
     gtk_widget_set_sensitive (genre_entry, TRUE);
+    gtk_widget_set_sensitive (year_entry, TRUE);
     gtk_widget_set_sensitive (play_button, TRUE);
     gtk_widget_set_sensitive (play_menuitem, TRUE);
     gtk_widget_set_sensitive (extract_button, TRUE);
@@ -1403,6 +1412,23 @@ void on_genre_edit_changed(GtkEditable *widget, gpointer user_data) {
   current_album->genre = gtk_editable_get_chars (widget, 0, -1); /* get all the characters */
 }
 
+void on_year_edit_changed(GtkEditable *widget, gpointer user_data) {
+  const gchar* yearstr;
+  int year;
+  
+  g_return_if_fail (current_album != NULL);
+  
+  yearstr = gtk_entry_get_text (GTK_ENTRY (widget));
+  year = atoi (yearstr);
+  if (year > 0) {
+    if (current_album->release_date) {
+      g_date_set_dmy (current_album->release_date, 1, 1, year);
+    } else {
+      current_album->release_date = g_date_new_dmy (1, 1, year);
+    }
+  }
+}
+
 void on_contents_activate(GtkWidget *button, gpointer user_data) {
   GError *error = NULL;
 
@@ -1646,6 +1672,7 @@ int main (int argc, char **argv)
   artist_entry = glade_xml_get_widget (glade, "artist_entry");
   duration_label = glade_xml_get_widget (glade, "duration_label");
   genre_entry = glade_xml_get_widget (glade, "genre_entry");
+  year_entry = glade_xml_get_widget (glade, "year_entry");
   track_listview = glade_xml_get_widget (glade, "track_listview");
   extract_button = glade_xml_get_widget (glade, "extract_button");
   extract_menuitem = glade_xml_get_widget (glade, "extract_menuitem");
