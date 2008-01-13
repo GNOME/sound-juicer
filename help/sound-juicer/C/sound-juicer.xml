@@ -3,8 +3,8 @@
     "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
   <!ENTITY app "Sound Juicer">
   <!ENTITY application "<application>&app;</application>">
-  <!ENTITY appversion "2.10">
-  <!ENTITY manrevision "2.10">
+  <!ENTITY appversion "2.22.0">
+  <!ENTITY manrevision "2.22.0">
   <!ENTITY musicbrainz "<ulink url='http://www.musicbrainz.org/'>MusicBrainz</ulink>">
 ]>
 
@@ -25,6 +25,10 @@ Status: Draft
       <year>2005</year>
       <holder>Shaun McCance</holder>
     </copyright>
+    <copyright>
+      <year>2008</year>
+      <holder>Andreas Freund</holder>
+    </copyright>
     
     <publisher>
       <publishername>GNOME Documentation Project</publishername>
@@ -33,6 +37,13 @@ Status: Draft
     <xi:include href="legal.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
 
     <authorgroup>
+      <author>
+        <firstname>Andreas</firstname>
+        <surname>Freund</surname>
+        <affiliation>
+          <orgname>Google Highly Open Participation Contest</orgname>
+        </affiliation>
+      </author>
       <author>
         <firstname>Mike</firstname>
         <surname>Hearn</surname>
@@ -51,6 +62,14 @@ Status: Draft
     <revhistory>
       <revision>
         <revnumber>&manrevision;</revnumber>
+        <date>2008-01-12</date>
+        <revdescription>
+          <para role="author">Andreas Freund</para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>2.10</revnumber>
         <date>2005-03-06</date>
         <revdescription>
           <para role="author">Shaun McCance</para>
@@ -116,19 +135,20 @@ Status: Draft
     <title>Entering Track Data</title>
 
     <para>When you insert an audio CD, &application; will automatically retrieve
-    the track data from &musicbrainz;.  MusicBrainz is a free service that provides
+    the track data from &musicbrainz;.  &musicbrainz; is a free service that provides
     a database of data for most published CDs.  &application; uses the CD's serial
     number and the positions and lengths of the tracks to match against CD in the
-    MusicBrainz database.</para>
+    &musicbrainz; database.</para>
 
     <para>Occasionally, more than one CD will have the same layout.  If more than
     one CD is found, &application; will present a dialog allowing you to choose
-    which CD data to use.  If the wrong CD is detected, or if MusicBrainz does
+    which CD data to use.  If the wrong CD is detected, or if &musicbrainz; does
     not contain any matching CDs, you will have to enter the track information
-    manually.</para>
+    manually.  Also, if you choose, you can add the information for the CD to
+    &musicbrainz; database with a banner that will appear.</para>
 
-    <para>The top of the window contains text boxes for the title, artist, and
-    genre of the CD.  Below that is a list of the audio track on the CD.  You
+    <para>The top of the window contains text boxes for the title, artist, year,
+    and genre of the CD.  Below that is a list of the audio track on the CD.  You
     can set the track title and artist for each track.  &application; uses this
     information to name the files and folders where your music is stored.  The
     track and album information is also encoded directly into the audio files.
@@ -141,8 +161,10 @@ Status: Draft
     title.</para>
 
     <para>When you edit the artist for the CD, the artist for each track is
-    automatically updated.  Most CDs are by a single artist, and this feature
-    saves you the time of entering the artist for each track.</para>
+    automatically updated, but only if they also matched before the change (so that
+    changling the album artist of a compilation doesn't change all of the track
+    artists too).  Most CDs are by a single artist, and this feature saves you the time 
+    of entering the artist for each track.</para>
 
     <para>Some CDs, however, are compilations of songs by different artists.
     For these CDs, you will have to enter the artist for each track.  To set
@@ -150,7 +172,7 @@ Status: Draft
     You can set the artist for the CD to a value like "Various" or simply
     leave it blank, depending on how you prefer to organize your music.</para>
 
-    <para>MusicBrainz unfortunately does not provide genre data, but
+    <para>&musicbrainz; unfortunately does not provide genre data, but
     &application; includes several stock genres:
     </para>
 
@@ -173,6 +195,8 @@ Status: Draft
       <listitem><para>Soul       </para></listitem>
       <listitem><para>Spoken Word</para></listitem>
     </itemizedlist>
+
+    <tip><para>If you choose to make a custom genre, it will be remembered and in the future.</para></tip>
 
   </section>
 
@@ -240,8 +264,16 @@ Status: Draft
     <itemizedlist>
       <listitem><para>Which CD drive &application; uses, if you have more than
       one drive,</para></listitem>
+      <listitem><para>Whether or not to eject the CD when &application; is
+      finished extracting,</para></listitem>
+      <listitem><para>Whether or not to open the music folder when &application;
+      is finished extracting,</para></listitem>
       <listitem><para>Where the extracted audio files are placed on your
-      computer, and</para></listitem>
+      computer,</para></listitem>
+      <listitem><para>Which system to use for the folder hierarchy in the music
+      folder,</para></listitem>
+      <listitem><para>Which format to use for the track names of the extracted
+      audio files, and</para></listitem>
       <listitem><para>Which file format and codec are used for the extracted
       audio files.</para></listitem>
     </itemizedlist>
@@ -263,10 +295,12 @@ Status: Draft
       <title>Selecting a CD Drive</title>
 
       <para>If you have multiple CD drives in your computer, the drop-down list
-      labelled <guilabel>CD drive</guilabel> allows you to select which drive to
-      use.  The check box <guibutton>Eject when finished</guibutton> allows you
-      to control whether &application; will eject the CD from the drive when it
-      has finished extracting the audio files.</para>
+      labelled <guilabel>CD drive</guilabel> under <guilabel>Device</guilabel>
+      allows you to select which drive to use.  The check boxes <guibutton>Eject
+      when finished</guibutton> and <guibutton>Open music folder when finished
+      </guibutton>allow you to control whether &application; will eject the CD 
+      from the drive, and whether it will open your music folder respectively, 
+      when it has finished extracting the audio files.</para>
     </section>
 
     <section id="prefs-naming">
@@ -299,6 +333,12 @@ Status: Draft
       is not selected, &application; will remove the <literal>/</literal>
       character from filenames.  This character cannot be used in any
       filenames on UNIX, Linux, and similar systems.</para></note>
+
+      <tip><para>At the bottom of the <guilabel>Track Names</guilabel> section,
+      an example path is shown.  This lets you know what a file name might look
+      like and where it is placed, according to your settings for <guilabel>
+      Folder hierarchy</guilabel>, <guilabel>File name</guilabel>, and <guibutton>
+      Strip special characters</guibutton>.</para></tip>
     </section>
 
     <section id="prefs-format">
@@ -352,6 +392,16 @@ Status: Draft
         </varlistentry>
 
         <varlistentry>
+          <term>CD Quality, AAC (MPEG-4 audio)</term>
+          <listitem>
+            <para>The AAC (short for Advanced Audio Coding) audio format is a
+            standardized lossy format. It is a successor to the MP3 format and
+            it achieves better sound quality than the MP3 format. Many software
+            players and hardware players support the AAC format.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
           <term>Voice, Lossless (WAV audio)</term>
           <listitem>
             <para>The Voice output profile produces low-quality mono audio
@@ -360,6 +410,16 @@ Status: Draft
             less important.</para>
           </listitem>
         </varlistentry>
+        
+<varlistentry>
+          <term>MP3</term>
+          <listitem>
+            <para>The MP3 audio format is a lossy format. It is widely supported
+            and popular, especially because of its use for portable media
+            players.</para>
+          </listitem>
+        </varlistentry>
+
       </variablelist>
 
       <para>You can click the <guibutton>Edit Profiles</guibutton> button to
@@ -370,26 +430,6 @@ Status: Draft
       library used by &application; and other multimedia applications.
       A full explanation of audio profiles is outside the scope of this
       document.</para>
-
-      <tip>
-        <para>If you need to store tracks in the MP3 format (for example,
-        if your portable music player only supports MP3 and not Ogg Vorbis),
-        you will need to create a new profile.  To do this, click on
-        <guibutton>Edit Profiles</guibutton>, click <guibutton>New</guibutton>,
-        and name the profile <userinput>MP3</userinput>.</para>
-
-        <para>Select the MP3 profile and click the <guibutton>Edit</guibutton>
-        button.  Set <guilabel>GStreamer Pipeline</guilabel> to
-        <literallayout><userinput>audio/x-raw-int,rate=44100,channels=2 ! lame name=enc vbr=0 bitrate=192 ! id3v2mux</userinput></literallayout></para>
-
-        <para>Set the <guilabel>File Extension</guilabel> to
-        <userinput>mp3</userinput>, and select the <guibutton>Active</guibutton>
-        check box.  You will have to restart &application; to see the new
-        audio profile.</para>
-
-        <para>This profile uses the <application>LAME</application> MP3 encoder,
-        so you will need to have the GStreamer LAME plugin installed.</para>
-      </tip>
     </section>
   </section>
 
