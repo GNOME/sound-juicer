@@ -1,3 +1,10 @@
+2008-01-18  Ross Burton  <ross@burtonini.com>
+
+	* libjuicer/sj-extractor.c:
+	Determine the maximum read speed from the element instead of
+	assuming G_MAXINT, because the libcdio src has a range of 0-100.
+	This fixes slow rips when using libcdio.
+
 2008-01-13  Ross Burton  <ross@burtonini.com>
 
 	* src/sj-play.c:

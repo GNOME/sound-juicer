@@ -467,6 +467,7 @@ sj_extractor_set_paranoia (SjExtractor *extractor, const int paranoia_mode)
 void
 sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, const char* url, GError **error)
 {
+  GParamSpec *spec;
   GstStateChangeReturn state_ret;
   SjExtractorPrivate *priv;
   GstIterator *iter;
@@ -491,7 +492,10 @@ sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, c
   }
 
   /* Need to do this, as playback will have locked the read speed to 2x previously */
-  g_object_set (G_OBJECT (priv->cdsrc), "read-speed", G_MAXINT, NULL);
+  spec = g_object_class_find_property (G_OBJECT_GET_CLASS (priv->cdsrc), "read-speed");
+  if (spec && spec->value_type == G_TYPE_INT) {
+    g_object_set (G_OBJECT (priv->cdsrc), "read-speed", ((GParamSpecInt*)spec)->maximum, NULL);
+  }
 
   /* Set the output filename */
   gst_element_set_state (priv->filesink, GST_STATE_NULL);
