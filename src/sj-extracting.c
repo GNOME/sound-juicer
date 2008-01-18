@@ -75,7 +75,7 @@ static gboolean initialised = FALSE;
 static GtkWidget *progress_bar, *status_bar;
 
 /** The widgets in the main UI */
-static GtkWidget *extract_button, *play_button, *title_entry, *artist_entry, *genre_entry, *year_entry, *track_listview;
+static GtkWidget *extract_button, *play_button, *title_entry, *artist_entry, *genre_entry, *year_entry, *disc_number_entry, *track_listview;
 
 /** The menuitem in the main menu */
 static GtkWidget *extract_menuitem, *play_menuitem, *reread_menuitem, *select_all_menuitem, *deselect_all_menuitem;
@@ -223,6 +223,7 @@ cleanup (void)
   gtk_widget_set_sensitive (artist_entry, TRUE);
   gtk_widget_set_sensitive (genre_entry, TRUE);
   gtk_widget_set_sensitive (year_entry, TRUE);
+  gtk_widget_set_sensitive (disc_number_entry, TRUE);
   /* Enabling the Menuitem */ 
   gtk_widget_set_sensitive (play_menuitem, TRUE);
   gtk_widget_set_sensitive (extract_menuitem, TRUE);
@@ -691,6 +692,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
     artist_entry = glade_xml_get_widget (glade, "artist_entry");
     genre_entry = glade_xml_get_widget (glade, "genre_entry");
     year_entry = glade_xml_get_widget (glade, "year_entry");
+    disc_number_entry = glade_xml_get_widget (glade, "disc_number_entry");
     track_listview = glade_xml_get_widget (glade, "track_listview");
     progress_bar = glade_xml_get_widget (glade, "progress_bar");
     status_bar = glade_xml_get_widget (glade, "status_bar");
@@ -720,6 +722,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   gtk_widget_set_sensitive (artist_entry, FALSE);
   gtk_widget_set_sensitive (genre_entry, FALSE);
   gtk_widget_set_sensitive (year_entry, FALSE);
+  gtk_widget_set_sensitive (disc_number_entry, FALSE);
 
   /* Disable the menuitems in the main menu*/ 
   gtk_widget_set_sensitive (play_menuitem, FALSE);

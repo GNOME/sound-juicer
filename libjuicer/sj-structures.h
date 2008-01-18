@@ -54,6 +54,7 @@ struct _AlbumDetails {
   char* artist_sortname;
   char *genre;
   int   number; /* number of tracks in the album */
+  int   disc_number;
   GList* tracks;
   GDate *release_date; /* MusicBrainz support multiple releases per album */
   char* album_id;

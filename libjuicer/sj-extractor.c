@@ -563,6 +563,12 @@ sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, c
                                  GST_TAG_DATE, track->album->release_date,
                                  NULL);
       }
+      if (track->album->disc_number > 0) {
+        gst_tag_setter_add_tags (tagger,
+                                 GST_TAG_MERGE_APPEND,
+                                 GST_TAG_ALBUM_VOLUME_NUMBER, track->album->disc_number,
+                                 NULL);
+      }
       gst_object_unref (tagger);
       break;
     case GST_ITERATOR_RESYNC:
