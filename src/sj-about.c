@@ -66,7 +66,7 @@ void on_about_activate (void)
   gtk_show_about_dialog (GTK_WINDOW (main_window),
                          "comments", _("An Audio CD Extractor"),
                          "version", VERSION,
-                         "copyright", "Copyright \xc2\xa9 2003-2006 Ross Burton",
+                         "copyright", "Copyright \xc2\xa9 2003-2008 Ross Burton",
                          "authors", authors,
                          "documenters", documentors,
                          "artists", artists,
