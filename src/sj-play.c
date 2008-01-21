@@ -439,19 +439,9 @@ on_tracklist_row_activate (GtkTreeView * treeview, GtkTreePath * path,
   if (!gtk_tree_model_get_iter (model, &iter, path))
     return;
   gtk_tree_model_get (model, &iter, COLUMN_NUMBER, &track, -1);
-  if (gtk_list_store_iter_is_valid (GTK_LIST_STORE (model), &current_iter))
-      gtk_list_store_set (track_store, &current_iter, COLUMN_STATE, STATE_IDLE, -1);
-
   if (setup (&err)) {
     seek_to_track = track - 1;
-
-    if (current_track != -1) {
-      if (!gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
-                                          &current_iter, NULL, current_track))
-        return;
-    }
     set_gst_ui_and_play ();
-    current_iter = iter;
   } else {
     GtkWidget *dialog;
 
