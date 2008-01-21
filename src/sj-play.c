@@ -239,14 +239,14 @@ cb_state (GstBus *bus, GstMessage *message, gpointer user_data)
   GstState old_state, new_state;
   GstStateChange transition;
 
-  gst_message_parse_state_changed (message, &old_state, &new_state, NULL);
-  transition = GST_STATE_TRANSITION (old_state, new_state);
-
   /* all pipe elements will receive state transition messages,
    * so we filter those out. This won't be neccessary after
    * the playbin migration */
-  if ((GstElement*)GST_MESSAGE_SRC(message) != pipeline)
+  if ((GstElement*)GST_MESSAGE_SRC (message) != pipeline)
     return;
+
+  gst_message_parse_state_changed (message, &old_state, &new_state, NULL);
+  transition = GST_STATE_TRANSITION (old_state, new_state);
 
   if (transition == GST_STATE_CHANGE_READY_TO_PAUSED) {
     char *title;
