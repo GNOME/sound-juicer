@@ -823,6 +823,8 @@ sanitize_path (const char* str, const char* filesystem_type)
  * %tA -- track artist (lowercase)
  * %ts -- track artist sortname
  * %tS -- track artist sortname (lowercase)
+ * %dn -- disc number (i.e 6)
+ * %dN -- disc number, zero padded (i.e 06)
  */
 char*
 filepath_parse_pattern (const char* pattern, const TrackDetails *track)
@@ -959,8 +961,38 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
         p = g_utf8_next_char (p);
         go_next = FALSE;
       }
-      break;
+    case 'd':
+      /*
+       * Disc and track tag
+       */
+      switch (*++p) {
+      case 'n':
+        /* Disc and track number */
+        if (track->album->disc_number > 0) {
+          string = g_strdup_printf ("%d %d", track->album->disc_number, track->number);
+        } else {
+          string = g_strdup_printf ("%d", track->number);
+        }
+        break;
+      case 'N':
+        /* Disc and track number, zero padded */
+        if (track->album->disc_number > 0) {
+          string = g_strdup_printf ("%02d %02d", track->album->disc_number, track->number);
+        } else {
+          string = g_strdup_printf ("%02d", track->number);
+        }
+        break;
       default:
+        g_string_append (s, "%d");
+        p += 2;
+        
+        g_string_append_unichar (s, g_utf8_get_char (p));
+        p = g_utf8_next_char (p);
+        go_next = FALSE;
+      }
+
+      break;
+    default:
       /* append "%", and then the unicode character */
       g_string_append_c (s, '%');
       p += 1;
