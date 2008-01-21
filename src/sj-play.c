@@ -92,7 +92,7 @@ pause (void)
 }
 
 /**
- * Stop.
+ * Stop and reset UI.
  */
 static void
 stop (void)
@@ -100,11 +100,22 @@ stop (void)
   if (pipeline != NULL)
     gst_element_set_state (pipeline, GST_STATE_NULL);
 
+  /* TODO: this should be centralised into the state change logic really */
   gtk_widget_set_sensitive (next_menuitem, FALSE);
   gtk_widget_set_sensitive (prev_menuitem, FALSE);
   gtk_widget_set_sensitive (reread_menuitem, TRUE);
-  /* Call this to ensure that the UI is reset */
+  gtk_widget_hide (seek_scale);
+  gtk_widget_hide (volume_button);
   sj_main_set_title (NULL);
+  if (!gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
+                                      &current_iter, NULL, current_track))
+      return;
+  gtk_list_store_set (track_store, &current_iter, COLUMN_STATE, STATE_IDLE, -1);
+  gtk_statusbar_push (GTK_STATUSBAR (statusbar), 0, "");
+  gtk_button_set_label (GTK_BUTTON (play_button), GTK_STOCK_MEDIA_PLAY);
+  slen = GST_CLOCK_TIME_NONE;
+  current_track = -1;
+
 }
 
 /**
@@ -146,7 +157,7 @@ cb_hop_track (GstBus *bus, GstMessage *message, gpointer user_data)
     stop ();
     seek_to_track = 0;
   } else {
-	seek_to_track = next_track;
+    seek_to_track = next_track;
     set_gst_ui_and_play ();
   }
 }
