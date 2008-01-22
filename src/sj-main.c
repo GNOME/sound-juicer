@@ -522,6 +522,9 @@ static void update_ui_for_album (AlbumDetails *album)
     g_signal_handlers_block_by_func (disc_number_entry, on_disc_number_edit_changed, NULL);
     gtk_entry_set_text (GTK_ENTRY (title_entry), album->title);
     gtk_entry_set_text (GTK_ENTRY (artist_entry), album->artist);
+    if (album->disc_number) {
+      gtk_entry_set_text (GTK_ENTRY (disc_number_entry), g_strdup_printf ("%d", album->disc_number));
+    }
     if (g_date_valid (album->release_date)) {
       gtk_entry_set_text (GTK_ENTRY (year_entry), g_strdup_printf ("%d", g_date_get_year (album->release_date)));
     }

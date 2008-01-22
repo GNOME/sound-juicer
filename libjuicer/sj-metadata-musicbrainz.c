@@ -58,6 +58,7 @@ struct SjMetadataMusicbrainzPrivate {
   /* TODO: remove and use an async queue? */
   GList *albums;
   GError *error;
+  GRegex *disc_regex;
 };
 
 #define GET_PRIVATE(o)  \
@@ -330,6 +331,7 @@ lookup_cd (SjMetadata *metadata)
   SjMetadataMusicbrainzPrivate *priv;
   GList *albums = NULL;
   GList *al, *tl;
+  GMatchInfo *info;
   char data[256];
   int num_albums, i, j;
   NautilusBurnMediaType type;
@@ -420,6 +422,22 @@ lookup_cd (SjMetadata *metadata)
     } else {
       album->title = g_strdup (_("Unknown Title"));
     }
+
+    if (g_regex_match (priv->disc_regex, album->title, 0, &info)) {
+      int pos = 0;
+      char *s;
+ 
+      g_match_info_fetch_pos (info, 1, &pos, NULL);
+      if (pos) {
+        g_free (album->title);
+        album->title = g_strndup (album->title, pos);
+      }
+      
+      s = g_match_info_fetch (info, 2);
+      album->disc_number = atoi (s);
+      g_free (s);
+    }
+    g_match_info_free (info);
 
     {
       int num_releases;
@@ -633,6 +651,8 @@ sj_metadata_musicbrainz_init (SjMetadataMusicbrainz *self)
   if (g_getenv("MUSICBRAINZ_DEBUG")) {
     mb_SetDebug (self->priv->mb, TRUE);
   }
+
+  self->priv->disc_regex = g_regex_new (".+( \\(disc (\\d+).*)", 0, 0, NULL);
 }
 
 static void
@@ -698,6 +718,7 @@ sj_metadata_musicbrainz_finalize (GObject *object)
 
   g_free (priv->http_proxy);
   g_free (priv->cdrom);
+  g_regex_unref (priv->disc_regex);
   mb_Delete (priv->mb);
 
   G_OBJECT_CLASS (sj_metadata_musicbrainz_parent_class)->finalize (object);
