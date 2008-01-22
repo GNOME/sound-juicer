@@ -990,7 +990,6 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
         p = g_utf8_next_char (p);
         go_next = FALSE;
       }
-
       break;
     default:
       /* append "%", and then the unicode character */
