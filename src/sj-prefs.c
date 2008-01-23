@@ -215,6 +215,7 @@ static void pattern_label_update (void)
     "Beatles, The", /* sortname */
     NULL, /* genre */
     0, /* number of tracks*/
+    1, /* disc number */
     NULL, /* track list */
     NULL, /* release date */
     NULL, /* album ID */
