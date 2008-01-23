@@ -107,15 +107,15 @@ stop (void)
   gtk_widget_hide (seek_scale);
   gtk_widget_hide (volume_button);
   sj_main_set_title (NULL);
-  if (!gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
-                                      &current_iter, NULL, current_track))
-      return;
-  gtk_list_store_set (track_store, &current_iter, COLUMN_STATE, STATE_IDLE, -1);
   gtk_statusbar_push (GTK_STATUSBAR (statusbar), 0, "");
   gtk_button_set_label (GTK_BUTTON (play_button), GTK_STOCK_MEDIA_PLAY);
   slen = GST_CLOCK_TIME_NONE;
-  current_track = -1;
 
+  if (current_track != -1 &&
+      gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store), &current_iter, NULL, current_track))
+    gtk_list_store_set (track_store, &current_iter, COLUMN_STATE, STATE_IDLE, -1);
+
+  current_track = -1;
 }
 
 /**
