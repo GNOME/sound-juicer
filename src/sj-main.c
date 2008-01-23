@@ -525,7 +525,7 @@ static void update_ui_for_album (AlbumDetails *album)
     if (album->disc_number) {
       gtk_entry_set_text (GTK_ENTRY (disc_number_entry), g_strdup_printf ("%d", album->disc_number));
     }
-    if (g_date_valid (album->release_date)) {
+    if (album->release_date && g_date_valid (album->release_date)) {
       gtk_entry_set_text (GTK_ENTRY (year_entry), g_strdup_printf ("%d", g_date_get_year (album->release_date)));
     }
     g_signal_handlers_unblock_by_func (title_entry, on_title_edit_changed, NULL);
