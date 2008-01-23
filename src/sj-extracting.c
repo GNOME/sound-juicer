@@ -961,6 +961,7 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
         p = g_utf8_next_char (p);
         go_next = FALSE;
       }
+      break;
     case 'd':
       /*
        * Disc and track tag
