@@ -429,8 +429,9 @@ lookup_cd (SjMetadata *metadata)
  
       g_match_info_fetch_pos (info, 1, &pos, NULL);
       if (pos) {
+        s = g_strndup (album->title, pos);
         g_free (album->title);
-        album->title = g_strndup (album->title, pos);
+        album->title = s;
       }
       
       s = g_match_info_fetch (info, 2);
