@@ -423,6 +423,7 @@ on_play_activate (GtkWidget *button, gpointer user_data)
         return;
 	set_gst_ui_and_play ();
   } else if (setup (&err)) {
+	current_track = -1;
 	cb_hop_track (NULL,NULL,NULL);
   }	else {
     GtkWidget *dialog;
