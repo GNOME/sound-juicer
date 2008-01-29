@@ -361,7 +361,8 @@ static void
 set_message_area_text_and_icon (GeditMessageArea *message_area,
                                 const gchar   *icon_stock_id,
                                 const gchar   *primary_text,
-                                const gchar   *secondary_text)
+                                const gchar   *secondary_text,
+                                GtkWidget *button)
 {
   GtkWidget *hbox_content;
   GtkWidget *image;
@@ -370,6 +371,9 @@ set_message_area_text_and_icon (GeditMessageArea *message_area,
   gchar *secondary_markup;
   GtkWidget *primary_label;
   GtkWidget *secondary_label;
+  AtkObject *ally_target;
+
+  ally_target = gtk_widget_get_accessible (button);
 
   hbox_content = gtk_hbox_new (FALSE, 8);
   gtk_widget_show (hbox_content);
@@ -391,6 +395,9 @@ set_message_area_text_and_icon (GeditMessageArea *message_area,
   gtk_label_set_use_markup (GTK_LABEL (primary_label), TRUE);
   gtk_label_set_line_wrap (GTK_LABEL (primary_label), TRUE);
   gtk_misc_set_alignment (GTK_MISC (primary_label), 0, 0.5);
+  atk_object_add_relationship (ally_target,
+                               ATK_RELATION_LABELLED_BY,
+                               gtk_widget_get_accessible (primary_label));
 
   if (secondary_text != NULL) {
     secondary_markup = g_markup_printf_escaped ("<small>%s</small>",
@@ -402,6 +409,9 @@ set_message_area_text_and_icon (GeditMessageArea *message_area,
     gtk_label_set_use_markup (GTK_LABEL (secondary_label), TRUE);
     gtk_label_set_line_wrap (GTK_LABEL (secondary_label), TRUE);
     gtk_misc_set_alignment (GTK_MISC (secondary_label), 0, 0.5);
+    atk_object_add_relationship (ally_target,
+                                 ATK_RELATION_LABELLED_BY,
+                                 gtk_widget_get_accessible (secondary_label));
   }
 
   gedit_message_area_set_contents (GEDIT_MESSAGE_AREA (message_area),
@@ -435,7 +445,7 @@ set_message_area (GtkWidget *container,
 static GtkWidget*
 musicbrainz_submit_message_area_new (char *title, char *artist)
 {
-  GtkWidget *message_area;
+  GtkWidget *message_area, *button;
   char *primary_text;
 
   g_return_val_if_fail (title != NULL, NULL);
@@ -443,9 +453,9 @@ musicbrainz_submit_message_area_new (char *title, char *artist)
 
   message_area = gedit_message_area_new ();
 
-  gedit_message_area_add_button (GEDIT_MESSAGE_AREA (message_area),
-                                 _("_Submit Album"),
-                                 GTK_RESPONSE_OK);
+  button = gedit_message_area_add_button (GEDIT_MESSAGE_AREA (message_area),
+                                          _("_Submit Album"),
+                                          GTK_RESPONSE_OK);
   gedit_message_area_add_button (GEDIT_MESSAGE_AREA (message_area),
                                  GTK_STOCK_CANCEL,
                                  GTK_RESPONSE_CANCEL);
@@ -456,7 +466,8 @@ musicbrainz_submit_message_area_new (char *title, char *artist)
   set_message_area_text_and_icon (GEDIT_MESSAGE_AREA (message_area),
                                   "gtk-dialog-info",
                                   primary_text,
-                                  _("You can improve the MusicBrainz database by adding this album."));
+                                  _("You can improve the MusicBrainz database by adding this album."),
+                                  button);
   
   g_free (primary_text);
   
