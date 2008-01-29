@@ -309,7 +309,7 @@ void on_deselect_all_activate (GtkMenuItem *item, gpointer user_data)
   gtk_widget_set_sensitive (deselect_all_menuitem, FALSE);
   gtk_widget_set_sensitive (select_all_menuitem,TRUE);
   no_of_tracks_selected = 0;
-}
+}
 
 /**
  * GtkTreeView cell renderer callback to render durations
