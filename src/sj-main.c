@@ -309,7 +309,7 @@ void on_deselect_all_activate (GtkMenuItem *item, gpointer user_data)
   gtk_widget_set_sensitive (deselect_all_menuitem, FALSE);
   gtk_widget_set_sensitive (select_all_menuitem,TRUE);
   no_of_tracks_selected = 0;
-}
+}
 
 /**
  * GtkTreeView cell renderer callback to render durations
@@ -334,10 +334,10 @@ static void duration_cell_data_cb (GtkTreeViewColumn *tree_column,
 }
 
 static void number_cell_icon_data_cb (GtkTreeViewColumn *tree_column,
-				      GtkCellRenderer *cell,
-				      GtkTreeModel *tree_model,
-				      GtkTreeIter *iter,
-				      gpointer data)
+                                      GtkCellRenderer *cell,
+                                      GtkTreeModel *tree_model,
+                                      GtkTreeIter *iter,
+                                      gpointer data)
 {
   TrackState state;
   gtk_tree_model_get (tree_model, iter, COLUMN_STATE, &state, -1);
@@ -359,9 +359,9 @@ static void number_cell_icon_data_cb (GtkTreeViewColumn *tree_column,
 /* Taken from gedit */
 static void
 set_message_area_text_and_icon (GeditMessageArea *message_area,
-				const gchar   *icon_stock_id,
-				const gchar   *primary_text,
-				const gchar   *secondary_text)
+                                const gchar   *icon_stock_id,
+                                const gchar   *primary_text,
+                                const gchar   *secondary_text)
 {
   GtkWidget *hbox_content;
   GtkWidget *image;
@@ -394,7 +394,7 @@ set_message_area_text_and_icon (GeditMessageArea *message_area,
 
   if (secondary_text != NULL) {
     secondary_markup = g_markup_printf_escaped ("<small>%s</small>",
-						secondary_text);
+                                                secondary_text);
     secondary_label = gtk_label_new (secondary_markup);
     g_free (secondary_markup);
     gtk_widget_show (secondary_label);
@@ -405,37 +405,35 @@ set_message_area_text_and_icon (GeditMessageArea *message_area,
   }
 
   gedit_message_area_set_contents (GEDIT_MESSAGE_AREA (message_area),
-				   hbox_content);
+                                   hbox_content);
 }
 
 /* Taken from gedit */
 static void
 set_message_area (GtkWidget *container,
-		  GtkWidget *message_area)
+                  GtkWidget *message_area)
 {
   if (current_message_area == message_area)
-      return;
-
+    return;
+  
   if (current_message_area != NULL)
     gtk_widget_destroy (current_message_area);
-
+  
   current_message_area = message_area;
-
+  
   if (message_area == NULL)
     return;
 
   gtk_box_pack_start (GTK_BOX (container),
-		      current_message_area,
-		      FALSE,
-		      FALSE,
-		      0);
+                      current_message_area,
+                      FALSE, FALSE, 0);
 
   g_object_add_weak_pointer (G_OBJECT (current_message_area),
-			     (gpointer)&current_message_area);
+                             (gpointer)&current_message_area);
 }
 
-static GtkWidget* musicbrainz_submit_message_area_new (char *title,
-						       char *artist)
+static GtkWidget*
+musicbrainz_submit_message_area_new (char *title, char *artist)
 {
   GtkWidget *message_area;
   char *primary_text;
@@ -446,33 +444,34 @@ static GtkWidget* musicbrainz_submit_message_area_new (char *title,
   message_area = gedit_message_area_new ();
 
   gedit_message_area_add_button (GEDIT_MESSAGE_AREA (message_area),
-			      _("_Submit Album"),
-			      GTK_RESPONSE_OK);
+                                 _("_Submit Album"),
+                                 GTK_RESPONSE_OK);
   gedit_message_area_add_button (GEDIT_MESSAGE_AREA (message_area),
-			      GTK_STOCK_CANCEL,
-			      GTK_RESPONSE_CANCEL);
+                                 GTK_STOCK_CANCEL,
+                                 GTK_RESPONSE_CANCEL);
 
   /* Translators: title, artist */
   primary_text = g_strdup_printf (_("Could not find %s by %s on MusicBrainz."), title, artist);
-
+  
   set_message_area_text_and_icon (GEDIT_MESSAGE_AREA (message_area),
-				  "gtk-dialog-info",
-				  primary_text,
-				  _("You can improve the MusicBrainz database by adding this album."));
-
+                                  "gtk-dialog-info",
+                                  primary_text,
+                                  _("You can improve the MusicBrainz database by adding this album."));
+  
   g_free (primary_text);
-
+  
   return message_area;
 }
 
-static void musicbrainz_submit_message_area_response (GeditMessageArea *message_area,
-						      gint           response_id,
-						      gpointer       user_data)
+static void
+musicbrainz_submit_message_area_response (GeditMessageArea *message_area,
+                                          int response_id,
+                                          gpointer user_data)
 {
   if (response_id == GTK_RESPONSE_OK) {
     on_submit_activate (NULL, NULL);
   }
-
+  
   set_message_area (message_area_vbox, NULL);
 }
 
@@ -581,19 +580,18 @@ static void update_ui_for_album (AlbumDetails *album)
     if (album->metadata_source != SOURCE_MUSICBRAINZ) {
       GtkWidget *message_area;
 
-      message_area = musicbrainz_submit_message_area_new (album->title,
-							  album->artist);
+      message_area = musicbrainz_submit_message_area_new (album->title, album->artist);
 
       set_message_area (message_area_vbox, message_area);
 
       g_signal_connect (message_area,
-			"response",
-			G_CALLBACK (musicbrainz_submit_message_area_response),
-			NULL);
-
+                        "response",
+                        G_CALLBACK (musicbrainz_submit_message_area_response),
+                        NULL);
+      
       gedit_message_area_set_default_response (GEDIT_MESSAGE_AREA (message_area),
-					    GTK_RESPONSE_CANCEL);
-
+                                               GTK_RESPONSE_CANCEL);
+      
       gtk_widget_show (message_area);
     }
   }
@@ -812,11 +810,11 @@ static void audio_volume_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
 {
   g_assert (strcmp (entry->key, GCONF_AUDIO_VOLUME) == 0);
   
- GtkWidget *volb = glade_xml_get_widget (glade, "volume_button");
- if (entry->value == NULL) {
+  GtkWidget *volb = glade_xml_get_widget (glade, "volume_button");
+  if (entry->value == NULL) {
     bacon_volume_button_set_value (BACON_VOLUME_BUTTON (volb), 1.0);
   } else {
-  	bacon_volume_button_set_value (BACON_VOLUME_BUTTON (volb), gconf_value_get_float (entry->value));
+    bacon_volume_button_set_value (BACON_VOLUME_BUTTON (volb), gconf_value_get_float (entry->value));
   }
 }
 
@@ -910,8 +908,7 @@ static void reread_cd (gboolean ignore_no_media)
   
   /* Set watch cursor */
   if (realized) {
-    cursor = gdk_cursor_new_for_display (gdk_drawable_get_display (main_window->window),
-					 GDK_WATCH);
+    cursor = gdk_cursor_new_for_display (gdk_drawable_get_display (main_window->window), GDK_WATCH);
     gdk_window_set_cursor (main_window->window, cursor);
     gdk_cursor_unref (cursor);
     gdk_display_sync (gdk_drawable_get_display (main_window->window));
@@ -1129,8 +1126,7 @@ static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *e
   gboolean ignore_no_media = GPOINTER_TO_INT (user_data);
   g_assert (strcmp (entry->key, GCONF_DEVICE) == 0);
 
-  if (entry->value == NULL
-		  || !cd_drive_exists (gconf_value_get_string (entry->value))) {
+  if (entry->value == NULL || !cd_drive_exists (gconf_value_get_string (entry->value))) {
     device = prefs_get_default_device();
     if (device == NULL) {
 #ifndef IGNORE_MISSING_CD
@@ -1140,8 +1136,8 @@ static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *e
                                        GTK_MESSAGE_ERROR,
                                        GTK_BUTTONS_CLOSE,
                                        "<b>%s</b>\n\n%s",
-				       _("No CD-ROM drives found"),
-				       _("Sound Juicer could not find any CD-ROM drives to read."));
+                                       _("No CD-ROM drives found"),
+                                       _("Sound Juicer could not find any CD-ROM drives to read."));
       gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
       gtk_dialog_run (GTK_DIALOG (dialog));
       gtk_widget_destroy (dialog);
@@ -1169,10 +1165,10 @@ static void profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *
     int response;
     
     dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
-				     GTK_DIALOG_MODAL,
-				     GTK_MESSAGE_QUESTION,
-				     GTK_BUTTONS_NONE,
-				     _("The currently selected audio profile is not available on your installation."));
+                                     GTK_DIALOG_MODAL,
+                                     GTK_MESSAGE_QUESTION,
+                                     GTK_BUTTONS_NONE,
+                                     _("The currently selected audio profile is not available on your installation."));
     gtk_dialog_add_button (GTK_DIALOG (dialog), "gtk-quit", GTK_RESPONSE_REJECT);
     gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Change Profile"), GTK_RESPONSE_ACCEPT);
     response = gtk_dialog_run (GTK_DIALOG (dialog));
@@ -1260,10 +1256,10 @@ void on_submit_activate (GtkWidget *menuitem, gpointer user_data)
                                        GTK_MESSAGE_ERROR,
                                        GTK_BUTTONS_CLOSE,
                                        "<b>%s</b>\n\n%s\n%s: %s",
-				       _("Could not open URL"),
-				       _("Sound Juicer could not open the submission URL"),
-				       _("Reason"),
-				       error->message);
+                                       _("Could not open URL"),
+                                       _("Sound Juicer could not open the submission URL"),
+                                       _("Reason"),
+                                       error->message);
       gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
       gtk_dialog_run (GTK_DIALOG (dialog));
       gtk_widget_destroy (dialog);
@@ -1402,14 +1398,14 @@ void on_artist_edit_changed(GtkEditable *widget, gpointer user_data) {
   /* Set the artist field in each tree row */
   do {
     gtk_tree_model_get(GTK_TREE_MODEL (track_store), &iter, COLUMN_ARTIST, &current_track_artist, -1);
-	/* Change track artist if it matched album artist before the change */
+    /* Change track artist if it matched album artist before the change */
     if ((strcasecmp (current_track_artist, former_album_artist) == 0) || (strcasecmp (current_track_artist, current_album->artist) == 0)) {
       gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, COLUMN_DETAILS, &track, -1);
       g_free (track->artist);
       track->artist = g_strdup (current_album->artist);
       gtk_list_store_set (track_store, &iter, COLUMN_ARTIST, track->artist, -1);
       gtk_tree_model_get(GTK_TREE_MODEL (track_store), &iter, COLUMN_ARTIST, &current_track_artist, -1);
-	}
+    }
   } while (gtk_tree_model_iter_next (GTK_TREE_MODEL(track_store), &iter));
 }
 
@@ -1476,7 +1472,7 @@ GtkWidget *
 sj_make_volume_button (void)
 {
   GtkWidget *w = bacon_volume_button_new (GTK_ICON_SIZE_SMALL_TOOLBAR,
-					  0.0, 1.0, 0.02);
+                                          0.0, 1.0, 0.02);
   bacon_volume_button_set_value (BACON_VOLUME_BUTTON (w), 1.0);
   return w;
 }
@@ -1563,14 +1559,14 @@ void on_duplicate_activate (GtkWidget *button, gpointer user_data)
                                        GTK_MESSAGE_ERROR,
                                        GTK_BUTTONS_CLOSE,
                                        "<b>%s</b>\n\n%s\n%s: %s",
-				       _("Could not duplicate disc"),
-				       _("Sound Juicer could not duplicate the disc"),
-				       _("Reason"),
-				       error->message);
+                                       _("Could not duplicate disc"),
+                                       _("Sound Juicer could not duplicate the disc"),
+                                       _("Reason"),
+                                       error->message);
       gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
       gtk_dialog_run (GTK_DIALOG (dialog));
       gtk_widget_destroy (dialog);
-      g_error_free (error);	
+      g_error_free (error);
   }
 }
 
@@ -1611,9 +1607,9 @@ int main (int argc, char **argv)
   g_option_context_add_group (ctx, gst_init_get_option_group ());
   g_option_context_set_ignore_unknown_options (ctx, TRUE);
 
-  program = gnome_program_init ("sound-juicer", 	 
-                      VERSION, LIBGNOMEUI_MODULE, 	 
-                      argc, argv, 	 
+  program = gnome_program_init ("sound-juicer",
+                      VERSION, LIBGNOMEUI_MODULE,
+                      argc, argv,
                       GNOME_PROGRAM_STANDARD_PROPERTIES,
                       GNOME_PARAM_GOPTION_CONTEXT, ctx,
                       NULL);
@@ -1632,9 +1628,9 @@ int main (int argc, char **argv)
   
   connection = bacon_message_connection_new ("sound-juicer");
   if (bacon_message_connection_get_is_server (connection) == FALSE) {
-	  bacon_message_connection_send (connection, RAISE_WINDOW);
-	  bacon_message_connection_free (connection);
-	  exit (0);
+    bacon_message_connection_send (connection, RAISE_WINDOW);
+    bacon_message_connection_free (connection);
+    exit (0);
   } else {
     bacon_message_connection_set_callback (connection, on_message_received, NULL);
   }
@@ -1713,14 +1709,14 @@ int main (int argc, char **argv)
     fake_button1 = gtk_button_new_from_stock (GTK_STOCK_MEDIA_PLAY);
     gtk_size_group_add_widget (size_group, fake_button1);
     g_signal_connect_swapped (play_button, "destroy",
-		    	      G_CALLBACK (gtk_widget_destroy),
-			      fake_button1);
-
+                              G_CALLBACK (gtk_widget_destroy),
+                              fake_button1);
+    
     fake_button2 = gtk_button_new_from_stock (GTK_STOCK_MEDIA_PAUSE);
     gtk_size_group_add_widget (size_group, fake_button2);
     g_signal_connect_swapped (play_button, "destroy",
-		    	      G_CALLBACK (gtk_widget_destroy),
-			      fake_button2);
+                              G_CALLBACK (gtk_widget_destroy),
+                              fake_button2);
 
     gtk_size_group_add_widget (size_group, play_button);
   }
