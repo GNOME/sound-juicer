@@ -970,7 +970,7 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
       case 'n':
         /* Disc and track number */
         if (track->album->disc_number > 0) {
-          string = g_strdup_printf ("%d %d", track->album->disc_number, track->number);
+          string = g_strdup_printf ("Disc %d - %d", track->album->disc_number, track->number);
         } else {
           string = g_strdup_printf ("%d", track->number);
         }
@@ -978,7 +978,7 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
       case 'N':
         /* Disc and track number, zero padded */
         if (track->album->disc_number > 0) {
-          string = g_strdup_printf ("%02d %02d", track->album->disc_number, track->number);
+          string = g_strdup_printf ("d%dt%02d", track->album->disc_number, track->number);
         } else {
           string = g_strdup_printf ("%02d", track->number);
         }
