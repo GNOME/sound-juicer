@@ -122,7 +122,7 @@ static guint cookie;
  * have finished with it.
  */
 static char*
-build_filename (const TrackDetails *track, GError **error)
+build_filename (const TrackDetails *track, gboolean temp_filename, GError **error)
 {
   GnomeVFSURI *uri, *new; 
   gchar *realfile, *realpath, *filename, *string;
@@ -156,7 +156,11 @@ build_filename (const TrackDetails *track, GError **error)
     return NULL;
   }
   realfile = filepath_parse_pattern (file_pattern, track);
-  filename = g_strdup_printf("%.*s.%s", max_realfile, realfile, extension);
+  if (temp_filename) {
+    filename = g_strdup_printf (".%.*s.%s", max_realfile-1, realfile, extension);
+  } else {
+    filename = g_strdup_printf ("%.*s.%s", max_realfile, realfile, extension);
+  }
   new = gnome_vfs_uri_append_file_name (uri, filename);
   gnome_vfs_uri_unref (uri); uri = new;
   g_free (filename); g_free (realfile);
@@ -363,13 +367,17 @@ pop_and_extract (int *overwrite_mode)
     g_assert_not_reached ();
   } else {
     TrackDetails *track = NULL;
-    char *file_path = NULL, *directory;
+    char *file_path = NULL, *temp_file_path = NULL, *directory;
     GError *error = NULL;
 
     /* Pop the next track to extract */
     gtk_tree_model_get (GTK_TREE_MODEL (track_store), &current, COLUMN_DETAILS, &track, -1);
     /* Build the filename for this track */
-    file_path = build_filename (track, &error);
+    file_path = build_filename (track, FALSE, &error);
+    if (error) {
+      goto error;
+    }
+    temp_file_path = build_filename (track, TRUE, &error);
     if (error) {
       goto error;
     }
@@ -418,7 +426,7 @@ pop_and_extract (int *overwrite_mode)
     gtk_tree_path_free(path);
 
     /* Now actually do the extraction */
-    sj_extractor_extract_track (extractor, track, file_path, &error);
+    sj_extractor_extract_track (extractor, track, temp_file_path, &error);
     if (error) {
       goto error;
     }
@@ -428,6 +436,7 @@ error:
     g_error_free (error);
 local_cleanup:
     g_free (file_path);
+    g_free (temp_file_path);
   }
 }
 
@@ -583,6 +592,7 @@ static void
 on_completion_cb (SjExtractor *extractor, gpointer data)
 {
   TrackDetails *track = NULL;
+  char *temp_file_path, *new_file_path;
 
   /* Only manipulate the track state if we have an album, as we might be here if
      the disk was ejected mid-rip. */
@@ -595,6 +605,15 @@ on_completion_cb (SjExtractor *extractor, gpointer data)
   
   gtk_tree_model_get (GTK_TREE_MODEL (track_store), &current,
                       COLUMN_DETAILS, &track, -1);
+
+
+
+    temp_file_path = build_filename (track, TRUE, NULL);
+    new_file_path = build_filename (track, FALSE, NULL);
+    gnome_vfs_move (temp_file_path, new_file_path, TRUE);
+
+    g_free (temp_file_path);
+    g_free (new_file_path);
 
   if (find_next ()) {
     /* Increment the duration */
@@ -644,7 +663,18 @@ on_error_cb (SjExtractor *extractor, GError *error, gpointer data)
 void
 on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
 {
+  TrackDetails *track = NULL;
+  char *file_path;
+
   sj_extractor_cancel_extract (extractor);
+  
+  gtk_tree_model_get (GTK_TREE_MODEL (track_store), &current,
+                      COLUMN_DETAILS, &track, -1);
+
+  file_path = build_filename (track, TRUE, NULL);
+  gnome_vfs_unlink (file_path);
+  g_free (file_path);
+
   cleanup ();
 }
 

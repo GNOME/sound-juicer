@@ -1,3 +1,10 @@
+2008-02-13  Ross Burton  <ross@burtonini.com>
+
+	* src/sj-extracting.c:
+	When extracting write to a temporary file and rename it when
+	finished, so that cancelling when overwriting doesn't remove the
+	previously ripped track (#172543, thanks Matthew Martin).
+
 2008-02-09  Claude Paroz  <claude@2xlibre.net>
 
 	* src/sj-about.c: (on_about_activate): Updated FSF address.
