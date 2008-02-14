@@ -44,6 +44,12 @@ PKG_CHECK_MODULES(BURN, libnautilus-burn >= 2.15.3)
 AC_SUBST(BURN_CFLAGS)
 AC_SUBST(BURN_LIBS)
 
+# Set a flag if we have _can_eject, added in 2.21.5.
+oldlibs=$LIBS
+LIBS="$LIBS $BURN_LIBS"
+AC_CHECK_FUNCS(nautilus_burn_drive_can_eject)
+LIBS="$oldlibs"
+
 # Find the UI libraries
 PKG_CHECK_MODULES(UI, gtk+-2.0 >= 2.8  libglade-2.0  gconf-2.0  libgnomeui-2.0 >= 2.13.0  gnome-vfs-2.0 >= 2.9 gnome-vfs-module-2.0 > 2.9 gmodule-export-2.0 dbus-glib-1)
 AC_SUBST(UI_CFLAGS)

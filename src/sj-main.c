@@ -82,7 +82,7 @@ static GtkWidget *track_listview, *extract_button, *play_button;
 static GtkWidget *status_bar;
 static GtkWidget *extract_menuitem, *play_menuitem, *next_menuitem, *prev_menuitem, *select_all_menuitem, *deselect_all_menuitem;
 static GtkWidget *submit_menuitem;
-static GtkWidget *duplicate;
+static GtkWidget *duplicate, *eject;
 GtkListStore *track_store;
 static BaconMessageConnection *connection;
 GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer;
@@ -1084,6 +1084,10 @@ set_device (const char* device, gboolean ignore_no_media)
     if (tray_opened == FALSE) {
       reread_cd (ignore_no_media);
     }
+#if HAVE_NAUTILUS_BURN_DRIVE_CAN_EJECT
+    // Enable/disable the eject options based on wether the drive supports ejection
+    gtk_widget_set_sensitive (eject, nautilus_burn_drive_can_eject (drive));
+#endif
   }
 }
 
@@ -1710,6 +1714,7 @@ int main (int argc, char **argv)
   prev_menuitem = glade_xml_get_widget (glade, "previous_track_menuitem");
   status_bar = glade_xml_get_widget (glade, "status_bar");
   duplicate = glade_xml_get_widget (glade, "duplicate_menuitem");
+  eject = glade_xml_get_widget (glade, "eject");
 
   { /* ensure that the play/pause button's size is constant */
     GtkWidget *fake_button1, *fake_button2;
