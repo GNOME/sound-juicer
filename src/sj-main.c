@@ -1399,29 +1399,34 @@ void on_title_edit_changed(GtkEditable *widget, gpointer user_data) {
 void on_artist_edit_changed(GtkEditable *widget, gpointer user_data) {
   GtkTreeIter iter;
   TrackDetails *track;
-  gchar *current_track_artist, *former_album_artist=NULL;
+  gchar *current_track_artist, *former_album_artist = NULL;
 
   g_return_if_fail (current_album != NULL);
+  
   if (current_album->artist) {
-    former_album_artist=g_strdup(current_album->artist);
-    g_free (current_album->artist);
+    former_album_artist = current_album->artist;
   }
   current_album->artist = gtk_editable_get_chars (widget, 0, -1); /* get all the characters */
 
-  if (!gtk_tree_model_get_iter_first (GTK_TREE_MODEL (track_store), &iter)) return;
+  if (!gtk_tree_model_get_iter_first (GTK_TREE_MODEL (track_store), &iter)) {
+    g_free (former_album_artist);
+    return;
+  }
   
   /* Set the artist field in each tree row */
   do {
-    gtk_tree_model_get(GTK_TREE_MODEL (track_store), &iter, COLUMN_ARTIST, &current_track_artist, -1);
+    gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, COLUMN_ARTIST, &current_track_artist, -1);
     /* Change track artist if it matched album artist before the change */
     if ((strcasecmp (current_track_artist, former_album_artist) == 0) || (strcasecmp (current_track_artist, current_album->artist) == 0)) {
       gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, COLUMN_DETAILS, &track, -1);
       g_free (track->artist);
       track->artist = g_strdup (current_album->artist);
       gtk_list_store_set (track_store, &iter, COLUMN_ARTIST, track->artist, -1);
-      gtk_tree_model_get(GTK_TREE_MODEL (track_store), &iter, COLUMN_ARTIST, &current_track_artist, -1);
+      gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, COLUMN_ARTIST, &current_track_artist, -1);
     }
-  } while (gtk_tree_model_iter_next (GTK_TREE_MODEL(track_store), &iter));
+  } while (gtk_tree_model_iter_next (GTK_TREE_MODEL (track_store), &iter));
+ 
+  g_free (former_album_artist);
 }
 
 void on_genre_edit_changed(GtkEditable *widget, gpointer user_data) {
