@@ -1403,6 +1403,12 @@ void on_artist_edit_changed(GtkEditable *widget, gpointer user_data) {
 
   g_return_if_fail (current_album != NULL);
   
+  /* Unset the sortable artist field, as we can't change it automatically */
+  if (current_album->artist_sortname) {
+    g_free (current_album->artist_sortname);
+    current_album->artist_sortname = NULL;
+  }
+
   if (current_album->artist) {
     former_album_artist = current_album->artist;
   }
@@ -1419,10 +1425,16 @@ void on_artist_edit_changed(GtkEditable *widget, gpointer user_data) {
     /* Change track artist if it matched album artist before the change */
     if ((strcasecmp (current_track_artist, former_album_artist) == 0) || (strcasecmp (current_track_artist, current_album->artist) == 0)) {
       gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, COLUMN_DETAILS, &track, -1);
+      
       g_free (track->artist);
       track->artist = g_strdup (current_album->artist);
+      
+      if (track->artist_sortname) {
+        g_free (track->artist_sortname);
+        track->artist_sortname = NULL;
+      }
+      
       gtk_list_store_set (track_store, &iter, COLUMN_ARTIST, track->artist, -1);
-      gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, COLUMN_ARTIST, &current_track_artist, -1);
     }
   } while (gtk_tree_model_iter_next (GTK_TREE_MODEL (track_store), &iter));
  
