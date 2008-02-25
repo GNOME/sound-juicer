@@ -1,3 +1,10 @@
+2008-02-25  Ross Burton  <ross@burtonini.com>
+
+	* src/sj-prefs.c:
+	When setting the base path, if it is unset default to the XDG
+	music directory, and only emit change signals if the path has
+	actually changed (#471971, thanks Matthew Martin).
+
 2008-02-21  Ross Burton  <ross@burtonini.com>
 
 	* src/sj-main.c:

@@ -118,10 +118,16 @@ void show_help (GtkWindow *parent)
  */
 void prefs_base_folder_changed (GtkWidget *chooser, gpointer user_data)
 {
-  char *uri;
-  uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (chooser));
-  gconf_client_set_string (gconf_client, GCONF_BASEURI, uri, NULL);
-  g_free (uri);
+  char *new_uri, *current_uri;
+  
+  current_uri = gconf_client_get_string (gconf_client, GCONF_BASEURI, NULL);
+  new_uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (chooser)); 
+
+  if (strcmp(current_uri, new_uri) != 0)  
+    gconf_client_set_string (gconf_client, GCONF_BASEURI, new_uri, NULL);
+  
+  g_free (new_uri);
+  g_free (current_uri);
 }
 
 void prefs_path_option_changed (GtkComboBox *combo, gpointer user_data)
@@ -198,7 +204,12 @@ static void baseuri_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *
     g_return_if_fail (entry->value->type == GCONF_VALUE_STRING);
     current_uri = gtk_file_chooser_get_current_folder_uri (GTK_FILE_CHOOSER (basepath_fcb));
     if (current_uri == NULL || strcmp (current_uri, base_uri) != 0) { 
-      gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (basepath_fcb), base_uri);
+	    char *dir;
+
+	    dir = sj_get_default_music_directory ();
+	    gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (basepath_fcb), dir);
+	    g_free (dir);
+		
     }
   }
 }
