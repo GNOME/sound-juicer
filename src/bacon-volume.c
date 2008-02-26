@@ -48,7 +48,6 @@ struct BaconVolumeButton {
   float direction;
   guint32 pop_time;
   GdkPixbuf *icon[4];
-  GtkTooltips *tooltips;
   guint timeout : 1;
 };
 
@@ -148,7 +147,6 @@ bacon_volume_button_init (BaconVolumeButton *button)
   button->timeout = FALSE;
   button->click_id = 0;
   button->dock = button->scale = NULL;
-  button->tooltips = gtk_tooltips_new ();
 }
 
 static void
@@ -782,8 +780,7 @@ bacon_volume_button_update_tip (BaconVolumeButton *button)
 			   (int) ((val - adj->lower) / (adj->upper - adj->lower) * 100));
   }
 
-  gtk_tooltips_set_tip (button->tooltips, GTK_WIDGET (button),
-			str, NULL);
+  gtk_widget_set_tooltip_text (GTK_WIDGET (button), str);
   g_free (str);
 }
 
