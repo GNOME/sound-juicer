@@ -1,5 +1,5 @@
 privatedatadir = $(pkgdatadir)
-privatedata_DATA = sound-juicer.glade sj-play.png sj-record.png
+dist_privatedata_DATA = sound-juicer.glade
 
 desktopdir = $(datadir)/applications
 desktop_in_files = sound-juicer.desktop.in.in
@@ -75,7 +75,6 @@ CLEANFILES = \
 	$(schema_DATA)
 
 EXTRA_DIST = \
-	$(privatedata_DATA) \
 	$(schema_in_files) \
 	$(man1_MANS) \
 	$(icons)

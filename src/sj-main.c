@@ -112,37 +112,6 @@ static guint debug_flags = 0;
 #define SOURCE_GLADE "../data/sound-juicer.glade"
 #define INSTALLED_GLADE DATADIR"/sound-juicer/sound-juicer.glade"
 
-static void
-add_stock_icon (GtkIconFactory *sj_icon_factory,
-                const gchar *stock_id,
-                GtkIconSize  size,
-                const gchar *file_name)
-{
-  GtkIconSource *source;
-  GtkIconSet    *set;
-  GdkPixbuf     *pixbuf;
-
-  source = gtk_icon_source_new ();
-
-  gtk_icon_source_set_size (source, size);
-  gtk_icon_source_set_size_wildcarded (source, FALSE);
-
-  pixbuf = gdk_pixbuf_new_from_file (file_name, NULL);
-
-  gtk_icon_source_set_pixbuf (source, pixbuf);
-
-  g_object_unref (pixbuf);
-
-  set = gtk_icon_set_new ();
-
-  gtk_icon_set_add_source (set, source);
-  gtk_icon_source_free (source);
-
-  gtk_icon_factory_add (sj_icon_factory, stock_id, set);
-
-  gtk_icon_set_unref (set);
-}
-
 void
 sj_stock_init (void)
 {
@@ -161,8 +130,8 @@ sj_stock_init (void)
 
   sj_icon_factory = gtk_icon_factory_new ();
 
-  add_stock_icon (sj_icon_factory, SJ_STOCK_PLAYING, GTK_ICON_SIZE_MENU, PKGDATADIR"/sj-play.png");
-  add_stock_icon (sj_icon_factory, SJ_STOCK_RECORDING, GTK_ICON_SIZE_MENU, PKGDATADIR"/sj-record.png");
+  gtk_icon_factory_add (sj_icon_factory, SJ_STOCK_PLAYING, gtk_icon_factory_lookup_default (GTK_STOCK_MEDIA_PLAY));
+  gtk_icon_factory_add (sj_icon_factory, SJ_STOCK_RECORDING, gtk_icon_factory_lookup_default (GTK_STOCK_MEDIA_RECORD));
   gtk_icon_factory_add (sj_icon_factory, SJ_STOCK_EXTRACT, gtk_icon_factory_lookup_default (GTK_STOCK_CDROM));
 
   gtk_icon_factory_add_default (sj_icon_factory);
