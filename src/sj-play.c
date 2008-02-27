@@ -127,6 +127,15 @@ is_playing (void)
   return (pipeline != NULL && GST_STATE (pipeline) == GST_STATE_PLAYING);
 }
 
+/**
+ * Are we paused?
+ */
+static gboolean
+is_paused (void)
+{
+  return (pipeline != NULL && GST_STATE (pipeline) == GST_STATE_PAUSED);
+}
+
 /*
  * callbacks.
  */
@@ -413,9 +422,13 @@ on_play_activate (GtkWidget *button, gpointer user_data)
 
   if (is_playing ()) {
     pause ();
+    gtk_list_store_set (track_store, &current_iter,
+                        COLUMN_STATE, STATE_PAUSED, -1);
  } else if (pipeline && GST_STATE (pipeline) == GST_STATE_PAUSED && 
              current_track == seek_to_track) {
     play ();
+    gtk_list_store_set (track_store, &current_iter,
+                        COLUMN_STATE, STATE_PLAYING, -1);
   } else if (pipeline && GST_STATE (pipeline) == GST_STATE_PAUSED &&
 			 current_track != seek_to_track) {
     if (!gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
@@ -531,6 +544,10 @@ on_tracklist_row_selected (GtkTreeView *treeview,
 {
   gint track;
   GtkTreeSelection *selection = gtk_tree_view_get_selection (treeview);
+
+  if (is_paused ())
+    gtk_list_store_set (track_store, &current_iter,
+                        COLUMN_STATE, STATE_IDLE, -1);
 
   if (is_playing ())
     return;

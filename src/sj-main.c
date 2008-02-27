@@ -313,6 +313,9 @@ static void number_cell_icon_data_cb (GtkTreeViewColumn *tree_column,
   case STATE_PLAYING:
     g_object_set (G_OBJECT (cell), "stock-id", GTK_STOCK_MEDIA_PLAY, NULL);
     break;
+  case STATE_PAUSED:
+    g_object_set (G_OBJECT (cell), "stock-id", GTK_STOCK_MEDIA_PAUSE, NULL);
+    break;
   case STATE_EXTRACTING:
     g_object_set (G_OBJECT (cell), "stock-id", GTK_STOCK_MEDIA_RECORD, NULL);
     break;

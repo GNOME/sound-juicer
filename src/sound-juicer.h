@@ -78,6 +78,7 @@ typedef enum {
 typedef enum {
   STATE_IDLE,
   STATE_PLAYING,
+  STATE_PAUSED,
   STATE_EXTRACTING
 } TrackState;
 
