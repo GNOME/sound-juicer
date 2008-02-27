@@ -168,8 +168,6 @@ void sj_debug (SjDebugDomain domain, const gchar* format, ...);
 /**
  * Custom stock icons
  */
-#define SJ_STOCK_PLAYING "sj-stock-playing"
-#define SJ_STOCK_RECORDING "sj-stock-recording"
 #define SJ_STOCK_EXTRACT "sj-stock-extract"
 
 /* TODO: need to add a SjWindow object or something */

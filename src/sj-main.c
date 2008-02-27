@@ -120,8 +120,6 @@ sj_stock_init (void)
 
   static const GtkStockItem sj_stock_items[] =
   {
-    { SJ_STOCK_PLAYING, NULL, 0, 0, NULL },
-    { SJ_STOCK_RECORDING, NULL, 0, 0, NULL },
     { SJ_STOCK_EXTRACT, N_("E_xtract"), GDK_CONTROL_MASK, GDK_Return, NULL }
   };
 
@@ -130,8 +128,6 @@ sj_stock_init (void)
 
   sj_icon_factory = gtk_icon_factory_new ();
 
-  gtk_icon_factory_add (sj_icon_factory, SJ_STOCK_PLAYING, gtk_icon_factory_lookup_default (GTK_STOCK_MEDIA_PLAY));
-  gtk_icon_factory_add (sj_icon_factory, SJ_STOCK_RECORDING, gtk_icon_factory_lookup_default (GTK_STOCK_MEDIA_RECORD));
   gtk_icon_factory_add (sj_icon_factory, SJ_STOCK_EXTRACT, gtk_icon_factory_lookup_default (GTK_STOCK_CDROM));
 
   gtk_icon_factory_add_default (sj_icon_factory);
@@ -315,10 +311,10 @@ static void number_cell_icon_data_cb (GtkTreeViewColumn *tree_column,
     g_object_set (G_OBJECT (cell), "stock-id", "", NULL);
     break;
   case STATE_PLAYING:
-    g_object_set (G_OBJECT (cell), "stock-id", SJ_STOCK_PLAYING, NULL);
+    g_object_set (G_OBJECT (cell), "stock-id", GTK_STOCK_MEDIA_PLAY, NULL);
     break;
   case STATE_EXTRACTING:
-    g_object_set (G_OBJECT (cell), "stock-id", SJ_STOCK_RECORDING, NULL);
+    g_object_set (G_OBJECT (cell), "stock-id", GTK_STOCK_MEDIA_RECORD, NULL);
     break;
   default:
     g_warning("Unhandled track state %d\n", state);
