@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer 2.16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-14 15:29+0100\n"
-"PO-Revision-Date: 2008-02-14 15:29+0100\n"
+"POT-Creation-Date: 2008-02-29 21:56+0100\n"
+"PO-Revision-Date: 2008-02-29 21:58+0100\n"
 "Last-Translator: Gil Forcada <gilforcada@guifi.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -112,8 +112,8 @@ msgstr "Salta a la pista següent"
 msgid "Skip to the previous track"
 msgstr "Salta a la pista anterior"
 
-#: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:179 ../src/sj-main.c:181
-#: ../src/sj-main.c:1632
+#: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:144 ../src/sj-main.c:146
+#: ../src/sj-main.c:1617
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -137,7 +137,7 @@ msgstr "Pistes"
 msgid "_Contents"
 msgstr "_Continguts"
 
-#: ../data/sound-juicer.glade.h:28 ../src/sj-main.c:272
+#: ../data/sound-juicer.glade.h:28 ../src/sj-main.c:237
 msgid "_Continue"
 msgstr "_Continua"
 
@@ -424,33 +424,33 @@ msgstr "[Sense títol]"
 msgid "Could not create CD lookup thread"
 msgstr "No s'ha pogut crear el fil de consulta de CD"
 
-#: ../src/bacon-volume.c:193
+#: ../src/bacon-volume.c:191
 msgid "Volume"
 msgstr "Volum"
 
 #. +
-#: ../src/bacon-volume.c:221
+#: ../src/bacon-volume.c:219
 msgid "+"
 msgstr "+"
 
-#: ../src/bacon-volume.c:223
+#: ../src/bacon-volume.c:221
 msgid "Volume Down"
 msgstr "Abaixa el volum"
 
 #. -
-#: ../src/bacon-volume.c:239
+#: ../src/bacon-volume.c:237
 msgid "-"
 msgstr "-"
 
-#: ../src/bacon-volume.c:241
+#: ../src/bacon-volume.c:239
 msgid "Volume Up"
 msgstr "Apuja el volum"
 
-#: ../src/bacon-volume.c:777
+#: ../src/bacon-volume.c:775
 msgid "Muted"
 msgstr "En silenci"
 
-#: ../src/bacon-volume.c:779
+#: ../src/bacon-volume.c:777
 msgid "Full Volume"
 msgstr "Volum al 100%"
 
@@ -573,119 +573,183 @@ msgstr "Atura"
 msgid "Extracting audio from CD"
 msgstr "S'està extraient l'àudio del CD"
 
+#: ../src/sj-genres.c:30
+msgid "Ambient"
+msgstr "Ambient"
+
+#: ../src/sj-genres.c:31
+msgid "Blues"
+msgstr "Blues"
+
+#: ../src/sj-genres.c:32
+msgid "Classical"
+msgstr "Clàssica"
+
+#: ../src/sj-genres.c:33
+msgid "Country"
+msgstr "Country"
+
+#: ../src/sj-genres.c:34
+msgid "Dance"
+msgstr "Dance"
+
+#: ../src/sj-genres.c:35
+msgid "Electronica"
+msgstr "Electrònica"
+
+#: ../src/sj-genres.c:36
+msgid "Folk"
+msgstr "Folk"
+
+#: ../src/sj-genres.c:37
+msgid "Funk"
+msgstr "Funk"
+
+#: ../src/sj-genres.c:38
+msgid "Jazz"
+msgstr "Jazz"
+
+#: ../src/sj-genres.c:39
+msgid "Latin"
+msgstr "Llatí"
+
+#: ../src/sj-genres.c:40
+msgid "Pop"
+msgstr "Pop"
+
+#: ../src/sj-genres.c:41
+msgid "Rap"
+msgstr "Rap"
+
+#: ../src/sj-genres.c:42
+msgid "Reggae"
+msgstr "Reggae"
+
+#: ../src/sj-genres.c:43
+msgid "Rock"
+msgstr "Rock"
+
+#: ../src/sj-genres.c:44
+msgid "Soul"
+msgstr "Soul"
+
+#: ../src/sj-genres.c:45
+msgid "Spoken Word"
+msgstr "Parlat"
+
 #: ../src/sj-genres.c:185
 #, c-format
 msgid "Error while saving custom genre: %s"
 msgstr "S'ha produït un error en desar el gènere personalitzat: %s"
 
-#: ../src/sj-main.c:156
+#: ../src/sj-main.c:123
 msgid "E_xtract"
 msgstr "E_xtreu"
 
-#: ../src/sj-main.c:224
+#: ../src/sj-main.c:189
 msgid "Could not start Sound Juicer"
 msgstr "No s'ha pogut iniciar el Sound Juicer"
 
-#: ../src/sj-main.c:225 ../src/sj-main.c:851 ../src/sj-main.c:959
-#: ../src/sj-main.c:1065 ../src/sj-main.c:1276 ../src/sj-main.c:1579
+#: ../src/sj-main.c:190 ../src/sj-main.c:819 ../src/sj-main.c:927
+#: ../src/sj-main.c:1033 ../src/sj-main.c:1244 ../src/sj-main.c:1564
 msgid "Reason"
 msgstr "Raó"
 
-#: ../src/sj-main.c:227
+#: ../src/sj-main.c:192
 msgid "Please consult the documentation for assistance."
 msgstr "Consulteu la documentació per a obtenir ajuda."
 
-#: ../src/sj-main.c:270
+#: ../src/sj-main.c:235
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Esteu extraient un CD. Voleu sortir ara o continuar?"
 
-#: ../src/sj-main.c:330 ../src/sj-main.c:587
+#: ../src/sj-main.c:295 ../src/sj-main.c:555
 msgid "(unknown)"
 msgstr "(desconegut)"
 
-#: ../src/sj-main.c:457
+#: ../src/sj-main.c:425
 msgid "_Submit Album"
 msgstr "_Envia l'àlbum"
 
 #. Translators: title, artist
-#: ../src/sj-main.c:464
+#: ../src/sj-main.c:432
 #, c-format
 msgid "Could not find %s by %s on MusicBrainz."
 msgstr "No s'ha pogut trobar %s de %s en el MusicBrainz."
 
-#: ../src/sj-main.c:469
+#: ../src/sj-main.c:437
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr ""
 "Podeu millorar la base de dades del MusicBrainz afegint-hi aquest àlbum."
 
-#: ../src/sj-main.c:665 ../src/sj-main.c:1773
+#: ../src/sj-main.c:633 ../src/sj-main.c:1758
 msgid "Title"
 msgstr "Títol"
 
-#: ../src/sj-main.c:671 ../src/sj-main.c:1782
+#: ../src/sj-main.c:639 ../src/sj-main.c:1767
 msgid "Artist"
 msgstr "Artista"
 
-#: ../src/sj-main.c:849 ../src/sj-main.c:957 ../src/sj-main.c:1063
+#: ../src/sj-main.c:817 ../src/sj-main.c:925 ../src/sj-main.c:1031
 msgid "Could not read the CD"
 msgstr "No s'ha pogut llegir el CD"
 
-#: ../src/sj-main.c:850 ../src/sj-main.c:958
+#: ../src/sj-main.c:818 ../src/sj-main.c:926
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "El Sound Juicer no ha pogut llegir la llista de pistes d'aquest CD."
 
 #. Set statusbar message
-#: ../src/sj-main.c:929
+#: ../src/sj-main.c:897
 msgid "Retrieving track listing...please wait."
 msgstr "S'està obtenint el llistat de pistes... espereu."
 
-#: ../src/sj-main.c:1024
+#: ../src/sj-main.c:992
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "El Sound Juicer no ha pogut utilitzar el dispositiu de CD-ROM «%s»"
 
-#: ../src/sj-main.c:1031
+#: ../src/sj-main.c:999
 msgid "HAL daemon may not be running."
 msgstr "Potser no està funcionant el dimoni HAL."
 
-#: ../src/sj-main.c:1056
+#: ../src/sj-main.c:1024
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "El Sound Juicer no ha pogut accedir al dispositiu de CD-ROM «%s»"
 
-#: ../src/sj-main.c:1154
+#: ../src/sj-main.c:1122
 msgid "No CD-ROM drives found"
 msgstr "No s'han trobat unitats de CD-ROM"
 
-#: ../src/sj-main.c:1155
+#: ../src/sj-main.c:1123
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "El Sound Juicer no ha trobat cap unitat de CD-ROM per a llegir."
 
-#: ../src/sj-main.c:1186
+#: ../src/sj-main.c:1154
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr ""
 "El perfil d'àudio seleccionat actualment no és disponible a la vostra "
 "instal·lació."
 
-#: ../src/sj-main.c:1188
+#: ../src/sj-main.c:1156
 msgid "_Change Profile"
 msgstr "_Canvia el perfil"
 
-#: ../src/sj-main.c:1274
+#: ../src/sj-main.c:1242
 msgid "Could not open URL"
 msgstr "No s'ha pogut obrir l'URL"
 
-#: ../src/sj-main.c:1275
+#: ../src/sj-main.c:1243
 msgid "Sound Juicer could not open the submission URL"
 msgstr "El Sound Juicer no ha pogut obrir l'URL d'enviament"
 
-#: ../src/sj-main.c:1384
+#: ../src/sj-main.c:1352
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "S'ha editat la columna desconeguda %d"
 
-#: ../src/sj-main.c:1475 ../src/sj-prefs.c:105
+#: ../src/sj-main.c:1460 ../src/sj-prefs.c:105
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -694,52 +758,52 @@ msgstr ""
 "No s'ha pogut mostrar l'ajuda del Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1577
+#: ../src/sj-main.c:1562
 msgid "Could not duplicate disc"
 msgstr "No s'ha pogut duplicar el disc"
 
-#: ../src/sj-main.c:1578
+#: ../src/sj-main.c:1563
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "El Sound Juicer no ha pogut duplicar el disc"
 
-#: ../src/sj-main.c:1607
+#: ../src/sj-main.c:1592
 msgid "Start extracting immediately"
 msgstr "Comença l'extracció immediatament"
 
-#: ../src/sj-main.c:1608
+#: ../src/sj-main.c:1593
 msgid "Start playing immediately"
 msgstr "Comença la reproducció immediatament"
 
-#: ../src/sj-main.c:1609
+#: ../src/sj-main.c:1594
 msgid "What CD device to read"
 msgstr "Quin dispositiu de CD voleu llegir"
 
-#: ../src/sj-main.c:1609
+#: ../src/sj-main.c:1594
 msgid "DEVICE"
 msgstr "DISPOSITIU"
 
-#: ../src/sj-main.c:1619
+#: ../src/sj-main.c:1604
 msgid "- Extract music from your CDs"
 msgstr "- Extreu música dels CD"
 
-#: ../src/sj-main.c:1658
+#: ../src/sj-main.c:1643
 msgid "Could not create GConf client.\n"
 msgstr "No s'ha pogut crear un client del GConf.\n"
 
-#: ../src/sj-main.c:1690
+#: ../src/sj-main.c:1675
 #, c-format
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "No s'ha pogut llegir el fitxer d'interfície del Sound Juicer."
 
-#: ../src/sj-main.c:1758
+#: ../src/sj-main.c:1743
 msgid "Track"
 msgstr "Pista"
 
-#: ../src/sj-main.c:1793
+#: ../src/sj-main.c:1778
 msgid "Duration"
 msgstr "Durada"
 
-#: ../src/sj-play.c:174 ../src/sj-play.c:431 ../src/sj-play.c:460
+#: ../src/sj-play.c:183 ../src/sj-play.c:444 ../src/sj-play.c:473
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -750,29 +814,29 @@ msgstr ""
 "\n"
 "Raó: %s"
 
-#: ../src/sj-play.c:239
+#: ../src/sj-play.c:248
 msgid "Play"
 msgstr "Reprodueix"
 
-#: ../src/sj-play.c:282
+#: ../src/sj-play.c:291
 msgid "Pause"
 msgstr "Fes una pausa"
 
-#: ../src/sj-play.c:339
+#: ../src/sj-play.c:348
 #, c-format
 msgid "Failed to create CD source element"
 msgstr "No s'ha pogut crear un element de font de CD"
 
-#: ../src/sj-play.c:376
+#: ../src/sj-play.c:385
 msgid "Failed to link pipeline"
 msgstr "No s'ha pogut enllaçar el conducte"
 
-#: ../src/sj-play.c:382
+#: ../src/sj-play.c:391
 #, c-format
 msgid "Failed to create audio output"
 msgstr "No s'ha pogut crear una sortida d'àudio"
 
-#: ../src/sj-play.c:582
+#: ../src/sj-play.c:599
 #, c-format
 msgid "Seeking to %s"
 msgstr "S'està cercant a %s"
@@ -842,7 +906,7 @@ msgstr "Número. Artista de la pista - Títol de la pista"
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Número-Artista de la pista-Títol de la pista (minúscules)"
 
-#: ../src/sj-prefs.c:261
+#: ../src/sj-prefs.c:272
 msgid "Example Path"
 msgstr "Exemple de camí"
 
@@ -920,29 +984,14 @@ msgstr "Exemple de camí"
 #~ msgid "Unknown (at 0.0x)"
 #~ msgstr "Desconegut (a 0.0x)"
 
-#~ msgid "Blues"
-#~ msgstr "Blues"
-
 #~ msgid "Classic Rock"
 #~ msgstr "Rock clàssic"
-
-#~ msgid "Country"
-#~ msgstr "Country"
-
-#~ msgid "Dance"
-#~ msgstr "Dance"
-
-#~ msgid "Funk"
-#~ msgstr "Funk"
 
 #~ msgid "Grunge"
 #~ msgstr "Grunge"
 
 #~ msgid "Hip-Hop"
 #~ msgstr "Hip-Hop"
-
-#~ msgid "Jazz"
-#~ msgstr "Jazz"
 
 #~ msgid "Metal"
 #~ msgstr "Metal"
@@ -956,20 +1005,8 @@ msgstr "Exemple de camí"
 #~ msgid "Other"
 #~ msgstr "Altre"
 
-#~ msgid "Pop"
-#~ msgstr "Pop"
-
 #~ msgid "R&B"
 #~ msgstr "R&B"
-
-#~ msgid "Rap"
-#~ msgstr "Rap"
-
-#~ msgid "Reggae"
-#~ msgstr "Reggae"
-
-#~ msgid "Rock"
-#~ msgstr "Rock"
 
 #~ msgid "Techno"
 #~ msgstr "Tecno"
@@ -995,9 +1032,6 @@ msgstr "Exemple de camí"
 #~ msgid "Euro-Techno"
 #~ msgstr "Euro-Tecno"
 
-#~ msgid "Ambient"
-#~ msgstr "Ambient"
-
 #~ msgid "Trip-Hop"
 #~ msgstr "Trip-Hop"
 
@@ -1012,9 +1046,6 @@ msgstr "Exemple de camí"
 
 #~ msgid "Trance"
 #~ msgstr "Trance"
-
-#~ msgid "Classical"
-#~ msgstr "Clàssica"
 
 #~ msgid "Instrumental"
 #~ msgstr "Instrumental"
@@ -1043,9 +1074,6 @@ msgstr "Exemple de camí"
 #~ msgid "Bass"
 #~ msgstr "Bass"
 
-#~ msgid "Soul"
-#~ msgstr "Soul"
-
 #~ msgid "Punk"
 #~ msgstr "Punk"
 
@@ -1072,12 +1100,6 @@ msgstr "Exemple de camí"
 
 #~ msgid "Techno-Industrial"
 #~ msgstr "Tecno-Industrial"
-
-#~ msgid "Electronic"
-#~ msgstr "Electrònica"
-
-#~ msgid "Pop-Folk"
-#~ msgstr "Pop-Folk"
 
 #~ msgid "Eurodance"
 #~ msgstr "Eurodance"
