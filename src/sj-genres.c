@@ -27,22 +27,22 @@
 #include "sj-genres.h"
 
 static const char* const known_genres[] = {
-  "Ambient",
-  "Blues",
-  "Classical",
-  "Country",
-  "Dance",
-  "Electronica",
-  "Folk",
-  "Funk",
-  "Jazz",
-  "Latin",
-  "Pop",
-  "Rap",
-  "Reggae",
-  "Rock",
-  "Soul",
-  "Spoken Word",
+  N_("Ambient"),
+  N_("Blues"),
+  N_("Classical"),
+  N_("Country"),
+  N_("Dance"),
+  N_("Electronica"),
+  N_("Folk"),
+  N_("Funk"),
+  N_("Jazz"),
+  N_("Latin"),
+  N_("Pop"),
+  N_("Rap"),
+  N_("Reggae"),
+  N_("Rock"),
+  N_("Soul"),
+  N_("Spoken Word"),
   NULL
 };
 
@@ -102,7 +102,7 @@ static GtkTreeModel* create_genre_list (void) {
   while (*g != NULL) {
     GtkTreeIter iter;
     gtk_list_store_append (store, &iter);
-    gtk_list_store_set (store, &iter, 0, *g++, -1);
+    gtk_list_store_set (store, &iter, 0, _(*g++), -1);
   }
 
   genres = saved_genres ();
