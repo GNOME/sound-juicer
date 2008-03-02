@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-24 22:33+0100\n"
-"PO-Revision-Date: 2008-02-24 22:29+0100\n"
+"POT-Creation-Date: 2008-03-02 15:10+0100\n"
+"PO-Revision-Date: 2008-03-02 15:09+0100\n"
 "Last-Translator: Petr Kovar <pknbe@volny.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -116,8 +116,8 @@ msgstr "Přeskočit na následující stopu"
 msgid "Skip to the previous track"
 msgstr "Přeskočit na předchozí stopu"
 
-#: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:179 ../src/sj-main.c:181
-#: ../src/sj-main.c:1649
+#: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:144 ../src/sj-main.c:146
+#: ../src/sj-main.c:1617
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -141,7 +141,7 @@ msgstr "Stopy"
 msgid "_Contents"
 msgstr "O_bsah"
 
-#: ../data/sound-juicer.glade.h:28 ../src/sj-main.c:272
+#: ../data/sound-juicer.glade.h:28 ../src/sj-main.c:237
 msgid "_Continue"
 msgstr "_Pokračovat"
 
@@ -416,33 +416,33 @@ msgstr "[Beze jména]"
 msgid "Could not create CD lookup thread"
 msgstr "Nemohu vytvořit thread pro vyhledání CD"
 
-#: ../src/bacon-volume.c:193
+#: ../src/bacon-volume.c:191
 msgid "Volume"
 msgstr "Hlasitost"
 
 #. +
-#: ../src/bacon-volume.c:221
+#: ../src/bacon-volume.c:219
 msgid "+"
 msgstr "+"
 
-#: ../src/bacon-volume.c:223
+#: ../src/bacon-volume.c:221
 msgid "Volume Down"
 msgstr "Snížit hlasitost"
 
 #. -
-#: ../src/bacon-volume.c:239
+#: ../src/bacon-volume.c:237
 msgid "-"
 msgstr "-"
 
-#: ../src/bacon-volume.c:241
+#: ../src/bacon-volume.c:239
 msgid "Volume Up"
 msgstr "Zvýšit hlasitost"
 
-#: ../src/bacon-volume.c:777
+#: ../src/bacon-volume.c:775
 msgid "Muted"
 msgstr "Ztlumeno"
 
-#: ../src/bacon-volume.c:779
+#: ../src/bacon-volume.c:777
 msgid "Full Volume"
 msgstr "Maximální hlasitost"
 
@@ -570,116 +570,180 @@ msgstr "Zastavit"
 msgid "Extracting audio from CD"
 msgstr "Extrahuji zvuk z CD"
 
+#: ../src/sj-genres.c:30
+msgid "Ambient"
+msgstr "Ambient"
+
+#: ../src/sj-genres.c:31
+msgid "Blues"
+msgstr "Blues"
+
+#: ../src/sj-genres.c:32
+msgid "Classical"
+msgstr "Klasická hudba"
+
+#: ../src/sj-genres.c:33
+msgid "Country"
+msgstr "Country"
+
+#: ../src/sj-genres.c:34
+msgid "Dance"
+msgstr "Dance"
+
+#: ../src/sj-genres.c:35
+msgid "Electronica"
+msgstr "Electronica"
+
+#: ../src/sj-genres.c:36
+msgid "Folk"
+msgstr "Folk"
+
+#: ../src/sj-genres.c:37
+msgid "Funk"
+msgstr "Funk"
+
+#: ../src/sj-genres.c:38
+msgid "Jazz"
+msgstr "Jazz"
+
+#: ../src/sj-genres.c:39
+msgid "Latin"
+msgstr "Latinskoamerická hudba"
+
+#: ../src/sj-genres.c:40
+msgid "Pop"
+msgstr "Pop"
+
+#: ../src/sj-genres.c:41
+msgid "Rap"
+msgstr "Rap"
+
+#: ../src/sj-genres.c:42
+msgid "Reggae"
+msgstr "Reggae"
+
+#: ../src/sj-genres.c:43
+msgid "Rock"
+msgstr "Rock"
+
+#: ../src/sj-genres.c:44
+msgid "Soul"
+msgstr "Soul"
+
+#: ../src/sj-genres.c:45
+msgid "Spoken Word"
+msgstr "Mluvené slovo"
+
 #: ../src/sj-genres.c:185
 #, c-format
 msgid "Error while saving custom genre: %s"
 msgstr "Chyba při ukládání vlastního žánru '%s'"
 
-#: ../src/sj-main.c:156
+#: ../src/sj-main.c:123
 msgid "E_xtract"
 msgstr "_Extrahovat"
 
-#: ../src/sj-main.c:224
+#: ../src/sj-main.c:189
 msgid "Could not start Sound Juicer"
 msgstr "Nemohu spustit Sound Juicer"
 
-#: ../src/sj-main.c:225 ../src/sj-main.c:851 ../src/sj-main.c:959
-#: ../src/sj-main.c:1065 ../src/sj-main.c:1276 ../src/sj-main.c:1596
+#: ../src/sj-main.c:190 ../src/sj-main.c:819 ../src/sj-main.c:927
+#: ../src/sj-main.c:1033 ../src/sj-main.c:1244 ../src/sj-main.c:1564
 msgid "Reason"
 msgstr "Důvod"
 
-#: ../src/sj-main.c:227
+#: ../src/sj-main.c:192
 msgid "Please consult the documentation for assistance."
 msgstr "Pro pomoc si prosím přečtěte dokumentaci."
 
-#: ../src/sj-main.c:270
+#: ../src/sj-main.c:235
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Momentálně extrahujete CD. Chcete hned skončit nebo pokračovat?"
 
-#: ../src/sj-main.c:330 ../src/sj-main.c:587
+#: ../src/sj-main.c:295 ../src/sj-main.c:555
 msgid "(unknown)"
 msgstr "(neznámé)"
 
-#: ../src/sj-main.c:457
+#: ../src/sj-main.c:425
 msgid "_Submit Album"
 msgstr "_Přidat album"
 
 #. Translators: title, artist
-#: ../src/sj-main.c:464
+#: ../src/sj-main.c:432
 #, c-format
 msgid "Could not find %s by %s on MusicBrainz."
 msgstr "Na MusicBrainz se nepodařilo se nalézt %s od %s."
 
-#: ../src/sj-main.c:469
+#: ../src/sj-main.c:437
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr "Můžete vylepšit databázi MusicBrainz přidáním tohoto alba."
 
-#: ../src/sj-main.c:665 ../src/sj-main.c:1790
+#: ../src/sj-main.c:633 ../src/sj-main.c:1758
 msgid "Title"
 msgstr "Název"
 
-#: ../src/sj-main.c:671 ../src/sj-main.c:1799
+#: ../src/sj-main.c:639 ../src/sj-main.c:1767
 msgid "Artist"
 msgstr "Umělec"
 
-#: ../src/sj-main.c:849 ../src/sj-main.c:957 ../src/sj-main.c:1063
+#: ../src/sj-main.c:817 ../src/sj-main.c:925 ../src/sj-main.c:1031
 msgid "Could not read the CD"
 msgstr "Nemohu číst CD"
 
-#: ../src/sj-main.c:850 ../src/sj-main.c:958
+#: ../src/sj-main.c:818 ../src/sj-main.c:926
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer nemohl přečíst seznam stop tohoto CD."
 
 #. Set statusbar message
-#: ../src/sj-main.c:929
+#: ../src/sj-main.c:897
 msgid "Retrieving track listing...please wait."
 msgstr "Získávám seznam stop...čekejte prosím."
 
-#: ../src/sj-main.c:1024
+#: ../src/sj-main.c:992
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Sound Juicer nemůže použít zařízení CD-ROM '%s'"
 
-#: ../src/sj-main.c:1031
+#: ../src/sj-main.c:999
 msgid "HAL daemon may not be running."
 msgstr "Možná neběží démon HAL."
 
-#: ../src/sj-main.c:1056
+#: ../src/sj-main.c:1024
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer nemohl přistupovat k zařízení CD-ROM '%s'"
 
-#: ../src/sj-main.c:1154
+#: ../src/sj-main.c:1122
 msgid "No CD-ROM drives found"
 msgstr "Nenalezena mechanika CD-ROM"
 
-#: ../src/sj-main.c:1155
+#: ../src/sj-main.c:1123
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer nemohl najít mechaniku CD-ROM, ze které může číst."
 
-#: ../src/sj-main.c:1186
+#: ../src/sj-main.c:1154
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Aktuálně vybraný profil zvuku není ve vaší instalaci k dispozici."
 
-#: ../src/sj-main.c:1188
+#: ../src/sj-main.c:1156
 msgid "_Change Profile"
 msgstr "_Změnit profil"
 
-#: ../src/sj-main.c:1274
+#: ../src/sj-main.c:1242
 msgid "Could not open URL"
 msgstr "Nemohu otevřít URL"
 
-#: ../src/sj-main.c:1275
+#: ../src/sj-main.c:1243
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer nemohl otevřít URL pro odesílání"
 
-#: ../src/sj-main.c:1384
+#: ../src/sj-main.c:1352
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Byl upraven neznámý sloupec %d"
 
-#: ../src/sj-main.c:1492 ../src/sj-prefs.c:105
+#: ../src/sj-main.c:1460 ../src/sj-prefs.c:105
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -688,51 +752,51 @@ msgstr ""
 "Nemohu zobrazit nápovědu pro Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1594
+#: ../src/sj-main.c:1562
 msgid "Could not duplicate disc"
 msgstr "Nemohu duplikovat disk"
 
-#: ../src/sj-main.c:1595
+#: ../src/sj-main.c:1563
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Sound Juicer nemohl duplikovat tento disk"
 
-#: ../src/sj-main.c:1624
+#: ../src/sj-main.c:1592
 msgid "Start extracting immediately"
 msgstr "Začít extrahovat okamžitě"
 
-#: ../src/sj-main.c:1625
+#: ../src/sj-main.c:1593
 msgid "Start playing immediately"
 msgstr "Začít přehrávat okamžitě"
 
-#: ../src/sj-main.c:1626
+#: ../src/sj-main.c:1594
 msgid "What CD device to read"
 msgstr "Které zařízení CD číst"
 
-#: ../src/sj-main.c:1626
+#: ../src/sj-main.c:1594
 msgid "DEVICE"
 msgstr "ZAŘÍZENÍ"
 
-#: ../src/sj-main.c:1636
+#: ../src/sj-main.c:1604
 msgid "- Extract music from your CDs"
 msgstr "- Extrahovat hudbu z vašich CD"
 
-#: ../src/sj-main.c:1675
+#: ../src/sj-main.c:1643
 msgid "Could not create GConf client.\n"
 msgstr "Nemohu vytvořit klienta GConf.\n"
 
-#: ../src/sj-main.c:1707
+#: ../src/sj-main.c:1675
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Soubor rozhraní pro Sound Juicer nelze číst."
 
-#: ../src/sj-main.c:1775
+#: ../src/sj-main.c:1743
 msgid "Track"
 msgstr "Stopa"
 
-#: ../src/sj-main.c:1810
+#: ../src/sj-main.c:1778
 msgid "Duration"
 msgstr "Trvání"
 
-#: ../src/sj-play.c:174 ../src/sj-play.c:433 ../src/sj-play.c:462
+#: ../src/sj-play.c:183 ../src/sj-play.c:446 ../src/sj-play.c:475
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -744,28 +808,28 @@ msgstr ""
 "Důvod: %s"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:240
+#: ../src/sj-play.c:249
 msgid "Play"
 msgstr "Přehrát"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:284
+#: ../src/sj-play.c:293
 msgid "Pause"
 msgstr "Pozastavit"
 
-#: ../src/sj-play.c:341
+#: ../src/sj-play.c:350
 msgid "Failed to create CD source element"
 msgstr "Nemohu vytvořit element zdroje CD"
 
-#: ../src/sj-play.c:378
+#: ../src/sj-play.c:387
 msgid "Failed to link pipeline"
 msgstr "Nemohu propojit rouru"
 
-#: ../src/sj-play.c:384
+#: ../src/sj-play.c:393
 msgid "Failed to create audio output"
 msgstr "Nemohu vytvořit výstup zvuku"
 
-#: ../src/sj-play.c:584
+#: ../src/sj-play.c:601
 #, c-format
 msgid "Seeking to %s"
 msgstr "Posouvám na %s"
@@ -835,6 +899,6 @@ msgstr "Číslo. umělec stopy - název stopy"
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Číslo-umělec stopy-název stopy (malými písmeny)"
 
-#: ../src/sj-prefs.c:261
+#: ../src/sj-prefs.c:272
 msgid "Example Path"
 msgstr "Příklad umístění"
