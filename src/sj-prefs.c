@@ -203,14 +203,9 @@ static void baseuri_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *
   } else {
     g_return_if_fail (entry->value->type == GCONF_VALUE_STRING);
     current_uri = gtk_file_chooser_get_current_folder_uri (GTK_FILE_CHOOSER (basepath_fcb));
-    if (current_uri == NULL || strcmp (current_uri, base_uri) != 0) { 
-	    char *dir;
-
-	    dir = sj_get_default_music_directory ();
-	    gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (basepath_fcb), dir);
-	    g_free (dir);
-		
-    }
+    if (current_uri == NULL || strcmp (current_uri, base_uri) != 0) 
+      gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (basepath_fcb), base_uri);
+    
   }
 }
 
