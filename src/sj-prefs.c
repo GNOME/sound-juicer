@@ -123,8 +123,9 @@ void prefs_base_folder_changed (GtkWidget *chooser, gpointer user_data)
   current_uri = gconf_client_get_string (gconf_client, GCONF_BASEURI, NULL);
   new_uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (chooser)); 
 
-  if (strcmp(current_uri, new_uri) != 0)  
-    gconf_client_set_string (gconf_client, GCONF_BASEURI, new_uri, NULL);
+  if (current_uri == NULL || strcmp(current_uri, new_uri) != 0) {
+      gconf_client_set_string (gconf_client, GCONF_BASEURI, new_uri, NULL);
+  }
   
   g_free (new_uri);
   g_free (current_uri);
