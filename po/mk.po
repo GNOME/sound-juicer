@@ -1,4 +1,4 @@
-# translation of sound-juicer.HEAD.mk.po to Macedonian
+# translation of mk.po to Macedonian
 # translation of sound-juicer.HEAD.po to
 # translation of sound-juicer.HEAD.po to
 # This file is distributed under the same license as the PACKAGE package.
@@ -7,17 +7,17 @@
 #
 # Aleksandar Nikov, 2003.
 # Арангел Ангов <ufo@linux.net.mk>, 2005.
-# Arangel Angov <ufo@linux.net.mk>, 2005, 2006.
+# Arangel Angov <ufo@linux.net.mk>, 2005, 2006, 2008.
 # Jovan Naumovski <jovan@lugola.net>, 2006, 2008.
 # Arangel Angov <arangel@linux.net.mk>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: sound-juicer.HEAD.mk\n"
+"Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-09 19:13+0000\n"
-"PO-Revision-Date: 2008-02-17 14:23+0100\n"
-"Last-Translator: Jovan Naumovski <jovan@lugola.net>\n"
-"Language-Team: Macedonian <mkde-l10n@lists.sourceforge.net>\n"
+"POT-Creation-Date: 2008-02-29 14:08+0000\n"
+"PO-Revision-Date: 2008-03-07 16:48+0100\n"
+"Last-Translator: Arangel Angov <ufo@linux.net.mk>\n"
+"Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,7 +26,7 @@ msgstr ""
 
 #: ../data/sound-juicer.desktop.in.in.h:1
 msgid "Audio CD Extractor"
-msgstr "Екстрактор на аудио CD-ња"
+msgstr "Екстратор за аудио CD"
 
 #: ../data/sound-juicer.desktop.in.in.h:2
 msgid "Copy music from your CDs"
@@ -120,8 +120,8 @@ msgstr "Прескокни до следната песна"
 msgid "Skip to the previous track"
 msgstr "Прескокни до претходната песна"
 
-#: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:179 ../src/sj-main.c:181
-#: ../src/sj-main.c:1628
+#: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:144 ../src/sj-main.c:146
+#: ../src/sj-main.c:1617
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -145,7 +145,7 @@ msgstr "Песни"
 msgid "_Contents"
 msgstr "_Содржини"
 
-#: ../data/sound-juicer.glade.h:28 ../src/sj-main.c:272
+#: ../data/sound-juicer.glade.h:28 ../src/sj-main.c:237
 msgid "_Continue"
 msgstr "_Продолжи"
 
@@ -326,6 +326,7 @@ msgid "The device"
 msgstr "Уредот"
 
 #: ../libjuicer/sj-extractor.c:346
+#, c-format
 msgid "Could not create GStreamer CD reader"
 msgstr "Не може да креира GStreamer cdparanoia читач"
 
@@ -335,10 +336,12 @@ msgid "Could not create GStreamer encoders for %s"
 msgstr "Не можам да креира енкодер за GStreamer %s"
 
 #: ../libjuicer/sj-extractor.c:379
+#, c-format
 msgid "Could not create GStreamer file output"
 msgstr "Не може да креира GStreamer датотека на излез"
 
 #: ../libjuicer/sj-extractor.c:391
+#, c-format
 msgid "Could not link pipeline"
 msgstr "Не успеав да врзам pipeline"
 
@@ -347,20 +350,24 @@ msgid "Could not get current track position"
 msgstr "Не може да ја најде моменталната позицијата на песната"
 
 #: ../libjuicer/sj-extractor.c:444
+#, c-format
 msgid "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Исфрлувачкиот предмет не е валиден. Ова не добро, провери ја твојата конзола "
 "за грешки."
 
 #: ../libjuicer/sj-extractor.c:645
+#, c-format
 msgid "The plugin necessary for CD access was not found"
 msgstr "Не беше пронајден потребниот додаток за пристап до CD"
 
 #: ../libjuicer/sj-extractor.c:653
+#, c-format
 msgid "The plugin necessary for file access was not found"
 msgstr "Не беше пронајден потребниот додаток за пристап"
 
 #: ../libjuicer/sj-metadata-cdtext.c:92
+#, c-format
 msgid "Cannot read CD"
 msgstr "Не може да го прочита CD-то"
 
@@ -417,36 +424,37 @@ msgid "[Untitled]"
 msgstr "[Без наслов]"
 
 #: ../libjuicer/sj-metadata-musicbrainz.c:576
+#, c-format
 msgid "Could not create CD lookup thread"
 msgstr "Не може да ја прочита нишката на CD-то."
 
-#: ../src/bacon-volume.c:193
+#: ../src/bacon-volume.c:191
 msgid "Volume"
 msgstr "Јачина на звук"
 
 #. +
-#: ../src/bacon-volume.c:221
+#: ../src/bacon-volume.c:219
 msgid "+"
 msgstr "+"
 
-#: ../src/bacon-volume.c:223
+#: ../src/bacon-volume.c:221
 msgid "Volume Down"
 msgstr "Намали ја јачината на звукот"
 
 #. -
-#: ../src/bacon-volume.c:239
+#: ../src/bacon-volume.c:237
 msgid "-"
 msgstr "-"
 
-#: ../src/bacon-volume.c:241
+#: ../src/bacon-volume.c:239
 msgid "Volume Up"
 msgstr "Зголеми ја јачината на звукот"
 
-#: ../src/bacon-volume.c:777
+#: ../src/bacon-volume.c:775
 msgid "Muted"
 msgstr "Исклучен звук"
 
-#: ../src/bacon-volume.c:779
+#: ../src/bacon-volume.c:777
 msgid "Full Volume"
 msgstr "Звукот до крај"
 
@@ -506,11 +514,11 @@ msgstr ""
 "http://gnomk.sf.net"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:212
+#: ../src/sj-extracting.c:216
 msgid "Extract"
 msgstr "Вади"
 
-#: ../src/sj-extracting.c:282
+#: ../src/sj-extracting.c:286
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -519,38 +527,38 @@ msgstr ""
 "Датотеката со името '%s', со големина %s.\n"
 "Дали сакате да ја прескокнете оваа песна или пак да ја замените со новата?"
 
-#: ../src/sj-extracting.c:286
+#: ../src/sj-extracting.c:290
 msgid "_Skip"
 msgstr "_Skip"
 
-#: ../src/sj-extracting.c:287
+#: ../src/sj-extracting.c:291
 msgid "S_kip All"
 msgstr "П_рескокни сѐ"
 
-#: ../src/sj-extracting.c:288
+#: ../src/sj-extracting.c:292
 msgid "_Overwrite"
 msgstr "_Замени"
 
-#: ../src/sj-extracting.c:289
+#: ../src/sj-extracting.c:293
 msgid "Overwrite _All"
 msgstr "_Замени сѐ"
 
-#: ../src/sj-extracting.c:340
+#: ../src/sj-extracting.c:344
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Не успеав да креирам директориум за излез: %s"
 
-#: ../src/sj-extracting.c:464
+#: ../src/sj-extracting.c:473
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Преостанато време: %d:%02d (at %0.1f×)"
 
-#: ../src/sj-extracting.c:466
+#: ../src/sj-extracting.c:475
 msgid "Estimated time left: unknown"
 msgstr "Преостанато време: непознато"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:626
+#: ../src/sj-extracting.c:645
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -561,125 +569,189 @@ msgstr ""
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:711
+#: ../src/sj-extracting.c:741
 msgid "Stop"
 msgstr "Стопирај"
 
-#: ../src/sj-extracting.c:740 ../src/sj-extracting.c:746
+#: ../src/sj-extracting.c:770 ../src/sj-extracting.c:776
 msgid "Extracting audio from CD"
 msgstr "Вадам аудиоCD"
+
+#: ../src/sj-genres.c:30
+msgid "Ambient"
+msgstr "Амбиент"
+
+#: ../src/sj-genres.c:31
+msgid "Blues"
+msgstr "Блуз"
+
+#: ../src/sj-genres.c:32
+msgid "Classical"
+msgstr "Класика"
+
+#: ../src/sj-genres.c:33
+msgid "Country"
+msgstr "Кантри"
+
+#: ../src/sj-genres.c:34
+msgid "Dance"
+msgstr "Денс"
+
+#: ../src/sj-genres.c:35
+msgid "Electronica"
+msgstr "Електроника"
+
+#: ../src/sj-genres.c:36
+msgid "Folk"
+msgstr "Фолк"
+
+#: ../src/sj-genres.c:37
+msgid "Funk"
+msgstr "Фанк"
+
+#: ../src/sj-genres.c:38
+msgid "Jazz"
+msgstr "Џез"
+
+#: ../src/sj-genres.c:39
+msgid "Latin"
+msgstr "Латинска"
+
+#: ../src/sj-genres.c:40
+msgid "Pop"
+msgstr "Поп"
+
+#: ../src/sj-genres.c:41
+msgid "Rap"
+msgstr "Рап"
+
+#: ../src/sj-genres.c:42
+msgid "Reggae"
+msgstr "Реге"
+
+#: ../src/sj-genres.c:43
+msgid "Rock"
+msgstr "Рок"
+
+#: ../src/sj-genres.c:44
+msgid "Soul"
+msgstr "Соул"
+
+#: ../src/sj-genres.c:45
+msgid "Spoken Word"
+msgstr "Изговорен збор"
 
 #: ../src/sj-genres.c:185
 #, c-format
 msgid "Error while saving custom genre: %s"
 msgstr "Грешка при зачувувањето на сопствениот жанр: %s"
 
-#: ../src/sj-main.c:156
+#: ../src/sj-main.c:123
 msgid "E_xtract"
 msgstr "В_ади"
 
-#: ../src/sj-main.c:224
+#: ../src/sj-main.c:189
 msgid "Could not start Sound Juicer"
 msgstr "Не може да го стартира Sound Juicer"
 
-#: ../src/sj-main.c:225 ../src/sj-main.c:851 ../src/sj-main.c:959
-#: ../src/sj-main.c:1065 ../src/sj-main.c:1272 ../src/sj-main.c:1575
+#: ../src/sj-main.c:190 ../src/sj-main.c:819 ../src/sj-main.c:927
+#: ../src/sj-main.c:1033 ../src/sj-main.c:1244 ../src/sj-main.c:1564
 msgid "Reason"
 msgstr "Причина"
 
-#: ../src/sj-main.c:227
+#: ../src/sj-main.c:192
 msgid "Please consult the documentation for assistance."
 msgstr "Ве молиме консултирајте ја документацијата за помош."
 
-#: ../src/sj-main.c:270
+#: ../src/sj-main.c:235
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr ""
 "Моментално вадите песни од CD. Дали сакате да излезете сега или да "
 "продолжите?"
 
-#: ../src/sj-main.c:330 ../src/sj-main.c:587
+#: ../src/sj-main.c:295 ../src/sj-main.c:555
 msgid "(unknown)"
 msgstr "(непознато)"
 
-#: ../src/sj-main.c:457
+#: ../src/sj-main.c:425
 msgid "_Submit Album"
 msgstr "_Испрати албум"
 
 #. Translators: title, artist
-#: ../src/sj-main.c:464
+#: ../src/sj-main.c:432
 #, c-format
 msgid "Could not find %s by %s on MusicBrainz."
 msgstr "Не можам да најдам %s од %s на MusicBrainz."
 
-#: ../src/sj-main.c:469
+#: ../src/sj-main.c:437
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr "Можете да ја подобрите базата на MusicBrainz со додавање на овој албум."
 
-#: ../src/sj-main.c:665 ../src/sj-main.c:1768
+#: ../src/sj-main.c:633 ../src/sj-main.c:1758
 msgid "Title"
 msgstr "Наслов"
 
-#: ../src/sj-main.c:671 ../src/sj-main.c:1777
+#: ../src/sj-main.c:639 ../src/sj-main.c:1767
 msgid "Artist"
 msgstr "Изведувач"
 
-#: ../src/sj-main.c:849 ../src/sj-main.c:957 ../src/sj-main.c:1063
+#: ../src/sj-main.c:817 ../src/sj-main.c:925 ../src/sj-main.c:1031
 msgid "Could not read the CD"
 msgstr "Не може да го прочита CD"
 
-#: ../src/sj-main.c:850 ../src/sj-main.c:958
+#: ../src/sj-main.c:818 ../src/sj-main.c:926
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer could не може да ја прочита листата со песни на ова CD."
 
 #. Set statusbar message
-#: ../src/sj-main.c:929
+#: ../src/sj-main.c:897
 msgid "Retrieving track listing...please wait."
 msgstr "Ја преземам листата на песни...Ве молам почекајте."
 
-#: ../src/sj-main.c:1024
+#: ../src/sj-main.c:992
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Sound Juicer не може да го користи CD-ROM уредот '%s'"
 
-#: ../src/sj-main.c:1031
+#: ../src/sj-main.c:999
 msgid "HAL daemon may not be running."
 msgstr "Може да не работи HAL даемонот."
 
-#: ../src/sj-main.c:1056
+#: ../src/sj-main.c:1024
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer не може да пристапиво CD-ROM уредот '%s'"
 
-#: ../src/sj-main.c:1150
+#: ../src/sj-main.c:1122
 msgid "No CD-ROM drives found"
 msgstr "Не се најдени CD-ROM drives"
 
-#: ../src/sj-main.c:1151
+#: ../src/sj-main.c:1123
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer не може да најден ниеден CD-ROM drives прочита."
 
-#: ../src/sj-main.c:1182
+#: ../src/sj-main.c:1154
 msgid "The currently selected audio profile is not available on your installation."
 msgstr "Тековно избраниот аудио профил не е достапен на Вашата инсталација."
 
-#: ../src/sj-main.c:1184
+#: ../src/sj-main.c:1156
 msgid "_Change Profile"
 msgstr "_Смени профил"
 
-#: ../src/sj-main.c:1270
+#: ../src/sj-main.c:1242
 msgid "Could not open URL"
 msgstr "Не можам да отворам URL"
 
-#: ../src/sj-main.c:1271
+#: ../src/sj-main.c:1243
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer не може да го отвори URL-то за испраќање"
 
-#: ../src/sj-main.c:1380
+#: ../src/sj-main.c:1352
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Не познатата колона  %d е внесена"
 
-#: ../src/sj-main.c:1471 ../src/sj-prefs.c:105
+#: ../src/sj-main.c:1460 ../src/sj-prefs.c:105
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -688,51 +760,52 @@ msgstr ""
 "Не можам да прикажам помош за Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1573
+#: ../src/sj-main.c:1562
 msgid "Could not duplicate disc"
 msgstr "Не можев да го дуплирам дискот"
 
-#: ../src/sj-main.c:1574
+#: ../src/sj-main.c:1563
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Sound Juicer не можеше да го дуплира дискот"
 
-#: ../src/sj-main.c:1603
+#: ../src/sj-main.c:1592
 msgid "Start extracting immediately"
 msgstr "Да почне да вади веднаш"
 
-#: ../src/sj-main.c:1604
+#: ../src/sj-main.c:1593
 msgid "Start playing immediately"
 msgstr "Да почне да свири веднаш"
 
-#: ../src/sj-main.c:1605
+#: ../src/sj-main.c:1594
 msgid "What CD device to read"
 msgstr "Кој CD уред да го читам"
 
-#: ../src/sj-main.c:1605
+#: ../src/sj-main.c:1594
 msgid "DEVICE"
 msgstr "УРЕД"
 
-#: ../src/sj-main.c:1615
+#: ../src/sj-main.c:1604
 msgid "- Extract music from your CDs"
 msgstr "- Извадете музика од Вашите CD-иња"
 
-#: ../src/sj-main.c:1654
+#: ../src/sj-main.c:1643
 msgid "Could not create GConf client.\n"
 msgstr "Не може да креира GConf клиент.\n"
 
-#: ../src/sj-main.c:1686
+#: ../src/sj-main.c:1675
+#, c-format
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Не може да биде прочитана датотеката за интерфејсот на Sound Juicer."
 
-#: ../src/sj-main.c:1753
+#: ../src/sj-main.c:1743
 msgid "Track"
 msgstr "Песна"
 
-#: ../src/sj-main.c:1788
+#: ../src/sj-main.c:1778
 msgid "Duration"
 msgstr "Времетраење"
 
-#: ../src/sj-play.c:174 ../src/sj-play.c:433 ../src/sj-play.c:462
+#: ../src/sj-play.c:183 ../src/sj-play.c:446 ../src/sj-play.c:475
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -744,28 +817,30 @@ msgstr ""
 "Причина: %s"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:240
+#: ../src/sj-play.c:249
 msgid "Play"
 msgstr "Пушти"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:284
+#: ../src/sj-play.c:293
 msgid "Pause"
 msgstr "Пауза"
 
-#: ../src/sj-play.c:341
+#: ../src/sj-play.c:350
+#, c-format
 msgid "Failed to create CD source element"
 msgstr "Не успеав да креирам изворен CD елемент"
 
-#: ../src/sj-play.c:378
+#: ../src/sj-play.c:387
 msgid "Failed to link pipeline"
 msgstr "Не успеав да врзам pipeline"
 
-#: ../src/sj-play.c:384
+#: ../src/sj-play.c:393
+#, c-format
 msgid "Failed to create audio output"
 msgstr "Не успеав да креирам излез за аудио"
 
-#: ../src/sj-play.c:584
+#: ../src/sj-play.c:601
 #, c-format
 msgid "Seeking to %s"
 msgstr "Мотам до %s"
@@ -835,7 +910,7 @@ msgstr "Број. Песна Изведувач - Песна Наслов"
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Број-Песна Изведувач-Песна Наслов (мали букви)"
 
-#: ../src/sj-prefs.c:261
+#: ../src/sj-prefs.c:272
 msgid "Example Path"
 msgstr "Пример патека"
 
