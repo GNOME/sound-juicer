@@ -31,9 +31,8 @@ upload:
 	ssh master.gnome.org install-module $(PACKAGE)-$(VERSION).tar.bz2
 	mv -f $(PACKAGE)-$(VERSION).tar.bz2 $(WEBROOT)/computing
 
-release: distcheck tag upload
-	gcq $(WEBROOT)/blosxom/computers/sound-juicer/sj-$(VERSION).txt
-	gcq $(WEBROOT)/blosxom/computers/sound-juicer/body.txt
-
 dev-release: distcheck tag upload
 	gcq $(WEBROOT)/blosxom/computers/sound-juicer/sj-$(VERSION).txt
+
+release: dev-release
+	gcq $(WEBROOT)/blosxom/computers/sound-juicer/body.txt
