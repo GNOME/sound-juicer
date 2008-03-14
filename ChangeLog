@@ -1,5 +1,11 @@
 2008-03-14  Tim-Philipp Müller  <tim at centricular dot net>
 
+	* src/sj-play.c: (select_track):
+	  Don't use gst_element_seek_simple() though, otherwise we'd have
+	  to up the GStreamer requirement.
+
+2008-03-14  Tim-Philipp Müller  <tim at centricular dot net>
+
 	* src/sj-play.c: (select_track), (cb_error):
 	  Fix error handling: when the state change fails immediately
 	  (e.g. because the audio device can't be opened), return FALSE

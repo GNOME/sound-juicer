@@ -71,8 +71,9 @@ select_track (void)
     return FALSE;
   } else if (ret == GST_STATE_CHANGE_SUCCESS) {
     /* state change was instant, we can seek right away */
-    if (gst_element_seek_simple (pipeline, gst_format_get_by_nick ("track"),
-                                 GST_SEEK_FLAG_FLUSH, seek_to_track)) {
+    if (gst_element_seek (pipeline, 1.0, gst_format_get_by_nick ("track"),
+                          GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, seek_to_track,
+                          GST_SEEK_TYPE_NONE, -1)) {
       current_track = seek_to_track;
     } else {
       /* seek failed - what now? */
