@@ -55,6 +55,7 @@ static GtkWidget *play_button, *next_menuitem, *prev_menuitem, *reread_menuitem,
 static gboolean
 select_track (void)
 {
+  GstStateChangeReturn ret;
   GstElement *cd;
 
   if (!gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
@@ -64,9 +65,23 @@ select_track (void)
   }
 
   cd = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "cd-source");
-  gst_element_set_state (pipeline, GST_STATE_PAUSED);
-  gst_element_seek (pipeline, 1.0, gst_format_get_by_nick ("track"), GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, seek_to_track, GST_SEEK_TYPE_NONE, -1);
-  current_track = seek_to_track;
+
+  ret = gst_element_set_state (pipeline, GST_STATE_PAUSED);
+  if (ret == GST_STATE_CHANGE_FAILURE) {
+    return FALSE;
+  } else if (ret == GST_STATE_CHANGE_SUCCESS) {
+    /* state change was instant, we can seek right away */
+    if (gst_element_seek_simple (pipeline, gst_format_get_by_nick ("track"),
+                                 GST_SEEK_FLAG_FLUSH, seek_to_track)) {
+      current_track = seek_to_track;
+    } else {
+      /* seek failed - what now? */
+      return FALSE;
+    }
+  } else if (ret == GST_STATE_CHANGE_ASYNC) {
+    /* do nothing, seek will hopefully be done later?! */
+  }
+
   return TRUE;
 }
 
@@ -186,6 +201,11 @@ cb_error (GstBus *bus, GstMessage *message, gpointer user_data)
   gtk_widget_destroy (dialog);
   
   g_error_free (error);
+
+  /* There may be other (more generic) error messages on the bus; set pipeline
+   * to NULL state so these messages are flushed from the bus and we don't get
+   * called again for those */
+  stop ();
 }
 
 static gchar *

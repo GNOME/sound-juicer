@@ -1,3 +1,19 @@
+2008-03-14  Tim-Philipp Müller  <tim at centricular dot net>
+
+	* src/sj-play.c: (select_track), (cb_error):
+	  Fix error handling: when the state change fails immediately
+	  (e.g. because the audio device can't be opened), return FALSE
+	  to the caller, so that the caller doesn't try to go into
+	  playing state a second time, which would result in two error
+	  dialogs being shown. Also set pipeline to NULL state when we
+	  get an error, so any other (generic) error messages on the
+	  pipeline's bus are flushed - we only want to show the first
+	  error message. Fixes #520370.
+
+	  Also fix up seeking in select_track: state changs to PAUSED or
+	  PLAYING state are usually async, so a seek right after will
+	  usually fail.
+
 2008-03-10  Ross Burton  <ross@burtonini.com>
 
 	* Makefile.am:
