@@ -826,7 +826,7 @@ sanitize_path (const char* str, const char* filesystem_type)
     /* Replace separators with a hyphen */
     g_strdelimit (s, "\\:|", '-');
     /* Replace all other weird characters to whitespace */
-    g_strdelimit (s, "*?&!\'\"$()`>{}", ' ');
+    g_strdelimit (s, "*?&!\'\"$()`>{}[]<>", ' ');
     /* Replace all whitespace with underscores */
     /* TODO: I'd like this to compress whitespace aswell */
     g_strdelimit (s, "\t ", '_');
