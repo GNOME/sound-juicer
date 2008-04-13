@@ -749,5 +749,5 @@ sj_metadata_musicbrainz_class_init (SjMetadataMusicbrainzClass *class)
 GObject *
 sj_metadata_musicbrainz_new (void)
 {
-  return g_object_new (sj_metadata_musicbrainz_get_type (), NULL);
+  return g_object_new (SJ_TYPE_METADATA_MUSICBRAINZ, NULL);
 }
