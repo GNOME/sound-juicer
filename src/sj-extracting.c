@@ -140,7 +140,13 @@ build_filename (const TrackDetails *track, gboolean temp_filename, GError **erro
   gnome_vfs_uri_unref (uri); uri = new;
   g_free (realpath);
 
-  extension = gm_audio_profile_get_extension (profile);
+  if (profile == NULL) {
+    g_set_error (error, 0, 0, _("Failed to get output format"));
+    return NULL;
+  } else {
+      extension = gm_audio_profile_get_extension (profile);
+  }
+
   len_extension = 1 + strlen (extension);
 #if defined(NAME_MAX) && NAME_MAX > 0
   max_realfile = NAME_MAX - len_extension;
