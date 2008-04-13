@@ -1,0 +1,906 @@
+Sound Juicer "Died To Make This Sound" 2.22.0
+=============================================
+
+* Fix various crashes in the preferences dialogs (thanks Matthew Martin)
+* Translate the genres (thanks Brian Geppert)
+* Add a paused track state (thanks Brian Geppert)
+* Use the system icons for play/record (thanks Micharl Monreal)
+* Many many translations!
+
+
+Sound Juicer "Drop The Empty Pursuit Of Props" 2.21.92
+======================================================
+
+* Don't loop if the selected music directory doesn't exist (Matthew Martin)
+* When editing the album artist, unset the sortable artist name
+* Remove deprecated calls in BaconVolume (Michael Terry)
+
+
+Sound Juicer "Spent All Night Just Watching You" 2.21.91
+========================================================
+
+* Write extracted audio to a temporary file and then rename (Matthew Martin)
+* Disable the Eject button if the drive cannot eject (David Meikle)
+
+
+Sound Juicer "It's Deeper Than The Darkest Sea" 2.21.3
+======================================================
+
+* Add a Disc Number field, and magically populate it (Matthew Martin)
+* Add content/* media types (Matthias Clasen)
+* Set a11y relationships on the cluebar (thanks Rich and Willie)
+* Fix play/pause (Bill O'Shea)
+* Handle the cdio element not being cdparanoia
+
+
+Sound Juicer "Now There's Emptiness In My Bed" 2.21.2
+=====================================================
+
+* Update documentation (Andreas Freund)
+* Check extracted filenames are not too long (Ed Catmur)
+* Add a Year entry to the main window (Andrzej Polatyński)
+* Add a Duplicate Disc menu item (Dave Meikle)
+* Show better error messages if the target directory can't be created (MatzeB)
+* Remove branding from the desktop file
+* Fix initial playback (Bill O'Shea)
+* Hide the progress bar unless ripping (Ghee Teo)
+* Move the cursor to always been on the currently playing/ripping track (Dave Meikle)
+* When editing album artist, only change track artists if it was the same (Bill O'Shea)
+
+
+Sound Juicer "Esoteric Quotes, Most Frightening" 2.21.1
+=======================================================
+
+* Save custom genres (#382667, thanks Jonh Wendell)
+* Make the progress bar smaller (#460650, thanks Stefan Oderbolz)
+* Detect VFAT and NTFS filesystems and strip characters they can't handle
+  (#321436, thanks Carl-Anton Ingmarsson and GHOP).
+* Inhibit power management suspension when ripping (#344947, thanks Carl-Anton
+  and GHOP).
+* Don't crash when finished extracting (#498500)
+* Remove the Rip Completed dialog (#504639)
+* Set pipeline state to NULL when disposing (#495410)
+* Escape the album and artist in the cluebar (#504862, thanks Luca Cavalli).
+
+
+Sound Juicer "Sound Sculptures In Space" 2.21.0
+===============================================
+
+* Add a cluebar when the CD isn't in Musicbrainz (thanks Luca Cavalli, #452047)
+* Fix the multiple album select dialog (thanks Rob Bradford, #500815)
+* Install 48x48 PNG icon (thanks Andreas Nilsson, #502933)
+* Change Deselect All shortcut to Control-Shift-A (thanks Ted Gould, #501442)
+* Add Overwrite All/Skip All buttons to the overwrite dialog (thanks Michael
+  Chudobiak, #130782).
+
+
+Sound Juicer "Tiredness Fuels Empty Thoughts" 2.20.1
+====================================================
+
+* Unset temporary iterators after ripping, hopefully fixing a very common crash
+  (#403870).
+* Only lock the drive when extracting, and ensure its unlocked when
+  finished. This should fix another common crash (#484535).
+* Fix logic bug when creating directories (#481025, thanks William Lachance).
+* Reference the initial profile to stop crashing when profiles are edited
+  (#440400, Stefan Röllin)
+
+
+Sound Juicer "The Best Blue Is Through The Trees" 2.20.0
+========================================================
+
+* Remove a work around now that GStreamer is fixed, and update requirement
+  (#472650, Jaap Haitsma).
+
+Translations: Djihed Afifi (ar), Ihar Hrachyshka (be), Alexander Shopov (bg),
+Runa Bhattacharjee (bn_IN), Jordi Mallach (ca), Ask Hjorth Larsen (da), Hendrik
+Richter (de), Tshewang Norbu (dz), Kostas Papadimas (el), David Lodge (en_GB),
+Jorge González (es), Ivar Smolin (et), Iñaki Larrañaga Murgoitio (eu), Ilkka
+Tuohela (fi), Christophe Benz (fr), Ignacio Casal Quinteiro (gl), Ankit Patel
+(gu), Eyal Mamo (he), Gabor Kelemen (hu), Francesco Marletta (it), Takeshi
+AIHANA (ja), Young-Ho Cha (ko), Erdal Ronahi (ku), Žygimantas Beručka (lt),
+Raivis Dejus (lv), Arangel Angov (mk), Kjartan Maraas (nb), Wouter Bolsterlee
+(nl), Tomasz Dominikowski (pl), Og Maciel (pt_BR), Duarte Loreto (pt), Mugurel
+Tudor (ro), Nickolay V. Shmyrev (ru), Danishka Navin (si), Matic Žgur (sl),
+Elian Myftiu (sq), Милош Поповић (sr), Daniel Nylander (sv), Dr.T.Vasudevan
+(ta), Theppitak Karoonboonyanan (th), Baris Cicek (tr), Maxim Dziumanenko (uk),
+Clytie Siddall (vi), Funda Wang (zh_CN), Chao-Hsiung Liao (zh_HK, zh_TW).
+
+
+Sound Juicer "G D M F S O B" 2.19.3
+===================================
+
+* When removing sources be more paranoid.  I hope this fixes the many-duplicated
+  crasher.
+* Translate the program description (#450161, Gabor Kelemen)
+* Bump libmusicbrainz requirement
+
+
+Sound Juicer "Little Bit Of Your Song In My Ear" 2.19.2
+=======================================================
+
+* Correctly read the album artist (#393707)
+* Don't set empty track titles (#435964)
+* Fix a11y on the play/pause button (#364371, Patrick Wade)
+
+
+Sound Juicer "From a Council Flat Paying Higher Rate Tax" 2.19.1
+================================================================
+
+* Fix type names, which caused an assertion on startup
+* Fix profile checking, which caused SJ to fail to parse any profiles
+* Fix error handling when using errno (#438122)
+
+
+Sound Juicer "Nikki's Growing A Patch Out In The Backyard" 2.19.0
+=================================================================
+
+* Attempt to repair brain-dead FreeDB encoding (Ka-Hing Cheung)
+* Fix memory leaks in musicbrainz object (Cristian Persch)
+* Follow the preferred sound device (Bastien Nocera)
+* Use xdg-user-dirs (BN)
+* Use gst_element_make_from_uri instead of hardcoding cdparanoia (James Livingstone)
+* Display a better message after extracting (Adam Petaccia)
+* Fix detection of FreeDB albums (David Mandelberg)
+* Accessibility fixes (Rich Burridge, Patrick Wade)
+* Don't crash if libnautilus-burn doens't know of a device (Pascal Terjan)
+* Initialise threading earlier
+* Convert strerror() output to UTF-8 for display (PT)
+* Remove "Application" category from desktop file
+* Fix srcdir!=builddir builds (Loic Minier)
+* Internal refactor of extractor and metadata objects
+
+
+Sound Juicer "Let's Kill First The Banker" 2.16.3
+=================================================
+
+* Fix install target (Christian Persch)
+* Set urgency hint on completed dialog (Sebastien Bacher)
+* Add man page
+* Ensure playback is stopped when media is removed (Luca Cavalli)
+* Source cleanups (Adam Petaccia)
+
+
+Sound Juicer "Wish I Could Stop You From Talking" 2.16.2
+========================================================
+
+* "None" directory path shouldn't create blank directory name (#374831, Adam Petaccia)
+* Don't disable re-read when playing (#347218, Stephen Cook)
+* Update bacon volume (#369490)
+* Set a11y relationships (Robin Sonefore, #364386)
+* Fix prefs dialog spacing (#332561, Christian Persch)
+* Fix dates with 0s in (#364976, Alex Lancaster).
+* Replace spaces with underscores in path_patterns and file_patterns when "Strip
+  special characters" is selected (#357111, Luca Cavalli).
+* Port to automake 1.9, update desktop file for new Bug Buddy (#357682,
+  Christian Persch)
+* Reset the extract speed on every track just in case (#343544).
+* Initialise the authentication manager (#356578)
+* Show error messages when the pipeline doesn't link (Tim-Philipp Muller, #361151)
+* Add 32x32 icon
+
+
+Sound Juicer "Now Every Fool In Town" 2.16.1
+============================================
+
+* Fix profiles where the output frequency isn't 44.1Khz (thanks Tim-Philip Müller)
+* Listen to the strip special characters preference and update the label (thanks Peter)
+
+
+Sound Juicer "Hollywood Sending Signals Of Destruction" 2.16.0
+==============================================================
+
+* Fix authenticated proxy (Kjartan Maraas)
+
+
+Sound Juicer "Don't Blow Those Brains Yet" 2.15.5.1
+===================================================
+
+Brown paper bag release for broken tarball.
+
+
+Sound Juicer "Don't Blow Those Brains Yet" 2.15.5
+=================================================
+
+* Update the icon cache on install (#348972)
+* Fix intltool requirements (Kjartan Maraas)
+
+
+Sound Juicer "Two Undernourished Egos Four Rotating Hips" 2.15.4
+================================================================
+
+* Add date information to all possible albums (Alex Lancaster)
+* Improve GStreamer error handling (Tim-Philipp Muller)
+* Don't crash when re-opening the Preferences dialog
+* Clear the genre field when re-reading the disk
+
+
+Sound Juicer "We Could Have Been Strangers If We Tried" 2.15.3
+==============================================================
+
+* Update for new nautilus-cd-burner API (William Jon McCann)
+
+
+Sound Juicer "Got A Brand New Bag" 2.15.2.1
+===========================================
+
+* Release a tarball with translations
+* Increase intltool requirements
+
+
+Sound Juicer "Plus I Never Eat Cow If Ain't Halal" 2.15.2
+=========================================================
+
+* Move backend code to libjuicer
+* Save and restore window maximised state (Luca Cavalli)
+* Use GLib debug flags rather than --enable-debug (Przemysław Grzegorczyk)
+* Translate the help title (PG)
+
+
+Sound Juicer "The Winds Are Blowing Telling Me All I Hear" 2.15.1
+=================================================================
+
+* Only manipulate the track store if there is stuff in it (#333402)
+* Fix progress bar calculation (#339062, John Thacker)
+* Check for cdio >= 0.70 (#339303, John Laliberte)
+* Use new intltool for po/LINGUAS magic (#339197)
+* Use GString when creating the paths (#336725, James Livingston)
+* Update the file/path pattern documentation (#337638)
+* Update the about dialog (#328181, Brian Pepple)
+* Save and restore playback volume (#334170, Marinus Schraal)
+* Improve --help (#335016, Vincent Untz)
+* Translate an untranslated string (#334509)
+
+
+Sound Juicer "Don't Just Sit There Going Crazy On Your Own" 2.14.3
+==================================================================
+
+* Fix reversed check for invalid iterator, allowing playback to work!
+* Add some buffering to the playback pipeline
+* Reset the window title even more
+* Namespace the copied gsttaglibmux to avoid conflicts
+
+
+Sound Juicer "Come Back Stronger Than A Powered-up Pacman" 2.14.2
+=================================================================
+
+* Don't set incorrect sortnames (Peter Oliver)
+* Don't write encoder tags, write duration tag
+* Reset the window title more
+* Use po/LINGUAS (Wouter Bolsterlee)
+* Fix id3tag plugin initialisation hopefully
+* Remove gcc-sim (Damien Charbery)
+
+
+Sound Juicer "It's Not Very Pretty I Tell Thee" 2.14.1
+======================================================
+
+* Change CD lookup query to allow MB to proxy requests to FreeDB
+* Ship a copy of taglibid3mux and tell people to use id3mux when creating the MP3 profile
+* Remove SjProfileChooser, use gnome-media's widget
+* Preferences dialog isn't modal
+* Don't show the main window if there is an error
+* Handle NULL profiles without crashing the Preferences dialog
+* The duration and track number column are not resizable (Wouter Bolsterlee)
+* Don't hardcode compiler options, use GNOME_COMPILE_WARNINGS
+* Volumn should not display stock_volume-0 for volume > 0 (Dennis Cranston)
+* Handle sortnames being NULL
+* Don't leak the GnomeProgram reference
+* Ensure the Play/Pause button stays the same size (Christian Neumair)
+* Don't progress change notifications from the pipeline (Christian Neumair)
+* Handle all paranoia modes (Marinus Schraal)
+* Check iterator access to shut up GCC
+* Fix the program name not being translated
+* Add MAINTAINERS
+* Install icons mode 0644 instead of 0755
+
+Translators: Ales Nyakhaychyk (be), Clytie Siddall (vi), Daniel Nylander (sv), Ivar Smolin (et), Kostas Papadimas (el), Petr Tomeš (cs), Theppitak Karoonboonyanan (th), Vladimer Sichinava (ka).
+
+
+Sound Juicer "Let's Go Back, Let's Go Way On Way Back When" 2.14.0
+==================================================================
+
+* Fix multiple album results again (John Thacker)
+* Depend on new GStreamer, remove copied code
+* Depend on new libnautilus-burn, fixing the drive selection
+* Return an error if the pipeline cannot be linked
+* Don't translate new strings
+* Set the read speed on every extract
+* Fix up cleanup logic after extracting
+
+Translators: Ankit Patel (gu), Clytie Siddall (vi), Daniel Nylander (sv), Duarte Loreto (pt), Elian Myftiu (sq), Francesco Marletta (it), Francisco Javier F. Serrador (es), Funda Wang (zh_CN), Gabor Kelemen (hu), Gnome PL Team (pl), Hendrik Richter (de), Ignacio Casal Quinteiro (gl), Ilkka Tuohela (fi), Jérémy Le Floc'h (br), Jordi Mallach (ca), Kjartan Maraas (nb, no), Lasse Bang Mikkelsen (da), Leonid Kanter (ru), Maxim V. Dziumanenko (uk), Mugurel Tudor (ro), Petr Tomeš (cs), Priit Laes (et), Rajesh Ranjan (hi), Raphael Higino (pt_BR), Rhys Jones (cy), Rostislav "zbrox" Raykov (bg), Satoru SATOH (ja), Tino Meinen (nl), Žygimantas Beručka (lt)
+
+
+Sound Juicer "I Don't Know Why She's Ridin' So High" 2.13.6
+===========================================================
+
+* Rocking new icon from Lapo Calamandrei
+* UI Review attack on Preferences dialog
+* Don't cache metadata, it's a pain
+* Change the sample metadata to a real song
+* Show file extension in sample filename
+* Use × rather than x in progress bar
+* Untranslate strings that should not be translated
+
+Translators: Ankit Patel (gu), Clytie Siddall (vi), Francisco Javier F. Serrador (es), Gabor Kelemen (hu), Ignacio Casal Quinteiro (gl), Ilkka Tuohela (fi), Iñaki Larrañaga (eu), Kjartan Maraas (nb), Kjartan Maraas (no), Kostas Papadimas (el), Lasse Bang Mikkelsen (da), Leonid Kanter (ru), Miloslav Trmac (cs), Priit Laes (et), Raphael Higino (pt_BR), Rhys Jones (cy), Rostislav Raykov (bg), Satoru SATOH (ja), Theppitak Karoonboonyanan (th), Tino Meinen (nl), Vladimer SIchinava (ka), Woodman Tuen (zh_HK), Woodman Tuen (zh_TW), Žygimantas Beručka (lt).
+
+
+Sound Juicer "For All Of These Simple Things And Much More" 2.13.5
+==================================================================
+
+* Enable Musicbrainz tagging with GStreamer 0.10.3
+* Dutch manual (Tino Meinen)
+* Fix build with GStreamer 0.10.3
+* Disable Select All when there is no disc inserted
+* Use GnomeProgram, the help button uses it
+* Ignore unknown options instead of critically aborting
+* Remove unused variables (Ryan Lortie)
+
+Translators: Priit Laes (et), Žygimantas Beručka (lt)
+
+
+Sound Juicer "J'd Up To The Boom" 2.13.4
+========================================
+
+* Rebuild the pipeline after every track to fix a crash in GStreamer
+* Unlock the drive door before ejecting
+* Add GTK category to the desktop file
+* Update bacon-message-connection
+
+Translators: Adam Weinberger (en_CA), Ales Nyakhaychyk (be), Ankit Patel (gu),
+Clytie Siddall (vi), Evandro Fernandes Giovanini (pt_BR), Francisco Javier
+F. Serrador (es), Funda Wang (zh_CN), Gabor Kelemen (hu), Ignacio Casal
+Quinteiro (gl), Ilkka Tuohela (fi), Jean-Michel Ardantz (fr), Kjartan Maraas
+(nb, no), Lasse Bang Mikkelsen (da), Theppitak Karoonboonyanan (th), Tino Meinen
+(nl).
+
+
+Sound Juicer "Look In The Stars And Search For The Answer" 2.13.3
+=================================================================
+
+* Port to GStreamer 0.10
+
+
+Sound Juicer "If Not Now" 2.13.2
+================================
+
+* Fix handling of multiple albums (David Mandelberg)
+* Handle G_FILENAME_ENCODING (Colin Leroy)
+* Add Generic Name to the desktop file (Matthias Clasen)
+* Correct multiple-artist data imported from FreeDB (Bastien Nocera)
+* Remove leading periods when generating filenames
+* Add a Submit menu item to open the MusicBrainz web page (James Hensbridge)
+* Set the MusicBrainz proxy from gnome-vfs
+* Cache MusicBrainz metadata
+* Add support for the MusicBrainz "sortable name" attribute (Peter Oliver)
+* Make the Preferences dialog non-resizable, and fix layout
+* Save the main window size (using the rocking libgconf-bridge)
+* Change keybinding for Next/Previous, to avoid stomping Paste
+* Remove CDIO version check
+* Set default window icon
+* Protect against NULL drives (Marco Barisione)
+* Fix warnings with new libglade (BN)
+
+Translators:
+
+Adam Weinberger (en_CA), Ankit Patel (gu), Christophe Merlet (RedFox) (fr), Clytie Siddall (vi), Elian Myftiu (sq), Evandro Fernandes Giovanini (pt_BR), Funda Wang (zh_CN), Ignacio Casal Quinteiro (gl), Ilkka Tuohela (fi), Kjartan Maraas (nb, no), Michiel Sikkes (nl), Miloslav Trmac (cs), Priit Laes (et), Rostislav Raykov (bg), Takeshi AIHANA (ja), Theppitak Karoonboonyanan (th), Woodman Tuen (zh_HK, zh_TW), Å½ygimantas BeruÄ�ka (lt).
+
+
+Sound Juicer "Sweet As" 2.13.1
+==============================
+
+* Use the new NautilusBurnDrive to detect new media (William Jon McCann)
+* Set a HAL advisory lock when using a CD (WJM)
+* Start writing a CD-TEXT metadata provider
+* Add Funk as a genre
+* Don't use the term "ripper"
+
+
+Sound Juicer "Deaf, Dumb, and Blind, You Just Keep On Pretending" 2.12.2
+========================================================================
+
+* Fix --device
+
+
+Sound Juicer "This Is The Bright Frontier" 2.12.1
+=================================================
+
+* Add --device command line argument to override GConf
+* Set the maximum read speed on every extract
+* Fix an i18n bug
+* Fix typo in documentation
+* Add a DOAP file to the distribution
+
+Translators: Baris Cicek (tr), Clytie Siddall (vi), Francesco Marletta (it),
+Frank Arnold (de), Ignacio Casal Quinteiro (gl), IÃ±aki LarraÃ±aga Murgoitio (eu),
+Rostislav "zbrox" Raykov (bg), Theppitak Karoonboonyanan (th).
+
+
+Sound Juicer "Down The Middle Drops One More Grain Of Sand" 2.12.0
+==================================================================
+
+* Bind F1 to Help
+
+Translators: Danilo Ã�Â egan (sr), Mohammad Damt (id), Clytie Siddall (vi),
+Jean-Michel Ardantz (fr), Michiel Sikkes (nl), Roozbeh Pournader (fa).
+
+
+Sound Juicer "Managed To Save Just A Little Bit Of Money" 2.11.92
+=================================================================
+
+* Reset the interface when a CD is manually ejected
+* Improve the volume control (Ronald Bultje)
+* Fix distcheck
+* Use automake 1.9
+
+Translators: Duarte Loreto (pt), Frank Arnold (de), Jordi Mallach (ca), Leonid Kanter (ru), Maxim V. Dziumanenko (uk), Mugurel Tudor (ro), Nikos Charonitakis (el), Raphael Higino (pt_BR), Rhys Jones (cy), Takeshi AIHANA (ja), Woodman Tuen (zh_TW), Young-Ho Cha (ko), Ã�Â½ygimantas BeruÃ�ï¿½a (lt).
+
+
+Sound Juicer "But There's Some Magic Out There" 2.11.91
+=======================================================
+
+* Spanish manual! (Francisco Javier F. Serrador)
+* Add Previous/Next Track menu items (Ross, Raj M Madhan)
+* Play the selected track when Play is activated (Raj)
+* The Extract checkbox is now titleless
+* Respect the check boxes for playback (Ronald)
+* Handle playing state changes in an idle handler (Ronald)
+* Improved Play/Pause behaviour (Ronald)
+* Better volume control (Ronald)
+* Disable Reread whilst playing (Raj)
+
+Translators: Adam Weinberger (en_CA), Alan Horkan (en_GB), Ankit Patel (gu),
+Clytie Siddall (vi), Francisco Javier F. Serrador (es), Frank Arnold (de), Funda
+Wang (zh_CN), Gabor Kelemen (hu), Gnome PL Team (pl), Ilkka Tuohela (fi),
+Kjartan Maraas (nb), Kjartan Maraas (no), Michiel Sikkes (nl), Miloslav Trmac
+(cs), Nikos Charonitakis (el), Paisa Seeluangsawat (th), Priit Laes (et),
+Raphael Higino (pt_BR), Rostislav Raykov (bg).
+
+
+Sound Juicer "Smile At My Answer" 2.11.90
+=========================================
+
+* Nicer icons when extracting (Luca Cavalli)
+* Documentation ported to use gnome-doc-utils
+
+Translators:
+
+Abduxukur Abdurixit (ug), Adam Weinberger (en_CA), Ankit Patel (gu), Clytie
+Siddall (vi), Francisco Javier F. Serrador (es), Funda Wang (zh_CN), Ilkka
+Tuohela (fi), Miloslav Trmac (cs), Paisa Seeluangsawat (th), Priit Laes (et),
+Raphael Higino (pt_BR), Takeshi AIHANA (ja), Terance Edward Sola (nb), Terance
+Edward Sola (no), Vladimir Petkov (bg)
+
+
+Sound Juicer "The Most Dangerous Narcotic" 2.11.4
+=================================================
+
+* Thread the extracting pipeline for faster rips
+* Add a volume control when playing (Ronald Bultje)
+* Remove the progress dialog (Raj M Madhan)
+* Register our custom icons as stock so themes can set them (Luca Cavalli)
+* Use Disc instead of CD in the menu
+* Disable Play button when extracting (Raj)
+* Set the pipeline to NULL when cancelling (Raj)
+* Use gnome-common (Ali Akcaagac)
+
+
+Sound Juicer "All Rolled Into One" 2.11.3
+=========================================
+
+This release is also known as Oh My God.
+
+* Can now play CDs (Ronald Bultje)
+* The genre field is now an auto-completing text entry
+* Fix various file writing bugs caused by the move to gnome-vfs
+
+
+Sound Juicer "Cosmo Retro Intro Outro" 2.11.2
+=============================================
+
+* Uses gnome-vfs to write songs
+* Write MusicBrainz identifiers as IDs not URLs
+* Don't crash when freeing albums without date fields
+* Don't warn when looking for the Glade (Bastien Nocera)
+
+Translators:
+
+Elian Myftiu (sq), Frank Arnold (de), Ignacio Casal Quinteiro (gl), Kjartan
+Maraas (nb,no), Martin Willemoes Hansen (da), Michiel Sikkes (nl), Miloslav
+Trmac (cs), Takeshi AIHANA (ja), Jayaradha (ta).
+
+
+Sound Juicer "Grace the Corners of Our Rooms" 2.11.1
+====================================================
+
+Finally, a release in the 2.11 series.
+
+* Initialise audio profiles before creating the extractor
+* Fix some pointer tests which may crash
+* Focus the list view on startup
+* Depend on nautilus-burn 2.11.1, and pass around NautilusBurnDrive objects
+  instead of device names.
+* Don't free GErrors in the pipeline error handler, this makes SJ crash
+* Add a dummy C++ file to fix builds where gcc version != g++ version
+* Uncheck each track as it is extracted
+* Put lots more metadata into the songs (MusicBrainz IDs and release date)
+* Check for and switch to an existing instance of SJ when starting (Bastien Nocera)
+
+And the ever-working translators:
+
+Adam Weinberger (en_CA), Ahmad Riza H Nst (id), Canonical Ltd (xh), Dafydd
+Harries (cy), Hendrik Richter (de), Ivar Smolin (et), Jyotsna Shrestha (ne),
+Mugurel Tudor (ro), Nikos Charonitakis (el), Raphael Higino (pt_BR), Steve
+Murphy (rw).
+
+
+Sound Juicer "Smile Kindly Then Rip Your Life To Pieces" 2.10.0
+===============================================================
+
+* Rocking updated user guide (Shaun McCance is a hero)
+* Trivial UI fixes
+* Some more const keywords
+* Use G_DEFINE_TYPE in SjExtractor
+
+Thanks to the translators:
+
+Abel Cheung (zh_TW), Emrah Unal (tr), Paisa Seeluangsawat (th),
+Rajesh Ranjan (hi), Danilo Ã�ï¿½ï¿½Â egan (sr)
+
+
+Sound Juicer "Hell Is Round The Corner Where I Shelter" 2.9.92
+==============================================================
+
+Beta 2 for GNOME 2.10, some important fixes in here!
+
+* Depend on nautilus-burn >= 2.9
+* Set the profile key to a sensible default
+* Unselect the profile combo when no profile is selected in GConf
+* Use gi18n.h (Crispin Flowerday)
+* Use the new GTK+ about dialog (CF)
+* Display the output format in the profile chooser (Raj Madhan)
+* Quit correctly (RM)
+* Updated README
+
+I've been really bad at crediting translators, so I'll credit everyone who
+translated since 0.6 and will try and keep this up.  Thanks everyone!
+
+Adam Weinberger (en_CA), Ankit Patel (gu), Arafat Medini (ar), Christian Rose (sv),
+Christophe Fergeau (fr), David Lodge (en_GB), Duarte Loreto (pt), Elian Myftiu (sq),
+Emrah Unal (tr), Francesco Marletta (it), Francisco Javier F. Serrador (es),
+Funda Wang (zh_CN), Gnome PL Team (pl), Hendrik Brandt (de), Jordi Mallach (ca),
+Kjartan Maraas (nb), Kjartan Maraas (no), Laszlo Dvornik (hu), Leonid Kanter (ru),
+Martin Willemoes Hansen (da), Maxim Dziumanenko (uk), Miloslav Trmac (cs),
+Nikos Charonitakis (el), Priit Laes (et), Rajeev Shrestha (ne), Raphael Higino (pt_BR),
+Takeshi AIHANA (ja), Tino Meinen (nl), Tommi Vainikainen (fi), Vladimir Petkov (bg),
+Young-Ho Cha (ko), Ã�ï¿½ï¿½Â½ygimantas BeruÃ�ï¿½ï¿½Â¿Â½a (lt)
+
+
+Sound Juicer "So Said The Preacher Man" 2.9.91
+==============================================
+
+First official beta for GNOME 2.10, so several last-minute fixes:
+
+* Link to nautilus-burn instead of copying libbacon
+* HIGify and use GtkFileChooserButton in the Preferences dialog
+* Use gnome-open instead of Nautilus when opening directories
+* Ensure the pipeline is not running when an error occurs
+* Make the code more likely to compile with gcc 2.95
+* Update README
+* Write empty strings, no NULL, to GConf
+
+
+Sound Juicer "Where Beer Does Flow And Men Do Chunder" 0.6.0
+===========================================================
+
+This is the first release in the 0.6 series.  It's a bit rough, so be gentle
+with it.  In particular, you can only encode to Ogg Vorbis and FLAC unless you
+create new audio profiles.
+
+* Now uses Audio Profiles for encoding
+* Expanded metadata tags
+* HAL-enabled builds actually compile
+* Time remaining calculations actually work (hondaguru@earthlink.net)
+* Handle filename conversion failures (Frederic Crozat)
+* Handle empty results from MusicBrainz (FC)
+* Disable Select/Deselect All when extracting (Raj Madhan)
+* Don't crash at startup when there is no profile defined (RM)
+* Handle unset audio profile keys (RM)
+* Ensure Select/Deselect All reflect the state of the selections (Nirmal Kumar)
+* Warn the user if they try and exit whilst ripping (RM)
+* The Close button is the default when extracting is complete
+
+
+Sound Juicer "Cover Me!" 0.5.15
+===============================
+
+* Handle errors when transforming filename encoding fails (Frederic Crozat)
+* Handle MusicBrainz saying it has found a matching album when it hasn't (FC)
+* Fix the "time remaining" calculations (hondaguru)
+* Updated libbacon, fixing various issues
+* Fix crashes due to the idle handler not being removed (Colin Walters)
+* Stop using the deprecated _() in libgnome (Mariano Su\uffffrez-Alvarez)
+
+
+Sound Juicer "Bust The Meter" 0.5.14
+====================================
+
+* Don't corrupt the title/artist entries when changing CD
+* Sort the genre list at runtime (Christophe Fergeau)
+* Handle unset values in GConf (Colin Walters)
+* Fixed HAL compile (Colin Walters and Sjoerd Simons)
+
+
+Sound Juicer "Desire Is The Father Of Invention" 0.5.13
+=======================================================
+
+Yes, I've now got an iPod and decided after all to add a genre drop-down.
+MusicBrainz doesn't do genre so you've got to set it yourself.  Help me by
+sending in patches to sj-genres.c to alias one genre to another -- the ID3 list
+is *way* to long.
+
+* Add a genre drop-down
+* Update CD code, and use HAL if available
+* Depend on GTK+ 2.4 and use the new file chooser
+* Don't corrupt data if the disc is changed whilst the Rip Complete dialogue is
+  open (Sean Proctor)
+* More charset escaping (Frederic Crozat)
+* Add more GStreamer iterate functions to speed ripping (David Arnold)
+* Be a bit more paranoid about incorrect GConf keys
+* Allow the MusicBrainz server to be changed
+* Lots of little bug fixes but lots of fabby people.
+
+
+Sound Juicer "Bust The Meter" 0.5.12
+====================================
+
+Slight problem with release management.  I'm pretending nothing
+happened and releasing 0.5.12 now.
+
+* Translate the example track/album strings in Preferences (Mariano SuÃ�ï¿½ï¿½Â¡rez-Alvarez)
+* Close the Prefs dialog when the WM close button is pressed (Mariano)
+* Monitor the strip and eject prefs for changes correctly
+* Add %tN-%tA-%tT as a file pattern
+* Use a sane drive if the one in GConf doesn't exist (Bastien Nocera)
+* Better error messages when the disk is full (Bastien)
+* Mark Eject for localisation (Stephane Raimbault)
+* Don't crash if the files exists and the user skips every track
+* Make the Help button work (Brent Fox)
+* Add double quotes to the set of characters to strip when sanitising paths
+* Handle the GStreamer 0.8 error callback prototype (Christophe Fergeau IIRC)
+* Stop building with SJ 0.7.x
+* Update libbacon
+* Add colons to the Prefs dialog
+
+
+Sound Juicer "One More Victim" 0.5.11
+=====================================
+
+* Supports GStreamer 0.8
+* Eject When Finished works
+* Change the shortcut for Extract to Control-Return
+* Updated the README
+* Fix the logic in the "missing encoder" dialogue.
+
+
+Sound Juicer "Highest Grade" 0.5.10.1
+=====================================
+ 
+* Rebuild tarball with a decent intltool
+
+
+Sound Juicer "Highest Grade" 0.5.10
+===================================
+ 
+* Fix a double free, solving the hang on startup for some people
+* Translate the file/path pattern strings
+* Show estimated duration and ripping speed (Bastien)
+* Correctly kill the ripping idle callback, fixing some random crashes
+* Acknowledged that my release names are pretty weird at times
+
+
+Sound Juicer "Amphibious Nostrils" 0.5.9
+========================================
+
+* Use the new tagging API if using GStreamer 0.7.3 (Christophe Fergeau)
+* Created files have correct permissions (me)
+* Better labels in the Preferences (Jens Knutson)
+* Several memory leaks fixed (Michael Henson)
+* distcheck fixes (Thomas Vander Stichele)
+
+
+Sound Juicer "Fishy Wishy, Totally Addicated to Plaice" 0.5.8
+=============================================================
+
+* Don't enable deprecation by default, use --enable-deprecation
+* Add an --autostart option, so that extracting starts straight away
+* Add an "eject when finished" preference
+* Add an directory pattern of "no directories"
+* Disable more widgets in the main window when ripping (Brent Fox)
+* Rename Extract? to Extract
+* Use the status bar for progress notification (BF)
+* Don't crash as much (teuf)
+
+
+Sound Juicer "No No Nos" 0.5.7
+=============================
+
+* Hopefully stop crashing so often!
+* Add the GStreamer command line options
+* Fix the Invalid Encoder dialogue which wasn't going away
+* Use the correct SI units when talking about file sizes
+* Fix the path to the really, really cool orange icon
+* Disable the Extract button when there are no tracks to extract
+* Clamp the progress bar value, fixing a warning
+* Display error dialogues if we can't create a file
+* Fix up the "error" signal declaration in SjExtractor
+* Stop depending on all of the GStreamer libraries
+
+
+Sound Juicer "Si!" 0.5.6
+========================
+
+* Detect GStreamer 0.7 (Christian Scaller)
+* Rewrite the extractor loop, fixing many bugs
+* Disable the Reread button when extracting
+* Convert filenames to filesystem encoding (Frederic Crozat)
+* UI cleanups in the progress dialog (Paolo Borelli)
+* Quote the path given to Nautilus when pressing Open
+* Updated libbacon
+
+
+Sound Juicer "Mailman Day" 0.5.5
+================================
+
+Lots of goodness for everyone in this release.
+
+* Threaded MusicBrainz lookup
+* Open directory actually opens the best directory
+* Pipeline rebuilt after every track, works around gst-lame crashes (Bastien)
+* Correctly handle the artist in multiple artist albums
+* Try and do something useful with errors from GStreamer
+* Fix crashes when closing dialogs with escape (Frederic)
+* Fix drive detection with devfs (Frederic)
+* Check the cdparanoia plugin is present (Bastien)
+
+
+Sound Juicer "People Need The Net" 0.5.4
+========================================
+
+People need the Internet, as without it Sound Juicer 0.5.3 crashes.
+Thanks to Frederic Crozat <fcrozat@mandrakesoft.com> for finding this
+simple, trivial, totally embarassing bug.
+
+* Don't crash when there is no net connection
+
+
+Sound Juicer "Mr. Nitpicky? Mr. Patch Machine more like" 0.5.3
+==============================================================
+
+* Encode the total number of tracks on the album in the metadata (Bastien Nocera)
+* Rewrite MusicBrainz lookup so that metadata is returned in a signal.
+* Actually set the device to use when extracting (BN, but I don't think he knew it)
+* Don't warn when there is no CD in the drive on startup (BN)
+* Poll for a CD, instead of relying on the Reread button (BN)
+* Exit when no CD drives are detected
+* Don't crash when editing track names when lookup failed (Mike Hearn)
+* Add filename tags for lowercased forms of the title/artist/etc. (BN)
+* Warn when GStreamer plugins are not available (BN)
+* Never use mpegaudio plugin, as it is MPEG2 and sucks (BN)
+* Only display track listing for a audio CD (BN)
+* .desktop file specified Bugzilla information
+* Eject works on FreeBSD
+
+
+Sound Juicer "Who needs FLAC?" 0.5.2
+====================================
+
+* Fix the FLAC and Wave encoders
+* Fix crash on pressing Reread
+* Faster startup with mounted CDs (Bastien)
+
+
+Sound Juicer "Who needs prefs?" 0.5.1
+=====================================
+
+* Fix out of range warnings in the extracting progress dialog (Bastien Nocera)
+* Use new tag names for Gstreamer (BN)
+* Add defaults for file and path patterns
+* Use defaults if we get "" for the file and path patterns
+  (these fix the crash when going to Preferences)
+* Fix more memory leaks
+* Don't exit if a CD-ROM drive can't be found
+
+
+Sound Juicer "Ã�ï¿½ï¿½Â¿Â½Ã¯Â¿Â½Ã¯Â¿Â½Ã¯Â¿Â½Ã¯Â¿Â½Ã¯Â¿Â½Ã�Â±Ã�ï¿½ï¿½Â¿Â½Ã¯Â¿Â½Ã�Â¹Ã�ï¿½ï¿½Â¿Â½Ã¯Â¿Â½Ã¯Â¿Â½Ã¯Â¿Â½Ã¯Â¿Â½ 0.5
+============================
+
+* A user guide! (Mike Hearn)
+* Editable album artist and title! (MH)
+* HIGified .desktop file (MH)
+* Updated libbacon for better drive detection (Bastien Nocera)
+* sound-juicer.spec fixes (Christian Schaller)
+* When Musicbrainz doesn't know the track size, calculate it (BN)
+* Display a sample of the directory to save files into (me, BN)
+* A decent eject function which doesn't depend on /usr/bin/eject
+* Do runtime checks for encoders instead of compile time (BN)
+* Fix disabled HTTP proxies (BN)
+* Free old pipelines when creating new ones (me)
+* Removed use of GtkFrame in the prefs dialog as some (broken IMHO)
+  themes display always display borders (BN)
+
+I love it when all I have to do is integrate patches to be the
+maintainer!
+
+The encoding quality settings will be in 0.6. Honest.
+
+
+Sound Juicer "Imperial Buttload" 0.4.1
+======================================
+
+Whoops, brown paper bag release.
+
+* Remove the quality slider from Preferences, it doesn't do anything
+* Add a Rip Completed dialog box
+
+
+Sound Juicer "Metric Buttload" 0.4
+==================================
+
+* Metadata code re-arranged
+* Deselect All disabled as appropriate
+* Check if file exist before overwriting them
+* libbacon updates
+* Finally fix a stupid typo which broke multiple artist albums
+* Disable the extract button when ripping
+* Zero-pad track numbers so they sort correctly
+* Strip : from file names to avoid confusing Windows machines
+* Use lame if its available instead of mpegaudio
+* Progress bar fixes
+* Added CD->Eject
+
+
+Sound Juicer "I Want An Aduki" 0.3
+==================================
+
+* Fixes to the Musicbrainz lookup code
+* Change the cursor to the busy cursor when looking up CDs (Anders Carlsson)
+* Finally fixed the file and path option menus (Ryan Boren/Ross Burton)
+* Depend on GStreamer 0.6.1 so that Ogg tagging works
+* libbacon updates, the CD drive drop-down should work a lot better now
+* Columns are resizable
+* Add "Deselect All" along with "Select All"
+* Use the GNOME HTTP proxy settings (Kai Willadsen)
+* Lots of other bug fixes (Ryan Boren)
+* Track title/artist fields can be edited.
+
+Oh, and you can pick an encoding format now.  You only get metadata on
+Ogg Vorbis, and FLAC may not work due to a bug in GStreamer, but it's
+a start...
+
+
+Sound Juicer "Balls" 0.2.1
+==========================
+
+Fixed the code which generated the file names so that it actually
+works. Apparently no one else is running this from CVS after all... :(
+
+
+Sound Juicer "Deepy Madly" 0.2
+==============================
+
+What's New:
+* RPM spec file
+* UI for setting the extraction base path
+* GConf key to set the output filename pattern
+* GConf key to set the paranoia level of the extraction
+* Always strip / from names to avoid extra path creation
+* Option to strip special characters [ /*?\] from filenames
+* UI cleanups
+* More minor bug fixes
+
+
+Sound Juicer "Anon" 0.1
+=======================
+
+There is no news, this is the first release.

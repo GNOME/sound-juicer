@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+
+<gconfschemafile>
+  <schemalist>
+
+    <schema>
+      <key>/schemas/apps/sound-juicer/device</key>
+      <applyto>/apps/sound-juicer/device</applyto>
+      <type>string</type>
+      <owner>sound-juicer</owner>
+      <locale name="C">
+        <!-- No default, NULL will query the machine -->
+        <short>The CD to extract from.</short>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/sound-juicer/eject</key>
+      <applyto>/apps/sound-juicer/eject</applyto>
+      <type>bool</type>
+      <owner>sound-juicer</owner>
+      <default>false</default>
+      <locale name="C">
+        <short>Whether to eject the CD when finished extracting.</short>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/sound-juicer/open_completed</key>
+      <applyto>/apps/sound-juicer/open_completed</applyto>
+      <type>bool</type>
+      <owner>sound-juicer</owner>
+      <default>false</default>
+      <locale name="C">
+        <short>Whether to open the target directory when finished extracting.</short>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/sound-juicer/base_uri</key>
+      <applyto>/apps/sound-juicer/base_uri</applyto>
+      <type>string</type>
+      <owner>sound-juicer</owner>
+      <locale name="C">
+        <!-- No default, NULL will use $HOME -->
+        <short>The URI to save the extracted music to.</short>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/sound-juicer/base_path</key>
+      <applyto>/apps/sound-juicer/base_path</applyto>
+      <type>string</type>
+      <owner>sound-juicer</owner>
+      <locale name="C">
+        <!-- No default, NULL will use $HOME -->
+        <short>The local directory to save the extracted music to (deprecated, use base_uri)</short>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/sound-juicer/path_pattern</key>
+      <applyto>/apps/sound-juicer/path_pattern</applyto>
+      <type>string</type>
+      <owner>sound-juicer</owner>
+      <default>%aa/%at</default>
+      <locale name="C">
+        <short>The directory structure for the files</short>
+        <long>
+        %at -- album title
+        %aT -- album title (lowercase)
+        %aa -- album artist
+        %aA -- album artist (lowercase)
+        %as -- album artist (sortable)
+        %aS -- album artist (sortable lowercase)
+        %tt -- track title
+        %tT -- track title (lowercase)
+        %ta -- track artist
+        %tA -- track artist (lowercase)
+        %ts -- track artist (sortable)
+        %tS -- track artist (sortable lowercase)
+        </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/sound-juicer/file_pattern</key>
+      <applyto>/apps/sound-juicer/file_pattern</applyto>
+      <type>string</type>
+      <owner>sound-juicer</owner>
+      <default>%tN - %tt</default>
+      <locale name="C">
+        <short>The name pattern for files</short>
+        <long>
+        Do not specify an extension.
+        %at -- album title
+        %aT -- album title (lowercase)
+        %aa -- album artist
+        %aA -- album artist (lowercase)
+        %as -- album artist (sortable)
+        %aS -- album artist (sortable lowercase)
+        %tn -- track number (i.e 8)
+        %tN -- track number, zero padded (i.e 08)
+        %tt -- track title
+        %tT -- track title (lowercase)
+        %ta -- track artist
+        %tA -- track artist (lowercase)
+        %ts -- track artist (sortable)
+        %tS -- track artist (sortable lowercase)
+        </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/sound-juicer/paranoia</key>
+      <applyto>/apps/sound-juicer/paranoia</applyto>
+      <type>int</type>
+      <owner>sound-juicer</owner>
+      <default>8</default>
+      <locale name="C">
+        <short>The paranoia mode to use</short>
+        <long>
+          Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) full
+        </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/sound-juicer/strip-special</key>
+      <applyto>/apps/sound-juicer/strip-special</applyto>
+      <type>bool</type>
+      <owner>sound-juicer</owner>
+      <default>false</default>
+      <locale name="C">
+        <short>If to strip special characters from filenames</short>
+        <long>
+          If enabled, special characters such as space, wildcards and
+          backslashes will be removed from the output filename.
+        </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/sound-juicer/musicbrainz_server</key>
+      <applyto>/apps/sound-juicer/musicbrainz_server</applyto>
+      <type>string</type>
+      <owner>sound-juicer</owner>
+      <!-- No default, NULL will use library default -->
+      <locale name="C">
+        <short>The MusicBrainz server to use</short>
+        <long>
+          If specified, this value will override the default MusicBrainz
+          server.
+        </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/sound-juicer/audio_profile</key>
+      <applyto>/apps/sound-juicer/audio_profile</applyto>
+      <type>string</type>
+      <owner>sound-juicer</owner>
+      <default>cdlossy</default>
+      <locale name="C">
+        <short>Audio Profile with which to encode</short>
+        <long>
+          The GNOME Audio Profile with which to encode.
+        </long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/sound-juicer/volume</key>
+      <applyto>/apps/sound-juicer/volume</applyto>
+      <type>float</type>
+      <owner>sound-juicer</owner>
+      <default>1.0</default>
+      <locale name="C">
+        <short>Audio volume</short>
+      </locale>
+    </schema>
+
+  </schemalist>
+</gconfschemafile>
