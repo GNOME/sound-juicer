@@ -45,7 +45,7 @@ void on_previous_track_activate(GtkWidget *button, gpointer data);
 void on_tracklist_row_selected (GtkTreeView *treeview,
 		                gpointer user_data);
 
-void on_volume_changed (GtkWidget* volb, gpointer data);
+void on_volume_changed (GtkWidget* volb, gdouble value, gpointer data);
 
 gboolean on_seek_press (GtkWidget * scale, 
 			GdkEventButton * event, 

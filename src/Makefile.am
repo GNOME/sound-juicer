@@ -21,8 +21,6 @@ sound_juicer_SOURCES = \
 	gedit-message-area.c \
 	gconf-bridge.h \
 	gconf-bridge.c \
-	bacon-volume.c \
-	bacon-volume.h \
 	$(BACON_FILES)
 
 sound_juicer_CPPFLAGS = \

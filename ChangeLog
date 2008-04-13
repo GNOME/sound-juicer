@@ -1,5 +1,20 @@
 2008-04-13  Ross Burton  <ross@burtonini.com>
 
+	* configure.in:
+	Bump GTK+ dependency to 2.12.
+
+	* src/Makefile.am:
+	* src/bacon-volume.[ch]:
+	* po/POTFILES.in:
+	Remove BaconVolume widget.
+
+	* data/sound-juicer.glade:
+	* src/sj-main.c:
+	* src/sj-play.[ch]:
+	Use GtkVolumeButton (#518753, thanks Michael Terry)
+
+2008-04-13  Ross Burton  <ross@burtonini.com>
+
 	* src/sj-extracting.c:
 	Fix crash when no profile is selected (#364666, thanks Matthew Martin).
 

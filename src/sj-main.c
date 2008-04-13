@@ -54,7 +54,6 @@
 #include "sj-play.h"
 #include "sj-genres.h"
 #include "gedit-message-area.h"
-#include "bacon-volume.h"
 
 gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data);
 
@@ -791,9 +790,9 @@ static void audio_volume_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
   
   GtkWidget *volb = glade_xml_get_widget (glade, "volume_button");
   if (entry->value == NULL) {
-    bacon_volume_button_set_value (BACON_VOLUME_BUTTON (volb), 1.0);
+    gtk_scale_button_set_value (GTK_SCALE_BUTTON (volb), 1.0);
   } else {
-    bacon_volume_button_set_value (BACON_VOLUME_BUTTON (volb), gconf_value_get_float (entry->value));
+    gtk_scale_button_set_value (GTK_SCALE_BUTTON (volb), gconf_value_get_float (entry->value));
   }
 }
 
@@ -1466,15 +1465,6 @@ void on_contents_activate(GtkWidget *button, gpointer user_data) {
     gtk_widget_show (dialog);
     g_error_free (error);
   }
-}
-
-GtkWidget *
-sj_make_volume_button (void)
-{
-  GtkWidget *w = bacon_volume_button_new (GTK_ICON_SIZE_SMALL_TOOLBAR,
-                                          0.0, 1.0, 0.02);
-  bacon_volume_button_set_value (BACON_VOLUME_BUTTON (w), 1.0);
-  return w;
 }
 
 static void
