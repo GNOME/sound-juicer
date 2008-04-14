@@ -1,4 +1,4 @@
-# translation of sound-juicer.HEAD.po to Español
+# translation of sound-juicer.gnome-2-22.po to Español
 # Spanish translation for Sound Juicer.
 # Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008 Free Software Foundation, Inc.
 # This file is distributed under the same license as the sound-juicer package.
@@ -8,10 +8,10 @@
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: sound-juicer.HEAD\n"
+"Project-Id-Version: sound-juicer.gnome-2-22\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-29 14:08+0000\n"
-"PO-Revision-Date: 2008-02-29 16:31+0100\n"
+"POT-Creation-Date: 2008-04-14 04:13+0100\n"
+"PO-Revision-Date: 2008-04-14 19:44+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -513,12 +513,17 @@ msgstr ""
 "Francisco F. Serrador <serrador@cvs.gnome.org>, 2003-2006\n"
 "Enrique Rodríguez <krm@futurnet.es>, 2003"
 
+#: ../src/sj-extracting.c:144
+#, c-format
+msgid "Failed to get output format"
+msgstr "Falló al obtener el formato de salida"
+
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:216
+#: ../src/sj-extracting.c:222
 msgid "Extract"
 msgstr "Extraer"
 
-#: ../src/sj-extracting.c:286
+#: ../src/sj-extracting.c:292
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -527,38 +532,38 @@ msgstr ""
 "Ya existe un archivo llamado «%s», tamaño %s.\n"
 "¿Quiere saltarse esta pista o sobreescribirla?"
 
-#: ../src/sj-extracting.c:290
+#: ../src/sj-extracting.c:296
 msgid "_Skip"
 msgstr "_Saltar"
 
-#: ../src/sj-extracting.c:291
+#: ../src/sj-extracting.c:297
 msgid "S_kip All"
 msgstr "_Saltar todas"
 
-#: ../src/sj-extracting.c:292
+#: ../src/sj-extracting.c:298
 msgid "_Overwrite"
 msgstr "S_obreescribir"
 
-#: ../src/sj-extracting.c:293
+#: ../src/sj-extracting.c:299
 msgid "Overwrite _All"
 msgstr "Sobreescribir _todas"
 
-#: ../src/sj-extracting.c:344
+#: ../src/sj-extracting.c:350
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Falló al crear el directorio de salida: %s"
 
-#: ../src/sj-extracting.c:473
+#: ../src/sj-extracting.c:479
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Tiempo restante estimado: %d:%02d (a %0.1fx)"
 
-#: ../src/sj-extracting.c:475
+#: ../src/sj-extracting.c:481
 msgid "Estimated time left: unknown"
 msgstr "Tiempo restante estimado: desconocido"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:645
+#: ../src/sj-extracting.c:651
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -569,11 +574,11 @@ msgstr ""
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:741
+#: ../src/sj-extracting.c:747
 msgid "Stop"
 msgstr "Parar"
 
-#: ../src/sj-extracting.c:770 ../src/sj-extracting.c:776
+#: ../src/sj-extracting.c:776 ../src/sj-extracting.c:782
 msgid "Extracting audio from CD"
 msgstr "Extrayendo sonido del CD"
 
@@ -805,7 +810,7 @@ msgstr "Pista"
 msgid "Duration"
 msgstr "Duración"
 
-#: ../src/sj-play.c:183 ../src/sj-play.c:446 ../src/sj-play.c:475
+#: ../src/sj-play.c:199 ../src/sj-play.c:467 ../src/sj-play.c:496
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -817,30 +822,30 @@ msgstr ""
 "Razón: %s"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:249
+#: ../src/sj-play.c:270
 msgid "Play"
 msgstr "Reproducir"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:293
+#: ../src/sj-play.c:314
 msgid "Pause"
 msgstr "Pausar"
 
-#: ../src/sj-play.c:350
+#: ../src/sj-play.c:371
 #, c-format
 msgid "Failed to create CD source element"
 msgstr "Falló al crear el elemento de origen de CD"
 
-#: ../src/sj-play.c:387
+#: ../src/sj-play.c:408
 msgid "Failed to link pipeline"
 msgstr "Falló al enlazar el conducto"
 
-#: ../src/sj-play.c:393
+#: ../src/sj-play.c:414
 #, c-format
 msgid "Failed to create audio output"
 msgstr "No se pudo crear la salida de sonido"
 
-#: ../src/sj-play.c:601
+#: ../src/sj-play.c:622
 #, c-format
 msgid "Seeking to %s"
 msgstr "Buscando %s"
@@ -910,7 +915,7 @@ msgstr "Número. Artista de la pista - Título de pista"
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Número-Artista de la pista-Título de pista (minúsculas)"
 
-#: ../src/sj-prefs.c:272
+#: ../src/sj-prefs.c:268
 msgid "Example Path"
 msgstr "Ruta de ejemplo"
 
