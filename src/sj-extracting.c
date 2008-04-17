@@ -40,6 +40,7 @@
 #include "sj-play.h"
 #include "sj-inhibit.h"
 #include "sj-genres.h"
+#include "egg-play-preview.h"
 
 typedef struct {
   int seconds;
@@ -282,17 +283,24 @@ confirm_overwrite_existing_file (const char* uri, int *overwrite_mode, GnomeVFSF
 { 
   OverwriteDialogResponse ret;
   GtkWidget *dialog;
+  GtkWidget *play_preview;
   char *filename, *size;
- 
+
   filename = gnome_vfs_format_uri_for_display (uri);
   size = gnome_vfs_format_file_size_for_display (info_size);
   dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), GTK_DIALOG_MODAL,
                                    GTK_MESSAGE_QUESTION,
                                    GTK_BUTTONS_NONE,
-                                   _("A file called '%s' exists, size %s.\nDo you want to skip this track or overwrite it?"),
-                                   filename, size);
+                                   _("A file with the same name exists"));
+  gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
+                                            _("A file called '%s' exists, size %s.\nDo you want to skip this track or overwrite it?"),
+                                            filename, size);
   g_free (filename);
   g_free (size);
+
+  play_preview = egg_play_preview_new_with_uri (uri);
+  gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), play_preview);
+
   gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Skip"), BUTTON_SKIP);
   gtk_dialog_add_button (GTK_DIALOG (dialog), _("S_kip All"), BUTTON_SKIP_ALL);
   gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Overwrite"), BUTTON_OVERWRITE);
@@ -321,9 +329,7 @@ confirm_overwrite_existing_file (const char* uri, int *overwrite_mode, GnomeVFSF
       return FALSE;
       break;
   }
-
-
-return ret;
+  return ret;
 }
 
 
