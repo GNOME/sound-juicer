@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-15 18:25+0200\n"
-"PO-Revision-Date: 2008-04-15 18:25+0100\n"
+"POT-Creation-Date: 2008-04-17 21:36+0200\n"
+"PO-Revision-Date: 2008-04-17 21:38+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -334,11 +334,13 @@ msgstr "Kan inte läsa cd-skiva: %s"
 
 #: ../libjuicer/sj-metadata-musicbrainz.c:121
 #: ../libjuicer/sj-metadata-musicbrainz.c:412
+#: ../src/egg-play-preview.c:466
 msgid "Unknown Artist"
 msgstr "Okänd artist"
 
 #: ../libjuicer/sj-metadata-musicbrainz.c:122
 #: ../libjuicer/sj-metadata-musicbrainz.c:423
+#: ../src/egg-play-preview.c:461
 msgid "Unknown Title"
 msgstr "Okänd titel"
 
@@ -381,6 +383,63 @@ msgstr "[Namnlös]"
 msgid "Could not create CD lookup thread"
 msgstr "Kunde inte skapa cd-uppslagningstråd"
 
+#: ../src/egg-play-preview.c:165
+msgid "URI"
+msgstr "URI"
+
+#: ../src/egg-play-preview.c:166
+msgid "The URI of the audio file"
+msgstr "URI:n för ljudfilen"
+
+#: ../src/egg-play-preview.c:175
+#: ../src/sj-main.c:632
+#: ../src/sj-main.c:1748
+msgid "Title"
+msgstr "Titel"
+
+#: ../src/egg-play-preview.c:176
+msgid "The title of the current stream."
+msgstr "Titeln för aktuell ström."
+
+#: ../src/egg-play-preview.c:185
+#: ../src/sj-main.c:638
+#: ../src/sj-main.c:1757
+msgid "Artist"
+msgstr "Artist"
+
+#: ../src/egg-play-preview.c:186
+msgid "The artist of the current stream."
+msgstr "Artisten för aktuell ström."
+
+#: ../src/egg-play-preview.c:195
+msgid "Album"
+msgstr "Album"
+
+#: ../src/egg-play-preview.c:196
+msgid "The album of the current stream."
+msgstr "Albumet för aktuell ström."
+
+#: ../src/egg-play-preview.c:205
+msgid "Position"
+msgstr "Position"
+
+#: ../src/egg-play-preview.c:206
+msgid "The position in the current stream in seconds."
+msgstr "Positionen i aktuell ström i sekunder."
+
+#: ../src/egg-play-preview.c:215
+#: ../src/sj-main.c:1768
+msgid "Duration"
+msgstr "Speltid"
+
+#: ../src/egg-play-preview.c:216
+msgid "The duration of the current stream in seconds."
+msgstr "Speltiden i aktuell ström i sekunder."
+
+#: ../src/egg-play-preview.c:467
+msgid "Unknown Album"
+msgstr "Okänt album"
+
 #: ../src/gconf-bridge.c:1218
 #, c-format
 msgid "GConf error: %s"
@@ -419,17 +478,21 @@ msgstr ""
 "Skicka synpunkter på översättningen till\n"
 "tp-sv@listor.tp-sv.se"
 
-#: ../src/sj-extracting.c:144
+#: ../src/sj-extracting.c:145
 #, c-format
 msgid "Failed to get output format"
 msgstr "Misslyckades med att få utdataformat"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:222
+#: ../src/sj-extracting.c:223
 msgid "Extract"
 msgstr "Extrahera"
 
-#: ../src/sj-extracting.c:292
+#: ../src/sj-extracting.c:294
+msgid "A file with the same name exists"
+msgstr "En fil med samma namn finns redan"
+
+#: ../src/sj-extracting.c:296
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -438,38 +501,38 @@ msgstr ""
 "En fil med namnet \"%s\" finns redan med storleken %s.\n"
 "Vill du hoppa över detta spår eller skriva över det?"
 
-#: ../src/sj-extracting.c:296
+#: ../src/sj-extracting.c:304
 msgid "_Skip"
 msgstr "_Hoppa över"
 
-#: ../src/sj-extracting.c:297
+#: ../src/sj-extracting.c:305
 msgid "S_kip All"
 msgstr "H_oppa över alla"
 
-#: ../src/sj-extracting.c:298
+#: ../src/sj-extracting.c:306
 msgid "_Overwrite"
 msgstr "Skriv _över"
 
-#: ../src/sj-extracting.c:299
+#: ../src/sj-extracting.c:307
 msgid "Overwrite _All"
 msgstr "Skriv över _alla"
 
-#: ../src/sj-extracting.c:350
+#: ../src/sj-extracting.c:356
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Misslyckades med att skapa utdatakatalog: %s"
 
-#: ../src/sj-extracting.c:479
+#: ../src/sj-extracting.c:485
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Uppskattad kvarvarande tid: %d.%02d (med %0.1f×)"
 
-#: ../src/sj-extracting.c:481
+#: ../src/sj-extracting.c:487
 msgid "Estimated time left: unknown"
 msgstr "Uppskattad kvarvarande tid: okänd"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:651
+#: ../src/sj-extracting.c:657
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -480,12 +543,12 @@ msgstr ""
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:747
+#: ../src/sj-extracting.c:753
 msgid "Stop"
 msgstr "Stoppa"
 
-#: ../src/sj-extracting.c:776
 #: ../src/sj-extracting.c:782
+#: ../src/sj-extracting.c:788
 msgid "Extracting audio from CD"
 msgstr "Extrahera ljud från cd-skiva"
 
@@ -602,16 +665,6 @@ msgstr "Kunde inte hitta %s av %s på MusicBrainz."
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr "Du kan förbättra MusicBrainz databas genom att lägga till detta album."
 
-#: ../src/sj-main.c:632
-#: ../src/sj-main.c:1748
-msgid "Title"
-msgstr "Titel"
-
-#: ../src/sj-main.c:638
-#: ../src/sj-main.c:1757
-msgid "Artist"
-msgstr "Artist"
-
 #: ../src/sj-main.c:816
 #: ../src/sj-main.c:924
 #: ../src/sj-main.c:1030
@@ -721,10 +774,6 @@ msgstr "Gränssnittsfilen för Sound Juicer kunde inte läsas."
 #: ../src/sj-main.c:1733
 msgid "Track"
 msgstr "Spår"
-
-#: ../src/sj-main.c:1768
-msgid "Duration"
-msgstr "Speltid"
 
 #: ../src/sj-play.c:198
 #: ../src/sj-play.c:466
