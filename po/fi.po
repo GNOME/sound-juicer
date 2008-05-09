@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-01 06:46+0300\n"
-"PO-Revision-Date: 2008-02-29 16:56+0200\n"
+"POT-Creation-Date: 2008-05-09 23:45+0300\n"
+"PO-Revision-Date: 2008-05-09 23:42+0300\n"
 "Last-Translator: Timo Jyrinki <timo.jyrinki@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -511,16 +511,21 @@ msgid "translator-credits"
 msgstr ""
 "Timo Jyrinki, 2008.\n"
 "Ilkka Tuohela, 2004-2008.\n"
-"Tommi Vainikainen, 2004-2006.\n"
+"Tommi Vainikainen, 2004-2006, 2008.\n"
 "\n"
 "http://gnome.fi/"
 
+#: ../src/sj-extracting.c:144
+#, c-format
+msgid "Failed to get output format"
+msgstr "Ulostulomuodon saanti epäonnistui"
+
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:216
+#: ../src/sj-extracting.c:222
 msgid "Extract"
 msgstr "Kopioi"
 
-#: ../src/sj-extracting.c:286
+#: ../src/sj-extracting.c:292
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -529,38 +534,38 @@ msgstr ""
 "Tiedosto nimellä \"%s\" on jo olemassa kooltaan %s.\n"
 "Haluatko ohittaa tämän kappaleen vai ylikirjoittaa tiedoston?"
 
-#: ../src/sj-extracting.c:290
+#: ../src/sj-extracting.c:296
 msgid "_Skip"
 msgstr "_Ohita"
 
-#: ../src/sj-extracting.c:291
+#: ../src/sj-extracting.c:297
 msgid "S_kip All"
 msgstr "Ohita _kaikki"
 
-#: ../src/sj-extracting.c:292
+#: ../src/sj-extracting.c:298
 msgid "_Overwrite"
 msgstr "_Ylikirjoita"
 
-#: ../src/sj-extracting.c:293
+#: ../src/sj-extracting.c:299
 msgid "Overwrite _All"
 msgstr "Ylikirjoita k_aikki"
 
-#: ../src/sj-extracting.c:344
+#: ../src/sj-extracting.c:350
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Kohdekansiota ei voitu luoda: %s"
 
-#: ../src/sj-extracting.c:473
+#: ../src/sj-extracting.c:479
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Arvioitu jäljellä oleva aika: %d:%02d (nopeudella %0.1fx)"
 
-#: ../src/sj-extracting.c:475
+#: ../src/sj-extracting.c:481
 msgid "Estimated time left: unknown"
 msgstr "Jäljellä oleva aika: ei tiedossa"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:645
+#: ../src/sj-extracting.c:651
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -571,11 +576,11 @@ msgstr ""
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:741
+#: ../src/sj-extracting.c:747
 msgid "Stop"
 msgstr "Lopeta"
 
-#: ../src/sj-extracting.c:770 ../src/sj-extracting.c:776
+#: ../src/sj-extracting.c:776 ../src/sj-extracting.c:782
 msgid "Extracting audio from CD"
 msgstr "Kopioidaan musiikkia CD-levyltä"
 
@@ -681,7 +686,7 @@ msgstr "_Lähetä levyn tiedot"
 #: ../src/sj-main.c:432
 #, c-format
 msgid "Could not find %s by %s on MusicBrainz."
-msgstr "Esittäjän %s levyä %s ei löytynyt MusicBrainz:ista."
+msgstr "Esittäjän %2$s levyä %1$s ei löytynyt MusicBrainzista."
 
 #: ../src/sj-main.c:437
 msgid "You can improve the MusicBrainz database by adding this album."
@@ -807,7 +812,7 @@ msgstr "Kappale"
 msgid "Duration"
 msgstr "Kesto"
 
-#: ../src/sj-play.c:183 ../src/sj-play.c:446 ../src/sj-play.c:475
+#: ../src/sj-play.c:199 ../src/sj-play.c:467 ../src/sj-play.c:496
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -819,30 +824,30 @@ msgstr ""
 "Syy: %s"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:249
+#: ../src/sj-play.c:270
 msgid "Play"
 msgstr "Soita"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:293
+#: ../src/sj-play.c:314
 msgid "Pause"
 msgstr "Pysäytä"
 
-#: ../src/sj-play.c:350
+#: ../src/sj-play.c:371
 #, c-format
 msgid "Failed to create CD source element"
 msgstr "CD-lähde-elementin luonti epäonnistui"
 
-#: ../src/sj-play.c:387
+#: ../src/sj-play.c:408
 msgid "Failed to link pipeline"
 msgstr "Putkea ei voitu linkittää"
 
-#: ../src/sj-play.c:393
+#: ../src/sj-play.c:414
 #, c-format
 msgid "Failed to create audio output"
 msgstr "Ääniulostulon luonti epäonnistui"
 
-#: ../src/sj-play.c:601
+#: ../src/sj-play.c:622
 #, c-format
 msgid "Seeking to %s"
 msgstr "Kelataan kohtaan %s"
@@ -912,9 +917,42 @@ msgstr "Numero. Kappaleen esittäjä - Kappaleen nimi"
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Numero-Kappaleen esittäjä-Kappaleen nimi (pienaakkosin)"
 
-#: ../src/sj-prefs.c:272
+#: ../src/sj-prefs.c:268
 msgid "Example Path"
 msgstr "Esimerkkipolku"
+
+#~ msgid "URI"
+#~ msgstr "URI"
+
+#~ msgid "The URI of the audio file"
+#~ msgstr "Äänitiedoston URI"
+
+#~ msgid "The title of the current stream."
+#~ msgstr "Nyt soivan kappaleen nimi."
+
+#~ msgid "The artist of the current stream."
+#~ msgstr "Nyt soivan esittäjä."
+
+#~ msgid "Album"
+#~ msgstr "Levy"
+
+#~ msgid "The album of the current stream."
+#~ msgstr "Nyt soiva levy."
+
+#~ msgid "Position"
+#~ msgstr "Sijainti"
+
+#~ msgid "The position in the current stream in seconds."
+#~ msgstr "Nyt soivan soittosijainti sekunneissa."
+
+#~ msgid "The duration of the current stream in seconds."
+#~ msgstr "Nyt soivan kesto."
+
+#~ msgid "Unknown Album"
+#~ msgstr "Tuntematon levy"
+
+#~ msgid "A file with the same name exists"
+#~ msgstr "Tiedosto on jo olemassa samalla nimellä"
 
 #~ msgid "CD Extractor"
 #~ msgstr "CD-levyjen kopiointi"
@@ -992,9 +1030,6 @@ msgstr "Esimerkkipolku"
 
 #~ msgid "Progress"
 #~ msgstr "Edistyminen"
-
-#~ msgid "Unknown"
-#~ msgstr "Tuntematon"
 
 #~ msgid "Extracting '%s'"
 #~ msgstr "Kopioidaan \"%s\""
@@ -1250,3 +1285,6 @@ msgstr "Esimerkkipolku"
 
 #~ msgid "Select the drive"
 #~ msgstr "Valitse asema"
+
+#~ msgid "Unknown"
+#~ msgstr "Tuntematon"
