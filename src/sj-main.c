@@ -75,7 +75,7 @@ SjExtractor *extractor;
 GConfClient *gconf_client;
 
 GtkWidget *main_window;
-static GtkWidget *message_area_vbox;
+static GtkWidget *message_area_eventbox;
 static GtkWidget *title_entry, *artist_entry, *duration_label, *genre_entry, *year_entry, *disc_number_entry;
 static GtkWidget *track_listview, *extract_button, *play_button;
 static GtkWidget *status_bar;
@@ -401,9 +401,7 @@ set_message_area (GtkWidget *container,
   if (message_area == NULL)
     return;
 
-  gtk_box_pack_start (GTK_BOX (container),
-                      current_message_area,
-                      FALSE, FALSE, 0);
+  gtk_container_add (GTK_CONTAINER (container), message_area);
 
   g_object_add_weak_pointer (G_OBJECT (current_message_area),
                              (gpointer)&current_message_area);
@@ -450,7 +448,7 @@ musicbrainz_submit_message_area_response (GeditMessageArea *message_area,
     on_submit_activate (NULL, NULL);
   }
   
-  set_message_area (message_area_vbox, NULL);
+  set_message_area (message_area_eventbox, NULL);
 }
 
 /**
@@ -489,7 +487,7 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (next_menuitem, FALSE);
     set_duplication (FALSE);
 
-    set_message_area (message_area_vbox, NULL);
+    set_message_area (message_area_eventbox, NULL);
   } else {
     gtk_list_store_clear (track_store);
 
@@ -560,7 +558,7 @@ static void update_ui_for_album (AlbumDetails *album)
 
       message_area = musicbrainz_submit_message_area_new (album->title, album->artist);
 
-      set_message_area (message_area_vbox, message_area);
+      set_message_area (message_area_eventbox, message_area);
 
       g_signal_connect (message_area,
                         "response",
@@ -1670,7 +1668,7 @@ int main (int argc, char **argv)
   glade_xml_signal_autoconnect (glade);
 
   main_window = glade_xml_get_widget (glade, "main_window");
-  message_area_vbox = glade_xml_get_widget (glade, "message_area_vbox");
+  message_area_eventbox = glade_xml_get_widget (glade, "message_area_eventbox");
   select_all_menuitem = glade_xml_get_widget (glade, "select_all");
   deselect_all_menuitem = glade_xml_get_widget (glade, "deselect_all");
   submit_menuitem = glade_xml_get_widget (glade, "submit");
