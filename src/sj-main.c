@@ -1574,12 +1574,13 @@ int main (int argc, char **argv)
   GnomeProgram *program;
   GError *error = NULL;
   GtkTreeSelection *selection;
-  char *device = NULL;
+  char *device = NULL, **uris = NULL;
   GOptionContext *ctx;
   const GOptionEntry entries[] = {
     { "auto-start", 'a', 0, G_OPTION_ARG_NONE, &autostart, N_("Start extracting immediately"), NULL },
     { "play", 'p', 0, G_OPTION_ARG_NONE, &autoplay, N_("Start playing immediately"), NULL},
     { "device", 'd', 0, G_OPTION_ARG_FILENAME, &device, N_("What CD device to read"), N_("DEVICE") },
+    { G_OPTION_REMAINING, '\0', 0, G_OPTION_ARG_FILENAME_ARRAY, &uris, N_("URI to the CD device to read"), NULL },
     { NULL }
   };
 
@@ -1801,10 +1802,26 @@ int main (int argc, char **argv)
   eject_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_EJECT, NULL, TRUE, NULL), NULL);
   open_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_OPEN, NULL, TRUE, NULL), NULL);
   audio_volume_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_AUDIO_VOLUME, NULL, TRUE, NULL), NULL);
-  if (device == NULL) {
+  if (device == NULL && uris == NULL) {
     device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), GINT_TO_POINTER (TRUE));
   } else {
-    set_device (device, TRUE);
+    if (device)
+      set_device (device, TRUE);
+    else {
+      char *d;
+
+      /* Mash up the CDDA URIs into a device path */
+      if (g_str_has_prefix (uris[0], "cdda://")) {
+        guint len;
+        d = g_strdup_printf ("/dev/%s", uris[0] + strlen ("cdda://"));
+        len = strlen (d);
+        d[len - 1] = '\0';
+	set_device (d, TRUE);
+	g_free (d);
+      } else {
+        device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), GINT_TO_POINTER (TRUE));
+      }
+    }
   }
 
   if (sj_extractor_supports_encoding (&error) == FALSE) {
