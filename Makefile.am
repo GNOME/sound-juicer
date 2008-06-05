@@ -2,20 +2,13 @@ SUBDIRS = po data libjuicer src tests help
 
 ACLOCAL_AMFLAGS = -I m4
 
-INTLTOOL_BUILT = \
-        intltool-extract \
-        intltool-merge \
-        intltool-update
-
 EXTRA_DIST = \
 	autogen.sh \
 	sound-juicer.spec \
-	gnome-doc-utils.make \
-	$(INTLTOOL_BUILT:=.in)
+	gnome-doc-utils.make
 
 DISTCLEANFILES = po/.intltool-merge-cache \
-	gnome-doc-utils.make \
-	$(INTLTOOL_BUILT)
+	gnome-doc-utils.make
 
 DISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper
 
