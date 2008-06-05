@@ -25,58 +25,64 @@
 #endif /* HAVE_CONFIG_H */
 #include "sj-util.h"
 
-/**
- * Stolen from gnome-vfs/programs/gnomevfs-mkdir.c (v1.3)
- */
+/* Taken from #511367, will be in GLib soon */
 gboolean
-make_directory_with_parents (GFile * uri, GError **error_out)
+make_directory_with_parents (GFile         *file,
+		                    GCancellable  *cancellable,
+		                    GError       **error)
 {
-	gboolean result;
-	GFile *parent, *work_uri;
-	GList *list = NULL;
-	GError *error = NULL;
+  gboolean result;
+  GFile *parent_file, *work_file;
+  GList *list = NULL, *l;
+  GError *my_error = NULL;
 
-	result = g_file_make_directory (uri, NULL, &error);
-	if (result || error->code != G_IO_ERROR_NOT_FOUND) {
-	  if (error_out)
-	    *error_out = error;
-		return result;
-  }
+  if (g_cancellable_set_error_if_cancelled (cancellable, error))
+    return FALSE;
+  
+  result = g_file_make_directory (file, cancellable, &my_error);
+  if (result || my_error->code != G_IO_ERROR_NOT_FOUND) 
+    {
+      if (my_error)
+        g_propagate_error (error, my_error);
+      return result;
+    }
+  
+  work_file = file;
+  
+  while (!result && my_error->code == G_IO_ERROR_NOT_FOUND) 
+    {
+      g_clear_error (&my_error);
+    
+      parent_file = g_file_get_parent (work_file);
+      if (parent_file == NULL)
+        break;
+      result = g_file_make_directory (parent_file, cancellable, &my_error);
+    
+      if (!result && my_error->code == G_IO_ERROR_NOT_FOUND)
+        list = g_list_prepend (list, parent_file);
 
-	work_uri = uri;
+      work_file = parent_file;
+    }
 
-	while (!result && error->code == G_IO_ERROR_NOT_FOUND) {
-	  g_clear_error (&error);
-	  
-		parent = g_file_get_parent (work_uri);
-		result = g_file_make_directory (parent, NULL, &error);
+  for (l = list; result && l; l = l->next)
+    {
+      result = g_file_make_directory ((GFile *) l->data, cancellable, &my_error);
+    }
+  
+  /* Clean up */
+  while (list != NULL) 
+    {
+      g_object_unref ((GFile *) list->data);
+      list = g_list_remove (list, list->data);
+    }
 
-		if (!result && error->code == G_IO_ERROR_NOT_FOUND)
-			list = g_list_prepend (list, parent);
-		work_uri = parent;
-	}
-
-	if (!result) {
-		/* Clean up */
-		while (list != NULL) {
-			g_object_unref ((GFile *) list->data);
-			list = g_list_remove (list, list->data);
-		}
-
-    if (error_out)
-      *error_out = error;
-		return result;
-	}
-
-	while (result && list != NULL) {
-		result = g_file_make_directory ((GFile *) list->data, NULL, NULL);
-
-		g_object_unref ((GFile *) list->data);
-		list = g_list_remove (list, list->data);
-	}
-
-	result = g_file_make_directory (uri, NULL, error_out);
-	return result;
+  if (!result) 
+    {
+      g_propagate_error (error, my_error);
+      return result;
+    }
+  
+  return g_file_make_directory (file, cancellable, error);
 }
 
 /* Pass NULL to use g_free */
