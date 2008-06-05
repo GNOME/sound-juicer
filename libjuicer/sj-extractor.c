@@ -60,7 +60,7 @@ static guint signals[LAST_SIGNAL] = { 0 };
 #define DEFAULT_AUDIO_PROFILE_NAME "cdlossy"
 
 /* Element names */
-#define FILE_SINK "gnomevfssink"
+#define FILE_SINK "giosink"
 
 struct SjExtractorPrivate {
   /** The current audio profile */
@@ -308,8 +308,9 @@ error_cb (GstBus *bus, GstMessage *message, gpointer user_data)
   g_error_free (error);
 }
 
+#if 0
 /**
- * Callback from the gnomevfssink to say that its about to overwrite a file.
+ * Callback from the giosink to say that its about to overwrite a file.
  * For now, Just Say Yes.  If this API will stay in 0.9, then rewrite
  * SjExtractor.
  */
@@ -318,6 +319,7 @@ just_say_yes (GstElement *element, gpointer filename, gpointer user_data)
 {
   return TRUE;
 }
+#endif
 
 static void
 build_pipeline (SjExtractor *extractor)
@@ -379,7 +381,9 @@ build_pipeline (SjExtractor *extractor)
                  _("Could not create GStreamer file output"));
     return;
   }
+#if 0
   g_signal_connect (G_OBJECT (priv->filesink), "allow-overwrite", G_CALLBACK (just_say_yes), extractor);
+#endif
 
   /* Add the elements to the pipeline */
   gst_bin_add_many (GST_BIN (priv->pipeline), priv->cdsrc, priv->queue, priv->encoder, priv->filesink, NULL);
@@ -465,7 +469,7 @@ sj_extractor_set_paranoia (SjExtractor *extractor, const int paranoia_mode)
 }
 
 void
-sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, const char* url, GError **error)
+sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, GFile *file, GError **error)
 {
   GParamSpec *spec;
   GstStateChangeReturn state_ret;
@@ -473,10 +477,11 @@ sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, c
   GstIterator *iter;
   GstTagSetter *tagger;
   gboolean done;
+  char *uri;
 
   g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
 
-  g_return_if_fail (url != NULL);
+  g_return_if_fail (file != NULL);
   g_return_if_fail (track != NULL);
 
   priv = extractor->priv;
@@ -499,7 +504,9 @@ sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, c
 
   /* Set the output filename */
   gst_element_set_state (priv->filesink, GST_STATE_NULL);
-  g_object_set (G_OBJECT (priv->filesink), "location", url, NULL);
+  uri = g_file_get_uri (file);
+  g_object_set (G_OBJECT (priv->filesink), "location", uri, NULL);
+  g_free (uri);
 
   /* Set the metadata */
   iter = gst_bin_iterate_all_by_interface (GST_BIN (priv->pipeline), GST_TYPE_TAG_SETTER);

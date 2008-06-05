@@ -50,7 +50,7 @@ AC_CHECK_FUNCS(nautilus_burn_drive_can_eject)
 LIBS="$oldlibs"
 
 # Find the UI libraries
-PKG_CHECK_MODULES(UI, gtk+-2.0 >= 2.12  libglade-2.0  gconf-2.0  libgnomeui-2.0 >= 2.13.0  gnome-vfs-2.0 >= 2.9 gnome-vfs-module-2.0 > 2.9 gmodule-export-2.0 dbus-glib-1)
+PKG_CHECK_MODULES(UI, gtk+-2.0 >= 2.12  libglade-2.0  gconf-2.0  libgnomeui-2.0 >= 2.13.0 gio-2.0 gmodule-export-2.0 dbus-glib-1)
 AC_SUBST(UI_CFLAGS)
 AC_SUBST(UI_LIBS)
 
@@ -62,7 +62,7 @@ AC_SUBST(GSTREAMER_LIBS)
 AM_GST_ELEMENT_CHECK(vorbisenc,,AC_MSG_WARN([The 'vorbisenc' element was not found. This will cause encoding to Ogg Vorbis to fail.]))
 AM_GST_ELEMENT_CHECK(flacenc,,AC_MSG_WARN([The 'flacenc' element was not found. This will cause encoding to FLAC to fail.]))
 AM_GST_ELEMENT_CHECK(wavenc,,AC_MSG_WARN([The 'wavenc' element was not found. This will cause encoding to Wave to fail.]))
-AM_GST_ELEMENT_CHECK(gnomevfssink,,AC_MSG_WARN([The 'gnomevfssink' element was not found. This will cause Sound Juicer to fail at runtime.]))
+AM_GST_ELEMENT_CHECK(giosink,,AC_MSG_WARN([The 'giosink' element was not found. This will cause Sound Juicer to fail at runtime.]))
 
 # Find GNOME Media Profiles
 PKG_CHECK_MODULES(MEDIA_PROFILES, gnome-media-profiles >= 2.11.91)

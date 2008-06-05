@@ -565,11 +565,7 @@ on_tracklist_row_selected (GtkTreeView *treeview,
   gint track;
   GtkTreeSelection *selection = gtk_tree_view_get_selection (treeview);
 
-  if (is_paused ())
-    gtk_list_store_set (track_store, &current_iter,
-                        COLUMN_STATE, STATE_IDLE, -1);
-
-  if (is_playing ())
+  if (is_playing () || is_paused ())
     return;
 
   if (gtk_tree_selection_get_selected (selection, NULL, &current_iter)) {

@@ -28,10 +28,7 @@
 #include <limits.h>
 
 #include <glib/glist.h>
-#include <libgnomevfs/gnome-vfs-ops.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
-#include <libgnomevfs/gnome-vfs-volume.h>
-#include <libgnomevfs/gnome-vfs-volume-monitor.h>
+#include <gio/gio.h>
 #include <gtk/gtk.h>
 
 #include "sj-error.h"
@@ -122,11 +119,11 @@ static guint cookie;
  * extern variables 'path_pattern' and 'file_pattern'. Free the result when you
  * have finished with it.
  */
-static char*
+static GFile *
 build_filename (const TrackDetails *track, gboolean temp_filename, GError **error)
 {
-  GnomeVFSURI *uri, *new; 
-  gchar *realfile, *realpath, *filename, *string;
+  GFile *uri, *new; 
+  gchar *realfile, *realpath, *filename, *scheme;
   const gchar *extension;
   size_t len_extension;
   int max_realfile = INT_MAX;
@@ -134,11 +131,9 @@ build_filename (const TrackDetails *track, gboolean temp_filename, GError **erro
 
   g_object_get (extractor, "profile", &profile, NULL);
 
-  uri = gnome_vfs_uri_new (base_uri);
-
   realpath = filepath_parse_pattern (path_pattern, track);
-  new = gnome_vfs_uri_append_path (uri, realpath);
-  gnome_vfs_uri_unref (uri); uri = new;
+  new = g_file_get_child (base_uri, realpath);
+  uri = new;
   g_free (realpath);
 
   if (profile == NULL) {
@@ -153,13 +148,17 @@ build_filename (const TrackDetails *track, gboolean temp_filename, GError **erro
   max_realfile = NAME_MAX - len_extension;
 #endif /* NAME_MAX */
 #if defined(PATH_MAX) && PATH_MAX > 0
-  if (!strcmp (gnome_vfs_uri_get_scheme (uri), "file")) {
-    size_t len_path = strlen (gnome_vfs_uri_get_path (uri)) + 1;
+  scheme = g_file_get_uri_scheme (uri);
+  if (scheme && !strcmp (scheme, "file")) {
+    gchar *path = g_file_get_path (uri);
+    size_t len_path = strlen (path) + 1;
     max_realfile = MIN (max_realfile, PATH_MAX - len_path - len_extension);
+    g_free (path);
   }
+  g_free (scheme);
 #endif /* PATH_MAX */
   if (max_realfile <= 0) {
-    g_set_error (error, SJ_ERROR, SJ_ERROR_INTERNAL_ERROR, g_strdup (gnome_vfs_result_to_string (GNOME_VFS_ERROR_NAME_TOO_LONG)));
+    g_set_error (error, SJ_ERROR, SJ_ERROR_INTERNAL_ERROR, g_strdup (_("Name too long")));
     return NULL;
   }
   realfile = filepath_parse_pattern (file_pattern, track);
@@ -168,13 +167,11 @@ build_filename (const TrackDetails *track, gboolean temp_filename, GError **erro
   } else {
     filename = g_strdup_printf ("%.*s.%s", max_realfile, realfile, extension);
   }
-  new = gnome_vfs_uri_append_file_name (uri, filename);
-  gnome_vfs_uri_unref (uri); uri = new;
+  new = g_file_get_child (uri, filename);
+  g_object_unref (uri); uri = new;
   g_free (filename); g_free (realfile);
 
-  string = gnome_vfs_uri_to_string (uri, 0);
-  gnome_vfs_uri_unref (uri);
-  return string;
+  return uri;
 }
 
 static gboolean
@@ -254,52 +251,60 @@ cleanup (void)
  * Check if a file exists, can be written to, etc.
  * Return true on continue, false on skip.
  */
-static GnomeVFSFileSize
-check_file_size (const char* uri)
+static goffset
+check_file_size (GFile *uri)
 {
-  GnomeVFSFileInfo info;
-  GnomeVFSResult res;
+  GFileInfo *gfile_info;
+  GError *error = NULL;
+  goffset size;
  
-  res = gnome_vfs_get_file_info (uri, &info, GNOME_VFS_FILE_INFO_DEFAULT);
+  gfile_info = g_file_query_info (uri, G_FILE_ATTRIBUTE_STANDARD_SIZE, 0,
+                                  NULL, &error);
 
   /* No existing file */
-  if (res == GNOME_VFS_ERROR_NOT_FOUND)
+  if (!gfile_info && error->code == G_IO_ERROR_NOT_FOUND) {
+    g_error_free (error);
     return 0;
+  }
 
   /* unexpected error condition - bad news */
-  if (res != GNOME_VFS_OK) {
+  if (!gfile_info) {
     /* TODO: display an error dialog */
-    g_warning ("Cannot get file info: %s", gnome_vfs_result_to_string (res));
+    g_warning ("Cannot get file info: %s", error->message);
+    g_error_free (error);
     return -1;
   }
 
   /* A file with that name does exist. Report the size. */
-  return info.size;
+  size = g_file_info_get_size (gfile_info);
+  g_object_unref (gfile_info);
+  return size;
 }
 
-
 static gboolean
-confirm_overwrite_existing_file (const char* uri, int *overwrite_mode, GnomeVFSFileSize info_size)
+confirm_overwrite_existing_file (GFile *uri, int *overwrite_mode, goffset info_size)
 { 
   OverwriteDialogResponse ret;
   GtkWidget *dialog;
   GtkWidget *play_preview;
-  char *filename, *size;
+  char *display_name, *filename, *size;
 
-  filename = gnome_vfs_format_uri_for_display (uri);
-  size = gnome_vfs_format_file_size_for_display (info_size);
+  display_name = g_file_get_parse_name (uri);
+  size = g_format_size_for_display (info_size);
   dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), GTK_DIALOG_MODAL,
                                    GTK_MESSAGE_QUESTION,
                                    GTK_BUTTONS_NONE,
                                    _("A file with the same name exists"));
   gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
                                             _("A file called '%s' exists, size %s.\nDo you want to skip this track or overwrite it?"),
-                                            filename, size);
-  g_free (filename);
+                                            display_name, size);
+  g_free (display_name);
   g_free (size);
 
-  play_preview = egg_play_preview_new_with_uri (uri);
+  filename = g_file_get_uri (uri);
+  play_preview = egg_play_preview_new_with_uri (filename);
   gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), play_preview);
+  g_free (filename);
 
   gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Skip"), BUTTON_SKIP);
   gtk_dialog_add_button (GTK_DIALOG (dialog), _("S_kip All"), BUTTON_SKIP_ALL);
@@ -338,28 +343,31 @@ confirm_overwrite_existing_file (const char* uri, int *overwrite_mode, GnomeVFSF
  * directory.
  */
 static char*
-create_directory_for (const char* url, GError **error)
+create_directory_for (GFile *uri, GError **error)
 {
-  GnomeVFSResult res;
-  GnomeVFSURI *uri, *parent;
+  gboolean res;
+  GFile *parent;
   char *string;
+  GError *io_error = NULL;
 
-  g_return_val_if_fail (url != NULL, NULL);
+  g_return_val_if_fail (uri != NULL, NULL);
 
-  uri = gnome_vfs_uri_new (url);
-  parent = gnome_vfs_uri_get_parent (uri);
-  gnome_vfs_uri_unref (uri);
+  parent = g_file_get_parent (uri);
 
-  res = make_directory_with_parents_for_uri (parent, 0777);
-  if (res != GNOME_VFS_OK && res != GNOME_VFS_ERROR_FILE_EXISTS) {
-    g_set_error (error, SJ_ERROR, SJ_ERROR_CD_PERMISSION_ERROR,
-                 _("Failed to create output directory: %s"),
-                 gnome_vfs_result_to_string (res));
-    return NULL;
+  res = make_directory_with_parents (parent, &io_error);
+  if (!res) {
+    if (io_error->code != G_IO_ERROR_EXISTS) {
+      g_set_error (error, SJ_ERROR, SJ_ERROR_CD_PERMISSION_ERROR,
+                   _("Failed to create output directory: %s"),
+                   io_error->message);
+      g_error_free (io_error);
+      return NULL;
+    }
+    g_error_free (io_error);
   }
 
-  string = gnome_vfs_uri_to_string (parent, 0);
-  gnome_vfs_uri_unref (parent);
+  string = g_file_get_uri (parent);
+  g_object_unref (parent);
   return string;
 }
 
@@ -379,22 +387,26 @@ pop_and_extract (int *overwrite_mode)
     g_assert_not_reached ();
   } else {
     TrackDetails *track = NULL;
-    char *file_path = NULL, *temp_file_path = NULL, *directory;
+    char *directory;
+    GFile *file = NULL, *temp_file = NULL;
     GError *error = NULL;
 
     /* Pop the next track to extract */
     gtk_tree_model_get (GTK_TREE_MODEL (track_store), &current, COLUMN_DETAILS, &track, -1);
     /* Build the filename for this track */
-    file_path = build_filename (track, FALSE, &error);
+    file = build_filename (track, FALSE, &error);
     if (error) {
       goto error;
     }
-    temp_file_path = build_filename (track, TRUE, &error);
+    temp_file = build_filename (track, TRUE, &error);
     if (error) {
       goto error;
     }
-    /* And create the directory it lives in */
-    directory = create_directory_for (file_path, &error);
+    /* Delete the temporary file as giosink won't overwrite existing files */
+    g_file_delete (temp_file, NULL, NULL);
+
+    /* Create the directory it lives in */
+    directory = create_directory_for (file, &error);
     if (error) {
       goto error;
     }
@@ -402,8 +414,8 @@ pop_and_extract (int *overwrite_mode)
     paths = g_list_append (paths, directory);
 
 
-    GnomeVFSFileSize file_size;
-    file_size = check_file_size (file_path);
+    goffset file_size;
+    file_size = check_file_size (file);
 
     /* Skip if destination file can't be accessed (unexpected error). */
     /* Skip existing files if "skip all" is selected. */
@@ -416,7 +428,7 @@ pop_and_extract (int *overwrite_mode)
     /* What if the file already exists? */
     if ((file_size > MIN_FILE_SIZE) &&
         (*overwrite_mode != OVERWRITE_ALL) &&
-        (confirm_overwrite_existing_file (file_path, overwrite_mode, file_size) == FALSE)) {
+        (confirm_overwrite_existing_file (file, overwrite_mode, file_size) == FALSE)) {
       on_completion_cb (NULL, overwrite_mode);
       return;
     }
@@ -438,7 +450,7 @@ pop_and_extract (int *overwrite_mode)
     gtk_tree_path_free(path);
 
     /* Now actually do the extraction */
-    sj_extractor_extract_track (extractor, track, temp_file_path, &error);
+    sj_extractor_extract_track (extractor, track, temp_file, &error);
     if (error) {
       goto error;
     }
@@ -447,8 +459,8 @@ error:
     on_error_cb (NULL, error, NULL);
     g_error_free (error);
 local_cleanup:
-    g_free (file_path);
-    g_free (temp_file_path);
+    g_object_unref (file);
+    g_object_unref (temp_file);
   }
 }
 
@@ -604,7 +616,8 @@ static void
 on_completion_cb (SjExtractor *extractor, gpointer data)
 {
   TrackDetails *track = NULL;
-  char *temp_file_path, *new_file_path;
+  GFile *temp_file, *new_file;
+  GError *error = NULL;
 
   /* Only manipulate the track state if we have an album, as we might be here if
      the disk was ejected mid-rip. */
@@ -620,14 +633,17 @@ on_completion_cb (SjExtractor *extractor, gpointer data)
 
 
 
-    temp_file_path = build_filename (track, TRUE, NULL);
-    new_file_path = build_filename (track, FALSE, NULL);
-    gnome_vfs_move (temp_file_path, new_file_path, TRUE);
+    temp_file = build_filename (track, TRUE, NULL);
+    new_file = build_filename (track, FALSE, NULL);
+    g_file_move (temp_file, new_file, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, &error);
 
-    g_free (temp_file_path);
-    g_free (new_file_path);
-
-  if (find_next ()) {
+    g_object_unref (temp_file);
+    g_object_unref (new_file);
+    
+  if (error) {
+    on_error_cb (NULL, error, NULL);
+    g_error_free (error);
+  } else if (find_next ()) {
     /* Increment the duration */
     current_duration += track->duration;
     /* And go and do it all again */
@@ -676,18 +692,24 @@ void
 on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
 {
   TrackDetails *track = NULL;
-  char *file_path;
+  GFile *file;
+  GError *error = NULL;
 
   sj_extractor_cancel_extract (extractor);
   
   gtk_tree_model_get (GTK_TREE_MODEL (track_store), &current,
                       COLUMN_DETAILS, &track, -1);
 
-  file_path = build_filename (track, TRUE, NULL);
-  gnome_vfs_unlink (file_path);
-  g_free (file_path);
+  file = build_filename (track, TRUE, NULL);
+  g_file_delete (file, NULL, &error);
+  g_object_unref (file);
 
-  cleanup ();
+  if (error) {
+    on_error_cb (NULL, error, NULL);
+    g_error_free (error);
+  } else {
+    cleanup ();
+  }
 }
 
 /**
@@ -873,22 +895,18 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
 {
   /* p is the pattern iterator, i is a general purpose iterator */
   const char *p;
-  char *tmp, *str, *base_path, *filesystem_type = NULL;
+  char *tmp, *str, *filesystem_type = NULL;
   GString *s;
-  GnomeVFSVolumeMonitor *monitor;
-  GnomeVFSVolume *volume;
+  GFileInfo *fs_info;
 
   if (pattern == NULL || pattern[0] == 0)
     return g_strdup (" ");
-    
-  if ((base_path = gnome_vfs_get_local_path_from_uri (base_uri))) {
-    monitor = gnome_vfs_get_volume_monitor ();
-    
-    if ((volume = gnome_vfs_volume_monitor_get_volume_for_path (monitor, base_path))) {
-      filesystem_type = gnome_vfs_volume_get_filesystem_type (volume);
-      gnome_vfs_volume_unref (volume);
-    }
-    g_free (base_path);
+  
+  fs_info = g_file_query_filesystem_info (base_uri, G_FILE_ATTRIBUTE_FILESYSTEM_TYPE,
+                                          NULL, NULL);
+  if (fs_info) {
+    filesystem_type = g_file_info_get_attribute_as_string (fs_info, G_FILE_ATTRIBUTE_FILESYSTEM_TYPE);
+    g_object_unref (fs_info);
   }
 
   s = g_string_new (NULL);

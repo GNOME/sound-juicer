@@ -28,6 +28,7 @@
 
 #include <glib/gi18n.h>
 #include <gdk/gdkkeysyms.h>
+#include <gio/gio.h>
 #include <gtk/gtk.h>
 #include <glade/glade.h>
 #include <gconf/gconf-client.h>
@@ -36,7 +37,6 @@
 #include <libgnome/gnome-url.h>
 #include <libgnomeui/gnome-ui-init.h>
 #include <libgnomeui/gnome-authentication-manager.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
 #include <profiles/gnome-media-profiles.h>
 #include <gst/gst.h>
 
@@ -89,7 +89,7 @@ GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer;
 GtkWidget *current_message_area;
 
 const char *path_pattern, *file_pattern;
-char *base_uri;
+GFile *base_uri;
 NautilusBurnDrive *drive = NULL;
 gboolean strip_chars;
 gboolean eject_finished;
@@ -685,11 +685,13 @@ AlbumDetails* multiple_album_dialog(GList *albums)
 static void baseuri_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   g_assert (strcmp (entry->key, GCONF_BASEURI) == 0);
-  g_free (base_uri);
+  if (base_uri) {
+    g_object_unref (base_uri);
+  }
   if (entry->value == NULL) {
     base_uri = sj_get_default_music_directory ();
   } else {
-    base_uri = g_strdup (gconf_value_get_string (entry->value));
+    base_uri = g_file_new_for_uri (gconf_value_get_string (entry->value));
   }
   /* TODO: sanity check the URI somewhat */
 }
@@ -1473,12 +1475,15 @@ upgrade_gconf (void)
   if (s != NULL) {
     g_free (s);
   } else {
+    GFile *gfile;
     char *uri;
     s = gconf_client_get_string (gconf_client, GCONF_BASEPATH, NULL);
     if (s == NULL)
       return;
-    uri = gnome_vfs_get_uri_from_local_path (s);
+    gfile = g_file_new_for_path (s);
+    uri = g_file_get_uri (gfile);
     g_free (s);
+    g_object_unref (gfile);
     gconf_client_set_string (gconf_client, GCONF_BASEURI, uri, NULL);
     g_free (uri);
   }
@@ -1839,7 +1844,7 @@ int main (int argc, char **argv)
 
   nautilus_burn_shutdown ();
 
-  g_free (base_uri);
+  g_object_unref (base_uri);
   g_object_unref (metadata);
   g_object_unref (extractor);
   g_object_unref (gconf_client);

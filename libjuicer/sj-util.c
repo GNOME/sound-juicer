@@ -25,66 +25,57 @@
 #endif /* HAVE_CONFIG_H */
 #include "sj-util.h"
 
-#include <libgnomevfs/gnome-vfs-utils.h>
-#include <libgnomevfs/gnome-vfs-ops.h>
-
 /**
  * Stolen from gnome-vfs/programs/gnomevfs-mkdir.c (v1.3)
  */
-GnomeVFSResult
-make_directory_with_parents_for_uri (GnomeVFSURI * uri, guint perm)
+gboolean
+make_directory_with_parents (GFile * uri, GError **error_out)
 {
-	GnomeVFSResult result;
-	GnomeVFSURI *parent, *work_uri;
+	gboolean result;
+	GFile *parent, *work_uri;
 	GList *list = NULL;
+	GError *error = NULL;
 
-	result = gnome_vfs_make_directory_for_uri (uri, perm);
-	if (result == GNOME_VFS_OK || result != GNOME_VFS_ERROR_NOT_FOUND)
+	result = g_file_make_directory (uri, NULL, &error);
+	if (result || error->code != G_IO_ERROR_NOT_FOUND) {
+	  if (error_out)
+	    *error_out = error;
 		return result;
+  }
 
 	work_uri = uri;
 
-	while (result == GNOME_VFS_ERROR_NOT_FOUND) {
-		parent = gnome_vfs_uri_get_parent (work_uri);
-		result = gnome_vfs_make_directory_for_uri (parent, perm);
+	while (!result && error->code == G_IO_ERROR_NOT_FOUND) {
+	  g_clear_error (&error);
+	  
+		parent = g_file_get_parent (work_uri);
+		result = g_file_make_directory (parent, NULL, &error);
 
-		if (result == GNOME_VFS_ERROR_NOT_FOUND)
+		if (!result && error->code == G_IO_ERROR_NOT_FOUND)
 			list = g_list_prepend (list, parent);
 		work_uri = parent;
 	}
 
-	if (result != GNOME_VFS_OK) {
+	if (!result) {
 		/* Clean up */
 		while (list != NULL) {
-			gnome_vfs_uri_unref ((GnomeVFSURI *) list->data);
+			g_object_unref ((GFile *) list->data);
 			list = g_list_remove (list, list->data);
 		}
 
+    if (error_out)
+      *error_out = error;
 		return result;
 	}
 
-	while (result == GNOME_VFS_OK && list != NULL) {
-		result = gnome_vfs_make_directory_for_uri
-		    ((GnomeVFSURI *) list->data, perm);
+	while (result && list != NULL) {
+		result = g_file_make_directory ((GFile *) list->data, NULL, NULL);
 
-		gnome_vfs_uri_unref ((GnomeVFSURI *) list->data);
+		g_object_unref ((GFile *) list->data);
 		list = g_list_remove (list, list->data);
 	}
 
-	result = gnome_vfs_make_directory_for_uri (uri, perm);
-	return result;
-}
-
-GnomeVFSResult
-make_directory_with_parents (const gchar * text_uri, guint perm)
-{
-	GnomeVFSURI *uri;
-	GnomeVFSResult result;
-
-	uri = gnome_vfs_uri_new (text_uri);
-	result = make_directory_with_parents_for_uri (uri, perm);
-	gnome_vfs_uri_unref (uri);
-
+	result = g_file_make_directory (uri, NULL, error_out);
 	return result;
 }
 
@@ -98,152 +89,28 @@ g_list_deep_free (GList *l, GFunc free_func)
   g_list_free (l);
 }
 
-/* Copied from xdg-user-dir-lookup.c */
-#include <stdlib.h>
-#include <string.h>
-
-static char *
-xdg_user_dir_lookup (const char *type)
-{
-  FILE *file;
-  char *home_dir, *config_home, *config_file;
-  char buffer[512];
-  char *user_dir;
-  char *p, *d;
-  int len;
-  int relative;
-  
-  home_dir = getenv ("HOME");
-
-  if (home_dir == NULL)
-    return strdup ("/tmp");
-
-  config_home = getenv ("XDG_CONFIG_HOME");
-  if (config_home == NULL || config_home[0] == 0)
-    {
-      config_file = malloc (strlen (home_dir) + strlen ("/.config/user-dirs.dirs") + 1);
-      strcpy (config_file, home_dir);
-      strcat (config_file, "/.config/user-dirs.dirs");
-    }
-  else
-    {
-      config_file = malloc (strlen (config_home) + strlen ("/user-dirs.dirs") + 1);
-      strcpy (config_file, config_home);
-      strcat (config_file, "/user-dirs.dirs");
-    }
-
-  file = fopen (config_file, "r");
-  free (config_file);
-  if (file == NULL)
-    goto error;
-
-  user_dir = NULL;
-  while (fgets (buffer, sizeof (buffer), file))
-    {
-      /* Remove newline at end */
-      len = strlen (buffer);
-      if (len > 0 && buffer[len-1] == '\n')
-	buffer[len-1] = 0;
-      
-      p = buffer;
-      while (*p == ' ' || *p == '\t')
-	p++;
-      
-      if (strncmp (p, "XDG_", 4) != 0)
-	continue;
-      p += 4;
-      if (strncmp (p, type, strlen (type)) != 0)
-	continue;
-      p += strlen (type);
-      if (strncmp (p, "_DIR", 4) != 0)
-	continue;
-      p += 4;
-
-      while (*p == ' ' || *p == '\t')
-	p++;
-
-      if (*p != '=')
-	continue;
-      p++;
-      
-      while (*p == ' ' || *p == '\t')
-	p++;
-
-      if (*p != '"')
-	continue;
-      p++;
-      
-      relative = 0;
-      if (strncmp (p, "$HOME/", 6) == 0)
-	{
-	  p += 6;
-	  relative = 1;
-	}
-      else if (*p != '/')
-	continue;
-      
-      if (relative)
-	{
-	  user_dir = malloc (strlen (home_dir) + 1 + strlen (p) + 1);
-	  strcpy (user_dir, home_dir);
-	  strcat (user_dir, "/");
-	}
-      else
-	{
-	  user_dir = malloc (strlen (p) + 1);
-	  *user_dir = 0;
-	}
-      
-      d = user_dir + strlen (user_dir);
-      while (*p && *p != '"')
-	{
-	  if ((*p == '\\') && (*(p+1) != 0))
-	    p++;
-	  *d++ = *p++;
-	}
-      *d = 0;
-    }  
-  fclose (file);
-
-  if (user_dir)
-    return user_dir;
-
- error:
-  /* Special case desktop for historical compatibility */
-  if (strcmp (type, "DESKTOP") == 0)
-    {
-      user_dir = malloc (strlen (home_dir) + strlen ("/Desktop") + 1);
-      strcpy (user_dir, home_dir);
-      strcat (user_dir, "/Desktop");
-      return user_dir;
-    }
-  else
-    return strdup (home_dir);
-}
-
-char *
+GFile *
 sj_get_default_music_directory (void)
 {
-	char *uri, *dir;
+	const char *dir;
+	GFile *file;
 
-	dir = xdg_user_dir_lookup ("MUSIC");
+	dir = g_get_user_special_dir (G_USER_DIRECTORY_MUSIC);
 	if (dir == NULL) {
-		return gnome_vfs_get_uri_from_local_path (g_get_home_dir ());
+		dir = g_get_home_dir ();
 	}
-	uri = gnome_vfs_get_uri_from_local_path (dir);
-	g_free (dir);
-	return uri;
+	file = g_file_new_for_path (dir);
+	return file;
 }
 
 void
 sj_add_default_dirs (GtkFileChooser *dialog)
 {
-	char *dir;
+	const char *dir;
 
-	dir = xdg_user_dir_lookup ("MUSIC");
-	if (dir == NULL)
-		return;
-	gtk_file_chooser_add_shortcut_folder (dialog, dir, NULL);
-	g_free (dir);
+	dir = g_get_user_special_dir (G_USER_DIRECTORY_MUSIC);
+	if (dir) {
+		gtk_file_chooser_add_shortcut_folder (dialog, dir, NULL);
+	}
 }
 

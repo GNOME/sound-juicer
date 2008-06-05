@@ -31,6 +31,7 @@
 #include <nautilus-burn-drive.h>
 #include <gconf/gconf-client.h>
 #include <glade/glade-xml.h>
+#include <gio/gio.h>
 #include <gtk/gtkwidget.h>
 #include <gtk/gtk.h>
 #include <gtk/gtkliststore.h>
@@ -102,7 +103,7 @@ extern NautilusBurnDrive *drive;
 /**
  * The root path to write files too
  */
-extern char *base_uri;
+extern GFile *base_uri;
 
 /**
  * The pattern to expand when naming folders
