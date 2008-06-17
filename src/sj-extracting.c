@@ -876,6 +876,7 @@ sanitize_path (const char* str, const char* filesystem_type)
  *
  * Valid markers so far are:
  * %at -- album title
+ * %ay -- album year
  * %aa -- album artist
  * %aA -- album artist (lowercase)
  * %as -- album artist sortname
@@ -943,6 +944,13 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
       switch (*++p) {
       case 't':
         string = sanitize_path (track->album->title, filesystem_type);
+        break;
+      case 'y':
+        if (track->album->release_date && g_date_valid(track->album->release_date)) {
+          tmp = g_strdup_printf ("%d", g_date_get_year (track->album->release_date)); 
+          string = sanitize_path (tmp, filesystem_type);
+          g_free (tmp);
+        }
         break;
       case 'T':
         tmp = g_utf8_strdown (track->album->title, -1);
