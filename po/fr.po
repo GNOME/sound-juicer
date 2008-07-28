@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-21 19:45+0200\n"
-"PO-Revision-Date: 2008-04-21 19:49+0200\n"
+"POT-Creation-Date: 2008-07-28 21:55+0200\n"
+"PO-Revision-Date: 2008-07-28 22:03+0200\n"
 "Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -122,7 +122,7 @@ msgid "Skip to the previous track"
 msgstr "Aller à la piste précédente"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:143 ../src/sj-main.c:145
-#: ../src/sj-main.c:1607
+#: ../src/sj-main.c:1611
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -211,14 +211,14 @@ msgstr "Soumettre le _nom des pistes..."
 msgid ""
 "%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
 "album artist (lowercase) %as -- album artist (sortable) %aS -- album artist "
-"(sortable lowercase) %tt -- track title %tT -- track title (lowercase) %ta "
-"-- track artist %tA -- track artist (lowercase) %ts -- track artist "
-"(sortable) %tS -- track artist (sortable lowercase)"
+"(sortable lowercase) %ay -- album year %tt -- track title %tT -- track title "
+"(lowercase) %ta -- track artist %tA -- track artist (lowercase) %ts -- track "
+"artist (sortable) %tS -- track artist (sortable lowercase)"
 msgstr ""
 "%at -- titre de l'album %aT -- titre de l'album (en minuscules) %aa -- "
 "artiste de l'album %aA -- artiste de l'album (en minuscules)  %as -- artiste "
 "de l'album (triable) %aS -- artiste de l'album (triable et en minuscules) %"
-"tt -- titre de la piste %tT -- titre de la piste (en minuscules) %ta -- "
+"ay -- année de l'album %tt -- titre de la piste %tT -- titre de la piste (en minuscules) %ta -- "
 "artiste de la piste %tA -- artiste de la piste (en minuscules) %ts -- "
 "artiste de la piste (triable) %tS -- artiste de la piste (triable et en "
 "minuscules)"
@@ -329,31 +329,31 @@ msgstr "périphérique"
 msgid "The device"
 msgstr "Le périphérique"
 
-#: ../libjuicer/sj-extractor.c:346
+#: ../libjuicer/sj-extractor.c:348
 #, c-format
 msgid "Could not create GStreamer CD reader"
 msgstr "Impossible de créer le lecteur CD GStreamer"
 
-#: ../libjuicer/sj-extractor.c:368
+#: ../libjuicer/sj-extractor.c:370
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Impossible de créer le codeur GStreamer pour %s"
 
-#: ../libjuicer/sj-extractor.c:379
+#: ../libjuicer/sj-extractor.c:381
 #, c-format
 msgid "Could not create GStreamer file output"
 msgstr "Impossible de créer le fichier de sortie GStreamer"
 
-#: ../libjuicer/sj-extractor.c:391
+#: ../libjuicer/sj-extractor.c:395
 #, c-format
 msgid "Could not link pipeline"
 msgstr "Impossible de lier le pipeline"
 
-#: ../libjuicer/sj-extractor.c:415
+#: ../libjuicer/sj-extractor.c:419
 msgid "Could not get current track position"
 msgstr "Impossible d'obtenir la position de la piste en cours"
 
-#: ../libjuicer/sj-extractor.c:444
+#: ../libjuicer/sj-extractor.c:448
 #, c-format
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
@@ -361,12 +361,12 @@ msgstr ""
 "L'objet d'extraction n'est pas valide. Relancez l'application en mode "
 "console et vérifiez les erreurs."
 
-#: ../libjuicer/sj-extractor.c:645
+#: ../libjuicer/sj-extractor.c:652
 #, c-format
 msgid "The plugin necessary for CD access was not found"
 msgstr "Le greffon nécessaire à l'accès au CD n'a pas été trouvé"
 
-#: ../libjuicer/sj-extractor.c:653
+#: ../libjuicer/sj-extractor.c:660
 #, c-format
 msgid "The plugin necessary for file access was not found"
 msgstr "Le greffon nécessaire à l'accès au fichier n'a pas été trouvé"
@@ -441,7 +441,7 @@ msgstr "URI"
 msgid "The URI of the audio file"
 msgstr "L'URI du fichier audio"
 
-#: ../src/egg-play-preview.c:175 ../src/sj-main.c:632 ../src/sj-main.c:1748
+#: ../src/egg-play-preview.c:175 ../src/sj-main.c:630 ../src/sj-main.c:1752
 msgid "Title"
 msgstr "Titre"
 
@@ -449,7 +449,7 @@ msgstr "Titre"
 msgid "The title of the current stream."
 msgstr "Le titre du flux actuel."
 
-#: ../src/egg-play-preview.c:185 ../src/sj-main.c:638 ../src/sj-main.c:1757
+#: ../src/egg-play-preview.c:185 ../src/sj-main.c:636 ../src/sj-main.c:1761
 msgid "Artist"
 msgstr "Artiste"
 
@@ -473,7 +473,7 @@ msgstr "Position"
 msgid "The position in the current stream in seconds."
 msgstr "La position (en secondes) dans le flux actuel."
 
-#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1768
+#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1772
 msgid "Duration"
 msgstr "Durée"
 
@@ -547,21 +547,25 @@ msgstr ""
 "Christophe Benz <christophe.benz@gmail.com>\n"
 "Claude Paroz <claude@2xlibre.net>"
 
-#: ../src/sj-extracting.c:145
+#: ../src/sj-extracting.c:140
 #, c-format
 msgid "Failed to get output format"
 msgstr "Impossible d'obtenir le format de sortie"
 
+#: ../src/sj-extracting.c:161
+msgid "Name too long"
+msgstr "Nom trop long"
+
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:223
+#: ../src/sj-extracting.c:220
 msgid "Extract"
 msgstr "Extraire"
 
-#: ../src/sj-extracting.c:294
+#: ../src/sj-extracting.c:297
 msgid "A file with the same name exists"
 msgstr "Il existe déjà un fichier avec ce nom"
 
-#: ../src/sj-extracting.c:296
+#: ../src/sj-extracting.c:299
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -570,38 +574,38 @@ msgstr ""
 "Un fichier nommé « %s » de %s existe déjà.\n"
 "Voulez-vous ignorer cette piste ou écraser le fichier ?"
 
-#: ../src/sj-extracting.c:304
+#: ../src/sj-extracting.c:309
 msgid "_Skip"
 msgstr "_Ignorer"
 
-#: ../src/sj-extracting.c:305
+#: ../src/sj-extracting.c:310
 msgid "S_kip All"
 msgstr "_Tout ignorer"
 
-#: ../src/sj-extracting.c:306
+#: ../src/sj-extracting.c:311
 msgid "_Overwrite"
 msgstr "É_craser"
 
-#: ../src/sj-extracting.c:307
+#: ../src/sj-extracting.c:312
 msgid "Overwrite _All"
 msgstr "Tout éc_raser"
 
-#: ../src/sj-extracting.c:356
+#: ../src/sj-extracting.c:361
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Impossible de créer le dossier de destination : %s"
 
-#: ../src/sj-extracting.c:485
+#: ../src/sj-extracting.c:497
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Temps restant estimé : %d:%02d (à %0.1fx)"
 
-#: ../src/sj-extracting.c:487
+#: ../src/sj-extracting.c:499
 msgid "Estimated time left: unknown"
 msgstr "Temps restant estimé : inconnu"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:657
+#: ../src/sj-extracting.c:673
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -612,11 +616,11 @@ msgstr ""
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:753
+#: ../src/sj-extracting.c:775
 msgid "Stop"
 msgstr "Arrêter"
 
-#: ../src/sj-extracting.c:782 ../src/sj-extracting.c:788
+#: ../src/sj-extracting.c:804 ../src/sj-extracting.c:810
 msgid "Extracting audio from CD"
 msgstr "Extraction audio du CD"
 
@@ -698,7 +702,7 @@ msgid "Could not start Sound Juicer"
 msgstr "Impossible de démarrer Sound Juicer"
 
 #: ../src/sj-main.c:189 ../src/sj-main.c:818 ../src/sj-main.c:926
-#: ../src/sj-main.c:1032 ../src/sj-main.c:1243 ../src/sj-main.c:1554
+#: ../src/sj-main.c:1032 ../src/sj-main.c:1243 ../src/sj-main.c:1557
 msgid "Reason"
 msgstr "Raison"
 
@@ -712,21 +716,21 @@ msgstr ""
 "Vous êtes actuellement en train d'extraire un CD audio. Voulez-vous quitter "
 "maintenant ou continuer ?"
 
-#: ../src/sj-main.c:294 ../src/sj-main.c:554
+#: ../src/sj-main.c:294 ../src/sj-main.c:552
 msgid "(unknown)"
 msgstr "(inconnu)"
 
-#: ../src/sj-main.c:424
+#: ../src/sj-main.c:422
 msgid "_Submit Album"
 msgstr "_Soumettre l'album"
 
 #. Translators: title, artist
-#: ../src/sj-main.c:431
+#: ../src/sj-main.c:429
 #, c-format
 msgid "Could not find %s by %s on MusicBrainz."
 msgstr "Impossible de trouver « %s » par %s sur MusicBrainz."
 
-#: ../src/sj-main.c:436
+#: ../src/sj-main.c:434
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr ""
 "Vous pouvez améliorer la base de données de MusicBrainz en y ajoutant cet "
@@ -798,44 +802,47 @@ msgstr ""
 "Impossible d'afficher l'aide de Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1552
+#: ../src/sj-main.c:1555
 msgid "Could not duplicate disc"
 msgstr "Impossible de dupliquer le disque"
 
-#: ../src/sj-main.c:1553
+#: ../src/sj-main.c:1556
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Sound Juicer n'a pas pu dupliquer le disque"
 
-#: ../src/sj-main.c:1582
+#: ../src/sj-main.c:1585
 msgid "Start extracting immediately"
 msgstr "Démarrer l'extraction immédiatement"
 
-#: ../src/sj-main.c:1583
+#: ../src/sj-main.c:1586
 msgid "Start playing immediately"
 msgstr "Démarrer la lecture immédiatement"
 
-#: ../src/sj-main.c:1584
+#: ../src/sj-main.c:1587
 msgid "What CD device to read"
 msgstr "Quel périphérique CD lire"
 
-#: ../src/sj-main.c:1584
+#: ../src/sj-main.c:1587
 msgid "DEVICE"
 msgstr "PÉRIPHÉRIQUE"
 
-#: ../src/sj-main.c:1594
+#: ../src/sj-main.c:1588
+msgid "URI to the CD device to read"
+msgstr "URI vers le périphérique CD à lire"
+
+#: ../src/sj-main.c:1598
 msgid "- Extract music from your CDs"
 msgstr "- Extrait la musique de vos CD"
 
-#: ../src/sj-main.c:1633
+#: ../src/sj-main.c:1637
 msgid "Could not create GConf client.\n"
 msgstr "Impossible de créer le client GConf.\n"
 
-#: ../src/sj-main.c:1665
-#, c-format
+#: ../src/sj-main.c:1669
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Impossible de lire le fichier d'interface pour Sound Juicer."
 
-#: ../src/sj-main.c:1733
+#: ../src/sj-main.c:1737
 msgid "Track"
 msgstr "Piste"
 
@@ -861,7 +868,6 @@ msgid "Pause"
 msgstr "Pause"
 
 #: ../src/sj-play.c:370
-#, c-format
 msgid "Failed to create CD source element"
 msgstr "Impossible de créer l'élément de lecture CD"
 
@@ -870,11 +876,10 @@ msgid "Failed to link pipeline"
 msgstr "Impossible de lier le pipeline"
 
 #: ../src/sj-play.c:413
-#, c-format
 msgid "Failed to create audio output"
 msgstr "Impossible de créer la sortie audio"
 
-#: ../src/sj-play.c:621
+#: ../src/sj-play.c:617
 #, c-format
 msgid "Seeking to %s"
 msgstr "Positionnement sur %s"
@@ -944,7 +949,7 @@ msgstr "Numéro - Artiste de la piste - Titre de la piste"
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Numéro - Artiste de la piste - Titre de la piste (en minuscules)"
 
-#: ../src/sj-prefs.c:268
+#: ../src/sj-prefs.c:271
 msgid "Example Path"
 msgstr "Exemple de chemin"
 
