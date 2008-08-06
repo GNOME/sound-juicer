@@ -1,4 +1,4 @@
-# translation of sound-juicer.HEAD.ar.po to Arabic
+# translation of sound-juicer.HEAD.po to Arabic
 # translation of sound-juicer.HEAD.ar.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) 2005 THE PACKAGE'S COPYRIGHT HOLDER.
@@ -7,22 +7,21 @@
 # Arafat Medini <luminaqsilverpen.de>, 2003,2004,2005.
 # Arafat Medini <lumina@silverpen.de>, 2003, 2005.
 # Djihed Afifi <djihed@gmail.com>, 2006.
-# Khaled Hosny <khaledhosny@eglug.org>, 2006, 2007.
+# Khaled Hosny <khaledhosny@eglug.org>, 2006, 2007, 2008.
 # Seba Barto <nanoosaamar@yahoo.com>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: sound-juicer.HEAD.ar\n"
+"Project-Id-Version: sound-juicer.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-07-29 02:21+0100\n"
-"PO-Revision-Date: 2008-03-08 17:59-0000\n"
-"Last-Translator: Djihed Afifi <djihed@gmail.com>\n"
-"Language-Team: Arabic <support@arabeyes.org>\n"
+"PO-Revision-Date: 2008-07-28 19:39+0300\n"
+"Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
+"Language-Team: Arabic <doc@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: Plural-Forms: nplurals=4; plural=n==1 ? 0 : n==2 ? 1 : n>=3 && "
-"n<=10 ? 2 : 3\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: ../data/sound-juicer.desktop.in.in.h:1
 msgid "Audio CD Extractor"
@@ -340,8 +339,7 @@ msgstr "لا يمكن تلقي موقع المقطوعة الحالية"
 
 #: ../libjuicer/sj-extractor.c:448
 #, c-format
-msgid ""
-"Extractor object is not valid. This is bad, check your console for errors."
+msgid "Extractor object is not valid. This is bad, check your console for errors."
 msgstr "جسم المستخرج غير سليم، هذا سيئ، راجع الكنسول عن الأخطاء"
 
 #: ../libjuicer/sj-extractor.c:652
@@ -378,7 +376,7 @@ msgstr "عنوان مجهول"
 #: ../libjuicer/sj-metadata-musicbrainz.c:128
 #, c-format
 msgid "Track %d"
-msgstr "المقطوعة %d"
+msgstr "المقطوعة %Id"
 
 #: ../libjuicer/sj-metadata-musicbrainz.c:267
 #: ../libjuicer/sj-metadata-musicbrainz.c:274
@@ -394,8 +392,7 @@ msgstr "لا يحوي الجهاز '%s' وسيطا"
 
 #: ../libjuicer/sj-metadata-musicbrainz.c:367
 #, c-format
-msgid ""
-"Device '%s' could not be opened. Check the access permissions on the device."
+msgid "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "لا يمكن فتح الجهاز '%s'. رجاء تأكد من تصريحات النّفاذ للجهاز."
 
 #: ../libjuicer/sj-metadata-musicbrainz.c:410
@@ -578,7 +575,7 @@ msgstr "فشل في إنشاء مجلد الخَرْج: %s "
 #: ../src/sj-extracting.c:497
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
-msgstr "الوقت المقدّر المتبقّي: %d:%02d ( %0.1f×)"
+msgstr "الوقت المقدّر المتبقّي: %Id:%I02d ‏( %I0.1f×)"
 
 #: ../src/sj-extracting.c:499
 msgid "Estimated time left: unknown"
@@ -602,7 +599,7 @@ msgstr "توقّف"
 
 #: ../src/sj-extracting.c:804 ../src/sj-extracting.c:810
 msgid "Extracting audio from CD"
-msgstr "إستخراج الصوت من القرص المدمج"
+msgstr "استخراج الصوت من القرص المدمج"
 
 #: ../src/sj-genres.c:30
 msgid "Ambient"
@@ -748,8 +745,7 @@ msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "لم يجد مستخرج الصوتيات سوّاقات أقراص مدمجة ليقرأها."
 
 #: ../src/sj-main.c:1153
-msgid ""
-"The currently selected audio profile is not available on your installation."
+msgid "The currently selected audio profile is not available on your installation."
 msgstr "الطور المنتقى حاليا غير موجود في تثبيتك."
 
 #: ../src/sj-main.c:1155
@@ -767,7 +763,7 @@ msgstr "لم يتمكن مستخرج الصوتيات من فتح العنوان
 #: ../src/sj-main.c:1351
 #, c-format
 msgid "Unknown column %d was edited"
-msgstr "حُرِّر جدول مجهول %d"
+msgstr "حُرِّر جدول مجهول %Id"
 
 #: ../src/sj-main.c:1459 ../src/sj-prefs.c:105
 #, c-format
@@ -933,46 +929,3 @@ msgstr "رقم- فنّان المقطوعة-عنوان المقطوعة (حرو�
 msgid "Example Path"
 msgstr "مثال للمسار"
 
-#~ msgid "Volume"
-#~ msgstr "شدّة الصوت"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "Volume Down"
-#~ msgstr "صوت أخفض"
-
-#~ msgid "-"
-#~ msgstr "-"
-
-#~ msgid "Volume Up"
-#~ msgstr "صوت أعلى"
-
-#~ msgid "Muted"
-#~ msgstr "صامت"
-
-#~ msgid "Full Volume"
-#~ msgstr "شدة الصوت القصوى"
-
-#~ msgid "CD Extractor"
-#~ msgstr "مستخرج القرص المدمج"
-
-#~ msgid "Sound Juicer CD Extractor"
-#~ msgstr "مستخرج القرص المدمج "
-
-#~ msgid "%s has been copied successfully."
-#~ msgstr "تم نسخ %s بنجاح."
-
-#~ msgid "_Eject"
-#~ msgstr "ا_طرد"
-
-#~ msgid "CD-TEXT metadata plugin failed to initialise."
-#~ msgstr "فشل ملحق معلومات القرص النصّي في البدأ"
-
-#~ msgid "Cannot create MusicBrainz client"
-#~ msgstr "لا يمكن انشاء عميل MusicBrainz"
-
-#~ msgid ""
-#~ "MusicBrainz metadata object is not valid. This is bad, check your console "
-#~ "for errors."
-#~ msgstr "معلومات MusicBrainz غير متوفرة. هذا سيء، تحقق من الأخطاء في البُنية."
