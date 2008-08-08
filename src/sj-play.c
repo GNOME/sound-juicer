@@ -80,6 +80,7 @@ select_track (void)
     }
   } else if (ret == GST_STATE_CHANGE_ASYNC) {
     /* do nothing, seek will hopefully be done later?! */
+    current_track = seek_to_track;
   }
 
   return TRUE;
