@@ -1544,7 +1544,7 @@ void on_duplicate_activate (GtkWidget *button, gpointer user_data)
   const gchar* device;
 
   device = nautilus_burn_drive_get_device (drive);
-  if (!g_spawn_command_line_sync (g_strconcat ("nautilus-cd-burner --source-device=", device, NULL), NULL, NULL, NULL, &error)) {
+  if (!g_spawn_command_line_async (g_strconcat ("nautilus-cd-burner --source-device=", device, NULL), &error)) {
       GtkWidget *dialog;
 
       dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
