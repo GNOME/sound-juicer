@@ -635,7 +635,9 @@ on_completion_cb (SjExtractor *extractor, gpointer data)
 
     temp_file = build_filename (track, TRUE, NULL);
     new_file = build_filename (track, FALSE, NULL);
-    g_file_move (temp_file, new_file, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, &error);
+    /* We could be here because the user skipped an overwrite, in which case temp_file won't exist */
+    if (g_file_query_exists (temp_file, NULL))
+        g_file_move (temp_file, new_file, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, &error);
 
     g_object_unref (temp_file);
     g_object_unref (new_file);
