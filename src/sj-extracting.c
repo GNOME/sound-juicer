@@ -69,6 +69,9 @@ typedef enum {
 /** If this module has been initialised yet. */
 static gboolean initialised = FALSE;
 
+/** If a track has been successfully extracted */
+static gboolean successful_extract = FALSE;
+
 /** The progress bar and Status bar */
 static GtkWidget *progress_bar, *status_bar;
 
@@ -421,6 +424,7 @@ pop_and_extract (int *overwrite_mode)
     /* Skip existing files if "skip all" is selected. */
     if ((file_size == -1) ||
         ((file_size > MIN_FILE_SIZE) && (*overwrite_mode == SKIP_ALL))) {
+      successful_extract = FALSE;
       on_completion_cb (NULL, overwrite_mode);
       return;
     }
@@ -429,6 +433,7 @@ pop_and_extract (int *overwrite_mode)
     if ((file_size > MIN_FILE_SIZE) &&
         (*overwrite_mode != OVERWRITE_ALL) &&
         (confirm_overwrite_existing_file (file, overwrite_mode, file_size) == FALSE)) {
+      successful_extract = FALSE;
       on_completion_cb (NULL, overwrite_mode);
       return;
     }
@@ -453,9 +458,11 @@ pop_and_extract (int *overwrite_mode)
     sj_extractor_extract_track (extractor, track, temp_file, &error);
     if (error) {
       goto error;
-    }
+    } else
+        successful_extract = TRUE;       
     goto local_cleanup;
 error:
+    successful_extract = FALSE;
     on_error_cb (NULL, error, NULL);
     g_error_free (error);
 local_cleanup:
@@ -589,7 +596,7 @@ finished_actions (void)
   gtk_window_set_urgency_hint (GTK_WINDOW (main_window), TRUE);
 
   /* Maybe eject */
-  if (eject_finished) {
+  if (eject_finished && successful_extract) {
     nautilus_burn_drive_eject (drive);
   }
   
