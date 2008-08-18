@@ -1847,7 +1847,6 @@ int main (int argc, char **argv)
 
   nautilus_burn_shutdown ();
 
-  g_option_context_free(ctx);
   g_object_unref (base_uri);
   g_object_unref (metadata);
   g_object_unref (extractor);
