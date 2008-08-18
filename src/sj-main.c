@@ -884,6 +884,9 @@ static void reread_cd (gboolean ignore_no_media)
   GdkCursor *cursor;
   gboolean realized = GTK_WIDGET_REALIZED (main_window);
   
+  /* Make sure nothing is playing */
+  stop_playback ();
+  
   /* Set watch cursor */
   if (realized) {
     cursor = gdk_cursor_new_for_display (gdk_drawable_get_display (main_window->window), GDK_WATCH);
