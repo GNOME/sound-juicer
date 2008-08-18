@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-17 08:24+0000\n"
-"PO-Revision-Date: 2008-06-21 19:09+0200\n"
+"POT-Creation-Date: 2008-08-18 07:45+0000\n"
+"PO-Revision-Date: 2008-08-18 18:50+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -162,8 +162,8 @@ msgid "_Edit"
 msgstr "_Editar"
 
 #: ../data/sound-juicer.glade.h:33
-msgid "_Eject when finished"
-msgstr "_Expulsar al terminar"
+msgid "_Eject after extracting tracks"
+msgstr "_Expulsar después de extraer las pistas"
 
 #: ../data/sound-juicer.glade.h:34
 msgid "_Folder:"
@@ -210,11 +210,13 @@ msgid ""
 "(lowercase) %ta -- track artist %tA -- track artist (lowercase) %ts -- track "
 "artist (sortable) %tS -- track artist (sortable lowercase)"
 msgstr ""
-"%at -- título del álbum %aT -- título del álbum (minúsculas) %aa -- artista del álbum %aA -- "
-"artista del álbum (minúsculas) %as -- artista del álbum (ordenable) %aS -- artista del álbum "
-"(ordenable minúsculas) %ay -- año del álbum %tt -- título de la pista %tT -- título de la pista "
-"(minúsculas) %ta -- artista de la pista %tA -- artista de la pista (minúsculas) %ts -- artista de la pista "
-"(ordenable) %tS -- artista de la pista (ordenable minúsculas)"
+"%at -- título del álbum %aT -- título del álbum (minúsculas) %aa -- artista "
+"del álbum %aA -- artista del álbum (minúsculas) %as -- artista del álbum "
+"(ordenable) %aS -- artista del álbum (ordenable minúsculas) %ay -- año del "
+"álbum %tt -- título de la pista %tT -- título de la pista (minúsculas) %ta "
+"-- artista de la pista %tA -- artista de la pista (minúsculas) %ts -- "
+"artista de la pista (ordenable) %tS -- artista de la pista (ordenable "
+"minúsculas)"
 
 #: ../data/sound-juicer.schemas.in.h:3
 msgid "Audio Profile with which to encode"
@@ -534,25 +536,25 @@ msgstr ""
 "Francisco F. Serrador <serrador@cvs.gnome.org>, 2003-2006\n"
 "Enrique Rodríguez <krm@futurnet.es>, 2003"
 
-#: ../src/sj-extracting.c:140
+#: ../src/sj-extracting.c:143
 #, c-format
 msgid "Failed to get output format"
 msgstr "Falló al obtener el formato de salida"
 
-#: ../src/sj-extracting.c:161
+#: ../src/sj-extracting.c:164
 msgid "Name too long"
 msgstr "El nombre es demasiado largo"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:220
+#: ../src/sj-extracting.c:223
 msgid "Extract"
 msgstr "Extraer"
 
-#: ../src/sj-extracting.c:297
+#: ../src/sj-extracting.c:300
 msgid "A file with the same name exists"
 msgstr "Ya existe un archivo con el mismo nombre"
 
-#: ../src/sj-extracting.c:299
+#: ../src/sj-extracting.c:302
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -561,38 +563,38 @@ msgstr ""
 "Ya existe un archivo llamado «%s», tamaño %s.\n"
 "¿Quiere saltarse esta pista o sobreescribirla?"
 
-#: ../src/sj-extracting.c:309
+#: ../src/sj-extracting.c:312
 msgid "_Skip"
 msgstr "_Saltar"
 
-#: ../src/sj-extracting.c:310
+#: ../src/sj-extracting.c:313
 msgid "S_kip All"
 msgstr "_Saltar todas"
 
-#: ../src/sj-extracting.c:311
+#: ../src/sj-extracting.c:314
 msgid "_Overwrite"
 msgstr "S_obreescribir"
 
-#: ../src/sj-extracting.c:312
+#: ../src/sj-extracting.c:315
 msgid "Overwrite _All"
 msgstr "Sobreescribir _todas"
 
-#: ../src/sj-extracting.c:361
+#: ../src/sj-extracting.c:364
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Falló al crear el directorio de salida: %s"
 
-#: ../src/sj-extracting.c:497
+#: ../src/sj-extracting.c:504
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Tiempo restante estimado: %d:%02d (a %0.1fx)"
 
-#: ../src/sj-extracting.c:499
+#: ../src/sj-extracting.c:506
 msgid "Estimated time left: unknown"
 msgstr "Tiempo restante estimado: desconocido"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:673
+#: ../src/sj-extracting.c:682
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -603,11 +605,11 @@ msgstr ""
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:775
+#: ../src/sj-extracting.c:784
 msgid "Stop"
 msgstr "Parar"
 
-#: ../src/sj-extracting.c:804 ../src/sj-extracting.c:810
+#: ../src/sj-extracting.c:813 ../src/sj-extracting.c:819
 msgid "Extracting audio from CD"
 msgstr "Extrayendo sonido del CD"
 
@@ -831,7 +833,7 @@ msgstr "El archivo de interfaz para Sound Juicer no se pudo leer."
 msgid "Track"
 msgstr "Pista"
 
-#: ../src/sj-play.c:198 ../src/sj-play.c:466 ../src/sj-play.c:495
+#: ../src/sj-play.c:199 ../src/sj-play.c:467 ../src/sj-play.c:496
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -843,30 +845,30 @@ msgstr ""
 "Razón: %s"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:269
+#: ../src/sj-play.c:270
 msgid "Play"
 msgstr "Reproducir"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:313
+#: ../src/sj-play.c:314
 msgid "Pause"
 msgstr "Pausar"
 
-#: ../src/sj-play.c:370
+#: ../src/sj-play.c:371
 #, c-format
 msgid "Failed to create CD source element"
 msgstr "Falló al crear el elemento de origen de CD"
 
-#: ../src/sj-play.c:407
+#: ../src/sj-play.c:408
 msgid "Failed to link pipeline"
 msgstr "Falló al enlazar el conducto"
 
-#: ../src/sj-play.c:413
+#: ../src/sj-play.c:414
 #, c-format
 msgid "Failed to create audio output"
 msgstr "No se pudo crear la salida de sonido"
 
-#: ../src/sj-play.c:617
+#: ../src/sj-play.c:618
 #, c-format
 msgid "Seeking to %s"
 msgstr "Buscando %s"
