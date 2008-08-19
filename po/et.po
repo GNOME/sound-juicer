@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-17 08:24+0000\n"
-"PO-Revision-Date: 2008-06-07 09:55+0300\n"
+"POT-Creation-Date: 2008-08-18 07:45+0000\n"
+"PO-Revision-Date: 2008-08-18 22:01+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -163,8 +163,8 @@ msgid "_Edit"
 msgstr "_Redaktor"
 
 #: ../data/sound-juicer.glade.h:33
-msgid "_Eject when finished"
-msgstr "_Väljasta kui lõpetatakse"
+msgid "_Eject after extracting tracks"
+msgstr "Pärast lugude rippimist _väljastatakse plaat"
 
 #: ../data/sound-juicer.glade.h:34
 msgid "_Folder:"
@@ -212,8 +212,8 @@ msgid ""
 "artist (sortable) %tS -- track artist (sortable lowercase)"
 msgstr ""
 "%at -- albumi pealkiri %aT -- albumi pealkiri (väiketähed) %aa -- albumi "
-"esitaja %aA -- albumi esitaja (väiketähed) %as -- albumi esitaja (sorditav) "
-"%aS -- albumi esitaja (sorditav, väiketähed) %ay -- albumi aasta %tt -- loo "
+"esitaja %aA -- albumi esitaja (väiketähed) %as -- albumi esitaja (sorditav) %"
+"aS -- albumi esitaja (sorditav, väiketähed) %ay -- albumi aasta %tt -- loo "
 "pealkiri %tT -- loo pealkiri (väiketähed) %ta -- loo esitaja %tA -- loo "
 "esitaja (väiketähed) %ts -- loo esitaja (sorditav) %tS -- loo esitaja "
 "(sorditav, väiketähed)"
@@ -534,25 +534,25 @@ msgstr ""
 "Priit Laes <amd@store20.com>, 2005. 2006\n"
 "Ivar Smolin <okul@linux.ee>, 2005-2008."
 
-#: ../src/sj-extracting.c:140
+#: ../src/sj-extracting.c:143
 #, c-format
 msgid "Failed to get output format"
 msgstr "Tõrge väljundvormingu hankimisel"
 
-#: ../src/sj-extracting.c:161
+#: ../src/sj-extracting.c:164
 msgid "Name too long"
 msgstr "Nimi on liiga pikk"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:220
+#: ../src/sj-extracting.c:223
 msgid "Extract"
 msgstr "Ripi"
 
-#: ../src/sj-extracting.c:297
+#: ../src/sj-extracting.c:300
 msgid "A file with the same name exists"
 msgstr "Sama nimega fail on juba olemas"
 
-#: ../src/sj-extracting.c:299
+#: ../src/sj-extracting.c:302
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -561,38 +561,38 @@ msgstr ""
 "Fail nimega '%s' ja suurusega %s on olemas.\n"
 "Kas soovid selle raja vahele jätta või faili üle kirjutada?"
 
-#: ../src/sj-extracting.c:309
+#: ../src/sj-extracting.c:312
 msgid "_Skip"
 msgstr "_Jäta vahele"
 
-#: ../src/sj-extracting.c:310
+#: ../src/sj-extracting.c:313
 msgid "S_kip All"
 msgstr "Jä_ta kõik vahele"
 
-#: ../src/sj-extracting.c:311
+#: ../src/sj-extracting.c:314
 msgid "_Overwrite"
 msgstr "_Kirjuta üle"
 
-#: ../src/sj-extracting.c:312
+#: ../src/sj-extracting.c:315
 msgid "Overwrite _All"
 msgstr "Ki_rjuta kõik üle"
 
-#: ../src/sj-extracting.c:361
+#: ../src/sj-extracting.c:364
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Tõrge väljundkataloogi loomisel: %s"
 
-#: ../src/sj-extracting.c:497
+#: ../src/sj-extracting.c:504
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Hinnanguliselt aega lõpuni: %d:%02d (%0.1fx-kordsel kiirusel)"
 
-#: ../src/sj-extracting.c:499
+#: ../src/sj-extracting.c:506
 msgid "Estimated time left: unknown"
 msgstr "Hinnanguliselt aega lõpuni: teadmata"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:673
+#: ../src/sj-extracting.c:682
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -603,11 +603,11 @@ msgstr ""
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:775
+#: ../src/sj-extracting.c:784
 msgid "Stop"
 msgstr "Seiska"
 
-#: ../src/sj-extracting.c:804 ../src/sj-extracting.c:810
+#: ../src/sj-extracting.c:813 ../src/sj-extracting.c:819
 msgid "Extracting audio from CD"
 msgstr "Muusika rippimine CD-lt"
 
@@ -832,7 +832,7 @@ msgstr "Sound Juicer'i liidesefail ei ole loetav."
 msgid "Track"
 msgstr "Lugu"
 
-#: ../src/sj-play.c:198 ../src/sj-play.c:466 ../src/sj-play.c:495
+#: ../src/sj-play.c:199 ../src/sj-play.c:467 ../src/sj-play.c:496
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -844,30 +844,30 @@ msgstr ""
 "Põhjus: %s"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:269
+#: ../src/sj-play.c:270
 msgid "Play"
 msgstr "Esita"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:313
+#: ../src/sj-play.c:314
 msgid "Pause"
 msgstr "Pausi"
 
-#: ../src/sj-play.c:370
+#: ../src/sj-play.c:371
 #, c-format
 msgid "Failed to create CD source element"
 msgstr "Tõrge CD allika loomisel"
 
-#: ../src/sj-play.c:407
+#: ../src/sj-play.c:408
 msgid "Failed to link pipeline"
 msgstr "Tõrge konveieri ühendamisel"
 
-#: ../src/sj-play.c:413
+#: ../src/sj-play.c:414
 #, c-format
 msgid "Failed to create audio output"
 msgstr "Tõrge audioväljundi loomisel"
 
-#: ../src/sj-play.c:617
+#: ../src/sj-play.c:618
 #, c-format
 msgid "Seeking to %s"
 msgstr "Hüppamine positsioonile %s"
@@ -940,3 +940,6 @@ msgstr "Number-Lugu Esitaja-Lugu Pealkiri (väiketähed)"
 #: ../src/sj-prefs.c:271
 msgid "Example Path"
 msgstr "Näidisrada"
+
+#~ msgid "_Eject when finished"
+#~ msgstr "_Väljasta kui lõpetatakse"
