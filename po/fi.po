@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-11 16:20+0300\n"
-"PO-Revision-Date: 2008-08-11 16:10+0300\n"
+"POT-Creation-Date: 2008-08-27 11:52+0300\n"
+"PO-Revision-Date: 2008-08-27 11:50+0300\n"
 "Last-Translator: Timo Jyrinki <timo.jyrinki@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -119,7 +119,7 @@ msgid "Skip to the previous track"
 msgstr "Siirry edelliseen kappaleeseen"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:143 ../src/sj-main.c:145
-#: ../src/sj-main.c:1611
+#: ../src/sj-main.c:1614
 msgid "Sound Juicer"
 msgstr "Musiikkimaija"
 
@@ -164,8 +164,8 @@ msgid "_Edit"
 msgstr "_Muokkaa"
 
 #: ../data/sound-juicer.glade.h:33
-msgid "_Eject when finished"
-msgstr "_Poista levy lopuksi"
+msgid "_Eject after extracting tracks"
+msgstr "Poista _asemasta kopioinnin päätyttyä"
 
 #: ../data/sound-juicer.glade.h:34
 msgid "_Folder:"
@@ -214,8 +214,8 @@ msgid ""
 msgstr ""
 "%at -- levyn nimi %aT -- levyn nimi (pienaakkosin) %aa -- levyn esittäjä %aA "
 "-- levyn esittäjä (pienaakkosin) %as -- levyn esittäjä (järjestettävä) %aS "
-"-- levyn esittäjä (järjestettävä ja pienaakkosin) %ay --levyn vuosi  "
-"%tt -- kappaleen nimi %tT -- kappaleen nimi (pienaakkosin) %ta -- kappaleen "
+"-- levyn esittäjä (järjestettävä ja pienaakkosin) %ay --levyn vuosi  %tt -- "
+"kappaleen nimi %tT -- kappaleen nimi (pienaakkosin) %ta -- kappaleen "
 "esittäjä %tA -- kappaleen esittäjä (pienaakkosin) %ts -- kappaleen esittäjä "
 "(järjestettävä) %tS kappaleen esittäjä (järjestettävä ja pienaakkosin)"
 
@@ -433,7 +433,7 @@ msgstr "URI"
 msgid "The URI of the audio file"
 msgstr "Äänitiedoston URI"
 
-#: ../src/egg-play-preview.c:175 ../src/sj-main.c:630 ../src/sj-main.c:1752
+#: ../src/egg-play-preview.c:175 ../src/sj-main.c:630 ../src/sj-main.c:1755
 msgid "Title"
 msgstr "Nimi"
 
@@ -441,7 +441,7 @@ msgstr "Nimi"
 msgid "The title of the current stream."
 msgstr "Nyt soivan kappaleen nimi."
 
-#: ../src/egg-play-preview.c:185 ../src/sj-main.c:636 ../src/sj-main.c:1761
+#: ../src/egg-play-preview.c:185 ../src/sj-main.c:636 ../src/sj-main.c:1764
 msgid "Artist"
 msgstr "Esittäjä"
 
@@ -465,7 +465,7 @@ msgstr "Sijainti"
 msgid "The position in the current stream in seconds."
 msgstr "Nyt soivan soittosijainti sekunneissa."
 
-#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1772
+#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1775
 msgid "Duration"
 msgstr "Kesto"
 
@@ -537,25 +537,25 @@ msgstr ""
 "\n"
 "http://gnome.fi/"
 
-#: ../src/sj-extracting.c:140
+#: ../src/sj-extracting.c:143
 #, c-format
 msgid "Failed to get output format"
 msgstr "Ulostulomuodon saanti epäonnistui"
 
-#: ../src/sj-extracting.c:161
+#: ../src/sj-extracting.c:164
 msgid "Name too long"
 msgstr "Nimi on liian pitkä"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:220
+#: ../src/sj-extracting.c:223
 msgid "Extract"
 msgstr "Kopioi"
 
-#: ../src/sj-extracting.c:297
+#: ../src/sj-extracting.c:300
 msgid "A file with the same name exists"
 msgstr "Tiedosto on jo olemassa samalla nimellä"
 
-#: ../src/sj-extracting.c:299
+#: ../src/sj-extracting.c:302
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -564,38 +564,38 @@ msgstr ""
 "Tiedosto nimellä \"%s\" on jo olemassa kooltaan %s.\n"
 "Haluatko ohittaa tämän kappaleen vai ylikirjoittaa tiedoston?"
 
-#: ../src/sj-extracting.c:309
+#: ../src/sj-extracting.c:312
 msgid "_Skip"
 msgstr "_Ohita"
 
-#: ../src/sj-extracting.c:310
+#: ../src/sj-extracting.c:313
 msgid "S_kip All"
 msgstr "Ohita _kaikki"
 
-#: ../src/sj-extracting.c:311
+#: ../src/sj-extracting.c:314
 msgid "_Overwrite"
 msgstr "_Ylikirjoita"
 
-#: ../src/sj-extracting.c:312
+#: ../src/sj-extracting.c:315
 msgid "Overwrite _All"
 msgstr "Ylikirjoita k_aikki"
 
-#: ../src/sj-extracting.c:361
+#: ../src/sj-extracting.c:364
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Kohdekansiota ei voitu luoda: %s"
 
-#: ../src/sj-extracting.c:497
+#: ../src/sj-extracting.c:504
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Arvioitu jäljellä oleva aika: %d:%02d (nopeudella %0.1fx)"
 
-#: ../src/sj-extracting.c:499
+#: ../src/sj-extracting.c:506
 msgid "Estimated time left: unknown"
 msgstr "Jäljellä oleva aika: ei tiedossa"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:673
+#: ../src/sj-extracting.c:682
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -606,11 +606,11 @@ msgstr ""
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:775
+#: ../src/sj-extracting.c:784
 msgid "Stop"
 msgstr "Lopeta"
 
-#: ../src/sj-extracting.c:804 ../src/sj-extracting.c:810
+#: ../src/sj-extracting.c:813 ../src/sj-extracting.c:819
 msgid "Extracting audio from CD"
 msgstr "Kopioidaan musiikkia CD-levyltä"
 
@@ -691,8 +691,8 @@ msgstr "_Kopioi"
 msgid "Could not start Sound Juicer"
 msgstr "Musiikkimaijaa ei voitu käynnistää"
 
-#: ../src/sj-main.c:189 ../src/sj-main.c:818 ../src/sj-main.c:926
-#: ../src/sj-main.c:1032 ../src/sj-main.c:1243 ../src/sj-main.c:1557
+#: ../src/sj-main.c:189 ../src/sj-main.c:818 ../src/sj-main.c:929
+#: ../src/sj-main.c:1035 ../src/sj-main.c:1246 ../src/sj-main.c:1560
 msgid "Reason"
 msgstr "Syy"
 
@@ -722,65 +722,65 @@ msgstr "Esittäjän %2$s levyä %1$s ei löytynyt MusicBrainzista."
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr "Voit parantaa MusicBrainz-tietokantaa lisäämällä tämän levyn."
 
-#: ../src/sj-main.c:816 ../src/sj-main.c:924 ../src/sj-main.c:1030
+#: ../src/sj-main.c:816 ../src/sj-main.c:927 ../src/sj-main.c:1033
 msgid "Could not read the CD"
 msgstr "CD:tä ei voitu lukea"
 
-#: ../src/sj-main.c:817 ../src/sj-main.c:925
+#: ../src/sj-main.c:817 ../src/sj-main.c:928
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Musiikkimaija ei voinut lukea kappaleluetteloa tältä CD:ltä."
 
 #. Set statusbar message
-#: ../src/sj-main.c:896
+#: ../src/sj-main.c:899
 msgid "Retrieving track listing...please wait."
 msgstr "Noudetaan kappaleluetteloa...odota."
 
-#: ../src/sj-main.c:991
+#: ../src/sj-main.c:994
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Musiikkimaija ei voinut käyttää CD-ROM-laitetta \"%s\""
 
-#: ../src/sj-main.c:998
+#: ../src/sj-main.c:1001
 msgid "HAL daemon may not be running."
 msgstr "HAL-prosessi ei ole ehkä käynnissä."
 
-#: ../src/sj-main.c:1023
+#: ../src/sj-main.c:1026
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Musiikkimaija ei voinut käsitellä CD-ROM-laitetta \"%s\""
 
-#: ../src/sj-main.c:1121
+#: ../src/sj-main.c:1124
 msgid "No CD-ROM drives found"
 msgstr "CD-ROM-asemia ei löytynyt"
 
-#: ../src/sj-main.c:1122
+#: ../src/sj-main.c:1125
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Musiikkimaija ei löytänyt yhtään luettavissa olevaa CD-ROM-asemaa."
 
-#: ../src/sj-main.c:1153
+#: ../src/sj-main.c:1156
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr ""
 "Tällä hetkellä valittua ääniprofiilia ei ole saatavilla asennuksessasi."
 
-#: ../src/sj-main.c:1155
+#: ../src/sj-main.c:1158
 msgid "_Change Profile"
 msgstr "_Vaihda profiilia"
 
-#: ../src/sj-main.c:1241
+#: ../src/sj-main.c:1244
 msgid "Could not open URL"
 msgstr "URLia ei voitu avata"
 
-#: ../src/sj-main.c:1242
+#: ../src/sj-main.c:1245
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Musiikkimaija ei voinut avata lähetys-URLia"
 
-#: ../src/sj-main.c:1351
+#: ../src/sj-main.c:1354
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Tuntematonta saraketta %d muokattiin"
 
-#: ../src/sj-main.c:1459 ../src/sj-prefs.c:105
+#: ../src/sj-main.c:1462 ../src/sj-prefs.c:105
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -789,48 +789,48 @@ msgstr ""
 "Musiikkimaijan ohjetta ei voitu näyttää\n"
 "%s"
 
-#: ../src/sj-main.c:1555
+#: ../src/sj-main.c:1558
 msgid "Could not duplicate disc"
 msgstr "Levyä ei voitu kopioida"
 
-#: ../src/sj-main.c:1556
+#: ../src/sj-main.c:1559
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Musiikkimaija ei voinut kopioida levyä"
 
-#: ../src/sj-main.c:1585
+#: ../src/sj-main.c:1588
 msgid "Start extracting immediately"
 msgstr "Aloita kopiointi heti"
 
-#: ../src/sj-main.c:1586
+#: ../src/sj-main.c:1589
 msgid "Start playing immediately"
 msgstr "Aloita soittaminen heti"
 
-#: ../src/sj-main.c:1587
+#: ../src/sj-main.c:1590
 msgid "What CD device to read"
 msgstr "Miltä CD-asemalta luetaan"
 
-#: ../src/sj-main.c:1587
+#: ../src/sj-main.c:1590
 msgid "DEVICE"
 msgstr "LAITE"
 
-#: ../src/sj-main.c:1588
+#: ../src/sj-main.c:1591
 msgid "URI to the CD device to read"
 msgstr "URI CD-laitteeseen jolta luetaan"
 
-#: ../src/sj-main.c:1598
+#: ../src/sj-main.c:1601
 msgid "- Extract music from your CDs"
 msgstr "- Kopioi musiikkia CD-levyiltä"
 
-#: ../src/sj-main.c:1637
+#: ../src/sj-main.c:1640
 msgid "Could not create GConf client.\n"
 msgstr "GConf-asiakasta ei voitu luoda.\n"
 
-#: ../src/sj-main.c:1669
+#: ../src/sj-main.c:1672
 #, c-format
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Musiikkimaijan käyttöliittymätiedostoa ei voitu lukea."
 
-#: ../src/sj-main.c:1737
+#: ../src/sj-main.c:1740
 msgid "Track"
 msgstr "Kappale"
 
@@ -942,6 +942,9 @@ msgstr "Numero-Kappaleen esittäjä-Kappaleen nimi (pienaakkosin)"
 #: ../src/sj-prefs.c:271
 msgid "Example Path"
 msgstr "Esimerkkipolku"
+
+#~ msgid "_Eject when finished"
+#~ msgstr "_Poista levy lopuksi"
 
 #~ msgid "Volume"
 #~ msgstr "Äänenvoimakkuus"
