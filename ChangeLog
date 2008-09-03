@@ -1,3 +1,25 @@
+2008-09-04  Bastien Nocera  <hadess@hadess.net>
+
+	* libjuicer/sj-metadata-musicbrainz.c (mb_list_albums),
+	(sj_metadata_musicbrainz_init), (sj_metadata_musicbrainz_finalize):
+	* libjuicer/sj-metadata-musicbrainz3.c (make_album_from_release),
+	(mb_list_albums):
+	* libjuicer/sj-metadata.c (sj_metadata_helper_scan_disc_number):
+	* libjuicer/sj-metadata.h:
+	* libjuicer/sj-structures.h:
+	* tests/mb-test.c (release_type_to_id), (metadata_cb), (main):
+	- Move code to parse album titles into disc numbers to a common
+	location for both musicbrainz backends, and fix valgrind errors
+	(g_match_info_fetch() doesn't like having the string change from
+	 underneath it)
+	- Add a way to override the DiscID used, using the
+	  MUSICBRAINZ_FORCE_DISC_ID envvar (MB3)
+	- Fix leak of the disc ID (MB3)
+	- Fix empty strings when we want them NULL (MB3)
+	- Fix invalid memory access when getting the release date (MB3)
+	- Add a few test DiscIDs to the metadata tester
+	- Check whether a release is "Spoken Word" (Helps: #535181)
+
 2008-09-03  Bastien Nocera  <hadess@hadess.net>
 
 	* configure.in:

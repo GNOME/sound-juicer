@@ -19,6 +19,7 @@
  */
 
 #include <glib-object.h>
+#include <stdlib.h>
 #include "sj-metadata.h"
 #include "sj-metadata-marshal.h"
 
@@ -100,5 +101,38 @@ GList *
 sj_metadata_list_albums (SjMetadata *metadata, char **url, GError **error)
 {
   return SJ_METADATA_GET_CLASS (metadata)->list_albums (metadata, url, error);
+}
+
+char *
+sj_metadata_helper_scan_disc_number (const char *album_title, int *disc_number)
+{
+  GRegex *disc_regex;
+  GMatchInfo *info;
+  char *new_title;
+  int num;
+
+  disc_regex = g_regex_new (".+( \\(disc (\\d+).*)", 0, 0, NULL);
+  new_title = NULL;
+  *disc_number = 0;
+
+  if (g_regex_match (disc_regex, album_title, 0, &info)) {
+    int pos = 0;
+    char *s;
+
+    g_match_info_fetch_pos (info, 1, &pos, NULL);
+    if (pos) {
+      new_title = g_strndup (album_title, pos);
+    }
+
+    s = g_match_info_fetch (info, 2);
+    num = atoi (s);
+    *disc_number = num;
+    g_free (s);
+  }
+
+  g_match_info_free (info);
+  g_regex_unref (disc_regex);
+
+  return new_title;
 }
 

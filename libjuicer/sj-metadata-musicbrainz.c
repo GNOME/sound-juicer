@@ -56,7 +56,6 @@ struct SjMetadataMusicbrainzPrivate {
   int http_proxy_port;
   char *cdrom;
   GList *albums;
-  GRegex *disc_regex;
 };
 
 #define GET_PRIVATE(o)  \
@@ -281,7 +280,6 @@ mb_list_albums (SjMetadata *metadata, char **url, GError **error)
   SjMetadataMusicbrainzPrivate *priv;
   GList *albums = NULL;
   GList *al, *tl;
-  GMatchInfo *info;
   char data[256];
   int num_albums, i, j;
   NautilusBurnMediaType type;
@@ -369,7 +367,12 @@ mb_list_albums (SjMetadata *metadata, char **url, GError **error)
     }
 
     if (mb_GetResultData(priv->mb, MBE_AlbumGetAlbumName, data, sizeof (data))) {
-      album->title = g_strdup (data);
+      char *new_title;
+      new_title = sj_metadata_helper_scan_disc_number (data, &album->disc_number);
+      if (new_title)
+        album->title = new_title;
+      else
+        album->title = g_strdup (data);
     } else {
       album->title = g_strdup (_("Unknown Title"));
     }
@@ -377,23 +380,6 @@ mb_list_albums (SjMetadata *metadata, char **url, GError **error)
     if (mb_GetResultData(priv->mb, MBE_AlbumGetAmazonAsin, data, sizeof (data))) {
       album->asin = g_strdup (data);
     }
-
-    if (g_regex_match (priv->disc_regex, album->title, 0, &info)) {
-      int pos = 0;
-      char *s;
- 
-      g_match_info_fetch_pos (info, 1, &pos, NULL);
-      if (pos) {
-        s = g_strndup (album->title, pos);
-        g_free (album->title);
-        album->title = s;
-      }
-      
-      s = g_match_info_fetch (info, 2);
-      album->disc_number = atoi (s);
-      g_free (s);
-    }
-    g_match_info_free (info);
 
     {
       int num_releases;
@@ -569,8 +555,6 @@ sj_metadata_musicbrainz_init (SjMetadataMusicbrainz *self)
   if (g_getenv("MUSICBRAINZ_DEBUG")) {
     mb_SetDebug (self->priv->mb, TRUE);
   }
-
-  self->priv->disc_regex = g_regex_new (".+( \\(disc (\\d+).*)", 0, 0, NULL);
 }
 
 static void
@@ -636,7 +620,6 @@ sj_metadata_musicbrainz_finalize (GObject *object)
 
   g_free (priv->http_proxy);
   g_free (priv->cdrom);
-  g_regex_unref (priv->disc_regex);
   mb_Delete (priv->mb);
 
   G_OBJECT_CLASS (sj_metadata_musicbrainz_parent_class)->finalize (object);

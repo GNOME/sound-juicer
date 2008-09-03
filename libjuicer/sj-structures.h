@@ -65,6 +65,7 @@ struct _AlbumDetails {
   char* discogs;
   char* wikipedia;
   MetadataSource metadata_source;
+  gboolean is_spoken_word;
 };
 
 void album_details_free(AlbumDetails *album);

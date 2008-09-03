@@ -37,7 +37,15 @@
 #include "sj-structures.h"
 #include "sj-error.h"
 
-#define GET(field, function, obj) function (obj, buffer, sizeof (buffer)); if (field) g_free (field); field = g_strdup (buffer);
+#define GET(field, function, obj) {						\
+	function (obj, buffer, sizeof (buffer));				\
+	if (field)								\
+		g_free (field);							\
+	if (*buffer == '\0')							\
+		field = NULL;							\
+	else									\
+		field = g_strdup (buffer);					\
+}
 
 #define GCONF_PROXY_USE_PROXY "/system/http_proxy/use_http_proxy"
 #define GCONF_PROXY_HOST "/system/http_proxy/host"
@@ -86,8 +94,7 @@ make_album_from_release (MbRelease *release)
   AlbumDetails *album;
   char buffer[512];
   MbArtist artist;
-  GRegex *disc_regex;
-  GMatchInfo *info;
+  char *new_title;
   int i;
 
   g_assert (release);
@@ -104,38 +111,23 @@ make_album_from_release (MbRelease *release)
   }
 
   GET (album->title, mb_release_get_title, release);
-  disc_regex = g_regex_new (".+( \\(disc (\\d+).*)", 0, 0, NULL);
-
-  if (g_regex_match (disc_regex, album->title, 0, &info)) {
-    int pos = 0;
-    char *s;
-
-    g_match_info_fetch_pos (info, 1, &pos, NULL);
-    if (pos) {
-	    s = g_strndup (album->title, pos);
-	    g_free (album->title);
-	    album->title = s;
-    }
-
-    s = g_match_info_fetch (info, 2);
-    album->disc_number = atoi (s);
-    g_free (s);
+  new_title = sj_metadata_helper_scan_disc_number (album->title, &album->disc_number);
+  if (new_title) {
+    g_free (album->title);
+    album->title = new_title;
   }
-
-  g_match_info_free (info);
-  g_regex_unref (disc_regex);
 
   artist = mb_release_get_artist (release);
   GET (album->artist_id, mb_artist_get_id, artist);
   GET (album->artist, mb_artist_get_name, artist);
   GET (album->artist_sortname, mb_artist_get_sortname, artist);
-  
+
   if (mb_release_get_num_release_events (release) >= 1) {
     MbReleaseEvent event;
     char *date = NULL;
     int matched, year=1, month=1, day=1;
 
-    event = mb_release_get_release_event (release, 1);
+    event = mb_release_get_release_event (release, 0);
     GET (date, mb_release_event_get_date, event);
     matched = sscanf(date, "%u-%u-%u", &year, &month, &day);
     if (matched >= 1)
@@ -159,6 +151,17 @@ make_album_from_release (MbRelease *release)
       continue;
     }
     g_free (type);
+  }
+
+  for (i = 0; i < mb_release_get_num_types (release); i++) {
+    mb_release_get_type (release, i, buffer, sizeof(buffer));
+
+    if (g_str_has_suffix (buffer, "#Spokenword")
+    	|| g_str_has_suffix (buffer, "#Interview")
+    	|| g_str_has_suffix (buffer, "#Audiobook")) {
+      album->is_spoken_word = TRUE;
+      break;
+    }
   }
 
   for (i = 0; i < album->number; i++) {
@@ -266,13 +269,18 @@ mb_list_albums (SjMetadata *metadata, char **url, GError **error)
     *url = g_strdup (buffer);
   }
 
-  GET(id, mb_disc_get_id, priv->disc);
+  if (g_getenv("MUSICBRAINZ_FORCE_DISC_ID")) {
+    id = g_strdup (g_getenv("MUSICBRAINZ_FORCE_DISC_ID"));
+  } else {
+    GET(id, mb_disc_get_id, priv->disc);
+  }
 
   query = mb_query_new (priv->mb, "sound-juicer");
   filter = mb_release_filter_new ();
   filter = mb_release_filter_disc_id (filter, id);
   results = mb_query_get_releases (query, filter);
   mb_release_filter_free (filter);
+  g_free (id);
 
   if (mb_result_list_get_size (results) == 0) {
     mb_result_list_free (results);

@@ -17,6 +17,27 @@ source_to_str (MetadataSource source)
 	return strs[source];
 }
 
+static const char *
+release_type_to_id (const char *type)
+{
+	/* CD 2 of a multi-CD set
+	 * Beastie Boys - Anthology: The Sounds of Science (disc 2)
+	 * http://musicbrainz.org/release/0f15fc15-9538-44b6-aa19-4074934fc5ba.html */
+	if (g_str_equal (type, "commercial"))
+	  return "rg4F4Od5EgOwfDaI0niQ2TnCaxk-";
+	/* Non-existant CD
+	 * http://musicbrainz.org/bare/cdlookup.html?discid=aaaaaaaaaaaaaaaaaaaaaaaaaaaa */
+	if (g_str_equal (type, "fake"))
+	  return "aaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+	/* Audio book
+	 * Harry Potter and the Sorcerer's Stone (feat. narrator: Jim Dale) (disc 1)
+	 * http://musicbrainz.org/release/947c6cdd-1188-4e3e-a53b-21bb3a49b79e.html */
+	if (g_str_equal (type, "audiobook"))
+	  return "VJ0lpdqHGE7r8wr.N8D6Q0G.pCs-";
+
+	return NULL;
+}
+
 static void
 metadata_cb (SjMetadataGetter *metadata, GList *albums, GError *error)
 {
@@ -45,6 +66,8 @@ metadata_cb (SjMetadataGetter *metadata, GList *albums, GError *error)
       g_print ("Discogs: %s\n", album->discogs);
     if (album->wikipedia != NULL)
       g_print ("Wikipedia: %s\n", album->wikipedia);
+    if (album->is_spoken_word)
+      g_print ("Is spoken word\n");
     disc_number = g_strdup_printf (" (Disc %d)", album->disc_number);
     g_print ("'%s', by %s%s\n", album->title, album->artist, album->disc_number ? disc_number : "");
     g_free (disc_number);
@@ -73,8 +96,18 @@ int main (int argc, char** argv)
 
   if (argc == 2) {
     sj_metadata_getter_set_cdrom (metadata, argv[1]);
+  } else if (argc == 3) {
+    const char *id;
+    sj_metadata_getter_set_cdrom (metadata, argv[1]);
+    id = release_type_to_id (argv[2]);
+    g_message ("argv %s id %s", argv[2], id);
+    if (id == NULL) {
+      g_print ("The faked type of disc must be one of: commercial, fake, audiobook\n");
+      exit(1);
+    }
+    g_setenv ("MUSICBRAINZ_FORCE_DISC_ID", id, TRUE);
   } else {
-    g_print ("Usage: %s [CD device]\n", argv[0]);
+    g_print ("Usage: %s [CD device] [commercial|fake|audiobook]\n", argv[0]);
     exit (1);
   }
 
