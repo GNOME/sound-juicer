@@ -92,17 +92,6 @@ LIBS="$LIBS $MUSICBRAINZ_LIBS"
 AC_CHECK_FUNCS(mb_SetProxyCreds)
 LIBS="$oldlibs"
 
-# Find TagLib for the internal copy of id3mux
-PKG_CHECK_MODULES([TAGLIB],[taglib],[have_taglib=yes],[have_taglib=no])
-AC_SUBST([TAGLIB_CFLAGS]) 
-AC_SUBST([TAGLIB_LIBS])
-
-if test "$have_taglib" != "yes"; then
-	AC_MSG_WARN([taglib not found, cannot handle missing id3mux])
-fi
-
-AM_CONDITIONAL([HAVE_TAGLIB],[test "$have_taglib" = "yes"])
-
 # Find how and where to put the GConf schemas
 AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
 if test "$GCONFTOOL" = "no"; then

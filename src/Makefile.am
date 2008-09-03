@@ -63,19 +63,6 @@ sound_juicer_LDADD = \
 sound_juicer_LDFLAGS = \
 	$(AM_LDFLAGS)
 
-if HAVE_TAGLIB
-sound_juicer_SOURCES += \
-	gsttaglib.cc \
-	gsttaglib.h
-
-sound_juicer_CXXFLAGS += \
-	$(TAGLIB_CFLAGS)
-
-sound_juicer_LDADD += \
-	$(TAGLIB_LIBS)	\
-	-lgsttag-0.10
-endif
-
 BACON_DIR=$(srcdir)/../../libbacon/src/
 BACON_FILES=bacon-message-connection.h bacon-message-connection.c
 
