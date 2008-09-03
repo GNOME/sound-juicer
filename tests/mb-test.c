@@ -4,6 +4,18 @@
 #include "sj-metadata.h"
 #include "sj-metadata-musicbrainz.h"
 
+static const char *
+source_to_str (MetadataSource source)
+{
+	const char * strs[] = {
+		"Unknown",
+		"CD-Text",
+		"FreeDB",
+		"MusicBrainz"
+	};
+	return strs[source];
+}
+
 static void
 metadata_cb (SjMetadata *metadata, GList *albums, GError *error)
 {
@@ -17,6 +29,15 @@ metadata_cb (SjMetadata *metadata, GList *albums, GError *error)
   while (albums) {
     AlbumDetails *album;
     album = (AlbumDetails*)albums->data;
+    g_print ("Source: %s\n", source_to_str(album->metadata_source));
+    if (album->metadata_source == SOURCE_MUSICBRAINZ)
+      g_print ("Album ID: %s\n", album->album_id);
+    if (album->asin != NULL)
+      g_print ("ASIN: %s\n", album->asin);
+    if (album->discogs != NULL)
+      g_print ("Discogs: %s\n", album->discogs);
+    if (album->wikipedia != NULL)
+      g_print ("Wikipedia: %s\n", album->wikipedia);
     g_print ("'%s', by %s\n", album->title, album->artist);
     while (album->tracks) {
       TrackDetails *track = (TrackDetails*)album->tracks->data;

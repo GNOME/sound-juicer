@@ -423,6 +423,10 @@ lookup_cd (SjMetadata *metadata)
       album->title = g_strdup (_("Unknown Title"));
     }
 
+    if (mb_GetResultData(priv->mb, MBE_AlbumGetAmazonAsin, data, sizeof (data))) {
+      album->asin = g_strdup (data);
+    }
+
     if (g_regex_match (priv->disc_regex, album->title, 0, &info)) {
       int pos = 0;
       char *s;

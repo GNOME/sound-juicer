@@ -1,3 +1,13 @@
+2008-09-03  Bastien Nocera  <hadess@hadess.net>
+
+	* libjuicer/sj-metadata-musicbrainz.c (lookup_cd):
+	* libjuicer/sj-structures.c (album_details_free):
+	* libjuicer/sj-structures.h:
+	* tests/mb-test.c (source_to_str), (metadata_cb):
+	Export ASIN, discogs and Wikipedia URLs in the disc metadata,
+	only ASIN implemented for the Musicbrainz2 backend right now
+	(Closes: #550587)
+
 2008-08-18  Ross Burton  <ross@burtonini.com>
 
 	* src/sj-main.c:

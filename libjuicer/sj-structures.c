@@ -52,5 +52,8 @@ void album_details_free(AlbumDetails *album)
   if (album->release_date) g_date_free (album->release_date);
   g_list_deep_free (album->tracks, (GFunc)track_details_free);
   g_free (album->artist_sortname);
+  g_free (album->asin);
+  g_free (album->discogs);
+  g_free (album->wikipedia);
   g_free (album);
 }
