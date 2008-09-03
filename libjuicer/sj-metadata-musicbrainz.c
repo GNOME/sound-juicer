@@ -23,7 +23,6 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <string.h>
-#include <stdio.h>
 #include <glib-object.h>
 #include <glib/gi18n.h>
 #include <glib/gerror.h>
@@ -387,11 +386,7 @@ mb_list_albums (SjMetadata *metadata, char **url, GError **error)
       if (num_releases > 0) {
         mb_Select1(priv->mb, MBS_SelectReleaseDate, 1);
         if (mb_GetResultData(priv->mb, MBE_ReleaseGetDate, data, sizeof (data))) {
-          int matched, year=1, month=1, day=1;
-          matched = sscanf(data, "%u-%u-%u", &year, &month, &day);
-          if (matched >= 1) {
-            album->release_date = g_date_new_dmy ((day == 0) ? 1 : day, (month == 0) ? 1 : month, year);
-          }
+          album->release_date = sj_metadata_helper_scan_date (data);
         }
         mb_Select(priv->mb, MBS_Back);
       }

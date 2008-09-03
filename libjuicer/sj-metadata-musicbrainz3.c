@@ -125,13 +125,10 @@ make_album_from_release (MbRelease *release)
   if (mb_release_get_num_release_events (release) >= 1) {
     MbReleaseEvent event;
     char *date = NULL;
-    int matched, year=1, month=1, day=1;
 
     event = mb_release_get_release_event (release, 0);
     GET (date, mb_release_event_get_date, event);
-    matched = sscanf(date, "%u-%u-%u", &year, &month, &day);
-    if (matched >= 1)
-      album->release_date = g_date_new_dmy ((day == 0) ? 1 : day, (month == 0) ? 1 : month, year);
+    album->release_date = sj_metadata_helper_scan_date (date);
     g_free (date);
   }
 

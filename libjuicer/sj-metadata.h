@@ -51,6 +51,7 @@ void sj_metadata_set_proxy_port (SjMetadata *metadata, const int proxy_port);
 GList * sj_metadata_list_albums (SjMetadata *metadata, char **url, GError **error);
 
 char * sj_metadata_helper_scan_disc_number (const char *album_title, int *disc_number);
+GDate * sj_metadata_helper_scan_date (const char *date);
 
 G_END_DECLS
 

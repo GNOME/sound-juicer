@@ -20,6 +20,7 @@
 
 #include <glib-object.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "sj-metadata.h"
 #include "sj-metadata-marshal.h"
 
@@ -134,5 +135,17 @@ sj_metadata_helper_scan_disc_number (const char *album_title, int *disc_number)
   g_regex_unref (disc_regex);
 
   return new_title;
+}
+
+GDate *
+sj_metadata_helper_scan_date (const char *date)
+{
+  int matched, year=1, month=1, day=1;
+  matched = sscanf(date, "%u-%u-%u", &year, &month, &day);
+  if (matched >= 1) {
+    return g_date_new_dmy ((day == 0) ? 1 : day, (month == 0) ? 1 : month, year);
+  }
+
+  return NULL;
 }
 
