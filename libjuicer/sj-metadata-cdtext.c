@@ -40,7 +40,6 @@
 struct SjMetadataCdtextPrivate {
   char *cdrom;
   GList *albums;
-  GError *error;
 };
 
 #define GET_PRIVATE(o)  \
@@ -64,35 +63,25 @@ G_DEFINE_TYPE_WITH_CODE (SjMetadataCdtext, sj_metadata_cdtext,
  * Private methods
  */
 
-static gboolean
-fire_signal_idle (SjMetadataCdtext *m)
+static GList *
+cdtext_list_albums (SjMetadata *metadata, char **url, GError **error)
 {
-  g_return_val_if_fail (SJ_IS_METADATA_CDTEXT (m), FALSE);
-  g_signal_emit_by_name (G_OBJECT (m), "metadata", m->priv->albums, m->priv->error);
-  return FALSE;
-}
-
-static void
-cdtext_list_albums (SjMetadata *metadata, GError **error)
-{
-  /* TODO: put in a thread */
   SjMetadataCdtextPrivate *priv;
   AlbumDetails *album;
   CdIo *cdio;
   track_t cdtrack, last_cdtrack;
   const cdtext_t *cdtext;
 
-  g_return_if_fail (SJ_IS_METADATA_CDTEXT (metadata));
+  g_return_val_if_fail (SJ_IS_METADATA_CDTEXT (metadata), NULL);
 
   priv = SJ_METADATA_CDTEXT (metadata)->priv;
 
   cdio = cdio_open (priv->cdrom, DRIVER_UNKNOWN);
   if (!cdio) {
     g_warning ("Cannot open CD");
-    priv->error = g_error_new (SJ_ERROR, SJ_ERROR_INTERNAL_ERROR, _("Cannot read CD"));
+    g_set_error (error, SJ_ERROR, SJ_ERROR_INTERNAL_ERROR, _("Cannot read CD"));
     priv->albums = NULL;
-    g_idle_add ((GSourceFunc)fire_signal_idle, metadata);
-    return;
+    return NULL;
   }
 
 #if 0
@@ -120,7 +109,8 @@ cdtext_list_albums (SjMetadata *metadata, GError **error)
       track->title = g_strdup (cdtext_get (CDTEXT_TITLE, cdtext));
       track->artist = g_strdup (cdtext_get (CDTEXT_PERFORMER, cdtext));
     } else {
-      g_print ("No CD-TEXT for track %u\n", cdtrack);
+      track->title = g_strdup_printf (_("Track %d"), cdtrack);
+      track->artist = g_strdup (_("Unknown Artist"));
     }
     track->duration = cdio_get_track_sec_count (cdio, cdtrack) / CDIO_CD_FRAMES_PER_SEC;
 
@@ -130,15 +120,24 @@ cdtext_list_albums (SjMetadata *metadata, GError **error)
 
   /* TODO: why can't I do this first? */
   cdtext = cdio_get_cdtext(cdio, 0);
-  album->title = g_strdup (cdtext_get (CDTEXT_TITLE, cdtext));
-  album->artist = g_strdup (cdtext_get (CDTEXT_PERFORMER, cdtext));
-  album->genre = g_strdup (cdtext_get (CDTEXT_GENRE, cdtext));
+  if (cdtext) {
+    album->title = g_strdup (cdtext_get (CDTEXT_TITLE, cdtext));
+    album->artist = g_strdup (cdtext_get (CDTEXT_PERFORMER, cdtext));
+    album->genre = g_strdup (cdtext_get (CDTEXT_GENRE, cdtext));
 
-  album->metadata_source = SOURCE_CDTEXT;
+    album->metadata_source = SOURCE_CDTEXT;
+  } else {
+    album->artist = g_strdup (_("Unknown Artist"));
+    album->title = g_strdup (_("Unknown Title"));
+    album->genre = g_strdup ("");
 
-  priv->error = NULL;
+    album->metadata_source = SOURCE_FALLBACK;
+  }
+
+
   priv->albums = g_list_append (NULL, album);
-  g_idle_add ((GSourceFunc)fire_signal_idle, metadata);
+
+  return priv->albums;
 }
 
 
@@ -198,8 +197,6 @@ sj_metadata_cdtext_finalize (GObject *object)
   SjMetadataCdtextPrivate *priv = SJ_METADATA_CDTEXT (object)->priv;
   g_free (priv->cdrom);
   g_list_deep_free (priv->albums, (GFunc)album_details_free);
-  if (priv->error)
-    g_error_free (priv->error);
 }
 
 static void

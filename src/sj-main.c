@@ -43,8 +43,7 @@
 #include "bacon-message-connection.h"
 #include "gconf-bridge.h"
 #include "sj-about.h"
-#include "sj-metadata.h"
-#include "sj-metadata-musicbrainz.h"
+#include "sj-metadata-getter.h"
 #include "sj-extractor.h"
 #include "sj-structures.h"
 #include "sj-error.h"
@@ -69,7 +68,7 @@ void on_disc_number_edit_changed(GtkEditable *widget, gpointer user_data);
 
 GladeXML *glade;
 
-SjMetadata *metadata;
+SjMetadataGetter *metadata;
 SjExtractor *extractor;
 
 GConfClient *gconf_client;
@@ -797,7 +796,7 @@ static void audio_volume_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
 }
 
 static void
-metadata_cb (SjMetadata *m, GList *albums, GError *error)
+metadata_cb (SjMetadataGetter *m, GList *albums, GError *error)
 {
   gboolean realized = GTK_WIDGET_REALIZED (main_window);
 
@@ -823,6 +822,11 @@ metadata_cb (SjMetadata *m, GList *albums, GError *error)
     g_error_free (error);
     update_ui_for_album (NULL);
     return;
+  }
+
+  current_submit_url = sj_metadata_getter_get_submit_url (metadata);
+  if (current_submit_url) {
+    gtk_widget_set_sensitive (submit_menuitem, TRUE);
   }
 
   /* Free old album details */
@@ -914,12 +918,7 @@ static void reread_cd (gboolean ignore_no_media)
     return;
   }
 
-  current_submit_url = sj_metadata_get_submit_url (metadata);
-  if (current_submit_url) {
-    gtk_widget_set_sensitive (submit_menuitem, TRUE);
-  }
-
-  sj_metadata_list_albums (metadata, &error);
+  sj_metadata_getter_list_albums (metadata, &error);
 
   if (error && !(error->code == SJ_ERROR_CD_NO_MEDIA && ignore_no_media)) {
     GtkWidget *dialog;
@@ -1046,7 +1045,7 @@ set_device (const char* device, gboolean ignore_no_media)
     set_drive_from_device (device);
   }
 
-  sj_metadata_set_cdrom (metadata, device);
+  sj_metadata_getter_set_cdrom (metadata, device);
   sj_extractor_set_device (extractor, device);
   
   if (drive != NULL) {
@@ -1174,16 +1173,16 @@ static void
 http_proxy_setup (GConfClient *client)
 {
   if (!gconf_client_get_bool (client, GCONF_HTTP_PROXY_ENABLE, NULL)) {
-    sj_metadata_set_proxy (metadata, NULL);
+    sj_metadata_getter_set_proxy (metadata, NULL);
   } else {
     char *host;
     int port;
 
     host = gconf_client_get_string (client, GCONF_HTTP_PROXY, NULL);
-    sj_metadata_set_proxy (metadata, host);
+    sj_metadata_getter_set_proxy (metadata, host);
     g_free (host);
     port = gconf_client_get_int (client, GCONF_HTTP_PROXY_PORT, NULL);
-    sj_metadata_set_proxy_port (metadata, port);
+    sj_metadata_getter_set_proxy_port (metadata, port);
   }
 }
 
@@ -1632,7 +1631,7 @@ int main (int argc, char **argv)
     bacon_message_connection_set_callback (connection, on_message_received, NULL);
   }
 
-  metadata = SJ_METADATA (sj_metadata_musicbrainz_new ());
+  metadata = sj_metadata_getter_new ();
   g_signal_connect (metadata, "metadata", G_CALLBACK (metadata_cb), NULL);
 
   gconf_client = gconf_client_get_default ();

@@ -12,6 +12,10 @@ libjuicer_la_SOURCES = \
 	sj-metadata.c \
 	sj-metadata-musicbrainz.h \
 	sj-metadata-musicbrainz.c \
+	sj-metadata-cdtext.h \
+	sj-metadata-cdtext.c \
+	sj-metadata-getter.c \
+	sj-metadata-getter.h \
 	sj-util.h sj-util.c
 
 libjuicer_la_CPPFLAGS = \
@@ -21,33 +25,31 @@ libjuicer_la_CPPFLAGS = \
 libjuicer_la_CFLAGS = \
 	$(WARN_CFLAGS)	\
 	$(MUSICBRAINZ_CFLAGS) \
+	$(MUSICBRAINZ3_CFLAGS) \
 	$(GSTREAMER_CFLAGS) \
 	$(MEDIA_PROFILES_CFLAGS) \
 	$(BURN_CFLAGS) \
 	$(UI_CFLAGS) \
+	$(CDIO_CFLAGS) \
 	$(AM_CFLAGS)
 
 libjuicer_la_LIBADD = \
 	$(MUSICBRAINZ_LIBS) \
+	$(MUSICBRAINZ3_LIBS) \
 	$(MEDIA_PROFILES_LIBS) \
 	$(GSTREAMER_LIBS) \
 	$(BURN_LIBS) \
-	$(UI_LIBS)
+	$(UI_LIBS) \
+	$(CDIO_LIBS)
 
 libjuicer_la_LDFLAGS = \
 	-export-dynamic \
 	$(AM_LDFLAGS)
 
-if HAVE_CDIO
+if HAVE_MB3
 libjuicer_la_SOURCES += \
-	sj-metadata-cdtext.h \
-	sj-metadata-cdtext.c
-
-libjuicer_la_CFLAGS += \
-	$(CDIO_CFLAGS)
-
-libjuicer_la_LDFLAGS += \
-	$(CDIO_LIBS)
+	sj-metadata-musicbrainz3.h \
+	sj-metadata-musicbrainz3.c
 endif
 
 #

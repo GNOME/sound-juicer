@@ -55,9 +55,7 @@ struct SjMetadataMusicbrainzPrivate {
   char *http_proxy;
   int http_proxy_port;
   char *cdrom;
-  /* TODO: remove and use an async queue? */
   GList *albums;
-  GError *error;
   GRegex *disc_regex;
 };
 
@@ -92,54 +90,6 @@ get_duration_from_sectors (int sectors)
 #define BYTES_PER_SECOND (44100 / 8) / 16 / 2
   
   return (sectors * BYTES_PER_SECTOR / BYTES_PER_SECOND);
-}
-
-static GList*
-get_offline_track_listing(SjMetadata *metadata, GError **error)
-{
-  SjMetadataMusicbrainzPrivate *priv;
-  GList* list = NULL;
-  AlbumDetails *album;
-  TrackDetails *track;
-  int num_tracks, i;
-
-  g_return_val_if_fail (metadata != NULL, NULL);
-  priv = SJ_METADATA_MUSICBRAINZ (metadata)->priv;
-
-  if (!mb_Query (priv->mb, MBQ_GetCDTOC)) {
-    char message[255];
-    mb_GetQueryError (priv->mb, message, 255);
-    g_set_error (error,
-                 SJ_ERROR, SJ_ERROR_CD_LOOKUP_ERROR,
-                 _("Cannot read CD: %s"), message);
-    return NULL;
-  }
-  
-  num_tracks = mb_GetResultInt (priv->mb, MBE_TOCGetLastTrack);
-
-  album = g_new0 (AlbumDetails, 1);
-  album->artist = g_strdup (_("Unknown Artist"));
-  album->title = g_strdup (_("Unknown Title"));
-  album->genre = NULL;
-  for (i = 1; i <= num_tracks; i++) {
-    track = g_new0 (TrackDetails, 1);
-    track->album = album;
-    track->number = i;
-    track->title = g_strdup_printf (_("Track %d"), i);
-    track->artist = g_strdup (album->artist);
-    track->duration = get_duration_from_sectors (mb_GetResultInt1 (priv->mb, MBE_TOCGetTrackNumSectors, i+1));
-    album->tracks = g_list_append (album->tracks, track);
-    album->number++;
-  }
-  return g_list_append (list, album);
-}
-
-static gboolean
-fire_signal_idle (SjMetadataMusicbrainz *m)
-{
-  g_return_val_if_fail (SJ_IS_METADATA_MUSICBRAINZ (m), FALSE);
-  g_signal_emit_by_name (G_OBJECT (m), "metadata", m->priv->albums, m->priv->error);
-  return FALSE;
 }
 
 /**
@@ -324,8 +274,8 @@ convert_encoding(char **str)
   g_free (iso8859);
 }
 
-static gpointer
-lookup_cd (SjMetadata *metadata)
+static GList *
+mb_list_albums (SjMetadata *metadata, char **url, GError **error)
 {
   /** The size of the buffer used in MusicBrainz lookups */
   SjMetadataMusicbrainzPrivate *priv;
@@ -338,12 +288,10 @@ lookup_cd (SjMetadata *metadata)
   NautilusBurnDriveMonitor *monitor;
   NautilusBurnDrive *drive;
 
-  /* TODO: fire error signal */
   g_return_val_if_fail (metadata != NULL, NULL);
   g_return_val_if_fail (SJ_IS_METADATA_MUSICBRAINZ (metadata), NULL);
   priv = SJ_METADATA_MUSICBRAINZ (metadata)->priv;
   g_return_val_if_fail (priv->cdrom != NULL, NULL);
-  priv->error = NULL; /* TODO: hack */
 
   if (! nautilus_burn_initialized ()) {
     nautilus_burn_init ();
@@ -367,21 +315,24 @@ lookup_cd (SjMetadata *metadata)
       msg = g_strdup_printf (_("Device '%s' could not be opened. Check the access permissions on the device."), priv->cdrom);
       err = SJ_ERROR_CD_PERMISSION_ERROR;
     }
-    priv->error = g_error_new (SJ_ERROR, err, _("Cannot read CD: %s"), msg);
+    g_set_error (error, SJ_ERROR, err, _("Cannot read CD: %s"), msg);
     g_free (msg);
 
     priv->albums = NULL;
-    g_idle_add ((GSourceFunc)fire_signal_idle, metadata);
     return NULL;
   }
 
   get_rdf (metadata);
 
+  if (url != NULL) {
+    mb_GetWebSubmitURL(priv->mb, data, sizeof(data));
+    *url = g_strdup(data);
+  }
+
   num_albums = mb_GetResultInt(priv->mb, MBE_GetNumAlbums);
   if (num_albums < 1) {
-    priv->albums = get_offline_track_listing (metadata, &(priv->error));
-    g_idle_add ((GSourceFunc)fire_signal_idle, metadata);
-    return priv->albums;
+    priv->albums = NULL;
+    return NULL;
   }
 
   for (i = 1; i <= num_albums; i++) {
@@ -467,9 +418,8 @@ lookup_cd (SjMetadata *metadata)
       g_free (album->title);
       g_free (album);
       g_warning (_("Incomplete metadata for this CD"));
-      priv->albums = get_offline_track_listing (metadata, &(priv->error));
-      g_idle_add ((GSourceFunc)fire_signal_idle, metadata);
-      return priv->albums;
+      priv->albums = NULL;
+      return NULL;
     }
 
     for (j = 1; j <= num_tracks; j++) {
@@ -561,44 +511,8 @@ lookup_cd (SjMetadata *metadata)
     }
   }
 
-  priv->albums = albums;
-  g_idle_add ((GSourceFunc)fire_signal_idle, metadata);
   return albums;
 }
-
-static void
-mb_list_albums (SjMetadata *metadata, GError **error)
-{
-  GThread *thread;
-
-  g_return_if_fail (SJ_IS_METADATA_MUSICBRAINZ (metadata));
-
-  thread = g_thread_create ((GThreadFunc)lookup_cd, metadata, TRUE, error);
-  if (thread == NULL) {
-    g_set_error (error,
-                 SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-                 _("Could not create CD lookup thread"));
-    return;
-  }
-}
-
-static char *
-mb_get_submit_url (SjMetadata *metadata)
-{
-  SjMetadataMusicbrainzPrivate *priv;
-  char url[1025];
-
-  g_return_val_if_fail (metadata != NULL, NULL);
-
-  priv = SJ_METADATA_MUSICBRAINZ (metadata)->priv;
-
-  if (mb_GetWebSubmitURL(priv->mb, url, 1024)) {
-    return g_strdup(url);
-  } else {
-    return NULL;
-  }
-}
-
 
 /*
  * GObject methods
@@ -609,7 +523,6 @@ metadata_interface_init (gpointer g_iface, gpointer iface_data)
 {
   SjMetadataClass *klass = (SjMetadataClass*)g_iface;
   klass->list_albums = mb_list_albums;
-  klass->get_submit_url = mb_get_submit_url;
 }
 
 static void

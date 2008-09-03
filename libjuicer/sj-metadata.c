@@ -27,21 +27,11 @@ enum {
   LAST_SIGNAL
 };
 
-static int signals[LAST_SIGNAL] = { 0 };
-
 static void
 sj_metadata_base_init (gpointer g_iface)
 {
   static gboolean initialized = FALSE;
   if (!initialized) {
-    signals[METADATA] = g_signal_new ("metadata",
-                                      G_TYPE_FROM_CLASS (g_iface),
-                                      G_SIGNAL_RUN_LAST,
-                                      G_STRUCT_OFFSET (SjMetadataClass, metadata),
-                                      NULL, NULL,
-                                      metadata_marshal_VOID__POINTER_POINTER,
-                                      G_TYPE_NONE, 2, G_TYPE_POINTER, G_TYPE_POINTER);
-
     /* TODO: make these constructors */
     /* TODO: add nice nick and blurb strings */
     g_object_interface_install_property (g_iface,
@@ -106,17 +96,9 @@ sj_metadata_set_proxy_port (SjMetadata *metadata, const int proxy_port)
   g_object_set (metadata, "proxy-port", proxy_port, NULL);
 }
 
-void
-sj_metadata_list_albums (SjMetadata *metadata, GError **error)
+GList *
+sj_metadata_list_albums (SjMetadata *metadata, char **url, GError **error)
 {
-  SJ_METADATA_GET_CLASS (metadata)->list_albums (metadata, error);
+  return SJ_METADATA_GET_CLASS (metadata)->list_albums (metadata, url, error);
 }
 
-char *
-sj_metadata_get_submit_url (SjMetadata *metadata)
-{
-  if (SJ_METADATA_GET_CLASS (metadata)->get_submit_url)
-    return SJ_METADATA_GET_CLASS (metadata)->get_submit_url (metadata);
-  else
-    return NULL;
-}

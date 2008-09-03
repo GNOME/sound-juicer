@@ -35,7 +35,8 @@ enum _MetadataSource {
   SOURCE_UNKNOWN = 0,
   SOURCE_CDTEXT,
   SOURCE_FREEDB,
-  SOURCE_MUSICBRAINZ
+  SOURCE_MUSICBRAINZ,
+  SOURCE_FALLBACK
 };
 
 struct _TrackDetails {

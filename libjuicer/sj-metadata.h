@@ -40,20 +40,15 @@ struct _SjMetadataClass
 {
   GTypeInterface g_iface;
 
-  /* Signals */
-  void         (*metadata) (SjMetadata *md, GList *albums, GError *error);
-
   /* Virtual Table */
-  void (*list_albums) (SjMetadata *metadata, GError **error);
-  char *(*get_submit_url) (SjMetadata *metadata);
+  GList * (*list_albums) (SjMetadata *metadata, char **url, GError **error);
 };
 
 GType sj_metadata_get_type (void);
 void sj_metadata_set_cdrom (SjMetadata *metadata, const char* device);
 void sj_metadata_set_proxy (SjMetadata *metadata, const char* proxy);
 void sj_metadata_set_proxy_port (SjMetadata *metadata, const int proxy_port);
-void sj_metadata_list_albums (SjMetadata *metadata, GError **error);
-char *sj_metadata_get_submit_url (SjMetadata *metadata);
+GList * sj_metadata_list_albums (SjMetadata *metadata, char **url, GError **error);
 
 G_END_DECLS
 
