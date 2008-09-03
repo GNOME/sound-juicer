@@ -21,8 +21,16 @@
 #include <glib-object.h>
 #include <stdlib.h>
 #include <stdio.h>
+
+#ifndef USE_TOTEM_PL_PARSER
+#include <unistd.h>
+#include <glib/gi18n.h>
+#include <nautilus-burn.h>
+#endif /* USE_TOTEM_PL_PARSER */
+
 #include "sj-metadata.h"
 #include "sj-metadata-marshal.h"
+#include "sj-error.h"
 
 enum {
   METADATA,
@@ -147,5 +155,43 @@ sj_metadata_helper_scan_date (const char *date)
   }
 
   return NULL;
+}
+
+gboolean
+sj_metadata_helper_check_media (const char *cdrom, GError **error)
+{
+  NautilusBurnMediaType type;
+  NautilusBurnDriveMonitor *monitor;
+  NautilusBurnDrive *drive;
+
+  if (! nautilus_burn_initialized ()) {
+    nautilus_burn_init ();
+  }
+  monitor = nautilus_burn_get_drive_monitor ();
+  drive = nautilus_burn_drive_monitor_get_drive_for_device (monitor, cdrom);
+  if (drive == NULL) {
+    return FALSE;
+  }
+  type = nautilus_burn_drive_get_media_type (drive);
+  nautilus_burn_drive_unref (drive);
+
+  if (type == NAUTILUS_BURN_MEDIA_TYPE_ERROR) {
+    char *msg;
+    SjError err;
+
+    if (access (cdrom, W_OK) == 0) {
+      msg = g_strdup_printf (_("Device '%s' does not contain any media"), cdrom);
+      err = SJ_ERROR_CD_NO_MEDIA;
+    } else {
+      msg = g_strdup_printf (_("Device '%s' could not be opened. Check the access permissions on the device."), cdrom);
+      err = SJ_ERROR_CD_PERMISSION_ERROR;
+    }
+    g_set_error (error, SJ_ERROR, err, _("Cannot read CD: %s"), msg);
+    g_free (msg);
+
+    return FALSE;
+  }
+
+  return TRUE;
 }
 

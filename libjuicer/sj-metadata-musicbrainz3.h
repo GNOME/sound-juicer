@@ -1,6 +1,7 @@
 /*
  * sj-metadata-musicbrainz3.h
  * Copyright (C) 2008 Ross Burton <ross@burtonini.com>
+ * Copyright (C) 2008 Bastien Nocera <hadess@hadess.net>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public

@@ -52,6 +52,7 @@ GList * sj_metadata_list_albums (SjMetadata *metadata, char **url, GError **erro
 
 char * sj_metadata_helper_scan_disc_number (const char *album_title, int *disc_number);
 GDate * sj_metadata_helper_scan_date (const char *date);
+gboolean sj_metadata_helper_check_media (const char *cdrom, GError **error);
 
 G_END_DECLS
 

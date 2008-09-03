@@ -32,9 +32,7 @@
 #include <gconf/gconf-client.h>
 #include <musicbrainz/queries.h>
 #include <musicbrainz/mb_c.h>
-#include <nautilus-burn.h>
 #include <stdlib.h>
-#include <unistd.h>
 
 #include "sj-metadata-musicbrainz.h"
 #include "sj-structures.h"
@@ -281,40 +279,13 @@ mb_list_albums (SjMetadata *metadata, char **url, GError **error)
   GList *al, *tl;
   char data[256];
   int num_albums, i, j;
-  NautilusBurnMediaType type;
-  NautilusBurnDriveMonitor *monitor;
-  NautilusBurnDrive *drive;
 
   g_return_val_if_fail (metadata != NULL, NULL);
   g_return_val_if_fail (SJ_IS_METADATA_MUSICBRAINZ (metadata), NULL);
   priv = SJ_METADATA_MUSICBRAINZ (metadata)->priv;
   g_return_val_if_fail (priv->cdrom != NULL, NULL);
 
-  if (! nautilus_burn_initialized ()) {
-    nautilus_burn_init ();
-  }
-  monitor = nautilus_burn_get_drive_monitor ();
-  drive = nautilus_burn_drive_monitor_get_drive_for_device (monitor, priv->cdrom);
-  if (drive == NULL) {
-    return NULL;
-  }
-  type = nautilus_burn_drive_get_media_type (drive);
-  nautilus_burn_drive_unref (drive);
-
-  if (type == NAUTILUS_BURN_MEDIA_TYPE_ERROR) {
-    char *msg;
-    SjError err;
-
-    if (access (priv->cdrom, W_OK) == 0) {
-      msg = g_strdup_printf (_("Device '%s' does not contain any media"), priv->cdrom);
-      err = SJ_ERROR_CD_NO_MEDIA;
-    } else {
-      msg = g_strdup_printf (_("Device '%s' could not be opened. Check the access permissions on the device."), priv->cdrom);
-      err = SJ_ERROR_CD_PERMISSION_ERROR;
-    }
-    g_set_error (error, SJ_ERROR, err, _("Cannot read CD: %s"), msg);
-    g_free (msg);
-
+  if (sj_metadata_helper_check_media (priv->cdrom, error) == FALSE) {
     priv->albums = NULL;
     return NULL;
   }

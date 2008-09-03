@@ -1,6 +1,7 @@
 /*
  * sj-metadata-musicbrainz3.c
  * Copyright (C) 2008 Ross Burton <ross@burtonini.com>
+ * Copyright (C) 2008 Bastien Nocera <hadess@hadess.net>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -24,12 +25,9 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <glib.h>
 #include <glib-object.h>
-#include <glib/gi18n.h>
 #include <gconf/gconf-client.h>
-#include <nautilus-burn.h>
 #include <musicbrainz3/mb_c.h>
 
 #include "sj-metadata-musicbrainz3.h"
@@ -223,39 +221,11 @@ mb_list_albums (SjMetadata *metadata, char **url, GError **error)
   char *id = NULL;
   char buffer[512];
   int i;
-  NautilusBurnMediaType type;
-  NautilusBurnDriveMonitor *monitor;
-  NautilusBurnDrive *drive;
-
   g_return_val_if_fail (SJ_IS_METADATA_MUSICBRAINZ3 (metadata), FALSE);
 
   priv = GET_PRIVATE (metadata);
 
-  if (! nautilus_burn_initialized ()) {
-    nautilus_burn_init ();
-  }
-  monitor = nautilus_burn_get_drive_monitor ();
-  drive = nautilus_burn_drive_monitor_get_drive_for_device (monitor, priv->cdrom);
-  if (drive == NULL) {
-    return NULL;
-  }
-  type = nautilus_burn_drive_get_media_type (drive);
-  nautilus_burn_drive_unref (drive);
-
-  if (type == NAUTILUS_BURN_MEDIA_TYPE_ERROR) {
-    char *msg;
-    SjError err;
-
-    if (access (priv->cdrom, W_OK) == 0) {
-      msg = g_strdup_printf (_("Device '%s' does not contain any media"), priv->cdrom);
-      err = SJ_ERROR_CD_NO_MEDIA;
-    } else {
-      msg = g_strdup_printf (_("Device '%s' could not be opened. Check the access permissions on the device."), priv->cdrom);
-      err = SJ_ERROR_CD_PERMISSION_ERROR;
-    }
-    g_set_error (error, SJ_ERROR, err, _("Cannot read CD: %s"), msg);
-    g_free (msg);
-
+  if (sj_metadata_helper_check_media (priv->cdrom, error) == FALSE) {
     priv->albums = NULL;
     return NULL;
   }
