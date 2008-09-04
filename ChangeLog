@@ -1,5 +1,20 @@
 2008-09-04  Bastien Nocera  <hadess@hadess.net>
 
+	* configure.in: Make libcdio an optional library again,
+	it would conflict with the GPL + exception license
+
+	* libjuicer/Makefile.am:
+	* libjuicer/sj-metadata-getter.c (lookup_cd):
+	* libjuicer/sj-metadata-gvfs.c (device_to_cdda_uri),
+	(gvfs_list_albums), (sj_metadata_gvfs_get_property),
+	(sj_metadata_gvfs_set_property), (sj_metadata_gvfs_finalize),
+	(sj_metadata_gvfs_init), (metadata_iface_init),
+	(sj_metadata_gvfs_class_init), (sj_metadata_gvfs_new):
+	* libjuicer/sj-metadata-gvfs.h: Add a gvfs based metadata
+	reader, for fallback support
+
+2008-09-04  Bastien Nocera  <hadess@hadess.net>
+
 	* libjuicer/sj-error.c:
 	* libjuicer/sj-error.h:
 	* libjuicer/sj-structures.c:

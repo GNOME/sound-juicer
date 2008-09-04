@@ -25,11 +25,14 @@
 #include "sj-metadata-getter.h"
 #include "sj-metadata-marshal.h"
 #include "sj-metadata.h"
-#ifdef HAVE_MB3
+#ifdef HAVE_MUSICBRAINZ3
 #include "sj-metadata-musicbrainz3.h"
-#endif /* HAVE_MB3 */
+#endif /* HAVE_MUSICBRAINZ3 */
 #include "sj-metadata-musicbrainz.h"
+#ifdef HAVE_LIBCDIO
 #include "sj-metadata-cdtext.h"
+#endif /* HAVE_LIBCDIO */
+#include "sj-metadata-gvfs.h"
 #include "sj-error.h"
 
 enum {
@@ -173,11 +176,14 @@ lookup_cd (SjMetadataGetter *mdg)
   GError *error = NULL;
   gboolean found = FALSE;
   GType types[] = {
-#ifdef HAVE_MB3
+#ifdef HAVE_MUSICBRAINZ3
     SJ_TYPE_METADATA_MUSICBRAINZ3,
-#endif /* HAVE_MB3 */
+#endif /* HAVE_MUSICBRAINZ3 */
     SJ_TYPE_METADATA_MUSICBRAINZ,
+#ifdef HAVE_LIBCDIO
     SJ_TYPE_METADATA_CDTEXT,
+#endif /* HAVE_LIBCDIO */
+    SJ_TYPE_METADATA_GVFS
   };
 
   priv = GETTER_PRIVATE (mdg);

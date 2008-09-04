@@ -12,8 +12,8 @@ libjuicer_la_SOURCES = \
 	sj-metadata.c \
 	sj-metadata-musicbrainz.h \
 	sj-metadata-musicbrainz.c \
-	sj-metadata-cdtext.h \
-	sj-metadata-cdtext.c \
+	sj-metadata-gvfs.h \
+	sj-metadata-gvfs.c \
 	sj-metadata-getter.c \
 	sj-metadata-getter.h \
 	sj-util.h sj-util.c
@@ -46,10 +46,16 @@ libjuicer_la_LDFLAGS = \
 	-export-dynamic \
 	$(AM_LDFLAGS)
 
-if HAVE_MB3
+if HAVE_MUSICBRAINZ3
 libjuicer_la_SOURCES += \
 	sj-metadata-musicbrainz3.h \
 	sj-metadata-musicbrainz3.c
+endif
+
+if HAVE_LIBCDIO
+libjuicer_la_SOURCES += \
+	sj-metadata-cdtext.h \
+	sj-metadata-cdtext.c
 endif
 
 #
