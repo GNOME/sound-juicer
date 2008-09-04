@@ -26,6 +26,8 @@
 #include <unistd.h>
 #include <glib/gi18n.h>
 #include <nautilus-burn.h>
+#else
+#include <totem-disc.h>
 #endif /* USE_TOTEM_PL_PARSER */
 
 #include "sj-metadata.h"
@@ -160,6 +162,7 @@ sj_metadata_helper_scan_date (const char *date)
 gboolean
 sj_metadata_helper_check_media (const char *cdrom, GError **error)
 {
+#ifndef USE_TOTEM_PL_PARSER
   NautilusBurnMediaType type;
   NautilusBurnDriveMonitor *monitor;
   NautilusBurnDrive *drive;
@@ -191,6 +194,19 @@ sj_metadata_helper_check_media (const char *cdrom, GError **error)
 
     return FALSE;
   }
+#else
+  TotemDiscMediaType type;
+  GError *totem_error = NULL;
+
+  type = totem_cd_detect_type (priv->cdrom, &totem_error);
+
+  if (totem_error != NULL) {
+    error = g_set_error (error, SJ_ERROR, SJ_ERROR_CD_NO_MEDIA, _("Cannot read CD: %s"), totem_error->message);
+    g_error_free (totem_error);
+
+    return FALSE;
+  }
+#endif /* !USE_TOTEM_PL_PARSER */
 
   return TRUE;
 }

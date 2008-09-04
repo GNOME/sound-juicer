@@ -114,8 +114,14 @@ sj_metadata_getter_set_cdrom (SjMetadataGetter *mdg, const char* device)
 
   priv = GETTER_PRIVATE (mdg);
 
-  if (priv->cdrom)
-    g_free (priv->cdrom);
+  g_free (priv->cdrom);
+
+#if defined (sun) && defined (__SVR4)
+  if (g_str_has_prefix (device, "/dev/dsk/")) {
+    priv->cdrom = g_strdup_printf ("/dev/rdsk/%s", device + strlen ("/dev/dsk/"));
+    return;
+  }
+#endif
   priv->cdrom = g_strdup (device);
 }
 
