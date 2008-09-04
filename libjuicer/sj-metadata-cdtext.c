@@ -84,17 +84,23 @@ cdtext_list_albums (SjMetadata *metadata, char **url, GError **error)
     return NULL;
   }
 
-#if 0
-  /* Why can I not read this here?  If I do, I get broken track data */
-  cdtext = cdio_get_cdtext(cdio, 0);
-  if (!cdtext) {
-    g_printerr("Cannot read CD-TEXT\n");
-    /* TODO: return no metadata somehow*/
-    return;
-  }
-#endif
-
   album = g_new0(AlbumDetails, 1);
+
+  /* TODO: why can't I do this first? */
+  cdtext = cdio_get_cdtext(cdio, 0);
+  if (cdtext) {
+    album->title = g_strdup (cdtext_get (CDTEXT_TITLE, cdtext));
+    album->artist = g_strdup (cdtext_get (CDTEXT_PERFORMER, cdtext));
+    album->genre = g_strdup (cdtext_get (CDTEXT_GENRE, cdtext));
+
+    album->metadata_source = SOURCE_CDTEXT;
+  } else {
+    album->artist = g_strdup (_("Unknown Artist"));
+    album->title = g_strdup (_("Unknown Title"));
+    album->genre = g_strdup ("");
+
+    album->metadata_source = SOURCE_FALLBACK;
+  }
 
   cdtrack = cdio_get_first_track_num(cdio);
   last_cdtrack = cdtrack + cdio_get_num_tracks(cdio);
@@ -117,23 +123,6 @@ cdtext_list_albums (SjMetadata *metadata, char **url, GError **error)
     album->tracks = g_list_append (album->tracks, track);
     album->number++;
   }
-
-  /* TODO: why can't I do this first? */
-  cdtext = cdio_get_cdtext(cdio, 0);
-  if (cdtext) {
-    album->title = g_strdup (cdtext_get (CDTEXT_TITLE, cdtext));
-    album->artist = g_strdup (cdtext_get (CDTEXT_PERFORMER, cdtext));
-    album->genre = g_strdup (cdtext_get (CDTEXT_GENRE, cdtext));
-
-    album->metadata_source = SOURCE_CDTEXT;
-  } else {
-    album->artist = g_strdup (_("Unknown Artist"));
-    album->title = g_strdup (_("Unknown Title"));
-    album->genre = g_strdup ("");
-
-    album->metadata_source = SOURCE_FALLBACK;
-  }
-
 
   priv->albums = g_list_append (NULL, album);
 

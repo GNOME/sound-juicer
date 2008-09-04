@@ -31,7 +31,6 @@
 #include <musicbrainz3/mb_c.h>
 
 #include "sj-metadata-musicbrainz3.h"
-#include "sj-metadata-cdtext.h"
 #include "sj-structures.h"
 #include "sj-error.h"
 

@@ -19,12 +19,12 @@
  */
 
 #include <glib-object.h>
+#include <glib/gi18n.h>
 #include <stdlib.h>
 #include <stdio.h>
 
 #ifndef USE_TOTEM_PL_PARSER
 #include <unistd.h>
-#include <glib/gi18n.h>
 #include <nautilus-burn.h>
 #else
 #include <totem-disc.h>
@@ -198,10 +198,10 @@ sj_metadata_helper_check_media (const char *cdrom, GError **error)
   TotemDiscMediaType type;
   GError *totem_error = NULL;
 
-  type = totem_cd_detect_type (priv->cdrom, &totem_error);
+  type = totem_cd_detect_type (cdrom, &totem_error);
 
   if (totem_error != NULL) {
-    error = g_set_error (error, SJ_ERROR, SJ_ERROR_CD_NO_MEDIA, _("Cannot read CD: %s"), totem_error->message);
+    g_set_error (error, SJ_ERROR, SJ_ERROR_CD_NO_MEDIA, _("Cannot read CD: %s"), totem_error->message);
     g_error_free (totem_error);
 
     return FALSE;
