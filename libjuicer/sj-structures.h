@@ -24,7 +24,7 @@
 #define SJ_STRUCTURES_H
 
 #include <glib/glist.h>
-#include <gtk/gtktreemodel.h>
+#include <glib/gdate.h>
 
 typedef enum _MetadataSource MetadataSource;
 
