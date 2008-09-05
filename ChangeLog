@@ -1,3 +1,11 @@
+2008-09-05  Ross Burton  <ross@burtonini.com>
+
+	* libjuicer/sj-metadata-musicbrainz3.c:
+	* libjuicer/sj-metadata-cdtext.c:
+	Don't store the album list in a private field any more (not
+	required now), and especially don't free it when the app is still
+	using it.
+
 2008-09-04  Bastien Nocera  <hadess@hadess.net>
 
 	* libjuicer/sj-metadata-cdtext.c (cdtext_list_albums):

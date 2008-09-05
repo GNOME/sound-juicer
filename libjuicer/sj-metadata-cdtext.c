@@ -39,7 +39,6 @@
 
 struct SjMetadataCdtextPrivate {
   char *cdrom;
-  GList *albums;
 };
 
 #define GET_PRIVATE(o)  \
@@ -80,11 +79,10 @@ cdtext_list_albums (SjMetadata *metadata, char **url, GError **error)
   if (!cdio) {
     g_warning ("Cannot open CD");
     g_set_error (error, SJ_ERROR, SJ_ERROR_INTERNAL_ERROR, _("Cannot read CD"));
-    priv->albums = NULL;
     return NULL;
   }
 
-  album = g_new0(AlbumDetails, 1);
+  album = g_new0 (AlbumDetails, 1);
 
   /* TODO: why can't I do this first? */
   cdtext = cdio_get_cdtext(cdio, 0);
@@ -124,9 +122,7 @@ cdtext_list_albums (SjMetadata *metadata, char **url, GError **error)
     album->number++;
   }
 
-  priv->albums = g_list_append (NULL, album);
-
-  return priv->albums;
+  return g_list_append (NULL, album);
 }
 
 
@@ -185,7 +181,6 @@ sj_metadata_cdtext_finalize (GObject *object)
 {
   SjMetadataCdtextPrivate *priv = SJ_METADATA_CDTEXT (object)->priv;
   g_free (priv->cdrom);
-  g_list_deep_free (priv->albums, (GFunc)album_details_free);
 }
 
 static void
