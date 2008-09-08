@@ -1820,10 +1820,12 @@ int main (int argc, char **argv)
 
       /* Mash up the CDDA URIs into a device path */
       if (g_str_has_prefix (uris[0], "cdda://")) {
-        guint len;
-        d = g_strdup_printf ("/dev/%s", uris[0] + strlen ("cdda://"));
-        len = strlen (d);
-        d[len - 1] = '\0';
+      	gint len;
+        d = g_strdup_printf ("/dev/%s%c", uris[0] + strlen ("cdda://"), '\0');
+        /* Take last '/' out of path, or set_device thinks it is part of the device name */
+		len = strlen (d);
+		if (d[len - 1] == '/')
+			d [len - 1] = '\0';
 	set_device (d, TRUE);
 	g_free (d);
       } else {
