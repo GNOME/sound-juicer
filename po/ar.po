@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-18 15:07+0100\n"
+"POT-Creation-Date: 2008-09-14 11:10+0100\n"
 "PO-Revision-Date: 2008-07-28 19:39+0300\n"
 "Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -120,8 +120,8 @@ msgstr "تخطّي إلى المقطوعة التّالية"
 msgid "Skip to the previous track"
 msgstr "تخطّي إلى المقطوعة السّابقة"
 
-#: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:143 ../src/sj-main.c:145
-#: ../src/sj-main.c:1614
+#: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:142 ../src/sj-main.c:144
+#: ../src/sj-main.c:1613
 msgid "Sound Juicer"
 msgstr "مستخرج الصوتيّات"
 
@@ -145,7 +145,7 @@ msgstr "مقطوعات"
 msgid "_Contents"
 msgstr "ال_محتويات"
 
-#: ../data/sound-juicer.glade.h:28 ../src/sj-main.c:236
+#: ../data/sound-juicer.glade.h:28 ../src/sj-main.c:235
 msgid "_Continue"
 msgstr "ا_ستمر"
 
@@ -354,66 +354,65 @@ msgstr "لا يوجد الملحق اللازم للنّفاذ إلى القرص
 msgid "The plugin necessary for file access was not found"
 msgstr "لا يوجد الملحق اللازم للنّفاذ إلى الملفّات"
 
-#: ../libjuicer/sj-metadata-cdtext.c:92
-#, c-format
-msgid "Cannot read CD"
-msgstr "لا يمكن قراءة القرص المدمج"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:114
-#: ../libjuicer/sj-metadata-musicbrainz.c:370
-#, c-format
-msgid "Cannot read CD: %s"
-msgstr "لا يمكن قراءة القرص المدمج: %s"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:121
-#: ../libjuicer/sj-metadata-musicbrainz.c:412 ../src/egg-play-preview.c:466
-msgid "Unknown Artist"
-msgstr "فنان مجهول"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:122
-#: ../libjuicer/sj-metadata-musicbrainz.c:423 ../src/egg-play-preview.c:461
-msgid "Unknown Title"
-msgstr "عنوان مجهول"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:128
-#, c-format
-msgid "Track %d"
-msgstr "المقطوعة %Id"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:267
-#: ../libjuicer/sj-metadata-musicbrainz.c:274
-#: ../libjuicer/sj-metadata-musicbrainz.c:288
-#, c-format
-msgid "This CD could not be queried: %s\n"
-msgstr "لا يمكن الإستعلام عن هذا القرص المدمج: %s\n"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:364
+#: ../libjuicer/sj-metadata.c:186
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "لا يحوي الجهاز '%s' وسيطا"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:367
+#: ../libjuicer/sj-metadata.c:189
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "لا يمكن فتح الجهاز '%s'. رجاء تأكد من تصريحات النّفاذ للجهاز."
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:410
-msgid "Various"
-msgstr "متنوعة"
+#: ../libjuicer/sj-metadata.c:192 ../libjuicer/sj-metadata.c:204
+#, c-format
+msgid "Cannot read CD: %s"
+msgstr "لا يمكن قراءة القرص المدمج: %s"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:465
-msgid "Incomplete metadata for this CD"
-msgstr "معلومات غير كاملة للقرص المدمج"
+#: ../libjuicer/sj-metadata-cdtext.c:81
+#, c-format
+msgid "Cannot read CD"
+msgstr "لا يمكن قراءة القرص المدمج"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:496
-msgid "[Untitled]"
-msgstr "[بدون عنوان]"
+#: ../libjuicer/sj-metadata-cdtext.c:96 ../libjuicer/sj-metadata-cdtext.c:117
+#: ../libjuicer/sj-metadata-musicbrainz.c:331 ../src/egg-play-preview.c:466
+msgid "Unknown Artist"
+msgstr "فنان مجهول"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:576
+#: ../libjuicer/sj-metadata-cdtext.c:97
+#: ../libjuicer/sj-metadata-musicbrainz.c:347 ../src/egg-play-preview.c:461
+msgid "Unknown Title"
+msgstr "عنوان مجهول"
+
+#: ../libjuicer/sj-metadata-cdtext.c:116
+#, c-format
+msgid "Track %d"
+msgstr "المقطوعة %Id"
+
+#: ../libjuicer/sj-metadata-getter.c:245
 #, c-format
 msgid "Could not create CD lookup thread"
 msgstr "لا يمكن إنشاء بريمج مراقبة القرص المدمج"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:213
+#: ../libjuicer/sj-metadata-musicbrainz.c:220
+#: ../libjuicer/sj-metadata-musicbrainz.c:234
+#, c-format
+msgid "This CD could not be queried: %s\n"
+msgstr "لا يمكن الإستعلام عن هذا القرص المدمج: %s\n"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:329
+msgid "Various"
+msgstr "متنوعة"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:372
+msgid "Incomplete metadata for this CD"
+msgstr "معلومات غير كاملة للقرص المدمج"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:402
+msgid "[Untitled]"
+msgstr "[بدون عنوان]"
 
 #: ../src/egg-play-preview.c:165
 msgid "URI"
@@ -423,7 +422,7 @@ msgstr ""
 msgid "The URI of the audio file"
 msgstr ""
 
-#: ../src/egg-play-preview.c:175 ../src/sj-main.c:630 ../src/sj-main.c:1755
+#: ../src/egg-play-preview.c:175 ../src/sj-main.c:629 ../src/sj-main.c:1754
 msgid "Title"
 msgstr "العنوان"
 
@@ -431,7 +430,7 @@ msgstr "العنوان"
 msgid "The title of the current stream."
 msgstr ""
 
-#: ../src/egg-play-preview.c:185 ../src/sj-main.c:636 ../src/sj-main.c:1764
+#: ../src/egg-play-preview.c:185 ../src/sj-main.c:635 ../src/sj-main.c:1763
 msgid "Artist"
 msgstr "الفنان"
 
@@ -456,7 +455,7 @@ msgstr ""
 msgid "The position in the current stream in seconds."
 msgstr ""
 
-#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1775
+#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1774
 msgid "Duration"
 msgstr "المدّة"
 
@@ -673,103 +672,103 @@ msgstr "كلمة منطوقة (Spoken Word)"
 msgid "Error while saving custom genre: %s"
 msgstr "خطأ أثناء حفظ نوع  الموسيقى المُخصص: %s"
 
-#: ../src/sj-main.c:122
+#: ../src/sj-main.c:121
 msgid "E_xtract"
 msgstr "ا_ستخرج"
 
-#: ../src/sj-main.c:188
+#: ../src/sj-main.c:187
 msgid "Could not start Sound Juicer"
 msgstr "لا يمكن بدأ مستخرج الصوتيات"
 
-#: ../src/sj-main.c:189 ../src/sj-main.c:818 ../src/sj-main.c:929
-#: ../src/sj-main.c:1035 ../src/sj-main.c:1246 ../src/sj-main.c:1560
+#: ../src/sj-main.c:188 ../src/sj-main.c:817 ../src/sj-main.c:928
+#: ../src/sj-main.c:1034 ../src/sj-main.c:1245 ../src/sj-main.c:1559
 msgid "Reason"
 msgstr "السبب"
 
-#: ../src/sj-main.c:191
+#: ../src/sj-main.c:190
 msgid "Please consult the documentation for assistance."
 msgstr "رجاء مراجعة التوثيق للمساعدة"
 
-#: ../src/sj-main.c:234
+#: ../src/sj-main.c:233
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "أنت بصدد إستخراج المقطوعات من قرص مدمج. أتريد الخروج أم الاستمرار؟"
 
-#: ../src/sj-main.c:294 ../src/sj-main.c:552
+#: ../src/sj-main.c:293 ../src/sj-main.c:551
 msgid "(unknown)"
 msgstr "(مجهول)"
 
-#: ../src/sj-main.c:422
+#: ../src/sj-main.c:421
 msgid "_Submit Album"
 msgstr "_ارسل ألبوم"
 
 #. Translators: title, artist
-#: ../src/sj-main.c:429
+#: ../src/sj-main.c:428
 #, c-format
 msgid "Could not find %s by %s on MusicBrainz."
 msgstr "تعذر ايجاد %s من طرف %s على MusicBrainz."
 
-#: ../src/sj-main.c:434
+#: ../src/sj-main.c:433
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr "يمكن تحسين قاعدة بيانات MusicBrainz بإظافة هذا الألبوم."
 
-#: ../src/sj-main.c:816 ../src/sj-main.c:927 ../src/sj-main.c:1033
+#: ../src/sj-main.c:815 ../src/sj-main.c:926 ../src/sj-main.c:1032
 msgid "Could not read the CD"
 msgstr "لا يمكن قراءة القرص المدمج"
 
-#: ../src/sj-main.c:817 ../src/sj-main.c:928
+#: ../src/sj-main.c:816 ../src/sj-main.c:927
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "لم يتمكن مستخرج الصوتيات من قراءة ترتيب المقاطع في هذا القرص المدمج."
 
 #. Set statusbar message
-#: ../src/sj-main.c:899
+#: ../src/sj-main.c:903
 msgid "Retrieving track listing...please wait."
 msgstr "يجري سحب سجلّ المقطوعات... رجاءًا انتظر."
 
-#: ../src/sj-main.c:994
+#: ../src/sj-main.c:993
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "لم يتمكن مستخرج الصوتيات من النفاذ إلى جهاز القرص المدمج '%s'"
 
-#: ../src/sj-main.c:1001
+#: ../src/sj-main.c:1000
 msgid "HAL daemon may not be running."
 msgstr "من الممكن أن خادوم هال لا يعمل."
 
-#: ../src/sj-main.c:1026
+#: ../src/sj-main.c:1025
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "لم يتمكن مستخرج الصوتيات من النفاذ إلى جهاز القرص المدمج '%s'"
 
-#: ../src/sj-main.c:1124
+#: ../src/sj-main.c:1123
 msgid "No CD-ROM drives found"
 msgstr "لا توجد سوّاقات أقراص مدمجة"
 
-#: ../src/sj-main.c:1125
+#: ../src/sj-main.c:1124
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "لم يجد مستخرج الصوتيات سوّاقات أقراص مدمجة ليقرأها."
 
-#: ../src/sj-main.c:1156
+#: ../src/sj-main.c:1155
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "الطور المنتقى حاليا غير موجود في تثبيتك."
 
-#: ../src/sj-main.c:1158
+#: ../src/sj-main.c:1157
 msgid "_Change Profile"
 msgstr "_غيّر الطور"
 
-#: ../src/sj-main.c:1244
+#: ../src/sj-main.c:1243
 msgid "Could not open URL"
 msgstr "لا يمكن فتح العنوان"
 
-#: ../src/sj-main.c:1245
+#: ../src/sj-main.c:1244
 msgid "Sound Juicer could not open the submission URL"
 msgstr "لم يتمكن مستخرج الصوتيات من فتح العنوان"
 
-#: ../src/sj-main.c:1354
+#: ../src/sj-main.c:1353
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "حُرِّر جدول مجهول %Id"
 
-#: ../src/sj-main.c:1462 ../src/sj-prefs.c:105
+#: ../src/sj-main.c:1461 ../src/sj-prefs.c:105
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -778,49 +777,49 @@ msgstr ""
 "لا يمكن عرض مساعدة مستخرج الصوتيات\n"
 "%s"
 
-#: ../src/sj-main.c:1558
+#: ../src/sj-main.c:1557
 msgid "Could not duplicate disc"
 msgstr "لا يمكن استنساخ القرص المدمج"
 
-#: ../src/sj-main.c:1559
+#: ../src/sj-main.c:1558
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "لم يتمكن مستخرج الصوتيات من استنساخ القرص"
 
-#: ../src/sj-main.c:1588
+#: ../src/sj-main.c:1587
 msgid "Start extracting immediately"
 msgstr "ابدأ الإستخراج حالًا"
 
-#: ../src/sj-main.c:1589
+#: ../src/sj-main.c:1588
 msgid "Start playing immediately"
 msgstr "ابدأ التشغيل حالًا"
 
-#: ../src/sj-main.c:1590
+#: ../src/sj-main.c:1589
 msgid "What CD device to read"
 msgstr "أي جهاز قرص مدمج سيقرأ"
 
-#: ../src/sj-main.c:1590
+#: ../src/sj-main.c:1589
 msgid "DEVICE"
 msgstr "DEVICE"
 
-#: ../src/sj-main.c:1591
+#: ../src/sj-main.c:1590
 #, fuzzy
 msgid "URI to the CD device to read"
 msgstr "أي جهاز قرص مدمج سيقرأ"
 
-#: ../src/sj-main.c:1601
+#: ../src/sj-main.c:1600
 msgid "- Extract music from your CDs"
 msgstr "- استخرج الموسيقى من أقراصك المدمجة"
 
-#: ../src/sj-main.c:1640
+#: ../src/sj-main.c:1639
 msgid "Could not create GConf client.\n"
 msgstr "لا يمكن إنشاء عميل GConf.\n"
 
-#: ../src/sj-main.c:1672
+#: ../src/sj-main.c:1671
 #, c-format
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "لا يمكن تحميل ملف واجهة مستخرج الصوتيات."
 
-#: ../src/sj-main.c:1740
+#: ../src/sj-main.c:1739
 msgid "Track"
 msgstr "المقطوعة"
 
