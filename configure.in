@@ -84,7 +84,7 @@ AC_SUBST(MUSICBRAINZ3_CFLAGS)
 AC_SUBST(MUSICBRAINZ3_LIBS)
 AM_CONDITIONAL([HAVE_MUSICBRAINZ3], [test "$have_mb3" = "yes"])
 if test "$have_mb3" = "yes" ; then
-	AC_DEFINE([HAVE_MUSIZBRAINZ3], 1, [Whether libmusicbrainz3 is available])
+	AC_DEFINE([HAVE_MUSICBRAINZ3], 1, [Whether libmusicbrainz3 is available])
 fi
 
 PKG_CHECK_MODULES(MUSICBRAINZ, libmusicbrainz >= 2.1.3)
