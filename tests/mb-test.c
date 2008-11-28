@@ -1,4 +1,6 @@
+#include "config.h"
 #include <glib.h>
+#include <glib/gi18n.h>
 #include <stdlib.h>
 #include "sj-structures.h"
 #include "sj-metadata.h"
@@ -88,6 +90,10 @@ int main (int argc, char** argv)
   SjMetadataGetter *metadata;
   GMainLoop *loop;
   GError *error = NULL;
+
+  bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
+  bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+  textdomain (GETTEXT_PACKAGE);
 
   g_type_init ();
   g_thread_init (NULL);

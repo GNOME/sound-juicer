@@ -6,6 +6,7 @@ mb_test_SOURCES = \
 mb_test_CPPFLAGS = \
 	-I$(top_srcdir)/libjuicer \
 	-I$(top_srcdir)/src \
+	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" \
 	$(DISABLE_DEPRECATED) \
 	$(AM_CPPFLAGS)
 
