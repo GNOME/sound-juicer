@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-03 13:08+0000\n"
-"PO-Revision-Date: 2008-09-03 15:41+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-juicer&amp;component=general\n"
+"POT-Creation-Date: 2008-12-12 10:56+0000\n"
+"PO-Revision-Date: 2008-12-17 18:13+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -118,9 +118,9 @@ msgid "Skip to the previous track"
 msgstr "Preskoči na prejšnjo skladbo"
 
 #: ../data/sound-juicer.glade.h:23
-#: ../src/sj-main.c:143
-#: ../src/sj-main.c:145
-#: ../src/sj-main.c:1614
+#: ../src/sj-main.c:142
+#: ../src/sj-main.c:144
+#: ../src/sj-main.c:1613
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -141,7 +141,7 @@ msgid "_Contents"
 msgstr "_Vsebina"
 
 #: ../data/sound-juicer.glade.h:28
-#: ../src/sj-main.c:236
+#: ../src/sj-main.c:235
 msgid "_Continue"
 msgstr "_Nadaljuj"
 
@@ -326,67 +326,82 @@ msgstr "Vstavek potreben za dostop do CD-ja ni najden."
 msgid "The plugin necessary for file access was not found"
 msgstr "Vstavek potreben za dostop do datotek ni najden."
 
-#: ../libjuicer/sj-metadata-cdtext.c:92
-#, c-format
-msgid "Cannot read CD"
-msgstr "Ni mogoče prebrati CD-ja"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:114
-#: ../libjuicer/sj-metadata-musicbrainz.c:370
-#, c-format
-msgid "Cannot read CD: %s"
-msgstr "Ni mogoče prebrati CD-ja: %s"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:121
-#: ../libjuicer/sj-metadata-musicbrainz.c:412
-#: ../src/egg-play-preview.c:466
-msgid "Unknown Artist"
-msgstr "Neznan izvajalec"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:122
-#: ../libjuicer/sj-metadata-musicbrainz.c:423
-#: ../src/egg-play-preview.c:461
-msgid "Unknown Title"
-msgstr "Neznan naslov"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:128
-#, c-format
-msgid "Track %d"
-msgstr "Skladba %d"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:267
-#: ../libjuicer/sj-metadata-musicbrainz.c:274
-#: ../libjuicer/sj-metadata-musicbrainz.c:288
-#, c-format
-msgid "This CD could not be queried: %s\n"
-msgstr "Poizvedba CD-ja ni mogoča: %s\n"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:364
+#: ../libjuicer/sj-metadata.c:186
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "V napravi '%s' ni primernega medija"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:367
+#: ../libjuicer/sj-metadata.c:189
 #, c-format
 msgid "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "Naprave '%s' ni mogoče odpreti Preverite dovoljenja naprave."
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:410
-msgid "Various"
-msgstr "Različno"
+#: ../libjuicer/sj-metadata.c:192
+#: ../libjuicer/sj-metadata.c:204
+#, c-format
+msgid "Cannot read CD: %s"
+msgstr "Ni mogoče prebrati CD-ja: %s"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:469
-msgid "Incomplete metadata for this CD"
-msgstr "Nepopolni metapodatki za ta CD"
+#: ../libjuicer/sj-metadata-cdtext.c:81
+#, c-format
+msgid "Cannot read CD"
+msgstr "Ni mogoče prebrati CD-ja"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:500
-msgid "[Untitled]"
-msgstr "[Nenaslovljeno]"
+#: ../libjuicer/sj-metadata-cdtext.c:96
+#: ../libjuicer/sj-metadata-cdtext.c:117
+#: ../libjuicer/sj-metadata-gvfs.c:113
+#: ../libjuicer/sj-metadata-gvfs.c:136
+#: ../libjuicer/sj-metadata-musicbrainz.c:331
+#: ../src/egg-play-preview.c:466
+msgid "Unknown Artist"
+msgstr "Neznan izvajalec"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:580
+#: ../libjuicer/sj-metadata-cdtext.c:97
+#: ../libjuicer/sj-metadata-gvfs.c:109
+#: ../libjuicer/sj-metadata-musicbrainz.c:347
+#: ../src/egg-play-preview.c:461
+msgid "Unknown Title"
+msgstr "Neznan naslov"
+
+#: ../libjuicer/sj-metadata-cdtext.c:116
+#: ../libjuicer/sj-metadata-gvfs.c:133
+#, c-format
+msgid "Track %d"
+msgstr "Skladba %d"
+
+#: ../libjuicer/sj-metadata-getter.c:245
 #, c-format
 msgid "Could not create CD lookup thread"
 msgstr "Ni mogoče ustvariti iskalne niti CD-ja"
+
+#: ../libjuicer/sj-metadata-gvfs.c:89
+#, c-format
+msgid "Cannot access CD"
+msgstr "Ni mogoč dostop do CD-ja"
+
+#: ../libjuicer/sj-metadata-gvfs.c:150
+#, c-format
+msgid "Cannot access CD: %s"
+msgstr "Ni mogoč dostop do: %s"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:213
+#: ../libjuicer/sj-metadata-musicbrainz.c:220
+#: ../libjuicer/sj-metadata-musicbrainz.c:234
+#, c-format
+msgid "This CD could not be queried: %s\n"
+msgstr "Poizvedba CD-ja ni mogoča: %s\n"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:329
+msgid "Various"
+msgstr "Različno"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:372
+msgid "Incomplete metadata for this CD"
+msgstr "Nepopolni metapodatki za ta CD"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:402
+msgid "[Untitled]"
+msgstr "[Nenaslovljeno]"
 
 #: ../src/egg-play-preview.c:165
 msgid "URI"
@@ -397,8 +412,8 @@ msgid "The URI of the audio file"
 msgstr "Naslov URI zvočne datoteke"
 
 #: ../src/egg-play-preview.c:175
-#: ../src/sj-main.c:630
-#: ../src/sj-main.c:1755
+#: ../src/sj-main.c:629
+#: ../src/sj-main.c:1754
 msgid "Title"
 msgstr "Naslov"
 
@@ -407,8 +422,8 @@ msgid "The title of the current stream."
 msgstr "Naslov trenutnega pretoka."
 
 #: ../src/egg-play-preview.c:185
-#: ../src/sj-main.c:636
-#: ../src/sj-main.c:1764
+#: ../src/sj-main.c:635
+#: ../src/sj-main.c:1763
 msgid "Artist"
 msgstr "Izvajalec"
 
@@ -433,7 +448,7 @@ msgid "The position in the current stream in seconds."
 msgstr "Lega trenutnega pretoka v sekundah."
 
 #: ../src/egg-play-preview.c:215
-#: ../src/sj-main.c:1775
+#: ../src/sj-main.c:1774
 msgid "Duration"
 msgstr "Trajanje"
 
@@ -627,110 +642,110 @@ msgstr "Pogovor"
 msgid "Error while saving custom genre: %s"
 msgstr "Napaka med shranjevanjem prikrojenega žanra: %s"
 
-#: ../src/sj-main.c:122
+#: ../src/sj-main.c:121
 msgid "E_xtract"
 msgstr "P_retvori"
 
-#: ../src/sj-main.c:188
+#: ../src/sj-main.c:187
 msgid "Could not start Sound Juicer"
 msgstr "Ni mogoče zagnati programa Sound Juicer"
 
-#: ../src/sj-main.c:189
-#: ../src/sj-main.c:818
-#: ../src/sj-main.c:929
-#: ../src/sj-main.c:1035
-#: ../src/sj-main.c:1246
-#: ../src/sj-main.c:1560
+#: ../src/sj-main.c:188
+#: ../src/sj-main.c:817
+#: ../src/sj-main.c:928
+#: ../src/sj-main.c:1034
+#: ../src/sj-main.c:1245
+#: ../src/sj-main.c:1559
 msgid "Reason"
 msgstr "Vzrok"
 
-#: ../src/sj-main.c:191
+#: ../src/sj-main.c:190
 msgid "Please consult the documentation for assistance."
 msgstr "Prosim, poglejte v dokumentacijo za pomoč."
 
-#: ../src/sj-main.c:234
+#: ../src/sj-main.c:233
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Trenutno pretvarjate CD. Želite končati ali naj nadaljujem?"
 
-#: ../src/sj-main.c:294
-#: ../src/sj-main.c:552
+#: ../src/sj-main.c:293
+#: ../src/sj-main.c:551
 msgid "(unknown)"
 msgstr "(neznano)"
 
-#: ../src/sj-main.c:422
+#: ../src/sj-main.c:421
 msgid "_Submit Album"
 msgstr "_Objavi album"
 
 #. Translators: title, artist
-#: ../src/sj-main.c:429
+#: ../src/sj-main.c:428
 #, c-format
 msgid "Could not find %s by %s on MusicBrainz."
 msgstr "Ni mogoče najti %s izvajalca %s na MusicBrainz."
 
-#: ../src/sj-main.c:434
+#: ../src/sj-main.c:433
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr "Izboljšate lahko MusicBrainz zbirko z dodajanjem albuma."
 
-#: ../src/sj-main.c:816
-#: ../src/sj-main.c:927
-#: ../src/sj-main.c:1033
+#: ../src/sj-main.c:815
+#: ../src/sj-main.c:926
+#: ../src/sj-main.c:1032
 msgid "Could not read the CD"
 msgstr "Ni mogoče prebrati CD-ja"
 
-#: ../src/sj-main.c:817
-#: ../src/sj-main.c:928
+#: ../src/sj-main.c:816
+#: ../src/sj-main.c:927
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer ne more prebrati seznama skladb na tem CD-ju."
 
 #. Set statusbar message
-#: ../src/sj-main.c:899
+#: ../src/sj-main.c:903
 msgid "Retrieving track listing...please wait."
 msgstr "Obnavljanje seznama skladb ... Prosim, počakajte."
 
-#: ../src/sj-main.c:994
+#: ../src/sj-main.c:993
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Ni mogoč dostop do CD-pogona '%s'"
 
-#: ../src/sj-main.c:1001
+#: ../src/sj-main.c:1000
 msgid "HAL daemon may not be running."
 msgstr "HAL demon morda ne teče."
 
-#: ../src/sj-main.c:1026
+#: ../src/sj-main.c:1025
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Ni mogoč dostop do CD-pogona '%s'"
 
-#: ../src/sj-main.c:1124
+#: ../src/sj-main.c:1123
 msgid "No CD-ROM drives found"
 msgstr "Ni mogoče najti pogona CD-ROM"
 
-#: ../src/sj-main.c:1125
+#: ../src/sj-main.c:1124
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer ne najde CD-pogona za branje."
 
-#: ../src/sj-main.c:1156
+#: ../src/sj-main.c:1155
 msgid "The currently selected audio profile is not available on your installation."
 msgstr "Trenutno izbran zvočni profil ni vključen na vaši namestitvi."
 
-#: ../src/sj-main.c:1158
+#: ../src/sj-main.c:1157
 msgid "_Change Profile"
 msgstr "_Zamenjaj profil"
 
-#: ../src/sj-main.c:1244
+#: ../src/sj-main.c:1243
 msgid "Could not open URL"
 msgstr "Ni mogoče odpreti naslova URL"
 
-#: ../src/sj-main.c:1245
+#: ../src/sj-main.c:1244
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer ne more odpreti URL naslova objave"
 
-#: ../src/sj-main.c:1354
+#: ../src/sj-main.c:1353
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Neznan stolpec %d je bil spremenjen."
 
-#: ../src/sj-main.c:1462
+#: ../src/sj-main.c:1461
 #: ../src/sj-prefs.c:105
 #, c-format
 msgid ""
@@ -740,48 +755,48 @@ msgstr ""
 "Ni mogoče prikazati pomoči programa Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1558
+#: ../src/sj-main.c:1557
 msgid "Could not duplicate disc"
 msgstr "Ni mogoče podvojiti diska"
 
-#: ../src/sj-main.c:1559
+#: ../src/sj-main.c:1558
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Ni mogoče podvojiti diska."
 
-#: ../src/sj-main.c:1588
+#: ../src/sj-main.c:1587
 msgid "Start extracting immediately"
 msgstr "Takoj začni pretvarjati"
 
-#: ../src/sj-main.c:1589
+#: ../src/sj-main.c:1588
 msgid "Start playing immediately"
 msgstr "Takoj začni predvajati"
 
-#: ../src/sj-main.c:1590
+#: ../src/sj-main.c:1589
 msgid "What CD device to read"
 msgstr "Katera naprava CD naj bo prebrana"
 
-#: ../src/sj-main.c:1590
+#: ../src/sj-main.c:1589
 msgid "DEVICE"
 msgstr "NAPRAVA"
 
-#: ../src/sj-main.c:1591
+#: ../src/sj-main.c:1590
 msgid "URI to the CD device to read"
 msgstr "Naslov URI do CD naprave za branje"
 
-#: ../src/sj-main.c:1601
+#: ../src/sj-main.c:1600
 msgid "- Extract music from your CDs"
 msgstr "- pretvorite glasbo iz svojih CD-jev"
 
-#: ../src/sj-main.c:1640
+#: ../src/sj-main.c:1639
 msgid "Could not create GConf client.\n"
 msgstr "Ni mogoče ustvariti GConf odjemalca.\n"
 
-#: ../src/sj-main.c:1672
+#: ../src/sj-main.c:1671
 #, c-format
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Ni mogoče prebrati datoteke vmesnika programa Sound Juicer."
 
-#: ../src/sj-main.c:1740
+#: ../src/sj-main.c:1739
 msgid "Track"
 msgstr "Skladba"
 
