@@ -1,3 +1,9 @@
+2008-12-22  Jonathan Matthew  <jonathan@d14n.org>
+
+	* libjuicer/sj-metadata-musicbrainz3.c: (mb_list_albums):
+	Handle mb_query_get_releases returning NULL, which indicates an error.
+	It doesn't tell us anything about the error, sadly.  (Closes: #565056)
+
 2008-12-18  Bastien Nocera  <hadess@hadess.net>
 
 	* libjuicer/sj-metadata-musicbrainz3.c (mb_list_albums):
