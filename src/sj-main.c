@@ -33,10 +33,6 @@
 #include <glade/glade.h>
 #include <gconf/gconf-client.h>
 #include <nautilus-burn.h>
-#include <libgnome/gnome-help.h>
-#include <libgnome/gnome-url.h>
-#include <libgnomeui/gnome-ui-init.h>
-#include <libgnomeui/gnome-authentication-manager.h>
 #include <profiles/gnome-media-profiles.h>
 #include <gst/gst.h>
 
@@ -1232,7 +1228,7 @@ void on_submit_activate (GtkWidget *menuitem, gpointer user_data)
   GError *error = NULL;
 
   if (current_submit_url) {
-    if (!gnome_url_show (current_submit_url, &error)) {
+      if (!gtk_show_uri (NULL, current_submit_url, GDK_CURRENT_TIME, &error)) {
       GtkWidget *dialog;
 
       dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
@@ -1449,8 +1445,7 @@ void on_disc_number_edit_changed(GtkEditable *widget, gpointer user_data) {
 void on_contents_activate(GtkWidget *button, gpointer user_data) {
   GError *error = NULL;
 
-  /* If/when we drop libgnome, simply spawn the URI ghelp:sound-juicer. */
-  gnome_help_display ("sound-juicer", NULL, &error);
+  gtk_show_uri (NULL, "ghelp:sound-juicer", GDK_CURRENT_TIME, &error);
   if (error) {
     GtkWidget *dialog;
 
@@ -1578,7 +1573,6 @@ static void set_duplication(gboolean enabled)
 
 int main (int argc, char **argv)
 {
-  GnomeProgram *program;
   GError *error = NULL;
   GtkTreeSelection *selection;
   char *device = NULL, **uris = NULL;
@@ -1598,21 +1592,20 @@ int main (int argc, char **argv)
   textdomain (GETTEXT_PACKAGE);
 
   ctx = g_option_context_new (N_("- Extract music from your CDs"));
-  g_option_context_add_main_entries (ctx, entries, GETTEXT_PACKAGE);  
+  g_option_context_add_main_entries (ctx, entries, GETTEXT_PACKAGE);
   g_option_context_set_translation_domain(ctx, GETTEXT_PACKAGE);
+  g_option_context_add_group (ctx, gtk_get_option_group (FALSE));
   g_option_context_add_group (ctx, gst_init_get_option_group ());
   g_option_context_set_ignore_unknown_options (ctx, TRUE);
 
-  program = gnome_program_init ("sound-juicer",
-                      VERSION, LIBGNOMEUI_MODULE,
-                      argc, argv,
-                      GNOME_PROGRAM_STANDARD_PROPERTIES,
-                      GNOME_PARAM_GOPTION_CONTEXT, ctx,
-                      NULL);
+  g_option_context_parse (ctx, &argc, &argv, &error);
+  if (error != NULL) {
+      g_error ("Error parsing options: %s", error->message);
+  }
+
+  gtk_init (&argc, &argv);
 
   g_set_application_name (_("Sound Juicer"));
-
-  gnome_authentication_manager_init ();
 
   sj_debug_init ();
 
@@ -1846,6 +1839,5 @@ int main (int argc, char **argv)
   g_object_unref (metadata);
   g_object_unref (extractor);
   g_object_unref (gconf_client);
-  g_object_unref (program);
   return 0;
 }

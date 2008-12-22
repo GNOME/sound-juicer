@@ -26,7 +26,6 @@
 #include <gtk/gtk.h>
 #include <glade/glade-xml.h>
 #include <gconf/gconf-client.h>
-#include <libgnome/gnome-help.h>
 #include <profiles/gnome-media-profiles.h>
 #include <nautilus-burn-drive.h>
 #include <nautilus-burn-drive-selection.h>
@@ -94,7 +93,7 @@ void show_help (GtkWindow *parent)
 {
   GError *error = NULL;
 
-  gnome_help_display ("sound-juicer", "preferences", &error);
+  gtk_show_uri (NULL, "ghelp:sound-juicer?preferences", GDK_CURRENT_TIME, &error);
   if (error) {
     GtkWidget *dialog;
 

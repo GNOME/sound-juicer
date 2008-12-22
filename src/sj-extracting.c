@@ -602,16 +602,13 @@ finished_actions (void)
   
   /* Maybe open the target directory */
   if (open_finished) {
-    char *base, *command;
+    char *base = NULL;
 
-    base = NULL;
     /* Find the deepest common directory. */
     g_list_foreach (paths, (GFunc)base_finder, &base);
-    
-    command = g_strdup_printf ("gnome-open \"%s\"", base);
-    g_spawn_command_line_async (command, NULL);
-    
-    g_free (command);
+
+    gtk_show_uri (NULL, base, GDK_CURRENT_TIME, NULL);
+
     g_free (base);
   }
 }
