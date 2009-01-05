@@ -414,7 +414,7 @@ musicbrainz_submit_message_area_new (char *title, char *artist)
   message_area = gedit_message_area_new ();
 
   button = gedit_message_area_add_button (GEDIT_MESSAGE_AREA (message_area),
-                                          _("_Submit Album"),
+                                          _("S_ubmit Album"),
                                           GTK_RESPONSE_OK);
   gedit_message_area_add_button (GEDIT_MESSAGE_AREA (message_area),
                                  GTK_STOCK_CANCEL,
