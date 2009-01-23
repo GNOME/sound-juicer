@@ -30,6 +30,8 @@ GNOME_CXX_WARNINGS
 GNOME_DEBUG_CHECK
 GNOME_MAINTAINER_MODE_DEFINES
 
+AC_CHECK_FUNC(socket,,[AC_CHECK_LIB(socket,socket)])
+
 # Use the GNOME documentation framework
 GNOME_DOC_INIT
 
