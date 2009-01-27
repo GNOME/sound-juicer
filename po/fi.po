@@ -1,8 +1,8 @@
 # sound-juicer finnish translation
-# Copyright (C) 2004-2008 Free Software Foundation, Inc.
+# Copyright (C) 2004-2009 Free Software Foundation, Inc.
 # This file is distributed under the same license as the sound-juicer package.
 # Tommi Vainikainen <Tommi.Vainikainen@iki.fi>, 2004-2005.
-# Ilkka Tuohela <hile@iki.fi>, 2006-2008.
+# Ilkka Tuohela <hile@iki.fi>, 2006-2009.
 # Timo Jyrinki <timo.jyrinki@iki.fi>, 2008.
 #
 # Sanastoa:
@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-27 11:52+0300\n"
-"PO-Revision-Date: 2008-08-27 11:50+0300\n"
-"Last-Translator: Timo Jyrinki <timo.jyrinki@iki.fi>\n"
+"POT-Creation-Date: 2009-01-27 17:56+0300\n"
+"PO-Revision-Date: 2009-01-27 17:58+0300\n"
+"Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -118,8 +118,8 @@ msgstr "Siirry seuraavaan kappaleeseen"
 msgid "Skip to the previous track"
 msgstr "Siirry edelliseen kappaleeseen"
 
-#: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:143 ../src/sj-main.c:145
-#: ../src/sj-main.c:1614
+#: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:138 ../src/sj-main.c:140
+#: ../src/sj-main.c:1608
 msgid "Sound Juicer"
 msgstr "Musiikkimaija"
 
@@ -143,7 +143,7 @@ msgstr "Kappaleita"
 msgid "_Contents"
 msgstr "_Sisältö"
 
-#: ../data/sound-juicer.glade.h:28 ../src/sj-main.c:236
+#: ../data/sound-juicer.glade.h:28 ../src/sj-main.c:231
 msgid "_Continue"
 msgstr "_Jatka"
 
@@ -364,66 +364,76 @@ msgstr "CD-käyttöön tarvittavaa liitännäistä ei löytynyt"
 msgid "The plugin necessary for file access was not found"
 msgstr "Tiedoston käsittelyyn tarvittavaa liitännäistä ei löytynyt"
 
-#: ../libjuicer/sj-metadata-cdtext.c:92
-#, c-format
-msgid "Cannot read CD"
-msgstr "CD-levyä ei voida lukea"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:114
-#: ../libjuicer/sj-metadata-musicbrainz.c:370
-#, c-format
-msgid "Cannot read CD: %s"
-msgstr "CD-levyä ei voida lukea: %s"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:121
-#: ../libjuicer/sj-metadata-musicbrainz.c:412 ../src/egg-play-preview.c:466
-msgid "Unknown Artist"
-msgstr "Tuntematon esittäjä"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:122
-#: ../libjuicer/sj-metadata-musicbrainz.c:423 ../src/egg-play-preview.c:461
-msgid "Unknown Title"
-msgstr "Tuntematon levy"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:128
-#, c-format
-msgid "Track %d"
-msgstr "Kappale %d"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:267
-#: ../libjuicer/sj-metadata-musicbrainz.c:274
-#: ../libjuicer/sj-metadata-musicbrainz.c:288
-#, c-format
-msgid "This CD could not be queried: %s\n"
-msgstr "Levyn tietoja ei voitu noutaa: %s\n"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:364
+#: ../libjuicer/sj-metadata.c:187
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Laite '%s' ei sisällä levyä"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:367
+#: ../libjuicer/sj-metadata.c:190
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "Laitetta \"%s\" ei voitu avata. Tarkista laitteen käyttöoikeudet."
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:410
-msgid "Various"
-msgstr "Useita"
+#: ../libjuicer/sj-metadata.c:193 ../libjuicer/sj-metadata.c:205
+#, c-format
+msgid "Cannot read CD: %s"
+msgstr "CD-levyä ei voi lukea: %s"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:465
-msgid "Incomplete metadata for this CD"
-msgstr "CD:n metatiedot eivät ovat puutteellisia"
+#: ../libjuicer/sj-metadata-cdtext.c:81
+#, c-format
+msgid "Cannot read CD"
+msgstr "CD-levyä ei voi lukea"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:496
-msgid "[Untitled]"
-msgstr "[Nimeämätön]"
+#: ../libjuicer/sj-metadata-cdtext.c:96 ../libjuicer/sj-metadata-cdtext.c:117
+#: ../libjuicer/sj-metadata-gvfs.c:110 ../libjuicer/sj-metadata-gvfs.c:133
+#: ../libjuicer/sj-metadata-musicbrainz.c:328 ../src/egg-play-preview.c:466
+msgid "Unknown Artist"
+msgstr "Tuntematon esittäjä"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:576
+#: ../libjuicer/sj-metadata-cdtext.c:97 ../libjuicer/sj-metadata-gvfs.c:106
+#: ../libjuicer/sj-metadata-musicbrainz.c:344 ../src/egg-play-preview.c:461
+msgid "Unknown Title"
+msgstr "Tuntematon levy"
+
+#: ../libjuicer/sj-metadata-cdtext.c:116 ../libjuicer/sj-metadata-gvfs.c:130
+#, c-format
+msgid "Track %d"
+msgstr "Kappale %d"
+
+#: ../libjuicer/sj-metadata-getter.c:245
 #, c-format
 msgid "Could not create CD lookup thread"
 msgstr "CD-hakusäiettä ei voitu luoda"
+
+#: ../libjuicer/sj-metadata-gvfs.c:86
+#, c-format
+msgid "Cannot access CD"
+msgstr "CD-levyä ei voitu avata"
+
+#: ../libjuicer/sj-metadata-gvfs.c:147
+#, c-format
+msgid "Cannot access CD: %s"
+msgstr "CD-levyä ei voi avata: %s"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:210
+#: ../libjuicer/sj-metadata-musicbrainz.c:217
+#: ../libjuicer/sj-metadata-musicbrainz.c:231
+#, c-format
+msgid "This CD could not be queried: %s\n"
+msgstr "Levyn tietoja ei voitu noutaa: %s\n"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:326
+msgid "Various"
+msgstr "Useita"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:369
+msgid "Incomplete metadata for this CD"
+msgstr "CD:n metatiedot eivät ovat puutteellisia"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:399
+msgid "[Untitled]"
+msgstr "[Nimeämätön]"
 
 #: ../src/egg-play-preview.c:165
 msgid "URI"
@@ -433,7 +443,7 @@ msgstr "URI"
 msgid "The URI of the audio file"
 msgstr "Äänitiedoston URI"
 
-#: ../src/egg-play-preview.c:175 ../src/sj-main.c:630 ../src/sj-main.c:1755
+#: ../src/egg-play-preview.c:175 ../src/sj-main.c:625 ../src/sj-main.c:1747
 msgid "Title"
 msgstr "Nimi"
 
@@ -441,7 +451,7 @@ msgstr "Nimi"
 msgid "The title of the current stream."
 msgstr "Nyt soivan kappaleen nimi."
 
-#: ../src/egg-play-preview.c:185 ../src/sj-main.c:636 ../src/sj-main.c:1764
+#: ../src/egg-play-preview.c:185 ../src/sj-main.c:631 ../src/sj-main.c:1756
 msgid "Artist"
 msgstr "Esittäjä"
 
@@ -465,7 +475,7 @@ msgstr "Sijainti"
 msgid "The position in the current stream in seconds."
 msgstr "Nyt soivan soittosijainti sekunneissa."
 
-#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1775
+#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1767
 msgid "Duration"
 msgstr "Kesto"
 
@@ -532,7 +542,7 @@ msgstr "Ääni-CD:n kopioitsin"
 msgid "translator-credits"
 msgstr ""
 "Timo Jyrinki, 2008.\n"
-"Ilkka Tuohela, 2004-2008.\n"
+"Ilkka Tuohela, 2004-2009.\n"
 "Tommi Vainikainen, 2004-2006, 2008.\n"
 "\n"
 "http://gnome.fi/"
@@ -595,7 +605,7 @@ msgid "Estimated time left: unknown"
 msgstr "Jäljellä oleva aika: ei tiedossa"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:682
+#: ../src/sj-extracting.c:679
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -606,11 +616,11 @@ msgstr ""
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:784
+#: ../src/sj-extracting.c:781
 msgid "Stop"
 msgstr "Lopeta"
 
-#: ../src/sj-extracting.c:813 ../src/sj-extracting.c:819
+#: ../src/sj-extracting.c:810 ../src/sj-extracting.c:816
 msgid "Extracting audio from CD"
 msgstr "Kopioidaan musiikkia CD-levyltä"
 
@@ -683,50 +693,50 @@ msgstr "Puhuttu teksti"
 msgid "Error while saving custom genre: %s"
 msgstr "Virhe tallennettaessa omaa tyyliä: %s"
 
-#: ../src/sj-main.c:122
+#: ../src/sj-main.c:117
 msgid "E_xtract"
 msgstr "_Kopioi"
 
-#: ../src/sj-main.c:188
+#: ../src/sj-main.c:183
 msgid "Could not start Sound Juicer"
 msgstr "Musiikkimaijaa ei voitu käynnistää"
 
-#: ../src/sj-main.c:189 ../src/sj-main.c:818 ../src/sj-main.c:929
-#: ../src/sj-main.c:1035 ../src/sj-main.c:1246 ../src/sj-main.c:1560
+#: ../src/sj-main.c:184 ../src/sj-main.c:813 ../src/sj-main.c:924
+#: ../src/sj-main.c:1030 ../src/sj-main.c:1241 ../src/sj-main.c:1554
 msgid "Reason"
 msgstr "Syy"
 
-#: ../src/sj-main.c:191
+#: ../src/sj-main.c:186
 msgid "Please consult the documentation for assistance."
 msgstr "Katso ohjeista neuvoja."
 
-#: ../src/sj-main.c:234
+#: ../src/sj-main.c:229
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Olet juuri nyt kopioimassa CD:tä. Haluatko lopettaa nyt vaiko jatkaa?"
 
-#: ../src/sj-main.c:294 ../src/sj-main.c:552
+#: ../src/sj-main.c:289 ../src/sj-main.c:547
 msgid "(unknown)"
 msgstr "(tuntematon)"
 
-#: ../src/sj-main.c:422
-msgid "_Submit Album"
-msgstr "_Lähetä levyn tiedot"
+#: ../src/sj-main.c:417
+msgid "S_ubmit Album"
+msgstr "_Lähetä levytiedot"
 
 #. Translators: title, artist
-#: ../src/sj-main.c:429
+#: ../src/sj-main.c:424
 #, c-format
 msgid "Could not find %s by %s on MusicBrainz."
 msgstr "Esittäjän %2$s levyä %1$s ei löytynyt MusicBrainzista."
 
-#: ../src/sj-main.c:434
+#: ../src/sj-main.c:429
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr "Voit parantaa MusicBrainz-tietokantaa lisäämällä tämän levyn."
 
-#: ../src/sj-main.c:816 ../src/sj-main.c:927 ../src/sj-main.c:1033
+#: ../src/sj-main.c:811 ../src/sj-main.c:922 ../src/sj-main.c:1028
 msgid "Could not read the CD"
 msgstr "CD:tä ei voitu lukea"
 
-#: ../src/sj-main.c:817 ../src/sj-main.c:928
+#: ../src/sj-main.c:812 ../src/sj-main.c:923
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Musiikkimaija ei voinut lukea kappaleluetteloa tältä CD:ltä."
 
@@ -735,52 +745,52 @@ msgstr "Musiikkimaija ei voinut lukea kappaleluetteloa tältä CD:ltä."
 msgid "Retrieving track listing...please wait."
 msgstr "Noudetaan kappaleluetteloa...odota."
 
-#: ../src/sj-main.c:994
+#: ../src/sj-main.c:989
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Musiikkimaija ei voinut käyttää CD-ROM-laitetta \"%s\""
 
-#: ../src/sj-main.c:1001
+#: ../src/sj-main.c:996
 msgid "HAL daemon may not be running."
 msgstr "HAL-prosessi ei ole ehkä käynnissä."
 
-#: ../src/sj-main.c:1026
+#: ../src/sj-main.c:1021
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Musiikkimaija ei voinut käsitellä CD-ROM-laitetta \"%s\""
 
-#: ../src/sj-main.c:1124
+#: ../src/sj-main.c:1119
 msgid "No CD-ROM drives found"
 msgstr "CD-ROM-asemia ei löytynyt"
 
-#: ../src/sj-main.c:1125
+#: ../src/sj-main.c:1120
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Musiikkimaija ei löytänyt yhtään luettavissa olevaa CD-ROM-asemaa."
 
-#: ../src/sj-main.c:1156
+#: ../src/sj-main.c:1151
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr ""
 "Tällä hetkellä valittua ääniprofiilia ei ole saatavilla asennuksessasi."
 
-#: ../src/sj-main.c:1158
+#: ../src/sj-main.c:1153
 msgid "_Change Profile"
 msgstr "_Vaihda profiilia"
 
-#: ../src/sj-main.c:1244
+#: ../src/sj-main.c:1239
 msgid "Could not open URL"
 msgstr "URLia ei voitu avata"
 
-#: ../src/sj-main.c:1245
+#: ../src/sj-main.c:1240
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Musiikkimaija ei voinut avata lähetys-URLia"
 
-#: ../src/sj-main.c:1354
+#: ../src/sj-main.c:1349
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Tuntematonta saraketta %d muokattiin"
 
-#: ../src/sj-main.c:1462 ../src/sj-prefs.c:105
+#: ../src/sj-main.c:1456 ../src/sj-prefs.c:104
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -789,48 +799,48 @@ msgstr ""
 "Musiikkimaijan ohjetta ei voitu näyttää\n"
 "%s"
 
-#: ../src/sj-main.c:1558
+#: ../src/sj-main.c:1552
 msgid "Could not duplicate disc"
 msgstr "Levyä ei voitu kopioida"
 
-#: ../src/sj-main.c:1559
+#: ../src/sj-main.c:1553
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Musiikkimaija ei voinut kopioida levyä"
 
-#: ../src/sj-main.c:1588
+#: ../src/sj-main.c:1581
 msgid "Start extracting immediately"
 msgstr "Aloita kopiointi heti"
 
-#: ../src/sj-main.c:1589
+#: ../src/sj-main.c:1582
 msgid "Start playing immediately"
 msgstr "Aloita soittaminen heti"
 
-#: ../src/sj-main.c:1590
+#: ../src/sj-main.c:1583
 msgid "What CD device to read"
 msgstr "Miltä CD-asemalta luetaan"
 
-#: ../src/sj-main.c:1590
+#: ../src/sj-main.c:1583
 msgid "DEVICE"
 msgstr "LAITE"
 
-#: ../src/sj-main.c:1591
+#: ../src/sj-main.c:1584
 msgid "URI to the CD device to read"
 msgstr "URI CD-laitteeseen jolta luetaan"
 
-#: ../src/sj-main.c:1601
+#: ../src/sj-main.c:1594
 msgid "- Extract music from your CDs"
 msgstr "- Kopioi musiikkia CD-levyiltä"
 
-#: ../src/sj-main.c:1640
+#: ../src/sj-main.c:1632
 msgid "Could not create GConf client.\n"
 msgstr "GConf-asiakasta ei voitu luoda.\n"
 
-#: ../src/sj-main.c:1672
+#: ../src/sj-main.c:1664
 #, c-format
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Musiikkimaijan käyttöliittymätiedostoa ei voitu lukea."
 
-#: ../src/sj-main.c:1740
+#: ../src/sj-main.c:1732
 msgid "Track"
 msgstr "Kappale"
 
@@ -874,427 +884,72 @@ msgstr "Ääniulostulon luonti epäonnistui"
 msgid "Seeking to %s"
 msgstr "Kelataan kohtaan %s"
 
-#: ../src/sj-prefs.c:54
+#: ../src/sj-prefs.c:53
 msgid "Album Artist, Album Title"
 msgstr "Levyn esittäjä, Levyn nimi"
 
-#: ../src/sj-prefs.c:55
+#: ../src/sj-prefs.c:54
 msgid "Album Artist (sortable), Album Title"
 msgstr "Levyn esittäjä (järjestettävissä), Levyn nimi"
 
-#: ../src/sj-prefs.c:56
+#: ../src/sj-prefs.c:55
 msgid "Track Artist, Album Title"
 msgstr "Kappaleen esittäjä, Levyn nimi"
 
-#: ../src/sj-prefs.c:57
+#: ../src/sj-prefs.c:56
 msgid "Track Artist (sortable), Album Title"
 msgstr "Kappaleen esittäjä (järjestettävissä), Levyn nimi"
 
-#: ../src/sj-prefs.c:58
+#: ../src/sj-prefs.c:57
 msgid "Album Title"
 msgstr "Levyn nimi"
 
-#: ../src/sj-prefs.c:59
+#: ../src/sj-prefs.c:58
 msgid "Album Artist"
 msgstr "Levyn esittäjä"
 
-#: ../src/sj-prefs.c:60
+#: ../src/sj-prefs.c:59
 msgid "Album Artist (sortable)"
 msgstr "Levyn esittäjä (järjestettävissä)"
 
-#: ../src/sj-prefs.c:61
+#: ../src/sj-prefs.c:60
 msgid "Album Artist - Album Title"
 msgstr "Levyn esittäjä - Levyn nimi"
 
-#: ../src/sj-prefs.c:62
+#: ../src/sj-prefs.c:61
 msgid "Album Artist (sortable) - Album Title"
 msgstr "Levyn esittäjä (järjestettävissä)- Levyn nimi"
 
-#: ../src/sj-prefs.c:63
+#: ../src/sj-prefs.c:62
 msgid "[none]"
 msgstr "[ei mitään]"
 
-#: ../src/sj-prefs.c:68
+#: ../src/sj-prefs.c:67
 msgid "Number - Title"
 msgstr "Numero - Nimi"
 
-#: ../src/sj-prefs.c:69
+#: ../src/sj-prefs.c:68
 msgid "Track Title"
 msgstr "Kappaleen nimi"
 
-#: ../src/sj-prefs.c:70
+#: ../src/sj-prefs.c:69
 msgid "Track Artist - Track Title"
 msgstr "Kappaleen esittäjä - Kappaleen nimi"
 
-#: ../src/sj-prefs.c:71
+#: ../src/sj-prefs.c:70
 msgid "Track Artist (sortable) - Track Title"
 msgstr "Kappaleen esittäjä (järjestettävissä) - Kappaleen nimi"
 
-#: ../src/sj-prefs.c:72
+#: ../src/sj-prefs.c:71
 msgid "Number. Track Artist - Track Title"
 msgstr "Numero. Kappaleen esittäjä - Kappaleen nimi"
 
 #. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
-#: ../src/sj-prefs.c:74
+#: ../src/sj-prefs.c:73
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Numero-Kappaleen esittäjä-Kappaleen nimi (pienaakkosin)"
 
-#: ../src/sj-prefs.c:271
+#: ../src/sj-prefs.c:270
 msgid "Example Path"
 msgstr "Esimerkkipolku"
 
-#~ msgid "_Eject when finished"
-#~ msgstr "_Poista levy lopuksi"
-
-#~ msgid "Volume"
-#~ msgstr "Äänenvoimakkuus"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "Volume Down"
-#~ msgstr "Voimakkuus alas"
-
-#~ msgid "-"
-#~ msgstr "-"
-
-#~ msgid "Volume Up"
-#~ msgstr "Voimakkuus ylös"
-
-#~ msgid "Muted"
-#~ msgstr "Vaimennettu"
-
-#~ msgid "Full Volume"
-#~ msgstr "Täysi äänenvoimakkuus"
-
-#~ msgid "CD Extractor"
-#~ msgstr "CD-levyjen kopiointi"
-
-#~ msgid "Sound Juicer CD Extractor"
-#~ msgstr "Musiikkimaija - CD-levyjen kopiointi"
-
-#~ msgid "%s has been copied successfully."
-#~ msgstr "%s on kopioitu onnistuneesti."
-
-#~ msgid "_Eject"
-#~ msgstr "_Poista levy"
-
-#~ msgid "CD-TEXT metadata plugin failed to initialise."
-#~ msgstr "CD-TEXT-metatietojen liitänäisen alustus epäonnistui."
-
-#~ msgid "Cannot create MusicBrainz client"
-#~ msgstr "MusicBrainz-asiakasta ei voi luoda"
-
-#~ msgid ""
-#~ "MusicBrainz metadata object is not valid. This is bad, check your console "
-#~ "for errors."
-#~ msgstr ""
-#~ "MusicBrainz-metadata-objekti on virheellinen. Tämä ei näytä hyvältä, "
-#~ "tarkista päätteeltäsi virheet."
-
-#~ msgid "Could not get track start position"
-#~ msgstr "Kappaleen alkukohtaa ei löytynyt"
-
-#~ msgid "Help!"
-#~ msgstr "Help!"
-
-#~ msgid "The Beatles"
-#~ msgstr "The Beatles"
-
-#~ msgid "Beatles, The"
-#~ msgstr "Beatles, The"
-
-#~ msgid "Ticket To Ride"
-#~ msgstr "Ticket To Ride"
-
-#~ msgid "Album Artist's Sortable Name"
-#~ msgstr "Levyn esittäjän järjestettävissä oleva nimi"
-
-#~ msgid "Track Artist"
-#~ msgstr "Kappaleen esittäjä"
-
-#~ msgid "Track Artist's Sortable Name"
-#~ msgstr "Kappaleen esittäjän järjestettävissä oleva nimi"
-
-#~ msgid "<i>path_example_label</i>"
-#~ msgstr "<i>polun_esimerkkinimiö</i>"
-
-#~ msgid "label"
-#~ msgstr "nimiö"
-
-#~ msgid ""
-#~ "Paranoia mode, 3 settings: 0 (no paranoia), 4 (cdda2wav-style overlap "
-#~ "checking) and 255 (full paranoia)"
-#~ msgstr ""
-#~ "Paranoia-tapa, 3 vaihtoehtoa: 0 (ei vainoharhaisuutta), 4 (cdd2wav-"
-#~ "tyylinen limittäisyyden tarkistus) ja 255 (täysin vainoharhainen)"
-
-#~ msgid "Could not seek to track"
-#~ msgstr "Kappaleeseen ei voitu siirtyä"
-
-#~ msgid "This CD was not found.\n"
-#~ msgstr "Tätä CD:tä ei löytynyt.\n"
-
-#~ msgid "Sound Juicer CD Ripper"
-#~ msgstr "Musiikkimaija - CD-kopiointi"
-
-#~ msgid "<b>Album Progress</b>"
-#~ msgstr "<b>Levyn edistyminen</b>"
-
-#~ msgid "Progress"
-#~ msgstr "Edistyminen"
-
-#~ msgid "Extracting '%s'"
-#~ msgstr "Kopioidaan \"%s\""
-
-#~ msgid "%d:%02d (at %0.1fx)"
-#~ msgstr "%d:%02d (nopeudella %0.1fx)"
-
-#~ msgid "Unknown (at 0.0x)"
-#~ msgstr "Tuntematon (nopeudella 0.0x)"
-
-#~ msgid "_CD"
-#~ msgstr "_CD"
-
-#~ msgid "Classic Rock"
-#~ msgstr "Klassinen rock"
-
-#~ msgid "Grunge"
-#~ msgstr "Grunge"
-
-#~ msgid "Hip-Hop"
-#~ msgstr "Hip-hop"
-
-#~ msgid "Metal"
-#~ msgstr "Metalli"
-
-#~ msgid "New Age"
-#~ msgstr "New Age"
-
-#~ msgid "Oldies"
-#~ msgstr "Oldies"
-
-#~ msgid "Other"
-#~ msgstr "Muu"
-
-#~ msgid "R&B"
-#~ msgstr "R&B"
-
-#~ msgid "Techno"
-#~ msgstr "Tekno"
-
-#~ msgid "Industrial"
-#~ msgstr "Industrial"
-
-#~ msgid "Alternative"
-#~ msgstr "Alternative"
-
-#~ msgid "Ska"
-#~ msgstr "Ska"
-
-#~ msgid "Death Metal"
-#~ msgstr "Death metal"
-
-#~ msgid "Pranks"
-#~ msgstr "Pilailut"
-
-#~ msgid "Soundtrack"
-#~ msgstr "Soundtrack"
-
-#~ msgid "Euro-Techno"
-#~ msgstr "Eurotekno"
-
-#~ msgid "Trip-Hop"
-#~ msgstr "Trip-hop"
-
-#~ msgid "Vocal"
-#~ msgstr "Laulu"
-
-#~ msgid "Jazz+Funk"
-#~ msgstr "Jazz+funk"
-
-#~ msgid "Fusion"
-#~ msgstr "Fuusio"
-
-#~ msgid "Trance"
-#~ msgstr "Trance"
-
-#~ msgid "Instrumental"
-#~ msgstr "Instrumentaali"
-
-#~ msgid "Acid"
-#~ msgstr "Acid"
-
-#~ msgid "Game"
-#~ msgstr "Peli"
-
-#~ msgid "Sound Clip"
-#~ msgstr "Äänileike"
-
-#~ msgid "Gospel"
-#~ msgstr "Gospel"
-
-#~ msgid "Noise"
-#~ msgstr "Meteli"
-
-#~ msgid "AlternRock"
-#~ msgstr "Vaihtoehtorock"
-
-#~ msgid "Bass"
-#~ msgstr "Bass"
-
-#~ msgid "Punk"
-#~ msgstr "Punk"
-
-#~ msgid "Space"
-#~ msgstr "Space"
-
-#~ msgid "Meditative"
-#~ msgstr "Meditatiivinen"
-
-#~ msgid "Instrumental Pop"
-#~ msgstr "Instrumentaalipop"
-
-#~ msgid "Instrumental Rock"
-#~ msgstr "Instrumentaalirock"
-
-#~ msgid "Ethnic"
-#~ msgstr "Etninen"
-
-#~ msgid "Gothic"
-#~ msgstr "Gootti"
-
-#~ msgid "Darkwave"
-#~ msgstr "Darkwave"
-
-#~ msgid "Techno-Industrial"
-#~ msgstr "Tekno-industrial"
-
-#~ msgid "Eurodance"
-#~ msgstr "Eurotanssi"
-
-#~ msgid "Dream"
-#~ msgstr "Dream"
-
-#~ msgid "Southern Rock"
-#~ msgstr "Eteläinen rock"
-
-#~ msgid "Comedy"
-#~ msgstr "Komedia"
-
-#~ msgid "Cult"
-#~ msgstr "Cult"
-
-#~ msgid "Gangsta"
-#~ msgstr "Gangsta"
-
-#~ msgid "Top 40"
-#~ msgstr "Top 40"
-
-#~ msgid "Christian Rap"
-#~ msgstr "Kristillinen rap"
-
-#~ msgid "Pop/Funk"
-#~ msgstr "Pop/funk"
-
-#~ msgid "Jungle"
-#~ msgstr "Jungle"
-
-#~ msgid "Native American"
-#~ msgstr "Native American"
-
-#~ msgid "Cabaret"
-#~ msgstr "Kabaree"
-
-#~ msgid "New Wave"
-#~ msgstr "Uusi aalto"
-
-#~ msgid "Psychadelic"
-#~ msgstr "Psykedeelinen"
-
-#~ msgid "Rave"
-#~ msgstr "Rave"
-
-#~ msgid "Showtunes"
-#~ msgstr "Showmusiikki"
-
-#~ msgid "Trailer"
-#~ msgstr "Traileri"
-
-#~ msgid "Lo-Fi"
-#~ msgstr "Lo-Fi"
-
-#~ msgid "Tribal"
-#~ msgstr "Tribal"
-
-#~ msgid "Acid Punk"
-#~ msgstr "Acid punk"
-
-#~ msgid "Acid Jazz"
-#~ msgstr "Acid jazz"
-
-#~ msgid "Retro"
-#~ msgstr "Retro"
-
-#~ msgid "Musical"
-#~ msgstr "Musikaali"
-
-#~ msgid "Rock & Roll"
-#~ msgstr "Rock & roll"
-
-#~ msgid "Hard Rock"
-#~ msgstr "Hard rock"
-
-#~ msgid "[unknown genre]"
-#~ msgstr "[tuntematon tyyli]"
-
-#~ msgid "Could not eject the CD"
-#~ msgstr "CD-levyä ei voitu poistaa"
-
-#~ msgid "_Browse..."
-#~ msgstr "S_elaa..."
-
-#~ msgid "Select Output Location"
-#~ msgstr "Valitse kohdesijainti"
-
-#~ msgid "Unnamed CDROM"
-#~ msgstr "Nimetön CD-ROM"
-
-#~ msgid "Unnamed SCSI Drive (%s)"
-#~ msgstr "Nimetön SCSI-asema (%s)"
-
-#~ msgid "File image"
-#~ msgstr "Tiedostokuva"
-
-#~ msgid "<b>_Quality</b>"
-#~ msgstr "<b>_Laatu</b>"
-
-#~ msgid "<i>Coming soon!</i>"
-#~ msgstr "<i>Tulossa pian!</i>"
-
-#~ msgid "FLAC"
-#~ msgstr "FLAC"
-
-#~ msgid "MP3"
-#~ msgstr "MP3"
-
-#~ msgid "Ogg Vorbis"
-#~ msgstr "Ogg Vorbis"
-
-#~ msgid "Raw audio"
-#~ msgstr "Raaka ääni"
-
-#~ msgid "Wave"
-#~ msgstr "WAV"
-
-#~ msgid "Encoding format"
-#~ msgstr "Pakkausmuoto"
-
-#~ msgid "Cannot find any suitable encoders"
-#~ msgstr "Yhtään sopivaa pakkainta ei löytynyt"
-
-#~ msgid "_Change the encoder"
-#~ msgstr "_Vaihda pakkainta"
-
-#~ msgid "Select the drive"
-#~ msgstr "Valitse asema"
