@@ -27,8 +27,7 @@
 #include <glade/glade-xml.h>
 #include <gconf/gconf-client.h>
 #include <profiles/gnome-media-profiles.h>
-#include <nautilus-burn-drive.h>
-#include <nautilus-burn-drive-selection.h>
+#include <brasero/brasero-drive-selection.h>
 
 #include "sj-util.h"
 #include "gconf-bridge.h"
@@ -321,6 +320,36 @@ static void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
 }
 
 /**
+ * Default device changed (either GConf key or the widget)
+ */
+static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+{
+  g_return_if_fail (strcmp (entry->key, GCONF_DEVICE) == 0);
+
+  if (entry->value == NULL)
+    return;
+
+  if (entry->value->type == GCONF_VALUE_STRING) {
+    BraseroDrive *drive;
+    BraseroMediumMonitor *monitor;
+
+    monitor = brasero_medium_monitor_get_default ();
+    drive = brasero_medium_monitor_get_drive (monitor, gconf_value_get_string (entry->value));
+    brasero_drive_selection_set_active (BRASERO_DRIVE_SELECTION (cd_option), drive);
+    g_object_unref (drive);
+    g_object_unref (monitor);
+  }
+}
+
+static void prefs_drive_changed (BraseroDriveSelection *selection, BraseroDrive *drive, gpointer user_data)
+{
+  if (drive)
+    gconf_client_set_string (gconf_client, GCONF_DEVICE, brasero_drive_get_device (drive), NULL);
+  else
+    gconf_client_set_string (gconf_client, GCONF_DEVICE, NULL, NULL);
+}
+
+/**
  * The GConf key for the strip characters option changed
  */
 static void strip_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
@@ -414,11 +443,13 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     populate_pattern_combo (GTK_COMBO_BOX (file_option), file_patterns);
     g_signal_connect (file_option, "changed", G_CALLBACK (prefs_file_option_changed), NULL);
 
+    g_signal_connect (cd_option, "drive-changed", G_CALLBACK (prefs_drive_changed), NULL);
+
     /* Connect to GConf to update the UI */
     gconf_bridge_bind_property (bridge, GCONF_EJECT, G_OBJECT (check_eject), "active");
     gconf_bridge_bind_property (bridge, GCONF_OPEN, G_OBJECT (check_open), "active");
     gconf_bridge_bind_property (bridge, GCONF_STRIP, G_OBJECT (check_strip), "active");
-    gconf_bridge_bind_property (bridge, GCONF_DEVICE, G_OBJECT (cd_option), "device");
+    gconf_client_notify_add (gconf_client, GCONF_DEVICE, device_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_BASEURI, baseuri_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_AUDIO_PROFILE, audio_profile_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_PATH_PATTERN, path_pattern_changed_cb, NULL, NULL, NULL);
@@ -431,6 +462,7 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     audio_profile_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_AUDIO_PROFILE, NULL, TRUE, NULL), NULL);
     file_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL), NULL);
     path_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL), NULL);
+    device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), NULL);
 
     g_signal_connect (GTK_DIALOG (prefs_dialog), "response", G_CALLBACK (on_response), NULL);
 

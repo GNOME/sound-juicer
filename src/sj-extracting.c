@@ -31,6 +31,8 @@
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 
+#include <brasero-volume.h>
+
 #include "sj-error.h"
 #include "sj-extracting.h"
 #include "sj-util.h"
@@ -201,7 +203,7 @@ cleanup (void)
   /* We're not extracting any more */
   extracting = FALSE;
 
-  nautilus_burn_drive_unlock (drive);
+  brasero_drive_unlock (drive);
 
   sj_uninhibit (cookie);
 
@@ -597,7 +599,7 @@ finished_actions (void)
 
   /* Maybe eject */
   if (eject_finished && successful_extract) {
-    nautilus_burn_drive_eject (drive);
+    brasero_drive_eject (drive, FALSE, NULL);
   }
   
   /* Maybe open the target directory */
@@ -807,7 +809,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   g_object_set (G_OBJECT (artist_renderer), "editable", FALSE, NULL);
   g_signal_handlers_block_by_func (track_listview, on_tracklist_row_activate, NULL);
 
-  if (! nautilus_burn_drive_lock (drive, _("Extracting audio from CD"), &reason)) {
+  if (! brasero_drive_lock (drive, _("Extracting audio from CD"), &reason)) {
     g_warning ("Could not lock drive: %s", reason);
     g_free (reason);
   }

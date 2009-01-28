@@ -32,7 +32,8 @@
 #include <gtk/gtk.h>
 #include <glade/glade.h>
 #include <gconf/gconf-client.h>
-#include <nautilus-burn.h>
+#include <brasero-medium-selection.h>
+#include <brasero-volume.h>
 #include <profiles/gnome-media-profiles.h>
 #include <gst/gst.h>
 
@@ -85,7 +86,7 @@ GtkWidget *current_message_area;
 
 const char *path_pattern, *file_pattern;
 GFile *base_uri;
-NautilusBurnDrive *drive = NULL;
+BraseroDrive *drive = NULL;
 gboolean strip_chars;
 gboolean eject_finished;
 gboolean open_finished;
@@ -214,7 +215,7 @@ void on_eject_activate (GtkMenuItem *item, gpointer user_data)
   /* first make sure we're not playing */
   stop_playback ();
 
-  nautilus_burn_drive_eject (drive);
+  brasero_drive_eject (drive, FALSE, NULL);
 }
 
 gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data)
@@ -859,19 +860,21 @@ metadata_cb (SjMetadataGetter *m, GList *albums, GError *error)
 }
 
 static gboolean
-is_audio_cd (NautilusBurnDrive *drive)
+is_audio_cd (BraseroDrive *drive)
 {
-  NautilusBurnMediaType type;
-  gboolean audio;
-  if (drive == NULL) return FALSE;
-  type = nautilus_burn_drive_get_media_type_full (drive, NULL, NULL, NULL, &audio);
-  if (type == NAUTILUS_BURN_MEDIA_TYPE_ERROR) {
+  BraseroMedium *medium;
+  BraseroMedia type;
+
+  medium = brasero_drive_get_medium (drive);
+  if (medium == NULL) return FALSE;
+  type = brasero_medium_get_status (medium);
+  if (type == BRASERO_MEDIUM_UNSUPPORTED) {
     g_warning ("Error getting media type\n");
   }
-  if (type == NAUTILUS_BURN_MEDIA_TYPE_BUSY) {
+  if (type == BRASERO_MEDIUM_BUSY) {
     g_warning ("BUSY getting media type, should re-check\n");
   }
-  return audio;
+  return BRASERO_MEDIUM_IS (type, BRASERO_MEDIUM_HAS_AUDIO|BRASERO_MEDIUM_CD);
 }
 
 /**
@@ -941,19 +944,21 @@ static void reread_cd (gboolean ignore_no_media)
 }
 
 static void
-media_added_cb (NautilusBurnDrive *drive,
-                gpointer           data)
+media_added_cb (BraseroMediumMonitor	*drive,
+		BraseroMedium		*medium,
+                gpointer           	 data)
 {
   if (extracting == TRUE) {
     /* FIXME: recover? */
   }
 
-  sj_debug (DEBUG_CD, "Media added to device %s\n", nautilus_burn_drive_get_device (drive));
+  sj_debug (DEBUG_CD, "Media added to device %s\n", brasero_drive_get_device (brasero_medium_get_drive (medium)));
   reread_cd (TRUE);
 }
 
 static void
-media_removed_cb (NautilusBurnDrive *drive,
+media_removed_cb (BraseroMediumMonitor	*drive,
+		  BraseroMedium		*medium,
                   gpointer           data)
 {
   if (extracting == TRUE) {
@@ -963,7 +968,7 @@ media_removed_cb (NautilusBurnDrive *drive,
   /* first make sure we're not playing */
   stop_playback ();
 
-  sj_debug (DEBUG_CD, "Media removed from device %s\n", nautilus_burn_drive_get_device (drive));
+  sj_debug (DEBUG_CD, "Media removed from device %s\n", brasero_drive_get_device (brasero_medium_get_drive (medium)));
   stop_ui_hack ();
   update_ui_for_album (NULL);
 }
@@ -971,18 +976,18 @@ media_removed_cb (NautilusBurnDrive *drive,
 static void
 set_drive_from_device (const char *device)
 {
-  NautilusBurnDriveMonitor *monitor;
+  BraseroMediumMonitor *monitor;
 
   if (drive) {
-    nautilus_burn_drive_unref (drive);
+    g_object_unref (drive);
     drive = NULL;
   }
 
   if (! device)
     return;
 
-  monitor = nautilus_burn_get_drive_monitor ();
-  drive = nautilus_burn_drive_monitor_get_drive_for_device (monitor, device);
+  monitor = brasero_medium_monitor_get_default ();
+  drive = brasero_medium_monitor_get_drive (monitor, device);
   if (! drive) {
     GtkWidget *dialog;
     char *message;
@@ -1001,8 +1006,8 @@ set_drive_from_device (const char *device)
     return;
   }
 
-  g_signal_connect (drive, "media-added", G_CALLBACK (media_added_cb), NULL);
-  g_signal_connect (drive, "media-removed", G_CALLBACK (media_removed_cb), NULL);
+  g_signal_connect (monitor, "medium-added", G_CALLBACK (media_added_cb), NULL);
+  g_signal_connect (monitor, "medium-removed", G_CALLBACK (media_removed_cb), NULL);
 }
 
 static void
@@ -1045,30 +1050,29 @@ set_device (const char* device, gboolean ignore_no_media)
   sj_extractor_set_device (extractor, device);
   
   if (drive != NULL) {
-    tray_opened = nautilus_burn_drive_door_is_open (drive);
+    tray_opened = brasero_drive_is_door_open (drive);
     if (tray_opened == FALSE) {
       reread_cd (ignore_no_media);
     }
-#if HAVE_NAUTILUS_BURN_DRIVE_CAN_EJECT
+
     // Enable/disable the eject options based on wether the drive supports ejection
-    gtk_widget_set_sensitive (eject, nautilus_burn_drive_can_eject (drive));
-#endif
+    gtk_widget_set_sensitive (eject, brasero_drive_can_eject (drive));
   }
 }
 
 gboolean cd_drive_exists (const char *device)
 {
-  NautilusBurnDriveMonitor *monitor;
-  NautilusBurnDrive *drive;
+  BraseroMediumMonitor *monitor;
+  BraseroDrive *drive;
   gboolean exists;
 
   if (device == NULL)
     return FALSE;
 
-  monitor = nautilus_burn_get_drive_monitor ();
-  drive = nautilus_burn_drive_monitor_get_drive_for_device (monitor, device);
+  monitor = brasero_medium_monitor_get_default ();
+  drive = brasero_medium_monitor_get_drive (monitor, device);
   exists = (drive != NULL);
-  nautilus_burn_drive_unref (drive);
+  g_object_unref (drive);
 
   return exists;
 }
@@ -1079,20 +1083,21 @@ prefs_get_default_device (void)
   static const char * default_device = NULL;
 
   if (default_device == NULL) {
-    NautilusBurnDriveMonitor *monitor;
-    NautilusBurnDrive *drive;
-    GList *drives;
+    BraseroMediumMonitor *monitor;
 
-    monitor = nautilus_burn_get_drive_monitor ();
-    drives = nautilus_burn_drive_monitor_get_drives (monitor);
+    BraseroDrive *drive;
+    GSList *drives;
+
+    monitor = brasero_medium_monitor_get_default ();
+    drives = brasero_medium_monitor_get_drives (monitor, BRASERO_DRIVE_TYPE_ALL);
     if (drives == NULL)
       return NULL;
 
     drive = drives->data;
-    default_device = nautilus_burn_drive_get_device (drive);
+    default_device = brasero_drive_get_device (drive);
 
-    g_list_foreach (drives, (GFunc)nautilus_burn_drive_unref, NULL);
-    g_list_free (drives);
+    g_slist_foreach (drives, (GFunc) g_object_unref, NULL);
+    g_slist_free (drives);
   }
   return default_device;
 }
@@ -1503,12 +1508,12 @@ on_message_received (const char *message, gpointer user_data)
 static gboolean
 is_cd_duplication_available()
 {
-  // First check the nautilus-cd-burner tool is available in the path
-  gchar* nautilus_cd_burner = g_find_program_in_path ("nautilus-cd-burner");
-  if (nautilus_cd_burner == NULL) {
+  // First check the brasero tool is available in the path
+  gchar* brasero_cd_burner = g_find_program_in_path ("brasero");
+  if (brasero_cd_burner == NULL) {
     return FALSE;
   } 
-  g_free(nautilus_cd_burner);
+  g_free(brasero_cd_burner);
 
   // Second check the cdrdao tool is available in the path
   gchar* cdrdao = g_find_program_in_path ("cdrdao");
@@ -1518,18 +1523,27 @@ is_cd_duplication_available()
   g_free(cdrdao);  
 
   // Now check that there is at least one cd recorder available
-  GList                    *drives;
-  NautilusBurnDriveMonitor *monitor;
+  BraseroMediumMonitor     *monitor;
+  GSList		   *drives;
+  GSList		   *iter;
 
-  monitor = nautilus_burn_get_drive_monitor ();
-  drives = nautilus_burn_drive_monitor_get_recorder_drives (monitor);
+  monitor = brasero_medium_monitor_get_default ();
+  drives = brasero_medium_monitor_get_drives (monitor, BRASERO_DRIVE_TYPE_ALL);
 
-  if (drives == NULL) {
-     return FALSE;
+  for (iter = drives; iter; iter = iter->next) {
+    BraseroDrive *drive;
+
+    drive = iter->data;
+    if (brasero_drive_can_write (drive)) {
+      g_slist_foreach (drives, (GFunc) g_object_unref, NULL);
+      g_slist_free (drives);
+      return TRUE;
+    }
   }
 
-  g_list_free (drives);
-  return TRUE;
+  g_slist_foreach (drives, (GFunc) g_object_unref, NULL);
+  g_slist_free (drives);
+  return FALSE;
 }
 
 /**
@@ -1540,8 +1554,8 @@ void on_duplicate_activate (GtkWidget *button, gpointer user_data)
   GError *error = NULL;
   const gchar* device;
 
-  device = nautilus_burn_drive_get_device (drive);
-  if (!g_spawn_command_line_async (g_strconcat ("nautilus-cd-burner --source-device=", device, NULL), &error)) {
+  device = brasero_drive_get_device (drive);
+  if (!g_spawn_command_line_async (g_strconcat ("brasero -c ", device, NULL), &error)) {
       GtkWidget *dialog;
 
       dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
@@ -1596,6 +1610,7 @@ int main (int argc, char **argv)
   g_option_context_set_translation_domain(ctx, GETTEXT_PACKAGE);
   g_option_context_add_group (ctx, gtk_get_option_group (FALSE));
   g_option_context_add_group (ctx, gst_init_get_option_group ());
+  g_option_context_add_group (ctx, brasero_media_get_option_group ());
   g_option_context_set_ignore_unknown_options (ctx, TRUE);
 
   g_option_context_parse (ctx, &argc, &argv, &error);
@@ -1611,8 +1626,6 @@ int main (int argc, char **argv)
 
   sj_stock_init ();
 
-  nautilus_burn_init ();
-
   gtk_window_set_default_icon_name ("sound-juicer");
   
   connection = bacon_message_connection_new ("sound-juicer");
@@ -1623,6 +1636,8 @@ int main (int argc, char **argv)
   } else {
     bacon_message_connection_set_callback (connection, on_message_received, NULL);
   }
+
+  brasero_media_library_start ();
 
   metadata = sj_metadata_getter_new ();
   g_signal_connect (metadata, "metadata", G_CALLBACK (metadata_cb), NULL);
@@ -1825,7 +1840,7 @@ int main (int argc, char **argv)
     return 0;
   }
 
-  // Set whether duplication of a cd is available using the nautilus-cd-burner tool
+  // Set whether duplication of a cd is available using the brasero tool
   gtk_widget_set_sensitive (duplicate, FALSE);
   duplication_enabled = is_cd_duplication_available();
 
@@ -1833,11 +1848,11 @@ int main (int argc, char **argv)
   gtk_widget_show (main_window);
   gtk_main ();
 
-  nautilus_burn_shutdown ();
-
   g_object_unref (base_uri);
   g_object_unref (metadata);
   g_object_unref (extractor);
   g_object_unref (gconf_client);
+  brasero_media_library_stop ();
+
   return 0;
 }

@@ -1,3 +1,24 @@
+2009-01-28  Luis Medinas  <lmedinas@gnome.org>
+
+	* configure.in:
+	* data/sound-juicer.glade:
+	* libjuicer/sj-metadata.c (sj_metadata_helper_check_media):
+	* src/sj-extracting.c (cleanup), (finished_actions),
+	(on_extract_activate):
+	* src/sj-main.c (on_eject_activate), (is_audio_cd),
+	(media_added_cb), (media_removed_cb), (set_drive_from_device),
+	(set_device), (cd_drive_exists), (prefs_get_default_device),
+	(is_cd_duplication_available), (on_duplicate_activate), (main):
+	* src/sj-play.c (setup):
+	* src/sj-prefs.c (device_changed_cb), (prefs_drive_changed),
+	(on_edit_preferences_cb):
+	* src/sound-juicer.h:
+
+	Use libbrasero-media instead of nautilus-cd-burner for burning,
+	Brasero will replace n-c-b for GNOME 2.26.
+	Patch from Philippe Rouquier <bonfire-app@wanadoo.fr>
+	Closes bgo #567286.
+
 2009-01-23  Ross Burton  <ross@linux.intel.com>
 
 	* configure.in:

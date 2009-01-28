@@ -26,7 +26,7 @@
 
 #ifndef USE_TOTEM_PL_PARSER
 #include <unistd.h>
-#include <nautilus-burn.h>
+#include <brasero-medium-selection.h>
 #else
 #include <totem-disc.h>
 #endif /* USE_TOTEM_PL_PARSER */
@@ -164,22 +164,21 @@ gboolean
 sj_metadata_helper_check_media (const char *cdrom, GError **error)
 {
 #ifndef USE_TOTEM_PL_PARSER
-  NautilusBurnMediaType type;
-  NautilusBurnDriveMonitor *monitor;
-  NautilusBurnDrive *drive;
+  BraseroMediumMonitor *monitor;
+  BraseroMedium *medium;
+  BraseroDrive *drive;
 
-  if (! nautilus_burn_initialized ()) {
-    nautilus_burn_init ();
-  }
-  monitor = nautilus_burn_get_drive_monitor ();
-  drive = nautilus_burn_drive_monitor_get_drive_for_device (monitor, cdrom);
+
+  /* This initialize the library if it isn't done yet */
+  monitor = brasero_medium_monitor_get_default ();
+  drive = brasero_medium_monitor_get_drive (monitor, cdrom);
   if (drive == NULL) {
     return FALSE;
   }
-  type = nautilus_burn_drive_get_media_type (drive);
-  nautilus_burn_drive_unref (drive);
+  medium = brasero_drive_get_medium (drive);
+  g_object_unref (drive);
 
-  if (type == NAUTILUS_BURN_MEDIA_TYPE_ERROR) {
+  if (!medium || !BRASERO_MEDIUM_VALID (brasero_medium_get_status (medium))) {
     char *msg;
     SjError err;
 

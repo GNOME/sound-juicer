@@ -380,7 +380,7 @@ setup (GError **err)
                       NULL);
     }
     g_object_set (G_OBJECT (cdp),
-                  "device", nautilus_burn_drive_get_device (drive),
+                  "device", brasero_drive_get_device (drive),
                   NULL);
 
     queue = gst_element_factory_make ("queue", "queue"); g_assert (queue);

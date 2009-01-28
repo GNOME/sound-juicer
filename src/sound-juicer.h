@@ -28,7 +28,7 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <glib/gi18n.h>
-#include <nautilus-burn-drive.h>
+#include <brasero-medium-selection.h>
 #include <gconf/gconf-client.h>
 #include <glade/glade-xml.h>
 #include <gio/gio.h>
@@ -98,7 +98,7 @@ extern GtkListStore *track_store;
 /**
  * The device we are extracting from.
  */
-extern NautilusBurnDrive *drive;
+extern BraseroDrive *drive;
 
 /**
  * The root path to write files too
