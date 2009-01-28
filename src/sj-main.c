@@ -1608,17 +1608,16 @@ int main (int argc, char **argv)
   ctx = g_option_context_new (N_("- Extract music from your CDs"));
   g_option_context_add_main_entries (ctx, entries, GETTEXT_PACKAGE);
   g_option_context_set_translation_domain(ctx, GETTEXT_PACKAGE);
-  g_option_context_add_group (ctx, gtk_get_option_group (FALSE));
+  g_option_context_add_group (ctx, gtk_get_option_group (TRUE));
   g_option_context_add_group (ctx, gst_init_get_option_group ());
   g_option_context_add_group (ctx, brasero_media_get_option_group ());
   g_option_context_set_ignore_unknown_options (ctx, TRUE);
 
   g_option_context_parse (ctx, &argc, &argv, &error);
   if (error != NULL) {
-      g_error ("Error parsing options: %s", error->message);
+      g_printerr ("Error parsing options: %s", error->message);
+      exit (1);
   }
-
-  gtk_init (&argc, &argv);
 
   g_set_application_name (_("Sound Juicer"));
 
