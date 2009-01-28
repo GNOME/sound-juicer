@@ -27,7 +27,7 @@
 #include <glade/glade-xml.h>
 #include <gconf/gconf-client.h>
 #include <profiles/gnome-media-profiles.h>
-#include <brasero/brasero-drive-selection.h>
+#include <brasero-drive-selection.h>
 
 #include "sj-util.h"
 #include "gconf-bridge.h"
