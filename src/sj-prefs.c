@@ -63,7 +63,7 @@ static const FilePattern path_patterns[] = {
 };
 
 static const FilePattern file_patterns[] = {
-  {N_("Number - Title"), "%tN - %tt"},
+  {N_("Number - Title"), "%dn - %tt"},
   {N_("Track Title"), "%tt"},
   {N_("Track Artist - Track Title"), "%ta - %tt"},
   {N_("Track Artist (sortable) - Track Title"), "%ts - %tt"},
