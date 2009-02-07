@@ -578,7 +578,7 @@ sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, G
       gst_object_unref (tagger);
       break;
     case GST_ITERATOR_RESYNC:
-      // TODO?
+      /* TODO? */
       g_warning ("Got GST_ITERATOR_RESYNC, not sure what to do");
       gst_iterator_resync (iter);
       break;

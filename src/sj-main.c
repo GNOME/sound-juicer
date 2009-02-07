@@ -1055,7 +1055,7 @@ set_device (const char* device, gboolean ignore_no_media)
       reread_cd (ignore_no_media);
     }
 
-    // Enable/disable the eject options based on wether the drive supports ejection
+    /* Enable/disable the eject options based on wether the drive supports ejection */
     gtk_widget_set_sensitive (eject, brasero_drive_can_eject (drive));
   }
 }
@@ -1508,21 +1508,21 @@ on_message_received (const char *message, gpointer user_data)
 static gboolean
 is_cd_duplication_available()
 {
-  // First check the brasero tool is available in the path
+  /* First check the brasero tool is available in the path */
   gchar* brasero_cd_burner = g_find_program_in_path ("brasero");
   if (brasero_cd_burner == NULL) {
     return FALSE;
   } 
   g_free(brasero_cd_burner);
 
-  // Second check the cdrdao tool is available in the path
+  /* Second check the cdrdao tool is available in the path */
   gchar* cdrdao = g_find_program_in_path ("cdrdao");
   if (cdrdao == NULL) {
     return FALSE;
   } 
   g_free(cdrdao);  
 
-  // Now check that there is at least one cd recorder available
+  /* Now check that there is at least one cd recorder available */
   BraseroMediumMonitor     *monitor;
   GSList		   *drives;
   GSList		   *iter;
@@ -1839,7 +1839,7 @@ int main (int argc, char **argv)
     return 0;
   }
 
-  // Set whether duplication of a cd is available using the brasero tool
+  /* Set whether duplication of a cd is available using the brasero tool */
   gtk_widget_set_sensitive (duplicate, FALSE);
   duplication_enabled = is_cd_duplication_available();
 
