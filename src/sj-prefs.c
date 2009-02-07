@@ -67,9 +67,9 @@ static const FilePattern file_patterns[] = {
   {N_("Track Title"), "%tt"},
   {N_("Track Artist - Track Title"), "%ta - %tt"},
   {N_("Track Artist (sortable) - Track Title"), "%ts - %tt"},
-  {N_("Number. Track Artist - Track Title"), "%tN. %ta - %tt"},
+  {N_("Number. Track Artist - Track Title"), "%dN. %ta - %tt"},
   /* {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"}, */
-  {N_("Number-Track Artist-Track Title (lowercase)"), "%tN-%tA-%tT"},
+  {N_("Number-Track Artist-Track Title (lowercase)"), "%dN-%tA-%tT"},
   /* {N_("Number-Track Artist (sortable)-Track Title (lowercase)"), "%tN-%tS-%tT"}, */
   {NULL, NULL}
 };
