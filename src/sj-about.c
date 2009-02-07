@@ -22,7 +22,7 @@
 
 #include "sound-juicer.h"
 
-#include <gtk/gtkaboutdialog.h>
+#include <gtk/gtk.h>
 #include <string.h>
 #include "sj-about.h"
 

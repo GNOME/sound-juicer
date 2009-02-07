@@ -25,13 +25,7 @@
 #endif
 
 #include <gst/gst.h>
-#include <gtk/gtkwidget.h>
-#include <gtk/gtktreeview.h>
-#include <gtk/gtkbutton.h>
-#include <gtk/gtkstock.h>
-#include <gtk/gtkrange.h>
-#include <gtk/gtkstatusbar.h>
-#include <gtk/gtkmessagedialog.h>
+#include <gtk/gtk.h>
 
 #include "sound-juicer.h"
 #include "sj-play.h"

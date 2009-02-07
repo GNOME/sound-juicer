@@ -22,7 +22,7 @@
 #include <config.h>
 
 #include <glib/gi18n-lib.h>
-#include <gtk/gtkmessagedialog.h>
+#include <gtk/gtk.h>
 #include <string.h>
 
 #include "gconf-bridge.h"

@@ -23,7 +23,7 @@
 #ifndef SJ_PLAY_H
 #define SJ_PLAY_H
 
-#include <gtk/gtkwidget.h>
+#include <gtk/gtk.h>
 #include "sj-structures.h"
 
 void sj_play_init (void);

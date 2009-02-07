@@ -23,7 +23,7 @@
 #ifndef SJ_EXTRACTING_H
 #define SJ_EXTRACTING_H
 
-#include <gtk/gtkwidget.h>
+#include <gtk/gtk.h>
 #include "sj-structures.h"
 
 void on_extract_activate (GtkWidget *button, gpointer user_data);

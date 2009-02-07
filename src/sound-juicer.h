@@ -32,9 +32,7 @@
 #include <gconf/gconf-client.h>
 #include <glade/glade-xml.h>
 #include <gio/gio.h>
-#include <gtk/gtkwidget.h>
 #include <gtk/gtk.h>
-#include <gtk/gtkliststore.h>
 #include "sj-extractor.h"
 
 /**

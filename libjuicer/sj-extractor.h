@@ -23,7 +23,7 @@
 #ifndef SJ_EXTRACTOR_H
 #define SJ_EXTRACTOR_H
 
-#include <glib/gmacros.h>
+#include <glib.h>
 #include <glib-object.h>
 #include <gio/gio.h>
 #include <profiles/audio-profile.h>

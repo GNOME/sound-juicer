@@ -25,8 +25,7 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <string.h>
-#include <glib/gerror.h>
-#include <glib/gtypes.h>
+#include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
 #include <gst/gst.h>

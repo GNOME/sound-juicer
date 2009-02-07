@@ -27,7 +27,7 @@
 #include <string.h>
 #include <limits.h>
 
-#include <glib/glist.h>
+#include <glib.h>
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 

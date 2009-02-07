@@ -23,7 +23,7 @@
 #ifndef SJ_ABOUT_H
 #define SJ_ABOUT_H
 
-#include <gtk/gtkwindow.h>
+#include <gtk/gtk.h>
 
 void on_about_activate (void);
 

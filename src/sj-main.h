@@ -21,7 +21,7 @@
 #ifndef SJ_MAIN_H
 #define SJ_MAIN_H
 
-#include <gtk/gtkwidget.h>
+#include <gtk/gtk.h>
 #include "sj-structures.h"
 
 void sj_stock_init (void);
