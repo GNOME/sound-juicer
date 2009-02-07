@@ -892,12 +892,13 @@ sanitize_path (const char* str, const char* filesystem_type)
  * %tn -- track number (i.e 8)
  * %tN -- track number, zero padded (i.e 08)
  * %tt -- track title
+ * %tT -- track title (lowercase)
  * %ta -- track artist
  * %tA -- track artist (lowercase)
  * %ts -- track artist sortname
  * %tS -- track artist sortname (lowercase)
- * %dn -- disc number (i.e 6)
- * %dN -- disc number, zero padded (i.e 06)
+ * %dn -- disc and track number (i.e Disk 2 - 6, or 6)
+ * %dN -- disc number, zero padded (i.e d02t06, or 06)
  */
 char*
 filepath_parse_pattern (const char* pattern, const TrackDetails *track)
