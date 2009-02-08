@@ -18,10 +18,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-07 17:46+0200\n"
-"PO-Revision-Date: 2008-09-07 17:46+0200\n"
-"Last-Translator: Wouter Bolsterlee <wbolster@gnome.org>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
+"juicer&component=general\n"
+"POT-Creation-Date: 2009-01-05 11:44+0000\n"
+"PO-Revision-Date: 2009-02-08 11:53+0100\n"
+"Last-Translator: Vincent van Adrighem <adrighem@gnome.org>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -143,8 +144,8 @@ msgstr "Ga naar het volgende nummer"
 msgid "Skip to the previous track"
 msgstr "Ga naar het vorige nummer"
 
-#: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:142 ../src/sj-main.c:144
-#: ../src/sj-main.c:1613
+#: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:143 ../src/sj-main.c:145
+#: ../src/sj-main.c:1614
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -168,7 +169,7 @@ msgstr "Nummers"
 msgid "_Contents"
 msgstr "In_houd"
 
-#: ../data/sound-juicer.glade.h:28 ../src/sj-main.c:235
+#: ../data/sound-juicer.glade.h:28 ../src/sj-main.c:236
 msgid "_Continue"
 msgstr "_Doorgaan"
 
@@ -398,13 +399,46 @@ msgstr "De benodigde plugin voor cd-toegang is niet gevonden"
 msgid "The plugin necessary for file access was not found"
 msgstr "De benodigde plugin voor bestandstoegang is niet gevonden"
 
-#: ../libjuicer/sj-metadata.c:186
+#: ../libjuicer/sj-metadata-cdtext.c:92
+#, c-format
+msgid "Cannot read CD"
+msgstr "Kan cd niet lezen"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:114
+#: ../libjuicer/sj-metadata-musicbrainz.c:370
+#, c-format
+msgid "Cannot read CD: %s"
+msgstr "Kan cd niet lezen: %s"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:121
+#: ../libjuicer/sj-metadata-musicbrainz.c:412 ../src/egg-play-preview.c:466
+msgid "Unknown Artist"
+msgstr "Onbekende artiest"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:122
+#: ../libjuicer/sj-metadata-musicbrainz.c:423 ../src/egg-play-preview.c:461
+msgid "Unknown Title"
+msgstr "Onbekende titel"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:128
+#, c-format
+msgid "Track %d"
+msgstr "Nummer %d"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:267
+#: ../libjuicer/sj-metadata-musicbrainz.c:274
+#: ../libjuicer/sj-metadata-musicbrainz.c:288
+#, c-format
+msgid "This CD could not be queried: %s\n"
+msgstr "Kan deze cd niet opvragen: %s\n"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:364
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Apparaat ‘%s’ bevat geen media"
 
 # vrij vertaald
-#: ../libjuicer/sj-metadata.c:189
+#: ../libjuicer/sj-metadata-musicbrainz.c:367
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
@@ -412,54 +446,22 @@ msgstr ""
 "Apparaat ‘%s’ kan niet geopend worden. Controleer of u het apparaat wel mag "
 "openen."
 
-#: ../libjuicer/sj-metadata.c:192 ../libjuicer/sj-metadata.c:204
-#, c-format
-msgid "Cannot read CD: %s"
-msgstr "Kan cd niet lezen: %s"
-
-#: ../libjuicer/sj-metadata-cdtext.c:81
-#, c-format
-msgid "Cannot read CD"
-msgstr "Kan cd niet lezen"
-
-#: ../libjuicer/sj-metadata-cdtext.c:96 ../libjuicer/sj-metadata-cdtext.c:117
-#: ../libjuicer/sj-metadata-musicbrainz.c:331 ../src/egg-play-preview.c:466
-msgid "Unknown Artist"
-msgstr "Onbekende artiest"
-
-#: ../libjuicer/sj-metadata-cdtext.c:97
-#: ../libjuicer/sj-metadata-musicbrainz.c:347 ../src/egg-play-preview.c:461
-msgid "Unknown Title"
-msgstr "Onbekende titel"
-
-#: ../libjuicer/sj-metadata-cdtext.c:116
-#, c-format
-msgid "Track %d"
-msgstr "Nummer %d"
-
-#: ../libjuicer/sj-metadata-getter.c:245
-#, c-format
-msgid "Could not create CD lookup thread"
-msgstr "Kon de 'thread' voor het opzoeken van de cd niet aanmaken"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:213
-#: ../libjuicer/sj-metadata-musicbrainz.c:220
-#: ../libjuicer/sj-metadata-musicbrainz.c:234
-#, c-format
-msgid "This CD could not be queried: %s\n"
-msgstr "Kan deze cd niet opvragen: %s\n"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:329
+#: ../libjuicer/sj-metadata-musicbrainz.c:410
 msgid "Various"
 msgstr "Diversen"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:372
+#: ../libjuicer/sj-metadata-musicbrainz.c:465
 msgid "Incomplete metadata for this CD"
 msgstr "Onvolledige metadata voor deze cd"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:402
+#: ../libjuicer/sj-metadata-musicbrainz.c:496
 msgid "[Untitled]"
 msgstr "[Naamloos]"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:576
+#, c-format
+msgid "Could not create CD lookup thread"
+msgstr "Kon de 'thread' voor het opzoeken van de cd niet aanmaken"
 
 #: ../src/egg-play-preview.c:165
 msgid "URI"
@@ -471,7 +473,7 @@ msgstr "De URI van het audiobestand"
 
 # dit zijn de tabelkoppen in de 'track listing'
 # dit is de titel van het nummer
-#: ../src/egg-play-preview.c:175 ../src/sj-main.c:629 ../src/sj-main.c:1754
+#: ../src/egg-play-preview.c:175 ../src/sj-main.c:630 ../src/sj-main.c:1755
 msgid "Title"
 msgstr "Titel"
 
@@ -479,7 +481,7 @@ msgstr "Titel"
 msgid "The title of the current stream."
 msgstr "De titel van de huidige stroom."
 
-#: ../src/egg-play-preview.c:185 ../src/sj-main.c:635 ../src/sj-main.c:1763
+#: ../src/egg-play-preview.c:185 ../src/sj-main.c:636 ../src/sj-main.c:1764
 msgid "Artist"
 msgstr "Artiest"
 
@@ -503,7 +505,7 @@ msgstr "Positie"
 msgid "The position in the current stream in seconds."
 msgstr "De positie in de huidige stroom in seconden."
 
-#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1774
+#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1775
 msgid "Duration"
 msgstr "Lengte"
 
@@ -731,107 +733,107 @@ msgid "Error while saving custom genre: %s"
 msgstr "Fout bij opslaan van aangepast genre: %s"
 
 # rippen/kopieren/extraheren/uitpakken/uitpersen/uitnemen/afhalen
-#: ../src/sj-main.c:121
+#: ../src/sj-main.c:122
 msgid "E_xtract"
 msgstr "_Kopiëren"
 
-#: ../src/sj-main.c:187
+#: ../src/sj-main.c:188
 msgid "Could not start Sound Juicer"
 msgstr "Kon Sound Juicer niet starten"
 
-#: ../src/sj-main.c:188 ../src/sj-main.c:817 ../src/sj-main.c:928
-#: ../src/sj-main.c:1034 ../src/sj-main.c:1245 ../src/sj-main.c:1559
+#: ../src/sj-main.c:189 ../src/sj-main.c:818 ../src/sj-main.c:929
+#: ../src/sj-main.c:1035 ../src/sj-main.c:1246 ../src/sj-main.c:1560
 msgid "Reason"
 msgstr "Reden"
 
-#: ../src/sj-main.c:190
+#: ../src/sj-main.c:191
 msgid "Please consult the documentation for assistance."
 msgstr "Raadpleeg de documentatie voor hulp."
 
-#: ../src/sj-main.c:233
+#: ../src/sj-main.c:234
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "U bent een cd aan het kopiëren. Wilt u nu afsluiten of doorgaan?"
 
-#: ../src/sj-main.c:293 ../src/sj-main.c:551
+#: ../src/sj-main.c:294 ../src/sj-main.c:552
 msgid "(unknown)"
 msgstr "(onbekend)"
 
-#: ../src/sj-main.c:421
-msgid "_Submit Album"
+#: ../src/sj-main.c:422
+msgid "S_ubmit Album"
 msgstr "Album op_sturen"
 
 #. Translators: title, artist
-#: ../src/sj-main.c:428
+#: ../src/sj-main.c:429
 #, c-format
 msgid "Could not find %s by %s on MusicBrainz."
 msgstr "Kon %s door %s niet vinden bij MusicBrainz."
 
-#: ../src/sj-main.c:433
+#: ../src/sj-main.c:434
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr ""
 "U kunt de MusicBrainz-gegevensbank verbeteren door dit album toe te voegen."
 
-#: ../src/sj-main.c:815 ../src/sj-main.c:926 ../src/sj-main.c:1032
+#: ../src/sj-main.c:816 ../src/sj-main.c:927 ../src/sj-main.c:1033
 msgid "Could not read the CD"
 msgstr "Kon cd niet lezen"
 
-#: ../src/sj-main.c:816 ../src/sj-main.c:927
+#: ../src/sj-main.c:817 ../src/sj-main.c:928
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer kon de inhoudsopgave van deze cd niet lezen."
 
 #. Set statusbar message
-#: ../src/sj-main.c:903
+#: ../src/sj-main.c:899
 msgid "Retrieving track listing...please wait."
 msgstr "Inhoudsopgave ophalen… een ogenblik geduld."
 
-#: ../src/sj-main.c:993
+#: ../src/sj-main.c:994
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Sound Juicer kon het cdrom-apparaat ‘%s’ niet gebruiken"
 
 # voorziening/systeemdienst
-#: ../src/sj-main.c:1000
+#: ../src/sj-main.c:1001
 msgid "HAL daemon may not be running."
 msgstr "De HAL-systeemdienst is mogelijk niet actief."
 
-#: ../src/sj-main.c:1025
+#: ../src/sj-main.c:1026
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer kon geen toegang krijgen tot het cd-rom apparaat '%s'"
 
-#: ../src/sj-main.c:1123
+#: ../src/sj-main.c:1124
 msgid "No CD-ROM drives found"
 msgstr "Geen cd-romspelers gevonden"
 
-#: ../src/sj-main.c:1124
+#: ../src/sj-main.c:1125
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer kon geen cd-rom-spelers vinden om te lezen."
 
 # beter?: niet op uw systeem geinstalleerd?
-#: ../src/sj-main.c:1155
+#: ../src/sj-main.c:1156
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Het gevraagde audioprofiel is niet beschikbaar op uw systeem."
 
-#: ../src/sj-main.c:1157
+#: ../src/sj-main.c:1158
 msgid "_Change Profile"
 msgstr "Profiel _wijzigen"
 
-#: ../src/sj-main.c:1243
+#: ../src/sj-main.c:1244
 msgid "Could not open URL"
 msgstr "Kon URL niet openen"
 
 # submission?
-#: ../src/sj-main.c:1244
+#: ../src/sj-main.c:1245
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer kon deze URL niet openen"
 
-#: ../src/sj-main.c:1353
+#: ../src/sj-main.c:1354
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Onbekende kolom %d is bewerkt"
 
-#: ../src/sj-main.c:1461 ../src/sj-prefs.c:105
+#: ../src/sj-main.c:1462 ../src/sj-prefs.c:105
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -840,49 +842,49 @@ msgstr ""
 "Kon de hulp voor Sound Juicer niet weergeven\n"
 "%s"
 
-#: ../src/sj-main.c:1557
+#: ../src/sj-main.c:1558
 msgid "Could not duplicate disc"
 msgstr "Kon cd niet dupliceren"
 
 # submission?
-#: ../src/sj-main.c:1558
+#: ../src/sj-main.c:1559
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Sound Juicer kon deze schijf niet dupliceren"
 
-#: ../src/sj-main.c:1587
+#: ../src/sj-main.c:1588
 msgid "Start extracting immediately"
 msgstr "Meteen beginnen met kopiëren"
 
-#: ../src/sj-main.c:1588
+#: ../src/sj-main.c:1589
 msgid "Start playing immediately"
 msgstr "Meteen beginnen met afspelen"
 
-#: ../src/sj-main.c:1589
+#: ../src/sj-main.c:1590
 msgid "What CD device to read"
 msgstr "Welk cd-apparaat te gebruiken"
 
-#: ../src/sj-main.c:1589
+#: ../src/sj-main.c:1590
 msgid "DEVICE"
 msgstr "APPARAAT"
 
-#: ../src/sj-main.c:1590
+#: ../src/sj-main.c:1591
 msgid "URI to the CD device to read"
 msgstr "URI naar het te gebruiken cd-apparaat"
 
-#: ../src/sj-main.c:1600
+#: ../src/sj-main.c:1601
 msgid "- Extract music from your CDs"
 msgstr "— Muziek van uw cd's kopiëren"
 
-#: ../src/sj-main.c:1639
+#: ../src/sj-main.c:1640
 msgid "Could not create GConf client.\n"
 msgstr "Kon geen GConf-client aanmaken.\n"
 
-#: ../src/sj-main.c:1671
+#: ../src/sj-main.c:1672
 #, c-format
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Kan het gebruikersinterfacebestand voor Sound Juicer niet lezen."
 
-#: ../src/sj-main.c:1739
+#: ../src/sj-main.c:1740
 msgid "Track"
 msgstr "Nummer"
 
