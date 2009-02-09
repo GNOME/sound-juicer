@@ -1443,8 +1443,7 @@ void on_disc_number_edit_changed(GtkEditable *widget, gpointer user_data) {
     g_return_if_fail (current_album != NULL);
     discstr = gtk_entry_get_text (GTK_ENTRY (widget));
     disc_number = atoi(discstr);
-    if (disc_number > 0)
-        current_album->disc_number = disc_number;
+    current_album->disc_number = disc_number;
 }
 
 void on_contents_activate(GtkWidget *button, gpointer user_data) {
