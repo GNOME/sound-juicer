@@ -1604,6 +1604,8 @@ int main (int argc, char **argv)
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
 
+  g_set_application_name (_("Sound Juicer"));
+
   ctx = g_option_context_new (N_("- Extract music from your CDs"));
   g_option_context_add_main_entries (ctx, entries, GETTEXT_PACKAGE);
   g_option_context_set_translation_domain(ctx, GETTEXT_PACKAGE);
@@ -1617,15 +1619,14 @@ int main (int argc, char **argv)
       g_printerr ("Error parsing options: %s", error->message);
       exit (1);
   }
-
-  g_set_application_name (_("Sound Juicer"));
+  g_option_context_free (ctx);
 
   sj_debug_init ();
 
   sj_stock_init ();
 
   gtk_window_set_default_icon_name ("sound-juicer");
-  
+
   connection = bacon_message_connection_new ("sound-juicer");
   if (bacon_message_connection_get_is_server (connection) == FALSE) {
     bacon_message_connection_send (connection, RAISE_WINDOW);
