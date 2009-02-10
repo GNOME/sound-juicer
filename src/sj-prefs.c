@@ -134,6 +134,9 @@ void prefs_path_option_changed (GtkComboBox *combo, gpointer user_data)
   gint active;
   const char* pattern;
   active = gtk_combo_box_get_active (combo);
+  if (active == -1)
+    return;
+
   pattern = path_patterns[active].pattern;
   if (pattern) {
     gconf_client_set_string (gconf_client, GCONF_PATH_PATTERN, pattern, NULL);
@@ -145,6 +148,9 @@ void prefs_file_option_changed (GtkComboBox *combo, gpointer user_data)
   gint active;
   const char* pattern;
   active = gtk_combo_box_get_active (combo);
+  if (active == -1)
+    return;
+
   pattern = file_patterns[active].pattern;
   if (pattern) {
     gconf_client_set_string (gconf_client, GCONF_FILE_PATTERN, pattern, NULL);
