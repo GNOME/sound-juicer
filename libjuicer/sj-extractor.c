@@ -518,13 +518,13 @@ sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, G
                                GST_TAG_MERGE_REPLACE_ALL,
                                GST_TAG_TITLE, track->title,
                                GST_TAG_ARTIST, track->artist,
+                               GST_TAG_ARTIST_SORTNAME, track->artist_sortname,
                                GST_TAG_TRACK_NUMBER, track->number,
                                GST_TAG_TRACK_COUNT, track->album->number,
                                GST_TAG_ALBUM, track->album->title,
                                GST_TAG_DURATION, track->duration * GST_SECOND,
                                NULL);
 
-#ifdef GST_TAG_MUSICBRAINZ_ALBUMID
       if (track->album->album_id != NULL && strcmp (track->album->album_id, "") != 0) {
         gst_tag_setter_add_tags (tagger,
                             GST_TAG_MERGE_APPEND,
@@ -549,13 +549,6 @@ sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, G
                             GST_TAG_MUSICBRAINZ_TRACKID, track->track_id,
                             NULL);
       }
-      if (track->artist_sortname != NULL && strcmp (track->artist_sortname, "") != 0) {
-        gst_tag_setter_add_tags (tagger,
-                            GST_TAG_MERGE_APPEND,
-                            GST_TAG_MUSICBRAINZ_SORTNAME, track->artist_sortname,
-                            NULL);
-      }
-#endif
 
       if (track->album->genre != NULL && strcmp (track->album->genre, "") != 0) {
         gst_tag_setter_add_tags (tagger,

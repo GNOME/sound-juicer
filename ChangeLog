@@ -1,5 +1,14 @@
 2009-02-10  Ross Burton  <ross@linux.intel.com>
 
+	* configure.in:
+	Require GStreamer 0.10.15.
+
+	* libjuicer/sj-extracting.c:
+	Don't use GST_TAG_MUSICBRAINZ_SORTNAME, instead use
+	ARTIST_SORTNAME. Also assume the Musicbrainz tags exist.
+	
+2009-02-10  Ross Burton  <ross@linux.intel.com>
+
 	* src/sj-main.c:
 	Remove musicbrainz data if the album artist and title are
 	edited (#566431).
