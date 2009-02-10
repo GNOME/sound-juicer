@@ -32,6 +32,7 @@
 #include <gtk/gtk.h>
 
 #include <brasero-volume.h>
+#include <canberra-gtk.h>
 
 #include "sj-error.h"
 #include "sj-extracting.h"
@@ -592,6 +593,12 @@ on_main_window_focus_in (GtkWidget * widget, GdkEventFocus * event, gpointer dat
 static void
 finished_actions (void)
 {
+  /* Trigger a sound effect */
+  ca_gtk_play_for_widget (main_window, 0,
+    CA_PROP_EVENT_ID, "complete-media-rip",
+    CA_PROP_EVENT_DESCRIPTION, _("CD rip complete"),
+    NULL);
+  
   /* Trigger glowing effect after copy */
   g_signal_connect (G_OBJECT (main_window), "focus-in-event",
                     G_CALLBACK (on_main_window_focus_in),  NULL);
