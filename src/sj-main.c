@@ -1355,11 +1355,44 @@ static void on_cell_edited (GtkCellRendererText *renderer,
   }
   g_free (artist);
   g_free (title);
+
   return;
+}
+
+/*
+ * Remove all of the data which is intrinsic to the album being correctly
+ * detected, such as MusicBrainz IDs, ASIN, and Wikipedia links.
+ */
+static void
+remove_musicbrainz_ids (AlbumDetails *album)
+{
+  GList *l;
+#define UNSET(id) g_free (album->id);           \
+  album->id = NULL;
+
+  UNSET (album_id);
+  UNSET (artist_id);
+  UNSET (asin);
+  UNSET (discogs);
+  UNSET (wikipedia);
+#undef UNSET
+
+#define UNSET(id) g_free (track->id);           \
+  track->id = NULL;
+
+  for (l = album->tracks; l; l = l->next) {
+    TrackDetails *track = l->data;
+    UNSET (track_id);
+    UNSET (artist_id);
+  }
+#undef UNSET
 }
 
 void on_title_edit_changed(GtkEditable *widget, gpointer user_data) {
   g_return_if_fail (current_album != NULL);
+
+  remove_musicbrainz_ids (current_album);
+
   if (current_album->title) {
     g_free (current_album->title);
   }
@@ -1372,6 +1405,8 @@ void on_artist_edit_changed(GtkEditable *widget, gpointer user_data) {
   gchar *current_track_artist, *former_album_artist = NULL;
 
   g_return_if_fail (current_album != NULL);
+
+  remove_musicbrainz_ids (current_album);
 
   /* Unset the sortable artist field, as we can't change it automatically */
   if (current_album->artist_sortname) {
