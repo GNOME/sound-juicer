@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2003 Ross Burton <ross@burtonini.com>
  *
  * Sound Juicer - sj-main.c
@@ -232,10 +232,10 @@ gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data
     gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Continue"), GTK_RESPONSE_REJECT);
     response = gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
-    
+
     if (response == GTK_RESPONSE_ACCEPT) {
       return FALSE;
-    } 
+    }
     return TRUE;
   }
   return FALSE;
@@ -388,12 +388,12 @@ set_message_area (GtkWidget *container,
 {
   if (current_message_area == message_area)
     return;
-  
+
   if (current_message_area != NULL)
     gtk_widget_destroy (current_message_area);
-  
+
   current_message_area = message_area;
-  
+
   if (message_area == NULL)
     return;
 
@@ -423,15 +423,15 @@ musicbrainz_submit_message_area_new (char *title, char *artist)
 
   /* Translators: title, artist */
   primary_text = g_strdup_printf (_("Could not find %s by %s on MusicBrainz."), title, artist);
-  
+
   set_message_area_text_and_icon (GEDIT_MESSAGE_AREA (message_area),
                                   "gtk-dialog-info",
                                   primary_text,
                                   _("You can improve the MusicBrainz database by adding this album."),
                                   button);
-  
+
   g_free (primary_text);
-  
+
   return message_area;
 }
 
@@ -443,7 +443,7 @@ musicbrainz_submit_message_area_response (GeditMessageArea *message_area,
   if (response_id == GTK_RESPONSE_OK) {
     on_submit_activate (NULL, NULL);
   }
-  
+
   set_message_area (message_area_eventbox, NULL);
 }
 
@@ -520,7 +520,7 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (prev_menuitem, FALSE);
     gtk_widget_set_sensitive (next_menuitem, FALSE);
     set_duplication (TRUE);
-    
+
     for (l = album->tracks; l; l=g_list_next (l)) {
       GtkTreeIter iter;
       TrackDetails *track = (TrackDetails*)l->data;
@@ -535,7 +535,7 @@ static void update_ui_for_album (AlbumDetails *album)
                           COLUMN_DURATION, track->duration,
                           COLUMN_DETAILS, track,
                           -1);
-     total_no_of_tracks++; 
+     total_no_of_tracks++;
     }
     no_of_tracks_selected=total_no_of_tracks;
 
@@ -560,10 +560,10 @@ static void update_ui_for_album (AlbumDetails *album)
                         "response",
                         G_CALLBACK (musicbrainz_submit_message_area_response),
                         NULL);
-      
+
       gedit_message_area_set_default_response (GEDIT_MESSAGE_AREA (message_area),
                                                GTK_RESPONSE_CANCEL);
-      
+
       gtk_widget_show (message_area);
     }
   }
@@ -585,7 +585,7 @@ static void album_row_activated (GtkTreeView *treeview,
  * Callback that gets fired when an the selection changes. We use this to
  * change the sensitivity of the continue button
  */
-static void selected_album_changed (GtkTreeSelection *selection, 
+static void selected_album_changed (GtkTreeSelection *selection,
                                     gpointer *user_data)
 {
   GtkWidget *ok_button = GTK_WIDGET (user_data);
@@ -783,7 +783,7 @@ static void open_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *ent
 static void audio_volume_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   g_assert (strcmp (entry->key, GCONF_AUDIO_VOLUME) == 0);
-  
+
   GtkWidget *volb = glade_xml_get_widget (glade, "volume_button");
   if (entry->value == NULL) {
     gtk_scale_button_set_value (GTK_SCALE_BUTTON (volb), 1.0);
@@ -801,10 +801,10 @@ metadata_cb (SjMetadataGetter *m, GList *albums, GError *error)
     gdk_window_set_cursor (main_window->window, NULL);
     /* Clear the statusbar message */
     gtk_statusbar_pop(GTK_STATUSBAR(status_bar), 0);
-  
+
   if (error && !(error->code == SJ_ERROR_CD_NO_MEDIA)) {
     GtkWidget *dialog;
-    
+
     dialog = gtk_message_dialog_new (realized ? GTK_WINDOW (main_window) : NULL, 0,
                                      GTK_MESSAGE_ERROR,
                                      GTK_BUTTONS_CLOSE,
@@ -848,7 +848,7 @@ metadata_cb (SjMetadataGetter *m, GList *albums, GError *error)
     albums = NULL;
   }
   update_ui_for_album (current_album);
-  
+
   if (autostart) {
     g_signal_emit_by_name (extract_button, "activate", NULL);
     autostart = FALSE;
@@ -886,10 +886,10 @@ static void reread_cd (gboolean ignore_no_media)
   GError *error = NULL;
   GdkCursor *cursor;
   gboolean realized = GTK_WIDGET_REALIZED (main_window);
-  
+
   /* Make sure nothing is playing */
   stop_playback ();
-  
+
   /* Set watch cursor */
   if (realized) {
     cursor = gdk_cursor_new_for_display (gdk_drawable_get_display (main_window->window), GDK_WATCH);
@@ -897,7 +897,7 @@ static void reread_cd (gboolean ignore_no_media)
     gdk_cursor_unref (cursor);
     gdk_display_sync (gdk_drawable_get_display (main_window->window));
   }
-  
+
   /* Set statusbar message */
   gtk_statusbar_push(GTK_STATUSBAR(status_bar), 0, _("Retrieving track listing...please wait."));
 
@@ -1021,10 +1021,10 @@ set_device (const char* device, gboolean ignore_no_media)
     GtkWidget *dialog;
     char *message;
     const char *error;
-    
+
     error = g_strerror (errno);
     message = g_strdup_printf (_("Sound Juicer could not access the CD-ROM device '%s'"), device);
-    
+
     dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
                                      GTK_DIALOG_DESTROY_WITH_PARENT,
                                      GTK_MESSAGE_ERROR,
@@ -1048,7 +1048,7 @@ set_device (const char* device, gboolean ignore_no_media)
 
   sj_metadata_getter_set_cdrom (metadata, device);
   sj_extractor_set_device (extractor, device);
-  
+
   if (drive != NULL) {
     tray_opened = brasero_drive_is_door_open (drive);
     if (tray_opened == FALSE) {
@@ -1138,7 +1138,7 @@ static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *e
 static void profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   GMAudioProfile *profile;
-  
+
   g_assert (strcmp (entry->key, GCONF_AUDIO_PROFILE) == 0);
   if (!entry->value) return;
   profile = gm_audio_profile_lookup (gconf_value_get_string (entry->value));
@@ -1148,7 +1148,7 @@ static void profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *
   if (profile == NULL || !sj_extractor_supports_profile(profile)) {
     GtkWidget *dialog;
     int response;
-    
+
     dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
                                      GTK_DIALOG_MODAL,
                                      GTK_MESSAGE_QUESTION,
@@ -1291,7 +1291,7 @@ static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
   /* extract is the old state here, so toggle */
   extract = !extract;
   gtk_list_store_set (track_store, &iter, COLUMN_EXTRACT, extract, -1);
-    
+
   /* Update the Extract buttons */
   if (extract) {
     /* If true, then we can extract */
@@ -1303,8 +1303,8 @@ static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
     extract = FALSE;
     gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), (GtkTreeModelForeachFunc)extract_available_foreach, &extract);
     gtk_widget_set_sensitive (extract_button, extract);
-    gtk_widget_set_sensitive (extract_menuitem, extract);   
-    no_of_tracks_selected--; 
+    gtk_widget_set_sensitive (extract_menuitem, extract);
+    no_of_tracks_selected--;
   }
   /* Enable and disable the Select/Deselect All buttons */
   if (no_of_tracks_selected == total_no_of_tracks) {
@@ -1357,7 +1357,7 @@ static void on_cell_edited (GtkCellRendererText *renderer,
   g_free (title);
   return;
 }
- 
+
 void on_title_edit_changed(GtkEditable *widget, gpointer user_data) {
   g_return_if_fail (current_album != NULL);
   if (current_album->title) {
@@ -1372,7 +1372,7 @@ void on_artist_edit_changed(GtkEditable *widget, gpointer user_data) {
   gchar *current_track_artist, *former_album_artist = NULL;
 
   g_return_if_fail (current_album != NULL);
-  
+
   /* Unset the sortable artist field, as we can't change it automatically */
   if (current_album->artist_sortname) {
     g_free (current_album->artist_sortname);
@@ -1388,26 +1388,26 @@ void on_artist_edit_changed(GtkEditable *widget, gpointer user_data) {
     g_free (former_album_artist);
     return;
   }
-  
+
   /* Set the artist field in each tree row */
   do {
     gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, COLUMN_ARTIST, &current_track_artist, -1);
     /* Change track artist if it matched album artist before the change */
     if ((strcasecmp (current_track_artist, former_album_artist) == 0) || (strcasecmp (current_track_artist, current_album->artist) == 0)) {
       gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, COLUMN_DETAILS, &track, -1);
-      
+
       g_free (track->artist);
       track->artist = g_strdup (current_album->artist);
-      
+
       if (track->artist_sortname) {
         g_free (track->artist_sortname);
         track->artist_sortname = NULL;
       }
-      
+
       gtk_list_store_set (track_store, &iter, COLUMN_ARTIST, track->artist, -1);
     }
   } while (gtk_tree_model_iter_next (GTK_TREE_MODEL (track_store), &iter));
- 
+
   g_free (former_album_artist);
 }
 
@@ -1422,9 +1422,9 @@ void on_genre_edit_changed(GtkEditable *widget, gpointer user_data) {
 void on_year_edit_changed(GtkEditable *widget, gpointer user_data) {
   const gchar* yearstr;
   int year;
-  
+
   g_return_if_fail (current_album != NULL);
-  
+
   yearstr = gtk_entry_get_text (GTK_ENTRY (widget));
   year = atoi (yearstr);
   if (year > 0) {
@@ -1437,7 +1437,7 @@ void on_year_edit_changed(GtkEditable *widget, gpointer user_data) {
 }
 
 void on_disc_number_edit_changed(GtkEditable *widget, gpointer user_data) {
-    const gchar* discstr;  
+    const gchar* discstr;
     int disc_number;
 
     g_return_if_fail (current_album != NULL);
@@ -1511,15 +1511,15 @@ is_cd_duplication_available()
   gchar* brasero_cd_burner = g_find_program_in_path ("brasero");
   if (brasero_cd_burner == NULL) {
     return FALSE;
-  } 
+  }
   g_free(brasero_cd_burner);
 
   /* Second check the cdrdao tool is available in the path */
   gchar* cdrdao = g_find_program_in_path ("cdrdao");
   if (cdrdao == NULL) {
     return FALSE;
-  } 
-  g_free(cdrdao);  
+  }
+  g_free(cdrdao);
 
   /* Now check that there is at least one cd recorder available */
   BraseroMediumMonitor     *monitor;
@@ -1717,7 +1717,7 @@ int main (int argc, char **argv)
     g_signal_connect_swapped (play_button, "destroy",
                               G_CALLBACK (gtk_widget_destroy),
                               fake_button1);
-    
+
     fake_button2 = gtk_button_new_from_stock (GTK_STOCK_MEDIA_PAUSE);
     gtk_size_group_add_widget (size_group, fake_button2);
     g_signal_connect_swapped (play_button, "destroy",
@@ -1734,7 +1734,7 @@ int main (int argc, char **argv)
   {
     GtkTreeViewColumn *column;
     GtkCellRenderer *renderer;
-    
+
     toggle_renderer = gtk_cell_renderer_toggle_new ();
     g_signal_connect (toggle_renderer, "toggled", G_CALLBACK (on_extract_toggled), NULL);
     column = gtk_tree_view_column_new_with_attributes ("",
@@ -1778,7 +1778,7 @@ int main (int argc, char **argv)
     g_signal_connect (artist_renderer, "edited", G_CALLBACK (on_cell_edited), GUINT_TO_POINTER (COLUMN_ARTIST));
     g_object_set (G_OBJECT (artist_renderer), "editable", TRUE, NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
-    
+
     renderer = gtk_cell_renderer_text_new ();
     column = gtk_tree_view_column_new_with_attributes (_("Duration"),
                                                        renderer,
