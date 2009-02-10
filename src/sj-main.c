@@ -1675,7 +1675,9 @@ int main (int argc, char **argv)
     glade = glade_xml_new (INSTALLED_GLADE, NULL, NULL);
   }
   if (glade == NULL) {
-    g_error_new (0, 0, _("The interface file for Sound Juicer could not be read."));
+    error = g_error_new (g_quark_from_static_string ("sound-juicer"),
+                         1, /* this is made up */
+                         _("The interface file for Sound Juicer could not be read."));
     error_on_start (error);
     g_error_free (error);
     exit (1);
