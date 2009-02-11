@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-06 20:51+0700\n"
-"PO-Revision-Date: 2009-02-06 20:54+0700\n"
+"POT-Creation-Date: 2009-02-11 14:53+0700\n"
+"PO-Revision-Date: 2009-02-11 14:58+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -115,7 +115,7 @@ msgid "Skip to the previous track"
 msgstr "ข้ามไปร่องเสียงก่อนหน้า"
 
 #: data/sound-juicer.glade.h:23 src/sj-main.c:139 src/sj-main.c:141
-#: src/sj-main.c:1622
+#: src/sj-main.c:1642
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -230,14 +230,16 @@ msgid ""
 "number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
 "tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
 "(lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable "
-"lowercase)"
+"lowercase) %dn -- disc and track number (i.e Disk 2 - 6, or 6) %dN -- disc "
+"number, zero padded (i.e d02t06, or 06)"
 msgstr ""
 "อย่าใส่นามสกุล  %at -- ชื่ออัลบั้ม %aT -- ชื่ออัลบั้ม (ตัวพิมพ์เล็ก) %aa -- เจ้าของอัลบั้ม %aA -- "
 "เจ้าของอัลบั้ม (ตัวพิมพ์เล็ก) %as -- เจ้าของอัลบั้ม (เรียงลำดับได้) %aS -- เจ้าของอัลบั้ม "
 "(เรียงลำดับได้ ตัวพิมพ์เล็ก) %tn -- หมายเลขเพลง (เช่น 8) %tN -- "
 "หมายเลขเพลงนำหน้าด้วยศูนย์ (เช่น 08) %tt -- ชื่อเพลง %tT -- ชื่อเพลง (ตัวพิมพ์เล็ก) %ta "
-"-- ศิลปินเพลง %tA -- ศิลปินเพลง (ตัวพิมพ์เล็ก) %ts -- ศิลปินเพลง (เรียงลำดับได้) %tS -- "
-"ศิลปินเพลง (เรียงลำดับได้ ตัวพิมพ์เล็ก)"
+"-- ศิลปินเพลง %tA -- ศิลปินเพลง (ตัวพิมพ์เล็ก) %ts -- ศิลปินเพลง (ใช้เรียงลำดับ) %tS -- "
+"ศิลปินเพลง (ใช้เรียงลำดับ ตัวพิมพ์เล็ก) %dn -- หมายเลขแผ่นและเพลง (เช่น Disk 2 - 6, หรือ "
+"6) %dN -- หมายเลขแผ่นนำหน้าด้วยศูนย์ (เช่น d02t06, หรือ 06)"
 
 #: data/sound-juicer.schemas.in.h:7
 msgid ""
@@ -289,66 +291,66 @@ msgstr "กำหนดว่าจะดันแผ่นซีดีออก
 msgid "Whether to open the target directory when finished extracting."
 msgstr "กำหนดว่าจะเปิดไดเรกทอรีปลายทางหลังจากคัดลอกเสร็จหรือไม่"
 
-#: libjuicer/sj-extractor.c:193
+#: libjuicer/sj-extractor.c:192
 msgid "Audio Profile"
 msgstr "โพรไฟล์เสียง"
 
-#: libjuicer/sj-extractor.c:194
+#: libjuicer/sj-extractor.c:193
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "โพรไฟล์เสียงของ GNOME ที่จะใช้ลงรหัสข้อมูลเสียง"
 
-#: libjuicer/sj-extractor.c:200
+#: libjuicer/sj-extractor.c:199
 msgid "Paranoia Level"
 msgstr "ระดับ Paranoia"
 
-#: libjuicer/sj-extractor.c:201
+#: libjuicer/sj-extractor.c:200
 msgid "The paranoia level"
 msgstr "ระดับ paranoia"
 
-#: libjuicer/sj-extractor.c:206
+#: libjuicer/sj-extractor.c:205
 msgid "device"
 msgstr "อุปกรณ์"
 
-#: libjuicer/sj-extractor.c:207
+#: libjuicer/sj-extractor.c:206
 msgid "The device"
 msgstr "อุปกรณ์"
 
-#: libjuicer/sj-extractor.c:348
+#: libjuicer/sj-extractor.c:347
 #, c-format
 msgid "Could not create GStreamer CD reader"
 msgstr "ไม่สามารถสร้างองค์ประกอบอ่านซีดีของ GStreamer"
 
-#: libjuicer/sj-extractor.c:370
+#: libjuicer/sj-extractor.c:369
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "ไม่สามารถสร้างองค์ประกอบลงรหัสข้อมูลของ GStreamer สำหรับ %s"
 
-#: libjuicer/sj-extractor.c:381
+#: libjuicer/sj-extractor.c:380
 #, c-format
 msgid "Could not create GStreamer file output"
 msgstr "ไม่สามารถสร้างแฟ้มเขียนออกของ GStreamer"
 
-#: libjuicer/sj-extractor.c:395
+#: libjuicer/sj-extractor.c:394
 #, c-format
 msgid "Could not link pipeline"
 msgstr "ไม่สามารถเชื่อมต่อไปป์ไลน์ได้"
 
-#: libjuicer/sj-extractor.c:419
+#: libjuicer/sj-extractor.c:418
 msgid "Could not get current track position"
 msgstr "ไม่ทราบตำแหน่งร่องเสียงปัจจุบัน"
 
-#: libjuicer/sj-extractor.c:448
+#: libjuicer/sj-extractor.c:447
 #, c-format
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr "อ็อบเจกต์ extractor ใช้ไม่ได้ คงไม่ดีแน่ๆ ดูข้อผิดพลาดเพิ่มเติมได้ในเทอร์มินัล"
 
-#: libjuicer/sj-extractor.c:652
+#: libjuicer/sj-extractor.c:649
 #, c-format
 msgid "The plugin necessary for CD access was not found"
 msgstr "ไม่พบปลั๊กอินที่จำเป็นสำหรับการอ่านข้อมูลซีดี"
 
-#: libjuicer/sj-extractor.c:660
+#: libjuicer/sj-extractor.c:657
 #, c-format
 msgid "The plugin necessary for file access was not found"
 msgstr "ไม่พบปลั๊กอินที่จำเป็นสำหรับการอ่านเขียนแฟ้ม"
@@ -369,23 +371,23 @@ msgstr "ไม่สามารถเปิดใช้อุปกรณ์ '%
 msgid "Cannot read CD: %s"
 msgstr "ไม่สามารถอ่านซีดี: %s"
 
-#: libjuicer/sj-metadata-cdtext.c:81
+#: libjuicer/sj-metadata-cdtext.c:78
 #, c-format
 msgid "Cannot read CD"
 msgstr "ไม่สามารถอ่านซีดี"
 
-#: libjuicer/sj-metadata-cdtext.c:96 libjuicer/sj-metadata-cdtext.c:117
+#: libjuicer/sj-metadata-cdtext.c:93 libjuicer/sj-metadata-cdtext.c:114
 #: libjuicer/sj-metadata-gvfs.c:110 libjuicer/sj-metadata-gvfs.c:133
 #: libjuicer/sj-metadata-musicbrainz.c:328 src/egg-play-preview.c:466
 msgid "Unknown Artist"
 msgstr "ศิลปินไม่ทราบชื่อ"
 
-#: libjuicer/sj-metadata-cdtext.c:97 libjuicer/sj-metadata-gvfs.c:106
+#: libjuicer/sj-metadata-cdtext.c:94 libjuicer/sj-metadata-gvfs.c:106
 #: libjuicer/sj-metadata-musicbrainz.c:344 src/egg-play-preview.c:461
 msgid "Unknown Title"
 msgstr "อัลบั้มไม่ทราบชื่อ"
 
-#: libjuicer/sj-metadata-cdtext.c:116 libjuicer/sj-metadata-gvfs.c:130
+#: libjuicer/sj-metadata-cdtext.c:113 libjuicer/sj-metadata-gvfs.c:130
 #, c-format
 msgid "Track %d"
 msgstr "ร่องเสียง %d"
@@ -432,7 +434,7 @@ msgstr "URI"
 msgid "The URI of the audio file"
 msgstr "URI ของแฟ้มเสียง"
 
-#: src/egg-play-preview.c:175 src/sj-main.c:626 src/sj-main.c:1761
+#: src/egg-play-preview.c:175 src/sj-main.c:626 src/sj-main.c:1798
 msgid "Title"
 msgstr "ชื่อ"
 
@@ -440,7 +442,7 @@ msgstr "ชื่อ"
 msgid "The title of the current stream."
 msgstr "ชื่อเพลงของสตรีมปัจจุบัน"
 
-#: src/egg-play-preview.c:185 src/sj-main.c:632 src/sj-main.c:1770
+#: src/egg-play-preview.c:185 src/sj-main.c:632 src/sj-main.c:1807
 msgid "Artist"
 msgstr "ศิลปิน"
 
@@ -464,7 +466,7 @@ msgstr "ตำแหน่ง"
 msgid "The position in the current stream in seconds."
 msgstr "ตำแหน่งของสตรีมปัจจุบัน ในหน่วยวินาที"
 
-#: src/egg-play-preview.c:215 src/sj-main.c:1781
+#: src/egg-play-preview.c:215 src/sj-main.c:1818
 msgid "Duration"
 msgstr "ความยาว"
 
@@ -535,25 +537,25 @@ msgstr ""
 "ถ้ามีเวลาโปรดมาช่วยกันแปล ;-)\n"
 "http://gnome-th.sf.net"
 
-#: src/sj-extracting.c:145
+#: src/sj-extracting.c:146
 #, c-format
 msgid "Failed to get output format"
 msgstr "อ่านรูปแบบข้อมูลออกไม่สำเร็จ"
 
-#: src/sj-extracting.c:166
+#: src/sj-extracting.c:167
 msgid "Name too long"
 msgstr "ชื่อยาวเกินไป"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: src/sj-extracting.c:225
+#: src/sj-extracting.c:226
 msgid "Extract"
 msgstr "คัดลอก"
 
-#: src/sj-extracting.c:302
+#: src/sj-extracting.c:303
 msgid "A file with the same name exists"
 msgstr "มีแฟ้มชื่อเดียวกันอยู่ก่อนแล้ว"
 
-#: src/sj-extracting.c:304
+#: src/sj-extracting.c:305
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -562,38 +564,42 @@ msgstr ""
 "มีแฟ้มชื่อ '%s' อยู่ก่อนแล้ว ซึ่งมีขนาด %s\n"
 "คุณต้องการข้ามร่องเสียงนี้ หรือจะเขียนทับแฟ้ม?"
 
-#: src/sj-extracting.c:314
+#: src/sj-extracting.c:315
 msgid "_Skip"
 msgstr "_ข้าม"
 
-#: src/sj-extracting.c:315
+#: src/sj-extracting.c:316
 msgid "S_kip All"
 msgstr "ข้ามทั้ง_หมด"
 
-#: src/sj-extracting.c:316
+#: src/sj-extracting.c:317
 msgid "_Overwrite"
 msgstr "เขียน_ทับ"
 
-#: src/sj-extracting.c:317
+#: src/sj-extracting.c:318
 msgid "Overwrite _All"
 msgstr "เขียนทับทั้งห_มด"
 
-#: src/sj-extracting.c:366
+#: src/sj-extracting.c:367
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "ไม่สามารถสร้างไดเรกทอรีเขียนข้อมูล: %s"
 
-#: src/sj-extracting.c:506
+#: src/sj-extracting.c:507
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "เวลาที่เหลือโดยประมาณ: %d:%02d (ที่ความเร็ว %0.1f×)"
 
-#: src/sj-extracting.c:508
+#: src/sj-extracting.c:509
 msgid "Estimated time left: unknown"
 msgstr "เวลาที่เหลือโดยประมาณ: ไม่ทราบ"
 
+#: src/sj-extracting.c:599
+msgid "CD rip complete"
+msgstr "คัดลอกเพลงจากซีดีเสร็จแล้ว"
+
 #. Display a nice dialog
-#: src/sj-extracting.c:681
+#: src/sj-extracting.c:688
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -604,11 +610,11 @@ msgstr ""
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: src/sj-extracting.c:783
+#: src/sj-extracting.c:790
 msgid "Stop"
 msgstr "หยุด"
 
-#: src/sj-extracting.c:812 src/sj-extracting.c:818
+#: src/sj-extracting.c:819 src/sj-extracting.c:825
 msgid "Extracting audio from CD"
 msgstr "กำลังคัดลอกเพลงจากซีดี"
 
@@ -690,7 +696,7 @@ msgid "Could not start Sound Juicer"
 msgstr "ไม่สามารถเริ่มการทำงานของ Sound Juicer"
 
 #: src/sj-main.c:185 src/sj-main.c:814 src/sj-main.c:927
-#: src/sj-main.c:1035 src/sj-main.c:1246 src/sj-main.c:1568
+#: src/sj-main.c:1035 src/sj-main.c:1246 src/sj-main.c:1602
 msgid "Reason"
 msgstr "สาเหตุ"
 
@@ -778,7 +784,7 @@ msgstr "Sound Juicer เปิด URL สำหรับส่งข้อมู
 msgid "Unknown column %d was edited"
 msgstr "คอลัมน์ %d ถูกแก้ไข ซึ่งไม่น่าจะถูกต้อง"
 
-#: src/sj-main.c:1461 src/sj-prefs.c:103
+#: src/sj-main.c:1495 src/sj-prefs.c:103
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -787,52 +793,53 @@ msgstr ""
 "ไม่สามารถแสดงวิธีใช้ของ Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:1566
+#: src/sj-main.c:1600
 msgid "Could not duplicate disc"
 msgstr "ไม่สามารถทำซ้ำแผ่น"
 
-#: src/sj-main.c:1567
+#: src/sj-main.c:1601
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Sound Juicer ทำซ้ำแผ่นไม่สำเร็จ"
 
-#: src/sj-main.c:1595
+#: src/sj-main.c:1629
 msgid "Start extracting immediately"
 msgstr "เริ่มดึงเพลงทันที"
 
-#: src/sj-main.c:1596
+#: src/sj-main.c:1630
 msgid "Start playing immediately"
 msgstr "เริ่มเล่นเพลงทันที"
 
-#: src/sj-main.c:1597
+#: src/sj-main.c:1631
 msgid "What CD device to read"
 msgstr "อุปกรณ์ซีดีที่จะอ่าน"
 
-#: src/sj-main.c:1597
+#: src/sj-main.c:1631
 msgid "DEVICE"
 msgstr "DEVICE"
 
-#: src/sj-main.c:1598
+#: src/sj-main.c:1632
 msgid "URI to the CD device to read"
 msgstr "URI ของอุปกรณ์ซีดีที่จะอ่าน"
 
-#: src/sj-main.c:1608
+#: src/sj-main.c:1644
 msgid "- Extract music from your CDs"
 msgstr "- คัดลอกเพลงจากซีดี"
 
-#: src/sj-main.c:1646
+#: src/sj-main.c:1681
 msgid "Could not create GConf client.\n"
 msgstr "ไม่สามารถสร้างตัวใช้บริการ GConf\n"
 
-#: src/sj-main.c:1678
+#. this is made up
+#: src/sj-main.c:1715
 #, c-format
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "ไม่สามารถอ่านข้อมูลส่วนติดต่อผู้ใช้ของ Sound Juicer ได้"
 
-#: src/sj-main.c:1746
+#: src/sj-main.c:1783
 msgid "Track"
 msgstr "ร่องเสียง"
 
-#: src/sj-play.c:199 src/sj-play.c:467 src/sj-play.c:496
+#: src/sj-play.c:193 src/sj-play.c:461 src/sj-play.c:490
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -844,30 +851,30 @@ msgstr ""
 "สาเหตุ: %s"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: src/sj-play.c:270
+#: src/sj-play.c:264
 msgid "Play"
 msgstr "เล่น"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: src/sj-play.c:314
+#: src/sj-play.c:308
 msgid "Pause"
 msgstr "พัก"
 
-#: src/sj-play.c:371
+#: src/sj-play.c:365
 #, c-format
 msgid "Failed to create CD source element"
 msgstr "ไม่สามารถเปิดช่องข้อมูลเข้าจากซีดีได้"
 
-#: src/sj-play.c:408
+#: src/sj-play.c:402
 msgid "Failed to link pipeline"
 msgstr "ไม่สามารถเชื่อมต่อไปป์ไลน์ได้"
 
-#: src/sj-play.c:414
+#: src/sj-play.c:408
 #, c-format
 msgid "Failed to create audio output"
 msgstr "ไม่สามารถเปิดเอาต์พุตเสียง"
 
-#: src/sj-play.c:618
+#: src/sj-play.c:612
 #, c-format
 msgid "Seeking to %s"
 msgstr "กำลังเลื่อนไปที่ %s"
@@ -938,7 +945,7 @@ msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "หมายเลข-ศิลปินเพลง-ชื่อเพลง (ตัวพิมพ์เล็ก)"
 
 # This sounds better in the dialog box.
-#: src/sj-prefs.c:269
+#: src/sj-prefs.c:275
 msgid "Example Path"
 msgstr "ตัวอย่างชื่อแฟ้ม"
 
