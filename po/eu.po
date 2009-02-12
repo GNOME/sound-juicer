@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-10 20:57+0100\n"
-"PO-Revision-Date: 2009-02-10 21:02+0100\n"
+"POT-Creation-Date: 2009-02-12 23:03+0100\n"
+"PO-Revision-Date: 2009-02-12 23:03+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -117,7 +117,7 @@ msgid "Skip to the previous track"
 msgstr "Saltatu aurreko pistara"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:139 ../src/sj-main.c:141
-#: ../src/sj-main.c:1621
+#: ../src/sj-main.c:1642
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -242,12 +242,12 @@ msgstr ""
 "(letra-xehez) %aa -- albumaren artista %aA -- albumaren artista (letra-"
 "xehez) %as -- albumaren artista (ordenagarria)  %aS -- albumaren artista "
 "(letra-xehez ordenagarria) %tn -- pistaren zenbakia (adib. 8) %tN -- "
-"pistaren zenbakia, zeroz betea (adib. 08) %tt -- pistaren titulua "
-"%tT -- pistaren titulua (letra-xehez) %ta -- pistaren artista %tA -- pistaren "
+"pistaren zenbakia, zeroz betea (adib. 08) %tt -- pistaren titulua %tT -- "
+"pistaren titulua (letra-xehez) %ta -- pistaren artista %tA -- pistaren "
 "artista (letra-xehez) %ts -- pistaren artista (ordenagarria) %tS pistaren "
-"artista (letra-xehez ordenagarria) %dn -- disko eta pistaren zenbakia "
-"(adib. diskoa 2 - 6, edo 6) %dN -- diskoaren zenbakia, "
-"zeroz betea (adib. d02t06, edo 06)"
+"artista (letra-xehez ordenagarria) %dn -- disko eta pistaren zenbakia (adib. "
+"diskoa 2 - 6, edo 6) %dN -- diskoaren zenbakia, zeroz betea (adib. d02t06, "
+"edo 06)"
 
 #: ../data/sound-juicer.schemas.in.h:7
 msgid ""
@@ -358,12 +358,12 @@ msgstr ""
 "Objektu-erauzlea baliogabea da. Honek itxura txarra dauka, erabili kontsola "
 "erroreak aztertzeko."
 
-#: ../libjuicer/sj-extractor.c:651
+#: ../libjuicer/sj-extractor.c:649
 #, c-format
 msgid "The plugin necessary for CD access was not found"
 msgstr "Ez da CDa atzitzeko beharrezkoa den plugin-a aurkitu"
 
-#: ../libjuicer/sj-extractor.c:659
+#: ../libjuicer/sj-extractor.c:657
 #, c-format
 msgid "The plugin necessary for file access was not found"
 msgstr "Ez da fitxategiak atzitzeko beharrezkoa den plugin-a aurkitu"
@@ -448,7 +448,7 @@ msgstr "URIa"
 msgid "The URI of the audio file"
 msgstr "Audioko fitxategiaren URIa"
 
-#: ../src/egg-play-preview.c:175 ../src/sj-main.c:626 ../src/sj-main.c:1760
+#: ../src/egg-play-preview.c:175 ../src/sj-main.c:626 ../src/sj-main.c:1798
 msgid "Title"
 msgstr "Titulua"
 
@@ -456,7 +456,7 @@ msgstr "Titulua"
 msgid "The title of the current stream."
 msgstr "Uneko korrontearen titulua."
 
-#: ../src/egg-play-preview.c:185 ../src/sj-main.c:632 ../src/sj-main.c:1769
+#: ../src/egg-play-preview.c:185 ../src/sj-main.c:632 ../src/sj-main.c:1807
 msgid "Artist"
 msgstr "Artista"
 
@@ -480,7 +480,7 @@ msgstr "Posizioa"
 msgid "The position in the current stream in seconds."
 msgstr "Posizioa uneko korrontean (segundotan)."
 
-#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1780
+#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1818
 msgid "Duration"
 msgstr "Iraupena"
 
@@ -548,25 +548,25 @@ msgstr ""
 "Mikel Olasagasti <hey_neken@mundurat.net>\n"
 "Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>"
 
-#: ../src/sj-extracting.c:145
+#: ../src/sj-extracting.c:146
 #, c-format
 msgid "Failed to get output format"
 msgstr "Huts egin du irteerako formatua lortzean"
 
-#: ../src/sj-extracting.c:166
+#: ../src/sj-extracting.c:167
 msgid "Name too long"
 msgstr "Izena luzeegia"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:225
+#: ../src/sj-extracting.c:226
 msgid "Extract"
 msgstr "Erauzi"
 
-#: ../src/sj-extracting.c:302
+#: ../src/sj-extracting.c:303
 msgid "A file with the same name exists"
 msgstr "Izen bereko fitxategi bat badago lehendik ere"
 
-#: ../src/sj-extracting.c:304
+#: ../src/sj-extracting.c:305
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -575,38 +575,42 @@ msgstr ""
 "'%s' izeneko fitxategia badago lehendik, tamaina: %s.\n"
 "Pista hau saltatu nahi duzu, ala gainidatzi?"
 
-#: ../src/sj-extracting.c:314
+#: ../src/sj-extracting.c:315
 msgid "_Skip"
 msgstr "_Saltatu"
 
-#: ../src/sj-extracting.c:315
+#: ../src/sj-extracting.c:316
 msgid "S_kip All"
 msgstr "_Saltatu denak"
 
-#: ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:317
 msgid "_Overwrite"
 msgstr "_Gainidatzi"
 
-#: ../src/sj-extracting.c:317
+#: ../src/sj-extracting.c:318
 msgid "Overwrite _All"
 msgstr "_Gainidatzi denak"
 
-#: ../src/sj-extracting.c:366
+#: ../src/sj-extracting.c:367
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Huts egin du irteerako direktorioa sortzean: %s"
 
-#: ../src/sj-extracting.c:506
+#: ../src/sj-extracting.c:507
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Geratzen den denbora: %d:%02d (%0.1fx)"
 
-#: ../src/sj-extracting.c:508
+#: ../src/sj-extracting.c:509
 msgid "Estimated time left: unknown"
 msgstr "Geratzen den denbora: ezezaguna"
 
+#: ../src/sj-extracting.c:599
+msgid "CD rip complete"
+msgstr "CDaren erauzketa burututa"
+
 #. Display a nice dialog
-#: ../src/sj-extracting.c:681
+#: ../src/sj-extracting.c:688
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -617,11 +621,11 @@ msgstr ""
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:783
+#: ../src/sj-extracting.c:790
 msgid "Stop"
 msgstr "Gelditu"
 
-#: ../src/sj-extracting.c:812 ../src/sj-extracting.c:818
+#: ../src/sj-extracting.c:819 ../src/sj-extracting.c:825
 msgid "Extracting audio from CD"
 msgstr "Audioa CDtik erauzten"
 
@@ -703,7 +707,7 @@ msgid "Could not start Sound Juicer"
 msgstr "Ezin izan da Sound Juicer abiatu"
 
 #: ../src/sj-main.c:185 ../src/sj-main.c:814 ../src/sj-main.c:927
-#: ../src/sj-main.c:1035 ../src/sj-main.c:1246 ../src/sj-main.c:1567
+#: ../src/sj-main.c:1035 ../src/sj-main.c:1246 ../src/sj-main.c:1602
 msgid "Reason"
 msgstr "Arrazoia"
 
@@ -789,7 +793,7 @@ msgstr "Sound Juicer-ek ezin izan du bidaltzeko URLa ireki"
 msgid "Unknown column %d was edited"
 msgstr "%d. zutabe ezezaguna editatu da"
 
-#: ../src/sj-main.c:1460 ../src/sj-prefs.c:103
+#: ../src/sj-main.c:1495 ../src/sj-prefs.c:103
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -798,48 +802,49 @@ msgstr ""
 "Ezin izan da Sound Juicer-en laguntza erakutsi\n"
 "%s"
 
-#: ../src/sj-main.c:1565
+#: ../src/sj-main.c:1600
 msgid "Could not duplicate disc"
 msgstr "Ezin izan da diskoa bikoiztu"
 
-#: ../src/sj-main.c:1566
+#: ../src/sj-main.c:1601
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Sound Juicer-ek ezin izan du diskoa bikoiztu"
 
-#: ../src/sj-main.c:1594
+#: ../src/sj-main.c:1629
 msgid "Start extracting immediately"
 msgstr "Hasi erauzten berehala"
 
-#: ../src/sj-main.c:1595
+#: ../src/sj-main.c:1630
 msgid "Start playing immediately"
 msgstr "Hasi erreproduzitzen berehala"
 
-#: ../src/sj-main.c:1596
+#: ../src/sj-main.c:1631
 msgid "What CD device to read"
 msgstr "Zein CD gailu irakurri"
 
-#: ../src/sj-main.c:1596
+#: ../src/sj-main.c:1631
 msgid "DEVICE"
 msgstr "GAILUA"
 
-#: ../src/sj-main.c:1597
+#: ../src/sj-main.c:1632
 msgid "URI to the CD device to read"
 msgstr "CD gailuaren URIa irakurtzeko"
 
-#: ../src/sj-main.c:1607
+#: ../src/sj-main.c:1644
 msgid "- Extract music from your CDs"
 msgstr "- Erauzi musika zure CD-etatik"
 
-#: ../src/sj-main.c:1645
+#: ../src/sj-main.c:1681
 msgid "Could not create GConf client.\n"
 msgstr "Ezin izan da GConf bezeroa sortu.\n"
 
-#: ../src/sj-main.c:1677
+#. this is made up
+#: ../src/sj-main.c:1715
 #, c-format
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Sound Juicer-en interfaze-fitxategia ezin izan da irakurri."
 
-#: ../src/sj-main.c:1745
+#: ../src/sj-main.c:1783
 msgid "Track"
 msgstr "Pista"
 
@@ -948,7 +953,7 @@ msgstr "Zenbakia. Pistaren artista - Pistaren titulua"
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Zenbakia-Pistaren artista-Pistaren titulua (letra-xehez)"
 
-#: ../src/sj-prefs.c:269
+#: ../src/sj-prefs.c:275
 msgid "Example Path"
 msgstr "Adibideko bide-izena"
 
