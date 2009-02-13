@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-04 12:17+0100\n"
-"PO-Revision-Date: 2009-02-04 12:17+0100\n"
+"POT-Creation-Date: 2009-02-14 00:25+0100\n"
+"PO-Revision-Date: 2009-02-14 00:25+0100\n"
 "Last-Translator: Wouter Bolsterlee <wbolster@gnome.org>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -144,7 +144,7 @@ msgid "Skip to the previous track"
 msgstr "Ga naar het vorige nummer"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:139 ../src/sj-main.c:141
-#: ../src/sj-main.c:1622
+#: ../src/sj-main.c:1642
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -267,7 +267,8 @@ msgid ""
 "number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
 "tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
 "(lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable "
-"lowercase)"
+"lowercase) %dn -- disc and track number (i.e Disk 2 - 6, or 6) %dN -- disc "
+"number, zero padded (i.e d02t06, or 06)"
 msgstr ""
 "Geef geen extensie. %at -- albumnaam %aT -- albumnaam (kleine letters) %aa "
 "-- albumartiest %aA -- albumartiest (kleine letters) %as -- albumartiest "
@@ -275,7 +276,9 @@ msgstr ""
 "nummer getal (bijv. 8) %tN -- nummergetal, met voorloopnullen (bijv. 08) %tt "
 "-- nummertitel %tT -- nummertitel (kleine letters) %ta -- nummerartiest %tA "
 "-- nummerartiest (kleine letters) %ts -- nummerartiest (sorteerbaar) %tS -- "
-"nummerartiest (sorteerbaar, kleine letters)"
+"nummerartiest (sorteerbaar, kleine letters), %dn -- schijf- en nummergetal "
+"(bijv. Schijf 2 - 6, of 6), %dN -- schijfgetal, met voorloopnullen (bijv. "
+"d02t06, of 06)"
 
 #: ../data/sound-juicer.schemas.in.h:7
 msgid ""
@@ -332,55 +335,55 @@ msgstr "Of de cd moet worden uitgeworpen als hij is gekopieerd."
 msgid "Whether to open the target directory when finished extracting."
 msgstr "Of de doelmap moet worden geopend als de schijf is gekopieerd."
 
-#: ../libjuicer/sj-extractor.c:193
+#: ../libjuicer/sj-extractor.c:192
 msgid "Audio Profile"
 msgstr "Audioprofiel"
 
-#: ../libjuicer/sj-extractor.c:194
+#: ../libjuicer/sj-extractor.c:193
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "Het Gnome-audioprofiel dat gebruikt wordt voor het coderen van audio"
 
-#: ../libjuicer/sj-extractor.c:200
+#: ../libjuicer/sj-extractor.c:199
 msgid "Paranoia Level"
 msgstr "Paranoia-niveau"
 
-#: ../libjuicer/sj-extractor.c:201
+#: ../libjuicer/sj-extractor.c:200
 msgid "The paranoia level"
 msgstr "De te gebruiken paranoia-stand"
 
-#: ../libjuicer/sj-extractor.c:206
+#: ../libjuicer/sj-extractor.c:205
 msgid "device"
 msgstr "apparaat"
 
-#: ../libjuicer/sj-extractor.c:207
+#: ../libjuicer/sj-extractor.c:206
 msgid "The device"
 msgstr "Het apparaat"
 
-#: ../libjuicer/sj-extractor.c:348
+#: ../libjuicer/sj-extractor.c:347
 #, c-format
 msgid "Could not create GStreamer CD reader"
 msgstr "Kon geen GStreamer cd-lezer maken"
 
-#: ../libjuicer/sj-extractor.c:370
+#: ../libjuicer/sj-extractor.c:369
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Kon geen GStreamer encoders maken voor %s"
 
-#: ../libjuicer/sj-extractor.c:381
+#: ../libjuicer/sj-extractor.c:380
 #, c-format
 msgid "Could not create GStreamer file output"
 msgstr "Kon geen GStreamer bestandsuitvoer maken"
 
-#: ../libjuicer/sj-extractor.c:395
+#: ../libjuicer/sj-extractor.c:394
 #, c-format
 msgid "Could not link pipeline"
 msgstr "Kon de pijplijn niet verbinden"
 
-#: ../libjuicer/sj-extractor.c:419
+#: ../libjuicer/sj-extractor.c:418
 msgid "Could not get current track position"
 msgstr "Kon huidige positie in het nummer niet verkrijgen"
 
-#: ../libjuicer/sj-extractor.c:448
+#: ../libjuicer/sj-extractor.c:447
 #, c-format
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
@@ -388,12 +391,12 @@ msgstr ""
 "Uitpakobject is ongeldig. Dit is foute boel, start het programma in een "
 "terminal en kijk voor fouten."
 
-#: ../libjuicer/sj-extractor.c:652
+#: ../libjuicer/sj-extractor.c:655
 #, c-format
 msgid "The plugin necessary for CD access was not found"
 msgstr "De benodigde plugin voor cd-toegang is niet gevonden"
 
-#: ../libjuicer/sj-extractor.c:660
+#: ../libjuicer/sj-extractor.c:663
 #, c-format
 msgid "The plugin necessary for file access was not found"
 msgstr "De benodigde plugin voor bestandstoegang is niet gevonden"
@@ -417,23 +420,23 @@ msgstr ""
 msgid "Cannot read CD: %s"
 msgstr "Kan cd niet lezen: %s"
 
-#: ../libjuicer/sj-metadata-cdtext.c:81
+#: ../libjuicer/sj-metadata-cdtext.c:78
 #, c-format
 msgid "Cannot read CD"
 msgstr "Kan cd niet lezen"
 
-#: ../libjuicer/sj-metadata-cdtext.c:96 ../libjuicer/sj-metadata-cdtext.c:117
+#: ../libjuicer/sj-metadata-cdtext.c:93 ../libjuicer/sj-metadata-cdtext.c:114
 #: ../libjuicer/sj-metadata-gvfs.c:110 ../libjuicer/sj-metadata-gvfs.c:133
 #: ../libjuicer/sj-metadata-musicbrainz.c:328 ../src/egg-play-preview.c:466
 msgid "Unknown Artist"
 msgstr "Onbekende artiest"
 
-#: ../libjuicer/sj-metadata-cdtext.c:97 ../libjuicer/sj-metadata-gvfs.c:106
+#: ../libjuicer/sj-metadata-cdtext.c:94 ../libjuicer/sj-metadata-gvfs.c:106
 #: ../libjuicer/sj-metadata-musicbrainz.c:344 ../src/egg-play-preview.c:461
 msgid "Unknown Title"
 msgstr "Onbekende titel"
 
-#: ../libjuicer/sj-metadata-cdtext.c:116 ../libjuicer/sj-metadata-gvfs.c:130
+#: ../libjuicer/sj-metadata-cdtext.c:113 ../libjuicer/sj-metadata-gvfs.c:130
 #, c-format
 msgid "Track %d"
 msgstr "Nummer %d"
@@ -482,7 +485,7 @@ msgstr "De URI van het audiobestand"
 
 # dit zijn de tabelkoppen in de 'track listing'
 # dit is de titel van het nummer
-#: ../src/egg-play-preview.c:175 ../src/sj-main.c:626 ../src/sj-main.c:1761
+#: ../src/egg-play-preview.c:175 ../src/sj-main.c:626 ../src/sj-main.c:1798
 msgid "Title"
 msgstr "Titel"
 
@@ -490,7 +493,7 @@ msgstr "Titel"
 msgid "The title of the current stream."
 msgstr "De titel van de huidige stroom."
 
-#: ../src/egg-play-preview.c:185 ../src/sj-main.c:632 ../src/sj-main.c:1770
+#: ../src/egg-play-preview.c:185 ../src/sj-main.c:632 ../src/sj-main.c:1807
 msgid "Artist"
 msgstr "Artiest"
 
@@ -514,7 +517,7 @@ msgstr "Positie"
 msgid "The position in the current stream in seconds."
 msgstr "De positie in de huidige stroom in seconden."
 
-#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1781
+#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1818
 msgid "Duration"
 msgstr "Lengte"
 
@@ -591,25 +594,25 @@ msgstr ""
 "Kijk voor meer informatie op http://nl.gnome.org/"
 
 # bestandsindeling van de uitvoer/uitvoerformaat
-#: ../src/sj-extracting.c:145
+#: ../src/sj-extracting.c:146
 #, c-format
 msgid "Failed to get output format"
 msgstr "Kon uitvoerformaat niet verkrijgen"
 
-#: ../src/sj-extracting.c:166
+#: ../src/sj-extracting.c:167
 msgid "Name too long"
 msgstr "Naam te lang"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:225
+#: ../src/sj-extracting.c:226
 msgid "Extract"
 msgstr "Kopiëren"
 
-#: ../src/sj-extracting.c:302
+#: ../src/sj-extracting.c:303
 msgid "A file with the same name exists"
 msgstr "Een bestand met dezelfde naam bestaat al"
 
-#: ../src/sj-extracting.c:304
+#: ../src/sj-extracting.c:305
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -618,42 +621,46 @@ msgstr ""
 "Er is al een bestand genaamd ‘%s’, met grootte %s.\n"
 "Wilt u het nummer overslaan of wilt u het bestand overschrijven?"
 
-#: ../src/sj-extracting.c:314
+#: ../src/sj-extracting.c:315
 msgid "_Skip"
 msgstr "Over_slaan"
 
-#: ../src/sj-extracting.c:315
+#: ../src/sj-extracting.c:316
 msgid "S_kip All"
 msgstr "_Alle overslaan"
 
-#: ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:317
 msgid "_Overwrite"
 msgstr "_Overschrijven"
 
-#: ../src/sj-extracting.c:317
+#: ../src/sj-extracting.c:318
 msgid "Overwrite _All"
 msgstr "_Alle overschrijven"
 
-#: ../src/sj-extracting.c:366
+#: ../src/sj-extracting.c:367
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Kon uitvoermap niet aanmaken: %s"
 
 # dat het geschat is, is wel duidelijk,
 # om het kort te houden is het daarom weggelaten.
-#: ../src/sj-extracting.c:506
+#: ../src/sj-extracting.c:507
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Resterende tijd: %d:%02d (bij %0.1fx)"
 
 # dat het geschat is, is wel duidelijk,
 # om het kort te houden is het daarom weggelaten.
-#: ../src/sj-extracting.c:508
+#: ../src/sj-extracting.c:509
 msgid "Estimated time left: unknown"
 msgstr "Resterende tijd: onbekend"
 
+#: ../src/sj-extracting.c:599
+msgid "CD rip complete"
+msgstr "CD-kopie compleet"
+
 #. Display a nice dialog
-#: ../src/sj-extracting.c:681
+#: ../src/sj-extracting.c:688
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -664,11 +671,11 @@ msgstr ""
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:783
+#: ../src/sj-extracting.c:790
 msgid "Stop"
 msgstr "Stoppen"
 
-#: ../src/sj-extracting.c:812 ../src/sj-extracting.c:818
+#: ../src/sj-extracting.c:819 ../src/sj-extracting.c:825
 msgid "Extracting audio from CD"
 msgstr "Muziek van uw cd's kopiëren"
 
@@ -751,7 +758,7 @@ msgid "Could not start Sound Juicer"
 msgstr "Kon Sound Juicer niet starten"
 
 #: ../src/sj-main.c:185 ../src/sj-main.c:814 ../src/sj-main.c:927
-#: ../src/sj-main.c:1035 ../src/sj-main.c:1246 ../src/sj-main.c:1568
+#: ../src/sj-main.c:1035 ../src/sj-main.c:1246 ../src/sj-main.c:1602
 msgid "Reason"
 msgstr "Reden"
 
@@ -842,7 +849,7 @@ msgstr "Sound Juicer kon deze URL niet openen"
 msgid "Unknown column %d was edited"
 msgstr "Onbekende kolom %d is bewerkt"
 
-#: ../src/sj-main.c:1461 ../src/sj-prefs.c:103
+#: ../src/sj-main.c:1495 ../src/sj-prefs.c:103
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -851,53 +858,54 @@ msgstr ""
 "Kon de hulp voor Sound Juicer niet weergeven\n"
 "%s"
 
-#: ../src/sj-main.c:1566
+#: ../src/sj-main.c:1600
 msgid "Could not duplicate disc"
 msgstr "Kon cd niet dupliceren"
 
 # submission?
-#: ../src/sj-main.c:1567
+#: ../src/sj-main.c:1601
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Sound Juicer kon deze schijf niet dupliceren"
 
-#: ../src/sj-main.c:1595
+#: ../src/sj-main.c:1629
 msgid "Start extracting immediately"
 msgstr "Meteen beginnen met kopiëren"
 
-#: ../src/sj-main.c:1596
+#: ../src/sj-main.c:1630
 msgid "Start playing immediately"
 msgstr "Meteen beginnen met afspelen"
 
-#: ../src/sj-main.c:1597
+#: ../src/sj-main.c:1631
 msgid "What CD device to read"
 msgstr "Welk cd-apparaat te gebruiken"
 
-#: ../src/sj-main.c:1597
+#: ../src/sj-main.c:1631
 msgid "DEVICE"
 msgstr "APPARAAT"
 
-#: ../src/sj-main.c:1598
+#: ../src/sj-main.c:1632
 msgid "URI to the CD device to read"
 msgstr "URI naar het te gebruiken cd-apparaat"
 
-#: ../src/sj-main.c:1608
+#: ../src/sj-main.c:1644
 msgid "- Extract music from your CDs"
 msgstr "— Muziek van uw cd's kopiëren"
 
-#: ../src/sj-main.c:1646
+#: ../src/sj-main.c:1681
 msgid "Could not create GConf client.\n"
 msgstr "Kon geen GConf-client aanmaken.\n"
 
-#: ../src/sj-main.c:1678
+#. this is made up
+#: ../src/sj-main.c:1715
 #, c-format
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Kan het gebruikersinterfacebestand voor Sound Juicer niet lezen."
 
-#: ../src/sj-main.c:1746
+#: ../src/sj-main.c:1783
 msgid "Track"
 msgstr "Nummer"
 
-#: ../src/sj-play.c:199 ../src/sj-play.c:467 ../src/sj-play.c:496
+#: ../src/sj-play.c:193 ../src/sj-play.c:461 ../src/sj-play.c:490
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -909,30 +917,30 @@ msgstr ""
 "Reden: %s"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:270
+#: ../src/sj-play.c:264
 msgid "Play"
 msgstr "Afspelen"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:314
+#: ../src/sj-play.c:308
 msgid "Pause"
 msgstr "Pauzeren"
 
-#: ../src/sj-play.c:371
+#: ../src/sj-play.c:365
 #, c-format
 msgid "Failed to create CD source element"
 msgstr "Kon cd-bronelement niet aanmaken"
 
-#: ../src/sj-play.c:408
+#: ../src/sj-play.c:402
 msgid "Failed to link pipeline"
 msgstr "Kon de pijplijn niet verbinden"
 
-#: ../src/sj-play.c:414
+#: ../src/sj-play.c:408
 #, c-format
 msgid "Failed to create audio output"
 msgstr "Kon audio-uitvoer niet aanmaken"
 
-#: ../src/sj-play.c:618
+#: ../src/sj-play.c:612
 #, c-format
 msgid "Seeking to %s"
 msgstr "Doorspoelen naar %s"
@@ -1006,7 +1014,7 @@ msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Getal - Nummerartiest - Nummertitel (kleine letters)"
 
 # dubbele punt op het eind is wel zo duidelijk hier
-#: ../src/sj-prefs.c:269
+#: ../src/sj-prefs.c:275
 msgid "Example Path"
 msgstr "Voorbeeldpad:"
 
