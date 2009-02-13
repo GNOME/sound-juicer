@@ -556,10 +556,16 @@ sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, G
       }
 
       if (track->album->genre != NULL && strcmp (track->album->genre, "") != 0) {
-        gst_tag_setter_add_tags (tagger,
-                                 GST_TAG_MERGE_APPEND,
-                                 GST_TAG_GENRE, track->album->genre,
-                                 NULL);
+        char **values, **l;
+        values = g_strsplit (track->album->genre, ",", 0);
+        for (l = values; *l; l++) {
+          g_strstrip (*l);
+          gst_tag_setter_add_tags (tagger,
+                                   GST_TAG_MERGE_APPEND,
+                                   GST_TAG_GENRE, *l,
+                                   NULL);
+        }
+        g_strfreev (values);
       }
       if (track->album->release_date) {
         gst_tag_setter_add_tags (tagger,
