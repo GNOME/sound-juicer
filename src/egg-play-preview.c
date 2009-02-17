@@ -263,12 +263,12 @@ egg_play_preview_init (EggPlayPreview *play_preview)
 	pango_attr_list_insert (attrs, bold);
 	gtk_label_set_attributes (GTK_LABEL (priv->title_label), attrs);
 	pango_attr_list_unref(attrs);
-	gtk_box_pack_start_defaults (GTK_BOX (vbox), priv->title_label);
+	gtk_box_pack_start (GTK_BOX (vbox), priv->title_label, TRUE, TRUE, 0);
 
 	priv->artist_album_label = gtk_label_new (NULL);
 	gtk_label_set_justify (GTK_LABEL (priv->artist_album_label), GTK_JUSTIFY_LEFT);
 	gtk_misc_set_alignment (GTK_MISC (priv->artist_album_label), 0.0, 0.5);
-	gtk_box_pack_start_defaults (GTK_BOX (vbox), priv->artist_album_label);
+	gtk_box_pack_start (GTK_BOX (vbox), priv->artist_album_label, TRUE, TRUE, 0);
 
 	hbox = gtk_hbox_new (FALSE, 12);
 
