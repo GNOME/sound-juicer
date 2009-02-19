@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer 2.16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-09 22:53+0100\n"
-"PO-Revision-Date: 2009-02-09 22:53+0100\n"
+"POT-Creation-Date: 2009-02-19 20:17+0100\n"
+"PO-Revision-Date: 2009-02-19 20:19+0100\n"
 "Last-Translator: Gil Forcada <gilforcada@guifi.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -113,7 +113,7 @@ msgid "Skip to the previous track"
 msgstr "Salta a la pista anterior"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:139 ../src/sj-main.c:141
-#: ../src/sj-main.c:1621
+#: ../src/sj-main.c:1642
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -355,12 +355,12 @@ msgstr ""
 "L'objecte d'extracció no és vàlid. És dolent, comproveu la consola per a "
 "veure els errors."
 
-#: ../libjuicer/sj-extractor.c:651
+#: ../libjuicer/sj-extractor.c:655
 #, c-format
 msgid "The plugin necessary for CD access was not found"
 msgstr "No s'ha trobat el connector necessari per a l'accés al CD"
 
-#: ../libjuicer/sj-extractor.c:659
+#: ../libjuicer/sj-extractor.c:663
 #, c-format
 msgid "The plugin necessary for file access was not found"
 msgstr "No s'ha trobat el connector necessari per a l'accés al fitxer"
@@ -404,7 +404,7 @@ msgstr "Títol desconegut"
 msgid "Track %d"
 msgstr "Pista %d"
 
-#: ../libjuicer/sj-metadata-getter.c:245
+#: ../libjuicer/sj-metadata-getter.c:249
 #, c-format
 msgid "Could not create CD lookup thread"
 msgstr "No s'ha pogut crear el fil de consulta de CD"
@@ -446,7 +446,7 @@ msgstr "URI"
 msgid "The URI of the audio file"
 msgstr "L'URI del fitxer d'àudio"
 
-#: ../src/egg-play-preview.c:175 ../src/sj-main.c:626 ../src/sj-main.c:1760
+#: ../src/egg-play-preview.c:175 ../src/sj-main.c:626 ../src/sj-main.c:1798
 msgid "Title"
 msgstr "Títol"
 
@@ -454,7 +454,7 @@ msgstr "Títol"
 msgid "The title of the current stream."
 msgstr "El títol del flux actual."
 
-#: ../src/egg-play-preview.c:185 ../src/sj-main.c:632 ../src/sj-main.c:1769
+#: ../src/egg-play-preview.c:185 ../src/sj-main.c:632 ../src/sj-main.c:1807
 msgid "Artist"
 msgstr "Artista"
 
@@ -478,7 +478,7 @@ msgstr "Posició"
 msgid "The position in the current stream in seconds."
 msgstr "La posició del flux actual, en segons."
 
-#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1780
+#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1818
 msgid "Duration"
 msgstr "Durada"
 
@@ -547,25 +547,25 @@ msgstr ""
 "Jordi Mallach <jordi@sindominio.net>\n"
 "Gil Forcada <gilforcada@guifi.net>"
 
-#: ../src/sj-extracting.c:145
+#: ../src/sj-extracting.c:146
 #, c-format
 msgid "Failed to get output format"
 msgstr "No s'ha pogut obtenir el format de sortida"
 
-#: ../src/sj-extracting.c:166
+#: ../src/sj-extracting.c:167
 msgid "Name too long"
 msgstr "El nom és massa llarg"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:225
+#: ../src/sj-extracting.c:226
 msgid "Extract"
 msgstr "Extreu"
 
-#: ../src/sj-extracting.c:302
+#: ../src/sj-extracting.c:303
 msgid "A file with the same name exists"
 msgstr "Ja existeix un fitxer amb aquest nom"
 
-#: ../src/sj-extracting.c:304
+#: ../src/sj-extracting.c:305
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -574,38 +574,42 @@ msgstr ""
 "Existeix un fitxer «%s», de mida %s.\n"
 "Voleu saltar-vos aquesta pista o sobreescriure-la?"
 
-#: ../src/sj-extracting.c:314
+#: ../src/sj-extracting.c:315
 msgid "_Skip"
 msgstr "_Salta"
 
-#: ../src/sj-extracting.c:315
+#: ../src/sj-extracting.c:316
 msgid "S_kip All"
 msgstr "Salta-les _totes"
 
-#: ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:317
 msgid "_Overwrite"
 msgstr "_Sobreescriu"
 
-#: ../src/sj-extracting.c:317
+#: ../src/sj-extracting.c:318
 msgid "Overwrite _All"
 msgstr "Sobreescriu-_les totes"
 
-#: ../src/sj-extracting.c:366
+#: ../src/sj-extracting.c:367
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "No s'ha pogut crear el directori de sortida: %s"
 
-#: ../src/sj-extracting.c:506
+#: ../src/sj-extracting.c:507
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Temps restant estimat: %d:%02d (a %0.1fx)"
 
-#: ../src/sj-extracting.c:508
+#: ../src/sj-extracting.c:509
 msgid "Estimated time left: unknown"
 msgstr "Temps restant estimat: desconegut"
 
+#: ../src/sj-extracting.c:599
+msgid "CD rip complete"
+msgstr "S'ha completat l'extracció del CD"
+
 #. Display a nice dialog
-#: ../src/sj-extracting.c:681
+#: ../src/sj-extracting.c:688
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
@@ -616,11 +620,11 @@ msgstr ""
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:783
+#: ../src/sj-extracting.c:790
 msgid "Stop"
 msgstr "Atura"
 
-#: ../src/sj-extracting.c:812 ../src/sj-extracting.c:818
+#: ../src/sj-extracting.c:819 ../src/sj-extracting.c:825
 msgid "Extracting audio from CD"
 msgstr "S'està extraient l'àudio del CD"
 
@@ -702,7 +706,7 @@ msgid "Could not start Sound Juicer"
 msgstr "No s'ha pogut iniciar el Sound Juicer"
 
 #: ../src/sj-main.c:185 ../src/sj-main.c:814 ../src/sj-main.c:927
-#: ../src/sj-main.c:1035 ../src/sj-main.c:1246 ../src/sj-main.c:1567
+#: ../src/sj-main.c:1035 ../src/sj-main.c:1246 ../src/sj-main.c:1602
 msgid "Reason"
 msgstr "Raó"
 
@@ -792,7 +796,7 @@ msgstr "El Sound Juicer no ha pogut obrir l'URL d'enviament"
 msgid "Unknown column %d was edited"
 msgstr "S'ha editat la columna desconeguda %d"
 
-#: ../src/sj-main.c:1460 ../src/sj-prefs.c:103
+#: ../src/sj-main.c:1495 ../src/sj-prefs.c:103
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -801,48 +805,49 @@ msgstr ""
 "No s'ha pogut mostrar l'ajuda del Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1565
+#: ../src/sj-main.c:1600
 msgid "Could not duplicate disc"
 msgstr "No s'ha pogut duplicar el disc"
 
-#: ../src/sj-main.c:1566
+#: ../src/sj-main.c:1601
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "El Sound Juicer no ha pogut duplicar el disc"
 
-#: ../src/sj-main.c:1594
+#: ../src/sj-main.c:1629
 msgid "Start extracting immediately"
 msgstr "Comença l'extracció immediatament"
 
-#: ../src/sj-main.c:1595
+#: ../src/sj-main.c:1630
 msgid "Start playing immediately"
 msgstr "Comença la reproducció immediatament"
 
-#: ../src/sj-main.c:1596
+#: ../src/sj-main.c:1631
 msgid "What CD device to read"
 msgstr "Quin dispositiu de CD voleu llegir"
 
-#: ../src/sj-main.c:1596
+#: ../src/sj-main.c:1631
 msgid "DEVICE"
 msgstr "DISPOSITIU"
 
-#: ../src/sj-main.c:1597
+#: ../src/sj-main.c:1632
 msgid "URI to the CD device to read"
 msgstr "URI del dispositiu de CD a llegir"
 
-#: ../src/sj-main.c:1607
+#: ../src/sj-main.c:1644
 msgid "- Extract music from your CDs"
 msgstr "- Extreu música dels CD"
 
-#: ../src/sj-main.c:1645
+#: ../src/sj-main.c:1681
 msgid "Could not create GConf client.\n"
 msgstr "No s'ha pogut crear un client del GConf.\n"
 
-#: ../src/sj-main.c:1677
+#. this is made up
+#: ../src/sj-main.c:1715
 #, c-format
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "No s'ha pogut llegir el fitxer d'interfície del Sound Juicer."
 
-#: ../src/sj-main.c:1745
+#: ../src/sj-main.c:1783
 msgid "Track"
 msgstr "Pista"
 
@@ -951,7 +956,7 @@ msgstr "Número. Artista de la pista - Títol de la pista"
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Número-Artista de la pista-Títol de la pista (minúscules)"
 
-#: ../src/sj-prefs.c:269
+#: ../src/sj-prefs.c:275
 msgid "Example Path"
 msgstr "Exemple de camí"
 
