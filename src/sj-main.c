@@ -1640,6 +1640,7 @@ int main (int argc, char **argv)
   textdomain (GETTEXT_PACKAGE);
 
   g_set_application_name (_("Sound Juicer"));
+  g_setenv ("PULSE_PROP_media.role", "music", TRUE);
 
   ctx = g_option_context_new (N_("- Extract music from your CDs"));
   g_option_context_add_main_entries (ctx, entries, GETTEXT_PACKAGE);
