@@ -9,9 +9,9 @@ msgstr ""
 "Project-Id-Version: sound-juicer.gnome-2-12\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
 "juicer&component=general\n"
-"POT-Creation-Date: 2009-01-05 11:45+0000\n"
-"PO-Revision-Date: 2005-10-07 14:14+0300\n"
-"Last-Translator: Eyal Mamo <emamo91@gmail.com>\n"
+"POT-Creation-Date: 2009-03-06 09:06+0000\n"
+"PO-Revision-Date: 2009-03-08 00:44+0200\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,7 +44,7 @@ msgstr "<b>תצורה</b>"
 
 #: ../data/sound-juicer.glade.h:5
 msgid "<b>Music Folder</b>"
-msgstr "<b>תיקיית המוסיקה</b>"
+msgstr "<b>תיקיית המוזיקה</b>"
 
 #: ../data/sound-juicer.glade.h:6
 msgid "<b>Track Names</b>"
@@ -114,8 +114,8 @@ msgstr "דלג לרצועה הבאה"
 msgid "Skip to the previous track"
 msgstr "חזור לרצועה הקודמת"
 
-#: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:138 ../src/sj-main.c:140
-#: ../src/sj-main.c:1608
+#: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:139 ../src/sj-main.c:141
+#: ../src/sj-main.c:1642
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -138,7 +138,7 @@ msgstr "רצועות"
 msgid "_Contents"
 msgstr "_תוכן"
 
-#: ../data/sound-juicer.glade.h:28 ../src/sj-main.c:231
+#: ../data/sound-juicer.glade.h:28 ../src/sj-main.c:232
 msgid "_Continue"
 msgstr "_המשך"
 
@@ -160,7 +160,7 @@ msgstr "_עריכה"
 
 #: ../data/sound-juicer.glade.h:33
 msgid "_Eject after extracting tracks"
-msgstr ""
+msgstr "_הוצא לאחר חילוץ הרצועות"
 
 #: ../data/sound-juicer.glade.h:34
 msgid "_Folder:"
@@ -230,7 +230,8 @@ msgid ""
 "number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
 "tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
 "(lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable "
-"lowercase)"
+"lowercase) %dn -- disc and track number (i.e Disk 2 - 6, or 6) %dN -- disc "
+"number, zero padded (i.e d02t06, or 06)"
 msgstr ""
 "Do not specify an extension. %at -- album title %aT -- album title "
 "(lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album "
@@ -238,7 +239,8 @@ msgstr ""
 "number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
 "tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
 "(lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable "
-"lowercase)"
+"lowercase) %dn -- disc and track number (i.e Disk 2 - 6, or 6) %dN -- disc "
+"number, zero padded (i.e d02t06, or 06)"
 
 #: ../data/sound-juicer.schemas.in.h:7
 msgid ""
@@ -292,103 +294,103 @@ msgstr "Whether to eject the CD when finished extracting."
 msgid "Whether to open the target directory when finished extracting."
 msgstr "Whether to open the target directory when finished extracting."
 
-#: ../libjuicer/sj-extractor.c:193
+#: ../libjuicer/sj-extractor.c:192
 msgid "Audio Profile"
 msgstr "פרופיל שמע"
 
-#: ../libjuicer/sj-extractor.c:194
+#: ../libjuicer/sj-extractor.c:193
 msgid "The GNOME Audio Profile used for encoding audio"
 msgstr "פרופיל הקול של GNOME שבאמצעותו קודד הקול"
 
-#: ../libjuicer/sj-extractor.c:200
+#: ../libjuicer/sj-extractor.c:199
 msgid "Paranoia Level"
 msgstr "Paranoia Level"
 
-#: ../libjuicer/sj-extractor.c:201
+#: ../libjuicer/sj-extractor.c:200
 msgid "The paranoia level"
 msgstr "The paranoia level"
 
-#: ../libjuicer/sj-extractor.c:206
+#: ../libjuicer/sj-extractor.c:205
 msgid "device"
 msgstr "התקן"
 
-#: ../libjuicer/sj-extractor.c:207
+#: ../libjuicer/sj-extractor.c:206
 msgid "The device"
 msgstr "ההתקן"
 
-#: ../libjuicer/sj-extractor.c:348
+#: ../libjuicer/sj-extractor.c:347
 #, c-format
 msgid "Could not create GStreamer CD reader"
 msgstr "לא הייתה אפשרות ליצור קורא תקליטורים GStreamer"
 
-#: ../libjuicer/sj-extractor.c:370
+#: ../libjuicer/sj-extractor.c:369
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "אין אפשרות ליצור מקודד GStreamer ל %s"
 
-#: ../libjuicer/sj-extractor.c:381
+#: ../libjuicer/sj-extractor.c:380
 #, c-format
 msgid "Could not create GStreamer file output"
 msgstr "אין אפשרות לייצר קובץ פלט ל GStreamer"
 
-#: ../libjuicer/sj-extractor.c:395
+#: ../libjuicer/sj-extractor.c:394
 #, c-format
 msgid "Could not link pipeline"
 msgstr "לא ניתן לקשר את קו הצינורות"
 
-#: ../libjuicer/sj-extractor.c:419
+#: ../libjuicer/sj-extractor.c:418
 msgid "Could not get current track position"
 msgstr "לא הייתה אפשרות לאתר את מיקום הרצועה הנוכחית"
 
-#: ../libjuicer/sj-extractor.c:448
+#: ../libjuicer/sj-extractor.c:447
 #, c-format
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr "המחלץ אינו תקין. זה לא טוב, אנא בדוק את השגיאות במסוף."
 
-#: ../libjuicer/sj-extractor.c:652
+#: ../libjuicer/sj-extractor.c:649
 #, c-format
 msgid "The plugin necessary for CD access was not found"
 msgstr "התוסף הדרוש לגישה לתקליטור לא נמצא"
 
-#: ../libjuicer/sj-extractor.c:660
+#: ../libjuicer/sj-extractor.c:657
 #, c-format
 msgid "The plugin necessary for file access was not found"
 msgstr "התוסף הדרוש לגישה לקבצים לא נמצא"
 
-#: ../libjuicer/sj-metadata.c:187
+#: ../libjuicer/sj-metadata.c:186
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "כונן '%s' אינו מכיל תקליטור"
 
-#: ../libjuicer/sj-metadata.c:190
+#: ../libjuicer/sj-metadata.c:189
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "לא ניתן לפתוח את הכונן '%s'. אנא בדוק את הרשאות הגישה לכונן."
 
-#: ../libjuicer/sj-metadata.c:193 ../libjuicer/sj-metadata.c:205
+#: ../libjuicer/sj-metadata.c:192 ../libjuicer/sj-metadata.c:204
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "אין אפשרות לקרוא את התקליטור: %s"
 
-#: ../libjuicer/sj-metadata-cdtext.c:81
+#: ../libjuicer/sj-metadata-cdtext.c:78
 #, c-format
 msgid "Cannot read CD"
 msgstr "אין אפשרות לקרוא את התקליטור"
 
-#: ../libjuicer/sj-metadata-cdtext.c:96 ../libjuicer/sj-metadata-cdtext.c:117
+#: ../libjuicer/sj-metadata-cdtext.c:93 ../libjuicer/sj-metadata-cdtext.c:114
 #: ../libjuicer/sj-metadata-gvfs.c:110 ../libjuicer/sj-metadata-gvfs.c:133
 #: ../libjuicer/sj-metadata-musicbrainz.c:328 ../src/egg-play-preview.c:466
 msgid "Unknown Artist"
 msgstr "אמן לא ידוע"
 
-#: ../libjuicer/sj-metadata-cdtext.c:97 ../libjuicer/sj-metadata-gvfs.c:106
+#: ../libjuicer/sj-metadata-cdtext.c:94 ../libjuicer/sj-metadata-gvfs.c:106
 #: ../libjuicer/sj-metadata-musicbrainz.c:344 ../src/egg-play-preview.c:461
 msgid "Unknown Title"
 msgstr "שם לא ידוע"
 
-#: ../libjuicer/sj-metadata-cdtext.c:116 ../libjuicer/sj-metadata-gvfs.c:130
+#: ../libjuicer/sj-metadata-cdtext.c:113 ../libjuicer/sj-metadata-gvfs.c:130
 #, c-format
 msgid "Track %d"
 msgstr "רצועה %d"
@@ -421,7 +423,7 @@ msgstr "מבחר"
 
 #: ../libjuicer/sj-metadata-musicbrainz.c:369
 msgid "Incomplete metadata for this CD"
-msgstr "לא נמצא מטה-מידע מלא לתקליטור זה"
+msgstr "לא נמצאו מטא־נתונים מלא לתקליטור זה"
 
 #: ../libjuicer/sj-metadata-musicbrainz.c:399
 msgid "[Untitled]"
@@ -435,7 +437,7 @@ msgstr "כתובת"
 msgid "The URI of the audio file"
 msgstr "הכתובת של קובץ השמע"
 
-#: ../src/egg-play-preview.c:175 ../src/sj-main.c:625 ../src/sj-main.c:1747
+#: ../src/egg-play-preview.c:175 ../src/sj-main.c:626 ../src/sj-main.c:1798
 msgid "Title"
 msgstr "שם"
 
@@ -443,7 +445,7 @@ msgstr "שם"
 msgid "The title of the current stream."
 msgstr "השם של הזרימה הנוכחית"
 
-#: ../src/egg-play-preview.c:185 ../src/sj-main.c:631 ../src/sj-main.c:1756
+#: ../src/egg-play-preview.c:185 ../src/sj-main.c:632 ../src/sj-main.c:1807
 msgid "Artist"
 msgstr "אמן"
 
@@ -467,7 +469,7 @@ msgstr "מיקום"
 msgid "The position in the current stream in seconds."
 msgstr "המיקום של הזרימה הנוכחית."
 
-#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1767
+#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1818
 msgid "Duration"
 msgstr "משך"
 
@@ -534,29 +536,30 @@ msgstr "מחלץ תקליטורי מוסיקה"
 msgid "translator-credits"
 msgstr ""
 "אייל ממו <emamo91@gmail.com>\n"
+"Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "\n"
 "פרוייקט תרגום GNOME לעברית:\n"
 "‏http://gnome-il.berlios.de"
 
-#: ../src/sj-extracting.c:143
+#: ../src/sj-extracting.c:146
 #, c-format
 msgid "Failed to get output format"
 msgstr "שגיאה בקבלת תצורת פלט"
 
-#: ../src/sj-extracting.c:164
+#: ../src/sj-extracting.c:167
 msgid "Name too long"
-msgstr ""
+msgstr "השם ארוך מדי"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:223
+#: ../src/sj-extracting.c:226
 msgid "Extract"
 msgstr "חלץ"
 
-#: ../src/sj-extracting.c:300
+#: ../src/sj-extracting.c:303
 msgid "A file with the same name exists"
 msgstr "קיים קובץ בשם זהה"
 
-#: ../src/sj-extracting.c:302
+#: ../src/sj-extracting.c:305
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -565,53 +568,57 @@ msgstr ""
 "קובץ בשם '%s' קיים, גודל %s.\n"
 "האם אתה רוצה לדלג על רצועה זו, או להחליף אותה?"
 
-#: ../src/sj-extracting.c:312
+#: ../src/sj-extracting.c:315
 msgid "_Skip"
 msgstr "_דלג"
 
-#: ../src/sj-extracting.c:313
+#: ../src/sj-extracting.c:316
 msgid "S_kip All"
 msgstr "ד_לג על הכל"
 
-#: ../src/sj-extracting.c:314
+#: ../src/sj-extracting.c:317
 msgid "_Overwrite"
 msgstr "_החלף"
 
-#: ../src/sj-extracting.c:315
+#: ../src/sj-extracting.c:318
 msgid "Overwrite _All"
 msgstr "החלף ה_כל"
 
-#: ../src/sj-extracting.c:364
+#: ../src/sj-extracting.c:367
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "נכשל ביצירת ספריית פלט: %s"
 
-#: ../src/sj-extracting.c:504
+#: ../src/sj-extracting.c:507
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "הערכת הזמן הנותר: %d:%02d (ב·%0.1f×)"
 
-#: ../src/sj-extracting.c:506
+#: ../src/sj-extracting.c:509
 msgid "Estimated time left: unknown"
 msgstr "הערכת הזמן הנותר: לא ידוע"
 
+#: ../src/sj-extracting.c:599
+msgid "CD rip complete"
+msgstr "העתקת התקליטור הושלמה"
+
 #. Display a nice dialog
-#: ../src/sj-extracting.c:679
+#: ../src/sj-extracting.c:688
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
 "Reason: %s"
 msgstr ""
-"ל-Sound Juicer אין אפשרות לחלץ מתקליטור זה.\n"
+"ל־Sound Juicer אין אפשרות לחלץ מתקליטור זה.\n"
 "הסיבה: %s"
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:781
+#: ../src/sj-extracting.c:790
 msgid "Stop"
 msgstr "עצור"
 
-#: ../src/sj-extracting.c:810 ../src/sj-extracting.c:816
+#: ../src/sj-extracting.c:819 ../src/sj-extracting.c:825
 msgid "Extracting audio from CD"
 msgstr "מחלץ מוסיקה מהתקליטור "
 
@@ -629,11 +636,11 @@ msgstr "קלאסי"
 
 #: ../src/sj-genres.c:33
 msgid "Country"
-msgstr ""
+msgstr "קאנטרי"
 
 #: ../src/sj-genres.c:34
 msgid "Dance"
-msgstr ""
+msgstr "דאנס"
 
 #: ../src/sj-genres.c:35
 msgid "Electronica"
@@ -641,7 +648,7 @@ msgstr "אלקטרוני"
 
 #: ../src/sj-genres.c:36
 msgid "Folk"
-msgstr ""
+msgstr "פולק"
 
 #: ../src/sj-genres.c:37
 msgid "Funk"
@@ -677,164 +684,165 @@ msgstr "נשמה"
 
 #: ../src/sj-genres.c:45
 msgid "Spoken Word"
-msgstr ""
+msgstr "דיבור"
 
 #: ../src/sj-genres.c:185
 #, c-format
 msgid "Error while saving custom genre: %s"
 msgstr "שגיאה בשמירת סגנון מותאם אישית: %s"
 
-#: ../src/sj-main.c:117
+#: ../src/sj-main.c:118
 msgid "E_xtract"
 msgstr "ח_לץ"
 
-#: ../src/sj-main.c:183
+#: ../src/sj-main.c:184
 msgid "Could not start Sound Juicer"
 msgstr "שגיאה בעליית Sound Juicer"
 
-#: ../src/sj-main.c:184 ../src/sj-main.c:813 ../src/sj-main.c:924
-#: ../src/sj-main.c:1030 ../src/sj-main.c:1241 ../src/sj-main.c:1554
+#: ../src/sj-main.c:185 ../src/sj-main.c:814 ../src/sj-main.c:927
+#: ../src/sj-main.c:1035 ../src/sj-main.c:1246 ../src/sj-main.c:1602
 msgid "Reason"
 msgstr "סיבה"
 
-#: ../src/sj-main.c:186
+#: ../src/sj-main.c:187
 msgid "Please consult the documentation for assistance."
 msgstr "אנא בדוק את התיעוד בשביל עזרה."
 
-#: ../src/sj-main.c:229
+#: ../src/sj-main.c:230
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "אתה כרגע באמצע חילוץ תקליטור מוסיקה. האם ברצונך לצאת עכשיו או להמשיך?"
 
-#: ../src/sj-main.c:289 ../src/sj-main.c:547
+#: ../src/sj-main.c:290 ../src/sj-main.c:548
 msgid "(unknown)"
 msgstr "(לא ידוע)"
 
-#: ../src/sj-main.c:417
+#: ../src/sj-main.c:418
 msgid "S_ubmit Album"
 msgstr "_שלח אלבום"
 
 #. Translators: title, artist
-#: ../src/sj-main.c:424
+#: ../src/sj-main.c:425
 #, c-format
 msgid "Could not find %s by %s on MusicBrainz."
-msgstr "‏%s מאת %s לא נימצא ב-MusicBrainz."
+msgstr "‏%s מאת %s לא נימצא ב־MusicBrainz."
 
-#: ../src/sj-main.c:429
+#: ../src/sj-main.c:430
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr "באפשרותך לשפר את בסיס הנתונים של MusicBrainz על ידי הוספת אלבום זה."
 
-#: ../src/sj-main.c:811 ../src/sj-main.c:922 ../src/sj-main.c:1028
+#: ../src/sj-main.c:812 ../src/sj-main.c:925 ../src/sj-main.c:1033
 msgid "Could not read the CD"
 msgstr "אין אפשרות לקרוא את התקליטור"
 
-#: ../src/sj-main.c:812 ../src/sj-main.c:923
+#: ../src/sj-main.c:813 ../src/sj-main.c:926
 msgid "Sound Juicer could not read the track listing on this CD."
-msgstr "ל- Sound Juicer אין אפשרות לקרוא את רשימת הרצועות שבתקליטור."
+msgstr "ל־Sound Juicer אין אפשרות לקרוא את רשימת הרצועות שבתקליטור."
 
 #. Set statusbar message
-#: ../src/sj-main.c:899
+#: ../src/sj-main.c:902
 msgid "Retrieving track listing...please wait."
 msgstr "מאחזר את רשימת הרצועות...אנא המתן"
 
-#: ../src/sj-main.c:989
+#: ../src/sj-main.c:994
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
-msgstr "ל- Sound Juicer אין גישה לכונן התקליטורים-'%s'"
+msgstr "ל־Sound Juicer אין גישה לכונן התקליטורים־'%s'"
 
-#: ../src/sj-main.c:996
+#: ../src/sj-main.c:1001
 msgid "HAL daemon may not be running."
-msgstr "שירות ה-HAL כנראה אינו רץ"
+msgstr "כנראה ששירות ה־HAL אינו פעיל"
 
-#: ../src/sj-main.c:1021
+#: ../src/sj-main.c:1026
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
-msgstr "ל- Sound Juicer אין גישה לכונן התקליטורים-'%s'"
+msgstr "ל־Sound Juicer אין גישה לכונן התקליטורים־'%s'"
 
-#: ../src/sj-main.c:1119
+#: ../src/sj-main.c:1124
 msgid "No CD-ROM drives found"
 msgstr "לא נמצא כונן תקליטורים"
 
-#: ../src/sj-main.c:1120
+#: ../src/sj-main.c:1125
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer לא מצא כוננים לקריאה"
 
-#: ../src/sj-main.c:1151
+#: ../src/sj-main.c:1156
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "פרופיל הצליל הנוכחי אינו זמין על ההתקנה שלך"
 
-#: ../src/sj-main.c:1153
+#: ../src/sj-main.c:1158
 msgid "_Change Profile"
 msgstr "_החלף פרופיל"
 
-#: ../src/sj-main.c:1239
+#: ../src/sj-main.c:1244
 msgid "Could not open URL"
 msgstr "נכשל בפתיחת הכתובת"
 
-#: ../src/sj-main.c:1240
+#: ../src/sj-main.c:1245
 msgid "Sound Juicer could not open the submission URL"
 msgstr "‏Sound Juicer נכשל בפתיחת כתובת המסירה"
 
-#: ../src/sj-main.c:1349
+#: ../src/sj-main.c:1354
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "עמודה לא ידועה %d נערכה"
 
-#: ../src/sj-main.c:1456 ../src/sj-prefs.c:104
+#: ../src/sj-main.c:1495 ../src/sj-prefs.c:103
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
 "%s"
 msgstr ""
-"לא ניתן להציג עזרה ל- Sound Juicer\n"
+"לא ניתן להציג עזרה עבור Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1552
+#: ../src/sj-main.c:1600
 msgid "Could not duplicate disc"
 msgstr "לא ניתן לשכפל את הדיסק"
 
-#: ../src/sj-main.c:1553
+#: ../src/sj-main.c:1601
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "‏Sound Juicer נכשל בשכפול הדיסק"
 
-#: ../src/sj-main.c:1581
+#: ../src/sj-main.c:1629
 msgid "Start extracting immediately"
 msgstr "Start extracting immediately"
 
-#: ../src/sj-main.c:1582
+#: ../src/sj-main.c:1630
 msgid "Start playing immediately"
 msgstr "Start playing immediately"
 
-#: ../src/sj-main.c:1583
+#: ../src/sj-main.c:1631
 msgid "What CD device to read"
 msgstr "What CD device to read"
 
-#: ../src/sj-main.c:1583
+#: ../src/sj-main.c:1631
 msgid "DEVICE"
 msgstr "DEVICE"
 
-#: ../src/sj-main.c:1584
+#: ../src/sj-main.c:1632
 msgid "URI to the CD device to read"
 msgstr "URI to the CD device to read"
 
-#: ../src/sj-main.c:1594
+#: ../src/sj-main.c:1644
 msgid "- Extract music from your CDs"
 msgstr "- Extract music from your CDs"
 
-#: ../src/sj-main.c:1632
+#: ../src/sj-main.c:1681
 msgid "Could not create GConf client.\n"
 msgstr "אין אפשרות ליצור לקוח GConf.\n"
 
-#: ../src/sj-main.c:1664
+#. this is made up
+#: ../src/sj-main.c:1715
 #, c-format
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "לא ניתן לקרוא את קובץ הממשק של Sound Juicer."
 
-#: ../src/sj-main.c:1732
+#: ../src/sj-main.c:1783
 msgid "Track"
 msgstr "רצועה"
 
-#: ../src/sj-play.c:199 ../src/sj-play.c:467 ../src/sj-play.c:496
+#: ../src/sj-play.c:193 ../src/sj-play.c:461 ../src/sj-play.c:490
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -846,100 +854,100 @@ msgstr ""
 "סיבה: %s"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:270
+#: ../src/sj-play.c:264
 msgid "Play"
 msgstr "נגן"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:314
+#: ../src/sj-play.c:308
 msgid "Pause"
 msgstr "הפסק"
 
-#: ../src/sj-play.c:371
+#: ../src/sj-play.c:365
 #, c-format
 msgid "Failed to create CD source element"
 msgstr "שגיאה בהכנת מקורות התקליטור"
 
-#: ../src/sj-play.c:408
+#: ../src/sj-play.c:402
 msgid "Failed to link pipeline"
 msgstr "נכדל בקישור קו הצינורות"
 
-#: ../src/sj-play.c:414
+#: ../src/sj-play.c:408
 #, c-format
 msgid "Failed to create audio output"
 msgstr "שגיאה בהכנת פלט השמע"
 
-#: ../src/sj-play.c:618
+#: ../src/sj-play.c:612
 #, c-format
 msgid "Seeking to %s"
-msgstr "מחפש את- %s"
+msgstr "עובר אל %s"
 
-#: ../src/sj-prefs.c:53
+#: ../src/sj-prefs.c:52
 msgid "Album Artist, Album Title"
 msgstr "אמן האלבום, שם האלבום"
 
-#: ../src/sj-prefs.c:54
+#: ../src/sj-prefs.c:53
 msgid "Album Artist (sortable), Album Title"
 msgstr "אמן האלבום, שם האלבום"
 
-#: ../src/sj-prefs.c:55
+#: ../src/sj-prefs.c:54
 msgid "Track Artist, Album Title"
 msgstr "אמן הרצועה, שם האלבום"
 
-#: ../src/sj-prefs.c:56
+#: ../src/sj-prefs.c:55
 msgid "Track Artist (sortable), Album Title"
 msgstr "אמן הרצועה, שם האלבום"
 
-#: ../src/sj-prefs.c:57
+#: ../src/sj-prefs.c:56
 msgid "Album Title"
 msgstr "שם האלבום"
 
-#: ../src/sj-prefs.c:58
+#: ../src/sj-prefs.c:57
 msgid "Album Artist"
 msgstr "אמן האלבום"
 
-#: ../src/sj-prefs.c:59
+#: ../src/sj-prefs.c:58
 msgid "Album Artist (sortable)"
 msgstr "אמן האלבום"
 
-#: ../src/sj-prefs.c:60
+#: ../src/sj-prefs.c:59
 msgid "Album Artist - Album Title"
 msgstr "אמן האלבום - שם האלבום"
 
-#: ../src/sj-prefs.c:61
+#: ../src/sj-prefs.c:60
 msgid "Album Artist (sortable) - Album Title"
 msgstr "אמן האלבום - שם האלבום"
 
-#: ../src/sj-prefs.c:62
+#: ../src/sj-prefs.c:61
 msgid "[none]"
 msgstr "[ללא]"
 
-#: ../src/sj-prefs.c:67
+#: ../src/sj-prefs.c:66
 msgid "Number - Title"
 msgstr "מספר - שם"
 
-#: ../src/sj-prefs.c:68
+#: ../src/sj-prefs.c:67
 msgid "Track Title"
 msgstr "שם הרצועה"
 
-#: ../src/sj-prefs.c:69
+#: ../src/sj-prefs.c:68
 msgid "Track Artist - Track Title"
 msgstr "אמן הרצועה - שם הרצועה"
 
-#: ../src/sj-prefs.c:70
+#: ../src/sj-prefs.c:69
 msgid "Track Artist (sortable) - Track Title"
 msgstr "אמן הרצועה - שם הרצועה"
 
-#: ../src/sj-prefs.c:71
+#: ../src/sj-prefs.c:70
 msgid "Number. Track Artist - Track Title"
 msgstr "מספר. אמן הרצועה - שם הרצועה"
 
 #. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
-#: ../src/sj-prefs.c:73
+#: ../src/sj-prefs.c:72
 msgid "Number-Track Artist-Track Title (lowercase)"
-msgstr "מספר-אמן הרצועה-שם הרצועה"
+msgstr "מספר־אמן הרצועה־שם הרצועה"
 
-#: ../src/sj-prefs.c:270
+#: ../src/sj-prefs.c:275
 msgid "Example Path"
 msgstr "נתיב לדוגמה"
 
