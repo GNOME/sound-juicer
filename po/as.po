@@ -3,23 +3,25 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Amitakhya Phukan <amitakhya@svn.gnome.org>, 2008.
+# Amitakhya Phukan <aphukan@fedoraproject.org>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: as\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-04 04:01+0000\n"
-"PO-Revision-Date: 2008-02-04 23:47+0530\n"
-"Last-Translator: Amitakhya Phukan <amitakhya@svn.gnome.org>\n"
-"Language-Team: Assamese\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
+"cgi?product=sound-juicer&component=general\n"
+"POT-Creation-Date: 2009-02-10 21:58+0000\n"
+"PO-Revision-Date: 2009-03-16 10:11+0530\n"
+"Last-Translator: Amitakhya Phukan <aphukan@fedoraproject.org>\n"
+"Language-Team: Assamese <fedora-trans-as@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=(n!=1)\n"
 
 #: ../data/sound-juicer.desktop.in.in.h:1
 msgid "Audio CD Extractor"
-msgstr "অডিও"
+msgstr "অডিও CD-ৰ বিষয়বস্তু এক্সট্ৰ্যাক্ট কৰাৰ সামগ্ৰী"
 
 #: ../data/sound-juicer.desktop.in.in.h:2
 msgid "Copy music from your CDs"
@@ -75,7 +77,7 @@ msgstr "বহিষ্কাৰ (_j)"
 
 #: ../data/sound-juicer.glade.h:13
 msgid "Edit _Profiles..."
-msgstr "প্ৰোনথিপত্ৰ সম্পাদনা...(_P)"
+msgstr "প্ৰোফাইল সম্পাদনা...(_P)"
 
 #: ../data/sound-juicer.glade.h:14
 msgid "File _name:"
@@ -113,8 +115,8 @@ msgstr "পৰবৰ্তী ট্ৰেক এৰি যাওক "
 msgid "Skip to the previous track"
 msgstr "পূৰ্ববৰ্তী ট্ৰেকৰ পিছলৈ যাওক"
 
-#: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:179 ../src/sj-main.c:181
-#: ../src/sj-main.c:1628
+#: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:139 ../src/sj-main.c:141
+#: ../src/sj-main.c:1642
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -123,8 +125,8 @@ msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
 msgstr ""
-"বৰ্তমানে CD-ত একাধিক সংকলন উপস্থিত থাকা সম্ভৱ । অনুগ্ৰহ কৰি যথাযত সংকলনত ক্লিক "
-"কৰি <i>এৰি যাওক</i> ক্লিক কৰক ।"
+"বৰ্তমানে CD-ত একাধিক সংকলন উপস্থিত থাকা সম্ভৱ । অনুগ্ৰহ কৰি যথাযত সংকলনত ক্লিক কৰি "
+"<i>এৰি যাওক</i> ক্লিক কৰক ।"
 
 #: ../data/sound-juicer.glade.h:25
 msgid "Track Progress"
@@ -138,7 +140,7 @@ msgstr "ট্ৰেক"
 msgid "_Contents"
 msgstr "বিষয়বস্তু (_C)"
 
-#: ../data/sound-juicer.glade.h:28 ../src/sj-main.c:272
+#: ../data/sound-juicer.glade.h:28 ../src/sj-main.c:232
 msgid "_Continue"
 msgstr "এৰি যাওক (_C)"
 
@@ -159,8 +161,8 @@ msgid "_Edit"
 msgstr "সম্পাদনা (_E)"
 
 #: ../data/sound-juicer.glade.h:33
-msgid "_Eject when finished"
-msgstr "কৰ্ম সমাপ্ত হলে বহিষ্কাৰ কৰা হ'ব (_E)"
+msgid "_Eject after extracting tracks"
+msgstr "ট্ৰ্যাক এক্সট্ৰ্যাক্ট কৰি মিডিয়া বেৰ কৰি নেৱা হ'ব (_E)"
 
 #: ../data/sound-juicer.glade.h:34
 msgid "_Folder:"
@@ -198,32 +200,44 @@ msgstr "বিশেষ অক্ষৰ বাদ দিয়া হ'ব (_S)"
 msgid "_Submit Track Names..."
 msgstr "ট্ৰেকেৰ নাম সংৰক্ষণ কৰক...(_S)"
 
-#: ../data/sound-juicer.schemas.in.h:2
-#, no-c-format
+#: ../data/sound-juicer.schemas.in.h:2, no-c-format
+#| msgid ""
+#| "%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA "
+#| "-- album artist (lowercase) %as -- album artist (sortable) %aS -- album "
+#| "artist (sortable lowercase) %tt -- track title %tT -- track title "
+#| "(lowercase) %ta -- track artist %tA -- track artist (lowercase) %ts -- "
+#| "track artist (sortable) %tS -- track artist (sortable lowercase)"
 msgid ""
 "%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
 "album artist (lowercase) %as -- album artist (sortable) %aS -- album artist "
-"(sortable lowercase) %tt -- track title %tT -- track title (lowercase) %ta "
-"-- track artist %tA -- track artist (lowercase) %ts -- track artist "
-"(sortable) %tS -- track artist (sortable lowercase)"
+"(sortable lowercase) %ay -- album year %tt -- track title %tT -- track title "
+"(lowercase) %ta -- track artist %tA -- track artist (lowercase) %ts -- track "
+"artist (sortable) %tS -- track artist (sortable lowercase)"
 msgstr ""
-"%at -- সংকলন-শিৰোনাম %aT -- সংকলন-শিৰোনাম (ইংৰাজি ছোট হৰফে) %aa -- সংকলন-"
-"শিল্পী %aA -- সংকলন-শিল্পী (ইংৰাজি ছোট হৰফে) %as -- সংকলন-শিল্পী (ক্ৰমবিন্যাস "
-"সম্ভব) %aS -- সংকলন-শিল্পী (ইংৰাজি ছোট হৰফে ও ক্ৰমবিন্যাস সম্ভব) %tt -- ট্ৰেক-"
-"শিৰোনাম %tT -- ট্ৰেক-শিৰোনাম (ইংৰাজি ছোট হৰফে) %ta -- ট্ৰেক-শিল্পী %tA -- "
-"ট্ৰেক-শিল্পী (ইংৰাজি ছোট হৰফে) %ts -- ট্ৰেক-শিল্পী (ক্ৰমবিন্যাস সম্ভব) %tS -- "
-"ট্ৰেক-শিল্পী (ইংৰাজি ছোট হৰফে ও ক্ৰমবিন্যাস সম্ভব)"
+"%at -- সংকলন-শিৰোনাম %aT -- সংকলন-শিৰোনাম (ইংৰাজি সৰু আখৰ) %aa -- সংকলন-"
+"শিল্পী %aA -- সংকলন-শিল্পী (ইংৰাজি সৰু আখৰ) %as -- সংকলন-শিল্পী (ক্ৰমবিন্যাস "
+"সম্ভব) %aS -- সংকলন-শিল্পী (ইংৰাজি সৰু আখৰ আৰু ক্ৰমবিন্যাস সম্ভব) %ay -- সংকলন "
+"প্ৰকাশনাৰ বৎসৰ  %tt -- ট্ৰ্যাক-শিৰোনাম %tT -- ট্ৰ্যাক-শিৰোনাম (ইংৰাজি সৰু আখৰ) %"
+"ta -- ট্ৰ্যাক-শিল্পী %tA -- ট্ৰ্যাক-শিল্পী (ইংৰাজি সৰু আখৰ) %ts -- ট্ৰ্যাক-শিল্পী "
+"(ক্ৰমবিন্যাস সম্ভব) %tS -- ট্ৰ্যাক-শিল্পী (ইংৰাজি সৰু আখৰ আৰু ক্ৰমবিন্যাস সম্ভব)"
 
 #: ../data/sound-juicer.schemas.in.h:3
 msgid "Audio Profile with which to encode"
-msgstr "এনকোড কৰাৰ জন্য ব্যবহৃত অডিও প্ৰোনথিপত্ৰ"
+msgstr "এনকোড কৰাৰ বাবে ব্যবহৃত অডিও প্ৰোফাইল"
 
 #: ../data/sound-juicer.schemas.in.h:4
 msgid "Audio volume"
-msgstr "শব্দেৰ মাত্ৰা"
+msgstr "শব্দৰ মাত্ৰা"
 
-#: ../data/sound-juicer.schemas.in.h:6
-#, no-c-format
+#: ../data/sound-juicer.schemas.in.h:6, no-c-format
+#| msgid ""
+#| "Do not specify an extension. %at -- album title %aT -- album title "
+#| "(lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- "
+#| "album artist (sortable) %aS -- album artist (sortable lowercase) %tn -- "
+#| "track number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- "
+#| "track title %tT -- track title (lowercase) %ta -- track artist %tA -- "
+#| "track artist (lowercase) %ts -- track artist (sortable) %tS -- track "
+#| "artist (sortable lowercase)"
 msgid ""
 "Do not specify an extension. %at -- album title %aT -- album title "
 "(lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album "
@@ -231,30 +245,34 @@ msgid ""
 "number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
 "tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
 "(lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable "
-"lowercase)"
+"lowercase) %dn -- disc and track number (i.e Disk 2 - 6, or 6) %dN -- disc "
+"number, zero padded (i.e d02t06, or 06)"
 msgstr ""
-"এক্সটেনশন উল্লেখ কৰা হ'ব না । %at -- সংকলন-শিৰোনাম %aT -- সংকলন-শিৰোনাম (ইংৰাজি "
-"ছোট হৰফে) %aa -- সংকলন-শিল্পী %aA -- সংকলন-শিল্পী (ইংৰাজি ছোট হৰফে) %as -- "
-"সংকলন-শিল্পী (ক্ৰমবিন্যাস সম্ভব) %aS -- সংকলন-শিল্পী (ইংৰাজি ছোট হৰফে ও ক্ৰমবিন্যাস "
-"সম্ভব) %tt -- ট্ৰেক-শিৰোনাম %tT -- ট্ৰেক-শিৰোনাম (ইংৰাজি ছোট হৰফে) %ta -- "
-"ট্ৰেক-শিল্পী %tA -- ট্ৰেক-শিল্পী (ইংৰাজি ছোট হৰফে) %ts -- ট্ৰেক-শিল্পী "
-"(ক্ৰমবিন্যাস সম্ভব) %tS -- ট্ৰেক-শিল্পী (ইংৰাজি ছোট হৰফে ও ক্ৰমবিন্যাস সম্ভব)"
+"এক্সটেনশন উল্লেখ কৰা হ'ব না। %at -- সংকলন-শিৰোনাম %aT -- সংকলন-শিৰোনাম (ইংৰাজি "
+"সৰু আখৰ) %aa -- সংকলন-শিল্পী %aA -- সংকলন-শিল্পী (ইংৰাজি সৰু আখৰ) %as -- "
+"সংকলন-শিল্পী (ক্ৰমবিন্যাস সম্ভব) %aS -- সংকলন-শিল্পী (ইংৰাজি সৰু আখৰ আৰু ক্ৰমবিন্যাস "
+"সম্ভব)  %tn -- ট্ৰ্যাক-সংখ্যা (যেনে ৮) %tN -- ট্ৰ্যাক-সংখ্যা, প্ৰাৰম্ভিক শূণ্য সহ (যেনে "
+"০৮) %tt -- ট্ৰ্যাক-শিৰোনাম %tT -- ট্ৰ্যাক-শিৰোনাম (ইংৰাজি সৰু আখৰ) %ta -- ট্ৰ্যাক-"
+"শিল্পী %tA -- ট্ৰ্যাক-শিল্পী (ইংৰাজি সৰু আখৰ) %ts -- ট্ৰ্যাক-শিল্পী (ক্ৰমবিন্যাস "
+"সম্ভব) %tS -- ট্ৰ্যাক-শিল্পী (ইংৰাজি সৰু আখৰ আৰু ক্ৰমবিন্যাস সম্ভব) %dn -- ডিস্ক আৰু "
+"ট্ৰ্যাক-সংখ্যা (যেনে, ডিস্ক ২ - ৬, অথবা ৬) %dN -- ডিস্ক-সংখ্যা, প্ৰাৰম্ভিক শূণ্য সহ "
+"(যেনে d02t06, অথবা 06)"
 
 #: ../data/sound-juicer.schemas.in.h:7
 msgid ""
 "If enabled, special characters such as space, wildcards and backslashes will "
 "be removed from the output filename."
 msgstr ""
-"সক্ৰিয় হলে, আউটপুট নথিপত্ৰৰ নাম থেকে বিশেষ অক্ষৰ যেমন শূণ্যস্থান, ওয়াইল্ডকাৰ্ড ও "
+"সক্ৰিয় হ'লে, আউটপুট নথিপত্ৰৰ নাম ৰ পৰা বিশেষ অক্ষৰ যেনে শূণ্যস্থান, ৱাইল্ডকাৰ্ড আৰু "
 "ব্যাকস্ল্যাশ বাতিল কৰা হ'ব ।"
 
 #: ../data/sound-juicer.schemas.in.h:8
 msgid "If specified, this value will override the default MusicBrainz server."
-msgstr "উল্লিখিত, ডিফল্ট MusicBrainz সাৰ্ভাৰেৰ পৰিবৰ্তে চিহ্নিত মান ব্যবহৃত হ'ব ।"
+msgstr "উল্লিখিত, অবিকল্পিত MusicBrainz সেৱকেৰ পৰিবৰ্তে চিহ্নিত মান ব্যবহৃত হ'ব ।"
 
 #: ../data/sound-juicer.schemas.in.h:9
 msgid "If to strip special characters from filenames"
-msgstr "নথিপত্ৰৰ নাম থেকে বিশেষ অক্ষৰ বাদ দিয়া হ'ব কি না"
+msgstr "নথিপত্ৰৰ নাম ৰ পৰা বিশেষ অক্ষৰ বাদ দিয়া হ'ব কি না"
 
 #: ../data/sound-juicer.schemas.in.h:10
 msgid ""
@@ -266,19 +284,19 @@ msgstr ""
 
 #: ../data/sound-juicer.schemas.in.h:11
 msgid "The GNOME Audio Profile with which to encode."
-msgstr "এনডোড কৰাৰ জন্য ব্যবহৃত GNOME অডিও প্ৰোনথিপত্ৰ ।"
+msgstr "এনডোড কৰাৰ বাবে ব্যবহৃত GNOME অডিও প্ৰোফাইল ।"
 
 #: ../data/sound-juicer.schemas.in.h:12
 msgid "The MusicBrainz server to use"
-msgstr "ব্যবহাৰেৰ জন্য চিহ্নিত MusicBrainz সাৰ্ভাৰ"
+msgstr "ব্যবহাৰেৰ বাবে চিহ্নিত MusicBrainz সেৱক"
 
 #: ../data/sound-juicer.schemas.in.h:13
 msgid "The directory structure for the files"
-msgstr "নথিপত্ৰ সংৰক্ষণেৰ জন্য ব্যবহৃত ডিৰেক্টৰিৰ পৰিকাঠামো"
+msgstr "নথিপত্ৰ সংৰক্ষণেৰ বাবে ব্যবহৃত ডিৰেক্টৰিৰ পৰিকাঠামো"
 
 #: ../data/sound-juicer.schemas.in.h:14
 msgid "The name pattern for files"
-msgstr "নথিপত্ৰৰ নামেৰ বিন্যাস"
+msgstr "নথিপত্ৰৰ নামৰ বিন্যাস"
 
 #: ../data/sound-juicer.schemas.in.h:15
 msgid "The paranoia mode to use"
@@ -286,158 +304,200 @@ msgstr "চিহ্নিত প্যাৰানোইয়া মোড ব্
 
 #: ../data/sound-juicer.schemas.in.h:16
 msgid "Whether to eject the CD when finished extracting."
-msgstr "এক্সট্ৰেক্ট কৰা সম্পূৰ্ণ হলে CD বেৰ কৰে নেওয়া হ'ব কি না ।"
+msgstr "এক্সট্ৰেক্ট কৰা সম্পূৰ্ণ হ'লে CD বেৰ কৰি নেৱা হ'ব কি না ।"
 
 #: ../data/sound-juicer.schemas.in.h:17
 msgid "Whether to open the target directory when finished extracting."
 msgstr "ডিৰেক্টৰি."
 
-#: ../libjuicer/sj-extractor.c:193
+#: ../libjuicer/sj-extractor.c:192
 msgid "Audio Profile"
-msgstr "অডিও প্ৰোনথিপত্ৰ"
+msgstr "অডিও প্ৰোফাইল"
 
-#: ../libjuicer/sj-extractor.c:194
+#: ../libjuicer/sj-extractor.c:193
 msgid "The GNOME Audio Profile used for encoding audio"
-msgstr "অডিও এনকোডিং কৰতে ব্যবহৃত GNOME অডিও প্ৰোনথিপত্ৰ"
+msgstr "অডিও এনকোডিং কৰিবলৈ ব্যবহৃত GNOME অডিও প্ৰোফাইল"
 
-#: ../libjuicer/sj-extractor.c:200
+#: ../libjuicer/sj-extractor.c:199
 msgid "Paranoia Level"
 msgstr "প্যাৰানোইয়া-ৰ মাত্ৰা"
 
-#: ../libjuicer/sj-extractor.c:201
+#: ../libjuicer/sj-extractor.c:200
 msgid "The paranoia level"
 msgstr "প্যাৰানোইয়া-ৰ মাত্ৰা"
 
-#: ../libjuicer/sj-extractor.c:206
+#: ../libjuicer/sj-extractor.c:205
 msgid "device"
 msgstr "যন্ত্ৰ"
 
-#: ../libjuicer/sj-extractor.c:207
+#: ../libjuicer/sj-extractor.c:206
 msgid "The device"
 msgstr "যন্ত্ৰ"
 
-#: ../libjuicer/sj-extractor.c:346
+#: ../libjuicer/sj-extractor.c:347
+#, c-format
 msgid "Could not create GStreamer CD reader"
-msgstr "GStreamer CD ৰিডাৰ নিৰ্মাণ কৰতে ব্যৰ্থ"
+msgstr "GStreamer CD ৰিডাৰ নিৰ্মাণ কৰিবলৈ ব্যৰ্থ"
 
-#: ../libjuicer/sj-extractor.c:368
+#: ../libjuicer/sj-extractor.c:369
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
-msgstr "%s-ৰ জন্য GStreamer এনকোডাৰ নিৰ্মাণ কৰতে ব্যৰ্থ"
+msgstr "%s-ৰ বাবে GStreamer এনকোডাৰ নিৰ্মাণ কৰিবলৈ ব্যৰ্থ"
 
-#: ../libjuicer/sj-extractor.c:379
+#: ../libjuicer/sj-extractor.c:380
+#, c-format
 msgid "Could not create GStreamer file output"
-msgstr "GStreamer নথিপত্ৰ আউটপুট নিৰ্মাণ কৰতে ব্যৰ্থ"
+msgstr "GStreamer নথিপত্ৰ আউটপুট নিৰ্মাণ কৰিবলৈ ব্যৰ্থ"
 
-#: ../libjuicer/sj-extractor.c:391
+#: ../libjuicer/sj-extractor.c:394
+#, c-format
 msgid "Could not link pipeline"
-msgstr "পাইপ-লাইন লিঙ্ক কৰতে ব্যৰ্থ"
+msgstr "পাইপ-লাইন লিঙ্ক কৰিবলৈ ব্যৰ্থ"
 
-#: ../libjuicer/sj-extractor.c:415
+#: ../libjuicer/sj-extractor.c:418
 msgid "Could not get current track position"
-msgstr "বৰ্তমান ট্ৰেকেৰ অবস্থান চিনাক্ত কৰতে ব্যৰ্থ"
+msgstr "বৰ্তমান ট্ৰেকেৰ অবস্থান চিনাক্ত কৰিবলৈ ব্যৰ্থ"
 
-#: ../libjuicer/sj-extractor.c:444
+#: ../libjuicer/sj-extractor.c:447
+#, c-format
 msgid "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
-"এক্সট্ৰেক্টৰ অবজেক্ট বৈধ নয় । এটি হওয়া বাঞ্ছনীয় নয়, কোনো ধৰনেৰ উৎপন্ন সমস্যা সম্পৰ্কে "
-"জানতে অনুগ্ৰহ কৰে কনসোলে পৰীক্ষা কৰক ।"
+"এক্সট্ৰেক্টৰ অবজেক্ট বৈধ নয় । এটি হৱা বাঞ্ছনীয় নয়, কোনো ধৰনেৰ উৎপন্ন সমস্যা সম্পৰ্কে "
+"জানতে অনুগ্ৰহ কৰি কনসোলে পৰীক্ষা কৰক ।"
 
-#: ../libjuicer/sj-extractor.c:645
+#: ../libjuicer/sj-extractor.c:649
+#, c-format
 msgid "The plugin necessary for CD access was not found"
-msgstr "CD পড়াৰ জন্য আবশ্যক প্লাগ-ইন পাওয়া যায়নি"
+msgstr "CD পঢ়াৰ বাবে আবশ্যক প্লাগ-ইন পোৱা নাযায়"
 
-#: ../libjuicer/sj-extractor.c:653
+#: ../libjuicer/sj-extractor.c:657
+#, c-format
 msgid "The plugin necessary for file access was not found"
-msgstr "নথিপত্ৰ ব্যবহাৰেৰ জন্য আবশ্যক প্লাগ-ইন পাওয়া যায়নি"
+msgstr "নথিপত্ৰ ব্যবহাৰেৰ বাবে আবশ্যক প্লাগ-ইন পোৱা নাযায়"
 
-#: ../libjuicer/sj-metadata-cdtext.c:92
-msgid "Cannot read CD"
-msgstr "CD পড়তে ব্যৰ্থ"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:114
-#: ../libjuicer/sj-metadata-musicbrainz.c:370
-#, c-format
-msgid "Cannot read CD: %s"
-msgstr "CD পড়তে ব্যৰ্থ: %s"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:121
-#: ../libjuicer/sj-metadata-musicbrainz.c:412
-msgid "Unknown Artist"
-msgstr "অজানা শিল্পী"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:122
-#: ../libjuicer/sj-metadata-musicbrainz.c:423
-msgid "Unknown Title"
-msgstr "অজানা শিৰোনাম"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:128
-#, c-format
-msgid "Track %d"
-msgstr "ট্ৰেক %d"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:267
-#: ../libjuicer/sj-metadata-musicbrainz.c:274
-#: ../libjuicer/sj-metadata-musicbrainz.c:288
-#, c-format
-msgid "This CD could not be queried: %s\n"
-msgstr "CD-ত অনুসন্ধান কৰতে ব্যৰ্থ: %s\n"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:364
+#: ../libjuicer/sj-metadata.c:186
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "যন্ত্ৰ '%s'-ত কোনো মিডিয়া উপস্থিত নেই"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:367
+#: ../libjuicer/sj-metadata.c:189
 #, c-format
 msgid "Device '%s' could not be opened. Check the access permissions on the device."
-msgstr "'%s' যন্ত্ৰটি খুলতে ব্যৰ্থ । যন্ত্ৰ ব্যবহাৰেৰ অনুমতি পৰীক্ষা কৰক ।"
+msgstr "'%s' যন্ত্ৰটি খুলিবলৈ ব্যৰ্থ । যন্ত্ৰ ব্যবহাৰেৰ অনুমতি পৰীক্ষা কৰক ।"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:410
+#: ../libjuicer/sj-metadata.c:192 ../libjuicer/sj-metadata.c:204
+#, c-format
+msgid "Cannot read CD: %s"
+msgstr "CD পঢ়িবলৈ ব্যৰ্থ: %s"
+
+#: ../libjuicer/sj-metadata-cdtext.c:78
+#, c-format
+msgid "Cannot read CD"
+msgstr "CD পঢ়িবলৈ ব্যৰ্থ"
+
+#: ../libjuicer/sj-metadata-cdtext.c:93 ../libjuicer/sj-metadata-cdtext.c:114
+#: ../libjuicer/sj-metadata-gvfs.c:110 ../libjuicer/sj-metadata-gvfs.c:133
+#: ../libjuicer/sj-metadata-musicbrainz.c:328 ../src/egg-play-preview.c:466
+msgid "Unknown Artist"
+msgstr "অজ্ঞাত শিল্পী"
+
+#: ../libjuicer/sj-metadata-cdtext.c:94 ../libjuicer/sj-metadata-gvfs.c:106
+#: ../libjuicer/sj-metadata-musicbrainz.c:344 ../src/egg-play-preview.c:461
+msgid "Unknown Title"
+msgstr "অজ্ঞাত শিৰোনাম"
+
+#: ../libjuicer/sj-metadata-cdtext.c:113 ../libjuicer/sj-metadata-gvfs.c:130
+#, c-format
+msgid "Track %d"
+msgstr "ট্ৰেক %d"
+
+#: ../libjuicer/sj-metadata-getter.c:245
+#, c-format
+msgid "Could not create CD lookup thread"
+msgstr "CD লুক-আপ থ্ৰেড নিৰ্মাণ কৰিবলৈ ব্যৰ্থ"
+
+#: ../libjuicer/sj-metadata-gvfs.c:86, c-format
+#| msgid "Cannot read CD"
+msgid "Cannot access CD"
+msgstr "CD পঢ়িবলৈ ব্যৰ্থ"
+
+#: ../libjuicer/sj-metadata-gvfs.c:147, c-format
+#| msgid "Cannot read CD: %s"
+msgid "Cannot access CD: %s"
+msgstr "CD পঢ়িবলৈ ব্যৰ্থ: %s"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:210
+#: ../libjuicer/sj-metadata-musicbrainz.c:217
+#: ../libjuicer/sj-metadata-musicbrainz.c:231
+#, c-format
+msgid "This CD could not be queried: %s\n"
+msgstr "CD-ত অনুসন্ধান কৰিবলৈ ব্যৰ্থ: %s\n"
+
+#: ../libjuicer/sj-metadata-musicbrainz.c:326
 msgid "Various"
 msgstr "বিবিধ"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:465
+#: ../libjuicer/sj-metadata-musicbrainz.c:369
 msgid "Incomplete metadata for this CD"
 msgstr "CD-ৰ মিটা-ডাটা অসম্পূৰ্ণ"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:496
+#: ../libjuicer/sj-metadata-musicbrainz.c:399
 msgid "[Untitled]"
 msgstr "[নামবিহীন]"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:576
-msgid "Could not create CD lookup thread"
-msgstr "CD লুক-আপ থ্ৰেড নিৰ্মাণ কৰতে ব্যৰ্থ"
+#: ../src/egg-play-preview.c:165
+msgid "URI"
+msgstr "URI"
 
-#: ../src/bacon-volume.c:193
-msgid "Volume"
-msgstr "ভলিউম"
+#: ../src/egg-play-preview.c:166
+msgid "The URI of the audio file"
+msgstr "অডিও ফাইলেৰ URI"
 
-#. +
-#: ../src/bacon-volume.c:221
-msgid "+"
-msgstr "+"
+#: ../src/egg-play-preview.c:175 ../src/sj-main.c:626 ../src/sj-main.c:1798
+msgid "Title"
+msgstr "Title"
 
-#: ../src/bacon-volume.c:223
-msgid "Volume Down"
-msgstr "শব্দেৰ মাত্ৰা হ্ৰাস কৰক"
+#: ../src/egg-play-preview.c:176
+msgid "The title of the current stream."
+msgstr "বৰ্তমান স্ট্ৰিমৰ শিৰোনাম।"
 
-#. -
-#: ../src/bacon-volume.c:239
-msgid "-"
-msgstr "-"
+#: ../src/egg-play-preview.c:185 ../src/sj-main.c:632 ../src/sj-main.c:1807
+msgid "Artist"
+msgstr "শিল্পী"
 
-#: ../src/bacon-volume.c:241
-msgid "Volume Up"
-msgstr "শব্দেৰ মাত্ৰা বৃদ্ধি কৰক"
+#: ../src/egg-play-preview.c:186
+msgid "The artist of the current stream."
+msgstr "বৰ্তমান স্ট্ৰিমৰ শিল্পী।"
 
-#: ../src/bacon-volume.c:777
-msgid "Muted"
-msgstr "নিশব্দ"
+#: ../src/egg-play-preview.c:195
+#| msgid "Album Title"
+msgid "Album"
+msgstr "সংকলন"
 
-#: ../src/bacon-volume.c:779
-msgid "Full Volume"
-msgstr "সৰ্বাধিক শব্দ"
+#: ../src/egg-play-preview.c:196
+msgid "The album of the current stream."
+msgstr "বৰ্তমান স্ট্ৰিমৰ সংকলন।"
+
+#: ../src/egg-play-preview.c:205
+msgid "Position"
+msgstr "স্থান"
+
+#: ../src/egg-play-preview.c:206
+msgid "The position in the current stream in seconds."
+msgstr "বৰ্তমান স্ট্ৰিমৰ মধ্যে, সেকেন্ড অনুযায়ী চিহ্নিত অবস্থান।"
+
+#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1818
+msgid "Duration"
+msgstr "অবকাল"
+
+#: ../src/egg-play-preview.c:216
+msgid "The duration of the current stream in seconds."
+msgstr "বৰ্তমান স্ট্ৰিমৰ অবকাল সেকেন্ড অনুযায়ী চিহ্নিত।"
+
+#: ../src/egg-play-preview.c:467
+#| msgid "Unknown Title"
+msgid "Unknown Album"
+msgstr "অজ্ঞাত সংকলন"
 
 #: ../src/gconf-bridge.c:1218
 #, c-format
@@ -455,9 +515,10 @@ msgid ""
 "Software Foundation; either version 2 of the License, or (at your option) "
 "any later version."
 msgstr ""
-"Sound Juicer এটা মুক্ত সফ্টওয়্যাৰ; Free Software Foundation দ্বাৰা প্ৰকাশিত GNU "
-"General Public License-ৰ শৰ্তানুযায়ী এটি বিতৰণ ও পৰিবৰ্তন কৰা যাবে; লাইসেন্সেৰ "
-"সংস্কৰণ ২ অথবা (আপনাৰ সুবিধানুযায়ী) ঊৰ্ধ্বতন কোনো সংস্কৰণেৰ অধীন ।"
+"Sound Juicer is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version."
 
 #: ../src/sj-about.c:52
 msgid ""
@@ -466,19 +527,24 @@ msgid ""
 "FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
 "more details."
 msgstr ""
-"Sound Juicer বিতৰণ কৰাৰ মূল উদ্দেশ্য যে ব্যবহাৰকাৰীৰা এৰ দ্বাৰা উপকৃত হ'বন, কিন্তু "
-"এটিৰ জন্য কোনো সুস্পষ্ট ওয়াৰেন্টি উপস্থিত নেই; বাণিজ্যিক ও কোনো সুনিৰ্দিষ্ট কৰ্ম সাধনেৰ "
-"জন্য অন্তৰ্নিহীত ওয়াৰেন্টিও অনুপস্থিত । অধিক জানতে GNU General Public License পঢ়ক ।"
+"Sound Juicer is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details."
 
 #: ../src/sj-about.c:56
+#| msgid ""
+#| "You should have received a copy of the GNU General Public License along "
+#| "with Sound Juicer; if not, write to the Free Software Foundation, Inc., "
+#| "59 Temple Place, Suite 330, Boston, MA  02111-1307  USA"
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"Sound Juicer; if not, write to the Free Software Foundation, Inc., 59 Temple "
-"Place, Suite 330, Boston, MA  02111-1307  USA"
+"Sound Juicer; if not, write to the Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
 msgstr ""
-"Sound Juicer-ৰ সাথে GNU General Public License-ৰ এটা প্ৰতিলিপি উপলব্ধ হওয়া "
-"উচিত; না থাকলে নিম্নলিখিত ঠিকানায় লিখে তা সংগ্ৰহ কৰক Free Software Foundation, "
-"Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA"
+"You should have received a copy of the GNU General Public License along with "
+"Sound Juicer; if not, write to the Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
 
 #: ../src/sj-about.c:67
 msgid "An Audio CD Extractor"
@@ -492,337 +558,440 @@ msgstr "অডিও CD-ৰ বিষয়বস্তু এক্সট্ৰে
 msgid "translator-credits"
 msgstr "অমিতাক্ষ ফুকন (aphukan@fedoraproject.org)"
 
+#: ../src/sj-extracting.c:146, c-format
+#| msgid "Failed to create output directory: %s"
+msgid "Failed to get output format"
+msgstr "আউটপুট বিন্যাস প্ৰাপ্ত কৰিবলৈ ব্যৰ্থ"
+
+#: ../src/sj-extracting.c:167
+msgid "Name too long"
+msgstr "নাম অত্যাধিক দীঘল"
+
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:212
+#: ../src/sj-extracting.c:226
 msgid "Extract"
 msgstr "এক্সট্ৰেক্ট কৰক"
 
-#: ../src/sj-extracting.c:282
+#: ../src/sj-extracting.c:303
+msgid "A file with the same name exists"
+msgstr "একই নামৰ এটা ফাইল বৰ্তমানে উপস্থিত আছে"
+
+#: ../src/sj-extracting.c:305
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
 "Do you want to skip this track or overwrite it?"
 msgstr ""
 "'%s' নামক এটা নথিপত্ৰ বৰ্তমানে উপস্থিত, %s.\n"
-"আপনি এই ট্ৰেকটি এড়িয়ে যেতে অথবা নতুন কৰে লিখতে ইচ্ছুক কি?"
+"আপুনি এই ট্ৰেক এৰি গৈ অথবা নতুন কৰি লিখতে ইচ্ছুক নেকি?"
 
-#: ../src/sj-extracting.c:286
+#: ../src/sj-extracting.c:315
 msgid "_Skip"
-msgstr "এড়িয়ে যাওয়া হ'ব (_S)"
+msgstr "উপেক্ষা কৰক (_S)"
 
-#: ../src/sj-extracting.c:287
+#: ../src/sj-extracting.c:316
 msgid "S_kip All"
-msgstr "এস সকল"
+msgstr "সকলো উপেক্ষা কৰা হ'ব (_k)"
 
-#: ../src/sj-extracting.c:288
+#: ../src/sj-extracting.c:317
 msgid "_Overwrite"
-msgstr "মুছে নতুন কৰে লিখুন(_O)"
+msgstr "নতুন কৰি লিখা হ'ব (_O)"
 
-#: ../src/sj-extracting.c:289
+#: ../src/sj-extracting.c:318
 msgid "Overwrite _All"
-msgstr "মুছে নতুন কৰে লেখা সকল"
+msgstr "সমস্ত নতুন কৰি লিখা হ'ব (_A)"
 
-#: ../src/sj-extracting.c:340
+#: ../src/sj-extracting.c:367
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Failed to create output directory: %s"
 
-#: ../src/sj-extracting.c:464
+#: ../src/sj-extracting.c:507
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "আনুমানিক অবশিষ্ট সময়: %d:%02d (%0.1f× গতিতে)"
 
-#: ../src/sj-extracting.c:466
+#: ../src/sj-extracting.c:509
 msgid "Estimated time left: unknown"
-msgstr "আনুমানিক অবশিষ্ট সময়: অজানা"
+msgstr "আনুমানিক অবশিষ্ট সময়: অজ্ঞাত"
+
+#: ../src/sj-extracting.c:599
+msgid "CD rip complete"
+msgstr "CD-ৰ তথ্য আহৰণ সমাপ্ত হৈছে"
 
 #. Display a nice dialog
-#: ../src/sj-extracting.c:626
+#: ../src/sj-extracting.c:688
 #, c-format
 msgid ""
 "Sound Juicer could not extract this CD.\n"
 "Reason: %s"
 msgstr ""
-"Sound Juicer দ্বাৰা এই CD-টি এক্সট্ৰেক্ট কৰা সম্ভব হয়নি ।\n"
+"Sound Juicer দ্বাৰা এই CD-টি এক্সট্ৰেক্ট কৰা সম্ভব নহয় ।\n"
 "কাৰণ: %s"
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:711
+#: ../src/sj-extracting.c:790
 msgid "Stop"
 msgstr "বন্ধ কৰক"
 
-#: ../src/sj-extracting.c:740 ../src/sj-extracting.c:746
+#: ../src/sj-extracting.c:819 ../src/sj-extracting.c:825
 msgid "Extracting audio from CD"
-msgstr "CD থেকে অডিও এক্সট্ৰেক্ট কৰা হচ্ছে"
+msgstr "CD ৰ পৰা অডিও এক্সট্ৰেক্ট কৰা হৈছে"
+
+#: ../src/sj-genres.c:30
+msgid "Ambient"
+msgstr "অ্যামবিয়েন্ট"
+
+#: ../src/sj-genres.c:31
+msgid "Blues"
+msgstr "ব্ল্যুস (Blues)"
+
+#: ../src/sj-genres.c:32
+msgid "Classical"
+msgstr "ধ্ৰূপদী"
+
+#: ../src/sj-genres.c:33
+msgid "Country"
+msgstr "কান্ট্ৰি"
+
+#: ../src/sj-genres.c:34
+msgid "Dance"
+msgstr "ডান্স"
+
+#: ../src/sj-genres.c:35
+msgid "Electronica"
+msgstr "ইলেকট্ৰোনিকা"
+
+#: ../src/sj-genres.c:36
+msgid "Folk"
+msgstr "ফোক"
+
+#: ../src/sj-genres.c:37
+msgid "Funk"
+msgstr "ফাঙ্ক"
+
+#: ../src/sj-genres.c:38
+msgid "Jazz"
+msgstr "জ্যাজ"
+
+#: ../src/sj-genres.c:39
+#| msgid "Duration"
+msgid "Latin"
+msgstr "ল্যাটিন"
+
+#: ../src/sj-genres.c:40
+msgid "Pop"
+msgstr "পপ"
+
+#: ../src/sj-genres.c:41
+msgid "Rap"
+msgstr "ৰেপ"
+
+#: ../src/sj-genres.c:42
+msgid "Reggae"
+msgstr "ৰেগে"
+
+#: ../src/sj-genres.c:43
+msgid "Rock"
+msgstr "ৰক"
+
+#: ../src/sj-genres.c:44
+msgid "Soul"
+msgstr "সোল"
+
+#: ../src/sj-genres.c:45
+msgid "Spoken Word"
+msgstr "উচ্চাৰিত শব্দ"
 
 #: ../src/sj-genres.c:185
 #, c-format
 msgid "Error while saving custom genre: %s"
-msgstr "Error while saving custom genre: %s"
+msgstr "স্বনিৰ্ধাৰিত শৈলী সংৰক্ষণত সমস্যা: %s"
 
-#: ../src/sj-main.c:156
+#: ../src/sj-main.c:118
 msgid "E_xtract"
 msgstr "এক্সট্ৰেক্ট কৰক (_x)"
 
-#: ../src/sj-main.c:224
+#: ../src/sj-main.c:184
 msgid "Could not start Sound Juicer"
-msgstr "Sound Juicer আৰম্ভ কৰতে ব্যৰ্থ"
+msgstr "Sound Juicer আৰম্ভ কৰিবলৈ ব্যৰ্থ"
 
-#: ../src/sj-main.c:225 ../src/sj-main.c:851 ../src/sj-main.c:959
-#: ../src/sj-main.c:1065 ../src/sj-main.c:1272 ../src/sj-main.c:1575
+#: ../src/sj-main.c:185 ../src/sj-main.c:814 ../src/sj-main.c:927
+#: ../src/sj-main.c:1035 ../src/sj-main.c:1246 ../src/sj-main.c:1602
 msgid "Reason"
 msgstr "কাৰণ"
 
-#: ../src/sj-main.c:227
+#: ../src/sj-main.c:187
 msgid "Please consult the documentation for assistance."
-msgstr "অনুগ্ৰহ কৰে সহায়তাৰ জন্য নথিপত্ৰ পঢ়ক ।"
+msgstr "অনুগ্ৰহ কৰি সহায়তাৰ বাবে নথিপত্ৰ পঢ়ক ।"
 
-#: ../src/sj-main.c:270
+#: ../src/sj-main.c:230
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr ""
-"বৰ্তমানে এটা CD এক্সট্ৰেক্ট কৰা হচ্ছে । আপনি কি এই মুহূৰ্তে প্ৰস্থান কৰতে অথবা এগিয়ে "
+"বৰ্তমানে এটা CD এক্সট্ৰেক্ট কৰা হৈছে । আপুনি কি এই মুহূৰ্তে প্ৰস্থান কৰিবলৈ অথবা এগিয়ে "
 "যেতে ইচ্ছুক?"
 
-#: ../src/sj-main.c:330 ../src/sj-main.c:587
+#: ../src/sj-main.c:290 ../src/sj-main.c:548
 msgid "(unknown)"
-msgstr "(অজানা)"
+msgstr "(অজ্ঞাত)"
 
-#: ../src/sj-main.c:457
-msgid "_Submit Album"
-msgstr "_Submit Album"
+#: ../src/sj-main.c:418
+#| msgid "_Submit Album"
+msgid "S_ubmit Album"
+msgstr "সংকলন জমা কৰক (_u)"
 
 #. Translators: title, artist
-#: ../src/sj-main.c:464
+#: ../src/sj-main.c:425
 #, c-format
 msgid "Could not find %s by %s on MusicBrainz."
 msgstr "Could not find %s by %s on MusicBrainz."
 
-#: ../src/sj-main.c:469
+#: ../src/sj-main.c:430
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr "You."
 
-#: ../src/sj-main.c:665 ../src/sj-main.c:1768
-msgid "Title"
-msgstr "Title"
-
-#: ../src/sj-main.c:671 ../src/sj-main.c:1777
-msgid "Artist"
-msgstr "শিল্পী"
-
-#: ../src/sj-main.c:849 ../src/sj-main.c:957 ../src/sj-main.c:1063
+#: ../src/sj-main.c:812 ../src/sj-main.c:925 ../src/sj-main.c:1033
 msgid "Could not read the CD"
-msgstr "CD পড়তে ব্যৰ্থ"
+msgstr "CD পঢ়িবলৈ ব্যৰ্থ"
 
-#: ../src/sj-main.c:850 ../src/sj-main.c:958
+#: ../src/sj-main.c:813 ../src/sj-main.c:926
 msgid "Sound Juicer could not read the track listing on this CD."
-msgstr "সাউন্ড জুসাৰ এই সিডিৰ ট্ৰেকেৰ তালিকা পড়তে পাৰছে না ।"
+msgstr "ধ্বনি জুসাৰ এই সিডিৰ ট্ৰেকেৰ তালিকা পঢ়িবলৈ নাই পৰা ।"
 
 #. Set statusbar message
-#: ../src/sj-main.c:929
+#: ../src/sj-main.c:902
 msgid "Retrieving track listing...please wait."
-msgstr "ট্ৰেকেৰ তালিকা পড়া হচ্ছে...অনুগ্ৰহ কৰে অপেক্ষা কৰক ।"
+msgstr "ট্ৰেকেৰ তালিকা পঢ়া হৈছে...অনুগ্ৰহ কৰি অপেক্ষা কৰক ।"
 
-#: ../src/sj-main.c:1024
+#: ../src/sj-main.c:994
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
-msgstr "Sound Juicer দ্বাৰা CD-ROM যন্ত্ৰ '%s' ব্যবহাৰ কৰা সম্ভব হয়নি"
+msgstr "Sound Juicer দ্বাৰা CD-ROM যন্ত্ৰ '%s' ব্যবহাৰ কৰা সম্ভব নহয়"
 
-#: ../src/sj-main.c:1031
+#: ../src/sj-main.c:1001
 msgid "HAL daemon may not be running."
-msgstr "HAL ডেমন সম্ভবত চলছে না ।"
+msgstr "HAL ডেমন সম্ভবত নাই চলা ।"
 
-#: ../src/sj-main.c:1056
+#: ../src/sj-main.c:1026
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
-msgstr "Sound Juicer দ্বাৰা CD-ROM যন্ত্ৰ '%s' থেকে পড়া সম্ভব হয়নি"
+msgstr "Sound Juicer দ্বাৰা CD-ROM যন্ত্ৰ '%s' ৰ পৰা পঢ়া সম্ভব নহয়"
 
-#: ../src/sj-main.c:1150
+#: ../src/sj-main.c:1124
 msgid "No CD-ROM drives found"
-msgstr "কোনো CD-ROM ড্ৰাইভ পাওয়া যায়নি"
+msgstr "কোনো CD-ROM ড্ৰাইভ পোৱা নাযায়"
 
-#: ../src/sj-main.c:1151
+#: ../src/sj-main.c:1125
 msgid "Sound Juicer could not find any CD-ROM drives to read."
-msgstr "পড়াৰ জন্য Sound Juicer দ্বাৰা কোনো CD-ROM ড্ৰাইভ পাওয়া যায়নি ।"
+msgstr "পঢ়াৰ বাবে Sound Juicer দ্বাৰা কোনো CD-ROM ড্ৰাইভ পোৱা নাযায় ।"
 
-#: ../src/sj-main.c:1182
+#: ../src/sj-main.c:1156
 msgid "The currently selected audio profile is not available on your installation."
-msgstr "বৰ্তমানে নিৰ্বাচিত অডিও প্ৰোনথিপত্ৰ আপনাৰ সিস্টেমেৰ ইনস্টলেশনে পাওয়া যায়নি ।"
+msgstr "বৰ্তমানে নিৰ্বাচিত অডিও প্ৰোফাইল আপোনাৰ সিস্টেমৰ সংস্থাপনত পোৱা নাযায় ।"
 
-#: ../src/sj-main.c:1184
+#: ../src/sj-main.c:1158
 msgid "_Change Profile"
-msgstr "প্ৰোনথিপত্ৰ পৰিবৰ্তন কৰক (_C)"
+msgstr "প্ৰোফাইল পৰিবৰ্তন কৰক (_C)"
 
-#: ../src/sj-main.c:1270
+#: ../src/sj-main.c:1244
 msgid "Could not open URL"
-msgstr "URL খুলতে ব্যৰ্থ"
+msgstr "URL খুলিবলৈ ব্যৰ্থ"
 
-#: ../src/sj-main.c:1271
+#: ../src/sj-main.c:1245
 msgid "Sound Juicer could not open the submission URL"
-msgstr "Sound Juicer দ্বাৰা উল্লিখিত URL খোলা সম্ভব হয়নি"
+msgstr "Sound Juicer দ্বাৰা উল্লিখিত URL খোলা সম্ভব নহয়"
 
-#: ../src/sj-main.c:1380
+#: ../src/sj-main.c:1354
 #, c-format
 msgid "Unknown column %d was edited"
-msgstr "অজানা কমান্ড %d পৰিবৰ্তন কৰা হৈছে"
+msgstr "অজ্ঞাত কমান্ড %d পৰিবৰ্তন কৰা হৈছে"
 
-#: ../src/sj-main.c:1471 ../src/sj-prefs.c:105
+#: ../src/sj-main.c:1495 ../src/sj-prefs.c:103
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
 "%s"
 msgstr ""
-"Sound Juicer-ৰ জন্য সহায়িকা প্ৰদৰ্শন কৰতে ব্যৰ্থ\n"
+"Sound Juicer-ৰ বাবে সহায়িকা প্ৰদৰ্শন কৰিবলৈ ব্যৰ্থ\n"
 "%s"
 
-#: ../src/sj-main.c:1573
+#: ../src/sj-main.c:1600
 msgid "Could not duplicate disc"
 msgstr "Could not duplicate disc"
 
-#: ../src/sj-main.c:1574
+#: ../src/sj-main.c:1601
 msgid "Sound Juicer could not duplicate the disc"
-msgstr "শব্দ"
+msgstr "Sound Juicer দ্বাৰা ডিস্কৰ প্ৰতিলিপি নিৰ্মাণ কৰা সম্ভব নহয়"
 
-#: ../src/sj-main.c:1603
+#: ../src/sj-main.c:1629
 msgid "Start extracting immediately"
 msgstr "এই মুহূৰ্তে এক্সট্ৰেক্ট আৰম্ভ কৰা হ'ব"
 
-#: ../src/sj-main.c:1604
+#: ../src/sj-main.c:1630
 msgid "Start playing immediately"
 msgstr "এই মুহূৰ্তে চলোৱা হ'ব"
 
-#: ../src/sj-main.c:1605
+#: ../src/sj-main.c:1631
 msgid "What CD device to read"
-msgstr "যে CD যন্ত্ৰ থেকে পড়া হ'ব"
+msgstr "যে CD যন্ত্ৰ ৰ পৰা পঢ়া হ'ব"
 
-#: ../src/sj-main.c:1605
+#: ../src/sj-main.c:1631
 msgid "DEVICE"
 msgstr "DEVICE"
 
-#: ../src/sj-main.c:1615
+#: ../src/sj-main.c:1632
+#| msgid "What CD device to read"
+msgid "URI to the CD device to read"
+msgstr "পঢ়িবৰ বাবে চিহ্নিত CD ডিভাইছৰ URI"
+
+#: ../src/sj-main.c:1644
 msgid "- Extract music from your CDs"
-msgstr "- CD থেকে সংগীত এক্সট্ৰেক্ট কৰক"
+msgstr "- CD ৰ পৰা সংগীত এক্সট্ৰেক্ট কৰক"
 
-#: ../src/sj-main.c:1654
+#: ../src/sj-main.c:1681
 msgid "Could not create GConf client.\n"
-msgstr "GConf ক্লায়েন্ট নিৰ্মাণ কৰতে ব্যৰ্থ ।\n"
+msgstr "GConf ক্লায়েন্ট নিৰ্মাণ কৰিবলৈ ব্যৰ্থ ।\n"
 
-#: ../src/sj-main.c:1686
+#. this is made up
+#: ../src/sj-main.c:1715
+#, c-format
 msgid "The interface file for Sound Juicer could not be read."
-msgstr "Sound Juicer-ৰ প্ৰেক্ষাপটেৰ নথিপত্ৰ পড়তে ব্যৰ্থ ।"
+msgstr "Sound Juicer-ৰ প্ৰেক্ষাপটেৰ নথিপত্ৰ পঢ়িবলৈ ব্যৰ্থ ।"
 
-#: ../src/sj-main.c:1753
+#: ../src/sj-main.c:1783
 msgid "Track"
 msgstr "ট্ৰেক"
 
-#: ../src/sj-main.c:1788
-msgid "Duration"
-msgstr "অবকাল"
-
-#: ../src/sj-play.c:174 ../src/sj-play.c:433 ../src/sj-play.c:462
+#: ../src/sj-play.c:193 ../src/sj-play.c:461 ../src/sj-play.c:490
 #, c-format
 msgid ""
 "Error playing CD.\n"
 "\n"
 "Reason: %s"
 msgstr ""
-"CD চালাতে সমস্যা ।\n"
+"CD চলাওঁতে সমস্যা ।\n"
 "\n"
 "কাৰণ: %s"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:240
+#: ../src/sj-play.c:264
 msgid "Play"
-msgstr "Play"
+msgstr "বজাওক"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:284
+#: ../src/sj-play.c:308
 msgid "Pause"
 msgstr "স্থগিত"
 
-#: ../src/sj-play.c:341
+#: ../src/sj-play.c:365
+#, c-format
 msgid "Failed to create CD source element"
-msgstr "CD-ৰ মূল সামগ্ৰী নিৰ্মাণ কৰতে ব্যৰ্থ"
+msgstr "CD-ৰ মূল সামগ্ৰী নিৰ্মাণ কৰিবলৈ ব্যৰ্থ"
 
-#: ../src/sj-play.c:378
+#: ../src/sj-play.c:402
 msgid "Failed to link pipeline"
-msgstr "পাইপ-লাইন লিঙ্ক কৰতে ব্যৰ্থ"
+msgstr "পাইপ-লাইন লিঙ্ক কৰিবলৈ ব্যৰ্থ"
 
-#: ../src/sj-play.c:384
+#: ../src/sj-play.c:408
+#, c-format
 msgid "Failed to create audio output"
-msgstr "অডিও আউটপুট নিৰ্মাণ কৰতে ব্যৰ্থ"
+msgstr "অডিও আউটপুট নিৰ্মাণ কৰিবলৈ ব্যৰ্থ"
 
-#: ../src/sj-play.c:584
+#: ../src/sj-play.c:612
 #, c-format
 msgid "Seeking to %s"
-msgstr "%s'ত অনুসন্ধান কৰা হচ্ছে"
+msgstr "%s'ত অনুসন্ধান কৰা হৈছে"
 
-#: ../src/sj-prefs.c:54
+#: ../src/sj-prefs.c:52
 msgid "Album Artist, Album Title"
 msgstr "সংকলন-শিল্পী, সংকলন-শিৰোনাম"
 
-#: ../src/sj-prefs.c:55
+#: ../src/sj-prefs.c:53
 msgid "Album Artist (sortable), Album Title"
 msgstr "সংকলন-শিল্পী (ক্ৰমবিন্যাস সম্ভব), সংকলন-শিৰোনাম"
 
-#: ../src/sj-prefs.c:56
+#: ../src/sj-prefs.c:54
 msgid "Track Artist, Album Title"
 msgstr "ট্ৰেক-শিল্পী, সংকলন-শিৰোনাম"
 
-#: ../src/sj-prefs.c:57
+#: ../src/sj-prefs.c:55
 msgid "Track Artist (sortable), Album Title"
 msgstr "ট্ৰেক-শিল্পী (ক্ৰমবিন্যাস সম্ভব), সংকলন-শিৰোনাম"
 
-#: ../src/sj-prefs.c:58
+#: ../src/sj-prefs.c:56
 msgid "Album Title"
 msgstr "সংকলন-শিৰোনাম"
 
-#: ../src/sj-prefs.c:59
+#: ../src/sj-prefs.c:57
 msgid "Album Artist"
 msgstr "সংকলন-শিল্পী"
 
-#: ../src/sj-prefs.c:60
+#: ../src/sj-prefs.c:58
 msgid "Album Artist (sortable)"
 msgstr "সংকলন-শিল্পী (ক্ৰমবিন্যাস সম্ভব)"
 
-#: ../src/sj-prefs.c:61
+#: ../src/sj-prefs.c:59
 msgid "Album Artist - Album Title"
 msgstr "সংকলন-শিল্পী - সংকলন-শিৰোনাম"
 
-#: ../src/sj-prefs.c:62
+#: ../src/sj-prefs.c:60
 msgid "Album Artist (sortable) - Album Title"
 msgstr "সংকলন-শিল্পী (ক্ৰমবিন্যাস সম্ভব) - সংকলন-শিৰোনাম"
 
-#: ../src/sj-prefs.c:63
+#: ../src/sj-prefs.c:61
 msgid "[none]"
 msgstr "[শূণ্য]"
 
-#: ../src/sj-prefs.c:68
+#: ../src/sj-prefs.c:66
 msgid "Number - Title"
 msgstr "ক্ৰম - শিৰোনাম"
 
-#: ../src/sj-prefs.c:69
+#: ../src/sj-prefs.c:67
 msgid "Track Title"
 msgstr "ট্যাক-শিৰোনাম"
 
-#: ../src/sj-prefs.c:70
+#: ../src/sj-prefs.c:68
 msgid "Track Artist - Track Title"
 msgstr "ট্ৰেক শিল্পী - ট্ৰেক শিৰোনাম"
 
-#: ../src/sj-prefs.c:71
+#: ../src/sj-prefs.c:69
 msgid "Track Artist (sortable) - Track Title"
 msgstr "ট্ৰেক শিল্পী (ক্ৰমবিন্যাস সম্ভব)- ট্ৰেক শিৰোনাম"
 
-#: ../src/sj-prefs.c:72
+#: ../src/sj-prefs.c:70
 msgid "Number. Track Artist - Track Title"
 msgstr "ক্ৰম । ট্ৰেক শিল্পী - ট্ৰেক শিৰোনাম"
 
 #. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
-#: ../src/sj-prefs.c:74
+#: ../src/sj-prefs.c:72
 msgid "Number-Track Artist-Track Title (lowercase)"
-msgstr "ক্ৰম-ট্ৰেক শিল্পী - ট্ৰেক শিৰোনাম (ইংৰাজি ছোট হৰফে লেখা)"
+msgstr "ক্ৰম-ট্ৰেক শিল্পী - ট্ৰেক শিৰোনাম (ইংৰাজি সৰু আখৰ লিখা)"
 
-#: ../src/sj-prefs.c:261
+#: ../src/sj-prefs.c:275
 msgid "Example Path"
-msgstr "পাথেৰ উদাহৰণ"
+msgstr "পাথৰ উদাহৰণ"
 
+#~ msgid "_Eject when finished"
+#~ msgstr "কৰ্ম সমাপ্ত হলে বহিষ্কাৰ কৰা হ'ব (_E)"
+
+#~ msgid "Volume"
+#~ msgstr "ভলিউম"
+
+#~ msgid "+"
+#~ msgstr "+"
+
+#~ msgid "Volume Down"
+#~ msgstr "শব্দেৰ মাত্ৰা হ্ৰাস কৰক"
+
+#~ msgid "-"
+#~ msgstr "-"
+
+#~ msgid "Volume Up"
+#~ msgstr "শব্দেৰ মাত্ৰা বৃদ্ধি কৰক"
+
+#~ msgid "Muted"
+#~ msgstr "নিশব্দ"
+
+#~ msgid "Full Volume"
+#~ msgstr "সৰ্বাধিক শব্দ"
