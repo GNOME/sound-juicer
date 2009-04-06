@@ -264,16 +264,19 @@ mb_list_albums (SjMetadata *metadata, char **url, GError **error)
     char buffer[512];
 
     release = mb_result_list_get_release (results, i);
-    mb_release_get_id (release, buffer, sizeof (buffer));
-    includes = get_release_includes ();
-    release = mb_query_get_release_by_id (query, buffer, includes);
-    mb_release_includes_free (includes);
-
-    album = make_album_from_release (release);
-    album->metadata_source = SOURCE_MUSICBRAINZ;
-    fill_empty_durations (priv->disc, album);
-    albums = g_list_append (albums, album);
-    mb_release_free (release);
+    if(release) {
+      mb_release_get_id (release, buffer, sizeof (buffer));
+      includes = get_release_includes ();
+      release = mb_query_get_release_by_id (query, buffer, includes);
+      if(release) {
+        mb_release_includes_free (includes);
+        album = make_album_from_release (release);
+        album->metadata_source = SOURCE_MUSICBRAINZ;
+        fill_empty_durations (priv->disc, album);
+        albums = g_list_append (albums, album);
+        mb_release_free (release);
+      }
+    }
   }
   mb_result_list_free (results);
   mb_query_free (query);
