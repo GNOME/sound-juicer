@@ -172,7 +172,9 @@ make_album_from_release (MbRelease *release)
     GET (track->title, mb_track_get_title, mbt);
     track->duration = mb_track_get_duration (mbt) / 1000;
 
-    artist = mb_release_get_artist (release);
+    artist = mb_track_get_artist (mbt);
+    if (artist == NULL)
+      artist = mb_release_get_artist (release);
     GET (track->artist_id, mb_artist_get_id, artist);
     GET (track->artist, mb_artist_get_name, artist);
     GET (track->artist_sortname, mb_artist_get_sortname, artist);

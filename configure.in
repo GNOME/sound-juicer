@@ -81,7 +81,7 @@ if test "$have_cdio" = "yes" ; then
 fi
 
 # Find optional MusicBrainz3 and required Musicbrainz2
-PKG_CHECK_MODULES(MUSICBRAINZ3, libmusicbrainz3, [have_mb3=yes], [have_mb3=no])
+PKG_CHECK_MODULES(MUSICBRAINZ3, libmusicbrainz3 >= 3.0.2, [have_mb3=yes], [have_mb3=no])
 AC_SUBST(MUSICBRAINZ3_CFLAGS)
 AC_SUBST(MUSICBRAINZ3_LIBS)
 AM_CONDITIONAL([HAVE_MUSICBRAINZ3], [test "$have_mb3" = "yes"])
