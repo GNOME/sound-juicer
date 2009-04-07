@@ -134,6 +134,8 @@ gvfs_list_albums (SjMetadata *metadata, char **url, GError **error)
     track->duration = g_file_info_get_attribute_uint64 (info, "xattr::org.gnome.audio.duration");
     album->number++;
     g_object_unref (info);
+
+    album->tracks = g_list_append (album->tracks, track);
   }
   g_object_unref (e);
 
