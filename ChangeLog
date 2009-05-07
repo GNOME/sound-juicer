@@ -1,3 +1,11 @@
+2009-05-07  Christian Persch  <chpe@gnome.org>
+
+	* configure.in: Update glib req to 2.18.
+	* src/gconf-bridge.c: (error_handler):
+	* src/sj-extracting.c: (build_filename), (on_error_cb):
+	* src/sj-main.c: (sj_debug), (reread_cd): Safely printf strings. 
+	Bug #581750.
+
 2009-04-10  Ross Burton  <ross@linux.intel.com>
 
 	* configure.in:

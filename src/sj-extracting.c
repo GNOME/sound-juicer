@@ -164,7 +164,7 @@ build_filename (const TrackDetails *track, gboolean temp_filename, GError **erro
   g_free (scheme);
 #endif /* PATH_MAX */
   if (max_realfile <= 0) {
-    g_set_error (error, SJ_ERROR, SJ_ERROR_INTERNAL_ERROR, g_strdup (_("Name too long")));
+    g_set_error_literal (error, SJ_ERROR, SJ_ERROR_INTERNAL_ERROR, _("Name too long"));
     return NULL;
   }
   realfile = filepath_parse_pattern (file_pattern, track);
@@ -683,15 +683,14 @@ static void
 on_error_cb (SjExtractor *extractor, GError *error, gpointer data)
 {
   GtkWidget *dialog;
-  char *text;
-  /* Display a nice dialog */
-  text = g_strdup_printf (_("Sound Juicer could not extract this CD.\nReason: %s"), error->message);
 
+  /* Display a nice dialog */
   dialog = gtk_message_dialog_new (GTK_WINDOW (main_window), 0,
                                    GTK_MESSAGE_ERROR,
                                    GTK_BUTTONS_CLOSE,
-                                   text);
-  g_free (text);
+                                   "%s", _("Sound Juicer could not extract this CD."));
+  gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
+                                            "%s: %s", _("Reason"), error->message);
 
   gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_destroy (dialog);

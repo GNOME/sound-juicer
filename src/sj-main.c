@@ -153,7 +153,7 @@ void sj_debug (SjDebugDomain domain, const gchar* format, ...)
     va_start (args, format);
     string = g_strdup_vprintf (format, args);
     va_end (args);
-    g_printerr (string);
+    g_printerr ("%s", string);
     g_free (string);
   }
 }
@@ -921,18 +921,16 @@ static void reread_cd (gboolean ignore_no_media)
 
   if (error && !(error->code == SJ_ERROR_CD_NO_MEDIA && ignore_no_media)) {
     GtkWidget *dialog;
-    char *text = g_strdup_printf ("<b>%s</b>\n\n%s\n%s: %s",
-                                  _("Could not read the CD"),
-                                  _("Sound Juicer could not read the track listing on this CD."),
-                                  _("Reason"),
-                                  error->message);
 
     dialog = gtk_message_dialog_new (realized ? GTK_WINDOW (main_window) : NULL, 0,
                                      GTK_MESSAGE_ERROR,
                                      GTK_BUTTONS_CLOSE,
-                                     text);
-
-    g_free (text);
+                                     "%s", _("Could not read the CD"));
+    gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
+                                              "%s\n%s: %s",
+                                              _("Sound Juicer could not read the track listing on this CD."),
+                                              _("Reason"),
+                                              error->message);
 
     gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
     gtk_dialog_run (GTK_DIALOG (dialog));
