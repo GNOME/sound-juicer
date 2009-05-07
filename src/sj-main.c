@@ -1070,7 +1070,8 @@ gboolean cd_drive_exists (const char *device)
   monitor = brasero_medium_monitor_get_default ();
   drive = brasero_medium_monitor_get_drive (monitor, device);
   exists = (drive != NULL);
-  g_object_unref (drive);
+  if (exists)
+    g_object_unref (drive);
 
   return exists;
 }
