@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-28 11:25+0100\n"
-"PO-Revision-Date: 2009-03-28 11:25+0100\n"
+"POT-Creation-Date: 2009-06-14 11:20+0200\n"
+"PO-Revision-Date: 2009-06-14 11:21+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -115,7 +115,7 @@ msgstr "Hoppa till föregående spår"
 #: ../data/sound-juicer.glade.h:23
 #: ../src/sj-main.c:139
 #: ../src/sj-main.c:141
-#: ../src/sj-main.c:1642
+#: ../src/sj-main.c:1641
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -321,18 +321,18 @@ msgstr "Insticksmodulen som är nödvändig för cd-åtkomst hittades inte"
 msgid "The plugin necessary for file access was not found"
 msgstr "Insticksmodulen som är nödvändig för filåtkomst hittades inte"
 
-#: ../libjuicer/sj-metadata.c:186
+#: ../libjuicer/sj-metadata.c:190
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Enheten \"%s\" innehåller inget medium"
 
-#: ../libjuicer/sj-metadata.c:189
+#: ../libjuicer/sj-metadata.c:193
 #, c-format
 msgid "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "Enheten \"%s\" kunde inte öppnas. Kontrollera åtkomsträttigheterna för enheten."
 
-#: ../libjuicer/sj-metadata.c:192
-#: ../libjuicer/sj-metadata.c:204
+#: ../libjuicer/sj-metadata.c:196
+#: ../libjuicer/sj-metadata.c:208
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Kan inte läsa cd-skiva: %s"
@@ -344,22 +344,22 @@ msgstr "Kan inte läsa cd-skiva"
 
 #: ../libjuicer/sj-metadata-cdtext.c:93
 #: ../libjuicer/sj-metadata-cdtext.c:114
-#: ../libjuicer/sj-metadata-gvfs.c:110
-#: ../libjuicer/sj-metadata-gvfs.c:133
+#: ../libjuicer/sj-metadata-gvfs.c:109
+#: ../libjuicer/sj-metadata-gvfs.c:132
 #: ../libjuicer/sj-metadata-musicbrainz.c:328
 #: ../src/egg-play-preview.c:466
 msgid "Unknown Artist"
 msgstr "Okänd artist"
 
 #: ../libjuicer/sj-metadata-cdtext.c:94
-#: ../libjuicer/sj-metadata-gvfs.c:106
+#: ../libjuicer/sj-metadata-gvfs.c:105
 #: ../libjuicer/sj-metadata-musicbrainz.c:344
 #: ../src/egg-play-preview.c:461
 msgid "Unknown Title"
 msgstr "Okänd titel"
 
 #: ../libjuicer/sj-metadata-cdtext.c:113
-#: ../libjuicer/sj-metadata-gvfs.c:130
+#: ../libjuicer/sj-metadata-gvfs.c:129
 #, c-format
 msgid "Track %d"
 msgstr "Spår %d"
@@ -374,7 +374,7 @@ msgstr "Kunde inte skapa cd-uppslagningstråd"
 msgid "Cannot access CD"
 msgstr "Kan inte komma åt cd"
 
-#: ../libjuicer/sj-metadata-gvfs.c:147
+#: ../libjuicer/sj-metadata-gvfs.c:150
 #, c-format
 msgid "Cannot access CD: %s"
 msgstr "Kan inte komma åt cd: %s"
@@ -408,7 +408,7 @@ msgstr "URI:n för ljudfilen"
 
 #: ../src/egg-play-preview.c:175
 #: ../src/sj-main.c:626
-#: ../src/sj-main.c:1799
+#: ../src/sj-main.c:1798
 msgid "Title"
 msgstr "Titel"
 
@@ -418,7 +418,7 @@ msgstr "Titeln för aktuell ström."
 
 #: ../src/egg-play-preview.c:185
 #: ../src/sj-main.c:632
-#: ../src/sj-main.c:1808
+#: ../src/sj-main.c:1807
 msgid "Artist"
 msgstr "Artist"
 
@@ -443,7 +443,7 @@ msgid "The position in the current stream in seconds."
 msgstr "Positionen i aktuell ström i sekunder."
 
 #: ../src/egg-play-preview.c:215
-#: ../src/sj-main.c:1819
+#: ../src/sj-main.c:1818
 msgid "Duration"
 msgstr "Speltid"
 
@@ -455,12 +455,12 @@ msgstr "Speltiden i aktuell ström i sekunder."
 msgid "Unknown Album"
 msgstr "Okänt album"
 
-#: ../src/gconf-bridge.c:1218
+#: ../src/gconf-bridge.c:1220
 #, c-format
 msgid "GConf error: %s"
 msgstr "GConf-fel: %s"
 
-#: ../src/gconf-bridge.c:1228
+#: ../src/gconf-bridge.c:1225
 msgid "All further errors shown only on terminal."
 msgstr "Alla ytterligare fel visas endast på terminalen."
 
@@ -554,24 +554,28 @@ msgstr "Uppskattad kvarvarande tid: okänd"
 msgid "CD rip complete"
 msgstr "Cd-extraheringen är färdig"
 
-#. Display a nice dialog
-#: ../src/sj-extracting.c:688
-#, c-format
-msgid ""
-"Sound Juicer could not extract this CD.\n"
-"Reason: %s"
-msgstr ""
-"Sound Juicer kunde inte extrahera denna cd-skiva.\n"
-"Orsak: %s"
+#: ../src/sj-extracting.c:691
+msgid "Sound Juicer could not extract this CD."
+msgstr "Sound Juicer kunde inte extrahera denna cd-skiva."
+
+#: ../src/sj-extracting.c:693
+#: ../src/sj-main.c:185
+#: ../src/sj-main.c:814
+#: ../src/sj-main.c:932
+#: ../src/sj-main.c:1033
+#: ../src/sj-main.c:1245
+#: ../src/sj-main.c:1601
+msgid "Reason"
+msgstr "Orsak"
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:790
+#: ../src/sj-extracting.c:789
 msgid "Stop"
 msgstr "Stoppa"
 
-#: ../src/sj-extracting.c:819
-#: ../src/sj-extracting.c:825
+#: ../src/sj-extracting.c:818
+#: ../src/sj-extracting.c:824
 msgid "Extracting audio from CD"
 msgstr "Extrahera ljud från cd-skiva"
 
@@ -652,15 +656,6 @@ msgstr "E_xtrahera"
 msgid "Could not start Sound Juicer"
 msgstr "Kunde inte starta Sound Juicer"
 
-#: ../src/sj-main.c:185
-#: ../src/sj-main.c:814
-#: ../src/sj-main.c:927
-#: ../src/sj-main.c:1035
-#: ../src/sj-main.c:1246
-#: ../src/sj-main.c:1602
-msgid "Reason"
-msgstr "Orsak"
-
 #: ../src/sj-main.c:187
 msgid "Please consult the documentation for assistance."
 msgstr "Läs dokumentationen för hjälp."
@@ -689,13 +684,13 @@ msgid "You can improve the MusicBrainz database by adding this album."
 msgstr "Du kan förbättra MusicBrainz databas genom att lägga till detta album."
 
 #: ../src/sj-main.c:812
-#: ../src/sj-main.c:925
-#: ../src/sj-main.c:1033
+#: ../src/sj-main.c:928
+#: ../src/sj-main.c:1031
 msgid "Could not read the CD"
 msgstr "Kunde inte läsa cd-skivan"
 
 #: ../src/sj-main.c:813
-#: ../src/sj-main.c:926
+#: ../src/sj-main.c:931
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer kunde inte läsa spårlistan på denna cd-skiva."
 
@@ -704,50 +699,50 @@ msgstr "Sound Juicer kunde inte läsa spårlistan på denna cd-skiva."
 msgid "Retrieving track listing...please wait."
 msgstr "Hämtar spårlista... var vänlig vänta."
 
-#: ../src/sj-main.c:994
+#: ../src/sj-main.c:992
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Sound Juicer kunde inte använda cd-romenheten \"%s\""
 
-#: ../src/sj-main.c:1001
+#: ../src/sj-main.c:999
 msgid "HAL daemon may not be running."
 msgstr "HAL-demonen kanske inte kör."
 
-#: ../src/sj-main.c:1026
+#: ../src/sj-main.c:1024
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer kunde inte komma åt cd-romenheten \"%s\""
 
-#: ../src/sj-main.c:1124
+#: ../src/sj-main.c:1123
 msgid "No CD-ROM drives found"
 msgstr "Inga cd-romenheter hittades"
 
-#: ../src/sj-main.c:1125
+#: ../src/sj-main.c:1124
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer kunde inte hitta några cd-romenheter att läsa."
 
-#: ../src/sj-main.c:1156
+#: ../src/sj-main.c:1155
 msgid "The currently selected audio profile is not available on your installation."
 msgstr "Den för tillfället valda ljudprofilen är inte tillgänglig i din installation."
 
-#: ../src/sj-main.c:1158
+#: ../src/sj-main.c:1157
 msgid "_Change Profile"
 msgstr "_Byt profil"
 
-#: ../src/sj-main.c:1244
+#: ../src/sj-main.c:1243
 msgid "Could not open URL"
 msgstr "Kunde inte öppna url"
 
-#: ../src/sj-main.c:1245
+#: ../src/sj-main.c:1244
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer kunde inte öppna url för insändning"
 
-#: ../src/sj-main.c:1354
+#: ../src/sj-main.c:1353
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Okänd kolumn %d redigerades"
 
-#: ../src/sj-main.c:1495
+#: ../src/sj-main.c:1494
 #: ../src/sj-prefs.c:103
 #, c-format
 msgid ""
@@ -757,49 +752,49 @@ msgstr ""
 "Kunde inte visa hjälp för Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1600
+#: ../src/sj-main.c:1599
 msgid "Could not duplicate disc"
 msgstr "Kunde inte duplicera cd-skivan"
 
-#: ../src/sj-main.c:1601
+#: ../src/sj-main.c:1600
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Sound Juicer kunde inte duplicera skivan"
 
-#: ../src/sj-main.c:1629
+#: ../src/sj-main.c:1628
 msgid "Start extracting immediately"
 msgstr "Starta extrahering direkt"
 
-#: ../src/sj-main.c:1630
+#: ../src/sj-main.c:1629
 msgid "Start playing immediately"
 msgstr "Starta uppspelning direkt"
 
-#: ../src/sj-main.c:1631
+#: ../src/sj-main.c:1630
 msgid "What CD device to read"
 msgstr "Vilken cd-enhet att läsa från"
 
-#: ../src/sj-main.c:1631
+#: ../src/sj-main.c:1630
 msgid "DEVICE"
 msgstr "ENHET"
 
-#: ../src/sj-main.c:1632
+#: ../src/sj-main.c:1631
 msgid "URI to the CD device to read"
 msgstr "URI till cd-enheten att läsa från"
 
-#: ../src/sj-main.c:1645
+#: ../src/sj-main.c:1644
 msgid "- Extract music from your CDs"
 msgstr "- Extrahera musik från dina cd-skivor"
 
-#: ../src/sj-main.c:1682
+#: ../src/sj-main.c:1681
 msgid "Could not create GConf client.\n"
 msgstr "Kunde inte skapa GConf-klient.\n"
 
 #. this is made up
-#: ../src/sj-main.c:1716
+#: ../src/sj-main.c:1715
 #, c-format
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Gränssnittsfilen för Sound Juicer kunde inte läsas."
 
-#: ../src/sj-main.c:1784
+#: ../src/sj-main.c:1783
 msgid "Track"
 msgstr "Spår"
 
