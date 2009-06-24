@@ -374,8 +374,8 @@ setup (GError **err)
                       NULL);
     }
     /* Disable paranoia in playback mode */
-    if (g_object_class_find_property (G_OBJECT_GET_CLASS (source), "paranoia-mode"))
-      g_object_set (source, "paranoia-mode", 0, NULL);
+    if (g_object_class_find_property (G_OBJECT_GET_CLASS (cdp), "paranoia-mode"))
+      g_object_set (cdp, "paranoia-mode", 0, NULL);
 
     g_object_set (G_OBJECT (cdp),
                   "device", brasero_drive_get_device (drive),
