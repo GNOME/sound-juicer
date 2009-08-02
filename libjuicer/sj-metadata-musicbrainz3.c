@@ -44,6 +44,7 @@
 		field = g_strdup (buffer);					\
 }
 
+#define GCONF_MUSICBRAINZ_SERVER "/apps/sound-juicer/musicbrainz_server"
 #define GCONF_PROXY_USE_PROXY "/system/http_proxy/use_http_proxy"
 #define GCONF_PROXY_HOST "/system/http_proxy/host"
 #define GCONF_PROXY_PORT "/system/http_proxy/port"
@@ -302,13 +303,23 @@ static void
 sj_metadata_musicbrainz3_init (SjMetadataMusicbrainz3 *self)
 {
   GConfClient *gconf_client;
+  gchar *server_name;
+
   SjMetadataMusicbrainz3Private *priv;
 
   priv = GET_PRIVATE (self);
 
-  priv->mb = mb_webservice_new();
+  priv->mb = mb_webservice_new ();
 
   gconf_client = gconf_client_get_default ();
+
+  server_name = gconf_client_get_string (gconf_client, GCONF_MUSICBRAINZ_SERVER, NULL);
+
+  if (server_name && strcmp (server_name, "") != 0) {
+    mb_webservice_set_host (priv->mb, server_name);
+  }
+
+  g_free (server_name);
 
   /* Set the HTTP proxy */
   if (gconf_client_get_bool (gconf_client, GCONF_PROXY_USE_PROXY, NULL)) {
