@@ -7,11 +7,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: sound-juicer trunk\n"
+"Project-Id-Version: sound-juicer master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-23 07:23+0200\n"
-"PO-Revision-Date: 2009-02-21 23:09+0200\n"
-"Last-Translator: Vladimir \"Kaladan\" Petkov <kaladan@gmail.com>\n"
+"POT-Creation-Date: 2009-08-14 07:56+0300\n"
+"PO-Revision-Date: 2009-08-14 07:56+0300\n"
+"Last-Translator: Alexander Shopov <ash@contact.bg>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -115,7 +115,7 @@ msgid "Skip to the previous track"
 msgstr "Прескачане към предишната песен"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:139 ../src/sj-main.c:141
-#: ../src/sj-main.c:1642
+#: ../src/sj-main.c:1641
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -367,12 +367,12 @@ msgstr "Приставката нужна за достъп до CD-то не б
 msgid "The plugin necessary for file access was not found"
 msgstr "Приставката нужна за достъп до файловете не беше открита"
 
-#: ../libjuicer/sj-metadata.c:186
+#: ../libjuicer/sj-metadata.c:190
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Устройството „%s“ не съдържа носител"
 
-#: ../libjuicer/sj-metadata.c:189
+#: ../libjuicer/sj-metadata.c:193
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
@@ -380,7 +380,7 @@ msgstr ""
 "Устройството „%s“ не може да бъде отворено. Проверете правата за "
 "устройството."
 
-#: ../libjuicer/sj-metadata.c:192 ../libjuicer/sj-metadata.c:204
+#: ../libjuicer/sj-metadata.c:196 ../libjuicer/sj-metadata.c:208
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Дискът не може да бъде прочетен: %s"
@@ -391,17 +391,17 @@ msgid "Cannot read CD"
 msgstr "Дискът не може да бъде прочетен"
 
 #: ../libjuicer/sj-metadata-cdtext.c:93 ../libjuicer/sj-metadata-cdtext.c:114
-#: ../libjuicer/sj-metadata-gvfs.c:110 ../libjuicer/sj-metadata-gvfs.c:133
+#: ../libjuicer/sj-metadata-gvfs.c:109 ../libjuicer/sj-metadata-gvfs.c:132
 #: ../libjuicer/sj-metadata-musicbrainz.c:328 ../src/egg-play-preview.c:466
 msgid "Unknown Artist"
 msgstr "Неизвестен изпълнител"
 
-#: ../libjuicer/sj-metadata-cdtext.c:94 ../libjuicer/sj-metadata-gvfs.c:106
+#: ../libjuicer/sj-metadata-cdtext.c:94 ../libjuicer/sj-metadata-gvfs.c:105
 #: ../libjuicer/sj-metadata-musicbrainz.c:344 ../src/egg-play-preview.c:461
 msgid "Unknown Title"
 msgstr "Неизвестно заглавие"
 
-#: ../libjuicer/sj-metadata-cdtext.c:113 ../libjuicer/sj-metadata-gvfs.c:130
+#: ../libjuicer/sj-metadata-cdtext.c:113 ../libjuicer/sj-metadata-gvfs.c:129
 #, c-format
 msgid "Track %d"
 msgstr "Песен %d"
@@ -416,7 +416,7 @@ msgstr "Нишката за преглед на CD-то не може да бъ�
 msgid "Cannot access CD"
 msgstr "Дискът не може да бъде достъпен"
 
-#: ../libjuicer/sj-metadata-gvfs.c:147
+#: ../libjuicer/sj-metadata-gvfs.c:150
 #, c-format
 msgid "Cannot access CD: %s"
 msgstr "Дискът не може да бъде достъпен: %s"
@@ -492,12 +492,12 @@ msgstr "Продължителност на текущия поток в сек�
 msgid "Unknown Album"
 msgstr "Неизвестен албум"
 
-#: ../src/gconf-bridge.c:1218
+#: ../src/gconf-bridge.c:1220
 #, c-format
 msgid "GConf error: %s"
 msgstr "Грешка в GConf: %s"
 
-#: ../src/gconf-bridge.c:1228
+#: ../src/gconf-bridge.c:1225
 msgid "All further errors shown only on terminal."
 msgstr "Всички следващи грешки се показват само на терминал."
 
@@ -614,23 +614,23 @@ msgstr "Оставащо време: неизвестно"
 msgid "CD rip complete"
 msgstr "Извличането завърши"
 
-#. Display a nice dialog
-#: ../src/sj-extracting.c:688
-#, c-format
-msgid ""
-"Sound Juicer could not extract this CD.\n"
-"Reason: %s"
-msgstr ""
-"Sound Juicer не може да извлече това CD.\n"
-"Причина: %s"
+#: ../src/sj-extracting.c:691
+msgid "Sound Juicer could not extract this CD."
+msgstr "Sound Juicer не може да извлече това CD."
+
+#: ../src/sj-extracting.c:693 ../src/sj-main.c:185 ../src/sj-main.c:814
+#: ../src/sj-main.c:932 ../src/sj-main.c:1033 ../src/sj-main.c:1245
+#: ../src/sj-main.c:1601
+msgid "Reason"
+msgstr "Причина"
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:790
+#: ../src/sj-extracting.c:789
 msgid "Stop"
 msgstr "Спиране"
 
-#: ../src/sj-extracting.c:819 ../src/sj-extracting.c:825
+#: ../src/sj-extracting.c:818 ../src/sj-extracting.c:824
 msgid "Extracting audio from CD"
 msgstr "Извличане на музика от CD"
 
@@ -711,11 +711,6 @@ msgstr "И_звличане"
 msgid "Could not start Sound Juicer"
 msgstr "Sound Juicer не може да се стартира"
 
-#: ../src/sj-main.c:185 ../src/sj-main.c:814 ../src/sj-main.c:927
-#: ../src/sj-main.c:1035 ../src/sj-main.c:1246 ../src/sj-main.c:1602
-msgid "Reason"
-msgstr "Причина"
-
 #: ../src/sj-main.c:187
 msgid "Please consult the documentation for assistance."
 msgstr "Консултирайте се с ръководството на потребителя."
@@ -743,11 +738,11 @@ msgstr "„%s“ от %s липсва в MusicBrainz."
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr "Можете да подобрите MusicBrainz, като добавите този албум."
 
-#: ../src/sj-main.c:812 ../src/sj-main.c:925 ../src/sj-main.c:1033
+#: ../src/sj-main.c:812 ../src/sj-main.c:928 ../src/sj-main.c:1031
 msgid "Could not read the CD"
 msgstr "Дискът не може да бъде прочетен"
 
-#: ../src/sj-main.c:813 ../src/sj-main.c:926
+#: ../src/sj-main.c:813 ../src/sj-main.c:931
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer не може да прочете списъка с песните от този диск."
 
@@ -756,51 +751,51 @@ msgstr "Sound Juicer не може да прочете списъка с пес�
 msgid "Retrieving track listing...please wait."
 msgstr "Получаване на списъка с песните…, изчакайте."
 
-#: ../src/sj-main.c:994
+#: ../src/sj-main.c:992
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Sound Juicer не може да използва устройството за CD-ROM „%s“"
 
-#: ../src/sj-main.c:1001
+#: ../src/sj-main.c:999
 msgid "HAL daemon may not be running."
 msgstr "Възможно е демонът HAL да не работи."
 
-#: ../src/sj-main.c:1026
+#: ../src/sj-main.c:1024
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer няма достъп до CD-ROM устройството „%s“"
 
-#: ../src/sj-main.c:1124
+#: ../src/sj-main.c:1123
 msgid "No CD-ROM drives found"
 msgstr "Няма открити CD-ROM устройства"
 
-#: ../src/sj-main.c:1125
+#: ../src/sj-main.c:1124
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer не може да открие CD-ROM устройство, от което да чете."
 
-#: ../src/sj-main.c:1156
+#: ../src/sj-main.c:1155
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Избраният аудио профил не е наличен на вашата инсталация."
 
-#: ../src/sj-main.c:1158
+#: ../src/sj-main.c:1157
 msgid "_Change Profile"
 msgstr "_Промяна на профил"
 
-#: ../src/sj-main.c:1244
+#: ../src/sj-main.c:1243
 msgid "Could not open URL"
 msgstr "Адресът не може да бъде отворен"
 
-#: ../src/sj-main.c:1245
+#: ../src/sj-main.c:1244
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer не може отвори адреса за подаване"
 
-#: ../src/sj-main.c:1354
+#: ../src/sj-main.c:1353
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Непознатата колона %d беше редактирана"
 
-#: ../src/sj-main.c:1495 ../src/sj-prefs.c:103
+#: ../src/sj-main.c:1494 ../src/sj-prefs.c:103
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -809,31 +804,31 @@ msgstr ""
 "Помощта за Sound Juicer не може да бъде показана\n"
 "%s"
 
-#: ../src/sj-main.c:1600
+#: ../src/sj-main.c:1599
 msgid "Could not duplicate disc"
 msgstr "Дискът не може да бъде копиран"
 
-#: ../src/sj-main.c:1601
+#: ../src/sj-main.c:1600
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Sound Juicer не може копира диска"
 
-#: ../src/sj-main.c:1629
+#: ../src/sj-main.c:1628
 msgid "Start extracting immediately"
 msgstr "Незабавно стартиране на извличането"
 
-#: ../src/sj-main.c:1630
+#: ../src/sj-main.c:1629
 msgid "Start playing immediately"
 msgstr "Незабавно стартиране на слушането"
 
-#: ../src/sj-main.c:1631
+#: ../src/sj-main.c:1630
 msgid "What CD device to read"
 msgstr "Кое CD устройство да се чете"
 
-#: ../src/sj-main.c:1631
+#: ../src/sj-main.c:1630
 msgid "DEVICE"
 msgstr "УСТРОЙСТВО"
 
-#: ../src/sj-main.c:1632
+#: ../src/sj-main.c:1631
 msgid "URI to the CD device to read"
 msgstr "Адрес на устройството за CD-та"
 
@@ -855,7 +850,7 @@ msgstr "Файлът с описанието на Sound Juicer не може д�
 msgid "Track"
 msgstr "Песен"
 
-#: ../src/sj-play.c:193 ../src/sj-play.c:461 ../src/sj-play.c:490
+#: ../src/sj-play.c:193 ../src/sj-play.c:465 ../src/sj-play.c:494
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -881,16 +876,16 @@ msgstr "Пауза"
 msgid "Failed to create CD source element"
 msgstr "Не може да се създаде източник от CD"
 
-#: ../src/sj-play.c:402
+#: ../src/sj-play.c:406
 msgid "Failed to link pipeline"
 msgstr "Не може да се осъществи връзка с конвейер"
 
-#: ../src/sj-play.c:408
+#: ../src/sj-play.c:412
 #, c-format
 msgid "Failed to create audio output"
 msgstr "Не може да се създаде звуков изход"
 
-#: ../src/sj-play.c:612
+#: ../src/sj-play.c:616
 #, c-format
 msgid "Seeking to %s"
 msgstr "Прескачане към %s"
