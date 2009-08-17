@@ -106,6 +106,11 @@ LIBS="$LIBS $MUSICBRAINZ_LIBS"
 AC_CHECK_FUNCS(mb_SetProxyCreds)
 LIBS="$oldlibs"
 
+oldlibs=$LIBS
+LIBS="$LIBS $MUSICBRAINZ3_LIBS"
+AC_CHECK_FUNCS(mb_extract_uuid)
+LIBS="$oldlibs"
+
 # Find gio for the metadata extractor
 PKG_CHECK_MODULES(GIO, gio-2.0)
 AC_SUBST(GIO_CFLAGS)
