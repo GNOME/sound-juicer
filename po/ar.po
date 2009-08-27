@@ -2,29 +2,27 @@
 # translation of sound-juicer.HEAD.ar.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) 2005 THE PACKAGE'S COPYRIGHT HOLDER.
-#
-#
 # Arafat Medini <luminaqsilverpen.de>, 2003,2004,2005.
 # Arafat Medini <lumina@silverpen.de>, 2003, 2005.
 # Djihed Afifi <djihed@gmail.com>, 2006.
-# Khaled Hosny <khaledhosny@eglug.org>, 2006, 2007, 2008.
+# Khaled Hosny <khaledhosny@eglug.org>, 2006, 2007, 2008, 2009.
 # Seba Barto <nanoosaamar@yahoo.com>, 2006.
 # Anas Afif Emad <anas.e87@gmail.com>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer.HEAD\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
-"juicer&component=general\n"
-"POT-Creation-Date: 2009-03-17 21:41+0000\n"
-"PO-Revision-Date: 2008-09-20 13:47+0200\n"
-"Last-Translator: Anas Afif Emad <anas.e87@gmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-08-27 14:31+0300\n"
+"PO-Revision-Date: 2009-08-27 14:43+0300\n"
+"Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Virtaal 0.4.0\n"
 
 #: ../data/sound-juicer.desktop.in.in.h:1
 msgid "Audio CD Extractor"
@@ -32,7 +30,7 @@ msgstr "مستخرج أصوات من القرص المدمج "
 
 #: ../data/sound-juicer.desktop.in.in.h:2
 msgid "Copy music from your CDs"
-msgstr "إنسخ الموسيقى من أقراصك المدمجة"
+msgstr "انسخ الموسيقى من أقراصك المدمجة"
 
 #: ../data/sound-juicer.glade.h:1
 msgid "<b>Device</b>"
@@ -116,14 +114,14 @@ msgstr "اختر مجلّد"
 
 #: ../data/sound-juicer.glade.h:21
 msgid "Skip to the next track"
-msgstr "تخطّي إلى المقطوعة التّالية"
+msgstr "تخطَّ إلى المقطوعة التّالية"
 
 #: ../data/sound-juicer.glade.h:22
 msgid "Skip to the previous track"
-msgstr "تخطّي إلى المقطوعة السّابقة"
+msgstr "تخطَّ إلى المقطوعة السّابقة"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:139 ../src/sj-main.c:141
-#: ../src/sj-main.c:1642
+#: ../src/sj-main.c:1641
 msgid "Sound Juicer"
 msgstr "مستخرج الصوتيّات"
 
@@ -153,7 +151,7 @@ msgstr "ا_ستمر"
 
 #: ../data/sound-juicer.glade.h:29
 msgid "_Deselect All"
-msgstr "ا_لغي انتقاء الكل"
+msgstr "أ_لغِ اختيار الكل"
 
 #: ../data/sound-juicer.glade.h:30
 msgid "_Disc"
@@ -165,7 +163,7 @@ msgstr "_اسْتَنْسِخ القرص"
 
 #: ../data/sound-juicer.glade.h:32
 msgid "_Edit"
-msgstr "_حرّر"
+msgstr "ت_حرير"
 
 #: ../data/sound-juicer.glade.h:33
 msgid "_Eject after extracting tracks"
@@ -177,7 +175,7 @@ msgstr "ال_مجلّد:"
 
 #: ../data/sound-juicer.glade.h:35
 msgid "_Help"
-msgstr "_المساعدة"
+msgstr "_مساعدة"
 
 #: ../data/sound-juicer.glade.h:36
 msgid "_Next Track"
@@ -185,11 +183,11 @@ msgstr "المقطوعة ال_تالية"
 
 #: ../data/sound-juicer.glade.h:37
 msgid "_Open music folder when finished"
-msgstr "ا_فتح مجلد الموسيقى عند الإنتهاء"
+msgstr "ا_فتح مجلد الموسيقى عند الانتهاء"
 
 #: ../data/sound-juicer.glade.h:38
 msgid "_Play / Pause"
-msgstr "ش_غل / قف مؤقّتا"
+msgstr "ش_غل / ألبِث"
 
 #: ../data/sound-juicer.glade.h:39
 msgid "_Re-read Disc"
@@ -232,27 +230,31 @@ msgid "Audio volume"
 msgstr "شدة الصوت"
 
 #: ../data/sound-juicer.schemas.in.h:6
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "Do not specify an extension. %at -- album title %aT -- album title "
 "(lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album "
 "artist (sortable) %aS -- album artist (sortable lowercase) %tn -- track "
-"number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
-"tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
+"number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title "
+"%tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
 "(lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable "
 "lowercase) %dn -- disc and track number (i.e Disk 2 - 6, or 6) %dN -- disc "
 "number, zero padded (i.e d02t06, or 06)"
 msgstr ""
-"لا تخصّص إمتدادًا. %at -- عنوان الألبوم %aT -- عنوان الألبوم (حروف صغيرة) %aa "
-"-- فنان الألبوم %aA -- فنان الألبوم (حروف صغيرة) %tn -- رقم المقطوعة (8 "
-"مثلا ) %tN -- رقم المقطوعة بصفر (08 مثلا) %tt -- عنوان المقطوعة %tT -- عنوان "
-"المقطوعة (حروف صغيرة) %ta --  فنان المقطوعة %tA -- فنان المقطوعة (حروف صغيرة)"
+"لا تخصّص امتدادًا. %at -- عنوان الألبوم %aT -- عنوان الألبوم (حروف صغيرة) %"
+"aa -- فنان الألبوم %aA -- فنان الألبوم (حروف صغيرة) %tn --  فنان الألبوم "
+"(قابل للترتيب) %aS -- رقم المقطوعة (8 مثلا ) %tN -- رقم المقطوعة بصفر (08 "
+"مثلا) %tt -- عنوان المقطوعة %tT -- عنوان المقطوعة (حروف صغيرة) %ta --  فنان "
+"المقطوعة %tA -- فنان المقطوعة (قابل للترتيب) %tS -- فنان المقطوعة (حروف "
+"صغيرة) -- رقم القرص والمقطوعة (مثلا قرص 2 - 6، أو 6) -- رقم القرص مع أصفار "
+"(مثلا d02t06 أو 06)"
 
 #: ../data/sound-juicer.schemas.in.h:7
 msgid ""
 "If enabled, special characters such as space, wildcards and backslashes will "
 "be removed from the output filename."
-msgstr "إذا فُعّل، فستمحى المحارف الخاصة مثل الفراغات و الشَرْطة من اسم ملف الخرْج."
+msgstr ""
+"إذا فُعّل، فستمحى المحارف الخاصة مثل الفراغات و الشَرْطة من اسم ملف الخرْج."
 
 #: ../data/sound-juicer.schemas.in.h:8
 msgid "If specified, this value will override the default MusicBrainz server."
@@ -360,18 +362,18 @@ msgstr "لا يوجد الملحق اللازم للنّفاذ إلى القرص
 msgid "The plugin necessary for file access was not found"
 msgstr "لا يوجد الملحق اللازم للنّفاذ إلى الملفّات"
 
-#: ../libjuicer/sj-metadata.c:186
+#: ../libjuicer/sj-metadata.c:190
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "لا يحوي الجهاز '%s' وسيطا"
 
-#: ../libjuicer/sj-metadata.c:189
+#: ../libjuicer/sj-metadata.c:193
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "لا يمكن فتح الجهاز '%s'. رجاء تأكد من تصريحات النّفاذ للجهاز."
 
-#: ../libjuicer/sj-metadata.c:192 ../libjuicer/sj-metadata.c:204
+#: ../libjuicer/sj-metadata.c:196 ../libjuicer/sj-metadata.c:208
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "لا يمكن قراءة القرص المدمج: %s"
@@ -382,17 +384,17 @@ msgid "Cannot read CD"
 msgstr "لا يمكن قراءة القرص المدمج"
 
 #: ../libjuicer/sj-metadata-cdtext.c:93 ../libjuicer/sj-metadata-cdtext.c:114
-#: ../libjuicer/sj-metadata-gvfs.c:110 ../libjuicer/sj-metadata-gvfs.c:133
+#: ../libjuicer/sj-metadata-gvfs.c:109 ../libjuicer/sj-metadata-gvfs.c:132
 #: ../libjuicer/sj-metadata-musicbrainz.c:328 ../src/egg-play-preview.c:466
 msgid "Unknown Artist"
 msgstr "فنان مجهول"
 
-#: ../libjuicer/sj-metadata-cdtext.c:94 ../libjuicer/sj-metadata-gvfs.c:106
+#: ../libjuicer/sj-metadata-cdtext.c:94 ../libjuicer/sj-metadata-gvfs.c:105
 #: ../libjuicer/sj-metadata-musicbrainz.c:344 ../src/egg-play-preview.c:461
 msgid "Unknown Title"
 msgstr "عنوان مجهول"
 
-#: ../libjuicer/sj-metadata-cdtext.c:113 ../libjuicer/sj-metadata-gvfs.c:130
+#: ../libjuicer/sj-metadata-cdtext.c:113 ../libjuicer/sj-metadata-gvfs.c:129
 #, c-format
 msgid "Track %d"
 msgstr "المقطوعة %Id"
@@ -403,14 +405,14 @@ msgid "Could not create CD lookup thread"
 msgstr "لا يمكن إنشاء بريمج مراقبة القرص المدمج"
 
 #: ../libjuicer/sj-metadata-gvfs.c:86
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot access CD"
-msgstr "لا يمكن قراءة القرص المدمج"
+msgstr "لا يمكن الوصول للقرص المدمج"
 
-#: ../libjuicer/sj-metadata-gvfs.c:147
-#, fuzzy, c-format
+#: ../libjuicer/sj-metadata-gvfs.c:150
+#, c-format
 msgid "Cannot access CD: %s"
-msgstr "لا يمكن قراءة القرص المدمج: %s"
+msgstr "لا يمكن الوصول للقرص المدمج: %s"
 
 #: ../libjuicer/sj-metadata-musicbrainz.c:210
 #: ../libjuicer/sj-metadata-musicbrainz.c:217
@@ -439,7 +441,7 @@ msgstr "رابط URI"
 msgid "The URI of the audio file"
 msgstr "رابط (URI) ملف الصوت"
 
-#: ../src/egg-play-preview.c:175 ../src/sj-main.c:626 ../src/sj-main.c:1799
+#: ../src/egg-play-preview.c:175 ../src/sj-main.c:626 ../src/sj-main.c:1798
 msgid "Title"
 msgstr "العنوان"
 
@@ -447,7 +449,7 @@ msgstr "العنوان"
 msgid "The title of the current stream."
 msgstr "عنوان التدفق الحالي"
 
-#: ../src/egg-play-preview.c:185 ../src/sj-main.c:632 ../src/sj-main.c:1808
+#: ../src/egg-play-preview.c:185 ../src/sj-main.c:632 ../src/sj-main.c:1807
 msgid "Artist"
 msgstr "الفنان"
 
@@ -471,7 +473,7 @@ msgstr "الموضع"
 msgid "The position in the current stream in seconds."
 msgstr "الموضع في التدفق الحالي بالثواني."
 
-#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1819
+#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1818
 msgid "Duration"
 msgstr "المدّة"
 
@@ -483,12 +485,12 @@ msgstr "مدّة التدفق الحالي بالثواني."
 msgid "Unknown Album"
 msgstr "ألبوم مجهول"
 
-#: ../src/gconf-bridge.c:1218
+#: ../src/gconf-bridge.c:1220
 #, c-format
 msgid "GConf error: %s"
 msgstr "خطأ GConf: %s"
 
-#: ../src/gconf-bridge.c:1228
+#: ../src/gconf-bridge.c:1225
 msgid "All further errors shown only on terminal."
 msgstr "ستعرض جميع الأخطاء الأخرى في الطّرفيّة فقط."
 
@@ -538,7 +540,7 @@ msgstr ""
 "فريق عربآيز للترجمة http://www.arabeyes.org :\n"
 "عرفات المديني\t<lumina@silverpen.de>\n"
 "جهاد عفيفي\t<djihed@gmail.com> \n"
-" Seba Barto\t<nanoosaamar@yahoo.com>\n"
+" سبأ بارتو\t<nanoosaamar@yahoo.com>\n"
 "خالد حسني\t<khaledhosny@eglug.org>\n"
 "أنس عفيف عماد\t<anas.e87@gmail.com>"
 
@@ -571,11 +573,11 @@ msgstr ""
 
 #: ../src/sj-extracting.c:315
 msgid "_Skip"
-msgstr "_تخطّي"
+msgstr "_تخطَّ"
 
 #: ../src/sj-extracting.c:316
 msgid "S_kip All"
-msgstr "تخ_طى الكل"
+msgstr "تخ_طَّ الكل"
 
 #: ../src/sj-extracting.c:317
 msgid "_Overwrite"
@@ -601,25 +603,25 @@ msgstr "الوقت المقدّر المتبقّي: مجهول"
 
 #: ../src/sj-extracting.c:599
 msgid "CD rip complete"
-msgstr ""
+msgstr "اكتمل استخراج القرص"
 
-#. Display a nice dialog
-#: ../src/sj-extracting.c:688
-#, c-format
-msgid ""
-"Sound Juicer could not extract this CD.\n"
-"Reason: %s"
-msgstr ""
-"لم يتمكن مستخرج الصوتيات من استخراج هذا القرص المدمج.\n"
-"السّبب: %s"
+#: ../src/sj-extracting.c:691
+msgid "Sound Juicer could not extract this CD."
+msgstr "لم يتمكن مستخرج الصوتيات من استخراج هذا القرص المدمج."
+
+#: ../src/sj-extracting.c:693 ../src/sj-main.c:185 ../src/sj-main.c:814
+#: ../src/sj-main.c:932 ../src/sj-main.c:1033 ../src/sj-main.c:1245
+#: ../src/sj-main.c:1601
+msgid "Reason"
+msgstr "السبب"
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:790
+#: ../src/sj-extracting.c:789
 msgid "Stop"
 msgstr "توقّف"
 
-#: ../src/sj-extracting.c:819 ../src/sj-extracting.c:825
+#: ../src/sj-extracting.c:818 ../src/sj-extracting.c:824
 msgid "Extracting audio from CD"
 msgstr "استخراج الصوت من القرص المدمج"
 
@@ -700,11 +702,6 @@ msgstr "ا_ستخرج"
 msgid "Could not start Sound Juicer"
 msgstr "لا يمكن بدأ مستخرج الصوتيات"
 
-#: ../src/sj-main.c:185 ../src/sj-main.c:814 ../src/sj-main.c:927
-#: ../src/sj-main.c:1035 ../src/sj-main.c:1246 ../src/sj-main.c:1602
-msgid "Reason"
-msgstr "السبب"
-
 #: ../src/sj-main.c:187
 msgid "Please consult the documentation for assistance."
 msgstr "رجاء مراجعة التوثيق للمساعدة"
@@ -718,9 +715,8 @@ msgid "(unknown)"
 msgstr "(مجهول)"
 
 #: ../src/sj-main.c:418
-#, fuzzy
 msgid "S_ubmit Album"
-msgstr "_ارسل ألبوم"
+msgstr "أ_رسل الألبوم"
 
 #. Translators: title, artist
 #: ../src/sj-main.c:425
@@ -732,64 +728,64 @@ msgstr "تعذر ايجاد %s من طرف %s على MusicBrainz."
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr "يمكن تحسين قاعدة بيانات MusicBrainz بإظافة هذا الألبوم."
 
-#: ../src/sj-main.c:812 ../src/sj-main.c:925 ../src/sj-main.c:1033
+#: ../src/sj-main.c:812 ../src/sj-main.c:928 ../src/sj-main.c:1031
 msgid "Could not read the CD"
 msgstr "لا يمكن قراءة القرص المدمج"
 
-#: ../src/sj-main.c:813 ../src/sj-main.c:926
+#: ../src/sj-main.c:813 ../src/sj-main.c:931
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "لم يتمكن مستخرج الصوتيات من قراءة ترتيب المقاطع في هذا القرص المدمج."
 
 #. Set statusbar message
 #: ../src/sj-main.c:902
 msgid "Retrieving track listing...please wait."
-msgstr "يجري سحب سجلّ المقطوعات... رجاءًا انتظر."
+msgstr "يجري سحب سجلّ المقطوعات... رجاءً انتظر."
 
-#: ../src/sj-main.c:994
+#: ../src/sj-main.c:992
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "لم يتمكن مستخرج الصوتيات من النفاذ إلى جهاز القرص المدمج '%s'"
 
-#: ../src/sj-main.c:1001
+#: ../src/sj-main.c:999
 msgid "HAL daemon may not be running."
 msgstr "من الممكن أن خادوم هال لا يعمل."
 
-#: ../src/sj-main.c:1026
+#: ../src/sj-main.c:1024
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "لم يتمكن مستخرج الصوتيات من النفاذ إلى جهاز القرص المدمج '%s'"
 
-#: ../src/sj-main.c:1124
+#: ../src/sj-main.c:1123
 msgid "No CD-ROM drives found"
 msgstr "لا توجد سوّاقات أقراص مدمجة"
 
-#: ../src/sj-main.c:1125
+#: ../src/sj-main.c:1124
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "لم يجد مستخرج الصوتيات سوّاقات أقراص مدمجة ليقرأها."
 
-#: ../src/sj-main.c:1156
+#: ../src/sj-main.c:1155
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "الطور المنتقى حاليا غير موجود في تثبيتك."
 
-#: ../src/sj-main.c:1158
+#: ../src/sj-main.c:1157
 msgid "_Change Profile"
 msgstr "_غيّر الطور"
 
-#: ../src/sj-main.c:1244
+#: ../src/sj-main.c:1243
 msgid "Could not open URL"
 msgstr "لا يمكن فتح العنوان"
 
-#: ../src/sj-main.c:1245
+#: ../src/sj-main.c:1244
 msgid "Sound Juicer could not open the submission URL"
 msgstr "لم يتمكن مستخرج الصوتيات من فتح العنوان"
 
-#: ../src/sj-main.c:1354
+#: ../src/sj-main.c:1353
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "حُرِّر جدول مجهول %Id"
 
-#: ../src/sj-main.c:1495 ../src/sj-prefs.c:103
+#: ../src/sj-main.c:1494 ../src/sj-prefs.c:103
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -798,53 +794,53 @@ msgstr ""
 "لا يمكن عرض مساعدة مستخرج الصوتيات\n"
 "%s"
 
-#: ../src/sj-main.c:1600
+#: ../src/sj-main.c:1599
 msgid "Could not duplicate disc"
 msgstr "لا يمكن استنساخ القرص المدمج"
 
-#: ../src/sj-main.c:1601
+#: ../src/sj-main.c:1600
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "لم يتمكن مستخرج الصوتيات من استنساخ القرص"
 
-#: ../src/sj-main.c:1629
+#: ../src/sj-main.c:1628
 msgid "Start extracting immediately"
-msgstr "ابدأ الإستخراج حالًا"
+msgstr "ابدأ الاستخراج حالًا"
 
-#: ../src/sj-main.c:1630
+#: ../src/sj-main.c:1629
 msgid "Start playing immediately"
 msgstr "ابدأ التشغيل حالًا"
 
-#: ../src/sj-main.c:1631
+#: ../src/sj-main.c:1630
 msgid "What CD device to read"
 msgstr "أي جهاز قرص مدمج سيقرأ"
 
-#: ../src/sj-main.c:1631
+#: ../src/sj-main.c:1630
 msgid "DEVICE"
 msgstr "الجهاز"
 
-#: ../src/sj-main.c:1632
+#: ../src/sj-main.c:1631
 msgid "URI to the CD device to read"
 msgstr "رابط (URI) إلى جهاز القرص المضغوط لقراءته"
 
-#: ../src/sj-main.c:1645
+#: ../src/sj-main.c:1644
 msgid "- Extract music from your CDs"
 msgstr "- استخرج الموسيقى من أقراصك المدمجة"
 
-#: ../src/sj-main.c:1682
+#: ../src/sj-main.c:1681
 msgid "Could not create GConf client.\n"
 msgstr "لا يمكن إنشاء عميل GConf.\n"
 
 #. this is made up
-#: ../src/sj-main.c:1716
+#: ../src/sj-main.c:1715
 #, c-format
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "لا يمكن تحميل ملف واجهة مستخرج الصوتيات."
 
-#: ../src/sj-main.c:1784
+#: ../src/sj-main.c:1783
 msgid "Track"
 msgstr "المقطوعة"
 
-#: ../src/sj-play.c:193 ../src/sj-play.c:461 ../src/sj-play.c:490
+#: ../src/sj-play.c:193 ../src/sj-play.c:465 ../src/sj-play.c:494
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -858,28 +854,28 @@ msgstr ""
 #. TODO: find out why GTK+ needs this to work (see #364371)
 #: ../src/sj-play.c:264
 msgid "Play"
-msgstr "العب"
+msgstr "شغّل"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
 #: ../src/sj-play.c:308
 msgid "Pause"
-msgstr "ايقاف مؤقّت"
+msgstr "ألبِث"
 
 #: ../src/sj-play.c:365
 #, c-format
 msgid "Failed to create CD source element"
 msgstr "فشل إنشاء مصدر القرص المدمج"
 
-#: ../src/sj-play.c:402
+#: ../src/sj-play.c:406
 msgid "Failed to link pipeline"
 msgstr "تعذّر إنشاء خط الاتصال"
 
-#: ../src/sj-play.c:408
+#: ../src/sj-play.c:412
 #, c-format
 msgid "Failed to create audio output"
 msgstr "فشل إنشاء مخرج الصوت"
 
-#: ../src/sj-play.c:612
+#: ../src/sj-play.c:616
 #, c-format
 msgid "Seeking to %s"
 msgstr "البحث عن %s"
