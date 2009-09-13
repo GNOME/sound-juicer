@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-14 05:13+0100\n"
-"PO-Revision-Date: 2009-03-15 01:19+0100\n"
+"POT-Creation-Date: 2009-09-13 03:49+0200\n"
+"PO-Revision-Date: 2009-09-13 01:53+0200\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -120,7 +120,7 @@ msgid "Skip to the previous track"
 msgstr "Spring til forrige spor"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:139 ../src/sj-main.c:141
-#: ../src/sj-main.c:1642
+#: ../src/sj-main.c:1641
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -369,12 +369,12 @@ msgstr "Udvidelsesmodulet til cd-tilgang blev ikke fundet"
 msgid "The plugin necessary for file access was not found"
 msgstr "Udvidelsesmodulet til filtilgang blev ikke fundet"
 
-#: ../libjuicer/sj-metadata.c:186
+#: ../libjuicer/sj-metadata.c:190
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Enheden \"%s\" indeholder ikke et medium"
 
-#: ../libjuicer/sj-metadata.c:189
+#: ../libjuicer/sj-metadata.c:193
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
@@ -382,7 +382,7 @@ msgstr ""
 "Det var ikke muligt at åbne enheden \"%s\". Kontrollér adgangsrettigheder "
 "for enheden."
 
-#: ../libjuicer/sj-metadata.c:192 ../libjuicer/sj-metadata.c:204
+#: ../libjuicer/sj-metadata.c:196 ../libjuicer/sj-metadata.c:208
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Kan ikke læse cd: %s"
@@ -393,17 +393,17 @@ msgid "Cannot read CD"
 msgstr "Kan ikke læse cd"
 
 #: ../libjuicer/sj-metadata-cdtext.c:93 ../libjuicer/sj-metadata-cdtext.c:114
-#: ../libjuicer/sj-metadata-gvfs.c:110 ../libjuicer/sj-metadata-gvfs.c:133
+#: ../libjuicer/sj-metadata-gvfs.c:109 ../libjuicer/sj-metadata-gvfs.c:132
 #: ../libjuicer/sj-metadata-musicbrainz.c:328 ../src/egg-play-preview.c:466
 msgid "Unknown Artist"
 msgstr "Ukendt kunstner"
 
-#: ../libjuicer/sj-metadata-cdtext.c:94 ../libjuicer/sj-metadata-gvfs.c:106
+#: ../libjuicer/sj-metadata-cdtext.c:94 ../libjuicer/sj-metadata-gvfs.c:105
 #: ../libjuicer/sj-metadata-musicbrainz.c:344 ../src/egg-play-preview.c:461
 msgid "Unknown Title"
 msgstr "Ukendt titel"
 
-#: ../libjuicer/sj-metadata-cdtext.c:113 ../libjuicer/sj-metadata-gvfs.c:130
+#: ../libjuicer/sj-metadata-cdtext.c:113 ../libjuicer/sj-metadata-gvfs.c:129
 #, c-format
 msgid "Track %d"
 msgstr "Spor %d"
@@ -418,7 +418,7 @@ msgstr "Kunne ikke oprette cd-opslagstråd"
 msgid "Cannot access CD"
 msgstr "Kan ikke tilgå cd"
 
-#: ../libjuicer/sj-metadata-gvfs.c:147
+#: ../libjuicer/sj-metadata-gvfs.c:150
 #, c-format
 msgid "Cannot access CD: %s"
 msgstr "Kan ikke tilgå cd: %s"
@@ -450,7 +450,7 @@ msgstr "URI"
 msgid "The URI of the audio file"
 msgstr "URI for lydfilen"
 
-#: ../src/egg-play-preview.c:175 ../src/sj-main.c:626 ../src/sj-main.c:1799
+#: ../src/egg-play-preview.c:175 ../src/sj-main.c:626 ../src/sj-main.c:1798
 msgid "Title"
 msgstr "Titel"
 
@@ -458,7 +458,7 @@ msgstr "Titel"
 msgid "The title of the current stream."
 msgstr "Titlen på den aktuelle strøm."
 
-#: ../src/egg-play-preview.c:185 ../src/sj-main.c:632 ../src/sj-main.c:1808
+#: ../src/egg-play-preview.c:185 ../src/sj-main.c:632 ../src/sj-main.c:1807
 msgid "Artist"
 msgstr "Kunstner"
 
@@ -482,7 +482,7 @@ msgstr "Position"
 msgid "The position in the current stream in seconds."
 msgstr "Positionen i den aktuelle strøm i sekunder."
 
-#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1819
+#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1818
 msgid "Duration"
 msgstr "Varighed"
 
@@ -494,12 +494,12 @@ msgstr "Varigheden af den aktuelle strøm i sekunder."
 msgid "Unknown Album"
 msgstr "Ukendt album"
 
-#: ../src/gconf-bridge.c:1218
+#: ../src/gconf-bridge.c:1220
 #, c-format
 msgid "GConf error: %s"
 msgstr "GConf-fejl: %s"
 
-#: ../src/gconf-bridge.c:1228
+#: ../src/gconf-bridge.c:1225
 msgid "All further errors shown only on terminal."
 msgstr "Yderligere fejlmeddelelser vises kun i terminal."
 
@@ -618,23 +618,23 @@ msgstr "Estimeret tid tilbage: ukendt"
 msgid "CD rip complete"
 msgstr "CD-udtrækning fuldført"
 
-#. Display a nice dialog
-#: ../src/sj-extracting.c:688
-#, c-format
-msgid ""
-"Sound Juicer could not extract this CD.\n"
-"Reason: %s"
-msgstr ""
-"Sound Juicer kunne ikke udtrække lyden fra denne cd.\n"
-"Årsag: %s"
+#: ../src/sj-extracting.c:691
+msgid "Sound Juicer could not extract this CD."
+msgstr "Sound Juicer kunne ikke udtrække lyden fra denne cd."
+
+#: ../src/sj-extracting.c:693 ../src/sj-main.c:185 ../src/sj-main.c:814
+#: ../src/sj-main.c:932 ../src/sj-main.c:1033 ../src/sj-main.c:1245
+#: ../src/sj-main.c:1601
+msgid "Reason"
+msgstr "Årsag"
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:790
+#: ../src/sj-extracting.c:789
 msgid "Stop"
 msgstr "Stop"
 
-#: ../src/sj-extracting.c:819 ../src/sj-extracting.c:825
+#: ../src/sj-extracting.c:818 ../src/sj-extracting.c:824
 msgid "Extracting audio from CD"
 msgstr "Udtrækker lyd fra cd"
 
@@ -709,16 +709,11 @@ msgstr "Fejl under gemning af brugertilpasset genre: %s"
 
 #: ../src/sj-main.c:118
 msgid "E_xtract"
-msgstr "U_dtræk"
+msgstr "_Udtræk"
 
 #: ../src/sj-main.c:184
 msgid "Could not start Sound Juicer"
 msgstr "Kunne ikke starte Sound Juicer"
-
-#: ../src/sj-main.c:185 ../src/sj-main.c:814 ../src/sj-main.c:927
-#: ../src/sj-main.c:1035 ../src/sj-main.c:1246 ../src/sj-main.c:1602
-msgid "Reason"
-msgstr "Årsag"
 
 #: ../src/sj-main.c:187
 msgid "Please consult the documentation for assistance."
@@ -748,11 +743,11 @@ msgstr "Kunne ikke finde %s af %s på MusicBrainz."
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr "Du kan forbedre MusicBrainz-databasen ved at tilføje dette album."
 
-#: ../src/sj-main.c:812 ../src/sj-main.c:925 ../src/sj-main.c:1033
+#: ../src/sj-main.c:812 ../src/sj-main.c:928 ../src/sj-main.c:1031
 msgid "Could not read the CD"
 msgstr "Kunne ikke læse cd'en"
 
-#: ../src/sj-main.c:813 ../src/sj-main.c:926
+#: ../src/sj-main.c:813 ../src/sj-main.c:931
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer kunne ikke læse sporlisten på denne cd."
 
@@ -761,51 +756,51 @@ msgstr "Sound Juicer kunne ikke læse sporlisten på denne cd."
 msgid "Retrieving track listing...please wait."
 msgstr "Henter sporliste... vent venligst."
 
-#: ../src/sj-main.c:994
+#: ../src/sj-main.c:992
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Sound Juicer kunne ikke tilgå cd-rom-enheden \"%s\""
 
-#: ../src/sj-main.c:1001
+#: ../src/sj-main.c:999
 msgid "HAL daemon may not be running."
 msgstr "HAL-dæmonen kører måske ikke."
 
-#: ../src/sj-main.c:1026
+#: ../src/sj-main.c:1024
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer kunne ikke tilgå cd-rom-enheden \"%s\""
 
-#: ../src/sj-main.c:1124
+#: ../src/sj-main.c:1123
 msgid "No CD-ROM drives found"
 msgstr "Ingen cd-rom-drev fundet"
 
-#: ../src/sj-main.c:1125
+#: ../src/sj-main.c:1124
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer kunne ikke finde nogen cd-rom-drev at læse."
 
-#: ../src/sj-main.c:1156
+#: ../src/sj-main.c:1155
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Den valgte lydprofil er ikke tilgængelig på din installation."
 
-#: ../src/sj-main.c:1158
+#: ../src/sj-main.c:1157
 msgid "_Change Profile"
 msgstr "_Skift profil"
 
-#: ../src/sj-main.c:1244
+#: ../src/sj-main.c:1243
 msgid "Could not open URL"
 msgstr "Kunne ikke åbne adresse"
 
-#: ../src/sj-main.c:1245
+#: ../src/sj-main.c:1244
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer kunne ikke åbne indsendelsesadressen"
 
-#: ../src/sj-main.c:1354
+#: ../src/sj-main.c:1353
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Ukendt kolonne %d blev redigeret"
 
-#: ../src/sj-main.c:1495 ../src/sj-prefs.c:103
+#: ../src/sj-main.c:1494 ../src/sj-prefs.c:103
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -814,53 +809,53 @@ msgstr ""
 "Kunne ikke vise hjælp til Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1600
+#: ../src/sj-main.c:1599
 msgid "Could not duplicate disc"
 msgstr "Kunne ikke duplikere disk"
 
-#: ../src/sj-main.c:1601
+#: ../src/sj-main.c:1600
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Sound Juicer kunne ikke duplikere denne disk"
 
-#: ../src/sj-main.c:1629
+#: ../src/sj-main.c:1628
 msgid "Start extracting immediately"
 msgstr "Start udtrækning med det samme"
 
-#: ../src/sj-main.c:1630
+#: ../src/sj-main.c:1629
 msgid "Start playing immediately"
 msgstr "Start afspilning med det samme"
 
-#: ../src/sj-main.c:1631
+#: ../src/sj-main.c:1630
 msgid "What CD device to read"
 msgstr "Hvilken cd-enhed der skal læses fra"
 
-#: ../src/sj-main.c:1631
+#: ../src/sj-main.c:1630
 msgid "DEVICE"
 msgstr "ENHED"
 
-#: ../src/sj-main.c:1632
+#: ../src/sj-main.c:1631
 msgid "URI to the CD device to read"
 msgstr "URI til cd-enheden hvorfra der læses"
 
-#: ../src/sj-main.c:1645
+#: ../src/sj-main.c:1644
 msgid "- Extract music from your CDs"
 msgstr "- Udtræk musik fra dine cd'er"
 
-#: ../src/sj-main.c:1682
+#: ../src/sj-main.c:1681
 msgid "Could not create GConf client.\n"
 msgstr "Kunne ikke oprette GConf-klient.\n"
 
 #. this is made up
-#: ../src/sj-main.c:1716
+#: ../src/sj-main.c:1715
 #, c-format
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Grænseflade-filen for Sound Juicer kunne ikke læses."
 
-#: ../src/sj-main.c:1784
+#: ../src/sj-main.c:1783
 msgid "Track"
 msgstr "Spor"
 
-#: ../src/sj-play.c:193 ../src/sj-play.c:461 ../src/sj-play.c:490
+#: ../src/sj-play.c:193 ../src/sj-play.c:465 ../src/sj-play.c:494
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -886,16 +881,16 @@ msgstr "Pause"
 msgid "Failed to create CD source element"
 msgstr "Fejl under oprettelse af cd-kildeelement"
 
-#: ../src/sj-play.c:402
+#: ../src/sj-play.c:406
 msgid "Failed to link pipeline"
 msgstr "Kunne ikke kæde kanal"
 
-#: ../src/sj-play.c:408
+#: ../src/sj-play.c:412
 #, c-format
 msgid "Failed to create audio output"
 msgstr "Kunne ikke oprette lyd-uddata"
 
-#: ../src/sj-play.c:612
+#: ../src/sj-play.c:616
 #, c-format
 msgid "Seeking to %s"
 msgstr "Søger til %s"
