@@ -3,19 +3,21 @@
 # Copyright (C) 2005.
 #
 # Mugurel Tudor <mugurelu@gnome.ro>, 2005, 2006, 2007.
+# Adi Roiban https://launchpad.net/~adiroiban, 2008, 2009
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer.HEAD.ro\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-juicer&component=general\n"
-"POT-Creation-Date: 2009-02-10 21:58+0000\n"
-"PO-Revision-Date: 2009-02-19 16:51+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
+"juicer&component=general\n"
+"POT-Creation-Date: 2009-09-08 09:30+0000\n"
+"PO-Revision-Date: 2009-09-17 21:45+0300\n"
 "Last-Translator: Adi Roiban <adi@roiban.ro>\n"
-"Language-Team: Română <gnomero@lists.sourceforge.net>\n"
+"Language-Team: Română <gnomero-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=3;plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1))\n"
+"Plural-Forms: nplurals=3;plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1))\n"
 
 #: ../data/sound-juicer.desktop.in.in.h:1
 msgid "Audio CD Extractor"
@@ -83,7 +85,7 @@ msgstr "_Nume fișier:"
 
 #: ../data/sound-juicer.glade.h:15
 msgid "Folder hie_rarchy:"
-msgstr "Ie_rarhie dosarw:"
+msgstr "Ie_rarhie dosar:"
 
 #: ../data/sound-juicer.glade.h:16
 msgid "Multiple Albums Found"
@@ -113,16 +115,18 @@ msgstr "Sari la pista următoare"
 msgid "Skip to the previous track"
 msgstr "Sari la pista anterioară"
 
-#: ../data/sound-juicer.glade.h:23
-#: ../src/sj-main.c:139
-#: ../src/sj-main.c:141
-#: ../src/sj-main.c:1642
+#: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:139 ../src/sj-main.c:141
+#: ../src/sj-main.c:1641
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
 #: ../data/sound-juicer.glade.h:24
-msgid "This CD could be more than one album. Please select which album it is below and press <i>Continue</i>."
-msgstr "Acest CD ar putea fi mai mult decât un singur album. Vă rugăm selectați mai jos albumul corespunzător și apăsați <i>Continuă</i>."
+msgid ""
+"This CD could be more than one album. Please select which album it is below "
+"and press <i>Continue</i>."
+msgstr ""
+"Acest CD ar putea fi mai mult decât un singur album. Vă rugăm selectați mai "
+"jos albumul corespunzător și apăsați <i>Continuă</i>."
 
 #: ../data/sound-juicer.glade.h:25
 msgid "Track Progress"
@@ -136,8 +140,7 @@ msgstr "Piste"
 msgid "_Contents"
 msgstr "_Conținut"
 
-#: ../data/sound-juicer.glade.h:28
-#: ../src/sj-main.c:232
+#: ../data/sound-juicer.glade.h:28 ../src/sj-main.c:232
 msgid "_Continue"
 msgstr "_Continuă"
 
@@ -199,8 +202,19 @@ msgstr "_Trimite nume piese..."
 
 #: ../data/sound-juicer.schemas.in.h:2
 #, no-c-format
-msgid "%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album artist (sortable) %aS -- album artist (sortable lowercase) %ay -- album year %tt -- track title %tT -- track title (lowercase) %ta -- track artist %tA -- track artist (lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable lowercase)"
-msgstr "%at -- titlu album %aT -- titlu album (cu litere mici) %aa -- artist album %aA -- artist album (cu litere mici) %as -- artist album (sortabil) %aS -- artist album (sortabil cu litere mici) %ay -- an album %tt -- titlu piesă %tT -- titlu piesă (cu litere mici) %ta -- artist piesă %tA -- artist piesă (cu litere mici) %ts -- artist piesă (sortabil) %tS -- artist piesă (sortabil cu litere mici)"
+msgid ""
+"%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
+"album artist (lowercase) %as -- album artist (sortable) %aS -- album artist "
+"(sortable lowercase) %ay -- album year %tt -- track title %tT -- track title "
+"(lowercase) %ta -- track artist %tA -- track artist (lowercase) %ts -- track "
+"artist (sortable) %tS -- track artist (sortable lowercase)"
+msgstr ""
+"%at -- titlu album %aT -- titlu album (cu litere mici) %aa -- artist album %"
+"aA -- artist album (cu litere mici) %as -- artist album (sortabil) %aS -- "
+"artist album (sortabil cu litere mici) %ay -- an album %tt -- titlu piesă %"
+"tT -- titlu piesă (cu litere mici) %ta -- artist piesă %tA -- artist piesă "
+"(cu litere mici) %ts -- artist piesă (sortabil) %tS -- artist piesă "
+"(sortabil cu litere mici)"
 
 #: ../data/sound-juicer.schemas.in.h:3
 msgid "Audio Profile with which to encode"
@@ -212,32 +226,50 @@ msgstr "Volum audio"
 
 #: ../data/sound-juicer.schemas.in.h:6
 #, no-c-format
-#| msgid ""
-#| "Do not specify an extension. %at -- album title %aT -- album title "
-#| "(lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- "
-#| "album artist (sortable) %aS -- album artist (sortable lowercase) %tn -- "
-#| "track number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- "
-#| "track title %tT -- track title (lowercase) %ta -- track artist %tA -- "
-#| "track artist (lowercase) %ts -- track artist (sortable) %tS -- track "
-#| "artist (sortable lowercase)"
-msgid "Do not specify an extension. %at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album artist (sortable) %aS -- album artist (sortable lowercase) %tn -- track number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %tT -- track title (lowercase) %ta -- track artist %tA -- track artist (lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable lowercase) %dn -- disc and track number (i.e Disk 2 - 6, or 6) %dN -- disc number, zero padded (i.e d02t06, or 06)"
-msgstr "Nu specifica o extensie. %at -- titlu album %aT -- titlu album (cu litere mici) %aa -- artist album %aA -- artist album (cu litere mici) %as -- artist album (sortabil) %aS -- artist album (sortabil cu litere mici) %tn -- număr piesă (ex. 8) %tn -- număr piesă (completat cu zero, ex. 08) %tt -- titlu piesă %tT -- titlu piesă (cu litere mici) %ta -- artist piesă %tA -- artist piesă (cu litere mici) %ts -- artist piesă (sortabil) %tS -- artist piesă (sortabil cu litere mici) %dn -- număr disc și piersă (ex. Disc 2 - 6, sau 6) %dN -- număr disc, completat cu zero (ex d02t06, sau 06)"
+msgid ""
+"Do not specify an extension. %at -- album title %aT -- album title "
+"(lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album "
+"artist (sortable) %aS -- album artist (sortable lowercase) %tn -- track "
+"number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %"
+"tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
+"(lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable "
+"lowercase) %dn -- disc and track number (i.e Disk 2 - 6, or 6) %dN -- disc "
+"number, zero padded (i.e d02t06, or 06)"
+msgstr ""
+"Nu specifica o extensie. %at -- titlu album %aT -- titlu album (cu litere "
+"mici) %aa -- artist album %aA -- artist album (cu litere mici) %as -- artist "
+"album (sortabil) %aS -- artist album (sortabil cu litere mici) %tn -- număr "
+"piesă (ex. 8) %tn -- număr piesă (completat cu zero, ex. 08) %tt -- titlu "
+"piesă %tT -- titlu piesă (cu litere mici) %ta -- artist piesă %tA -- artist "
+"piesă (cu litere mici) %ts -- artist piesă (sortabil) %tS -- artist piesă "
+"(sortabil cu litere mici) %dn -- număr disc și piersă (ex. Disc 2 - 6, sau "
+"6) %dN -- număr disc, completat cu zero (ex d02t06, sau 06)"
 
 #: ../data/sound-juicer.schemas.in.h:7
-msgid "If enabled, special characters such as space, wildcards and backslashes will be removed from the output filename."
-msgstr "Dacă este activată, atunci caracterele speciale precum spațiile, metacaracterele și backslash-urile vor fi șterse din numele fișierului creat."
+msgid ""
+"If enabled, special characters such as space, wildcards and backslashes will "
+"be removed from the output filename."
+msgstr ""
+"Dacă este activată, atunci caracterele speciale precum spațiile, "
+"metacaracterele și backslash-urile vor fi șterse din numele fișierului creat."
 
 #: ../data/sound-juicer.schemas.in.h:8
 msgid "If specified, this value will override the default MusicBrainz server."
-msgstr "Dacă este specificat, această valoare va suprascrie serverul implicit MusicBrainz."
+msgstr ""
+"Dacă este specificat, această valoare va suprascrie serverul implicit "
+"MusicBrainz."
 
 #: ../data/sound-juicer.schemas.in.h:9
 msgid "If to strip special characters from filenames"
 msgstr "Dacă vor fi eliminate caracterele speciale din numele fișierelor"
 
 #: ../data/sound-juicer.schemas.in.h:10
-msgid "Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) full"
-msgstr "Mod paranoia: 0) dezactivat 2) fragment 4) suprapus 8) zgârierură 16) reparare 255) complet"
+msgid ""
+"Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) "
+"full"
+msgstr ""
+"Mod paranoia: 0) dezactivat 2) fragment 4) suprapus 8) zgârierură 16) "
+"reparare 255) complet"
 
 #: ../data/sound-juicer.schemas.in.h:11
 msgid "The GNOME Audio Profile with which to encode."
@@ -317,76 +349,73 @@ msgstr "Nu s-a putut obține poziția curentă a piesei"
 
 #: ../libjuicer/sj-extractor.c:447
 #, c-format
-msgid "Extractor object is not valid. This is bad, check your console for errors."
-msgstr "Obiectul extractor nu este valid. Acest lucru e grav, verificați consola pentru erori."
+msgid ""
+"Extractor object is not valid. This is bad, check your console for errors."
+msgstr ""
+"Obiectul extractor nu este valid. Acest lucru e grav, verificați consola "
+"pentru erori."
 
-#: ../libjuicer/sj-extractor.c:649
+#: ../libjuicer/sj-extractor.c:655
 #, c-format
 msgid "The plugin necessary for CD access was not found"
 msgstr "Modulul necesar pentru accesul CD nu a fost găsit"
 
-#: ../libjuicer/sj-extractor.c:657
+#: ../libjuicer/sj-extractor.c:663
 #, c-format
 msgid "The plugin necessary for file access was not found"
 msgstr "Modulul necesar pentru accesul la fișiere nu a fost găsit"
 
-#: ../libjuicer/sj-metadata.c:186
+#: ../libjuicer/sj-metadata.c:190
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Dispozitivul „%s” nu conține un mediu"
 
-#: ../libjuicer/sj-metadata.c:189
+#: ../libjuicer/sj-metadata.c:193
 #, c-format
-msgid "Device '%s' could not be opened. Check the access permissions on the device."
-msgstr "Dispozitivul „%s” nu a putut fi deschis. Verificați permisiunile de acces la acel dispozitiv."
+msgid ""
+"Device '%s' could not be opened. Check the access permissions on the device."
+msgstr ""
+"Dispozitivul „%s” nu a putut fi deschis. Verificați permisiunile de acces la "
+"acel dispozitiv."
 
-#: ../libjuicer/sj-metadata.c:192
-#: ../libjuicer/sj-metadata.c:204
+#: ../libjuicer/sj-metadata.c:196 ../libjuicer/sj-metadata.c:208
 #, c-format
 msgid "Cannot read CD: %s"
-msgstr "Nu s-a putut citii CDl: %s"
+msgstr "Nu s-a putut citii CD-ul: %s"
 
 #: ../libjuicer/sj-metadata-cdtext.c:78
 #, c-format
 msgid "Cannot read CD"
 msgstr "Nu s-a putut citii CD"
 
-#: ../libjuicer/sj-metadata-cdtext.c:93
-#: ../libjuicer/sj-metadata-cdtext.c:114
-#: ../libjuicer/sj-metadata-gvfs.c:110
-#: ../libjuicer/sj-metadata-gvfs.c:133
-#: ../libjuicer/sj-metadata-musicbrainz.c:328
-#: ../src/egg-play-preview.c:466
+#: ../libjuicer/sj-metadata-cdtext.c:93 ../libjuicer/sj-metadata-cdtext.c:114
+#: ../libjuicer/sj-metadata-gvfs.c:109 ../libjuicer/sj-metadata-gvfs.c:132
+#: ../libjuicer/sj-metadata-musicbrainz.c:328 ../src/egg-play-preview.c:466
 msgid "Unknown Artist"
 msgstr "Artist necunoscut"
 
-#: ../libjuicer/sj-metadata-cdtext.c:94
-#: ../libjuicer/sj-metadata-gvfs.c:106
-#: ../libjuicer/sj-metadata-musicbrainz.c:344
-#: ../src/egg-play-preview.c:461
+#: ../libjuicer/sj-metadata-cdtext.c:94 ../libjuicer/sj-metadata-gvfs.c:105
+#: ../libjuicer/sj-metadata-musicbrainz.c:344 ../src/egg-play-preview.c:461
 msgid "Unknown Title"
 msgstr "Titlu necunoscut"
 
-#: ../libjuicer/sj-metadata-cdtext.c:113
-#: ../libjuicer/sj-metadata-gvfs.c:130
+#: ../libjuicer/sj-metadata-cdtext.c:113 ../libjuicer/sj-metadata-gvfs.c:129
 #, c-format
 msgid "Track %d"
 msgstr "Piesa %d"
 
-#: ../libjuicer/sj-metadata-getter.c:245
+#: ../libjuicer/sj-metadata-getter.c:249
 #, c-format
 msgid "Could not create CD lookup thread"
 msgstr "Nu s-a putut crea un fir de execuție pentru căutare CD"
 
 #: ../libjuicer/sj-metadata-gvfs.c:86
 #, c-format
-#| msgid "Cannot read CD"
 msgid "Cannot access CD"
 msgstr "Nu s-a putut accesa CD-ul"
 
-#: ../libjuicer/sj-metadata-gvfs.c:147
+#: ../libjuicer/sj-metadata-gvfs.c:150
 #, c-format
-#| msgid "Cannot read CD: %s"
 msgid "Cannot access CD: %s"
 msgstr "Nu s-a putut accesa CD: %s"
 
@@ -417,9 +446,7 @@ msgstr "URI"
 msgid "The URI of the audio file"
 msgstr "URI-ul fișierului audio"
 
-#: ../src/egg-play-preview.c:175
-#: ../src/sj-main.c:626
-#: ../src/sj-main.c:1798
+#: ../src/egg-play-preview.c:175 ../src/sj-main.c:626 ../src/sj-main.c:1798
 msgid "Title"
 msgstr "Titlu"
 
@@ -427,9 +454,7 @@ msgstr "Titlu"
 msgid "The title of the current stream."
 msgstr "Titlul fluxului curent."
 
-#: ../src/egg-play-preview.c:185
-#: ../src/sj-main.c:632
-#: ../src/sj-main.c:1807
+#: ../src/egg-play-preview.c:185 ../src/sj-main.c:632 ../src/sj-main.c:1807
 msgid "Artist"
 msgstr "Artist"
 
@@ -453,8 +478,7 @@ msgstr "Poziție"
 msgid "The position in the current stream in seconds."
 msgstr "Poziția fluxului curent, în secunde."
 
-#: ../src/egg-play-preview.c:215
-#: ../src/sj-main.c:1818
+#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1818
 msgid "Duration"
 msgstr "Durată"
 
@@ -466,26 +490,48 @@ msgstr "Durata fluxului curent, în secunde."
 msgid "Unknown Album"
 msgstr "Album necunoscut"
 
-#: ../src/gconf-bridge.c:1218
+#: ../src/gconf-bridge.c:1220
 #, c-format
 msgid "GConf error: %s"
 msgstr "Eroare GConf: %s"
 
-#: ../src/gconf-bridge.c:1228
+#: ../src/gconf-bridge.c:1225
 msgid "All further errors shown only on terminal."
 msgstr "Toate erorile următoare vor fi afișare doar în terminal."
 
 #: ../src/sj-about.c:48
-msgid "Sound Juicer is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
-msgstr "Sound Juicer este software liber, îl puteți redistribui și/sau modifica în termenii GNU General Public License așa cum a fost publicată de către Free Software Foundation; fie versiunea 2 a Licenței, sau (la latitudinea dumneavoastră) orice versiune ulterioară."
+msgid ""
+"Sound Juicer is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version."
+msgstr ""
+"Sound Juicer este software liber, îl puteți redistribui și/sau modifica în "
+"termenii GNU General Public License așa cum a fost publicată de către Free "
+"Software Foundation; fie versiunea 2 a Licenței, sau (la latitudinea "
+"dumneavoastră) orice versiune ulterioară."
 
 #: ../src/sj-about.c:52
-msgid "Sound Juicer is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details."
-msgstr "Sound Juicer este distribuit în speranța că va fi folositor, dar FĂRĂ NICI O GARANȚIE, fără chiar garanția implicită de VANDABILITATE sau POTRIVIRE PENTRU UN SCOP PARTICULAR. Citiți GNU General Public License pentru mai multe detalii."
+msgid ""
+"Sound Juicer is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details."
+msgstr ""
+"Sound Juicer este distribuit în speranța că va fi folositor, dar FĂRĂ NICI O "
+"GARANȚIE, fără chiar garanția implicită de VANDABILITATE sau POTRIVIRE "
+"PENTRU UN SCOP PARTICULAR. Citiți GNU General Public License pentru mai "
+"multe detalii."
 
 #: ../src/sj-about.c:56
-msgid "You should have received a copy of the GNU General Public License along with Sound Juicer; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
-msgstr "Ar fi trebuit să primiți o copie a GNU General Public License împreună cu Sound Juicer, dacă nu, scrieți către Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
+msgid ""
+"You should have received a copy of the GNU General Public License along with "
+"Sound Juicer; if not, write to the Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
+msgstr ""
+"Ar fi trebuit să primiți o copie a GNU General Public License împreună cu "
+"Sound Juicer, dacă nu, scrieți către Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
 
 #: ../src/sj-about.c:67
 msgid "An Audio CD Extractor"
@@ -530,11 +576,11 @@ msgstr ""
 
 #: ../src/sj-extracting.c:315
 msgid "_Skip"
-msgstr "_Sari"
+msgstr "_Omite"
 
 #: ../src/sj-extracting.c:316
 msgid "S_kip All"
-msgstr "_Sari toate"
+msgstr "O_mite tot"
 
 #: ../src/sj-extracting.c:317
 msgid "_Overwrite"
@@ -562,24 +608,23 @@ msgstr "Timp estimat rămas: necunoscut"
 msgid "CD rip complete"
 msgstr "Extragere CD completă"
 
-#. Display a nice dialog
-#: ../src/sj-extracting.c:688
-#, c-format
-msgid ""
-"Sound Juicer could not extract this CD.\n"
-"Reason: %s"
-msgstr ""
-"Sound Juicer nu a putut extrage acest CD.\n"
-"Motiv: %s"
+#: ../src/sj-extracting.c:691
+msgid "Sound Juicer could not extract this CD."
+msgstr "Sound Juicer nu a putut extrage acest CD."
+
+#: ../src/sj-extracting.c:693 ../src/sj-main.c:185 ../src/sj-main.c:814
+#: ../src/sj-main.c:932 ../src/sj-main.c:1033 ../src/sj-main.c:1245
+#: ../src/sj-main.c:1601
+msgid "Reason"
+msgstr "Motiv"
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:790
+#: ../src/sj-extracting.c:789
 msgid "Stop"
 msgstr "Stop"
 
-#: ../src/sj-extracting.c:819
-#: ../src/sj-extracting.c:825
+#: ../src/sj-extracting.c:818 ../src/sj-extracting.c:824
 msgid "Extracting audio from CD"
 msgstr "Extrage muzica de pe CD"
 
@@ -660,31 +705,22 @@ msgstr "E_xtrage"
 msgid "Could not start Sound Juicer"
 msgstr "Nu s-a putut porni Sound Juicer"
 
-#: ../src/sj-main.c:185
-#: ../src/sj-main.c:814
-#: ../src/sj-main.c:927
-#: ../src/sj-main.c:1035
-#: ../src/sj-main.c:1246
-#: ../src/sj-main.c:1602
-msgid "Reason"
-msgstr "Motiv"
-
 #: ../src/sj-main.c:187
 msgid "Please consult the documentation for assistance."
-msgstr "Vă rugăm consulați documentația pentru asistență."
+msgstr "Pentru asistență consulați documentația."
 
 #: ../src/sj-main.c:230
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
-msgstr "În acest moment extrageți un CD. Doriți să terminați acum sau să continuați?"
+msgstr ""
+"În acest moment extrageți un CD. Doriți să terminați acum sau să continuați?"
 
-#: ../src/sj-main.c:290
-#: ../src/sj-main.c:548
+#: ../src/sj-main.c:290 ../src/sj-main.c:548
 msgid "(unknown)"
 msgstr "(necunoscut)"
 
 #: ../src/sj-main.c:418
 msgid "S_ubmit Album"
-msgstr "Trimitere alb_um"
+msgstr "Trimite alb_um"
 
 #. Translators: title, artist
 #: ../src/sj-main.c:425
@@ -694,16 +730,14 @@ msgstr "Nu s-a putut găsit %s de %s pe MusicBrainz."
 
 #: ../src/sj-main.c:430
 msgid "You can improve the MusicBrainz database by adding this album."
-msgstr "Puteți îmbunătății baza de date MusicBrainz prin adăugarea acestui album."
+msgstr ""
+"Puteți îmbunătății baza de date MusicBrainz prin adăugarea acestui album."
 
-#: ../src/sj-main.c:812
-#: ../src/sj-main.c:925
-#: ../src/sj-main.c:1033
+#: ../src/sj-main.c:812 ../src/sj-main.c:928 ../src/sj-main.c:1031
 msgid "Could not read the CD"
 msgstr "Nu s-a putut citi CD-ul"
 
-#: ../src/sj-main.c:813
-#: ../src/sj-main.c:926
+#: ../src/sj-main.c:813 ../src/sj-main.c:931
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer nu a putut citi lista de piese de pe acest CD."
 
@@ -712,51 +746,55 @@ msgstr "Sound Juicer nu a putut citi lista de piese de pe acest CD."
 msgid "Retrieving track listing...please wait."
 msgstr "Se obține lista pieselor... vă rugăm așteptați."
 
-#: ../src/sj-main.c:994
+#: ../src/sj-main.c:992
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Sound Juicer nu a putut folosi dispozitivul CD-ROM „%s”"
 
-#: ../src/sj-main.c:1001
+#: ../src/sj-main.c:999
 msgid "HAL daemon may not be running."
 msgstr "Serviciu HAL ar putea să nu ruleze."
 
-#: ../src/sj-main.c:1026
+#: ../src/sj-main.c:1024
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer nu a putut accesa dispozitivul CD-ROM „%s”"
 
-#: ../src/sj-main.c:1124
+#: ../src/sj-main.c:1123
 msgid "No CD-ROM drives found"
 msgstr "Nici un dispozitiv CD-ROM găsit"
 
-#: ../src/sj-main.c:1125
+#: ../src/sj-main.c:1124
 msgid "Sound Juicer could not find any CD-ROM drives to read."
-msgstr "Sound Juicer nu a putut găsi nici un dispozitiv CD-ROM pe care să îl citească."
+msgstr ""
+"Sound Juicer nu a putut găsi nici un dispozitiv CD-ROM pe care să îl "
+"citească."
 
-#: ../src/sj-main.c:1156
-msgid "The currently selected audio profile is not available on your installation."
-msgstr "Profilul audio selectat în acest moment nu este disponibil pe instalarea dumneavoastră."
+#: ../src/sj-main.c:1155
+msgid ""
+"The currently selected audio profile is not available on your installation."
+msgstr ""
+"Profilul audio selectat în acest moment nu este disponibil pe instalarea "
+"dumneavoastră."
 
-#: ../src/sj-main.c:1158
+#: ../src/sj-main.c:1157
 msgid "_Change Profile"
 msgstr "S_chimbă profil"
 
-#: ../src/sj-main.c:1244
+#: ../src/sj-main.c:1243
 msgid "Could not open URL"
 msgstr "Nu s-a putut deschide URL-ul"
 
-#: ../src/sj-main.c:1245
+#: ../src/sj-main.c:1244
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer nu a putut deschide URL-ul de trimitere"
 
-#: ../src/sj-main.c:1354
+#: ../src/sj-main.c:1353
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Coloana necunoscută %d a fost editată"
 
-#: ../src/sj-main.c:1495
-#: ../src/sj-prefs.c:103
+#: ../src/sj-main.c:1494 ../src/sj-prefs.c:103
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -765,31 +803,31 @@ msgstr ""
 "Nu s-a putut afișa ajutorul pentru Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1600
+#: ../src/sj-main.c:1599
 msgid "Could not duplicate disc"
 msgstr "Nu s-a putut duplica discul"
 
-#: ../src/sj-main.c:1601
+#: ../src/sj-main.c:1600
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Sound Juicer nu a putut duplica discul"
 
-#: ../src/sj-main.c:1629
+#: ../src/sj-main.c:1628
 msgid "Start extracting immediately"
 msgstr "Pornește extragerea imediat"
 
-#: ../src/sj-main.c:1630
+#: ../src/sj-main.c:1629
 msgid "Start playing immediately"
 msgstr "Pornește redarea imediat"
 
-#: ../src/sj-main.c:1631
+#: ../src/sj-main.c:1630
 msgid "What CD device to read"
 msgstr "Dispozitivul pentru citire CD"
 
-#: ../src/sj-main.c:1631
+#: ../src/sj-main.c:1630
 msgid "DEVICE"
 msgstr "DISPOZITIV"
 
-#: ../src/sj-main.c:1632
+#: ../src/sj-main.c:1631
 msgid "URI to the CD device to read"
 msgstr "URI către dispozitivul CD pentru citire"
 
@@ -811,9 +849,7 @@ msgstr "Fișierul interfață pentru Sound Juicer nu a putut fi citit."
 msgid "Track"
 msgstr "Piesă"
 
-#: ../src/sj-play.c:193
-#: ../src/sj-play.c:461
-#: ../src/sj-play.c:490
+#: ../src/sj-play.c:193 ../src/sj-play.c:465 ../src/sj-play.c:494
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -839,16 +875,16 @@ msgstr "Pauză"
 msgid "Failed to create CD source element"
 msgstr "Eroare la crearea unui element sursă CD"
 
-#: ../src/sj-play.c:402
+#: ../src/sj-play.c:406
 msgid "Failed to link pipeline"
 msgstr "Nu s-a putut lega ansamblul"
 
-#: ../src/sj-play.c:408
+#: ../src/sj-play.c:412
 #, c-format
 msgid "Failed to create audio output"
 msgstr "Nu s-a putut crea o ieșire audio"
 
-#: ../src/sj-play.c:612
+#: ../src/sj-play.c:616
 #, c-format
 msgid "Seeking to %s"
 msgstr "Căutare la %s"
@@ -924,24 +960,33 @@ msgstr "Cale exemplu"
 
 #~ msgid "CD Extractor"
 #~ msgstr "Extragere CD"
+
 #~ msgid "Sound Juicer CD Extractor"
 #~ msgstr "Extragere CD Sound Juicer"
+
 #~ msgid "Volume"
 #~ msgstr "Volum"
+
 #~ msgid "+"
 #~ msgstr "+"
+
 #~ msgid "Volume Down"
 #~ msgstr "Micșorare volum"
+
 #~ msgid "-"
 #~ msgstr "-"
+
 #~ msgid "Volume Up"
 #~ msgstr "Mărire volum"
+
 #~ msgid "Muted"
 #~ msgstr "Mut"
+
 #~ msgid "Full Volume"
 #~ msgstr "Volum maxim"
+
 #~ msgid "%s has been copied successfully."
 #~ msgstr "%s au fost copiate cu succes."
+
 #~ msgid "_Eject"
 #~ msgstr "_Ejectare"
-
