@@ -118,7 +118,7 @@ sj_uninhibit (guint cookie)
   }
 
   res = dbus_g_proxy_call (proxy,
-			    "UnInhibit",
+			    "Uninhibit",
 			    &error,
 			    G_TYPE_UINT, cookie,
 			    G_TYPE_INVALID,
@@ -126,7 +126,7 @@ sj_uninhibit (guint cookie)
 
   /* check the return value */
   if (!res) {
-    g_warning ("UnInhibit method failed");
+    g_warning ("Uninhibit method failed");
   }
 
   /* check the error value */
