@@ -26,13 +26,13 @@
 #include "sj-inhibit.h"
  
 /* PowerManagent defines */
-#define	PM_DBUS_SERVICE    "org.freedesktop.PowerManagement"
-#define	PM_DBUS_INHIBIT_PATH   "/org/freedesktop/PowerManagement/Inhibit"
-#define	PM_DBUS_INHIBIT_INTERFACE    "org.freedesktop.PowerManagement.Inhibit"
+#define	PM_DBUS_SERVICE    "org.gnome.SessionManager"
+#define	PM_DBUS_INHIBIT_PATH   "/org/gnome/SessionManager"
+#define	PM_DBUS_INHIBIT_INTERFACE    "org.gnome.SessionManager"
 
 /** cookie is returned as an unsigned integer */
 guint
-sj_inhibit (const gchar * appname, const gchar * reason)
+sj_inhibit (const gchar * appname, const gchar * reason, guint xid)
 {
   gboolean res;
   guint cookie;
@@ -60,8 +60,10 @@ sj_inhibit (const gchar * appname, const gchar * reason)
 
   res = dbus_g_proxy_call (proxy,
 			    "Inhibit", &error,
-			    G_TYPE_STRING, appname,
+			    G_TYPE_STRING, appname, /* app-id */
+			    G_TYPE_UINT, xid,
 			    G_TYPE_STRING, reason,
+			    G_TYPE_UINT, 4+8, /* flags, inhibit being marked idle and allowing suspend */
 			    G_TYPE_INVALID,
 			    G_TYPE_UINT, &cookie,
                             G_TYPE_INVALID);

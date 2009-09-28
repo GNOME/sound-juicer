@@ -25,7 +25,7 @@
 
 #include <glib.h>
  
-guint sj_inhibit (const gchar * appname, const gchar * reason);
+guint sj_inhibit (const gchar * appname, const gchar * reason, guint xid);
 void sj_uninhibit (guint cookie);
 
 #endif /* SJ_INHIBIT_H */

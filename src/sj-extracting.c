@@ -30,6 +30,7 @@
 #include <glib.h>
 #include <gio/gio.h>
 #include <gtk/gtk.h>
+#include <gdk/gdkx.h>
 
 #include <brasero-volume.h>
 #include <canberra-gtk.h>
@@ -821,7 +822,8 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   }
   
   cookie = sj_inhibit (g_get_application_name (),
-                       _("Extracting audio from CD"));
+                       _("Extracting audio from CD"),
+                       GDK_WINDOW_XID(main_window->window));
 
   /* Save the genre */
   save_genre (genre_entry);
