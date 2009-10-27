@@ -76,7 +76,7 @@ gvfs_list_albums (SjMetadata *metadata, char **url, GError **error)
   GFile *file = NULL;
   GFileInfo *info;
   GFileEnumerator *e;
-  guint i = 0;
+  guint i = 1;
 
   g_return_val_if_fail (SJ_IS_METADATA_GVFS (metadata), NULL);
 
@@ -119,11 +119,11 @@ gvfs_list_albums (SjMetadata *metadata, char **url, GError **error)
 
   for (info = g_file_enumerator_next_file (e, NULL, NULL) ;
        info != NULL ;
-       info = g_file_enumerator_next_file (e, NULL, NULL)) {
+       info = g_file_enumerator_next_file (e, NULL, NULL), i++) {
     TrackDetails *track;
 
     track = g_new0 (TrackDetails, 1);
-    track->number = i++;
+    track->number = i;
     track->title = g_strdup (g_file_info_get_attribute_string (info, "xattr::org.gnome.audio.title"));
     if (track->title == NULL)
       track->title = g_strdup_printf (_("Track %d"), i);
