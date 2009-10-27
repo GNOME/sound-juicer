@@ -124,6 +124,7 @@ gvfs_list_albums (SjMetadata *metadata, char **url, GError **error)
 
     track = g_new0 (TrackDetails, 1);
     track->number = i;
+    track->album = album;
     track->title = g_strdup (g_file_info_get_attribute_string (info, "xattr::org.gnome.audio.title"));
     if (track->title == NULL)
       track->title = g_strdup_printf (_("Track %d"), i);
