@@ -765,7 +765,7 @@ static void eject_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *en
 }
 
 /**
- * The GConf key for the eject when finished option changed
+ * The GConf key for the open when finished option changed
  */
 static void open_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
