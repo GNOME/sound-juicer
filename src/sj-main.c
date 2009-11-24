@@ -816,7 +816,6 @@ metadata_cb (SjMetadataGetter *m, GList *albums, GError *error)
     gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
-    g_error_free (error);
     update_ui_for_album (NULL);
     return;
   }
