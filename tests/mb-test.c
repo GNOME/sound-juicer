@@ -41,7 +41,7 @@ release_type_to_id (const char *type)
 }
 
 static void
-metadata_cb (SjMetadataGetter *metadata, GList *albums, GError *error)
+metadata_cb (SjMetadataGetter *metadata, GList *albums, const GError *error)
 {
   char *url;
 
