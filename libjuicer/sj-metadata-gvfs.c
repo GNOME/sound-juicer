@@ -116,6 +116,7 @@ gvfs_list_albums (SjMetadata *metadata, char **url, GError **error)
   				 G_FILE_QUERY_INFO_NONE, NULL, &my_error);
   if (e == NULL)
     goto bail;
+  g_object_unref (file);
 
   for (info = g_file_enumerator_next_file (e, NULL, NULL) ;
        info != NULL ;
@@ -197,6 +198,7 @@ sj_metadata_gvfs_set_property (GObject *object, guint property_id,
   case PROP_DEVICE:
     g_free (priv->cdrom);
     priv->cdrom = g_value_dup_string (value);
+    g_free (priv->uri);
     priv->uri = device_to_cdda_uri (priv->cdrom);
     break;
   case PROP_PROXY_HOST:
