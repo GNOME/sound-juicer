@@ -1,6 +1,5 @@
 #include "config.h"
 #include <glib.h>
-#include <glib/gi18n.h>
 #include <gconf/gconf-client.h>
 #include <dbus/dbus.h>
 #include <stdlib.h>
@@ -96,10 +95,6 @@ int main (int argc, char** argv)
   GConfClient *gconf_client;
   GError *error = NULL;
 
-  bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
-  bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-  textdomain (GETTEXT_PACKAGE);
-
   dbus_threads_init_default ();
 
   g_type_init ();
@@ -107,7 +102,7 @@ int main (int argc, char** argv)
 
   gconf_client = gconf_client_get_default ();
   if (gconf_client == NULL) {
-    g_warning (_("Could not create GConf client.\n"));
+    g_warning ("Could not create GConf client.\n");
     exit (1);
   }
   gconf_client_add_dir (gconf_client, GCONF_ROOT, GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
