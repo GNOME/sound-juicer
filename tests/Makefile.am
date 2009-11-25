@@ -17,12 +17,14 @@ mb_test_CFLAGS = \
 	$(MEDIA_PROFILES_CFLAGS) \
 	$(BURN_CFLAGS) \
 	$(UI_CFLAGS) \
+	$(DBUS_CFLAGS) \
 	$(AM_CPPFLAGS)
 
 mb_test_LDADD = \
 	$(BURN_LIBS) \
 	$(UI_LIBS) \
 	$(MUSICBRAINZ_LIBS) \
+	$(DBUS_LIBS) \
 	$(top_builddir)/libjuicer/libjuicer.la
 
 mb_test_LDFLAGS = \

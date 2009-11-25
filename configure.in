@@ -119,6 +119,10 @@ PKG_CHECK_MODULES(GIO, gio-2.0)
 AC_SUBST(GIO_CFLAGS)
 AC_SUBST(GIO_LIBS)
 
+PKG_CHECK_MODULES(DBUS, dbus-1)
+AC_SUBST(DBUS_CFLAGS)
+AC_SUBST(DBUS_LIBS)
+
 # Find how and where to put the GConf schemas
 AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
 if test "$GCONFTOOL" = "no"; then

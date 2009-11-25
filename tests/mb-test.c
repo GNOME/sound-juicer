@@ -2,6 +2,7 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gconf/gconf-client.h>
+#include <dbus/dbus.h>
 #include <stdlib.h>
 #include "sj-structures.h"
 #include "sj-metadata.h"
@@ -98,6 +99,8 @@ int main (int argc, char** argv)
   bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
+
+  dbus_threads_init_default ();
 
   g_type_init ();
   g_thread_init (NULL);
