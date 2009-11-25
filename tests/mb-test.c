@@ -1,10 +1,13 @@
 #include "config.h"
 #include <glib.h>
 #include <glib/gi18n.h>
+#include <gconf/gconf-client.h>
 #include <stdlib.h>
 #include "sj-structures.h"
 #include "sj-metadata.h"
 #include "sj-metadata-getter.h"
+
+#define GCONF_ROOT "/apps/sound-juicer"
 
 static const char *
 source_to_str (MetadataSource source)
@@ -89,6 +92,7 @@ int main (int argc, char** argv)
 {
   SjMetadataGetter *metadata;
   GMainLoop *loop;
+  GConfClient *gconf_client;
   GError *error = NULL;
 
   bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
@@ -97,6 +101,13 @@ int main (int argc, char** argv)
 
   g_type_init ();
   g_thread_init (NULL);
+
+  gconf_client = gconf_client_get_default ();
+  if (gconf_client == NULL) {
+    g_warning (_("Could not create GConf client.\n"));
+    exit (1);
+  }
+  gconf_client_add_dir (gconf_client, GCONF_ROOT, GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
   
   metadata = sj_metadata_getter_new ();
 
