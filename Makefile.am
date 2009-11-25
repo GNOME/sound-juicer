@@ -16,8 +16,7 @@ DISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper
 WEBROOT := $(HOME)/WebSites/Burtonini/htdocs
 
 tag:
-# TODO: verify that the current path is trunk otherwise this fails
-	svn cp -m "Sound Juicer $(VERSION)" `svnpath` `svnpath tags/$(VERSION)`
+	git tag -f $(VERSION)
 
 upload:
 	scp $(PACKAGE)-$(VERSION).tar.bz2 master.gnome.org:
