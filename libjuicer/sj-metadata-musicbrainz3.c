@@ -220,7 +220,7 @@ mb_list_albums (SjMetadata *metadata, char **url, GError **error)
   MbResultList results;
   MbRelease release;
   char *id = NULL;
-  char buffer[512];
+  char buffer[1024];
   int i;
   g_return_val_if_fail (SJ_IS_METADATA_MUSICBRAINZ3 (metadata), NULL);
 
