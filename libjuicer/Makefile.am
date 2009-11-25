@@ -70,13 +70,13 @@ MARSHALFILES = sj-metadata-marshal.h sj-metadata-marshal.c
 GLIB_GENMARSHAL =`pkg-config --variable=glib_genmarshal glib-2.0`
 
 sj-metadata-marshal.h: sj-metadata-marshal.list
-	( $(GLIB_GENMARSHAL) --prefix=metadata_marshal $< \
+	$(AM_V_GEN) ( $(GLIB_GENMARSHAL) --prefix=metadata_marshal $< \
 	--header > marshal-header.tmp \
 	&& mv marshal-header.tmp $@ ) \
 	|| ( rm -f marshal-header.tmp && exit 1 )
 
 sj-metadata-marshal.c: sj-metadata-marshal.list sj-metadata-marshal.h
-	( $(GLIB_GENMARSHAL) --prefix=metadata_marshal $< \
+	$(AM_V_GEN) ( $(GLIB_GENMARSHAL) --prefix=metadata_marshal $< \
 	--body > marshal-source.tmp \
 	&& echo "#include \"sj-metadata-marshal.h\"" > $@ \
 	&& cat marshal-source.tmp >> $@ \

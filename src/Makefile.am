@@ -67,4 +67,4 @@ BACON_DIR=$(srcdir)/../../libbacon/src/
 BACON_FILES=bacon-message-connection.h bacon-message-connection.c
 
 regenerate-built-sources:
-	BACONFILES="$(BACON_FILES)" BACONDIR="$(BACON_DIR)" $(top_srcdir)/src/update-from-bacon.sh
+	$(AM_V_GEN) BACONFILES="$(BACON_FILES)" BACONDIR="$(BACON_DIR)" $(top_srcdir)/src/update-from-bacon.sh
