@@ -46,6 +46,7 @@
 
 #if HAVE_MB_EXTRACT_UUID
 #define GET_ID(field, function, obj) {						\
+	char uuid_buffer[37];							\
         function (obj, buffer, sizeof (buffer));				\
 	mb_extract_uuid (buffer, uuid_buffer, sizeof (uuid_buffer));		\
 	if (field)								\
@@ -109,7 +110,6 @@ make_album_from_release (MbRelease *release)
 {
   AlbumDetails *album;
   char buffer[512];
-  char uuid_buffer[37];
   MbArtist artist;
   char *new_title;
   int i;
