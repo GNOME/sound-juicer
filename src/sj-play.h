@@ -30,31 +30,31 @@ void sj_play_init (void);
 
 void stop_playback	(void);
 
-void on_tracklist_row_activate (GtkTreeView *treeview, GtkTreePath *path,
+G_MODULE_EXPORT void on_tracklist_row_activate (GtkTreeView *treeview, GtkTreePath *path,
                                 GtkTreeViewColumn *col, gpointer user_data);
 
 void stop_ui_hack (void);
 
-void on_play_activate (GtkWidget *button, gpointer user_data);
+G_MODULE_EXPORT void on_play_activate (GtkWidget *button, gpointer user_data);
 
-void on_next_track_activate(GtkWidget *button, gpointer data);
+G_MODULE_EXPORT void on_next_track_activate(GtkWidget *button, gpointer data);
 
-void on_previous_track_activate(GtkWidget *button, gpointer data);
+G_MODULE_EXPORT void on_previous_track_activate(GtkWidget *button, gpointer data);
 
 
-void on_tracklist_row_selected (GtkTreeView *treeview,
+G_MODULE_EXPORT void on_tracklist_row_selected (GtkTreeView *treeview,
 		                gpointer user_data);
 
-void on_volume_changed (GtkWidget* volb, gdouble value, gpointer data);
+G_MODULE_EXPORT void on_volume_changed (GtkWidget* volb, gdouble value, gpointer data);
 
-gboolean on_seek_press (GtkWidget * scale, 
-			GdkEventButton * event, 
+G_MODULE_EXPORT gboolean on_seek_press (GtkWidget * scale,
+			GdkEventButton * event,
 			gpointer user_data);
 
-void on_seek_moved (GtkWidget * scale, gpointer user_data);
+G_MODULE_EXPORT void on_seek_moved (GtkWidget * scale, gpointer user_data);
 
-gboolean on_seek_release (GtkWidget * scale, 
-			  GdkEventButton * event, 
+G_MODULE_EXPORT gboolean on_seek_release (GtkWidget * scale,
+			  GdkEventButton * event,
 			  gpointer user_data);
 
 #endif /* SJ_PLAY_H_H */

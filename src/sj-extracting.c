@@ -730,7 +730,7 @@ on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
 /**
  * Entry point from the interface.
  */
-void
+G_MODULE_EXPORT void
 on_extract_activate (GtkWidget *button, gpointer user_data)
 {
   char *reason;
@@ -765,22 +765,22 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
     g_signal_connect (extractor, "completion", G_CALLBACK (on_completion_cb), (gpointer)&overwrite_mode);
     g_signal_connect (extractor, "error", G_CALLBACK (on_error_cb), NULL);
 
-    extract_button = glade_xml_get_widget (glade, "extract_button");
-    play_button = glade_xml_get_widget (glade, "play_button");
-    title_entry = glade_xml_get_widget (glade, "title_entry");
-    artist_entry = glade_xml_get_widget (glade, "artist_entry");
-    genre_entry = glade_xml_get_widget (glade, "genre_entry");
-    year_entry = glade_xml_get_widget (glade, "year_entry");
-    disc_number_entry = glade_xml_get_widget (glade, "disc_number_entry");
-    track_listview = glade_xml_get_widget (glade, "track_listview");
-    progress_bar = glade_xml_get_widget (glade, "progress_bar");
-    status_bar = glade_xml_get_widget (glade, "status_bar");
+    extract_button    = GET_WIDGET ("extract_button");
+    play_button       = GET_WIDGET ("play_button");
+    title_entry       = GET_WIDGET ("title_entry");
+    artist_entry      = GET_WIDGET ("artist_entry");
+    genre_entry       = GET_WIDGET ("genre_entry");
+    year_entry        = GET_WIDGET ("year_entry");
+    disc_number_entry = GET_WIDGET ("disc_number_entry");
+    track_listview    = GET_WIDGET ("track_listview");
+    progress_bar      = GET_WIDGET ("progress_bar");
+    status_bar        = GET_WIDGET ("status_bar");
   
-    play_menuitem = glade_xml_get_widget (glade, "play_menuitem");
-    extract_menuitem = glade_xml_get_widget (glade, "extract_menuitem");
-    reread_menuitem = glade_xml_get_widget (glade, "re-read");
-    select_all_menuitem = glade_xml_get_widget (glade, "select_all");
-    deselect_all_menuitem = glade_xml_get_widget (glade, "deselect_all");
+    play_menuitem         = GET_WIDGET ("play_menuitem");
+    extract_menuitem      = GET_WIDGET ("extract_menuitem");
+    reread_menuitem       = GET_WIDGET ("re-read");
+    select_all_menuitem   = GET_WIDGET ("select_all");
+    deselect_all_menuitem = GET_WIDGET ("deselect_all");
     
     initialised = TRUE;
   }

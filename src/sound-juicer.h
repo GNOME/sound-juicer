@@ -30,7 +30,6 @@
 #include <glib/gi18n.h>
 #include <brasero-medium-selection.h>
 #include <gconf/gconf-client.h>
-#include <glade/glade-xml.h>
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 #include "sj-extractor.h"
@@ -46,9 +45,10 @@ extern GConfClient *gconf_client;
 extern GtkWidget *main_window;
 
 /**
- * The Glade UI file
+ * The GtkBuilder UI file
  */
-extern GladeXML *glade;
+extern GtkBuilder *builder;
+#define GET_WIDGET(name) GTK_WIDGET(gtk_builder_get_object(builder, (name)))
 
 /**
  * The extractor GObject being used

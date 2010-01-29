@@ -24,7 +24,6 @@
 
 #include <string.h>
 #include <gtk/gtk.h>
-#include <glade/glade-xml.h>
 #include <gconf/gconf-client.h>
 #include <profiles/gnome-media-profiles.h>
 #include <brasero-drive-selection.h>
@@ -34,7 +33,7 @@
 #include "sj-extracting.h"
 #include "sj-prefs.h"
 
-extern GladeXML *glade;
+extern GtkBuilder *builder;
 extern GtkWidget *main_window;
 
 static GtkWidget *audio_profile;
@@ -114,7 +113,7 @@ void show_help (GtkWindow *parent)
 /**
  * Changed folder in the Prefs dialog
  */
-void prefs_base_folder_changed (GtkWidget *chooser, gpointer user_data)
+G_MODULE_EXPORT void prefs_base_folder_changed (GtkWidget *chooser, gpointer user_data)
 {
   char *new_uri, *current_uri;
   
@@ -143,7 +142,7 @@ void prefs_path_option_changed (GtkComboBox *combo, gpointer user_data)
   }
 }
 
-void prefs_file_option_changed (GtkComboBox *combo, gpointer user_data)
+G_MODULE_EXPORT void prefs_file_option_changed (GtkComboBox *combo, gpointer user_data)
 {
   gint active;
   const char* pattern;
@@ -160,7 +159,7 @@ void prefs_file_option_changed (GtkComboBox *combo, gpointer user_data)
 /**
  * The Edit Profiles button was pressed.
  */
-void prefs_edit_profile_clicked (GtkButton *button, gpointer user_data)
+G_MODULE_EXPORT void prefs_edit_profile_clicked (GtkButton *button, gpointer user_data)
 {
   GtkWidget *dialog;
   dialog = gm_audio_profiles_edit_new (gconf_client, GTK_WINDOW (main_window));
@@ -403,7 +402,7 @@ on_response (GtkDialog *dialog, gint response, gpointer user_data)
 /**
  * Clicked on Preferences in the UI
  */
-void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
+G_MODULE_EXPORT void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
 {
   static GtkWidget *prefs_dialog = NULL;
 
@@ -413,9 +412,11 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     const char *labels[] = { "cd_label", "path_label", "folder_label", "file_label", "profile_label" };
     guint i;
     GtkSizeGroup *group;
+    GtkWidget    *box;
     GConfBridge *bridge = gconf_bridge_get ();
 
-    prefs_dialog = glade_xml_get_widget (glade, "prefs_dialog");
+    prefs_dialog = GET_WIDGET ("prefs_dialog");
+    box          = GET_WIDGET ("hack_hbox");
     g_assert (prefs_dialog != NULL);
     g_object_add_weak_pointer (G_OBJECT (prefs_dialog), (gpointer)&prefs_dialog);
 
@@ -424,7 +425,7 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
     for (i = 0; i < G_N_ELEMENTS (labels); i++) {
       GtkWidget *widget;
-      widget = glade_xml_get_widget (glade, labels[i]);
+      widget = GET_WIDGET (labels[i]);
       if (widget) {
         gtk_size_group_add_widget (group, widget);
       } else {
@@ -433,17 +434,29 @@ void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
     }
     g_object_unref (group);
 
-    cd_option = glade_xml_get_widget (glade, "cd_option");
-    basepath_fcb = glade_xml_get_widget (glade, "path_chooser");
-    sj_add_default_dirs (GTK_FILE_CHOOSER (basepath_fcb));
-    path_option = glade_xml_get_widget (glade, "path_option");
-    file_option = glade_xml_get_widget (glade, "file_option");
-    audio_profile = glade_xml_get_widget (glade, "audio_profile");
-    check_strip = glade_xml_get_widget (glade, "check_strip");
-    check_eject = glade_xml_get_widget (glade, "check_eject");
-    check_open = glade_xml_get_widget (glade, "check_open");
-    path_example_label = glade_xml_get_widget (glade, "path_example_label");
+    cd_option          = GET_WIDGET ("cd_option");
+    basepath_fcb       = GET_WIDGET ("path_chooser");
+    path_option        = GET_WIDGET ("path_option");
+    file_option        = GET_WIDGET ("file_option");
+#if 0
+    /* FIXME: This cannot be currently used, because aufio profile selector
+     * 	      from gnome-media-profiles package is not fully qualified widget.
+     * 	      Once gnome-media package is updated, this widget can be created
+     * 	      using GtkBuilder. */
+    audio_profile      = GET_WIDGET ("audio_profile");
+#else
+    audio_profile = gm_audio_profile_choose_new();
+    g_signal_connect (G_OBJECT (audio_profile), "changed",
+                      G_CALLBACK (prefs_profile_changed), NULL);
+	gtk_box_pack_start (GTK_BOX (box), audio_profile, TRUE, TRUE, 0);
+	gtk_widget_show (audio_profile);
+#endif
+    check_strip        = GET_WIDGET ("check_strip");
+    check_eject        = GET_WIDGET ("check_eject");
+    check_open         = GET_WIDGET ("check_open");
+    path_example_label = GET_WIDGET ("path_example_label");
 
+    sj_add_default_dirs (GTK_FILE_CHOOSER (basepath_fcb));
     populate_pattern_combo (GTK_COMBO_BOX (path_option), path_patterns);
     g_signal_connect (path_option, "changed", G_CALLBACK (prefs_path_option_changed), NULL);
     populate_pattern_combo (GTK_COMBO_BOX (file_option), file_patterns);

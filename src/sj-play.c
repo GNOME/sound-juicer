@@ -434,7 +434,7 @@ stop_playback (void)
  * Interface entry point.
  */
 
-void
+G_MODULE_EXPORT void
 on_play_activate (GtkWidget *button, gpointer user_data)
 {
   GError *err = NULL;
@@ -470,7 +470,7 @@ on_play_activate (GtkWidget *button, gpointer user_data)
   }
 }
 
-void
+G_MODULE_EXPORT void
 on_tracklist_row_activate (GtkTreeView * treeview, GtkTreePath * path,
     GtkTreeViewColumn * col, gpointer user_data)
 {
@@ -499,13 +499,13 @@ on_tracklist_row_activate (GtkTreeView * treeview, GtkTreePath * path,
   }
 }
 
-void
+G_MODULE_EXPORT void
 on_next_track_activate(GtkWidget *button, gpointer data)
 {
   cb_hop_track (NULL, NULL, NULL);
 }
 
-void
+G_MODULE_EXPORT void
 on_previous_track_activate(GtkWidget *button, gpointer data)
 {
   GtkTreeModel *model;
@@ -557,7 +557,7 @@ set_gst_ui_and_play (void)
   }
 }
 
-void
+G_MODULE_EXPORT void
 on_tracklist_row_selected (GtkTreeView *treeview,
                gpointer user_data)
 {
@@ -578,7 +578,7 @@ on_tracklist_row_selected (GtkTreeView *treeview,
  * Volume.
  */
 
-void
+G_MODULE_EXPORT void
 on_volume_changed (GtkWidget * volb, gdouble value, gpointer data)
 {
   vol = value;
@@ -595,7 +595,7 @@ on_volume_changed (GtkWidget * volb, gdouble value, gpointer data)
  * Seeking.
  */
 
-gboolean
+G_MODULE_EXPORT gboolean
 on_seek_press (GtkWidget * scale, GdkEventButton * event, gpointer user_data)
 {
   seeking = TRUE;
@@ -603,7 +603,7 @@ on_seek_press (GtkWidget * scale, GdkEventButton * event, gpointer user_data)
   return FALSE;
 }
 
-void
+G_MODULE_EXPORT void
 on_seek_moved (GtkWidget * scale, gpointer user_data)
 {
   gdouble val = gtk_range_get_value (GTK_RANGE (scale));
@@ -619,7 +619,7 @@ on_seek_moved (GtkWidget * scale, gpointer user_data)
   g_free (m);
 }
 
-gboolean
+G_MODULE_EXPORT gboolean
 on_seek_release (GtkWidget * scale, GdkEventButton * event, gpointer user_data)
 {
   gdouble val = gtk_range_get_value (GTK_RANGE (scale));
@@ -657,12 +657,12 @@ stop_ui_hack (void)
 void
 sj_play_init (void)
 {
-  play_button = glade_xml_get_widget (glade, "play_button");
-  next_menuitem = glade_xml_get_widget (glade, "next_track_menuitem");
-  prev_menuitem = glade_xml_get_widget (glade, "previous_track_menuitem");
-  reread_menuitem = glade_xml_get_widget (glade, "re-read");
-  seek_scale = glade_xml_get_widget (glade, "seek_scale");
-  volume_button = glade_xml_get_widget (glade, "volume_button");
-  statusbar = glade_xml_get_widget (glade, "status_bar");
-  track_listview = glade_xml_get_widget (glade, "track_listview");
+  play_button     = GET_WIDGET ("play_button");
+  next_menuitem   = GET_WIDGET ("next_track_menuitem");
+  prev_menuitem   = GET_WIDGET ("previous_track_menuitem");
+  reread_menuitem = GET_WIDGET ("re-read");
+  seek_scale      = GET_WIDGET ("seek_scale");
+  volume_button   = GET_WIDGET ("volume_button");
+  statusbar       = GET_WIDGET ("status_bar");
+  track_listview  = GET_WIDGET ("track_listview");
 }

@@ -26,7 +26,7 @@
 #include <string.h>
 #include "sj-about.h"
 
-void on_about_activate (void)
+G_MODULE_EXPORT void on_about_activate (void)
 {
   char *license_trans;
     

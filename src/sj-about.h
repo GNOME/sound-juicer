@@ -25,6 +25,6 @@
 
 #include <gtk/gtk.h>
 
-void on_about_activate (void);
+G_MODULE_EXPORT void on_about_activate (void);
 
 #endif /* SJ_ABOUT_H */

@@ -1,5 +1,5 @@
 privatedatadir = $(pkgdatadir)
-dist_privatedata_DATA = sound-juicer.glade
+dist_privatedata_DATA = sound-juicer.ui
 
 desktopdir = $(datadir)/applications
 desktop_in_files = sound-juicer.desktop.in.in

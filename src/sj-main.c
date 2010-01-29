@@ -30,7 +30,6 @@
 #include <gdk/gdkkeysyms.h>
 #include <gio/gio.h>
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 #include <gconf/gconf-client.h>
 #include <brasero-medium-selection.h>
 #include <brasero-volume.h>
@@ -58,12 +57,12 @@ static void update_ui_for_album (AlbumDetails *album);
 static void set_duplication (gboolean enable);
 
 /* Prototypes for the signal blocking/unblocking in update_ui_for_album */
-void on_title_edit_changed(GtkEditable *widget, gpointer user_data);
-void on_artist_edit_changed(GtkEditable *widget, gpointer user_data);
-void on_year_edit_changed(GtkEditable *widget, gpointer user_data);
-void on_disc_number_edit_changed(GtkEditable *widget, gpointer user_data);
+G_MODULE_EXPORT void on_title_edit_changed(GtkEditable *widget, gpointer user_data);
+G_MODULE_EXPORT void on_artist_edit_changed(GtkEditable *widget, gpointer user_data);
+G_MODULE_EXPORT void on_year_edit_changed(GtkEditable *widget, gpointer user_data);
+G_MODULE_EXPORT void on_disc_number_edit_changed(GtkEditable *widget, gpointer user_data);
 
-GladeXML *glade;
+GtkBuilder *builder;
 
 SjMetadataGetter *metadata;
 SjExtractor *extractor;
@@ -104,8 +103,8 @@ static guint debug_flags = 0;
 
 #define DEFAULT_PARANOIA 4
 #define RAISE_WINDOW "raise-window"
-#define SOURCE_GLADE "../data/sound-juicer.glade"
-#define INSTALLED_GLADE DATADIR"/sound-juicer/sound-juicer.glade"
+#define SOURCE_BUILDER "../data/sound-juicer.ui"
+#define INSTALLED_BUILDER DATADIR"/sound-juicer/sound-juicer.ui"
 
 void
 sj_stock_init (void)
@@ -192,7 +191,7 @@ static void error_on_start (GError *error)
 /**
  * Clicked Quit
  */
-void on_quit_activate (GtkMenuItem *item, gpointer user_data)
+G_MODULE_EXPORT void on_quit_activate (GtkMenuItem *item, gpointer user_data)
 {
   if (on_delete_event (NULL, NULL, NULL) == FALSE) {
     gtk_main_quit ();
@@ -202,7 +201,7 @@ void on_quit_activate (GtkMenuItem *item, gpointer user_data)
 /**
  * Destroy signal Callback
  */
-void on_destroy_signal (GtkMenuItem *item, gpointer user_data)
+G_MODULE_EXPORT void on_destroy_signal (GtkMenuItem *item, gpointer user_data)
 {
    gtk_main_quit ();
 }
@@ -210,7 +209,7 @@ void on_destroy_signal (GtkMenuItem *item, gpointer user_data)
 /**
  * Clicked Eject
  */
-void on_eject_activate (GtkMenuItem *item, gpointer user_data)
+G_MODULE_EXPORT void on_eject_activate (GtkMenuItem *item, gpointer user_data)
 {
   /* first make sure we're not playing */
   stop_playback ();
@@ -218,7 +217,7 @@ void on_eject_activate (GtkMenuItem *item, gpointer user_data)
   brasero_drive_eject (drive, FALSE, NULL);
 }
 
-gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data)
+G_MODULE_EXPORT gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
   if (extracting) {
     GtkWidget *dialog;
@@ -251,7 +250,7 @@ static gboolean select_all_foreach_cb (GtkTreeModel *model,
   return FALSE;
 }
 
-void on_select_all_activate (GtkMenuItem *item, gpointer user_data)
+G_MODULE_EXPORT void on_select_all_activate (GtkMenuItem *item, gpointer user_data)
 {
   gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), select_all_foreach_cb, GINT_TO_POINTER (TRUE));
   gtk_widget_set_sensitive (extract_button, TRUE);
@@ -261,7 +260,7 @@ void on_select_all_activate (GtkMenuItem *item, gpointer user_data)
   no_of_tracks_selected = total_no_of_tracks;
 }
 
-void on_deselect_all_activate (GtkMenuItem *item, gpointer user_data)
+G_MODULE_EXPORT void on_deselect_all_activate (GtkMenuItem *item, gpointer user_data)
 {
   gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), select_all_foreach_cb, GINT_TO_POINTER (FALSE));
   gtk_widget_set_sensitive (extract_button, FALSE);
@@ -614,11 +613,11 @@ AlbumDetails* multiple_album_dialog(GList *albums)
     GtkTreeViewColumn *column;
     GtkCellRenderer *text_renderer = gtk_cell_renderer_text_new ();
 
-    dialog = glade_xml_get_widget (glade, "multiple_dialog");
+    dialog = GET_WIDGET ("multiple_dialog");
     g_assert (dialog != NULL);
     gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (main_window));
-    albums_listview = glade_xml_get_widget (glade, "albums_listview");
-    ok_button = glade_xml_get_widget (glade, "ok_button");
+    albums_listview = GET_WIDGET ("albums_listview");
+    ok_button       = GET_WIDGET ("ok_button");
 
     g_signal_connect (albums_listview, "row-activated", G_CALLBACK (album_row_activated), dialog);
 
@@ -784,7 +783,7 @@ static void audio_volume_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
 {
   g_assert (strcmp (entry->key, GCONF_AUDIO_VOLUME) == 0);
 
-  GtkWidget *volb = glade_xml_get_widget (glade, "volume_button");
+  GtkWidget *volb = GET_WIDGET ("volume_button");
   if (entry->value == NULL) {
     gtk_scale_button_set_value (GTK_SCALE_BUTTON (volb), 1.0);
   } else {
@@ -1218,7 +1217,7 @@ static void http_proxy_port_changed_cb (GConfClient *client, guint cnxn_id, GCon
 /**
  * Clicked on Reread in the UI (button/menu)
  */
-void on_reread_activate (GtkWidget *button, gpointer user_data)
+G_MODULE_EXPORT void on_reread_activate (GtkWidget *button, gpointer user_data)
 {
   reread_cd (FALSE);
 }
@@ -1226,7 +1225,7 @@ void on_reread_activate (GtkWidget *button, gpointer user_data)
 /**
  * Clicked the Submit menu item in the UI
  */
-void on_submit_activate (GtkWidget *menuitem, gpointer user_data)
+G_MODULE_EXPORT void on_submit_activate (GtkWidget *menuitem, gpointer user_data)
 {
   GError *error = NULL;
 
@@ -1386,7 +1385,7 @@ remove_musicbrainz_ids (AlbumDetails *album)
 #undef UNSET
 }
 
-void on_title_edit_changed(GtkEditable *widget, gpointer user_data) {
+G_MODULE_EXPORT void on_title_edit_changed(GtkEditable *widget, gpointer user_data) {
   g_return_if_fail (current_album != NULL);
 
   remove_musicbrainz_ids (current_album);
@@ -1397,7 +1396,7 @@ void on_title_edit_changed(GtkEditable *widget, gpointer user_data) {
   current_album->title = gtk_editable_get_chars (widget, 0, -1); /* get all the characters */
 }
 
-void on_artist_edit_changed(GtkEditable *widget, gpointer user_data) {
+G_MODULE_EXPORT void on_artist_edit_changed(GtkEditable *widget, gpointer user_data) {
   GtkTreeIter iter;
   TrackDetails *track;
   gchar *current_track_artist, *former_album_artist = NULL;
@@ -1444,7 +1443,7 @@ void on_artist_edit_changed(GtkEditable *widget, gpointer user_data) {
   g_free (former_album_artist);
 }
 
-void on_genre_edit_changed(GtkEditable *widget, gpointer user_data) {
+G_MODULE_EXPORT void on_genre_edit_changed(GtkEditable *widget, gpointer user_data) {
   g_return_if_fail (current_album != NULL);
   if (current_album->genre) {
     g_free (current_album->genre);
@@ -1452,7 +1451,7 @@ void on_genre_edit_changed(GtkEditable *widget, gpointer user_data) {
   current_album->genre = gtk_editable_get_chars (widget, 0, -1); /* get all the characters */
 }
 
-void on_year_edit_changed(GtkEditable *widget, gpointer user_data) {
+G_MODULE_EXPORT void on_year_edit_changed(GtkEditable *widget, gpointer user_data) {
   const gchar* yearstr;
   int year;
 
@@ -1469,7 +1468,7 @@ void on_year_edit_changed(GtkEditable *widget, gpointer user_data) {
   }
 }
 
-void on_disc_number_edit_changed(GtkEditable *widget, gpointer user_data) {
+G_MODULE_EXPORT void on_disc_number_edit_changed(GtkEditable *widget, gpointer user_data) {
     const gchar* discstr;
     int disc_number;
 
@@ -1479,7 +1478,7 @@ void on_disc_number_edit_changed(GtkEditable *widget, gpointer user_data) {
     current_album->disc_number = disc_number;
 }
 
-void on_contents_activate(GtkWidget *button, gpointer user_data) {
+G_MODULE_EXPORT void on_contents_activate(GtkWidget *button, gpointer user_data) {
   GError *error = NULL;
 
   gtk_show_uri (NULL, "ghelp:sound-juicer", GDK_CURRENT_TIME, &error);
@@ -1581,7 +1580,7 @@ is_cd_duplication_available()
 /**
  * Clicked on duplicate in the UI (button/menu)
  */
-void on_duplicate_activate (GtkWidget *button, gpointer user_data)
+G_MODULE_EXPORT void on_duplicate_activate (GtkWidget *button, gpointer user_data)
 {
   GError *error = NULL;
   const gchar* device;
@@ -1702,43 +1701,42 @@ int main (int argc, char **argv)
   /* init gnome-media-profiles */
   gnome_media_profiles_init (gconf_client);
 
-  glade_init ();
-  if (g_file_test (SOURCE_GLADE, G_FILE_TEST_EXISTS) != FALSE) {
-    glade = glade_xml_new (SOURCE_GLADE, NULL, NULL);
+  builder = gtk_builder_new ();
+  if (g_file_test (SOURCE_BUILDER, G_FILE_TEST_EXISTS) != FALSE) {
+    gtk_builder_add_from_file (builder, SOURCE_BUILDER, &error);
   } else {
-    glade = glade_xml_new (INSTALLED_GLADE, NULL, NULL);
+    gtk_builder_add_from_file (builder, INSTALLED_BUILDER, &error);
   }
-  if (glade == NULL) {
-    error = g_error_new (g_quark_from_static_string ("sound-juicer"),
-                         1, /* this is made up */
-                         _("The interface file for Sound Juicer could not be read."));
+
+  if (error != NULL) {
     error_on_start (error);
     g_error_free (error);
     exit (1);
   }
-  glade_xml_signal_autoconnect (glade);
 
-  main_window = glade_xml_get_widget (glade, "main_window");
-  message_area_eventbox = glade_xml_get_widget (glade, "message_area_eventbox");
-  select_all_menuitem = glade_xml_get_widget (glade, "select_all");
-  deselect_all_menuitem = glade_xml_get_widget (glade, "deselect_all");
-  submit_menuitem = glade_xml_get_widget (glade, "submit");
-  title_entry = glade_xml_get_widget (glade, "title_entry");
-  artist_entry = glade_xml_get_widget (glade, "artist_entry");
-  duration_label = glade_xml_get_widget (glade, "duration_label");
-  genre_entry = glade_xml_get_widget (glade, "genre_entry");
-  year_entry = glade_xml_get_widget (glade, "year_entry");
-  disc_number_entry = glade_xml_get_widget (glade, "disc_number_entry");
-  track_listview = glade_xml_get_widget (glade, "track_listview");
-  extract_button = glade_xml_get_widget (glade, "extract_button");
-  extract_menuitem = glade_xml_get_widget (glade, "extract_menuitem");
-  play_button = glade_xml_get_widget (glade, "play_button");
-  play_menuitem = glade_xml_get_widget (glade, "play_menuitem");
-  next_menuitem = glade_xml_get_widget (glade, "next_track_menuitem");
-  prev_menuitem = glade_xml_get_widget (glade, "previous_track_menuitem");
-  status_bar = glade_xml_get_widget (glade, "status_bar");
-  duplicate = glade_xml_get_widget (glade, "duplicate_menuitem");
-  eject = glade_xml_get_widget (glade, "eject");
+  gtk_builder_connect_signals (builder, NULL);
+
+  main_window           = GET_WIDGET ("main_window");
+  message_area_eventbox = GET_WIDGET ("message_area_eventbox");
+  select_all_menuitem   = GET_WIDGET ("select_all");
+  deselect_all_menuitem = GET_WIDGET ("deselect_all");
+  submit_menuitem       = GET_WIDGET ("submit");
+  title_entry           = GET_WIDGET ("title_entry");
+  artist_entry          = GET_WIDGET ("artist_entry");
+  duration_label        = GET_WIDGET ("duration_label");
+  genre_entry           = GET_WIDGET ("genre_entry");
+  year_entry            = GET_WIDGET ("year_entry");
+  disc_number_entry     = GET_WIDGET ("disc_number_entry");
+  track_listview        = GET_WIDGET ("track_listview");
+  extract_button        = GET_WIDGET ("extract_button");
+  extract_menuitem      = GET_WIDGET ("extract_menuitem");
+  play_button           = GET_WIDGET ("play_button");
+  play_menuitem         = GET_WIDGET ("play_menuitem");
+  next_menuitem         = GET_WIDGET ("next_track_menuitem");
+  prev_menuitem         = GET_WIDGET ("previous_track_menuitem");
+  status_bar            = GET_WIDGET ("status_bar");
+  duplicate             = GET_WIDGET ("duplicate_menuitem");
+  eject                 = GET_WIDGET ("eject");
 
   { /* ensure that the play/pause button's size is constant */
     GtkWidget *fake_button1, *fake_button2;
