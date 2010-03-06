@@ -1,20 +1,22 @@
 # Czech translation of sound-juicer.
 # Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009 the author(s) of sound-juicer.
-# Copyright (C) 2003, 2004, 2005, 2006 Miloslav Trmac <mitr@volny.cz>.
 # This file is distributed under the same license as the sound-juicer package.
+#
 # Miloslav Trmac <mitr@volny.cz>, 2003, 2004, 2005, 2006.
 # Petr Tomeš <ptomes@gmail.com>, 2006.
 # Lucas Lommer <llommer@svn.gnome.org>, 2008.
 # Pavel Šefránek <ps@pjoul.cz>, 2008, 2009.
 # Petr Kovar <pknbe@volny.cz>, 2008, 2009.
+# Marek Černocký <marek@manet.cz>, 2010 (just fixes).
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-24 13:56+0200\n"
-"PO-Revision-Date: 2009-07-24 13:57+0200\n"
-"Last-Translator: Andre Klapper <ak-47@gmx.net>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
+"juicer&component=general\n"
+"POT-Creation-Date: 2010-03-02 22:29+0000\n"
+"PO-Revision-Date: 2010-03-05 15:14+0100\n"
+"Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -82,7 +84,7 @@ msgstr "_Vysunout"
 
 #: ../data/sound-juicer.glade.h:13
 msgid "Edit _Profiles..."
-msgstr "Upravit _profily..."
+msgstr "Upravit _profily…"
 
 #: ../data/sound-juicer.glade.h:14
 msgid "File _name:"
@@ -121,7 +123,7 @@ msgid "Skip to the previous track"
 msgstr "Přeskočit na předchozí stopu"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:139 ../src/sj-main.c:141
-#: ../src/sj-main.c:1641
+#: ../src/sj-main.c:1640
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -203,7 +205,7 @@ msgstr "_Odstranit speciální znaky"
 
 #: ../data/sound-juicer.glade.h:42
 msgid "_Submit Track Names..."
-msgstr "_Odeslat názvy skladeb..."
+msgstr "_Odeslat názvy skladeb…"
 
 #: ../data/sound-juicer.schemas.in.h:2
 #, no-c-format
@@ -261,7 +263,7 @@ msgstr ""
 
 #: ../data/sound-juicer.schemas.in.h:8
 msgid "If specified, this value will override the default MusicBrainz server."
-msgstr "Je-li zadána, tato hodnota nahradí implicitní server MusicBrainz."
+msgstr "Je-li zadána, tato hodnota nahradí výchozí server MusicBrainz."
 
 #: ../data/sound-juicer.schemas.in.h:9
 msgid "If to strip special characters from filenames"
@@ -372,14 +374,14 @@ msgstr "Nebyl nalezen zásuvný modul potřebný pro přístup k souborům"
 #: ../libjuicer/sj-metadata.c:190
 #, c-format
 msgid "Device '%s' does not contain any media"
-msgstr "Zařízení '%s' neobsahuje médium"
+msgstr "Zařízení „%s“ neobsahuje médium"
 
 #: ../libjuicer/sj-metadata.c:193
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr ""
-"Nelze otevřít zařízení '%s'. Zkontrolujte oprávnění k přístupu k zařízení."
+"Nelze otevřít zařízení „%s“. Zkontrolujte oprávnění k přístupu k zařízení."
 
 #: ../libjuicer/sj-metadata.c:196 ../libjuicer/sj-metadata.c:208
 #, c-format
@@ -392,7 +394,7 @@ msgid "Cannot read CD"
 msgstr "Nelze číst CD"
 
 #: ../libjuicer/sj-metadata-cdtext.c:93 ../libjuicer/sj-metadata-cdtext.c:114
-#: ../libjuicer/sj-metadata-gvfs.c:109 ../libjuicer/sj-metadata-gvfs.c:132
+#: ../libjuicer/sj-metadata-gvfs.c:109 ../libjuicer/sj-metadata-gvfs.c:135
 #: ../libjuicer/sj-metadata-musicbrainz.c:328 ../src/egg-play-preview.c:466
 msgid "Unknown Artist"
 msgstr "Neznámý umělec"
@@ -402,12 +404,12 @@ msgstr "Neznámý umělec"
 msgid "Unknown Title"
 msgstr "Neznámý název"
 
-#: ../libjuicer/sj-metadata-cdtext.c:113 ../libjuicer/sj-metadata-gvfs.c:129
+#: ../libjuicer/sj-metadata-cdtext.c:113 ../libjuicer/sj-metadata-gvfs.c:131
 #, c-format
 msgid "Track %d"
 msgstr "Stopa %d"
 
-#: ../libjuicer/sj-metadata-getter.c:249
+#: ../libjuicer/sj-metadata-getter.c:253
 #, c-format
 msgid "Could not create CD lookup thread"
 msgstr "Nelze vytvořit vlákno pro vyhledání CD"
@@ -417,7 +419,7 @@ msgstr "Nelze vytvořit vlákno pro vyhledání CD"
 msgid "Cannot access CD"
 msgstr "Nelze přístupovat k CD"
 
-#: ../libjuicer/sj-metadata-gvfs.c:150
+#: ../libjuicer/sj-metadata-gvfs.c:156
 #, c-format
 msgid "Cannot access CD: %s"
 msgstr "Nelze přístupovat k CD: %s"
@@ -449,7 +451,7 @@ msgstr "URI"
 msgid "The URI of the audio file"
 msgstr "URI zvukového souboru"
 
-#: ../src/egg-play-preview.c:175 ../src/sj-main.c:626 ../src/sj-main.c:1798
+#: ../src/egg-play-preview.c:175 ../src/sj-main.c:626 ../src/sj-main.c:1797
 msgid "Title"
 msgstr "Název"
 
@@ -457,7 +459,7 @@ msgstr "Název"
 msgid "The title of the current stream."
 msgstr "Název aktuální skladby."
 
-#: ../src/egg-play-preview.c:185 ../src/sj-main.c:632 ../src/sj-main.c:1807
+#: ../src/egg-play-preview.c:185 ../src/sj-main.c:632 ../src/sj-main.c:1806
 msgid "Artist"
 msgstr "Umělec"
 
@@ -481,7 +483,7 @@ msgstr "Pozice"
 msgid "The position in the current stream in seconds."
 msgstr "Pozice v aktuální skladbě uvedená ve vteřinách."
 
-#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1818
+#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1817
 msgid "Duration"
 msgstr "Délka"
 
@@ -553,84 +555,84 @@ msgstr ""
 "Pavel Šefránek <ps@pjoul.cz>\n"
 "Petr Kovář <pknbe@volny.cz>"
 
-#: ../src/sj-extracting.c:146
+#: ../src/sj-extracting.c:147
 #, c-format
 msgid "Failed to get output format"
 msgstr "Nepodařilo se získat výstupní formát"
 
-#: ../src/sj-extracting.c:167
+#: ../src/sj-extracting.c:168
 msgid "Name too long"
 msgstr "Název je příliš dlouhý"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:226
+#: ../src/sj-extracting.c:227
 msgid "Extract"
 msgstr "Extrahovat"
 
-#: ../src/sj-extracting.c:303
+#: ../src/sj-extracting.c:304
 msgid "A file with the same name exists"
 msgstr "Soubor s tímto názvem již existuje"
 
-#: ../src/sj-extracting.c:305
+#: ../src/sj-extracting.c:306
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
 "Do you want to skip this track or overwrite it?"
 msgstr ""
-"Soubor pojmenovaný '%s' existuje, velikost %s.\n"
+"Soubor pojmenovaný „%s“ existuje, velikost %s.\n"
 "Chcete tuto stopu přeskočit nebo ji přepsat?"
 
-#: ../src/sj-extracting.c:315
+#: ../src/sj-extracting.c:316
 msgid "_Skip"
 msgstr "Pře_skočit"
 
-#: ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:317
 msgid "S_kip All"
 msgstr "Přes_kočit vše"
 
-#: ../src/sj-extracting.c:317
+#: ../src/sj-extracting.c:318
 msgid "_Overwrite"
 msgstr "_Přepsat"
 
-#: ../src/sj-extracting.c:318
+#: ../src/sj-extracting.c:319
 msgid "Overwrite _All"
 msgstr "Přeps_at vše"
 
-#: ../src/sj-extracting.c:367
+#: ../src/sj-extracting.c:368
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Chyba při vytváření adresáře pro výstup: %s"
 
-#: ../src/sj-extracting.c:507
+#: ../src/sj-extracting.c:508
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Odhad zbývajícího času: %d:%02d (při %0.1f×)"
 
-#: ../src/sj-extracting.c:509
+#: ../src/sj-extracting.c:510
 msgid "Estimated time left: unknown"
 msgstr "Odhad zbývajícího času: neznámý"
 
-#: ../src/sj-extracting.c:599
+#: ../src/sj-extracting.c:600
 msgid "CD rip complete"
 msgstr "Kopírování CD dokončeno"
 
-#: ../src/sj-extracting.c:691
+#: ../src/sj-extracting.c:692
 msgid "Sound Juicer could not extract this CD."
 msgstr "Sound Juicer nemohl extrahovat toto CD."
 
-#: ../src/sj-extracting.c:693 ../src/sj-main.c:185 ../src/sj-main.c:814
-#: ../src/sj-main.c:932 ../src/sj-main.c:1033 ../src/sj-main.c:1245
-#: ../src/sj-main.c:1601
+#: ../src/sj-extracting.c:694 ../src/sj-main.c:185 ../src/sj-main.c:814
+#: ../src/sj-main.c:931 ../src/sj-main.c:1032 ../src/sj-main.c:1244
+#: ../src/sj-main.c:1600
 msgid "Reason"
 msgstr "Důvod"
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:789
+#: ../src/sj-extracting.c:790
 msgid "Stop"
 msgstr "Zastavit"
 
-#: ../src/sj-extracting.c:818 ../src/sj-extracting.c:824
+#: ../src/sj-extracting.c:819 ../src/sj-extracting.c:825
 msgid "Extracting audio from CD"
 msgstr "Extrahuji zvuk z CD"
 
@@ -737,64 +739,64 @@ msgstr "%s od %s se na serveru MusicBrainz nepodařilo nalézt."
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr "Přidáním tohoto alba můžete vylepšit databázi MusicBrainz."
 
-#: ../src/sj-main.c:812 ../src/sj-main.c:928 ../src/sj-main.c:1031
+#: ../src/sj-main.c:812 ../src/sj-main.c:927 ../src/sj-main.c:1030
 msgid "Could not read the CD"
 msgstr "Nelze číst CD"
 
-#: ../src/sj-main.c:813 ../src/sj-main.c:931
+#: ../src/sj-main.c:813 ../src/sj-main.c:930
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer nemohl přečíst seznam stop tohoto CD."
 
 #. Set statusbar message
-#: ../src/sj-main.c:902
+#: ../src/sj-main.c:901
 msgid "Retrieving track listing...please wait."
-msgstr "Získává se seznam stop... čekejte prosím."
+msgstr "Získává se seznam stop… čekejte prosím."
 
-#: ../src/sj-main.c:992
+#: ../src/sj-main.c:991
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
-msgstr "Sound Juicer nemůže použít zařízení CD-ROM '%s'"
+msgstr "Sound Juicer nemůže použít zařízení CD-ROM „%s“"
 
-#: ../src/sj-main.c:999
+#: ../src/sj-main.c:998
 msgid "HAL daemon may not be running."
 msgstr "Možná neběží démon HAL."
 
-#: ../src/sj-main.c:1024
+#: ../src/sj-main.c:1023
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
-msgstr "Sound Juicer nemohl přistupovat k zařízení CD-ROM '%s'"
+msgstr "Sound Juicer nemohl přistupovat k zařízení CD-ROM „%s“"
 
-#: ../src/sj-main.c:1123
+#: ../src/sj-main.c:1122
 msgid "No CD-ROM drives found"
 msgstr "Nenalezena mechanika CD-ROM"
 
-#: ../src/sj-main.c:1124
+#: ../src/sj-main.c:1123
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer nemohl najít mechaniku CD-ROM, ze které je možno číst."
 
-#: ../src/sj-main.c:1155
+#: ../src/sj-main.c:1154
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Aktuálně vybraný profil zvuku není ve vaší instalaci k dispozici."
 
-#: ../src/sj-main.c:1157
+#: ../src/sj-main.c:1156
 msgid "_Change Profile"
 msgstr "_Změnit profil"
 
-#: ../src/sj-main.c:1243
+#: ../src/sj-main.c:1242
 msgid "Could not open URL"
 msgstr "Nelze otevřít URL"
 
-#: ../src/sj-main.c:1244
+#: ../src/sj-main.c:1243
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer nemohl otevřít URL pro odesílání"
 
-#: ../src/sj-main.c:1353
+#: ../src/sj-main.c:1352
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Byl upraven neznámý sloupec %d"
 
-#: ../src/sj-main.c:1494 ../src/sj-prefs.c:103
+#: ../src/sj-main.c:1493 ../src/sj-prefs.c:103
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -803,49 +805,49 @@ msgstr ""
 "Nápovědu pro Sound Juicer nelze zobrazit\n"
 "%s"
 
-#: ../src/sj-main.c:1599
+#: ../src/sj-main.c:1598
 msgid "Could not duplicate disc"
 msgstr "Nelze duplikovat disk"
 
-#: ../src/sj-main.c:1600
+#: ../src/sj-main.c:1599
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Sound Juicer nemohl duplikovat tento disk"
 
-#: ../src/sj-main.c:1628
+#: ../src/sj-main.c:1627
 msgid "Start extracting immediately"
 msgstr "Začít extrahovat okamžitě"
 
-#: ../src/sj-main.c:1629
+#: ../src/sj-main.c:1628
 msgid "Start playing immediately"
 msgstr "Začít přehrávat okamžitě"
 
-#: ../src/sj-main.c:1630
+#: ../src/sj-main.c:1629
 msgid "What CD device to read"
 msgstr "Které zařízení CD číst"
 
-#: ../src/sj-main.c:1630
+#: ../src/sj-main.c:1629
 msgid "DEVICE"
 msgstr "ZAŘÍZENÍ"
 
-#: ../src/sj-main.c:1631
+#: ../src/sj-main.c:1630
 msgid "URI to the CD device to read"
 msgstr "URI CD mechaniky pro čtení"
 
-#: ../src/sj-main.c:1644
+#: ../src/sj-main.c:1643
 msgid "- Extract music from your CDs"
 msgstr "- Extrahovat hudbu z vašich CD"
 
-#: ../src/sj-main.c:1681
+#: ../src/sj-main.c:1680
 msgid "Could not create GConf client.\n"
 msgstr "Nelze vytvořit klienta GConf.\n"
 
 #. this is made up
-#: ../src/sj-main.c:1715
+#: ../src/sj-main.c:1714
 #, c-format
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Nelze přečíst soubor rozhraní pro Sound Juicer."
 
-#: ../src/sj-main.c:1783
+#: ../src/sj-main.c:1782
 msgid "Track"
 msgstr "Stopa"
 
@@ -957,3 +959,4 @@ msgstr "Číslo-umělec stopy-název stopy (malými písmeny)"
 #: ../src/sj-prefs.c:275
 msgid "Example Path"
 msgstr "Příklad umístění"
+
