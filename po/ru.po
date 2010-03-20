@@ -1,16 +1,17 @@
-# translation of ru.po to Russian
+# translation of sound-juicer.master.ru.po to Russian
 # translation of sound-juicer to Russian
 # This file is distributed under the same license as the sound-juicer package.
 #
 # Leonid Kanter <leon@asplinux.ru>, 2004, 2005, 2006, 2009.
+# Yuri Kozlov <yuray@komyakino.ru>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-11 17:52+0300\n"
-"PO-Revision-Date: 2009-10-11 17:52+0300\n"
-"Last-Translator: Leonid Kanter <leon@asplinux.ru>\n"
-"Language-Team: Russian <ru@li.org>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-juicer&component=general\n"
+"POT-Creation-Date: 2009-12-10 19:32+0000\n"
+"PO-Revision-Date: 2010-03-17 20:50+0300\n"
+"Last-Translator: Yuri Kozlov <yuray@komyakino.ru>\n"
+"Language-Team: Russian <debian-l10n-russian@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -114,7 +115,7 @@ msgid "Skip to the previous track"
 msgstr "Перейти к предыдущей дорожке"
 
 #: ../data/sound-juicer.glade.h:23 ../src/sj-main.c:139 ../src/sj-main.c:141
-#: ../src/sj-main.c:1641
+#: ../src/sj-main.c:1640
 msgid "Sound Juicer"
 msgstr "Звуковыжималка"
 
@@ -391,7 +392,7 @@ msgid "Cannot read CD"
 msgstr "Не удалось прочитать CD"
 
 #: ../libjuicer/sj-metadata-cdtext.c:93 ../libjuicer/sj-metadata-cdtext.c:114
-#: ../libjuicer/sj-metadata-gvfs.c:109 ../libjuicer/sj-metadata-gvfs.c:132
+#: ../libjuicer/sj-metadata-gvfs.c:109 ../libjuicer/sj-metadata-gvfs.c:135
 #: ../libjuicer/sj-metadata-musicbrainz.c:328 ../src/egg-play-preview.c:466
 msgid "Unknown Artist"
 msgstr "Неизвестный исполнитель"
@@ -401,12 +402,12 @@ msgstr "Неизвестный исполнитель"
 msgid "Unknown Title"
 msgstr "Неизвестный заголовок"
 
-#: ../libjuicer/sj-metadata-cdtext.c:113 ../libjuicer/sj-metadata-gvfs.c:129
+#: ../libjuicer/sj-metadata-cdtext.c:113 ../libjuicer/sj-metadata-gvfs.c:131
 #, c-format
 msgid "Track %d"
 msgstr "Дорожка %d"
 
-#: ../libjuicer/sj-metadata-getter.c:249
+#: ../libjuicer/sj-metadata-getter.c:253
 #, c-format
 msgid "Could not create CD lookup thread"
 msgstr "Не удалось создать поток просмотра CD"
@@ -416,7 +417,7 @@ msgstr "Не удалось создать поток просмотра CD"
 msgid "Cannot access CD"
 msgstr "Не удалось получить доступ к CD"
 
-#: ../libjuicer/sj-metadata-gvfs.c:150
+#: ../libjuicer/sj-metadata-gvfs.c:156
 #, c-format
 msgid "Cannot access CD: %s"
 msgstr "Не удалось получить доступ к CD: %s"
@@ -448,7 +449,7 @@ msgstr "URI"
 msgid "The URI of the audio file"
 msgstr "URI аудиофайла"
 
-#: ../src/egg-play-preview.c:175 ../src/sj-main.c:626 ../src/sj-main.c:1798
+#: ../src/egg-play-preview.c:175 ../src/sj-main.c:626 ../src/sj-main.c:1797
 msgid "Title"
 msgstr "Название"
 
@@ -456,7 +457,7 @@ msgstr "Название"
 msgid "The title of the current stream."
 msgstr "Название текущего потока."
 
-#: ../src/egg-play-preview.c:185 ../src/sj-main.c:632 ../src/sj-main.c:1807
+#: ../src/egg-play-preview.c:185 ../src/sj-main.c:632 ../src/sj-main.c:1806
 msgid "Artist"
 msgstr "Исполнитель"
 
@@ -480,7 +481,7 @@ msgstr "Положение"
 msgid "The position in the current stream in seconds."
 msgstr "Позиция в текущем потоке в секундах."
 
-#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1818
+#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1817
 msgid "Duration"
 msgstr "Продолжительность"
 
@@ -561,7 +562,7 @@ msgstr "Имя слишком длинное"
 #. TODO: find out why GTK+ needs this to work (see #364371)
 #: ../src/sj-extracting.c:227
 msgid "Extract"
-msgstr "Скопироватть"
+msgstr "Скопировать"
 
 #: ../src/sj-extracting.c:304
 msgid "A file with the same name exists"
@@ -615,8 +616,8 @@ msgid "Sound Juicer could not extract this CD."
 msgstr "Звуковыжималке не удалось скопировать этот CD."
 
 #: ../src/sj-extracting.c:694 ../src/sj-main.c:185 ../src/sj-main.c:814
-#: ../src/sj-main.c:932 ../src/sj-main.c:1033 ../src/sj-main.c:1245
-#: ../src/sj-main.c:1601
+#: ../src/sj-main.c:931 ../src/sj-main.c:1032 ../src/sj-main.c:1244
+#: ../src/sj-main.c:1600
 msgid "Reason"
 msgstr "Причина"
 
@@ -735,63 +736,63 @@ msgstr "Не удалось найти %s исполнителя %s в базе 
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr "Вы можете улучшить базу данных MusicBrainz, добавив этот альбом."
 
-#: ../src/sj-main.c:812 ../src/sj-main.c:928 ../src/sj-main.c:1031
+#: ../src/sj-main.c:812 ../src/sj-main.c:927 ../src/sj-main.c:1030
 msgid "Could not read the CD"
 msgstr "Не удалось прочитать этот CD"
 
-#: ../src/sj-main.c:813 ../src/sj-main.c:931
+#: ../src/sj-main.c:813 ../src/sj-main.c:930
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Звуковыжималке не удалось считать список дорожек с этого CD"
 
 #. Set statusbar message
-#: ../src/sj-main.c:902
+#: ../src/sj-main.c:901
 msgid "Retrieving track listing...please wait."
 msgstr "Подождите, идёт считывание списка дорожек..."
 
-#: ../src/sj-main.c:992
+#: ../src/sj-main.c:991
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Звуковыжималке не удалось использовать устройство CD-ROM «%s»"
 
-#: ../src/sj-main.c:999
+#: ../src/sj-main.c:998
 msgid "HAL daemon may not be running."
 msgstr "Возможно, служба HAL не запущена."
 
-#: ../src/sj-main.c:1024
+#: ../src/sj-main.c:1023
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Звуковыжималке не удалось получить доступ к устройству CD-ROM «%s»"
 
-#: ../src/sj-main.c:1123
+#: ../src/sj-main.c:1122
 msgid "No CD-ROM drives found"
 msgstr "Устройства CD-ROM не найдены"
 
-#: ../src/sj-main.c:1124
+#: ../src/sj-main.c:1123
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Звуковыжималке не удалось найти ни одного устройства CD-ROM."
 
-#: ../src/sj-main.c:1155
+#: ../src/sj-main.c:1154
 msgid "The currently selected audio profile is not available on your installation."
 msgstr "Выбранный звуковой профиль недоступен в вашей установке."
 
-#: ../src/sj-main.c:1157
+#: ../src/sj-main.c:1156
 msgid "_Change Profile"
 msgstr "_Изменить профиль"
 
-#: ../src/sj-main.c:1243
+#: ../src/sj-main.c:1242
 msgid "Could not open URL"
 msgstr "Не удалось открыть адрес"
 
-#: ../src/sj-main.c:1244
+#: ../src/sj-main.c:1243
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Звуковыжималке не удалось открыть URL-адрес для передачи названий дорожек"
 
-#: ../src/sj-main.c:1353
+#: ../src/sj-main.c:1352
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Был изменён неизвестный столбец %d"
 
-#: ../src/sj-main.c:1494 ../src/sj-prefs.c:103
+#: ../src/sj-main.c:1493 ../src/sj-prefs.c:103
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -800,49 +801,49 @@ msgstr ""
 "Не удалось показать справку Звуковыжималки\n"
 "%s"
 
-#: ../src/sj-main.c:1599
+#: ../src/sj-main.c:1598
 msgid "Could not duplicate disc"
 msgstr "Не удалось создать копию диска"
 
-#: ../src/sj-main.c:1600
+#: ../src/sj-main.c:1599
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Звуковыжималке не удалось изготовить копию диска"
 
-#: ../src/sj-main.c:1628
+#: ../src/sj-main.c:1627
 msgid "Start extracting immediately"
 msgstr "Начать копирование немедленно"
 
-#: ../src/sj-main.c:1629
+#: ../src/sj-main.c:1628
 msgid "Start playing immediately"
 msgstr "Начать воспроизведение немедленно"
 
-#: ../src/sj-main.c:1630
+#: ../src/sj-main.c:1629
 msgid "What CD device to read"
 msgstr "Какое CD-устройство использовать для чтения"
 
-#: ../src/sj-main.c:1630
+#: ../src/sj-main.c:1629
 msgid "DEVICE"
 msgstr "УСТРОЙСТВО"
 
-#: ../src/sj-main.c:1631
+#: ../src/sj-main.c:1630
 msgid "URI to the CD device to read"
 msgstr "CD-устройство (URI) для чтения"
 
-#: ../src/sj-main.c:1644
+#: ../src/sj-main.c:1643
 msgid "- Extract music from your CDs"
 msgstr "— копирует музыку с ваших CD"
 
-#: ../src/sj-main.c:1681
+#: ../src/sj-main.c:1680
 msgid "Could not create GConf client.\n"
 msgstr "Не удалось создать клиента GConf.\n"
 
 #. this is made up
-#: ../src/sj-main.c:1715
+#: ../src/sj-main.c:1714
 #, c-format
 msgid "The interface file for Sound Juicer could not be read."
 msgstr "Не удалось прочитать файл интерфейса Звуковыжималки."
 
-#: ../src/sj-main.c:1783
+#: ../src/sj-main.c:1782
 msgid "Track"
 msgstr "Дорожка"
 
