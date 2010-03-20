@@ -55,7 +55,7 @@ G_DEFINE_TYPE_WITH_CODE (SjMetadataCdtext, sj_metadata_cdtext,
                          G_IMPLEMENT_INTERFACE (SJ_TYPE_METADATA, metadata_iface_init));
 
 
-/**
+/*
  * Private methods
  */
 
@@ -123,7 +123,7 @@ cdtext_list_albums (SjMetadata *metadata, char **url, GError **error)
 }
 
 
-/**
+/*
  * GObject methods
  */
 
