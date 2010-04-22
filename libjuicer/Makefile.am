@@ -56,12 +56,6 @@ libjuicer_la_SOURCES += \
 	sj-metadata-musicbrainz3.c
 endif
 
-if HAVE_LIBCDIO
-libjuicer_la_SOURCES += \
-	sj-metadata-cdtext.h \
-	sj-metadata-cdtext.c
-endif
-
 #
 # Build the GValue marshals
 #
