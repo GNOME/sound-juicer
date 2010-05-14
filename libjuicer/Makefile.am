@@ -22,7 +22,6 @@ libjuicer_la_CPPFLAGS = \
 
 libjuicer_la_CFLAGS = \
 	$(WARN_CFLAGS)	\
-	$(MUSICBRAINZ_CFLAGS) \
 	$(MUSICBRAINZ3_CFLAGS) \
 	$(GSTREAMER_CFLAGS) \
 	$(MEDIA_PROFILES_CFLAGS) \
@@ -32,7 +31,6 @@ libjuicer_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libjuicer_la_LIBADD = \
-	$(MUSICBRAINZ_LIBS) \
 	$(MUSICBRAINZ3_LIBS) \
 	$(MEDIA_PROFILES_LIBS) \
 	$(GSTREAMER_LIBS) \
@@ -43,12 +41,6 @@ libjuicer_la_LIBADD = \
 libjuicer_la_LDFLAGS = \
 	-export-dynamic \
 	$(AM_LDFLAGS)
-
-if HAVE_MUSICBRAINZ
-libjuicer_la_SOURCES += \
-	sj-metadata-musicbrainz.h \
-	sj-metadata-musicbrainz.c
-endif
 
 if HAVE_MUSICBRAINZ3
 libjuicer_la_SOURCES += \

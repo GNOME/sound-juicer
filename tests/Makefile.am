@@ -12,7 +12,6 @@ mb_test_CPPFLAGS = \
 
 mb_test_CFLAGS = \
 	$(WARN_CFLAGS) \
-	$(MUSICBRAINZ_CFLAGS) \
 	$(GSTREAMER_CFLAGS) \
 	$(MEDIA_PROFILES_CFLAGS) \
 	$(BURN_CFLAGS) \
@@ -23,7 +22,6 @@ mb_test_CFLAGS = \
 mb_test_LDADD = \
 	$(BURN_LIBS) \
 	$(UI_LIBS) \
-	$(MUSICBRAINZ_LIBS) \
 	$(DBUS_LIBS) \
 	$(top_builddir)/libjuicer/libjuicer.la
 
