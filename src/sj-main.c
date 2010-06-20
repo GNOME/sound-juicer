@@ -48,7 +48,6 @@
 #include "sj-prefs.h"
 #include "sj-play.h"
 #include "sj-genres.h"
-#include "gedit-message-area.h"
 
 gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data);
 
@@ -320,12 +319,13 @@ static void number_cell_icon_data_cb (GtkTreeViewColumn *tree_column,
 
 /* Taken from gedit */
 static void
-set_message_area_text_and_icon (GeditMessageArea *message_area,
-                                const gchar   *icon_stock_id,
-                                const gchar   *primary_text,
-                                const gchar   *secondary_text,
-                                GtkWidget *button)
+set_info_bar_text_and_icon (GtkInfoBar  *infobar,
+                            const gchar *icon_stock_id,
+                            const gchar *primary_text,
+                            const gchar *secondary_text,
+                            GtkWidget   *button)
 {
+  GtkWidget *content_area;
   GtkWidget *hbox_content;
   GtkWidget *image;
   GtkWidget *vbox;
@@ -376,8 +376,8 @@ set_message_area_text_and_icon (GeditMessageArea *message_area,
                                  gtk_widget_get_accessible (secondary_label));
   }
 
-  gedit_message_area_set_contents (GEDIT_MESSAGE_AREA (message_area),
-                                   hbox_content);
+  content_area = gtk_info_bar_get_content_area (GTK_INFO_BAR (infobar));
+  gtk_container_add (GTK_CONTAINER (content_area), hbox_content);
 }
 
 /* Taken from gedit */
@@ -403,41 +403,36 @@ set_message_area (GtkWidget *container,
 }
 
 static GtkWidget*
-musicbrainz_submit_message_area_new (char *title, char *artist)
+musicbrainz_submit_info_bar_new (char *title, char *artist)
 {
-  GtkWidget *message_area, *button;
+  GtkWidget *infobar, *button;
   char *primary_text;
 
   g_return_val_if_fail (title != NULL, NULL);
   g_return_val_if_fail (artist != NULL, NULL);
 
-  message_area = gedit_message_area_new ();
-
-  button = gedit_message_area_add_button (GEDIT_MESSAGE_AREA (message_area),
-                                          _("S_ubmit Album"),
-                                          GTK_RESPONSE_OK);
-  gedit_message_area_add_button (GEDIT_MESSAGE_AREA (message_area),
-                                 GTK_STOCK_CANCEL,
-                                 GTK_RESPONSE_CANCEL);
+  infobar = gtk_info_bar_new_with_buttons (_("S_ubmit Album"), GTK_RESPONSE_OK,
+                                           GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                           NULL);
 
   /* Translators: title, artist */
   primary_text = g_strdup_printf (_("Could not find %s by %s on MusicBrainz."), title, artist);
 
-  set_message_area_text_and_icon (GEDIT_MESSAGE_AREA (message_area),
-                                  "gtk-dialog-info",
-                                  primary_text,
-                                  _("You can improve the MusicBrainz database by adding this album."),
-                                  button);
+  set_info_bar_text_and_icon (GTK_INFO_BAR (infobar),
+                              "gtk-dialog-info",
+                              primary_text,
+                              _("You can improve the MusicBrainz database by adding this album."),
+                              button);
 
   g_free (primary_text);
 
-  return message_area;
+  return infobar;
 }
 
 static void
-musicbrainz_submit_message_area_response (GeditMessageArea *message_area,
-                                          int response_id,
-                                          gpointer user_data)
+musicbrainz_submit_info_bar_response (GtkInfoBar *infobar,
+                                      int         response_id,
+                                      gpointer    user_data)
 {
   if (response_id == GTK_RESPONSE_OK) {
     on_submit_activate (NULL, NULL);
@@ -549,21 +544,21 @@ static void update_ui_for_album (AlbumDetails *album)
 
     /* If album details don't come from MusicBrainz ask user to add them */
     if (album->metadata_source != SOURCE_MUSICBRAINZ) {
-      GtkWidget *message_area;
+      GtkWidget *infobar;
 
-      message_area = musicbrainz_submit_message_area_new (album->title, album->artist);
+      infobar = musicbrainz_submit_info_bar_new (album->title, album->artist);
 
-      set_message_area (message_area_eventbox, message_area);
+      set_message_area (message_area_eventbox, infobar);
 
-      g_signal_connect (message_area,
+      g_signal_connect (infobar,
                         "response",
-                        G_CALLBACK (musicbrainz_submit_message_area_response),
+                        G_CALLBACK (musicbrainz_submit_info_bar_response),
                         NULL);
 
-      gedit_message_area_set_default_response (GEDIT_MESSAGE_AREA (message_area),
-                                               GTK_RESPONSE_CANCEL);
+      gtk_info_bar_set_default_response (GTK_INFO_BAR (infobar),
+                                         GTK_RESPONSE_CANCEL);
 
-      gtk_widget_show (message_area);
+      gtk_widget_show (infobar);
     }
   }
 }
