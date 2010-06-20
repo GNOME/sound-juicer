@@ -310,7 +310,7 @@ confirm_overwrite_existing_file (GFile *uri, int *overwrite_mode, goffset info_s
 
   filename = g_file_get_uri (uri);
   play_preview = egg_play_preview_new_with_uri (filename);
-  gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), play_preview);
+  gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), play_preview);
   g_free (filename);
 
   gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Skip"), BUTTON_SKIP);
@@ -823,7 +823,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   
   cookie = sj_inhibit (g_get_application_name (),
                        _("Extracting audio from CD"),
-                       GDK_WINDOW_XID(main_window->window));
+                       GDK_WINDOW_XID(gtk_widget_get_window (main_window)));
 
   /* Save the genre */
   save_genre (genre_entry);

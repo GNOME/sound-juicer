@@ -175,15 +175,14 @@ static void sj_debug_init (void)
 static void error_on_start (GError *error)
 {
   GtkWidget *dialog;
-  dialog = gtk_message_dialog_new (NULL, 0,
-                                   GTK_MESSAGE_ERROR,
-                                   GTK_BUTTONS_CLOSE,
-                                   "<b>%s</b>\n\n%s: %s.\n%s",
-                                   _("Could not start Sound Juicer"),
-                                   _("Reason"),
-                                   error->message,
-                                   _("Please consult the documentation for assistance."));
-  gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
+  dialog = gtk_message_dialog_new_with_markup (NULL, 0,
+                                               GTK_MESSAGE_ERROR,
+                                               GTK_BUTTONS_CLOSE,
+                                               "<b>%s</b>\n\n%s: %s.\n%s",
+                                               _("Could not start Sound Juicer"),
+                                               _("Reason"),
+                                               error->message,
+                                               _("Please consult the documentation for assistance."));
   gtk_dialog_run (GTK_DIALOG (dialog));
 }
 
@@ -789,25 +788,24 @@ static void audio_volume_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
 static void
 metadata_cb (SjMetadataGetter *m, GList *albums, GError *error)
 {
-  gboolean realized = GTK_WIDGET_REALIZED (main_window);
+  gboolean realized = gtk_widget_get_realized (main_window);
 
   if (realized)
-    gdk_window_set_cursor (main_window->window, NULL);
+    gdk_window_set_cursor (gtk_widget_get_window (main_window), NULL);
     /* Clear the statusbar message */
     gtk_statusbar_pop(GTK_STATUSBAR(status_bar), 0);
 
   if (error && !(error->code == SJ_ERROR_CD_NO_MEDIA)) {
     GtkWidget *dialog;
 
-    dialog = gtk_message_dialog_new (realized ? GTK_WINDOW (main_window) : NULL, 0,
-                                     GTK_MESSAGE_ERROR,
-                                     GTK_BUTTONS_CLOSE,
-                                     "<b>%s</b>\n\n%s\n%s: %s",
-                                     _("Could not read the CD"),
-                                     _("Sound Juicer could not read the track listing on this CD."),
-                                     _("Reason"),
-                                     error->message);
-    gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
+    dialog = gtk_message_dialog_new_with_markup (realized ? GTK_WINDOW (main_window) : NULL, 0,
+                                                 GTK_MESSAGE_ERROR,
+                                                 GTK_BUTTONS_CLOSE,
+                                                 "<b>%s</b>\n\n%s\n%s: %s",
+                                                 _("Could not read the CD"),
+                                                 _("Sound Juicer could not read the track listing on this CD."),
+                                                 _("Reason"),
+                                                 error->message);
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
     update_ui_for_album (NULL);
@@ -878,17 +876,20 @@ static void reread_cd (gboolean ignore_no_media)
   /* TODO: remove ignore_no_media? */
   GError *error = NULL;
   GdkCursor *cursor;
-  gboolean realized = GTK_WIDGET_REALIZED (main_window);
+  GdkWindow *window;
+  gboolean realized = gtk_widget_get_realized (main_window);
+
+  window = gtk_widget_get_window (main_window);
 
   /* Make sure nothing is playing */
   stop_playback ();
 
   /* Set watch cursor */
   if (realized) {
-    cursor = gdk_cursor_new_for_display (gdk_drawable_get_display (main_window->window), GDK_WATCH);
-    gdk_window_set_cursor (main_window->window, cursor);
+    cursor = gdk_cursor_new_for_display (gdk_drawable_get_display (window), GDK_WATCH);
+    gdk_window_set_cursor (window), cursor);
     gdk_cursor_unref (cursor);
-    gdk_display_sync (gdk_drawable_get_display (main_window->window));
+    gdk_display_sync (gdk_drawable_get_display (window)));
   }
 
   /* Set statusbar message */
@@ -906,7 +907,7 @@ static void reread_cd (gboolean ignore_no_media)
     update_ui_for_album (NULL);
     gtk_statusbar_pop(GTK_STATUSBAR(status_bar), 0);
     if (realized)
-      gdk_window_set_cursor (main_window->window, NULL);
+      gdk_window_set_cursor (window, NULL);
     return;
   }
 
@@ -919,13 +920,12 @@ static void reread_cd (gboolean ignore_no_media)
                                      GTK_MESSAGE_ERROR,
                                      GTK_BUTTONS_CLOSE,
                                      "%s", _("Could not read the CD"));
-    gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
-                                              "%s\n%s: %s",
-                                              _("Sound Juicer could not read the track listing on this CD."),
-                                              _("Reason"),
-                                              error->message);
+    gtk_message_dialog_format_secondary_markup (GTK_MESSAGE_DIALOG (dialog),
+                                                "%s\n%s: %s",
+                                                _("Sound Juicer could not read the track listing on this CD."),
+                                                _("Reason"),
+                                                error->message);
 
-    gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
     g_error_free (error);
@@ -983,15 +983,14 @@ set_drive_from_device (const char *device)
     GtkWidget *dialog;
     char *message;
     message = g_strdup_printf (_("Sound Juicer could not use the CD-ROM device '%s'"), device);
-    dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
-                                     GTK_DIALOG_DESTROY_WITH_PARENT,
-                                     GTK_MESSAGE_ERROR,
-                                     GTK_BUTTONS_CLOSE,
-                                     "<b>%s</b>\n\n%s",
-                                     message,
-                                     _("HAL daemon may not be running."));
+    dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (main_window),
+                                                 GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                 GTK_MESSAGE_ERROR,
+                                                 GTK_BUTTONS_CLOSE,
+                                                 "<b>%s</b>\n\n%s",
+                                                 message,
+                                                 _("HAL daemon may not be running."));
     g_free (message);
-    gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
     return;
@@ -1016,18 +1015,17 @@ set_device (const char* device, gboolean ignore_no_media)
     error = g_strerror (errno);
     message = g_strdup_printf (_("Sound Juicer could not access the CD-ROM device '%s'"), device);
 
-    dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
-                                     GTK_DIALOG_DESTROY_WITH_PARENT,
-                                     GTK_MESSAGE_ERROR,
-                                     GTK_BUTTONS_CLOSE,
-                                     "<b>%s</b>\n\n%s\n%s: %s",
-                                     _("Could not read the CD"),
-                                     message,
-                                     _("Reason"),
-                                     error);
+    dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (main_window),
+                                                 GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                 GTK_MESSAGE_ERROR,
+                                                 GTK_BUTTONS_CLOSE,
+                                                 "<b>%s</b>\n\n%s\n%s: %s",
+                                                 _("Could not read the CD"),
+                                                 message,
+                                                 _("Reason"),
+                                                 error);
     g_free (message);
 
-    gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
 
@@ -1108,14 +1106,13 @@ static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *e
     if (device == NULL) {
 #ifndef IGNORE_MISSING_CD
       GtkWidget *dialog;
-      dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
-                                       GTK_DIALOG_DESTROY_WITH_PARENT,
-                                       GTK_MESSAGE_ERROR,
-                                       GTK_BUTTONS_CLOSE,
-                                       "<b>%s</b>\n\n%s",
-                                       _("No CD-ROM drives found"),
-                                       _("Sound Juicer could not find any CD-ROM drives to read."));
-      gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
+      dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (main_window),
+                                                   GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                   GTK_MESSAGE_ERROR,
+                                                   GTK_BUTTONS_CLOSE,
+                                                   "<b>%s</b>\n\n%s",
+                                                   _("No CD-ROM drives found"),
+                                                   _("Sound Juicer could not find any CD-ROM drives to read."));
       gtk_dialog_run (GTK_DIALOG (dialog));
       gtk_widget_destroy (dialog);
       exit (1);
@@ -1228,16 +1225,15 @@ G_MODULE_EXPORT void on_submit_activate (GtkWidget *menuitem, gpointer user_data
       if (!gtk_show_uri (NULL, current_submit_url, GDK_CURRENT_TIME, &error)) {
       GtkWidget *dialog;
 
-      dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
-                                       GTK_DIALOG_DESTROY_WITH_PARENT,
-                                       GTK_MESSAGE_ERROR,
-                                       GTK_BUTTONS_CLOSE,
-                                       "<b>%s</b>\n\n%s\n%s: %s",
-                                       _("Could not open URL"),
-                                       _("Sound Juicer could not open the submission URL"),
-                                       _("Reason"),
-                                       error->message);
-      gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
+      dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (main_window),
+                                                   GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                   GTK_MESSAGE_ERROR,
+                                                   GTK_BUTTONS_CLOSE,
+                                                   "<b>%s</b>\n\n%s\n%s: %s",
+                                                   _("Could not open URL"),
+                                                   _("Sound Juicer could not open the submission URL"),
+                                                   _("Reason"),
+                                                   error->message);
       gtk_dialog_run (GTK_DIALOG (dialog));
       gtk_widget_destroy (dialog);
       g_error_free (error);
@@ -1584,16 +1580,15 @@ G_MODULE_EXPORT void on_duplicate_activate (GtkWidget *button, gpointer user_dat
   if (!g_spawn_command_line_async (g_strconcat ("brasero -c ", device, NULL), &error)) {
       GtkWidget *dialog;
 
-      dialog = gtk_message_dialog_new (GTK_WINDOW (main_window),
-                                       GTK_DIALOG_DESTROY_WITH_PARENT,
-                                       GTK_MESSAGE_ERROR,
-                                       GTK_BUTTONS_CLOSE,
-                                       "<b>%s</b>\n\n%s\n%s: %s",
-                                       _("Could not duplicate disc"),
-                                       _("Sound Juicer could not duplicate the disc"),
-                                       _("Reason"),
-                                       error->message);
-      gtk_label_set_use_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (dialog)->label), TRUE);
+      dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (main_window),
+                                                   GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                   GTK_MESSAGE_ERROR,
+                                                   GTK_BUTTONS_CLOSE,
+                                                   "<b>%s</b>\n\n%s\n%s: %s",
+                                                   _("Could not duplicate disc"),
+                                                   _("Sound Juicer could not duplicate the disc"),
+                                                   _("Reason"),
+                                                   error->message);
       gtk_dialog_run (GTK_DIALOG (dialog));
       gtk_widget_destroy (dialog);
       g_error_free (error);
