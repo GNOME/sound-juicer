@@ -887,9 +887,9 @@ static void reread_cd (gboolean ignore_no_media)
   /* Set watch cursor */
   if (realized) {
     cursor = gdk_cursor_new_for_display (gdk_drawable_get_display (window), GDK_WATCH);
-    gdk_window_set_cursor (window), cursor);
+    gdk_window_set_cursor (window, cursor);
     gdk_cursor_unref (cursor);
-    gdk_display_sync (gdk_drawable_get_display (window)));
+    gdk_display_sync (gdk_drawable_get_display (window));
   }
 
   /* Set statusbar message */
