@@ -45,7 +45,7 @@ AC_SUBST(GLIB_CFLAGS)
 AC_SUBST(GLIB_LIBS)
 
 # Find libbrasero-media
-PKG_CHECK_MODULES(BURN, libbrasero-media >= 2.26)
+PKG_CHECK_MODULES(BURN, libbrasero-media3)
 AC_SUBST(BURN_CFLAGS)
 AC_SUBST(BURN_LIBS)
 
@@ -56,7 +56,7 @@ LIBS="$LIBS $BURN_LIBS"
 # LIBS="$oldlibs"
 
 # Find the UI libraries
-PKG_CHECK_MODULES(UI, gtk+-2.0 >= 2.20 gconf-2.0 gio-2.0 gmodule-export-2.0 dbus-glib-1 libcanberra-gtk)
+PKG_CHECK_MODULES(UI, gtk+-3.0 gconf-2.0 gio-2.0 gmodule-export-2.0 dbus-glib-1 libcanberra-gtk3)
 AC_SUBST(UI_CFLAGS)
 AC_SUBST(UI_LIBS)
 
@@ -71,7 +71,7 @@ AM_GST_ELEMENT_CHECK(wavenc,,AC_MSG_WARN([The 'wavenc' element was not found. Th
 AM_GST_ELEMENT_CHECK(giosink,,AC_MSG_WARN([The 'giosink' element was not found. This will cause Sound Juicer to fail at runtime.]))
 
 # Find GNOME Media Profiles
-PKG_CHECK_MODULES(MEDIA_PROFILES, gnome-media-profiles >= 2.11.91)
+PKG_CHECK_MODULES(MEDIA_PROFILES, gnome-media-profiles-3.0 >= 2.11.91)
 AC_SUBST(MEDIA_PROFILES_CFLAGS)
 AC_SUBST(MEDIA_PROFILES_LIBS)
 
