@@ -113,7 +113,7 @@ sj_stock_init (void)
 
   static const GtkStockItem sj_stock_items[] =
   {
-    { SJ_STOCK_EXTRACT, N_("E_xtract"), GDK_CONTROL_MASK, GDK_Return, NULL }
+    { SJ_STOCK_EXTRACT, N_("E_xtract"), GDK_CONTROL_MASK, GDK_KEY_Return, NULL }
   };
 
   if (initialized)
