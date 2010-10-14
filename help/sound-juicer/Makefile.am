@@ -5,4 +5,4 @@ DOC_MODULE = sound-juicer
 DOC_ENTITIES = 
 DOC_INCLUDES = legal.xml
 
-DOC_LINGUAS = ar ca cs de el en_GB es eu fr ja nl oc pl pt_BR ru sv uk zh_CN
+DOC_LINGUAS = ar ca cs de el en_GB es eu fr ja nl oc pl pt_BR ru sl sv uk zh_CN
