@@ -33,7 +33,7 @@
 #include <gconf/gconf-client.h>
 #include <brasero-medium-selection.h>
 #include <brasero-volume.h>
-#include <profiles/gnome-media-profiles.h>
+#include <libgnome-media-profiles/gnome-media-profiles.h>
 #include <gst/gst.h>
 
 #include "bacon-message-connection.h"
@@ -886,10 +886,10 @@ static void reread_cd (gboolean ignore_no_media)
 
   /* Set watch cursor */
   if (realized) {
-    cursor = gdk_cursor_new_for_display (gdk_drawable_get_display (window), GDK_WATCH);
+    cursor = gdk_cursor_new_for_display (gtk_widget_get_display (GTK_WIDGET (window)), GDK_WATCH);
     gdk_window_set_cursor (window, cursor);
     gdk_cursor_unref (cursor);
-    gdk_display_sync (gdk_drawable_get_display (window));
+    gdk_display_sync (gtk_widget_get_display (GTK_WIDGET (window)));
   }
 
   /* Set statusbar message */

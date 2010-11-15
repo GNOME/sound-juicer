@@ -25,7 +25,7 @@
 #include <string.h>
 #include <gtk/gtk.h>
 #include <gconf/gconf-client.h>
-#include <profiles/gnome-media-profiles.h>
+#include <libgnome-media-profiles/gnome-media-profiles.h>
 #include <brasero-drive-selection.h>
 
 #include "sj-util.h"

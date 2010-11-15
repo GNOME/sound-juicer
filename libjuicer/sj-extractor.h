@@ -26,7 +26,7 @@
 #include <glib.h>
 #include <glib-object.h>
 #include <gio/gio.h>
-#include <profiles/audio-profile.h>
+#include <libgnome-media-profiles/audio-profile.h>
 #include "sj-structures.h"
 
 G_BEGIN_DECLS

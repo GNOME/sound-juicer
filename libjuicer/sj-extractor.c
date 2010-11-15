@@ -30,7 +30,7 @@
 #include <glib-object.h>
 #include <gst/gst.h>
 #include <gst/tag/tag.h>
-#include <profiles/gnome-media-profiles.h>
+#include <libgnome-media-profiles/gnome-media-profiles.h>
 #include "sj-extractor.h"
 #include "sj-structures.h"
 #include "sj-error.h"
