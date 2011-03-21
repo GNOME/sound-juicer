@@ -21,7 +21,7 @@ icons = \
 	sound-juicer-24.png \
 	sound-juicer-32.png \
 	sound-juicer-48.png \
-	sound-juicer.svg
+	sound-juicer-256.png
 
 install-icons:
 	for icon in $(icons); do \
