@@ -21,6 +21,10 @@
  * Authors: Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include <dbus/dbus-glib.h>
  
 #include "sj-inhibit.h"

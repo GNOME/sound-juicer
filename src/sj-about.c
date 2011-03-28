@@ -20,6 +20,10 @@
  * Authors: Ross Burton <ross@burtonini.com>
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "sound-juicer.h"
 
 #include <gtk/gtk.h>

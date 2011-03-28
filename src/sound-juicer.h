@@ -23,10 +23,6 @@
 #ifndef SOUND_JUICER_H
 #define SOUND_JUICER_H
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif /* HAVE_CONFIG_H */
-
 #include <glib/gi18n.h>
 #include <brasero-medium-selection.h>
 #include <gconf/gconf-client.h>

@@ -22,6 +22,10 @@
  * Authors: Luca Cavalli <luca.cavalli@gmail.com>
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <gst/gst.h>

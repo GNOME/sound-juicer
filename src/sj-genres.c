@@ -20,6 +20,10 @@
  * Authors: Jonh Wendell <wendell@bani.com.br>
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include <string.h>
 #include <stdlib.h>
 #include <glib/gi18n.h>
@@ -188,4 +192,4 @@ void save_genre (GtkWidget *entry) {
 
   setup_genre_entry (entry);
 }
-/* vim: ts=8 */
+
