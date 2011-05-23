@@ -377,10 +377,8 @@ egg_play_preview_get_property (GObject     *object,
 							   GParamSpec  *pspec)
 {
 	EggPlayPreview *play_preview;
-	EggPlayPreviewPrivate *priv;
 
 	play_preview = EGG_PLAY_PREVIEW (object);
-	priv = GET_PRIVATE (play_preview);
 
 	switch (prop_id) {
     case PROP_URI:
