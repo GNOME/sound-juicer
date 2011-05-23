@@ -77,7 +77,7 @@ PKG_CHECK_MODULES(MEDIA_PROFILES, libgnome-media-profiles-3.0)
 AC_SUBST(MEDIA_PROFILES_CFLAGS)
 AC_SUBST(MEDIA_PROFILES_LIBS)
 
-# Find optional MusicBrainz3 and required Musicbrainz2
+# Find required MusicBrainz3
 PKG_CHECK_MODULES(MUSICBRAINZ3, libmusicbrainz3 >= 3.0.2, [have_mb3=yes], [have_mb3=no])
 AC_SUBST(MUSICBRAINZ3_CFLAGS)
 AC_SUBST(MUSICBRAINZ3_LIBS)

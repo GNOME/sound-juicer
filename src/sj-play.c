@@ -49,15 +49,12 @@ static gboolean
 select_track (void)
 {
   GstStateChangeReturn ret;
-  GstElement *cd;
 
   if (!gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
                                      &current_iter, NULL, seek_to_track)) {
     g_warning (G_STRLOC ": cannot get nth child");
     return FALSE;
   }
-
-  cd = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "cd-source");
 
   ret = gst_element_set_state (pipeline, GST_STATE_PAUSED);
   if (ret == GST_STATE_CHANGE_FAILURE) {
@@ -509,11 +506,10 @@ G_MODULE_EXPORT void
 on_previous_track_activate(GtkWidget *button, gpointer data)
 {
   GtkTreeModel *model;
-  gint tracks, prev_track = current_track - 1;
+  gint prev_track = current_track - 1;
   GtkTreeIter prev_iter;
 
   model = GTK_TREE_MODEL (track_store);
-  tracks = gtk_tree_model_iter_n_children (model, NULL);
 
   while (prev_track >= 0) {
     gboolean do_play;
@@ -623,9 +619,7 @@ G_MODULE_EXPORT gboolean
 on_seek_release (GtkWidget * scale, GdkEventButton * event, gpointer user_data)
 {
   gdouble val = gtk_range_get_value (GTK_RANGE (scale));
-  GstElement *cd;
 
-  cd = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "cd-source");
   seeking = FALSE;
 
   gst_element_seek (pipeline, 1.0, GST_FORMAT_TIME, GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, slen * val, GST_SEEK_TYPE_NONE, -1);
