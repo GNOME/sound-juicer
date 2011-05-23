@@ -57,7 +57,7 @@ uninstall-icons:
 
 install-data-local: install-icons
 if GCONF_SCHEMAS_INSTALL
-	if test -z "$(DESTDIR)" ; then \
+	@if test -z "$(DESTDIR)" ; then \
 		for p in $(schema_DATA) ; do \
 			GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $$p 2>&1 > /dev/null; \
 		done \
