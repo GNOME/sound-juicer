@@ -64,6 +64,7 @@ typedef enum {
   BUTTON_SKIP_ALL = 2,
   BUTTON_OVERWRITE = 3,
   BUTTON_OVERWRITE_ALL = 4,
+  BUTTON_DELETE_EVENT = GTK_RESPONSE_DELETE_EVENT,
 } OverwriteDialogResponse;
 
 /* files smaller than this are assumed to be corrupt */
@@ -336,7 +337,7 @@ confirm_overwrite_existing_file (GFile *uri, int *overwrite_mode, goffset info_s
       return FALSE;
       break;
     case BUTTON_SKIP:
-    case GTK_RESPONSE_DELETE_EVENT:
+    case BUTTON_DELETE_EVENT:
     default:
       return FALSE;
       break;
