@@ -1,5 +1,5 @@
 /*
- * sj-metadata-musicbrainz3.c
+ * sj-metadata-musicbrainz4.c
  * Copyright (C) 2008 Ross Burton <ross@burtonini.com>
  * Copyright (C) 2008 Bastien Nocera <hadess@hadess.net>
  *
@@ -28,9 +28,9 @@
 #include <glib.h>
 #include <glib-object.h>
 #include <gconf/gconf-client.h>
-#include <musicbrainz3/mb_c.h>
+#include <musicbrainz4/mb_c.h>
 
-#include "sj-metadata-musicbrainz3.h"
+#include "sj-metadata-musicbrainz4.h"
 #include "sj-structures.h"
 #include "sj-error.h"
 
@@ -79,10 +79,10 @@ typedef struct {
   /* Proxy */
   char *http_proxy;
   int http_proxy_port;
-} SjMetadataMusicbrainz3Private;
+} SjMetadataMusicbrainz4Private;
 
 #define GET_PRIVATE(o)  \
-  (G_TYPE_INSTANCE_GET_PRIVATE ((o), SJ_TYPE_METADATA_MUSICBRAINZ3, SjMetadataMusicbrainz3Private))
+  (G_TYPE_INSTANCE_GET_PRIVATE ((o), SJ_TYPE_METADATA_MUSICBRAINZ4, SjMetadataMusicbrainz4Private))
 
 enum {
   PROP_0,
@@ -94,8 +94,8 @@ enum {
 
 static void metadata_interface_init (gpointer g_iface, gpointer iface_data);
 
-G_DEFINE_TYPE_WITH_CODE (SjMetadataMusicbrainz3,
-                         sj_metadata_musicbrainz3,
+G_DEFINE_TYPE_WITH_CODE (SjMetadataMusicbrainz4,
+                         sj_metadata_musicbrainz4,
                          G_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (SJ_TYPE_METADATA,
                                                 metadata_interface_init));
@@ -226,7 +226,7 @@ get_release_includes (void)
 static GList *
 mb_list_albums (SjMetadata *metadata, char **url, GError **error)
 {
-  SjMetadataMusicbrainz3Private *priv;
+  SjMetadataMusicbrainz4Private *priv;
   GList *albums = NULL;
   MbQuery query;
   MbReleaseFilter filter;
@@ -235,7 +235,7 @@ mb_list_albums (SjMetadata *metadata, char **url, GError **error)
   char *id = NULL;
   char buffer[1024];
   int i;
-  g_return_val_if_fail (SJ_IS_METADATA_MUSICBRAINZ3 (metadata), NULL);
+  g_return_val_if_fail (SJ_IS_METADATA_MUSICBRAINZ4 (metadata), NULL);
 
   priv = GET_PRIVATE (metadata);
 
@@ -315,12 +315,12 @@ metadata_interface_init (gpointer g_iface, gpointer iface_data)
 }
 
 static void
-sj_metadata_musicbrainz3_init (SjMetadataMusicbrainz3 *self)
+sj_metadata_musicbrainz4_init (SjMetadataMusicbrainz4 *self)
 {
   GConfClient *gconf_client;
   gchar *server_name;
 
-  SjMetadataMusicbrainz3Private *priv;
+  SjMetadataMusicbrainz4Private *priv;
 
   priv = GET_PRIVATE (self);
 
@@ -365,10 +365,10 @@ sj_metadata_musicbrainz3_init (SjMetadataMusicbrainz3 *self)
 }
 
 static void
-sj_metadata_musicbrainz3_get_property (GObject *object, guint property_id,
+sj_metadata_musicbrainz4_get_property (GObject *object, guint property_id,
                                        GValue *value, GParamSpec *pspec)
 {
-  SjMetadataMusicbrainz3Private *priv = GET_PRIVATE (object);
+  SjMetadataMusicbrainz4Private *priv = GET_PRIVATE (object);
   g_assert (priv);
 
   switch (property_id) {
@@ -387,10 +387,10 @@ sj_metadata_musicbrainz3_get_property (GObject *object, guint property_id,
 }
 
 static void
-sj_metadata_musicbrainz3_set_property (GObject *object, guint property_id,
+sj_metadata_musicbrainz4_set_property (GObject *object, guint property_id,
                                        const GValue *value, GParamSpec *pspec)
 {
-  SjMetadataMusicbrainz3Private *priv = GET_PRIVATE (object);
+  SjMetadataMusicbrainz4Private *priv = GET_PRIVATE (object);
   g_assert (priv);
 
   switch (property_id) {
@@ -417,31 +417,31 @@ sj_metadata_musicbrainz3_set_property (GObject *object, guint property_id,
 }
 
 static void
-sj_metadata_musicbrainz3_finalize (GObject *object)
+sj_metadata_musicbrainz4_finalize (GObject *object)
 {
-  SjMetadataMusicbrainz3Private *priv;
+  SjMetadataMusicbrainz4Private *priv;
   
   priv = GET_PRIVATE (object);
 
   if (priv->mb != NULL) {
-    mb_webservice_free (priv->mb);
+    mb4_query_delete (priv->mb);
     priv->mb = NULL;
   }
   g_free (priv->cdrom);
 
-  G_OBJECT_CLASS (sj_metadata_musicbrainz3_parent_class)->finalize (object);
+  G_OBJECT_CLASS (sj_metadata_musicbrainz4_parent_class)->finalize (object);
 }
 
 static void
-sj_metadata_musicbrainz3_class_init (SjMetadataMusicbrainz3Class *class)
+sj_metadata_musicbrainz4_class_init (SjMetadataMusicbrainz4Class *class)
 {
   GObjectClass *object_class = (GObjectClass*)class;
 
-  g_type_class_add_private (class, sizeof (SjMetadataMusicbrainz3Private));
+  g_type_class_add_private (class, sizeof (SjMetadataMusicbrainz4Private));
 
-  object_class->get_property = sj_metadata_musicbrainz3_get_property;
-  object_class->set_property = sj_metadata_musicbrainz3_set_property;
-  object_class->finalize = sj_metadata_musicbrainz3_finalize;
+  object_class->get_property = sj_metadata_musicbrainz4_get_property;
+  object_class->set_property = sj_metadata_musicbrainz4_set_property;
+  object_class->finalize = sj_metadata_musicbrainz4_finalize;
 
   g_object_class_override_property (object_class, PROP_DEVICE, "device");
   g_object_class_override_property (object_class, PROP_PROXY_HOST, "proxy-host");
@@ -454,7 +454,7 @@ sj_metadata_musicbrainz3_class_init (SjMetadataMusicbrainz3Class *class)
  */
 
 GObject *
-sj_metadata_musicbrainz3_new (void)
+sj_metadata_musicbrainz4_new (void)
 {
-  return g_object_new (SJ_TYPE_METADATA_MUSICBRAINZ3, NULL);
+  return g_object_new (SJ_TYPE_METADATA_MUSICBRAINZ4, NULL);
 }
