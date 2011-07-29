@@ -24,7 +24,6 @@ libjuicer_la_CPPFLAGS = \
 
 libjuicer_la_CFLAGS = \
 	$(WARN_CFLAGS)	\
-	$(MUSICBRAINZ3_CFLAGS) \
 	$(GSTREAMER_CFLAGS) \
 	$(BURN_CFLAGS) \
 	$(UI_CFLAGS) \
@@ -32,7 +31,6 @@ libjuicer_la_CFLAGS = \
 	$(AM_CFLAGS)
 
 libjuicer_la_LIBADD = \
-	$(MUSICBRAINZ3_LIBS) \
 	$(GSTREAMER_LIBS) \
 	$(BURN_LIBS) \
 	$(UI_LIBS) \
@@ -46,7 +44,18 @@ if HAVE_MUSICBRAINZ3
 libjuicer_la_SOURCES += \
 	sj-metadata-musicbrainz3.h \
 	sj-metadata-musicbrainz3.c
+libjuicer_la_LIBADD += $(MUSICBRAINZ3_LIBS)
+libjuicer_la_CFLAGS += $(MUSICBRAINZ3_CFLAGS)
 endif
+
+if HAVE_MUSICBRAINZ4
+libjuicer_la_SOURCES += \
+	sj-metadata-musicbrainz4.h \
+	sj-metadata-musicbrainz4.c
+libjuicer_la_LIBADD += $(MUSICBRAINZ4_LIBS)
+libjuicer_la_CFLAGS += $(MUSICBRAINZ4_CFLAGS)
+endif
+
 
 #
 # Build the GValue marshals
