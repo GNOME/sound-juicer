@@ -494,10 +494,14 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_entry_set_text (GTK_ENTRY (title_entry), album->title);
     gtk_entry_set_text (GTK_ENTRY (artist_entry), album->artist);
     if (album->disc_number) {
-      gtk_entry_set_text (GTK_ENTRY (disc_number_entry), g_strdup_printf ("%d", album->disc_number));
+      gchar *disc_number = g_strdup_printf ("%d", album->disc_number);
+      gtk_entry_set_text (GTK_ENTRY (disc_number_entry), disc_number);
+      g_free (disc_number);
     }
     if (album->release_date && g_date_valid (album->release_date)) {
-      gtk_entry_set_text (GTK_ENTRY (year_entry), g_strdup_printf ("%d", g_date_get_year (album->release_date)));
+      gchar *release_date =  g_strdup_printf ("%d", g_date_get_year (album->release_date));
+      gtk_entry_set_text (GTK_ENTRY (year_entry), release_date);
+      g_free (release_date);
     }
     g_signal_handlers_unblock_by_func (title_entry, on_title_edit_changed, NULL);
     g_signal_handlers_unblock_by_func (artist_entry, on_artist_edit_changed, NULL);
