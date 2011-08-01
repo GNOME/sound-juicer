@@ -392,6 +392,11 @@ make_album_from_release (Mb4Release release, Mb4Medium medium)
   if (group) {
     GET (mb4_album->type, mb4_releasegroup_get_type, group);
     GET (mb4_album->comment, mb4_releasegroup_get_comment, group);
+    if (g_str_has_suffix (mb4_album->type, "Spokenword")
+        || g_str_has_suffix (mb4_album->type, "Interview")
+        || g_str_has_suffix (mb4_album->type, "Audiobook")) {
+      album->is_spoken_word = TRUE;
+    }
   }
   GET(mb4_album->format, mb4_medium_get_format, medium);
 
@@ -412,22 +417,6 @@ make_album_from_release (Mb4Release release, Mb4Medium medium)
   }
 #else
   g_warning("Relations not handled");
-#endif
-
-#if 0
-  for (i = 0; i < mb_release_get_num_types (release); i++) {
-    mb_release_get_type (release, i, buffer, sizeof(buffer));
-
-    if (g_str_has_suffix (buffer, "#Spokenword")
-    	|| g_str_has_suffix (buffer, "#Interview")
-    	|| g_str_has_suffix (buffer, "#Audiobook")) {
-      album->is_spoken_word = TRUE;
-      break;
-    }
-  }
-#else
-  /* If it ReleaseGroup::type that we want or something else? */
-  g_warning("Recording type not handled");
 #endif
 
   album->disc_number = mb4_medium_get_position (medium);
