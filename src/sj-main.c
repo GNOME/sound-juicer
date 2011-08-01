@@ -1761,6 +1761,7 @@ int main (int argc, char **argv)
                               fake_button2);
 
     gtk_size_group_add_widget (size_group, play_button);
+    g_object_unref (G_OBJECT (size_group));
   }
 
   setup_genre_entry (genre_entry);
