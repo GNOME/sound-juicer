@@ -71,7 +71,7 @@ AM_GST_ELEMENT_CHECK(wavenc,,AC_MSG_WARN([The 'wavenc' element was not found. Th
 AM_GST_ELEMENT_CHECK(giosink,,AC_MSG_WARN([The 'giosink' element was not found. This will cause Sound Juicer to fail at runtime.]))
 
 # Find optional MusicBrainz4
-PKG_CHECK_MODULES(MUSICBRAINZ4, libmusicbrainz4, [have_mb4=yes], [have_mb4=no])
+PKG_CHECK_MODULES(MUSICBRAINZ4, libmusicbrainz4 libdiscid, [have_mb4=yes], [have_mb4=no])
 AC_SUBST(MUSICBRAINZ4_CFLAGS)
 AC_SUBST(MUSICBRAINZ4_LIBS)
 if test "$have_mb4" = "yes" ; then

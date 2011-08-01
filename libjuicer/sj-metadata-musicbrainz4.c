@@ -29,6 +29,7 @@
 #include <glib.h>
 #include <glib-object.h>
 #include <gconf/gconf-client.h>
+#include <discid/discid.h>
 #include <musicbrainz4/mb4_c.h>
 
 #include "sj-metadata-musicbrainz4.h"
@@ -76,6 +77,7 @@
 
 typedef struct {
   Mb4Query mb;
+  DiscId *disc;
   char *cdrom;
   /* Proxy */
   char *http_proxy;
@@ -437,51 +439,40 @@ mb4_list_albums (SjMetadata *metadata, char **url, GError **error)
   GList *albums = NULL;
   Mb4ReleaseList releases;
   Mb4Release release;
-  char *discid = NULL;
+  const char *discid = NULL;
   char buffer[1024];
   int i;
   g_return_val_if_fail (SJ_IS_METADATA_MUSICBRAINZ4 (metadata), NULL);
 
   priv = GET_PRIVATE (metadata);
 
-#if 0
   if (sj_metadata_helper_check_media (priv->cdrom, error) == FALSE) {
     return NULL;
   }
-#endif
 
-#if 0
-  priv->disc = mb_read_disc (priv->cdrom);
+  priv->disc = discid_new ();
   if (priv->disc == NULL)
     return NULL;
+  if (discid_read (priv->disc, priv->cdrom) == 0)
+    return NULL;
 
-  if (url != NULL) {
-    mb_get_submission_url (priv->disc, NULL, 0, buffer, sizeof (buffer));
-    *url = g_strdup (buffer);
-  }
-#endif
-  g_warning("no reading of disc");
-  /* priv->disc = NULL; */
-  g_warning("no setting of url");
-  *url = NULL;
+  if (url != NULL)
+    *url = g_strdup (discid_get_submission_url (priv->disc));
 
   if (g_getenv("MUSICBRAINZ_FORCE_DISC_ID")) {
-    discid = g_strdup (g_getenv("MUSICBRAINZ_FORCE_DISC_ID"));
+    discid = g_getenv("MUSICBRAINZ_FORCE_DISC_ID");
   } else {
-    g_warning("no MusicBrainz ID, use MISICBRAINZ_FORCE_DISC_ID");
-    //GET(discid, mb_disc_get_id, priv->disc);
+    discid = discid_get_id (priv->disc);
   }
 
   releases = mb4_query_lookup_discid(priv->mb, discid);
 
   if (releases == NULL) {
-    g_free (discid);
     return NULL;
   }
 
   if (mb4_release_list_size (releases) == 0) {
     mb4_release_list_delete (releases);
-    g_free (discid);
     return NULL;
   }
 
@@ -520,7 +511,6 @@ mb4_list_albums (SjMetadata *metadata, char **url, GError **error)
     }
   }
   mb4_release_list_delete (releases);
-  g_free (discid);
   return albums;
 }
 
@@ -643,12 +633,16 @@ static void
 sj_metadata_musicbrainz4_finalize (GObject *object)
 {
   SjMetadataMusicbrainz4Private *priv;
-  
+
   priv = GET_PRIVATE (object);
 
   if (priv->mb != NULL) {
     mb4_query_delete (priv->mb);
     priv->mb = NULL;
+  }
+  if (priv->disc != NULL) {
+      discid_free (priv->disc);
+      priv->disc = NULL;
   }
   g_free (priv->cdrom);
 
