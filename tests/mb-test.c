@@ -75,7 +75,8 @@ metadata_cb (SjMetadataGetter *metadata, GList *albums, const GError *error)
     if (album->is_spoken_word)
       g_print ("Is spoken word\n");
     disc_number = g_strdup_printf (" (Disc %d)", album->disc_number);
-    g_print ("'%s', by %s%s\n", album->title, album->artist, album->disc_number ? disc_number : "");
+    g_print ("'%s', by %s%s, released %d-%02d-%02d\n", album->title, album->artist, album->disc_number ? disc_number : "",
+             g_date_get_year (album->release_date), g_date_get_month (album->release_date), g_date_get_day (album->release_date));
     g_free (disc_number);
     while (album->tracks) {
       TrackDetails *track = (TrackDetails*)album->tracks->data;
