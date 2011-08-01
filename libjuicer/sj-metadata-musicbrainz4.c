@@ -115,6 +115,7 @@ struct _SjMb4AlbumDetails {
     char *type;
     char *comment;
     char *format;
+    char *lyrics_url;
 };
 typedef struct _SjMb4AlbumDetails SjMb4AlbumDetails;
 
@@ -159,6 +160,7 @@ sj_mb4_album_details_free (SjMb4AlbumDetails *details)
   g_free (details->type);
   g_free (details->comment);
   g_free (details->format);
+  g_free (details->lyrics_url);
   g_list_foreach (details->parent.tracks, (GFunc)sj_mb4_track_details_free, NULL);
   g_list_free (details->parent.tracks);
   /* prevent album_details_free from double-freeing ::tracks */
@@ -188,6 +190,8 @@ sj_mb4_album_details_dump (SjMb4AlbumDetails *details)
     g_print ("Comment: %s\n", details->comment);
   if (details->format)
     g_print ("Format: %s\n", details->format);
+  if (details->lyrics_url)
+    g_print ("Lyrics URL: %s\n", details->lyrics_url);
 }
 #else
 #define sj_mb4_album_details_dump(...)
@@ -276,6 +280,53 @@ get_artist_info (GList *artists, char **name, char **sortname, char **id)
   g_string_free (artist_name, FALSE);
 }
 
+
+static void
+fill_relations (Mb4RelationList relations, SjMb4AlbumDetails *mb4_album)
+{
+  unsigned int i;
+
+  for (i = 0; i < mb4_relation_list_size (relations); i++) {
+    Mb4Relation relation;
+    char buffer[512]; /* for the GET() macro */
+    char *type = NULL;
+
+    relation = mb4_relation_list_item (relations, i);
+    if (relation == NULL)
+      continue;
+
+    GET (type, mb4_relation_get_type, relation);
+    if (type == NULL) {
+      mb4_relation_delete (relation);
+      continue;
+    }
+    if (g_str_equal (type, "wikipedia")) {
+      char *wikipedia = NULL;
+      GET (wikipedia, mb4_relation_get_target, relation);
+      if (wikipedia != NULL) {
+          g_free (mb4_album->parent.wikipedia);
+          mb4_album->parent.wikipedia = wikipedia;
+      }
+    } else if (g_str_equal (type, "discogs")) {
+      char *discogs = NULL;
+      GET (discogs, mb4_relation_get_target, relation);
+      if (discogs != NULL) {
+          g_free (mb4_album->parent.discogs);
+          mb4_album->parent.discogs = discogs;
+      }
+    } else if (g_str_equal (type, "lyrics")) {
+      char *lyrics = NULL;
+      GET (lyrics, mb4_relation_get_target, relation);
+      if (lyrics != NULL) {
+          g_free (mb4_album->lyrics_url);
+          mb4_album->lyrics_url = lyrics;
+      }
+    }
+    g_free (type);
+    mb4_relation_delete (relation);
+  }
+}
+
 static void
 fill_tracks_from_medium (Mb4Medium medium, AlbumDetails *album)
 {
@@ -345,15 +396,15 @@ fill_tracks_from_medium (Mb4Medium medium, AlbumDetails *album)
 }
 
 static AlbumDetails *
-make_album_from_release (Mb4Release release, Mb4Medium medium)
+make_album_from_release (Mb4ReleaseGroup group,
+                         Mb4Release release,
+                         Mb4Medium medium)
 {
   AlbumDetails *album;
   SjMb4AlbumDetails *mb4_album;
   Mb4ArtistCredit credit;
-  Mb4ReleaseGroup group;
   GList *artists;
   char *date = NULL;
-  char *new_title;
   char buffer[512]; /* for the GET macro */
 
   g_assert (release);
@@ -388,7 +439,6 @@ make_album_from_release (Mb4Release release, Mb4Medium medium)
   GET (mb4_album->packaging, mb4_release_get_packaging, release);
   GET (mb4_album->country, mb4_release_get_country, release);
   GET (mb4_album->barcode, mb4_release_get_barcode, release);
-  group = mb4_release_get_releasegroup (release);
   if (group) {
     GET (mb4_album->type, mb4_releasegroup_get_type, group);
     GET (mb4_album->comment, mb4_releasegroup_get_comment, group);
@@ -397,30 +447,13 @@ make_album_from_release (Mb4Release release, Mb4Medium medium)
         || g_str_has_suffix (mb4_album->type, "Audiobook")) {
       album->is_spoken_word = TRUE;
     }
+    fill_relations (mb4_releasegroup_get_relationlist(group), mb4_album);
   }
   GET(mb4_album->format, mb4_medium_get_format, medium);
 
-#if 0
-  for (i = 0; i < mb_release_get_num_relations (release); i++) {
-    MbRelation relation;
-    char *type = NULL;
-
-    relation = mb_release_get_relation (release, i);
-    GET(type, mb_relation_get_type, relation);
-    if (type && g_str_equal (type, "http://musicbrainz.org/ns/rel-1.0#Wikipedia")) {
-      GET (album->wikipedia, mb_relation_get_target_id, relation);
-    } else if (type && g_str_equal (type, "http://musicbrainz.org/ns/rel-1.0#Discogs")) {
-      GET (album->discogs, mb_relation_get_target_id, relation);
-      continue;
-    }
-    g_free (type);
-  }
-#else
-  g_warning("Relations not handled");
-#endif
-
   album->disc_number = mb4_medium_get_position (medium);
   fill_tracks_from_medium (medium, album);
+  fill_relations (mb4_release_get_relationlist (release), mb4_album);
 
   sj_mb4_album_details_dump (mb4_album);
   return album;
@@ -478,7 +511,7 @@ mb4_list_albums (SjMetadata *metadata, char **url, GError **error)
 
     release = mb4_release_list_item (releases, i);
     if (release) {
-      char *releaseid;
+      char *releaseid = NULL;
       Mb4Release full_release;
 
       releaseid = NULL;
@@ -488,19 +521,41 @@ mb4_list_albums (SjMetadata *metadata, char **url, GError **error)
       g_free (releaseid);
       if (full_release) {
         Mb4MediumList media;
+        Mb4Metadata metadata = NULL;
+        Mb4ReleaseGroup group;
         unsigned int j;
+
+        group = mb4_release_get_releasegroup (full_release);
+        if (group) {
+          /* The release-group information we can extract from the
+           * lookup_release query doesn't have the url relations for the
+           * release-group, so run a separate query to get these urls
+           */
+          char *releasegroupid = NULL;
+          char *params_names[] = { "inc" };
+          char *params_values[] = { "artists url-rels" };
+
+          GET (releasegroupid, mb4_releasegroup_get_id, group);
+          metadata = mb4_query_query (priv->mb, "release-group", releasegroupid, "",
+                                      1, params_names, params_values);
+          g_free (releasegroupid);
+        }
+
+        if (metadata && mb4_metadata_get_releasegroup (metadata))
+          group = mb4_metadata_get_releasegroup (metadata);
 
         media = mb4_release_media_matching_discid (full_release, discid);
         for (j = 0; j < mb4_medium_list_size (media); j++) {
           Mb4Medium medium;
           medium = mb4_medium_list_item (media, j);
           if (medium) {
-            album = make_album_from_release (full_release, medium);
+            album = make_album_from_release (group, full_release, medium);
             album->metadata_source = SOURCE_MUSICBRAINZ;
             albums = g_list_append (albums, album);
             mb4_medium_delete (medium);
           }
         }
+        mb4_metadata_delete (metadata);
         mb4_medium_list_delete (media);
         mb4_release_delete (full_release);
       }
