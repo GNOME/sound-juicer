@@ -166,6 +166,33 @@ sj_mb4_album_details_free (SjMb4AlbumDetails *details)
   album_details_free ((AlbumDetails *)details);
 }
 
+#ifdef DUMP_DETAILS
+static void
+sj_mb4_album_details_dump (SjMb4AlbumDetails *details)
+{
+  if (details->status)
+    g_print ("Status: %s\n", details->status);
+  if (details->quality)
+    g_print ("Quality: %s\n", details->quality);
+  if (details->disambiguation)
+    g_print ("Disambiguation: %s\n", details->disambiguation);
+  if (details->packaging)
+    g_print ("Packaging: %s\n", details->packaging);
+  if (details->country)
+    g_print ("Country: %s\n", details->country);
+  if (details->barcode)
+    g_print ("Barcode: %s\n", details->barcode);
+  if (details->type)
+    g_print ("Type: %s\n", details->type);
+  if (details->comment)
+    g_print ("Comment: %s\n", details->comment);
+  if (details->format)
+    g_print ("Format: %s\n", details->format);
+}
+#else
+#define sj_mb4_album_details_dump(...)
+#endif
+
 static GList *
 get_artist_list (Mb4ArtistCredit credit)
 {
@@ -406,6 +433,7 @@ make_album_from_release (Mb4Release release, Mb4Medium medium)
   album->disc_number = mb4_medium_get_position (medium);
   fill_tracks_from_medium (medium, album);
 
+  sj_mb4_album_details_dump (mb4_album);
   return album;
 }
 
