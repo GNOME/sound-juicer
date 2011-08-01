@@ -46,26 +46,6 @@
 		field = g_strdup (buffer);					\
 }
 
-#if HAVE_MB_EXTRACT_UUID
-#define GET_ID(field, function, obj) {						\
-	char uuid_buffer[37];							\
-        function (obj, buffer, sizeof (buffer));				\
-	mb_extract_uuid (buffer, uuid_buffer, sizeof (uuid_buffer));		\
-	if (field)								\
-		g_free (field);							\
-	if (*uuid_buffer == '\0')						\
-		field = NULL;							\
-	else									\
-		field = g_strdup (uuid_buffer);					\
-}
-#else
-#define GET_ID(field, function, obj) {						\
-	if (field)								\
-		g_free (field);							\
-	field = NULL;								\
-}
-#endif /* HAVE_MB_EXTRACT_UUID */
-
 #define GCONF_MUSICBRAINZ_SERVER "/apps/sound-juicer/musicbrainz_server"
 #define GCONF_PROXY_USE_PROXY "/system/http_proxy/use_http_proxy"
 #define GCONF_PROXY_HOST "/system/http_proxy/host"
@@ -220,7 +200,7 @@ get_artist_list (Mb4ArtistCredit credit)
       continue;
     }
 
-    GET_ID (details->id, mb4_artist_get_id, artist);
+    GET (details->id, mb4_artist_get_id, artist);
     GET (details->name, mb4_artist_get_name, artist);
     GET (details->sortname, mb4_artist_get_sortname, artist);
     GET (details->disambiguation, mb4_artist_get_disambiguation, artist);
@@ -302,10 +282,10 @@ fill_tracks_from_medium (Mb4Medium medium, AlbumDetails *album)
     track->album = album;
 
     track->number = mb4_track_get_position (mbt);
-    GET_ID (track->track_id, mb_track_get_id, mbt);
     recording = mb4_track_get_recording (mbt);
     if (recording != NULL) {
       GET (track->title, mb4_recording_get_title, recording);
+      GET (track->track_id, mb4_recording_get_id, recording);
       track->duration = mb4_recording_get_length (recording) / 1000;
       credit = mb4_recording_get_artistcredit (recording);
     } else {
@@ -355,7 +335,7 @@ make_album_from_release (Mb4Release release, Mb4Medium medium)
   mb4_album = g_new0 (SjMb4AlbumDetails, 1);
   album = &mb4_album->parent;
 
-  GET_ID (album->album_id, mb4_release_get_id, release);
+  GET (album->album_id, mb4_release_get_id, release);
   GET (album->title, mb4_medium_get_title, medium);
   if (album->title == NULL)
     GET (album->title, mb4_release_get_title, release);
