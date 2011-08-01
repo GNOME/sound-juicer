@@ -823,6 +823,7 @@ metadata_cb (SjMetadataGetter *m, GList *albums, GError *error)
     return;
   }
 
+  g_free (current_submit_url);
   current_submit_url = sj_metadata_getter_get_submit_url (metadata);
   if (current_submit_url) {
     gtk_widget_set_sensitive (submit_menuitem, TRUE);
