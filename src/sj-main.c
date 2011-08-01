@@ -1838,46 +1838,80 @@ int main (int argc, char **argv)
   selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (track_listview));
   gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
 
-  http_proxy_setup (gconf_client);
-  baseuri_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEURI, NULL, TRUE, NULL), NULL);
-  path_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL), NULL);
-  file_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL), NULL);
-  profile_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_AUDIO_PROFILE_MEDIA_TYPE, NULL, TRUE, NULL), NULL);
-  paranoia_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PARANOIA, NULL, TRUE, NULL), NULL);
-  strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);
-  eject_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_EJECT, NULL, TRUE, NULL), NULL);
-  open_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_OPEN, NULL, TRUE, NULL), NULL);
-  audio_volume_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_AUDIO_VOLUME, NULL, TRUE, NULL), NULL);
-  if (device == NULL && uris == NULL) {
-    device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), GINT_TO_POINTER (TRUE));
-  } else {
-    if (device) {
-#ifdef __sun
-      if (strstr(device, "/dev/dsk/") != NULL ) {
-        device = g_strdup_printf("/dev/rdsk/%s", device + strlen("/dev/dsk/"));
-      }
-#endif
-      set_device (device, TRUE);
-    }
-    else {
-      char *d;
+  {
+    GConfEntry *entry;
+    http_proxy_setup (gconf_client);
 
-      /* Mash up the CDDA URIs into a device path */
-      if (g_str_has_prefix (uris[0], "cdda://")) {
-      	gint len;
+    entry = gconf_client_get_entry (gconf_client, GCONF_BASEURI, NULL, TRUE, NULL);
+    baseuri_changed_cb (gconf_client, -1, entry, NULL);
+    gconf_entry_unref (entry);
+
+    entry = gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL);
+    path_pattern_changed_cb (gconf_client, -1, entry, NULL);
+    gconf_entry_unref (entry);
+
+    entry = gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL);
+    file_pattern_changed_cb (gconf_client, -1, entry, NULL);
+    gconf_entry_unref (entry);
+
+    entry = gconf_client_get_entry (gconf_client, GCONF_AUDIO_PROFILE, NULL, TRUE, NULL);
+    profile_changed_cb (gconf_client, -1, entry, NULL);
+    gconf_entry_unref (entry);
+
+    entry = gconf_client_get_entry (gconf_client, GCONF_PARANOIA, NULL, TRUE, NULL);
+    paranoia_changed_cb (gconf_client, -1, entry, NULL);
+    gconf_entry_unref (entry);
+
+    entry = gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL);
+    strip_changed_cb (gconf_client, -1, entry, NULL);
+    gconf_entry_unref (entry);
+
+    entry = gconf_client_get_entry (gconf_client, GCONF_EJECT, NULL, TRUE, NULL);
+    eject_changed_cb (gconf_client, -1, entry, NULL);
+    gconf_entry_unref (entry);
+
+    entry = gconf_client_get_entry (gconf_client, GCONF_OPEN, NULL, TRUE, NULL);
+    open_changed_cb (gconf_client, -1, entry, NULL);
+    gconf_entry_unref (entry);
+
+    entry = gconf_client_get_entry (gconf_client, GCONF_AUDIO_VOLUME, NULL, TRUE, NULL);
+    audio_volume_changed_cb (gconf_client, -1, entry, NULL);
+    gconf_entry_unref (entry);
+
+    if (device == NULL && uris == NULL) {
+      entry = gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL);
+      device_changed_cb (gconf_client, -1, entry, GINT_TO_POINTER (TRUE));
+      gconf_entry_unref (entry);
+    } else {
+      if (device) {
 #ifdef __sun
-        d = g_strdup_printf ("/dev/rdsk/%s", uris[0] + strlen ("cdda://"));
-#else
-        d = g_strdup_printf ("/dev/%s%c", uris[0] + strlen ("cdda://"), '\0');
+        if (strstr(device, "/dev/dsk/") != NULL ) {
+          device = g_strdup_printf("/dev/rdsk/%s", device + strlen("/dev/dsk/"));
+        }
 #endif
-        /* Take last '/' out of path, or set_device thinks it is part of the device name */
-		len = strlen (d);
-		if (d[len - 1] == '/')
-			d [len - 1] = '\0';
-	set_device (d, TRUE);
-	g_free (d);
+        set_device (device, TRUE);
       } else {
-        device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), GINT_TO_POINTER (TRUE));
+        char *d;
+
+        /* Mash up the CDDA URIs into a device path */
+        if (g_str_has_prefix (uris[0], "cdda://")) {
+          gint len;
+#ifdef __sun
+          d = g_strdup_printf ("/dev/rdsk/%s", uris[0] + strlen ("cdda://"));
+#else
+          d = g_strdup_printf ("/dev/%s%c", uris[0] + strlen ("cdda://"), '\0');
+#endif
+          /* Take last '/' out of path, or set_device thinks it is part of the device name */
+          len = strlen (d);
+          if (d[len - 1] == '/')
+              d [len - 1] = '\0';
+          set_device (d, TRUE);
+          g_free (d);
+        } else {
+          entry = gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL);
+          device_changed_cb (gconf_client, -1, entry, GINT_TO_POINTER (TRUE));
+          gconf_entry_unref (entry);
+        }
       }
     }
   }
