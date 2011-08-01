@@ -209,7 +209,7 @@ lookup_cd (SjMetadataGetter *mdg)
       signal = g_new0 (SjMetadataGetterSignal, 1);
       signal->albums = albums;
       signal->mdg = g_object_ref (mdg);
-      signal->metadata = g_object_ref (metadata);
+      signal->metadata = metadata;
       g_idle_add ((GSourceFunc)fire_signal_idle, signal);
       break;
     }
