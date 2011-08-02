@@ -113,7 +113,6 @@ struct _SjMb4AlbumDetails {
     char *country;
     char *barcode;
     char *type;
-    char *comment;
     char *format;
     char *lyrics_url;
 };
@@ -158,7 +157,6 @@ sj_mb4_album_details_free (SjMb4AlbumDetails *details)
   g_free (details->country);
   g_free (details->barcode);
   g_free (details->type);
-  g_free (details->comment);
   g_free (details->format);
   g_free (details->lyrics_url);
   g_list_foreach (details->parent.tracks, (GFunc)sj_mb4_track_details_free, NULL);
@@ -186,8 +184,6 @@ sj_mb4_album_details_dump (SjMb4AlbumDetails *details)
     g_print ("Barcode: %s\n", details->barcode);
   if (details->type)
     g_print ("Type: %s\n", details->type);
-  if (details->comment)
-    g_print ("Comment: %s\n", details->comment);
   if (details->format)
     g_print ("Format: %s\n", details->format);
   if (details->lyrics_url)
@@ -441,7 +437,6 @@ make_album_from_release (Mb4ReleaseGroup group,
   GET (mb4_album->barcode, mb4_release_get_barcode, release);
   if (group) {
     GET (mb4_album->type, mb4_releasegroup_get_type, group);
-    GET (mb4_album->comment, mb4_releasegroup_get_comment, group);
     if (g_str_has_suffix (mb4_album->type, "Spokenword")
         || g_str_has_suffix (mb4_album->type, "Interview")
         || g_str_has_suffix (mb4_album->type, "Audiobook")) {
