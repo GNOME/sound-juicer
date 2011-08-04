@@ -223,7 +223,6 @@ get_artist_list (Mb4ArtistCredit credit)
     if (!artist) {
       g_warning ("no Mb4Artist associated with Mb4NameCredit, falling back to Mb4NameCredit::name");
       GET (details->name, mb4_namecredit_get_name, name_credit);
-      mb4_namecredit_delete (name_credit);
       continue;
     }
 
@@ -233,7 +232,6 @@ get_artist_list (Mb4ArtistCredit credit)
     GET (details->disambiguation, mb4_artist_get_disambiguation, artist);
     GET (details->gender, mb4_artist_get_gender, artist);
     GET (details->country, mb4_artist_get_country, artist);
-    mb4_namecredit_delete (name_credit);
   }
 
   return g_list_reverse(artists);
@@ -293,7 +291,6 @@ fill_relations (Mb4RelationList relations, SjMb4AlbumDetails *mb4_album)
 
     GET (type, mb4_relation_get_type, relation);
     if (type == NULL) {
-      mb4_relation_delete (relation);
       continue;
     }
     if (g_str_equal (type, "wikipedia")) {
@@ -319,7 +316,6 @@ fill_relations (Mb4RelationList relations, SjMb4AlbumDetails *mb4_album)
       }
     }
     g_free (type);
-    mb4_relation_delete (relation);
   }
 }
 
@@ -386,7 +382,6 @@ fill_tracks_from_medium (Mb4Medium medium, AlbumDetails *album)
       track->artist_id = g_strdup (album->artist_id);
 
     tracks = g_list_prepend (tracks, track);
-    mb4_track_delete (mbt);
   }
   album->tracks = g_list_reverse (tracks);
 }
@@ -497,7 +492,6 @@ mb4_list_albums (SjMetadata *metadata, char **url, GError **error)
   }
 
   if (mb4_release_list_size (releases) == 0) {
-    mb4_release_list_delete (releases);
     return NULL;
   }
 
@@ -547,14 +541,12 @@ mb4_list_albums (SjMetadata *metadata, char **url, GError **error)
             album = make_album_from_release (group, full_release, medium);
             album->metadata_source = SOURCE_MUSICBRAINZ;
             albums = g_list_append (albums, album);
-            mb4_medium_delete (medium);
           }
         }
         mb4_metadata_delete (metadata);
         mb4_medium_list_delete (media);
         mb4_release_delete (full_release);
       }
-      mb4_release_delete (release);
     }
   }
   mb4_release_list_delete (releases);
