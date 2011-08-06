@@ -165,12 +165,29 @@
       <owner>sound-juicer</owner>
       <default>cdlossy</default>
       <locale name="C">
-        <short>Audio Profile with which to encode</short>
+        <short>(obsolete) Audio Profile with which to encode</short>
         <long>
-          The GNOME Audio Profile with which to encode.
+          This key used to store the GNOME Audio Profile with which to encode.
+          This has been superseded by GStreamer encoding profiles, which are
+          configured using the audio_profile_media_type key.
         </long>
       </locale>
     </schema>
+
+    <schema>
+      <key>/schemas/apps/sound-juicer/audio_profile_media_type</key>
+      <applyto>/apps/sound-juicer/audio_profile_media_type</applyto>
+      <type>string</type>
+      <owner>sound-juicer</owner>
+      <default>audio/x-vorbis</default>
+      <locale name="C">
+        <short>Media type to encode to</short>
+        <long>
+          The GStreamer media type to encode to.
+        </long>
+      </locale>
+    </schema>
+
 
     <schema>
       <key>/schemas/apps/sound-juicer/volume</key>

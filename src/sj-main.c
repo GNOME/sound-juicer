@@ -37,11 +37,12 @@
 #include <gconf/gconf-client.h>
 #include <brasero-medium-selection.h>
 #include <brasero-volume.h>
-#include <libgnome-media-profiles/gnome-media-profiles.h>
 #include <gst/gst.h>
+#include <gst/pbutils/encoding-profile.h>
 
 #include "bacon-message-connection.h"
 #include "gconf-bridge.h"
+#include "rb-gst-media-types.h"
 #include "sj-about.h"
 #include "sj-metadata-getter.h"
 #include "sj-extractor.h"
@@ -1132,11 +1133,13 @@ static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *e
 
 static void profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
-  GMAudioProfile *profile;
+  GstEncodingProfile *profile;
+  const char *media_type;
 
-  g_assert (strcmp (entry->key, GCONF_AUDIO_PROFILE) == 0);
+  g_assert (strcmp (entry->key, GCONF_AUDIO_PROFILE_MEDIA_TYPE) == 0);
   if (!entry->value) return;
-  profile = gm_audio_profile_lookup (gconf_value_get_string (entry->value));
+  media_type = gconf_value_get_string (entry->value);
+  profile = rb_gst_get_encoding_profile (media_type);
   if (profile != NULL)
     g_object_set (extractor, "profile", profile, NULL);
 
@@ -1160,6 +1163,9 @@ static void profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *
       exit(0);
     }
   }
+
+  if (profile != NULL)
+    gst_encoding_profile_unref (profile);
 }
 
 /**
@@ -1684,7 +1690,7 @@ int main (int argc, char **argv)
   gconf_client_notify_add (gconf_client, GCONF_OPEN, open_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_BASEURI, baseuri_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_STRIP, strip_changed_cb, NULL, NULL, NULL);
-  gconf_client_notify_add (gconf_client, GCONF_AUDIO_PROFILE, profile_changed_cb, NULL, NULL, NULL);
+  gconf_client_notify_add (gconf_client, GCONF_AUDIO_PROFILE_MEDIA_TYPE, profile_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_PARANOIA, paranoia_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_PATH_PATTERN, path_pattern_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_FILE_PATTERN, file_pattern_changed_cb, NULL, NULL, NULL);
@@ -1693,9 +1699,6 @@ int main (int argc, char **argv)
   gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY_ENABLE, http_proxy_enable_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY, http_proxy_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY_PORT, http_proxy_port_changed_cb, NULL, NULL, NULL);
-
-  /* init gnome-media-profiles */
-  gnome_media_profiles_init (gconf_client);
 
   builder = gtk_builder_new ();
   if (g_file_test (SOURCE_BUILDER, G_FILE_TEST_EXISTS) != FALSE) {
@@ -1834,7 +1837,7 @@ int main (int argc, char **argv)
   baseuri_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEURI, NULL, TRUE, NULL), NULL);
   path_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL), NULL);
   file_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL), NULL);
-  profile_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_AUDIO_PROFILE, NULL, TRUE, NULL), NULL);
+  profile_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_AUDIO_PROFILE_MEDIA_TYPE, NULL, TRUE, NULL), NULL);
   paranoia_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PARANOIA, NULL, TRUE, NULL), NULL);
   strip_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL), NULL);
   eject_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_EJECT, NULL, TRUE, NULL), NULL);

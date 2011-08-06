@@ -11,6 +11,9 @@ schema_in_files = sound-juicer.schemas.in
 schema_DATA = $(schema_in_files:.schemas.in=.schemas)
 @INTLTOOL_SCHEMAS_RULE@
 
+profilesdir = $(datadir)/sound-juicer
+profiles_DATA = rhythmbox.gep
+
 man1_MANS = sound-juicer.1
 
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(datadir)/icons/hicolor

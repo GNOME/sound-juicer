@@ -27,11 +27,12 @@
 #include "sound-juicer.h"
 
 #include <string.h>
+#include <gst/pbutils/encoding-profile.h>
 #include <gtk/gtk.h>
 #include <gconf/gconf-client.h>
-#include <libgnome-media-profiles/gnome-media-profiles.h>
 #include <brasero-drive-selection.h>
 
+#include "rb-gst-media-types.h"
 #include "sj-util.h"
 #include "gconf-bridge.h"
 #include "sj-extracting.h"
@@ -43,8 +44,6 @@ extern GtkWidget *main_window;
 static GtkWidget *audio_profile;
 static GtkWidget *cd_option, *path_option, *file_option, *basepath_fcb, *check_strip, *check_eject, *check_open;
 static GtkWidget *path_example_label;
-
-#define DEFAULT_AUDIO_PROFILE_NAME "cdlossy"
 
 typedef struct {
   char* name;
@@ -79,12 +78,18 @@ static const FilePattern file_patterns[] = {
 
 void prefs_profile_changed (GtkWidget *widget, gpointer user_data)
 {
-  GMAudioProfile *profile;
+  GtkTreeIter iter;
+  GtkTreeModel *model;
+
+  model = gtk_combo_box_get_model (GTK_COMBO_BOX (widget));
   /* Handle the change being to unselect a profile */
-  if (gtk_combo_box_get_active (GTK_COMBO_BOX (widget)) != -1) {
-    profile = gm_audio_profile_choose_get_active (widget);
-    gconf_client_set_string (gconf_client, GCONF_AUDIO_PROFILE,  
-                             gm_audio_profile_get_id (profile), NULL);
+  if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (widget), &iter)) {
+    char *media_type;
+    gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
+                        0, &media_type, -1);
+    gconf_client_set_string (gconf_client, GCONF_AUDIO_PROFILE_MEDIA_TYPE,
+                             media_type, NULL);
+    g_free (media_type);
   }
 }
 
@@ -165,25 +170,44 @@ G_MODULE_EXPORT void prefs_file_option_changed (GtkComboBox *combo, gpointer use
  */
 G_MODULE_EXPORT void prefs_edit_profile_clicked (GtkButton *button, gpointer user_data)
 {
-  GtkWidget *dialog;
-  dialog = gm_audio_profiles_edit_new (gconf_client, GTK_WINDOW (main_window));
-  gtk_widget_show_all (dialog);
-  gtk_dialog_run (GTK_DIALOG (dialog));
+    /* Not implemented */
+}
+
+static void
+sj_audio_profile_chooser_set_active (GtkWidget *chooser, const char *profile)
+{
+  GtkTreeIter iter;
+  GtkTreeModel *model;
+  gboolean done;
+
+  done = FALSE;
+  model = gtk_combo_box_get_model(GTK_COMBO_BOX(chooser));
+  if (gtk_tree_model_get_iter_first (model, &iter)) {
+    do {
+      char *media_type;
+
+      gtk_tree_model_get (model, &iter, 0, &media_type, -1);
+      if (g_strcmp0 (media_type, profile) == 0) {
+        gtk_combo_box_set_active_iter (GTK_COMBO_BOX (chooser), &iter);
+        done = TRUE;
+      }
+      g_free (media_type);
+    } while (done == FALSE && gtk_tree_model_iter_next (model, &iter));
+  }
+
+  if (done == FALSE) {
+    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (chooser), NULL);
+  }
 }
 
 static void audio_profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   const char *value;
-  g_return_if_fail (strcmp (entry->key, GCONF_AUDIO_PROFILE) == 0);
+  g_return_if_fail (strcmp (entry->key, GCONF_AUDIO_PROFILE_MEDIA_TYPE) == 0);
   if (!entry->value) return;
   value = gconf_value_get_string (entry->value);
-  
-  /* If the value is empty, unset the combo. Otherwise try and set it. */
-  if (strcmp (value, "") == 0) {
-    gtk_combo_box_set_active (GTK_COMBO_BOX (audio_profile), -1);
-  } else {
-    gm_audio_profile_choose_set_active (audio_profile, value);
-  }
+
+  sj_audio_profile_chooser_set_active (audio_profile, value);
 }
 
 static void baseuri_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
@@ -224,7 +248,8 @@ static void pattern_label_update (void)
 {
   char *file_pattern, *path_pattern;
   char *file_value, *path_value, *example, *format;
-  GMAudioProfile *profile;
+  char *media_type;
+  GstEncodingProfile *profile;
 
   static const AlbumDetails sample_album = {
     "Help!", /* title */
@@ -254,6 +279,8 @@ static void pattern_label_update (void)
   if (!profile) {
     return;
   }
+  media_type = rb_gst_encoding_profile_get_media_type (profile);
+  gst_encoding_profile_unref (profile);
 
   /* TODO: sucky. Replace with get-gconf-key-with-default mojo */
   file_pattern = gconf_client_get_string (gconf_client, GCONF_FILE_PATTERN, NULL);
@@ -279,9 +306,10 @@ static void pattern_label_update (void)
                         ":</b> ",
                         example,
                         ".",
-                        gm_audio_profile_get_extension (profile),
+                        rb_gst_media_type_to_extension (media_type),
                         "</i></small>", NULL);
   g_free (example);
+  g_free (media_type);
   
   gtk_label_set_markup (GTK_LABEL (path_example_label), format);
   g_free (format);
@@ -403,6 +431,41 @@ on_response (GtkDialog *dialog, gint response, gpointer user_data)
   }
 }
 
+static GtkWidget *sj_audio_profile_chooser_new(void)
+{
+  GstEncodingTarget *target;
+  const GList *p;
+  GtkWidget *combo_box;
+  GtkCellRenderer *renderer;
+  GtkTreeModel *model;
+
+  model = GTK_TREE_MODEL (gtk_tree_store_new (3, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER));
+
+  target = rb_gst_get_default_encoding_target ();
+  for (p = gst_encoding_target_get_profiles (target); p != NULL; p = p->next) {
+    GstEncodingProfile *profile = GST_ENCODING_PROFILE (p->data);
+    char *media_type;
+
+    media_type = rb_gst_encoding_profile_get_media_type (profile);
+    if (media_type == NULL) {
+      continue;
+    }
+    gtk_tree_store_insert_with_values (GTK_TREE_STORE (model),
+                                       NULL, NULL, -1,
+                                       0, media_type,
+                                       1, gst_encoding_profile_get_description (profile),
+                                       2, profile, -1);
+    g_free (media_type);
+  }
+
+  combo_box = gtk_combo_box_new_with_model (model);
+  renderer = gtk_cell_renderer_text_new ();
+  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (combo_box), renderer, TRUE);
+  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (combo_box), renderer, "text", 1, NULL);
+
+  return GTK_WIDGET (combo_box);
+}
+
 /**
  * Clicked on Preferences in the UI
  */
@@ -449,11 +512,11 @@ G_MODULE_EXPORT void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_da
      * 	      using GtkBuilder. */
     audio_profile      = GET_WIDGET ("audio_profile");
 #else
-    audio_profile = gm_audio_profile_choose_new();
+    audio_profile = sj_audio_profile_chooser_new();
     g_signal_connect (G_OBJECT (audio_profile), "changed",
                       G_CALLBACK (prefs_profile_changed), NULL);
-	gtk_box_pack_start (GTK_BOX (box), audio_profile, TRUE, TRUE, 0);
-	gtk_widget_show (audio_profile);
+    gtk_box_pack_start (GTK_BOX (box), audio_profile, TRUE, TRUE, 0);
+    gtk_widget_show (audio_profile);
 #endif
     check_strip        = GET_WIDGET ("check_strip");
     check_eject        = GET_WIDGET ("check_eject");
@@ -474,7 +537,7 @@ G_MODULE_EXPORT void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_da
     gconf_bridge_bind_property (bridge, GCONF_STRIP, G_OBJECT (check_strip), "active");
     gconf_client_notify_add (gconf_client, GCONF_DEVICE, device_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_BASEURI, baseuri_changed_cb, NULL, NULL, NULL);
-    gconf_client_notify_add (gconf_client, GCONF_AUDIO_PROFILE, audio_profile_changed_cb, NULL, NULL, NULL);
+    gconf_client_notify_add (gconf_client, GCONF_AUDIO_PROFILE_MEDIA_TYPE, audio_profile_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_PATH_PATTERN, path_pattern_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_FILE_PATTERN, file_pattern_changed_cb, NULL, NULL, NULL);
     gconf_client_notify_add (gconf_client, GCONF_STRIP, strip_changed_cb, NULL, NULL, NULL);
@@ -482,7 +545,7 @@ G_MODULE_EXPORT void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_da
     g_signal_connect (extractor, "notify::profile", pattern_label_update, NULL);
 
     baseuri_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEURI, NULL, TRUE, NULL), NULL);
-    audio_profile_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_AUDIO_PROFILE, NULL, TRUE, NULL), NULL);
+    audio_profile_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_AUDIO_PROFILE_MEDIA_TYPE, NULL, TRUE, NULL), NULL);
     file_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL), NULL);
     path_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL), NULL);
     device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), NULL);

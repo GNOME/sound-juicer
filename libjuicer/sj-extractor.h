@@ -26,7 +26,7 @@
 #include <glib.h>
 #include <glib-object.h>
 #include <gio/gio.h>
-#include <libgnome-media-profiles/audio-profile.h>
+#include "rb-gst-media-types.h"
 #include "sj-structures.h"
 
 G_BEGIN_DECLS
@@ -71,7 +71,7 @@ void sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *tra
 
 void sj_extractor_cancel_extract (SjExtractor *extractor);
 
-gboolean sj_extractor_supports_profile (GMAudioProfile *profile);
+gboolean sj_extractor_supports_profile (GstEncodingProfile *profile);
 
 gboolean sj_extractor_supports_encoding (GError **error);
 

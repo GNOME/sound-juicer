@@ -30,7 +30,6 @@
 #include <glib-object.h>
 #include <gst/gst.h>
 #include <gst/tag/tag.h>
-#include <libgnome-media-profiles/gnome-media-profiles.h>
 #include "sj-extractor.h"
 #include "sj-structures.h"
 #include "sj-error.h"
@@ -56,18 +55,18 @@ enum {
 static guint signals[LAST_SIGNAL] = { 0 };
 
 /* Default profile name */
-#define DEFAULT_AUDIO_PROFILE_NAME "cdlossy"
+#define DEFAULT_MEDIA_TYPE "audio/x-vorbis"
 
 /* Element names */
 #define FILE_SINK "giosink"
 
 struct SjExtractorPrivate {
   /** The current audio profile */
-  GMAudioProfile *profile;
+  GstEncodingProfile *profile;
   /** If the pipeline needs to be re-created */
   gboolean rebuild_pipeline;
   /* The gstreamer pipeline elements */
-  GstElement *pipeline, *cdsrc, *queue, *thread, *encoder, *filesink;
+  GstElement *pipeline, *cdsrc, *encodebin, *filesink;
   GstFormat track_format;
   char *device_path;
   int paranoia_mode;
@@ -89,12 +88,14 @@ static void
 sj_extractor_set_property (GObject *object, guint property_id,
                                        const GValue *value, GParamSpec *pspec)
 {
+  GstEncodingProfile *profile;
   SjExtractorPrivate *priv = SJ_EXTRACTOR (object)->priv;
   switch (property_id) {
   case PROP_PROFILE:
     if (priv->profile)
-      g_object_unref (priv->profile);
-    priv->profile = GM_AUDIO_PROFILE (g_value_dup_object (value));
+      gst_encoding_profile_unref (priv->profile);
+    profile = GST_ENCODING_PROFILE (g_value_get_pointer (value));
+    priv->profile = GST_ENCODING_PROFILE(gst_encoding_profile_ref (profile));
     priv->rebuild_pipeline = TRUE;
     g_object_notify (object, "profile");
     break;
@@ -126,7 +127,7 @@ sj_extractor_get_property (GObject *object, guint property_id,
   SjExtractorPrivate *priv = SJ_EXTRACTOR (object)->priv;
   switch (property_id) {
   case PROP_PROFILE:
-    g_value_set_object (value, priv->profile);
+    g_value_set_pointer (value, gst_encoding_profile_ref (priv->profile));
     break;
   case PROP_DEVICE:
     g_value_set_string (value, priv->device_path);
@@ -142,7 +143,7 @@ sj_extractor_dispose (GObject *object)
   SjExtractorPrivate *priv = SJ_EXTRACTOR (object)->priv;
 
   if (priv->profile) {
-    g_object_unref (priv->profile);
+    gst_encoding_profile_unref (priv->profile);
     priv->profile = NULL;
   }
 
@@ -188,11 +189,10 @@ sj_extractor_class_init (SjExtractorClass *klass)
   /* Properties */
   /* TODO: make these constructors */
   g_object_class_install_property (object_class, PROP_PROFILE,
-                                   g_param_spec_object ("profile",
-                                                        _("Audio Profile"),
-                                                        _("The GNOME Audio Profile used for encoding audio"),
-                                                        GM_AUDIO_TYPE_PROFILE,
-                                                        G_PARAM_READWRITE));
+                                   g_param_spec_pointer ("profile",
+                                                         _("Audio Profile"),
+                                                         _("The GStreamer Encoding Profile used for encoding audio"),
+                                                         G_PARAM_READWRITE));
 
   g_object_class_install_property (object_class, PROP_PARANOIA,
                                    g_param_spec_int ("paranoia",
@@ -239,8 +239,7 @@ static void
 sj_extractor_init (SjExtractor *extractor)
 {
   extractor->priv = EXTRACTOR_PRIVATE (extractor);
-  extractor->priv->profile =
-    g_object_ref (gm_audio_profile_lookup (DEFAULT_AUDIO_PROFILE_NAME));
+  extractor->priv->profile = rb_gst_get_encoding_profile (DEFAULT_MEDIA_TYPE);
   extractor->priv->rebuild_pipeline = TRUE;
   extractor->priv->paranoia_mode = 8; /* TODO: replace with construct params */
 }
@@ -272,18 +271,20 @@ static GstElement*
 build_encoder (SjExtractor *extractor)
 {
   SjExtractorPrivate *priv;
-  GstElement *element = NULL;
-  char *pipeline;
+  GstElement *encodebin;
 
   g_return_val_if_fail (SJ_IS_EXTRACTOR (extractor), NULL);
   priv = (SjExtractorPrivate*)extractor->priv;
   g_return_val_if_fail (priv->profile != NULL, NULL);
- 
-  pipeline = g_strdup_printf ("audioresample ! audioconvert ! %s",
-                              gm_audio_profile_get_pipeline (priv->profile));
-  element = gst_parse_bin_from_description (pipeline, TRUE, NULL); /* TODO: return error */
-  g_free(pipeline);
-  return element;
+
+  encodebin = gst_element_factory_make ("encodebin", NULL);
+  if (encodebin == NULL)
+    return NULL;
+  g_object_set (encodebin, "profile", priv->profile, NULL);
+  /* Nice big buffers... */
+  g_object_set (encodebin, "queue-time-max", 120 * GST_SECOND, NULL);
+
+  return encodebin;
 }
 
 static void
@@ -357,16 +358,13 @@ build_pipeline (SjExtractor *extractor)
   priv->track_format = gst_format_get_by_nick ("track");
   g_assert (priv->track_format != 0);
 
-  priv->queue = gst_element_factory_make ("queue", "queue");
-  /* Nice big buffers... */
-  g_object_set (priv->queue, "max-size-time", 120 * GST_SECOND, NULL);
-  
   /* Encode */
-  priv->encoder = build_encoder (extractor);
-  if (priv->encoder == NULL) {
+  priv->encodebin = build_encoder (extractor);
+  if (priv->encodebin == NULL) {
     g_set_error (&priv->construct_error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
-                 _("Could not create GStreamer encoders for %s"), gm_audio_profile_get_name (priv->profile));
+                 _("Could not create GStreamer encoders for %s"),
+                 gst_encoding_profile_get_name (priv->profile));
     return;
   }
   /* Connect to the eos so we know when its finished */
@@ -385,10 +383,10 @@ build_pipeline (SjExtractor *extractor)
 #endif
 
   /* Add the elements to the pipeline */
-  gst_bin_add_many (GST_BIN (priv->pipeline), priv->cdsrc, priv->queue, priv->encoder, priv->filesink, NULL);
+  gst_bin_add_many (GST_BIN (priv->pipeline), priv->cdsrc, priv->encodebin, priv->filesink, NULL);
 
   /* Link it all together */
-  if (!gst_element_link_many (priv->cdsrc, priv->queue, priv->encoder, priv->filesink, NULL)) {
+  if (!gst_element_link_many (priv->cdsrc, priv->encodebin, priv->filesink, NULL)) {
     g_set_error (&priv->construct_error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
                  _("Could not link pipeline"));
@@ -669,30 +667,8 @@ sj_extractor_supports_encoding (GError **error)
 }
 
 gboolean
-sj_extractor_supports_profile (GMAudioProfile *profile)
+sj_extractor_supports_profile (GstEncodingProfile *profile)
 {
   /* TODO: take a GError to return a message if the profile isn't supported */
-  GstElement *element;
-  GError *error = NULL;
-  char *pipeline;
-
-  pipeline = g_strdup_printf ("fakesrc ! %s", gm_audio_profile_get_pipeline (profile));
-  element = gst_parse_launch (pipeline, &error);
-  g_free(pipeline);
-
-  /* It is possible for both element and error to be non NULL, so check both */
-  if (element) {
-    gst_object_unref (GST_OBJECT (element));
-    if (error) {
-      g_warning ("Profile warning: %s", error->message);
-      g_error_free (error);
-    }
-    return TRUE;
-  } else {
-    if (error) {
-      g_warning ("Profile error: %s", error->message);
-      g_error_free (error);
-    }
-    return FALSE;
-  }
+  return !rb_gst_check_missing_plugins(profile, NULL, NULL);
 }

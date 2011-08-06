@@ -151,6 +151,7 @@ void sj_debug (SjDebugDomain domain, const gchar* format, ...);
 #define GCONF_FILE_PATTERN GCONF_ROOT "/file_pattern"
 #define GCONF_PATH_PATTERN GCONF_ROOT "/path_pattern"
 #define GCONF_AUDIO_PROFILE GCONF_ROOT "/audio_profile"
+#define GCONF_AUDIO_PROFILE_MEDIA_TYPE GCONF_ROOT "/audio_profile_media_type"
 #define GCONF_PARANOIA GCONF_ROOT "/paranoia"
 #define GCONF_STRIP GCONF_ROOT "/strip-special"
 #define GCONF_WINDOW GCONF_ROOT "/window"

@@ -134,12 +134,12 @@ static guint cookie;
 static GFile *
 build_filename (const TrackDetails *track, gboolean temp_filename, GError **error)
 {
-  GFile *uri, *new; 
+  GFile *uri, *new;
   gchar *realfile, *realpath, *filename, *scheme;
   const gchar *extension;
   size_t len_extension;
   int max_realfile = INT_MAX;
-  GMAudioProfile *profile;
+  GstEncodingProfile *profile;
 
   g_object_get (extractor, "profile", &profile, NULL);
 
@@ -152,7 +152,11 @@ build_filename (const TrackDetails *track, gboolean temp_filename, GError **erro
     g_set_error (error, 0, 0, _("Failed to get output format"));
     return NULL;
   } else {
-      extension = gm_audio_profile_get_extension (profile);
+      gchar *media_type;
+      media_type = rb_gst_encoding_profile_get_media_type (profile);
+      extension = rb_gst_media_type_to_extension (media_type);
+      g_free (media_type);
+      gst_encoding_profile_unref (profile);
   }
 
   len_extension = 1 + strlen (extension);

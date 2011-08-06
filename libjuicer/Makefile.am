@@ -2,6 +2,8 @@ noinst_LTLIBRARIES = libjuicer.la
 
 libjuicer_la_SOURCES = \
 	$(MARSHALFILES) \
+	rb-gst-media-types.h \
+	rb-gst-media-types.c \
 	sj-structures.h \
 	sj-structures.c \
 	sj-error.h sj-error.c \
@@ -16,6 +18,7 @@ libjuicer_la_SOURCES = \
 	sj-util.h sj-util.c
 
 libjuicer_la_CPPFLAGS = \
+	-DDATADIR=\""$(datadir)"\" \
 	$(DISABLE_DEPRECATED_CFLAGS) \
 	$(AM_CPPFLAGS)
 
@@ -23,7 +26,6 @@ libjuicer_la_CFLAGS = \
 	$(WARN_CFLAGS)	\
 	$(MUSICBRAINZ3_CFLAGS) \
 	$(GSTREAMER_CFLAGS) \
-	$(MEDIA_PROFILES_CFLAGS) \
 	$(BURN_CFLAGS) \
 	$(UI_CFLAGS) \
 	$(CDIO_CFLAGS) \
@@ -31,7 +33,6 @@ libjuicer_la_CFLAGS = \
 
 libjuicer_la_LIBADD = \
 	$(MUSICBRAINZ3_LIBS) \
-	$(MEDIA_PROFILES_LIBS) \
 	$(GSTREAMER_LIBS) \
 	$(BURN_LIBS) \
 	$(UI_LIBS) \

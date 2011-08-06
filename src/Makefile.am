@@ -36,7 +36,6 @@ sound_juicer_CPPFLAGS = \
 
 sound_juicer_CFLAGS = \
 	$(GSTREAMER_CFLAGS) \
-	$(MEDIA_PROFILES_CFLAGS) \
 	$(BURN_CFLAGS) \
 	$(UI_CFLAGS) \
 	$(WARN_CFLAGS) \
@@ -44,7 +43,6 @@ sound_juicer_CFLAGS = \
 
 sound_juicer_CFLAGS = \
 	$(GSTREAMER_CFLAGS) \
-	$(MEDIA_PROFILES_CFLAGS) \
 	$(BURN_CFLAGS) \
 	$(UI_CFLAGS) \
 	$(WARN_CFLAGS) \
@@ -52,7 +50,6 @@ sound_juicer_CFLAGS = \
 
 sound_juicer_LDADD = \
 	$(top_builddir)/libjuicer/libjuicer.la \
-	$(MEDIA_PROFILES_LIBS) \
 	$(GSTREAMER_LIBS) \
 	$(BURN_LIBS) \
 	$(UI_LIBS)

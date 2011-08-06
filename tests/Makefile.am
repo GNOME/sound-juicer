@@ -13,7 +13,6 @@ mb_test_CPPFLAGS = \
 mb_test_CFLAGS = \
 	$(WARN_CFLAGS) \
 	$(GSTREAMER_CFLAGS) \
-	$(MEDIA_PROFILES_CFLAGS) \
 	$(BURN_CFLAGS) \
 	$(UI_CFLAGS) \
 	$(DBUS_CFLAGS) \
