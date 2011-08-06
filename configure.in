@@ -75,9 +75,7 @@ PKG_CHECK_MODULES(MUSICBRAINZ4, libmusicbrainz4 libdiscid, [have_mb4=yes], [have
 AC_SUBST(MUSICBRAINZ4_CFLAGS)
 AC_SUBST(MUSICBRAINZ4_LIBS)
 if test "$have_mb4" = "yes" ; then
-        dnl AC_DEFINE([HAVE_MUSICBRAINZ4], 1, [Whether libmusicbrainz4 is available])
-        AC_MSG_WARN([libmusicbrainz4 support disabled since it's currently non-functional])
-        have_mb4="no"
+        AC_DEFINE([HAVE_MUSICBRAINZ4], 1, [Whether libmusicbrainz4 is available])
 fi
 AM_CONDITIONAL([HAVE_MUSICBRAINZ4], [test "$have_mb4" = "yes"])
 
