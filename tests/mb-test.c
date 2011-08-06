@@ -1,13 +1,10 @@
 #include "config.h"
 #include <brasero-medium-monitor.h>
 #include <glib.h>
-#include <gconf/gconf-client.h>
 #include <stdlib.h>
 #include "sj-structures.h"
 #include "sj-metadata.h"
 #include "sj-metadata-getter.h"
-
-#define GCONF_ROOT "/apps/sound-juicer"
 
 static const char *
 source_to_str (MetadataSource source)
@@ -93,17 +90,10 @@ int main (int argc, char** argv)
 {
   SjMetadataGetter *metadata;
   GMainLoop *loop;
-  GConfClient *gconf_client;
   GError *error = NULL;
   BraseroMediumMonitor *monitor;
 
   g_type_init ();
-
-  gconf_client = gconf_client_get_default ();
-  if (gconf_client == NULL) {
-    g_warning ("Could not create GConf client.\n");
-    exit (1);
-  }
 
   /* Make sure probing of the various media have settled before going on */
   monitor = brasero_medium_monitor_get_default ();
@@ -111,7 +101,6 @@ int main (int argc, char** argv)
       g_usleep (G_USEC_PER_SEC/10);
   g_object_unref (G_OBJECT (monitor));
 
-  gconf_client_add_dir (gconf_client, GCONF_ROOT, GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
   
   metadata = sj_metadata_getter_new ();
 

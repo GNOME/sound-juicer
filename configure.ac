@@ -26,13 +26,14 @@ AM_PROG_CC_C_O
 AC_HEADER_STDC
 AC_PROG_LIBTOOL
 AC_PROG_INSTALL
-IT_PROG_INTLTOOL([0.40.0], [no-xml])
+IT_PROG_INTLTOOL([0.50.0])
 
 GNOME_COMPILE_WARNINGS([maximum])
 GNOME_DEBUG_CHECK
 GNOME_MAINTAINER_MODE_DEFINES
 
 GTK_REQUIRED=3.2.0
+GLIB_GSETTINGS
 
 AC_CHECK_FUNC(socket,,[AC_CHECK_LIB(socket,socket)])
 
@@ -40,7 +41,7 @@ AC_CHECK_FUNC(socket,,[AC_CHECK_LIB(socket,socket)])
 YELP_HELP_INIT
 
 # Find GLib and GObject
-PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.32 gthread-2.0 gobject-2.0)
+PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.32 gthread-2.0 gobject-2.0 gio-2.0)
 AC_SUBST(GLIB_CFLAGS)
 AC_SUBST(GLIB_LIBS)
 
@@ -56,7 +57,7 @@ LIBS="$LIBS $BURN_LIBS"
 # LIBS="$oldlibs"
 
 # Find the UI libraries
-PKG_CHECK_MODULES(UI, gtk+-3.0 >= $GTK_REQUIRED gconf-2.0 gio-2.0 gmodule-export-2.0 libcanberra-gtk3)
+PKG_CHECK_MODULES(UI, gtk+-3.0 >= $GTK_REQUIRED gio-2.0 gmodule-export-2.0 libcanberra-gtk3)
 AC_SUBST(UI_CFLAGS)
 AC_SUBST(UI_LIBS)
 
@@ -92,14 +93,6 @@ fi
 PKG_CHECK_MODULES(GIO, gio-2.0)
 AC_SUBST(GIO_CFLAGS)
 AC_SUBST(GIO_LIBS)
-
-# Find how and where to put the GConf schemas
-AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
-if test "$GCONFTOOL" = "no"; then
-        AC_MSG_ERROR([gconftool-2 executable not found in your path - should be installed with GConf])
-fi
-AM_GCONF_SOURCE_2
-
 
 # Optionally enable G* deprecations
 AC_MSG_CHECKING([whether to enable deprecation warnings])

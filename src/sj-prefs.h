@@ -27,6 +27,8 @@ void show_preferences_dialog (void);
 gboolean cd_drive_exists (const char *device);
 void show_help (GtkWindow *parent);
 
+const gchar* sj_get_default_file_pattern (void);
+const gchar* sj_get_default_path_pattern (void);
 void prefs_profile_changed (GtkWidget *widget, gpointer user_data);
 G_MODULE_EXPORT void prefs_base_folder_changed (GtkWidget *chooser, gpointer user_data);
 void prefs_path_option_changed (GtkComboBox *combo, gpointer user_data);

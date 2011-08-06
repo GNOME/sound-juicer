@@ -34,13 +34,11 @@
 #include <gdk/gdkkeysyms.h>
 #include <gio/gio.h>
 #include <gtk/gtk.h>
-#include <gconf/gconf-client.h>
 #include <brasero-medium-selection.h>
 #include <brasero-volume.h>
 #include <gst/gst.h>
 #include <gst/pbutils/encoding-profile.h>
 
-#include "gconf-bridge.h"
 #include "rb-gst-media-types.h"
 #include "sj-about.h"
 #include "sj-metadata.h"
@@ -70,7 +68,7 @@ GtkBuilder *builder;
 SjMetadataGetter *metadata;
 SjExtractor *extractor;
 
-GConfClient *gconf_client;
+GSettings *sj_settings;
 
 GtkWidget *main_window;
 static GtkWidget *message_area_eventbox;
@@ -103,7 +101,7 @@ static char *device = NULL, **uris = NULL;
 
 static guint debug_flags = 0;
 
-#define DEFAULT_PARANOIA 4
+#define DEFAULT_PARANOIA 15
 #define RAISE_WINDOW "raise-window"
 #define SOURCE_BUILDER "../data/sound-juicer.ui"
 #define INSTALLED_BUILDER DATADIR"/sound-juicer/sound-juicer.ui"
@@ -1069,128 +1067,113 @@ AlbumDetails* multiple_album_dialog(GList *albums)
 }
 
 /**
- * The GConf key for the base path changed
+ * The GSettings key for the base path changed
  */
-static void baseuri_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void baseuri_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
-  g_assert (strcmp (entry->key, GCONF_BASEURI) == 0);
+  gchar *value;
+  g_assert (strcmp (key, SJ_SETTINGS_BASEURI) == 0);
   if (base_uri) {
     g_object_unref (base_uri);
   }
-  if (entry->value == NULL) {
+  value = g_settings_get_string (settings, key);
+  if (sj_str_is_empty (value)) {
     base_uri = sj_get_default_music_directory ();
   } else {
-    base_uri = g_file_new_for_uri (gconf_value_get_string (entry->value));
+    GFileType file_type;
+    base_uri = g_file_new_for_uri (value);
+    file_type = g_file_query_file_type (base_uri, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, NULL);
+    if (file_type != G_FILE_TYPE_DIRECTORY) {
+      g_object_unref (base_uri);
+      base_uri = sj_get_default_music_directory ();
+    }
   }
-  /* TODO: sanity check the URI somewhat */
+  g_free (value);
 }
 
 /**
- * The GConf key for the directory pattern changed
+ * The GSettings key for the directory pattern changed
  */
-static void path_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void path_pattern_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
-  g_assert (strcmp (entry->key, GCONF_PATH_PATTERN) == 0);
-
-  if (path_pattern)
+  g_assert (strcmp (key, SJ_SETTINGS_PATH_PATTERN) == 0);
+  g_free (path_pattern);
+  path_pattern = g_settings_get_string (settings, key);
+  if (sj_str_is_empty (path_pattern)) {
     g_free (path_pattern);
-
-  if (entry->value == NULL) {
-    /* TODO: this value and the value in sj-prefs need to be in one place */
-    path_pattern = g_strdup ("%aa/%at");
-  } else {
-    path_pattern = g_strdup (gconf_value_get_string (entry->value));
+    path_pattern = g_strdup (sj_get_default_path_pattern ());
   }
   /* TODO: sanity check the pattern */
 }
 
 /**
- * The GConf key for the filename pattern changed
+ * The GSettings key for the filename pattern changed
  */
-static void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void file_pattern_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
-  g_assert (strcmp (entry->key, GCONF_FILE_PATTERN) == 0);
-
-  if (file_pattern)
+  g_assert (strcmp (key, SJ_SETTINGS_FILE_PATTERN) == 0);
+  g_free (file_pattern);
+  file_pattern = g_settings_get_string (settings, key);
+  if (sj_str_is_empty (file_pattern)) {
     g_free (file_pattern);
-
-  if (entry->value == NULL) {
-    /* TODO: this value and the value in sj-prefs need to be in one place */
-    file_pattern = g_strdup ("%tN-%tt");
-  } else {
-    file_pattern = g_strdup (gconf_value_get_string (entry->value));
+    file_pattern = g_strdup (sj_get_default_file_pattern ());
   }
   /* TODO: sanity check the pattern */
 }
 
 /**
- * The GConf key for the paranoia mode has changed
+ * The GSettings key for the paranoia mode has changed
  */
-static void paranoia_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void paranoia_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
-  g_assert (strcmp (entry->key, GCONF_PARANOIA) == 0);
-  if (entry->value == NULL) {
-    sj_extractor_set_paranoia (extractor, DEFAULT_PARANOIA);
-  } else {
-    int value = gconf_value_get_int (entry->value);
-    if (value == 0 || value == 2 || value == 4 || value == 8 || value == 16 || value == 255) {
+  int value;
+  g_assert (strcmp (key, SJ_SETTINGS_PARANOIA) == 0);
+  value = g_settings_get_flags (settings, key);
+  if (value >= 0) {
+    if (value < 32) {
       sj_extractor_set_paranoia (extractor, value);
+    } else {
+      sj_extractor_set_paranoia (extractor, DEFAULT_PARANOIA);
     }
   }
 }
 
 /**
- * The GConf key for the strip characters option changed
+ * The GSettings key for the strip characters option changed
  */
-static void strip_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void strip_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
-  g_assert (strcmp (entry->key, GCONF_STRIP) == 0);
-  if (entry->value == NULL) {
-    strip_chars = FALSE;
-  } else {
-    strip_chars = gconf_value_get_bool (entry->value);
-  }
+  g_assert (strcmp (key, SJ_SETTINGS_STRIP) == 0);
+  strip_chars = g_settings_get_boolean (settings, key);
 }
 
 /**
- * The GConf key for the eject when finished option changed
+ * The GSettings key for the eject when finished option changed
  */
-static void eject_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void eject_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
-  g_assert (strcmp (entry->key, GCONF_EJECT) == 0);
-  if (entry->value == NULL) {
-    eject_finished = FALSE;
-  } else {
-    eject_finished = gconf_value_get_bool (entry->value);
-  }
+  g_assert (strcmp (key, SJ_SETTINGS_EJECT) == 0);
+  eject_finished = g_settings_get_boolean (settings, key);
 }
 
 /**
- * The GConf key for the open when finished option changed
+ * The GSettings key for the open when finished option changed
  */
-static void open_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void open_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
-  g_assert (strcmp (entry->key, GCONF_OPEN) == 0);
-  if (entry->value == NULL) {
-    open_finished = FALSE;
-  } else {
-    open_finished = gconf_value_get_bool (entry->value);
-  }
+  g_assert (strcmp (key, SJ_SETTINGS_OPEN) == 0);
+  open_finished = g_settings_get_boolean (settings, key);
 }
 
 /**
- * The GConf key for audio volume changes
+ * The GSettings key for audio volume changes
  */
-static void audio_volume_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void audio_volume_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
-  g_assert (strcmp (entry->key, GCONF_AUDIO_VOLUME) == 0);
+  g_assert (strcmp (key, SJ_SETTINGS_AUDIO_VOLUME) == 0);
 
   GtkWidget *volb = GET_WIDGET ("volume_button");
-  if (entry->value == NULL) {
-    gtk_scale_button_set_value (GTK_SCALE_BUTTON (volb), 1.0);
-  } else {
-    gtk_scale_button_set_value (GTK_SCALE_BUTTON (volb), gconf_value_get_float (entry->value));
-  }
+  gtk_scale_button_set_value (GTK_SCALE_BUTTON (volb), g_settings_get_double (settings, key));
 }
 
 static void
@@ -1505,15 +1488,17 @@ prefs_get_default_device (void)
 }
 
 /**
- * The GConf key for the device changed
+ * The GSettings key for the device changed
  */
-static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void device_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
   const char *device;
+  char *value;
   gboolean ignore_no_media = GPOINTER_TO_INT (user_data);
-  g_assert (strcmp (entry->key, GCONF_DEVICE) == 0);
+  g_assert (strcmp (key, SJ_SETTINGS_DEVICE) == 0);
 
-  if (entry->value == NULL || !cd_drive_exists (gconf_value_get_string (entry->value))) {
+  value = g_settings_get_string (settings, key);
+  if (!cd_drive_exists (value)) {
     device = prefs_get_default_device();
     if (device == NULL) {
 #ifndef IGNORE_MISSING_CD
@@ -1531,20 +1516,21 @@ static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *e
 #endif
     }
   } else {
-    device = gconf_value_get_string (entry->value);
+    device = value;
   }
   set_device (device, ignore_no_media);
+  g_free (value);
 }
 
-static void profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void profile_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
   GstEncodingProfile *profile;
-  const char *media_type;
+  char *media_type;
 
-  g_assert (strcmp (entry->key, GCONF_AUDIO_PROFILE_MEDIA_TYPE) == 0);
-  if (!entry->value) return;
-  media_type = gconf_value_get_string (entry->value);
+  g_assert (strcmp (key, SJ_SETTINGS_AUDIO_PROFILE) == 0);
+  media_type = g_settings_get_string (settings, key);
   profile = rb_gst_get_encoding_profile (media_type);
+  g_free (media_type);
   if (profile != NULL)
     g_object_set (extractor, "profile", profile, NULL);
 
@@ -1571,56 +1557,6 @@ static void profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *
 
   if (profile != NULL)
     gst_encoding_profile_unref (profile);
-}
-
-/**
- * Configure the http proxy
- */
-static void
-http_proxy_setup (GConfClient *client)
-{
-  if (!gconf_client_get_bool (client, GCONF_HTTP_PROXY_ENABLE, NULL)) {
-    sj_metadata_getter_set_proxy (metadata, NULL);
-  } else {
-    char *host;
-    int port;
-
-    host = gconf_client_get_string (client, GCONF_HTTP_PROXY, NULL);
-    sj_metadata_getter_set_proxy (metadata, host);
-    g_free (host);
-    port = gconf_client_get_int (client, GCONF_HTTP_PROXY_PORT, NULL);
-    sj_metadata_getter_set_proxy_port (metadata, port);
-  }
-}
-
-/**
- * The GConf key for the HTTP proxy being enabled changed.
- */
-static void http_proxy_enable_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
-{
-  g_assert (strcmp (entry->key, GCONF_HTTP_PROXY_ENABLE) == 0);
-  if (entry->value == NULL) return;
-  http_proxy_setup (client);
-}
-
-/**
- * The GConf key for the HTTP proxy changed.
- */
-static void http_proxy_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
-{
-  g_assert (strcmp (entry->key, GCONF_HTTP_PROXY) == 0);
-  if (entry->value == NULL) return;
-  http_proxy_setup (client);
-}
-
-/**
- * The GConf key for the HTTP proxy port changed.
- */
-static void http_proxy_port_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
-{
-  g_assert (strcmp (entry->key, GCONF_HTTP_PROXY_PORT) == 0);
-  if (entry->value == NULL) return;
-  http_proxy_setup (client);
 }
 
 /**
@@ -1952,28 +1888,6 @@ static void on_contents_activate(GSimpleAction *action, GVariant *parameter, gpo
   }
 }
 
-static void
-upgrade_gconf (void)
-{
-  char *s;
-  s = gconf_client_get_string (gconf_client, GCONF_BASEURI, NULL);
-  if (s != NULL) {
-    g_free (s);
-  } else {
-    GFile *gfile;
-    char *uri;
-    s = gconf_client_get_string (gconf_client, GCONF_BASEPATH, NULL);
-    if (s == NULL)
-      return;
-    gfile = g_file_new_for_path (s);
-    uri = g_file_get_uri (gfile);
-    g_free (s);
-    g_object_unref (gfile);
-    gconf_client_set_string (gconf_client, GCONF_BASEURI, uri, NULL);
-    g_free (uri);
-  }
-}
-
 /**
  * Performs various checks to ensure CD duplication is available.
  * If this is found TRUE is returned, otherwise FALSE is returned.
@@ -2049,29 +1963,28 @@ startup_cb (GApplication *app, gpointer user_data)
   metadata = sj_metadata_getter_new ();
   g_signal_connect (metadata, "metadata", G_CALLBACK (metadata_cb), NULL);
 
-  gconf_client = gconf_client_get_default ();
-  if (gconf_client == NULL) {
-    g_warning (_("Could not create GConf client.\n"));
-    exit (1);
-  }
+  sj_settings = g_settings_new ("org.gnome.sound-juicer");
 
-  upgrade_gconf ();
-
-  gconf_client_add_dir (gconf_client, GCONF_ROOT, GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
-  gconf_client_notify_add (gconf_client, GCONF_DEVICE, device_changed_cb, NULL, NULL, NULL);
-  gconf_client_notify_add (gconf_client, GCONF_EJECT, eject_changed_cb, NULL, NULL, NULL);
-  gconf_client_notify_add (gconf_client, GCONF_OPEN, open_changed_cb, NULL, NULL, NULL);
-  gconf_client_notify_add (gconf_client, GCONF_BASEURI, baseuri_changed_cb, NULL, NULL, NULL);
-  gconf_client_notify_add (gconf_client, GCONF_STRIP, strip_changed_cb, NULL, NULL, NULL);
-  gconf_client_notify_add (gconf_client, GCONF_AUDIO_PROFILE_MEDIA_TYPE, profile_changed_cb, NULL, NULL, NULL);
-  gconf_client_notify_add (gconf_client, GCONF_PARANOIA, paranoia_changed_cb, NULL, NULL, NULL);
-  gconf_client_notify_add (gconf_client, GCONF_PATH_PATTERN, path_pattern_changed_cb, NULL, NULL, NULL);
-  gconf_client_notify_add (gconf_client, GCONF_FILE_PATTERN, file_pattern_changed_cb, NULL, NULL, NULL);
-  gconf_client_notify_add (gconf_client, GCONF_AUDIO_VOLUME, audio_volume_changed_cb, NULL, NULL, NULL);
-  gconf_client_add_dir (gconf_client, GCONF_PROXY_ROOT, GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
-  gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY_ENABLE, http_proxy_enable_changed_cb, NULL, NULL, NULL);
-  gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY, http_proxy_changed_cb, NULL, NULL, NULL);
-  gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY_PORT, http_proxy_port_changed_cb, NULL, NULL, NULL);
+  g_signal_connect (sj_settings, "changed::"SJ_SETTINGS_DEVICE,
+                    (GCallback)device_changed_cb, NULL);
+  g_signal_connect (sj_settings, "changed::"SJ_SETTINGS_EJECT,
+                    (GCallback)eject_changed_cb, NULL);
+  g_signal_connect (sj_settings, "changed::"SJ_SETTINGS_OPEN,
+                    (GCallback)open_changed_cb, NULL);
+  g_signal_connect (sj_settings, "changed::"SJ_SETTINGS_BASEURI,
+                    (GCallback)baseuri_changed_cb, NULL);
+  g_signal_connect (sj_settings, "changed::"SJ_SETTINGS_STRIP,
+                    (GCallback)strip_changed_cb, NULL);
+  g_signal_connect (sj_settings, "changed::"SJ_SETTINGS_AUDIO_PROFILE,
+                    (GCallback)profile_changed_cb, NULL);
+  g_signal_connect (sj_settings, "changed::"SJ_SETTINGS_PARANOIA,
+                    (GCallback)paranoia_changed_cb, NULL);
+  g_signal_connect (sj_settings, "changed::"SJ_SETTINGS_PATH_PATTERN,
+                    (GCallback)path_pattern_changed_cb, NULL);
+  g_signal_connect (sj_settings, "changed::"SJ_SETTINGS_FILE_PATTERN,
+                    (GCallback)file_pattern_changed_cb, NULL);
+  g_signal_connect (sj_settings, "changed::"SJ_SETTINGS_AUDIO_VOLUME,
+                    (GCallback)audio_volume_changed_cb, NULL);
 
   g_action_map_add_action_entries (G_ACTION_MAP (app),
                                    app_entries, G_N_ELEMENTS (app_entries),
@@ -2298,80 +2211,39 @@ startup_cb (GApplication *app, gpointer user_data)
   selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (track_listview));
   gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
 
-  {
-    GConfEntry *entry;
-    http_proxy_setup (gconf_client);
+  baseuri_changed_cb (sj_settings, SJ_SETTINGS_BASEURI, NULL);
+  path_pattern_changed_cb (sj_settings, SJ_SETTINGS_PATH_PATTERN, NULL);
+  file_pattern_changed_cb (sj_settings, SJ_SETTINGS_FILE_PATTERN, NULL);
+  profile_changed_cb (sj_settings, SJ_SETTINGS_AUDIO_PROFILE, NULL);
+  paranoia_changed_cb (sj_settings, SJ_SETTINGS_PARANOIA, NULL);
+  strip_changed_cb (sj_settings, SJ_SETTINGS_STRIP, NULL);
+  eject_changed_cb (sj_settings, SJ_SETTINGS_EJECT, NULL);
+  open_changed_cb (sj_settings, SJ_SETTINGS_OPEN, NULL);
+  audio_volume_changed_cb (sj_settings, SJ_SETTINGS_AUDIO_VOLUME, NULL);
+  if (device == NULL && uris == NULL) {
+    /* FIXME: this should set the device gsettings key to a meaningful
+     * value if it's empty (which is the case until the user changes it in
+     * the prefs)
+     */
+    device_changed_cb (sj_settings, SJ_SETTINGS_DEVICE, NULL);
+  } else {
+    if (device)
+      set_device (device, TRUE);
+    else {
+      char *d;
 
-    entry = gconf_client_get_entry (gconf_client, GCONF_BASEURI, NULL, TRUE, NULL);
-    baseuri_changed_cb (gconf_client, -1, entry, NULL);
-    gconf_entry_unref (entry);
-
-    entry = gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL);
-    path_pattern_changed_cb (gconf_client, -1, entry, NULL);
-    gconf_entry_unref (entry);
-
-    entry = gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL);
-    file_pattern_changed_cb (gconf_client, -1, entry, NULL);
-    gconf_entry_unref (entry);
-
-    entry = gconf_client_get_entry (gconf_client, GCONF_AUDIO_PROFILE_MEDIA_TYPE, NULL, TRUE, NULL);
-    profile_changed_cb (gconf_client, -1, entry, NULL);
-    gconf_entry_unref (entry);
-
-    entry = gconf_client_get_entry (gconf_client, GCONF_PARANOIA, NULL, TRUE, NULL);
-    paranoia_changed_cb (gconf_client, -1, entry, NULL);
-    gconf_entry_unref (entry);
-
-    entry = gconf_client_get_entry (gconf_client, GCONF_STRIP, NULL, TRUE, NULL);
-    strip_changed_cb (gconf_client, -1, entry, NULL);
-    gconf_entry_unref (entry);
-
-    entry = gconf_client_get_entry (gconf_client, GCONF_EJECT, NULL, TRUE, NULL);
-    eject_changed_cb (gconf_client, -1, entry, NULL);
-    gconf_entry_unref (entry);
-
-    entry = gconf_client_get_entry (gconf_client, GCONF_OPEN, NULL, TRUE, NULL);
-    open_changed_cb (gconf_client, -1, entry, NULL);
-    gconf_entry_unref (entry);
-
-    entry = gconf_client_get_entry (gconf_client, GCONF_AUDIO_VOLUME, NULL, TRUE, NULL);
-    audio_volume_changed_cb (gconf_client, -1, entry, NULL);
-    gconf_entry_unref (entry);
-
-    if (device == NULL && uris == NULL) {
-      entry = gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL);
-      device_changed_cb (gconf_client, -1, entry, GINT_TO_POINTER (TRUE));
-      gconf_entry_unref (entry);
-    } else {
-      if (device) {
-#ifdef __sun
-        if (strstr(device, "/dev/dsk/") != NULL ) {
-          device = g_strdup_printf("/dev/rdsk/%s", device + strlen("/dev/dsk/"));
-        }
-#endif
-        set_device (device, TRUE);
+      /* Mash up the CDDA URIs into a device path */
+      if (g_str_has_prefix (uris[0], "cdda://")) {
+        gint len;
+        d = g_strdup_printf ("/dev/%s%c", uris[0] + strlen ("cdda://"), '\0');
+        /* Take last '/' out of path, or set_device thinks it is part of the device name */
+      len = strlen (d);
+      if (d[len - 1] == '/')
+          d [len - 1] = '\0';
+      set_device (d, TRUE);
+      g_free (d);
       } else {
-        char *d;
-
-        /* Mash up the CDDA URIs into a device path */
-        if (g_str_has_prefix (uris[0], "cdda://")) {
-          gint len;
-#ifdef __sun
-          d = g_strdup_printf ("/dev/rdsk/%s", uris[0] + strlen ("cdda://"));
-#else
-          d = g_strdup_printf ("/dev/%s%c", uris[0] + strlen ("cdda://"), '\0');
-#endif
-          /* Take last '/' out of path, or set_device thinks it is part of the device name */
-          len = strlen (d);
-          if (d[len - 1] == '/')
-              d [len - 1] = '\0';
-          set_device (d, TRUE);
-          g_free (d);
-        } else {
-          entry = gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL);
-          device_changed_cb (gconf_client, -1, entry, GINT_TO_POINTER (TRUE));
-          gconf_entry_unref (entry);
-        }
+        device_changed_cb (sj_settings, SJ_SETTINGS_DEVICE, NULL);
       }
     }
   }
@@ -2384,8 +2256,6 @@ startup_cb (GApplication *app, gpointer user_data)
   /* Set whether duplication of a cd is available using the brasero tool */
   set_action_enabled ("duplicate", FALSE);
   duplication_enabled = is_cd_duplication_available();
-
-  gconf_bridge_bind_window_size(gconf_bridge_get(), GCONF_WINDOW, GTK_WINDOW (main_window));
 
   gtk_application_add_window (GTK_APPLICATION (app), GTK_WINDOW (main_window));
   gtk_widget_show (main_window);
@@ -2462,7 +2332,7 @@ int main (int argc, char **argv)
   g_object_unref (base_uri);
   g_object_unref (metadata);
   g_object_unref (extractor);
-  g_object_unref (gconf_client);
+  g_object_unref (sj_settings);
   brasero_media_library_stop ();
 
   return status;

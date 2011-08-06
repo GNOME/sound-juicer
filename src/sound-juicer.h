@@ -24,15 +24,14 @@
 
 #include <glib/gi18n.h>
 #include <brasero-medium-selection.h>
-#include <gconf/gconf-client.h>
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 #include "sj-extractor.h"
 
 /**
- * A GConf client
+ * A GSettings object
  */
-extern GConfClient *gconf_client;
+extern GSettings *sj_settings;
 
 /**
  * The main window
@@ -140,27 +139,20 @@ extern GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer, *com
 void sj_debug (SjDebugDomain domain, const gchar* format, ...);
 
 /**
- * GConf key names
+ * GSettings key names
  */
-#define GCONF_ROOT "/apps/sound-juicer"
-#define GCONF_DEVICE GCONF_ROOT "/device"
-#define GCONF_EJECT GCONF_ROOT "/eject"
-#define GCONF_OPEN GCONF_ROOT "/open_completed"
-#define GCONF_BASEPATH GCONF_ROOT "/base_path"
-#define GCONF_BASEURI GCONF_ROOT "/base_uri"
-#define GCONF_FILE_PATTERN GCONF_ROOT "/file_pattern"
-#define GCONF_PATH_PATTERN GCONF_ROOT "/path_pattern"
-#define GCONF_AUDIO_PROFILE GCONF_ROOT "/audio_profile"
-#define GCONF_AUDIO_PROFILE_MEDIA_TYPE GCONF_ROOT "/audio_profile_media_type"
-#define GCONF_PARANOIA GCONF_ROOT "/paranoia"
-#define GCONF_STRIP GCONF_ROOT "/strip-special"
-#define GCONF_WINDOW GCONF_ROOT "/window"
-#define GCONF_AUDIO_VOLUME GCONF_ROOT "/volume"
-
-#define GCONF_PROXY_ROOT "/system/http_proxy"
-#define GCONF_HTTP_PROXY_ENABLE GCONF_PROXY_ROOT "/use_http_proxy"
-#define GCONF_HTTP_PROXY GCONF_PROXY_ROOT "/host"
-#define GCONF_HTTP_PROXY_PORT GCONF_PROXY_ROOT "/port"
+#define SJ_SETTINGS_DEVICE "device"
+#define SJ_SETTINGS_EJECT "eject"
+#define SJ_SETTINGS_OPEN "open-completed"
+#define SJ_SETTINGS_BASEPATH "base-path"
+#define SJ_SETTINGS_BASEURI "base-uri"
+#define SJ_SETTINGS_FILE_PATTERN "file-pattern"
+#define SJ_SETTINGS_PATH_PATTERN "path-pattern"
+#define SJ_SETTINGS_AUDIO_PROFILE "audio-profile"
+#define SJ_SETTINGS_PARANOIA "paranoia"
+#define SJ_SETTINGS_STRIP "strip-special"
+#define SJ_SETTINGS_WINDOW "window"
+#define SJ_SETTINGS_AUDIO_VOLUME "volume"
 
 /* TODO: need to add a SjWindow object or something */
 void sj_main_set_title (const char* detail);

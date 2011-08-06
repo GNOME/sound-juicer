@@ -50,8 +50,6 @@ struct _SjMetadataGetterClass
 GType sj_metadata_getter_get_type (void);
 SjMetadataGetter *sj_metadata_getter_new (void);
 void sj_metadata_getter_set_cdrom (SjMetadataGetter *mdg, const char* device);
-void sj_metadata_getter_set_proxy (SjMetadataGetter *mdg, const char* proxy);
-void sj_metadata_getter_set_proxy_port (SjMetadataGetter *mdg, const int proxy_port);
 gboolean sj_metadata_getter_list_albums (SjMetadataGetter *mdg, GError **error);
 char *sj_metadata_getter_get_submit_url (SjMetadataGetter *mdg);
 

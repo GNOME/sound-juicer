@@ -18,6 +18,7 @@
 
 #include "config.h"
 
+#include <gio/gio.h>
 #include <glib-object.h>
 #include <glib/gi18n.h>
 #include "sj-structures.h"
@@ -30,6 +31,12 @@
 #include "sj-metadata-gvfs.h"
 #include "sj-error.h"
 
+#define SJ_SETTINGS_PROXY_HOST "host"
+#define SJ_SETTINGS_PROXY_PORT "port"
+#define SJ_SETTINGS_PROXY_USE_AUTHENTICATION "use-authentication"
+#define SJ_SETTINGS_PROXY_USERNAME "authentication-user"
+#define SJ_SETTINGS_PROXY_PASSWORD "authentication-password"
+
 enum {
   METADATA,
   LAST_SIGNAL
@@ -38,8 +45,6 @@ enum {
 struct SjMetadataGetterPrivate {
   char *url;
   char *cdrom;
-  char *proxy_host;
-  int proxy_port;
 };
 
 struct SjMetadataGetterSignal {
@@ -89,7 +94,6 @@ sj_metadata_getter_finalize (GObject *object)
 
   g_free (priv->url);
   g_free (priv->cdrom);
-  g_free (priv->proxy_host);
 
   G_OBJECT_CLASS (sj_metadata_getter_parent_class)->finalize (object);
 }
@@ -123,26 +127,41 @@ sj_metadata_getter_set_cdrom (SjMetadataGetter *mdg, const char* device)
   priv->cdrom = g_strdup (device);
 }
 
-void
-sj_metadata_getter_set_proxy (SjMetadataGetter *mdg, const char* proxy)
+static void
+bind_http_proxy_settings (SjMetadata *metadata)
 {
-  SjMetadataGetterPrivate *priv;
+  GSettings *settings = g_settings_new ("org.gnome.system.proxy.http");
+  /* bind with G_SETTINGS_BIND_GET_NO_CHANGES to avoid occasional
+     segfaults in g_object_set_property called with an invalid pointer
+     which I think were caused by the update being scheduled before
+     metadata was destroy but happening afterwards (g_settings_bind is
+     not called from the main thread). metadata is a short lived
+     object so there shouldn't be a problem in practice, as the setting
+     are unlikely to change while it exists. If the settings change
+     between ripping one CD and the next then as a new metadata object
+     is created for the second query it will have the updated
+     settings. */
+  g_settings_bind (settings, SJ_SETTINGS_PROXY_HOST,
+                   metadata, "proxy-host",
+                   G_SETTINGS_BIND_GET_NO_CHANGES);
 
-  priv = GETTER_PRIVATE (mdg);
+  g_settings_bind (settings, SJ_SETTINGS_PROXY_PORT,
+                   metadata, "proxy-port",
+                   G_SETTINGS_BIND_GET_NO_CHANGES);
 
-  if (priv->proxy_host)
-    g_free (priv->proxy_host);
-  priv->proxy_host = g_strdup (proxy);
-}
+  g_settings_bind (settings, SJ_SETTINGS_PROXY_USERNAME,
+                   metadata, "proxy-username",
+                   G_SETTINGS_BIND_GET_NO_CHANGES);
 
-void
-sj_metadata_getter_set_proxy_port (SjMetadataGetter *mdg, const int proxy_port)
-{
-  SjMetadataGetterPrivate *priv;
+  g_settings_bind (settings, SJ_SETTINGS_PROXY_PASSWORD,
+                   metadata, "proxy-password",
+                   G_SETTINGS_BIND_GET_NO_CHANGES);
 
-  priv = GETTER_PRIVATE (mdg);
+  g_settings_bind (settings, SJ_SETTINGS_PROXY_USE_AUTHENTICATION,
+                   metadata, "proxy-use-authentication",
+                   G_SETTINGS_BIND_GET_NO_CHANGES);
 
-  priv->proxy_port = proxy_port;
+  g_object_unref (settings);
 }
 
 static gboolean
@@ -186,10 +205,9 @@ lookup_cd (SjMetadataGetter *mdg)
     GList *albums;
 
     metadata = g_object_new (types[i],
-    			     "device", priv->cdrom,
-    			     "proxy-host", priv->proxy_host,
-    			     "proxy-port", priv->proxy_port,
-    			     NULL);
+                             "device", priv->cdrom,
+                             NULL);
+    bind_http_proxy_settings (metadata);
     if (priv->url == NULL)
       albums = sj_metadata_list_albums (metadata, &priv->url, &error);
     else
@@ -245,4 +263,3 @@ sj_metadata_getter_get_submit_url (SjMetadataGetter *mdg)
     return g_strdup (priv->url);
   return NULL;
 }
-

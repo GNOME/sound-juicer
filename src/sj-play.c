@@ -531,7 +531,7 @@ on_volume_changed (GtkWidget * volb, gdouble value, gpointer data)
   vol = value;
   if (pipeline)
     g_object_set (G_OBJECT (pipeline), "volume", vol, NULL);
-  gconf_client_set_float (gconf_client, GCONF_AUDIO_VOLUME, vol, NULL);
+  g_settings_set_double (sj_settings, SJ_SETTINGS_AUDIO_VOLUME, vol);
 }
 
 static gboolean

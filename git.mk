@@ -105,6 +105,11 @@ $(srcdir)/.gitignore: Makefile.am $(top_srcdir)/git.mk
 				"*/*.omf.out" \
 			; do echo /$$x; done; \
 		fi; \
+		if test "x$(gsettings_SCHEMAS)" = x; then :; else \
+			for x in \
+				$(gsettings_SCHEMAS:.xml=.valid) \
+			; do echo /$$x; done; \
+		fi; \
 		if test -f $(srcdir)/po/Makefile.in.in; then \
 			for x in \
 				po/Makefile.in.in \

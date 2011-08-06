@@ -10,13 +10,11 @@ Requires:	libmusicbrainz >= 2.0.1
 Requires:	libgnomeui >= 2.0.0
 Requires:	glib2 >= 2.0.0
 Requires:	gstreamer >= 0.8.0
-Requires:	GConf2 >= 2.0.0
 Requires:	gstreamer-plugins-base >= 0.7.2
 BuildRequires:	libmusicbrainz-devel >= 2.0.1
 BuildRequires:	libgnomeui-devel >= 2.0.0
 BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	gstreamer-devel >= 0.8.0
-BuildRequires:	GConf2-devel >= 2.0.0
 BuildRequires:  scrollkeeper >= @SCROLLKEEPER_BUILD_REQUIRED@
 
 %description
@@ -31,9 +29,7 @@ GStreamer-based CD ripping tool. Saves audio CDs to Ogg Vorbis or FLAC.
 
 make
 
-export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1;
 %makeinstall
-unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 
 # Clean out bad files
 rm -rf $RPM_BUILD_ROOT%{_localstatedir}/scrollkeeper
@@ -45,19 +41,10 @@ rm -rf $RPM_BUILD_ROOT/usr/share/icons/hicolor/icon-theme.cache
 %clean
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf $RPM_BUILD_ROOT
 
-%preun
-export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` 
-gconftool-2 --makefile-uninstall-rule %{_sysconfdir}/gconf/schemas/sound-juicer.schemas > /dev/null
-
-%post
-export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` 
-gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/sound-juicer.schemas > /dev/null
-
 %files -f sound-juicer.lang
 %defattr(-, root, root)
 %doc AUTHORS COPYING ChangeLog INSTALL README NEWS
 %{_bindir}/sound-juicer
-%{_sysconfdir}/gconf/schemas/sound-juicer.schemas
 %{_datadir}/sound-juicer
 %{_datadir}/applications/sound-juicer.desktop
 %{_datadir}/icons/hicolor/16x16

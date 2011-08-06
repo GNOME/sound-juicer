@@ -16,8 +16,6 @@ sound_juicer_SOURCES = \
 	sj-inhibit.c \
 	sj-genres.h \
 	sj-genres.c \
-	gconf-bridge.h \
-	gconf-bridge.c \
 	egg-play-preview.c \
 	egg-play-preview.h
 

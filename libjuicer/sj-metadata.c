@@ -51,6 +51,11 @@ sj_metadata_base_init (gpointer g_iface)
                                                               G_PARAM_STATIC_NAME|G_PARAM_STATIC_NICK|G_PARAM_STATIC_BLURB));
 
     g_object_interface_install_property (g_iface,
+                                         g_param_spec_boolean ("proxy-use-authentication", "proxy-use-authentication",
+                                                               "Whether the http proxy requires authentication", FALSE,
+                                                               G_PARAM_READABLE|G_PARAM_WRITABLE|
+                                                               G_PARAM_STATIC_NAME|G_PARAM_STATIC_NICK|G_PARAM_STATIC_BLURB));
+    g_object_interface_install_property (g_iface,
                                          g_param_spec_string ("proxy-host", "proxy-host", NULL, NULL,
                                                               G_PARAM_READABLE|G_PARAM_WRITABLE|
                                                               G_PARAM_STATIC_NAME|G_PARAM_STATIC_NICK|G_PARAM_STATIC_BLURB));
@@ -60,6 +65,16 @@ sj_metadata_base_init (gpointer g_iface)
                                                            0, G_MAXINT, 0,
                                                            G_PARAM_READABLE|G_PARAM_WRITABLE|
                                                            G_PARAM_STATIC_NAME|G_PARAM_STATIC_NICK|G_PARAM_STATIC_BLURB));
+
+    g_object_interface_install_property (g_iface,
+                                         g_param_spec_string ("proxy-username", "proxy-username", NULL, NULL,
+                                                              G_PARAM_READABLE|G_PARAM_WRITABLE|
+                                                              G_PARAM_STATIC_NAME|G_PARAM_STATIC_NICK|G_PARAM_STATIC_BLURB));
+
+    g_object_interface_install_property (g_iface,
+                                         g_param_spec_string ("proxy-password", "proxy-password", NULL, NULL,
+                                                              G_PARAM_READABLE|G_PARAM_WRITABLE|
+                                                              G_PARAM_STATIC_NAME|G_PARAM_STATIC_NICK|G_PARAM_STATIC_BLURB));
 
     initialized = TRUE;
   }
@@ -93,18 +108,6 @@ void
 sj_metadata_set_cdrom (SjMetadata *metadata, const char* device)
 {
   g_object_set (metadata, "device", device, NULL);
-}
-
-void
-sj_metadata_set_proxy (SjMetadata *metadata, const char* proxy)
-{
-  g_object_set (metadata, "proxy-host", proxy, NULL);
-}
-
-void
-sj_metadata_set_proxy_port (SjMetadata *metadata, const int proxy_port)
-{
-  g_object_set (metadata, "proxy-port", proxy_port, NULL);
 }
 
 GList *

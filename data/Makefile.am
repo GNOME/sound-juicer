@@ -6,10 +6,12 @@ desktop_in_files = sound-juicer.desktop.in.in
 desktop_DATA = $(desktop_in_files:.desktop.in.in=.desktop)
 @INTLTOOL_DESKTOP_RULE@
 
-schemadir = $(GCONF_SCHEMA_FILE_DIR)
-schema_in_files = sound-juicer.schemas.in
-schema_DATA = $(schema_in_files:.schemas.in=.schemas)
-@INTLTOOL_SCHEMAS_RULE@
+gsettings_SCHEMAS = org.gnome.sound-juicer.gschema.xml
+
+@GSETTINGS_RULES@
+
+convertdir = $(datadir)/GConf/gsettings
+convert_DATA = sound-juicer.convert
 
 profilesdir = $(datadir)/sound-juicer
 dist_profiles_DATA = rhythmbox.gep
@@ -62,28 +64,22 @@ uninstall-icons:
 
 install-data-local: install-icons
 install-data-hook: update-icon-cache
-if GCONF_SCHEMAS_INSTALL
-	@if test -z "$(DESTDIR)" ; then \
-		for p in $(schema_DATA) ; do \
-			GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $$p 2>&1 > /dev/null; \
-		done \
-	fi ||  (echo ;\
-                echo "*****************************************************"; \
-                echo "Installation of schemas failed, install them manually"; \
-                echo "*****************************************************";)
-	@true
-endif
 
 uninstall-local: uninstall-icons
 uninstall-hook: update-icon-cache
 
 CLEANFILES = \
-	$(desktop_DATA) \
-	$(schema_DATA)
+	$(desktop_DATA)
+
+DISTCLEANFILES = \
+	$(desktop_DATA)
 
 EXTRA_DIST = \
-	$(schema_in_files) \
+	$(gsettings_SCHEMAS) \
+	sound-juicer.convert \
 	$(man1_MANS) \
 	$(icons)
+
+MAINTAINERCLEANFILES = $(gsettings_SCHEMAS:.xml=.valid)
 
 -include $(top_srcdir)/git.mk

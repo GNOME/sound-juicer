@@ -28,12 +28,10 @@
 #include <string.h>
 #include <gst/pbutils/encoding-profile.h>
 #include <gtk/gtk.h>
-#include <gconf/gconf-client.h>
 #include <brasero-drive-selection.h>
 
 #include "rb-gst-media-types.h"
 #include "sj-util.h"
-#include "gconf-bridge.h"
 #include "sj-extracting.h"
 #include "sj-prefs.h"
 
@@ -83,6 +81,18 @@ static const FilePattern file_patterns[] = {
   {NULL, NULL}
 };
 
+const gchar*
+sj_get_default_file_pattern (void)
+{
+  return file_patterns[0].pattern;
+}
+
+const gchar*
+sj_get_default_path_pattern (void)
+{
+  return path_patterns[0].pattern;
+}
+
 void prefs_profile_changed (GtkWidget *widget, gpointer user_data)
 {
   GtkTreeIter iter;
@@ -94,8 +104,7 @@ void prefs_profile_changed (GtkWidget *widget, gpointer user_data)
     char *media_type;
     gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
                         0, &media_type, -1);
-    gconf_client_set_string (gconf_client, GCONF_AUDIO_PROFILE_MEDIA_TYPE,
-                             media_type, NULL);
+    g_settings_set_string (sj_settings, SJ_SETTINGS_AUDIO_PROFILE, media_type);
     g_free (media_type);
   }
 }
@@ -133,11 +142,11 @@ G_MODULE_EXPORT void prefs_base_folder_changed (GtkWidget *chooser, gpointer use
 {
   char *new_uri, *current_uri;
 
-  current_uri = gconf_client_get_string (gconf_client, GCONF_BASEURI, NULL);
+  current_uri = g_settings_get_string (sj_settings, SJ_SETTINGS_BASEURI);
   new_uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (chooser));
 
   if (current_uri == NULL || strcmp(current_uri, new_uri) != 0) {
-      gconf_client_set_string (gconf_client, GCONF_BASEURI, new_uri, NULL);
+      g_settings_set_string (sj_settings, SJ_SETTINGS_BASEURI, new_uri);
   }
 
   g_free (new_uri);
@@ -154,7 +163,7 @@ void prefs_path_option_changed (GtkComboBox *combo, gpointer user_data)
 
   pattern = path_patterns[active].pattern;
   if (pattern) {
-    gconf_client_set_string (gconf_client, GCONF_PATH_PATTERN, pattern, NULL);
+    g_settings_set_string (sj_settings, SJ_SETTINGS_PATH_PATTERN, pattern);
   }
 }
 
@@ -168,7 +177,7 @@ G_MODULE_EXPORT void prefs_file_option_changed (GtkComboBox *combo, gpointer use
 
   pattern = file_patterns[active].pattern;
   if (pattern) {
-    gconf_client_set_string (gconf_client, GCONF_FILE_PATTERN, pattern, NULL);
+    g_settings_set_string (sj_settings, SJ_SETTINGS_FILE_PATTERN, pattern);
   }
 }
 
@@ -199,17 +208,16 @@ sj_audio_profile_chooser_set_active (GtkWidget *chooser, const char *profile)
   }
 }
 
-static void audio_profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void audio_profile_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
-  const char *value;
-  g_return_if_fail (strcmp (entry->key, GCONF_AUDIO_PROFILE_MEDIA_TYPE) == 0);
-  if (!entry->value) return;
-  value = gconf_value_get_string (entry->value);
-
+  char *value;
+  g_return_if_fail (strcmp (key, SJ_SETTINGS_AUDIO_PROFILE) == 0);
+  value = g_settings_get_string (settings, key);
   sj_audio_profile_chooser_set_active (audio_profile, value);
+  g_free (value);
 }
 
-static void baseuri_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void baseuri_changed_cb  (GSettings *settings, gchar *key, gpointer user_data)
 {
   /*
    * The conflict between separation of the prefs and the main window,
@@ -219,11 +227,9 @@ static void baseuri_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *
    * into sj-utils?
    */
   const char* base_uri, *current_uri;
-  g_return_if_fail (strcmp (entry->key, GCONF_BASEURI) == 0);
+  g_return_if_fail (strcmp (key, SJ_SETTINGS_BASEURI) == 0);
 
-  base_uri = NULL;
-  if (entry->value != NULL)
-    base_uri = gconf_value_get_string (entry->value);
+  base_uri = g_settings_get_string (settings, key);
 
   if (base_uri == NULL || base_uri[0] == '\0') {
     GFile *dir;
@@ -235,7 +241,6 @@ static void baseuri_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *
     g_free (dir_uri);
     g_object_unref (dir);
   } else {
-    g_return_if_fail (entry->value->type == GCONF_VALUE_STRING);
     current_uri = gtk_file_chooser_get_current_folder_uri (GTK_FILE_CHOOSER (basepath_fcb));
     if (current_uri == NULL || strcmp (current_uri, base_uri) != 0)
       gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (basepath_fcb), base_uri);
@@ -284,13 +289,13 @@ static void pattern_label_update (void)
   gst_encoding_profile_unref (profile);
 
   /* TODO: sucky. Replace with get-gconf-key-with-default mojo */
-  file_pattern = gconf_client_get_string (gconf_client, GCONF_FILE_PATTERN, NULL);
+  file_pattern = g_settings_get_string (sj_settings, SJ_SETTINGS_FILE_PATTERN);
   if (file_pattern == NULL) {
-    file_pattern = g_strdup(file_patterns[0].pattern);
+    file_pattern = g_strdup (sj_get_default_file_pattern ());
   }
-  path_pattern = gconf_client_get_string (gconf_client, GCONF_PATH_PATTERN, NULL);
+  path_pattern = g_settings_get_string (sj_settings, SJ_SETTINGS_PATH_PATTERN);
   if (path_pattern == NULL) {
-    path_pattern = g_strdup(path_patterns[0].pattern);
+    path_pattern = g_strdup (sj_get_default_path_pattern ());
   }
 
   file_value = filepath_parse_pattern (file_pattern, &sample_track);
@@ -316,18 +321,13 @@ static void pattern_label_update (void)
   g_free (format);
 }
 
-static void path_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void path_pattern_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
   char *value;
   int i = 0;
-  g_return_if_fail (strcmp (entry->key, GCONF_PATH_PATTERN) == 0);
+  g_return_if_fail (strcmp (key, SJ_SETTINGS_PATH_PATTERN) == 0);
 
-  if (entry->value == NULL) {
-    value = g_strdup (path_patterns[0].pattern);
-  } else if (entry->value->type == GCONF_VALUE_STRING) {
-    value = g_strdup (gconf_value_get_string (entry->value));
-  } else
-    return;
+  value = g_settings_get_string (settings, key);
   while (path_patterns[i].pattern && strcmp(path_patterns[i].pattern, value) != 0) {
     i++;
   }
@@ -336,19 +336,15 @@ static void path_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
   pattern_label_update ();
 }
 
-static void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void file_pattern_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
   char *value;
   int i = 0;
 
-  g_return_if_fail (strcmp (entry->key, GCONF_FILE_PATTERN) == 0);
+  g_return_if_fail (strcmp (key, SJ_SETTINGS_FILE_PATTERN) == 0);
 
-  if (entry->value == NULL) {
-    value = g_strdup (file_patterns[0].pattern);
-  } else if (entry->value->type == GCONF_VALUE_STRING) {
-    value = g_strdup (gconf_value_get_string (entry->value));
-  } else
-    return;
+  value = g_settings_get_string (settings, key);
+
   while (file_patterns[i].pattern && strcmp(file_patterns[i].pattern, value) != 0) {
     i++;
   }
@@ -358,50 +354,51 @@ static void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
 }
 
 /**
- * Default device changed (either GConf key or the widget)
+ * Default device changed (either GSettings key or the widget)
  */
-static void device_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void device_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
-  g_return_if_fail (strcmp (entry->key, GCONF_DEVICE) == 0);
+  BraseroDrive *drive;
+  BraseroMediumMonitor *monitor;
+  char *value;
 
-  if (entry->value == NULL)
-    return;
+  g_return_if_fail (strcmp (key, SJ_SETTINGS_DEVICE) == 0);
 
-  if (entry->value->type == GCONF_VALUE_STRING) {
-    BraseroDrive *drive;
-    BraseroMediumMonitor *monitor;
-
+  value = g_settings_get_string (settings, key);
+  if ((value != NULL) && (*value != '\0')) {
     monitor = brasero_medium_monitor_get_default ();
-    drive = brasero_medium_monitor_get_drive (monitor, gconf_value_get_string (entry->value));
+    drive = brasero_medium_monitor_get_drive (monitor, value);
     brasero_drive_selection_set_active (BRASERO_DRIVE_SELECTION (cd_option), drive);
     g_object_unref (drive);
     g_object_unref (monitor);
+  } else {
+    /* FIXME: see the FIXME in sj-main.c around one of the
+     * device_changed_cb calls for a way to fix this
+     */
+    g_warn_if_reached();
   }
+  g_free (value);
 }
 
 static void prefs_drive_changed (BraseroDriveSelection *selection, BraseroDrive *drive, gpointer user_data)
 {
   if (drive)
-    gconf_client_set_string (gconf_client, GCONF_DEVICE, brasero_drive_get_device (drive), NULL);
+    g_settings_set_string (sj_settings, SJ_SETTINGS_DEVICE, brasero_drive_get_device (drive));
   else
-    gconf_client_set_string (gconf_client, GCONF_DEVICE, NULL, NULL);
+    g_settings_set_string (sj_settings, SJ_SETTINGS_DEVICE, NULL);
 }
 
 /**
- * The GConf key for the strip characters option changed
+ * The GSettings key for the strip characters option changed
  */
-static void strip_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
+static void strip_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
   /* NOTE that strip_changed_cb in sj-main.c will also be called, and will also update
      the global value strip_chars - but which function will get called first?
      Make sure strip_chars is up to date BEFORE calling pattern_label_update */
-  g_return_if_fail (strcmp (entry->key, GCONF_STRIP) == 0);
+  g_return_if_fail (strcmp (key, SJ_SETTINGS_STRIP) == 0);
 
-  if (entry->value == NULL) {
-    strip_chars = FALSE;
-  } else {
-    strip_chars = gconf_value_get_bool (entry->value);
-  }
+  strip_chars = g_settings_get_boolean (settings, key);
   pattern_label_update ();
 }
 
@@ -481,7 +478,6 @@ void show_preferences_dialog ()
     guint i;
     GtkSizeGroup *group;
     GtkWidget    *box;
-    GConfBridge *bridge = gconf_bridge_get ();
 
     prefs_dialog = GET_WIDGET ("prefs_dialog");
     box          = GET_WIDGET ("hack_hbox");
@@ -532,24 +528,30 @@ void show_preferences_dialog ()
 
     g_signal_connect (cd_option, "drive-changed", G_CALLBACK (prefs_drive_changed), NULL);
 
-    /* Connect to GConf to update the UI */
-    gconf_bridge_bind_property (bridge, GCONF_EJECT, G_OBJECT (check_eject), "active");
-    gconf_bridge_bind_property (bridge, GCONF_OPEN, G_OBJECT (check_open), "active");
-    gconf_bridge_bind_property (bridge, GCONF_STRIP, G_OBJECT (check_strip), "active");
-    gconf_client_notify_add (gconf_client, GCONF_DEVICE, device_changed_cb, NULL, NULL, NULL);
-    gconf_client_notify_add (gconf_client, GCONF_BASEURI, baseuri_changed_cb, NULL, NULL, NULL);
-    gconf_client_notify_add (gconf_client, GCONF_AUDIO_PROFILE_MEDIA_TYPE, audio_profile_changed_cb, NULL, NULL, NULL);
-    gconf_client_notify_add (gconf_client, GCONF_PATH_PATTERN, path_pattern_changed_cb, NULL, NULL, NULL);
-    gconf_client_notify_add (gconf_client, GCONF_FILE_PATTERN, file_pattern_changed_cb, NULL, NULL, NULL);
-    gconf_client_notify_add (gconf_client, GCONF_STRIP, strip_changed_cb, NULL, NULL, NULL);
+    /* Connect to GSettings to update the UI */
+    g_settings_bind (sj_settings, SJ_SETTINGS_EJECT, G_OBJECT (check_eject), "active", G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (sj_settings, SJ_SETTINGS_OPEN, G_OBJECT (check_open), "active", G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (sj_settings, SJ_SETTINGS_STRIP, G_OBJECT (check_strip), "active", G_SETTINGS_BIND_DEFAULT);
+    g_signal_connect (G_OBJECT (sj_settings), "changed::"SJ_SETTINGS_DEVICE,
+                      (GCallback)device_changed_cb, NULL);
+    g_signal_connect (G_OBJECT (sj_settings), "changed::"SJ_SETTINGS_BASEURI,
+                      (GCallback)baseuri_changed_cb, NULL);
+    g_signal_connect (G_OBJECT (sj_settings), "changed::"SJ_SETTINGS_AUDIO_PROFILE,
+                      (GCallback)audio_profile_changed_cb, NULL);
+    g_signal_connect (G_OBJECT (sj_settings), "changed::"SJ_SETTINGS_PATH_PATTERN,
+                      (GCallback)path_pattern_changed_cb, NULL);
+    g_signal_connect (G_OBJECT (sj_settings), "changed::"SJ_SETTINGS_FILE_PATTERN,
+                      (GCallback)file_pattern_changed_cb, NULL);
+    g_signal_connect (G_OBJECT (sj_settings), "changed::"SJ_SETTINGS_STRIP,
+                      (GCallback)strip_changed_cb, NULL);
 
     g_signal_connect (extractor, "notify::profile", pattern_label_update, NULL);
 
-    baseuri_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_BASEURI, NULL, TRUE, NULL), NULL);
-    audio_profile_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_AUDIO_PROFILE_MEDIA_TYPE, NULL, TRUE, NULL), NULL);
-    file_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_FILE_PATTERN, NULL, TRUE, NULL), NULL);
-    path_pattern_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_PATH_PATTERN, NULL, TRUE, NULL), NULL);
-    device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), NULL);
+    baseuri_changed_cb (sj_settings, SJ_SETTINGS_BASEURI, NULL);
+    audio_profile_changed_cb (sj_settings, SJ_SETTINGS_AUDIO_PROFILE, NULL);
+    file_pattern_changed_cb (sj_settings, SJ_SETTINGS_FILE_PATTERN, NULL);
+    path_pattern_changed_cb (sj_settings, SJ_SETTINGS_PATH_PATTERN, NULL);
+    device_changed_cb (sj_settings, SJ_SETTINGS_DEVICE, NULL);
 
     g_signal_connect (GTK_DIALOG (prefs_dialog), "response", G_CALLBACK (on_response), NULL);
 

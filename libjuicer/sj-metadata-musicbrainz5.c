@@ -26,7 +26,6 @@
 #include <stdlib.h>
 #include <glib.h>
 #include <glib-object.h>
-#include <gconf/gconf-client.h>
 #include <discid/discid.h>
 #include <musicbrainz5/mb5_c.h>
 
@@ -48,22 +47,18 @@
 #define discid_read_sparse(disc, dev, i) discid_read(disc, dev)
 #endif
 
-#define GCONF_MUSICBRAINZ_SERVER "/apps/sound-juicer/musicbrainz_server"
-#define GCONF_PROXY_USE_PROXY "/system/http_proxy/use_http_proxy"
-#define GCONF_PROXY_HOST "/system/http_proxy/host"
-#define GCONF_PROXY_PORT "/system/http_proxy/port"
-#define GCONF_PROXY_USE_AUTHENTICATION "/system/http_proxy/use_authentication"
-#define GCONF_PROXY_USERNAME "/system/http_proxy/authentication_user"
-#define GCONF_PROXY_PASSWORD "/system/http_proxy/authentication_password"
 #define SJ_MUSICBRAINZ_USER_AGENT "libjuicer-"VERSION
 
 typedef struct {
   Mb5Query mb;
-  DiscId *disc;
-  char *cdrom;
+  DiscId  *disc;
+  char    *cdrom;
   /* Proxy */
-  char *http_proxy;
-  int http_proxy_port;
+  char    *proxy_host;
+  char    *proxy_username;
+  char    *proxy_password;
+  int      proxy_port;
+  gboolean proxy_use_authentication;
 } SjMetadataMusicbrainz5Private;
 
 #define GET_PRIVATE(o)  \
@@ -72,9 +67,11 @@ typedef struct {
 enum {
   PROP_0,
   PROP_DEVICE,
-  PROP_USE_PROXY,
+  PROP_PROXY_USE_AUTHENTICATION,
   PROP_PROXY_HOST,
   PROP_PROXY_PORT,
+  PROP_PROXY_USERNAME,
+  PROP_PROXY_PASSWORD
 };
 
 static void metadata_interface_init (gpointer g_iface, gpointer iface_data);
@@ -640,6 +637,28 @@ artist-rels" };
   return albums;
 }
 
+static void
+setup_http_proxy (SjMetadataMusicbrainz5Private *priv)
+{
+  if (priv->proxy_host == NULL || priv->proxy_port == 0) {
+    mb5_query_set_proxyhost (priv->mb, NULL);
+    mb5_query_set_proxyport (priv->mb, 0);
+    mb5_query_set_proxyusername (priv->mb, NULL);
+    mb5_query_set_proxypassword (priv->mb, NULL);
+  } else {
+    mb5_query_set_proxyhost (priv->mb, priv->proxy_host);
+    mb5_query_set_proxyport (priv->mb, priv->proxy_port);
+    if (priv->proxy_use_authentication &&
+        priv->proxy_username != NULL && priv->proxy_password != NULL) {
+      mb5_query_set_proxyusername (priv->mb, priv->proxy_username);
+      mb5_query_set_proxypassword (priv->mb, priv->proxy_password);
+    } else {
+      mb5_query_set_proxyusername (priv->mb, NULL);
+      mb5_query_set_proxypassword (priv->mb, NULL);
+    }
+  }
+}
+
 /*
  * GObject methods
  */
@@ -655,52 +674,10 @@ metadata_interface_init (gpointer g_iface, gpointer iface_data)
 static void
 sj_metadata_musicbrainz5_init (SjMetadataMusicbrainz5 *self)
 {
-  GConfClient *gconf_client;
-  gchar *server_name;
-
   SjMetadataMusicbrainz5Private *priv;
 
   priv = GET_PRIVATE (self);
-
-  gconf_client = gconf_client_get_default ();
-
-  server_name = gconf_client_get_string (gconf_client, GCONF_MUSICBRAINZ_SERVER, NULL);
-
-  if (server_name && (*server_name == '\0')) {
-    g_free (server_name);
-    server_name = NULL;
-  }
-
-  priv->mb = mb5_query_new (SJ_MUSICBRAINZ_USER_AGENT, server_name, 0);
-  g_free (server_name);
-
-
-  /* Set the HTTP proxy */
-  if (gconf_client_get_bool (gconf_client, GCONF_PROXY_USE_PROXY, NULL)) {
-    char *proxy_host;
-    int port;
-
-    proxy_host = gconf_client_get_string (gconf_client, GCONF_PROXY_HOST, NULL);
-    mb5_query_set_proxyhost (priv->mb, proxy_host);
-    g_free (proxy_host);
-
-    port = gconf_client_get_int (gconf_client, GCONF_PROXY_PORT, NULL);
-    mb5_query_set_proxyport (priv->mb, port);
-
-    if (gconf_client_get_bool (gconf_client, GCONF_PROXY_USE_AUTHENTICATION, NULL)) {
-      char *username, *password;
-
-      username = gconf_client_get_string (gconf_client, GCONF_PROXY_USERNAME, NULL);
-      mb5_query_set_proxyusername (priv->mb, username);
-      g_free (username);
-
-      password = gconf_client_get_string (gconf_client, GCONF_PROXY_PASSWORD, NULL);
-      mb5_query_set_proxypassword (priv->mb, password);
-      g_free (password);
-    }
-  }
-
-  g_object_unref (gconf_client);
+  priv->mb = mb5_query_new (SJ_MUSICBRAINZ_USER_AGENT, NULL, 0);
 }
 
 static void
@@ -714,11 +691,20 @@ sj_metadata_musicbrainz5_get_property (GObject *object, guint property_id,
   case PROP_DEVICE:
     g_value_set_string (value, priv->cdrom);
     break;
+  case PROP_PROXY_USE_AUTHENTICATION:
+    g_value_set_boolean (value, priv->proxy_use_authentication);
+    break;
   case PROP_PROXY_HOST:
-    g_value_set_string (value, priv->http_proxy);
+    g_value_set_string (value, priv->proxy_host);
     break;
   case PROP_PROXY_PORT:
-    g_value_set_int (value, priv->http_proxy_port);
+    g_value_set_int (value, priv->proxy_port);
+    break;
+  case PROP_PROXY_USERNAME:
+    g_value_set_string (value, priv->proxy_username);
+    break;
+  case PROP_PROXY_PASSWORD:
+    g_value_set_string (value, priv->proxy_password);
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -738,17 +724,28 @@ sj_metadata_musicbrainz5_set_property (GObject *object, guint property_id,
       g_free (priv->cdrom);
     priv->cdrom = g_value_dup_string (value);
     break;
+  case PROP_PROXY_USE_AUTHENTICATION:
+    priv->proxy_use_authentication = g_value_get_boolean (value);
+    setup_http_proxy (priv);
+    break;
   case PROP_PROXY_HOST:
-    if (priv->http_proxy) {
-      g_free (priv->http_proxy);
-    }
-    priv->http_proxy = g_value_dup_string (value);
-    /* TODO: check this unsets the proxy if NULL, or should we pass "" ? */
-    mb5_query_set_proxyhost (priv->mb, priv->http_proxy);
+    g_free (priv->proxy_host);
+    priv->proxy_host = g_value_dup_string (value);
+    setup_http_proxy (priv);
     break;
   case PROP_PROXY_PORT:
-    priv->http_proxy_port = g_value_get_int (value);
-    mb5_query_set_proxyport (priv->mb, priv->http_proxy_port);
+    priv->proxy_port = g_value_get_int (value);
+    setup_http_proxy (priv);
+    break;
+  case PROP_PROXY_USERNAME:
+    g_free (priv->proxy_username);
+    priv->proxy_username = g_value_dup_string (value);
+    setup_http_proxy (priv);
+    break;
+  case PROP_PROXY_PASSWORD:
+    g_free (priv->proxy_password);
+    priv->proxy_password = g_value_dup_string (value);
+    setup_http_proxy (priv);
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -767,10 +764,13 @@ sj_metadata_musicbrainz5_finalize (GObject *object)
     priv->mb = NULL;
   }
   if (priv->disc != NULL) {
-      discid_free (priv->disc);
-      priv->disc = NULL;
+    discid_free (priv->disc);
+    priv->disc = NULL;
   }
   g_free (priv->cdrom);
+  g_free (priv->proxy_host);
+  g_free (priv->proxy_username);
+  g_free (priv->proxy_password);
 
   G_OBJECT_CLASS (sj_metadata_musicbrainz5_parent_class)->finalize (object);
 }
@@ -786,9 +786,18 @@ sj_metadata_musicbrainz5_class_init (SjMetadataMusicbrainz5Class *class)
   object_class->set_property = sj_metadata_musicbrainz5_set_property;
   object_class->finalize = sj_metadata_musicbrainz5_finalize;
 
-  g_object_class_override_property (object_class, PROP_DEVICE, "device");
-  g_object_class_override_property (object_class, PROP_PROXY_HOST, "proxy-host");
-  g_object_class_override_property (object_class, PROP_PROXY_PORT, "proxy-port");
+  g_object_class_override_property (object_class,
+                                    PROP_DEVICE, "device");
+  g_object_class_override_property (object_class,
+                                    PROP_PROXY_USE_AUTHENTICATION, "proxy-use-authentication");
+  g_object_class_override_property (object_class,
+                                    PROP_PROXY_HOST, "proxy-host");
+  g_object_class_override_property (object_class,
+                                    PROP_PROXY_PORT, "proxy-port");
+  g_object_class_override_property (object_class,
+                                    PROP_PROXY_USERNAME, "proxy-username");
+  g_object_class_override_property (object_class,
+                                    PROP_PROXY_PASSWORD, "proxy-password");
 }
 
 
