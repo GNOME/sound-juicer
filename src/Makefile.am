@@ -1,7 +1,6 @@
 bin_PROGRAMS = sound-juicer
 
 sound_juicer_SOURCES = \
-	dummy.cpp \
 	sound-juicer.h \
 	sj-main.h \
 	sj-main.c \
@@ -43,13 +42,13 @@ sound_juicer_CFLAGS = \
 	$(WARN_CFLAGS) \
 	$(AM_CFLAGS)
 
-sound_juicer_CXXFLAGS = \
+sound_juicer_CFLAGS = \
 	$(GSTREAMER_CFLAGS) \
 	$(MEDIA_PROFILES_CFLAGS) \
 	$(BURN_CFLAGS) \
 	$(UI_CFLAGS) \
-	$(WARN_CXXFLAGS) \
-	$(AM_CXXFLAGS)
+	$(WARN_CFLAGS) \
+	$(AM_CFLAGS)
 
 sound_juicer_LDADD = \
 	$(top_builddir)/libjuicer/libjuicer.la \

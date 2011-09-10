@@ -1,7 +1,6 @@
 noinst_LTLIBRARIES = libjuicer.la
 
 libjuicer_la_SOURCES = \
-	dummy.cpp \
 	$(MARSHALFILES) \
 	sj-structures.h \
 	sj-structures.c \
