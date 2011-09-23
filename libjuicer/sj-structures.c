@@ -49,6 +49,7 @@ void album_details_free(AlbumDetails *album)
   g_return_if_fail (album != NULL);
   g_free (album->title);
   g_free (album->artist);
+  g_free (album->composer);
   g_free (album->genre);
   g_free (album->album_id);
   if (album->release_date) g_date_free (album->release_date);
