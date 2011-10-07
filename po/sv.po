@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-27 18:32+0100\n"
-"PO-Revision-Date: 2011-02-27 18:32+0100\n"
+"POT-Creation-Date: 2011-10-07 11:43+0200\n"
+"PO-Revision-Date: 2011-10-07 11:43+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -24,6 +24,18 @@ msgstr "Ljudskivsextraherare"
 #: ../data/sound-juicer.desktop.in.in.h:2
 msgid "Copy music from your CDs"
 msgstr "Kopiera musik från dina cd-skivor"
+
+#: ../data/sound-juicer.desktop.in.in.h:3
+#: ../data/sound-juicer.ui.h:17
+#: ../src/sj-main.c:141
+#: ../src/sj-main.c:143
+#: ../src/sj-main.c:1635
+msgid "Sound Juicer"
+msgstr "Sound Juicer"
+
+#: ../data/sound-juicer.desktop.in.in.h:4
+msgid "Sound Juicer Audio CD Extractor"
+msgstr "Ljud-cd-extraheraren Sound Juicer"
 
 #: ../data/sound-juicer.ui.h:1
 msgid "CD _drive:"
@@ -89,13 +101,6 @@ msgstr "Hoppa till nästa spår"
 msgid "Skip to the previous track"
 msgstr "Hoppa till föregående spår"
 
-#: ../data/sound-juicer.ui.h:17
-#: ../src/sj-main.c:137
-#: ../src/sj-main.c:139
-#: ../src/sj-main.c:1629
-msgid "Sound Juicer"
-msgstr "Sound Juicer"
-
 #: ../data/sound-juicer.ui.h:18
 msgid "This CD could be more than one album. Please select which album it is below and press <i>Continue</i>."
 msgstr "Denna cd-skiva kan vara mer än ett album. Välj det album det är nedan och tryck <i>Fortsätt</i>."
@@ -117,7 +122,7 @@ msgid "_Artist:"
 msgstr "_Artist:"
 
 #: ../data/sound-juicer.ui.h:23
-#: ../src/sj-main.c:229
+#: ../src/sj-main.c:233
 msgid "_Continue"
 msgstr "_Fortsätt"
 
@@ -329,13 +334,13 @@ msgid "Cannot access CD"
 msgstr "Kan inte komma åt cd"
 
 #: ../libjuicer/sj-metadata-gvfs.c:105
-#: ../src/egg-play-preview.c:461
+#: ../src/egg-play-preview.c:463
 msgid "Unknown Title"
 msgstr "Okänd titel"
 
 #: ../libjuicer/sj-metadata-gvfs.c:109
 #: ../libjuicer/sj-metadata-gvfs.c:135
-#: ../src/egg-play-preview.c:466
+#: ../src/egg-play-preview.c:468
 msgid "Unknown Artist"
 msgstr "Okänd artist"
 
@@ -349,60 +354,60 @@ msgstr "Spår %d"
 msgid "Cannot access CD: %s"
 msgstr "Kan inte komma åt cd: %s"
 
-#: ../src/egg-play-preview.c:165
+#: ../src/egg-play-preview.c:169
 msgid "URI"
 msgstr "URI"
 
-#: ../src/egg-play-preview.c:166
+#: ../src/egg-play-preview.c:170
 msgid "The URI of the audio file"
 msgstr "URI:n för ljudfilen"
 
-#: ../src/egg-play-preview.c:175
-#: ../src/sj-main.c:619
-#: ../src/sj-main.c:1785
+#: ../src/egg-play-preview.c:179
+#: ../src/sj-main.c:625
+#: ../src/sj-main.c:1791
 msgid "Title"
 msgstr "Titel"
 
-#: ../src/egg-play-preview.c:176
+#: ../src/egg-play-preview.c:180
 msgid "The title of the current stream."
 msgstr "Titeln för aktuell ström."
 
-#: ../src/egg-play-preview.c:185
-#: ../src/sj-main.c:625
-#: ../src/sj-main.c:1794
+#: ../src/egg-play-preview.c:189
+#: ../src/sj-main.c:631
+#: ../src/sj-main.c:1800
 msgid "Artist"
 msgstr "Artist"
 
-#: ../src/egg-play-preview.c:186
+#: ../src/egg-play-preview.c:190
 msgid "The artist of the current stream."
 msgstr "Artisten för aktuell ström."
 
-#: ../src/egg-play-preview.c:195
+#: ../src/egg-play-preview.c:199
 msgid "Album"
 msgstr "Album"
 
-#: ../src/egg-play-preview.c:196
+#: ../src/egg-play-preview.c:200
 msgid "The album of the current stream."
 msgstr "Albumet för aktuell ström."
 
-#: ../src/egg-play-preview.c:205
+#: ../src/egg-play-preview.c:209
 msgid "Position"
 msgstr "Position"
 
-#: ../src/egg-play-preview.c:206
+#: ../src/egg-play-preview.c:210
 msgid "The position in the current stream in seconds."
 msgstr "Positionen i aktuell ström i sekunder."
 
-#: ../src/egg-play-preview.c:215
-#: ../src/sj-main.c:1805
+#: ../src/egg-play-preview.c:219
+#: ../src/sj-main.c:1811
 msgid "Duration"
 msgstr "Speltid"
 
-#: ../src/egg-play-preview.c:216
+#: ../src/egg-play-preview.c:220
 msgid "The duration of the current stream in seconds."
 msgstr "Speltiden i aktuell ström i sekunder."
 
-#: ../src/egg-play-preview.c:467
+#: ../src/egg-play-preview.c:469
 msgid "Unknown Album"
 msgstr "Okänt album"
 
@@ -415,19 +420,19 @@ msgstr "GConf-fel: %s"
 msgid "All further errors shown only on terminal."
 msgstr "Alla ytterligare fel visas endast på terminalen."
 
-#: ../src/sj-about.c:48
+#: ../src/sj-about.c:52
 msgid "Sound Juicer is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
 msgstr "Sound Juicer är fri programvara. Du kan distribuera det och/eller modifiera det under villkoren i GNU General Public License, publicerad av Free Software Foundation, antingen version 2 eller (om du så vill) någon senare version."
 
-#: ../src/sj-about.c:52
+#: ../src/sj-about.c:56
 msgid "Sound Juicer is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details."
 msgstr "Sound Juicer distribueras i hopp om att det ska vara användbart, men UTAN NÅGON SOM HELST GARANTI, även utan underförstådd garanti om SÄLJBARHET eller LÄMPLIGHET FÖR NÅGOT SPECIELLT ÄNDAMÅL. Se GNU General Public License för ytterligare information."
 
-#: ../src/sj-about.c:56
+#: ../src/sj-about.c:60
 msgid "You should have received a copy of the GNU General Public License along with Sound Juicer; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
 msgstr "Du bör ha fått en kopia av GNU General Public License tillsammans med Sound Juicer. Om inte, skriv till Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
 
-#: ../src/sj-about.c:67
+#: ../src/sj-about.c:71
 msgid "An Audio CD Extractor"
 msgstr "En ljudextraherare"
 
@@ -435,7 +440,7 @@ msgstr "En ljudextraherare"
 #. * Note to translators: put here your name and email so it will show
 #. * up in the "about" box
 #.
-#: ../src/sj-about.c:77
+#: ../src/sj-about.c:81
 msgid "translator-credits"
 msgstr ""
 "Daniel Nylander <po@danielnylander.se>\n"
@@ -444,25 +449,25 @@ msgstr ""
 "Skicka synpunkter på översättningen till\n"
 "<tp-sv@listor.tp-sv.se>."
 
-#: ../src/sj-extracting.c:147
+#: ../src/sj-extracting.c:152
 #, c-format
 msgid "Failed to get output format"
 msgstr "Misslyckades med att få utdataformat"
 
-#: ../src/sj-extracting.c:168
+#: ../src/sj-extracting.c:173
 msgid "Name too long"
 msgstr "Namnet är för långt"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:227
+#: ../src/sj-extracting.c:232
 msgid "Extract"
 msgstr "Extrahera"
 
-#: ../src/sj-extracting.c:304
+#: ../src/sj-extracting.c:309
 msgid "A file with the same name exists"
 msgstr "En fil med samma namn finns redan"
 
-#: ../src/sj-extracting.c:306
+#: ../src/sj-extracting.c:311
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -471,230 +476,230 @@ msgstr ""
 "En fil med namnet \"%s\" finns redan med storleken %s.\n"
 "Vill du hoppa över detta spår eller skriva över det?"
 
-#: ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:321
 msgid "_Skip"
 msgstr "_Hoppa över"
 
-#: ../src/sj-extracting.c:317
+#: ../src/sj-extracting.c:322
 msgid "S_kip All"
 msgstr "H_oppa över alla"
 
-#: ../src/sj-extracting.c:318
+#: ../src/sj-extracting.c:323
 msgid "_Overwrite"
 msgstr "Skriv _över"
 
-#: ../src/sj-extracting.c:319
+#: ../src/sj-extracting.c:324
 msgid "Overwrite _All"
 msgstr "Skriv över _alla"
 
-#: ../src/sj-extracting.c:368
+#: ../src/sj-extracting.c:373
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Misslyckades med att skapa utdatakatalog: %s"
 
-#: ../src/sj-extracting.c:508
+#: ../src/sj-extracting.c:513
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Uppskattad kvarvarande tid: %d.%02d (med %0.1f×)"
 
-#: ../src/sj-extracting.c:510
+#: ../src/sj-extracting.c:515
 msgid "Estimated time left: unknown"
 msgstr "Uppskattad kvarvarande tid: okänd"
 
-#: ../src/sj-extracting.c:600
+#: ../src/sj-extracting.c:605
 msgid "CD rip complete"
 msgstr "Cd-extraheringen är färdig"
 
-#: ../src/sj-extracting.c:692
+#: ../src/sj-extracting.c:697
 msgid "Sound Juicer could not extract this CD."
 msgstr "Sound Juicer kunde inte extrahera denna cd-skiva."
 
-#: ../src/sj-extracting.c:694
-#: ../src/sj-main.c:183
-#: ../src/sj-main.c:807
-#: ../src/sj-main.c:926
-#: ../src/sj-main.c:1025
-#: ../src/sj-main.c:1235
-#: ../src/sj-main.c:1590
+#: ../src/sj-extracting.c:699
+#: ../src/sj-main.c:187
+#: ../src/sj-main.c:813
+#: ../src/sj-main.c:932
+#: ../src/sj-main.c:1031
+#: ../src/sj-main.c:1241
+#: ../src/sj-main.c:1596
 msgid "Reason"
 msgstr "Orsak"
 
 #. Change the label to Stop while extracting
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:790
+#: ../src/sj-extracting.c:795
 msgid "Stop"
 msgstr "Stoppa"
 
-#: ../src/sj-extracting.c:819
-#: ../src/sj-extracting.c:825
+#: ../src/sj-extracting.c:824
+#: ../src/sj-extracting.c:830
 msgid "Extracting audio from CD"
 msgstr "Extrahera ljud från cd-skiva"
 
-#: ../src/sj-genres.c:30
+#: ../src/sj-genres.c:34
 msgid "Ambient"
 msgstr "Ambient"
 
-#: ../src/sj-genres.c:31
+#: ../src/sj-genres.c:35
 msgid "Blues"
 msgstr "Blues"
 
-#: ../src/sj-genres.c:32
+#: ../src/sj-genres.c:36
 msgid "Classical"
 msgstr "Klassisk"
 
-#: ../src/sj-genres.c:33
+#: ../src/sj-genres.c:37
 msgid "Country"
 msgstr "Country"
 
-#: ../src/sj-genres.c:34
+#: ../src/sj-genres.c:38
 msgid "Dance"
 msgstr "Dans"
 
-#: ../src/sj-genres.c:35
+#: ../src/sj-genres.c:39
 msgid "Electronica"
 msgstr "Electronica"
 
-#: ../src/sj-genres.c:36
+#: ../src/sj-genres.c:40
 msgid "Folk"
 msgstr "Folk"
 
-#: ../src/sj-genres.c:37
+#: ../src/sj-genres.c:41
 msgid "Funk"
 msgstr "Funk"
 
-#: ../src/sj-genres.c:38
+#: ../src/sj-genres.c:42
 msgid "Jazz"
 msgstr "Jazz"
 
-#: ../src/sj-genres.c:39
+#: ../src/sj-genres.c:43
 msgid "Latin"
 msgstr "Latin"
 
-#: ../src/sj-genres.c:40
+#: ../src/sj-genres.c:44
 msgid "Pop"
 msgstr "Pop"
 
-#: ../src/sj-genres.c:41
+#: ../src/sj-genres.c:45
 msgid "Rap"
 msgstr "Rap"
 
-#: ../src/sj-genres.c:42
+#: ../src/sj-genres.c:46
 msgid "Reggae"
 msgstr "Reggae"
 
-#: ../src/sj-genres.c:43
+#: ../src/sj-genres.c:47
 msgid "Rock"
 msgstr "Rock"
 
-#: ../src/sj-genres.c:44
+#: ../src/sj-genres.c:48
 msgid "Soul"
 msgstr "Soul"
 
-#: ../src/sj-genres.c:45
+#: ../src/sj-genres.c:49
 msgid "Spoken Word"
 msgstr "Talmusik"
 
-#: ../src/sj-genres.c:185
+#: ../src/sj-genres.c:189
 #, c-format
 msgid "Error while saving custom genre: %s"
 msgstr "Fel vid sparande av anpassad genre: %s"
 
-#: ../src/sj-main.c:116
+#: ../src/sj-main.c:120
 msgid "E_xtract"
 msgstr "E_xtrahera"
 
-#: ../src/sj-main.c:182
+#: ../src/sj-main.c:186
 msgid "Could not start Sound Juicer"
 msgstr "Kunde inte starta Sound Juicer"
 
-#: ../src/sj-main.c:185
+#: ../src/sj-main.c:189
 msgid "Please consult the documentation for assistance."
 msgstr "Läs dokumentationen för hjälp."
 
-#: ../src/sj-main.c:227
+#: ../src/sj-main.c:231
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Du håller på att extrahera en cd-skiva. Vill du avsluta nu eller fortsätta?"
 
-#: ../src/sj-main.c:287
-#: ../src/sj-main.c:541
+#: ../src/sj-main.c:291
+#: ../src/sj-main.c:547
 msgid "(unknown)"
 msgstr "(okänd)"
 
-#: ../src/sj-main.c:413
+#: ../src/sj-main.c:419
 msgid "S_ubmit Album"
 msgstr "S_kicka in album"
 
 #. Translators: title, artist
-#: ../src/sj-main.c:418
+#: ../src/sj-main.c:424
 #, c-format
 msgid "Could not find %s by %s on MusicBrainz."
 msgstr "Kunde inte hitta %s av %s på MusicBrainz."
 
-#: ../src/sj-main.c:423
+#: ../src/sj-main.c:429
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr "Du kan förbättra MusicBrainz databas genom att lägga till detta album."
 
-#: ../src/sj-main.c:805
-#: ../src/sj-main.c:922
-#: ../src/sj-main.c:1023
+#: ../src/sj-main.c:811
+#: ../src/sj-main.c:928
+#: ../src/sj-main.c:1029
 msgid "Could not read the CD"
 msgstr "Kunde inte läsa cd-skivan"
 
-#: ../src/sj-main.c:806
-#: ../src/sj-main.c:925
+#: ../src/sj-main.c:812
+#: ../src/sj-main.c:931
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer kunde inte läsa spårlistan på denna cd-skiva."
 
 #. Set statusbar message
-#: ../src/sj-main.c:896
+#: ../src/sj-main.c:902
 msgid "Retrieving track listing...please wait."
 msgstr "Hämtar spårlista... var vänlig vänta."
 
-#: ../src/sj-main.c:985
+#: ../src/sj-main.c:991
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Sound Juicer kunde inte använda cd-romenheten \"%s\""
 
-#: ../src/sj-main.c:992
+#: ../src/sj-main.c:998
 msgid "HAL daemon may not be running."
 msgstr "HAL-demonen kanske inte kör."
 
-#: ../src/sj-main.c:1016
+#: ../src/sj-main.c:1022
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer kunde inte komma åt cd-romenheten \"%s\""
 
-#: ../src/sj-main.c:1114
+#: ../src/sj-main.c:1120
 msgid "No CD-ROM drives found"
 msgstr "Inga cd-romenheter hittades"
 
-#: ../src/sj-main.c:1115
+#: ../src/sj-main.c:1121
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer kunde inte hitta några cd-romenheter att läsa."
 
-#: ../src/sj-main.c:1145
+#: ../src/sj-main.c:1151
 msgid "The currently selected audio profile is not available on your installation."
 msgstr "Den för tillfället valda ljudprofilen är inte tillgänglig i din installation."
 
-#: ../src/sj-main.c:1147
+#: ../src/sj-main.c:1153
 msgid "_Change Profile"
 msgstr "_Byt profil"
 
-#: ../src/sj-main.c:1233
+#: ../src/sj-main.c:1239
 msgid "Could not open URL"
 msgstr "Kunde inte öppna url"
 
-#: ../src/sj-main.c:1234
+#: ../src/sj-main.c:1240
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer kunde inte öppna url för insändning"
 
-#: ../src/sj-main.c:1342
+#: ../src/sj-main.c:1348
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Okänd kolumn %d redigerades"
 
-#: ../src/sj-main.c:1483
-#: ../src/sj-prefs.c:102
+#: ../src/sj-main.c:1489
+#: ../src/sj-prefs.c:106
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -703,49 +708,49 @@ msgstr ""
 "Kunde inte visa hjälp för Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1588
+#: ../src/sj-main.c:1594
 msgid "Could not duplicate disc"
 msgstr "Kunde inte duplicera cd-skivan"
 
-#: ../src/sj-main.c:1589
+#: ../src/sj-main.c:1595
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Sound Juicer kunde inte duplicera skivan"
 
-#: ../src/sj-main.c:1616
+#: ../src/sj-main.c:1622
 msgid "Start extracting immediately"
 msgstr "Starta extrahering direkt"
 
-#: ../src/sj-main.c:1617
+#: ../src/sj-main.c:1623
 msgid "Start playing immediately"
 msgstr "Starta uppspelning direkt"
 
-#: ../src/sj-main.c:1618
+#: ../src/sj-main.c:1624
 msgid "What CD device to read"
 msgstr "Vilken cd-enhet att läsa från"
 
-#: ../src/sj-main.c:1618
+#: ../src/sj-main.c:1624
 msgid "DEVICE"
 msgstr "ENHET"
 
-#: ../src/sj-main.c:1619
+#: ../src/sj-main.c:1625
 msgid "URI to the CD device to read"
 msgstr "URI till cd-enheten att läsa från"
 
-#: ../src/sj-main.c:1632
+#: ../src/sj-main.c:1638
 msgid "- Extract music from your CDs"
 msgstr "- Extrahera musik från dina cd-skivor"
 
-#: ../src/sj-main.c:1669
+#: ../src/sj-main.c:1675
 msgid "Could not create GConf client.\n"
 msgstr "Kunde inte skapa GConf-klient.\n"
 
-#: ../src/sj-main.c:1770
+#: ../src/sj-main.c:1776
 msgid "Track"
 msgstr "Spår"
 
-#: ../src/sj-play.c:193
-#: ../src/sj-play.c:465
-#: ../src/sj-play.c:494
+#: ../src/sj-play.c:190
+#: ../src/sj-play.c:462
+#: ../src/sj-play.c:491
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -757,100 +762,100 @@ msgstr ""
 "Orsak: %s"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:264
+#: ../src/sj-play.c:261
 msgid "Play"
 msgstr "Spela upp"
 
 #. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:308
+#: ../src/sj-play.c:305
 msgid "Pause"
 msgstr "Gör paus"
 
-#: ../src/sj-play.c:365
+#: ../src/sj-play.c:362
 #, c-format
 msgid "Failed to create CD source element"
 msgstr "Misslyckades med att skapa cd-källelement"
 
-#: ../src/sj-play.c:406
+#: ../src/sj-play.c:403
 msgid "Failed to link pipeline"
 msgstr "Misslyckades med länka rör"
 
-#: ../src/sj-play.c:412
+#: ../src/sj-play.c:409
 #, c-format
 msgid "Failed to create audio output"
 msgstr "Misslyckades med att skapa ljudutdata"
 
-#: ../src/sj-play.c:616
+#: ../src/sj-play.c:612
 #, c-format
 msgid "Seeking to %s"
 msgstr "Spolar till %s"
 
-#: ../src/sj-prefs.c:51
+#: ../src/sj-prefs.c:55
 msgid "Album Artist, Album Title"
 msgstr "Albumartist, albumtitel"
 
-#: ../src/sj-prefs.c:52
+#: ../src/sj-prefs.c:56
 msgid "Album Artist (sortable), Album Title"
 msgstr "Albumartist (sorterbar), albumtitel"
 
-#: ../src/sj-prefs.c:53
+#: ../src/sj-prefs.c:57
 msgid "Track Artist, Album Title"
 msgstr "Spårartist, albumtitel"
 
-#: ../src/sj-prefs.c:54
+#: ../src/sj-prefs.c:58
 msgid "Track Artist (sortable), Album Title"
 msgstr "Spårartist (sorterbar), albumtitel"
 
-#: ../src/sj-prefs.c:55
+#: ../src/sj-prefs.c:59
 msgid "Album Title"
 msgstr "Albumtitel"
 
-#: ../src/sj-prefs.c:56
+#: ../src/sj-prefs.c:60
 msgid "Album Artist"
 msgstr "Albumartist"
 
-#: ../src/sj-prefs.c:57
+#: ../src/sj-prefs.c:61
 msgid "Album Artist (sortable)"
 msgstr "Albumartist (sorterbar)"
 
-#: ../src/sj-prefs.c:58
+#: ../src/sj-prefs.c:62
 msgid "Album Artist - Album Title"
 msgstr "Albumartist - Albumtitel"
 
-#: ../src/sj-prefs.c:59
+#: ../src/sj-prefs.c:63
 msgid "Album Artist (sortable) - Album Title"
 msgstr "Albumartist (sorterbar) - Albumtitel"
 
-#: ../src/sj-prefs.c:60
+#: ../src/sj-prefs.c:64
 msgid "[none]"
 msgstr "[ingen]"
 
-#: ../src/sj-prefs.c:65
+#: ../src/sj-prefs.c:69
 msgid "Number - Title"
 msgstr "Nummer - Titel"
 
-#: ../src/sj-prefs.c:66
+#: ../src/sj-prefs.c:70
 msgid "Track Title"
 msgstr "Spårtitel"
 
-#: ../src/sj-prefs.c:67
+#: ../src/sj-prefs.c:71
 msgid "Track Artist - Track Title"
 msgstr "Spårartist - Spårtitel"
 
-#: ../src/sj-prefs.c:68
+#: ../src/sj-prefs.c:72
 msgid "Track Artist (sortable) - Track Title"
 msgstr "Spårartist (sorterbar) - Spårtitel"
 
-#: ../src/sj-prefs.c:69
+#: ../src/sj-prefs.c:73
 msgid "Number. Track Artist - Track Title"
 msgstr "Nummer. Spårartist - Spårtitel"
 
 #. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
-#: ../src/sj-prefs.c:71
+#: ../src/sj-prefs.c:75
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Nummer-Spårartist-Spårtitel (små bokstäver)"
 
-#: ../src/sj-prefs.c:274
+#: ../src/sj-prefs.c:278
 msgid "Example Path"
 msgstr "Exempelsökväg"
 
@@ -904,8 +909,6 @@ msgstr "Exempelsökväg"
 #~ msgstr "Full volym"
 #~ msgid "CD Extractor"
 #~ msgstr "Cd-extraherare"
-#~ msgid "Sound Juicer CD Extractor"
-#~ msgstr "Cd-extraheraren Sound Juicer"
 #~ msgid "%s has been copied successfully."
 #~ msgstr "%s har kopierats utan problem."
 #~ msgid "_Eject"
