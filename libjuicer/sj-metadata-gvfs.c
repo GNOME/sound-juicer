@@ -63,11 +63,11 @@ device_to_cdda_uri (const char *device)
 {
   if (g_str_has_prefix (device, "/dev/") == FALSE)
     return NULL;
-#ifdef __sun    
+#ifdef __sun
   return g_strdup_printf ("cdda://%s", device + strlen ("/dev/rdsk/"));
-#else  
+#else
   return g_strdup_printf ("cdda://%s", device + strlen ("/dev/"));
-#endif   
+#endif
 }
 
 static GList *

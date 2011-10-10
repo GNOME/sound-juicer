@@ -57,6 +57,11 @@ select_track (void)
   }
 
   ret = gst_element_set_state (pipeline, GST_STATE_PAUSED);
+  if (ret == GST_STATE_CHANGE_ASYNC) {
+	while (ret == GST_STATE_CHANGE_ASYNC)
+		ret = gst_element_get_state (pipeline, NULL, NULL, GST_MSECOND);
+  }		
+
   if (ret == GST_STATE_CHANGE_FAILURE) {
     return FALSE;
   } else if (ret == GST_STATE_CHANGE_SUCCESS) {
@@ -69,11 +74,7 @@ select_track (void)
       /* seek failed - what now? */
       return FALSE;
     }
-  } else if (ret == GST_STATE_CHANGE_ASYNC) {
-    /* do nothing, seek will hopefully be done later?! */
-    current_track = seek_to_track;
   }
-
   return TRUE;
 }
 
