@@ -1843,15 +1843,25 @@ int main (int argc, char **argv)
   if (device == NULL && uris == NULL) {
     device_changed_cb (gconf_client, -1, gconf_client_get_entry (gconf_client, GCONF_DEVICE, NULL, TRUE, NULL), GINT_TO_POINTER (TRUE));
   } else {
-    if (device)
+    if (device) {
+#ifdef __sun
+      if (strstr(device, "/dev/dsk/") != NULL ) {
+        device = g_strdup_printf("/dev/rdsk/%s", device + strlen("/dev/dsk/"));
+      }
+#endif
       set_device (device, TRUE);
+    }
     else {
       char *d;
 
       /* Mash up the CDDA URIs into a device path */
       if (g_str_has_prefix (uris[0], "cdda://")) {
       	gint len;
+#ifdef __sun
+        d = g_strdup_printf ("/dev/rdsk/%s", uris[0] + strlen ("cdda://"));
+#else
         d = g_strdup_printf ("/dev/%s%c", uris[0] + strlen ("cdda://"), '\0');
+#endif
         /* Take last '/' out of path, or set_device thinks it is part of the device name */
 		len = strlen (d);
 		if (d[len - 1] == '/')
