@@ -32,7 +32,6 @@ void prefs_profile_changed (GtkWidget *widget, gpointer user_data);
 G_MODULE_EXPORT void prefs_base_folder_changed (GtkWidget *chooser, gpointer user_data);
 void prefs_path_option_changed (GtkComboBox *combo, gpointer user_data);
 void prefs_file_option_changed (GtkComboBox *combo, gpointer user_data);
-G_MODULE_EXPORT void prefs_edit_profile_clicked (GtkButton *button, gpointer user_data);
 G_MODULE_EXPORT void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data);
 
 #endif /* SJ_PREFS_H */

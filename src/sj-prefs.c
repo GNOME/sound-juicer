@@ -165,14 +165,6 @@ G_MODULE_EXPORT void prefs_file_option_changed (GtkComboBox *combo, gpointer use
   }
 }
 
-/**
- * The Edit Profiles button was pressed.
- */
-G_MODULE_EXPORT void prefs_edit_profile_clicked (GtkButton *button, gpointer user_data)
-{
-    /* Not implemented */
-}
-
 static void
 sj_audio_profile_chooser_set_active (GtkWidget *chooser, const char *profile)
 {
