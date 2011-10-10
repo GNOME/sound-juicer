@@ -611,6 +611,7 @@ static void update_ui_for_album (AlbumDetails *album)
                           COLUMN_NUMBER, track->number,
                           COLUMN_TITLE, track->title,
                           COLUMN_ARTIST, track->artist,
+                          COLUMN_COMPOSER, track->composer,
                           COLUMN_DURATION, track->duration,
                           COLUMN_DETAILS, track,
                           -1);
