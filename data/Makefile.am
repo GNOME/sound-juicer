@@ -81,3 +81,5 @@ EXTRA_DIST = \
 	$(schema_in_files) \
 	$(man1_MANS) \
 	$(icons)
+
+-include $(top_srcdir)/git.mk

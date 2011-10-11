@@ -27,3 +27,5 @@ mb_test_LDADD = \
 mb_test_LDFLAGS = \
 	-export-dynamic \
 	$(AM_LDFLAGS)
+
+-include $(top_srcdir)/git.mk

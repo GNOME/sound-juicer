@@ -72,3 +72,5 @@ sj-metadata-marshal.c: sj-metadata-marshal.list sj-metadata-marshal.h
 BUILT_SOURCES = $(MARSHALFILES)
 CLEANFILES = $(BUILT_SOURCES)
 EXTRA_DIST = sj-metadata-marshal.list
+
+-include $(top_srcdir)/git.mk

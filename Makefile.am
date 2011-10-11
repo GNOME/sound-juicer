@@ -28,3 +28,5 @@ dev-release: distcheck tag upload
 
 release: dev-release
 	gcq $(WEBROOT)/blosxom/computers/sound-juicer/body.txt
+
+-include $(top_srcdir)/git.mk
