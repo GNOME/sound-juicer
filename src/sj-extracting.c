@@ -86,7 +86,7 @@ static gboolean successful_extract = FALSE;
 static GtkWidget *progress_bar, *status_bar;
 
 /** The widgets in the main UI */
-static GtkWidget *extract_button, *play_button, *title_entry, *artist_entry, *genre_entry, *year_entry, *disc_number_entry, *track_listview;
+static GtkWidget *extract_button, *play_button, *title_entry, *artist_entry, *composer_entry, *genre_entry, *year_entry, *disc_number_entry, *track_listview;
 
 static GtkTreeIter current;
 
@@ -243,6 +243,7 @@ cleanup (void)
   gtk_widget_set_sensitive (play_button, TRUE);
   gtk_widget_set_sensitive (title_entry, TRUE);
   gtk_widget_set_sensitive (artist_entry, TRUE);
+  gtk_widget_set_sensitive (composer_entry, TRUE);
   gtk_widget_set_sensitive (genre_entry, TRUE);
   gtk_widget_set_sensitive (year_entry, TRUE);
   gtk_widget_set_sensitive (disc_number_entry, TRUE);
@@ -779,6 +780,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
     play_button       = GET_WIDGET ("play_button");
     title_entry       = GET_WIDGET ("title_entry");
     artist_entry      = GET_WIDGET ("artist_entry");
+    composer_entry    = GET_WIDGET ("composer_entry");
     genre_entry       = GET_WIDGET ("genre_entry");
     year_entry        = GET_WIDGET ("year_entry");
     disc_number_entry = GET_WIDGET ("disc_number_entry");
@@ -803,6 +805,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   gtk_widget_set_sensitive (play_button, FALSE);
   gtk_widget_set_sensitive (title_entry, FALSE);
   gtk_widget_set_sensitive (artist_entry, FALSE);
+  gtk_widget_set_sensitive (composer_entry, FALSE);
   gtk_widget_set_sensitive (genre_entry, FALSE);
   gtk_widget_set_sensitive (year_entry, FALSE);
   gtk_widget_set_sensitive (disc_number_entry, FALSE);
