@@ -1512,11 +1512,23 @@ static void on_cell_edited (GtkCellRendererText *renderer,
     g_free (track->artist);
     track->artist = g_strdup (string);
     gtk_list_store_set (track_store, &iter, COLUMN_ARTIST, track->artist, -1);
+    if (track->artist_sortname) {
+      g_free (track->artist_sortname);
+      track->artist_sortname = NULL;
+    }
+    if (track->artist_id) {
+      g_free (track->artist_id);
+      track->artist_id = NULL;
+    }
     break;
   case COLUMN_COMPOSER:
     g_free (track->composer);
     track->composer = g_strdup (string);
     gtk_list_store_set (track_store, &iter, COLUMN_COMPOSER, track->composer, -1);
+    if (track->composer_sortname) {
+      g_free (track->composer_sortname);
+      track->composer_sortname = NULL;
+    }
     break;
   default:
     g_warning (_("Unknown column %d was edited"), column);
