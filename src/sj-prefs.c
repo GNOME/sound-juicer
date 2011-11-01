@@ -60,6 +60,10 @@ static const FilePattern path_patterns[] = {
   {N_("Album Artist (sortable)"), "%as"},
   {N_("Album Artist - Album Title"), "%aa - %at"},
   {N_("Album Artist (sortable) - Album Title"), "%as - %at"},
+  {N_("Album Composer, Album Title"), "%ac/%at"},
+  {N_("Album Composer (sortable), Album Title"), "%ap/%at"},
+  {N_("Track Composer, Album Title"), "%tc/%at"},
+  {N_("Track Composer (sortable), Album Title"), "%tp/%at"},
   {N_("[none]"), "./"},
   {NULL, NULL}
 };
@@ -73,6 +77,10 @@ static const FilePattern file_patterns[] = {
   /* {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"}, */
   {N_("Number-Track Artist-Track Title (lowercase)"), "%dN-%tA-%tT"},
   /* {N_("Number-Track Artist (sortable)-Track Title (lowercase)"), "%tN-%tS-%tT"}, */
+  {N_("Track Composer - Track Artist - Track Title"), "%tc - %ta - %tt"},
+  {N_("Track Composer (sortable) - Track Artist (sortable) - Track Title"), "%tp - %ts - %tt"},
+  {N_("Number. Track Composer - Track Artist - Track Title"), "%dN. %tc - %ta - %tt"},
+  {N_("Number-Track Composer-Track Artist-Track Title (lowercase)"), "%dN-%tC-%tA-%tT"},
   {NULL, NULL}
 };
 

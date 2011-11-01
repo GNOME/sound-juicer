@@ -953,6 +953,10 @@ lower_sanitize_sortname (const char *sortname, const char *name,
  * %aA -- album artist (lowercase)
  * %as -- album artist sortname
  * %aS -- album artist sortname (lowercase)
+ * %ac -- album composer
+ * %aC -- album composer (lowercase)
+ * %ap -- album composer (sortable)
+ * %aP -- album composer (sortable lowercase)
  * %tn -- track number (i.e 8)
  * %tN -- track number, zero padded (i.e 08)
  * %tt -- track title
@@ -961,6 +965,10 @@ lower_sanitize_sortname (const char *sortname, const char *name,
  * %tA -- track artist (lowercase)
  * %ts -- track artist sortname
  * %tS -- track artist sortname (lowercase)
+ * %tc -- track composer
+ * %tC -- track composer (lowercase)
+ * %tp -- track composer (sortable)
+ * %tP -- track composer (sortable lowercase)
  * %dn -- disc and track number (i.e Disk 2 - 6, or 6)
  * %dN -- disc number, zero padded (i.e d02t06, or 06)
  */
@@ -974,6 +982,7 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
   GFileInfo *fs_info;
   const char *default_album    = _("Unknown Album");
   const char *default_artist   = _("Unknown Artist");
+  const char *default_composer = _("Unknown Composer");
   const char *default_track    = _("Unknown Track");
 
   if (pattern == NULL || pattern[0] == 0)
@@ -1051,6 +1060,24 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
                                           track->album->artist, default_artist,
                                           filesystem_type);
         break;
+      case 'c':
+        string = sanitize_name (track->album->composer, default_composer,
+                                filesystem_type);
+        break;
+      case 'C':
+        string = lower_sanitize_name (track->album->composer, default_composer,
+                                      filesystem_type);
+        break;
+      case 'p':
+        string = sanitize_sortname (track->album->composer_sortname,
+                                    track->album->composer, default_composer,
+                                    filesystem_type);
+        break;
+      case 'P':
+        string = lower_sanitize_sortname (track->album->composer_sortname,
+                                          track->album->composer,
+                                          default_composer, filesystem_type);
+        break;
       default:
         /* append "%a", and then the unicode character */
         g_string_append (s, "%a");
@@ -1087,6 +1114,23 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
       case 'S':
         string = lower_sanitize_sortname (track->artist_sortname, track->artist,
                                           default_artist, filesystem_type);
+        break;
+      case 'c':
+         string = sanitize_name (track->composer, default_composer,
+                                 filesystem_type);
+        break;
+      case 'C':
+        string = lower_sanitize_name (track->composer, default_composer,
+                                      filesystem_type);
+        break;
+      case 'p':
+        string = sanitize_sortname (track->composer_sortname, track->composer,
+                                    default_composer, filesystem_type);
+        break;
+      case 'P':
+        string = lower_sanitize_sortname (track->composer_sortname,
+                                          track->composer, default_composer,
+                                          filesystem_type);
         break;
       case 'n':
         /* Track number */
