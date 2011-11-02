@@ -892,6 +892,56 @@ sanitize_path (const char* str, const char* filesystem_type)
   return res ? res : g_strdup(str);
 }
 
+/*
+ * Return sanitized name or default if name is empty
+ */
+static char*
+sanitize_name (const char *name, const char *default_name,
+               const char *filesystem_type)
+{
+  const char *n = (sj_str_is_empty (name)) ? default_name : name;
+  return sanitize_path (n, filesystem_type);
+}
+
+/*
+ * Return lowercase sanitized name or default if name is empty
+ */
+static char*
+lower_sanitize_name (const char *name, const char *default_name,
+                     const char *filesystem_type)
+{
+  char *tmp, *s;
+  const char *n = (sj_str_is_empty (name)) ? default_name : name;
+  tmp = g_utf8_strdown (n, -1);
+  s = sanitize_path (tmp, filesystem_type);
+  g_free (tmp);
+  return s;
+}
+
+/*
+ * Return sanitized sortname or name if sortname is empty or default
+ * if name is empty
+ */
+static char*
+sanitize_sortname (const char *sortname, const char *name,
+                   const char *default_name, const char *filesystem_type)
+{
+  const char *n = (sj_str_is_empty (sortname)) ? name : sortname;
+  return sanitize_name (n, default_name, filesystem_type);
+}
+
+/*
+ * Return lowercase sanitized sortname or name if sortname is empty or
+ * default if name is empty
+ */
+static char*
+lower_sanitize_sortname (const char *sortname, const char *name,
+                         const char *default_name, const char *filesystem_type)
+{
+  const char *n = (sj_str_is_empty (sortname)) ? name : sortname;
+  return lower_sanitize_name (n, default_name, filesystem_type);
+}
+
 /**
  * Parse a filename pattern and replace markers with values from a TrackDetails
  * structure.
@@ -922,6 +972,9 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
   char *tmp, *str, *filesystem_type = NULL;
   GString *s;
   GFileInfo *fs_info;
+  const char *default_album    = _("Unknown Album");
+  const char *default_artist   = _("Unknown Artist");
+  const char *default_track    = _("Unknown Track");
 
   if (pattern == NULL || pattern[0] == 0)
     return g_strdup (" ");
@@ -966,7 +1019,8 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
        */
       switch (*++p) {
       case 't':
-        string = sanitize_path (track->album->title, filesystem_type);
+        string = sanitize_name (track->album->title, default_album,
+                                filesystem_type);
         break;
       case 'y':
         if (track->album->release_date && g_date_valid(track->album->release_date)) {
@@ -976,25 +1030,26 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
         }
         break;
       case 'T':
-        tmp = g_utf8_strdown (track->album->title, -1);
-        string = sanitize_path (tmp, filesystem_type);
-        g_free (tmp);
+        string = lower_sanitize_name (track->album->title, default_album,
+                                      filesystem_type);
         break;
       case 'a':
-        string = sanitize_path (track->album->artist, filesystem_type);
+        string = sanitize_name (track->album->artist, default_artist,
+                                filesystem_type);
         break;
       case 'A':
-        tmp = g_utf8_strdown (track->album->artist, -1);
-        string = sanitize_path (tmp, filesystem_type);
-        g_free (tmp);
+        string = lower_sanitize_name (track->album->artist, default_artist,
+                                      filesystem_type);
         break;
       case 's':
-        string = sanitize_path (track->album->artist_sortname ? track->album->artist_sortname : track->album->artist, filesystem_type);
+        string = sanitize_sortname (track->album->artist_sortname,
+                                    track->album->artist, default_artist,
+                                    filesystem_type);
         break;
       case 'S':
-        tmp = g_utf8_strdown (track->album->artist_sortname ? track->album->artist_sortname : track->album->artist, -1);
-        string = sanitize_path (tmp, filesystem_type);
-        g_free(tmp);
+        string = lower_sanitize_sortname (track->album->artist_sortname,
+                                          track->album->artist, default_artist,
+                                          filesystem_type);
         break;
       default:
         /* append "%a", and then the unicode character */
@@ -1012,28 +1067,26 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
        */
       switch (*++p) {
       case 't':
-        string = sanitize_path (track->title, filesystem_type);
+        string = sanitize_name (track->title, default_track, filesystem_type);
         break;
       case 'T':
-        tmp = g_utf8_strdown (track->title, -1);
-        string = sanitize_path (tmp, filesystem_type);
-        g_free(tmp);
+        string = lower_sanitize_name (track->title, default_track,
+                                      filesystem_type);
         break;
       case 'a':
-        string = sanitize_path (track->artist, filesystem_type);
+        string = sanitize_name (track->artist, default_artist, filesystem_type);
         break;
       case 'A':
-        tmp = g_utf8_strdown (track->artist, -1);
-        string = sanitize_path (tmp, filesystem_type);
-        g_free(tmp);
+        string = lower_sanitize_name (track->artist, default_artist,
+                                      filesystem_type);
         break;
       case 's':
-        string = sanitize_path (track->artist_sortname ? track->album->artist_sortname : track->artist, filesystem_type);
+        string = sanitize_sortname (track->artist_sortname, track->artist,
+                                    default_artist, filesystem_type);
         break;
       case 'S':
-        tmp = g_utf8_strdown (track->artist_sortname ? track->album->artist_sortname : track->artist, -1);
-        string = sanitize_path (tmp, filesystem_type);
-        g_free(tmp);
+        string = lower_sanitize_sortname (track->artist_sortname, track->artist,
+                                          default_artist, filesystem_type);
         break;
       case 'n':
         /* Track number */
