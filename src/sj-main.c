@@ -1855,7 +1855,7 @@ int main (int argc, char **argv)
     file_pattern_changed_cb (gconf_client, -1, entry, NULL);
     gconf_entry_unref (entry);
 
-    entry = gconf_client_get_entry (gconf_client, GCONF_AUDIO_PROFILE, NULL, TRUE, NULL);
+    entry = gconf_client_get_entry (gconf_client, GCONF_AUDIO_PROFILE_MEDIA_TYPE, NULL, TRUE, NULL);
     profile_changed_cb (gconf_client, -1, entry, NULL);
     gconf_entry_unref (entry);
 
