@@ -702,11 +702,15 @@ static void baseuri_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *
 static void path_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   g_assert (strcmp (entry->key, GCONF_PATH_PATTERN) == 0);
+
+  if (path_pattern)
+    g_free (path_pattern);
+
   if (entry->value == NULL) {
     /* TODO: this value and the value in sj-prefs need to be in one place */
     path_pattern = g_strdup ("%aa/%at");
   } else {
-    path_pattern = gconf_value_get_string (entry->value);
+    path_pattern = g_strdup (gconf_value_get_string (entry->value));
   }
   /* TODO: sanity check the pattern */
 }
@@ -717,11 +721,15 @@ static void path_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
 static void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *entry, gpointer user_data)
 {
   g_assert (strcmp (entry->key, GCONF_FILE_PATTERN) == 0);
+
+  if (file_pattern)
+    g_free (file_pattern);
+
   if (entry->value == NULL) {
     /* TODO: this value and the value in sj-prefs need to be in one place */
     file_pattern = g_strdup ("%tN-%tt");
   } else {
-    file_pattern = gconf_value_get_string (entry->value);
+    file_pattern = g_strdup (gconf_value_get_string (entry->value));
   }
   /* TODO: sanity check the pattern */
 }
