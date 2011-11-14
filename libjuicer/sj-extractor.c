@@ -534,6 +534,18 @@ sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, G
                             GST_TAG_MUSICBRAINZ_ALBUMARTISTID, track->album->artist_id,
                             NULL);
       }
+      if (track->album->artist != NULL && strcmp (track->album->artist, "") != 0) {
+        gst_tag_setter_add_tags (tagger,
+                            GST_TAG_MERGE_APPEND,
+                            GST_TAG_ALBUM_ARTIST, track->album->artist,
+                            NULL);
+      }
+      if (track->album->artist_sortname != NULL && strcmp (track->album->artist_sortname, "") != 0) {
+        gst_tag_setter_add_tags (tagger,
+                            GST_TAG_MERGE_APPEND,
+                            GST_TAG_ALBUM_ARTIST_SORTNAME, track->album->artist_sortname,
+                            NULL);
+      }
       if (track->artist_id != NULL && strcmp (track->artist_id, "") != 0) {
         gst_tag_setter_add_tags (tagger,
                             GST_TAG_MERGE_APPEND,
