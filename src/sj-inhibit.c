@@ -25,7 +25,7 @@
 #include <config.h>
 #endif
 
-#include <dbus/dbus-glib.h>
+#include <gio/gio.h>
  
 #include "sj-inhibit.h"
  
@@ -38,106 +38,94 @@
 guint
 sj_inhibit (const gchar * appname, const gchar * reason, guint xid)
 {
-  gboolean res;
   guint cookie;
   GError *error = NULL;
-  DBusGProxy *proxy = NULL;
-  DBusGConnection *session_connection = NULL;
+  GDBusProxy *proxy = NULL;
+  GVariant *variant;
 
-  /* get the DBUS session connection */
-  session_connection = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
-  if (error != NULL) {
-    g_warning ("DBUS cannot connect : %s", error->message);
-    g_error_free (error);
+
+  proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
+                                         G_DBUS_PROXY_FLAGS_NONE,
+                                         NULL,
+                                         PM_DBUS_SERVICE,
+                                         PM_DBUS_INHIBIT_PATH,
+                                         PM_DBUS_INHIBIT_INTERFACE,
+                                         NULL,
+                                         &error);
+
+  if (!proxy)
+  {
+    g_warning ("Could not get DBUS proxy: %s", error->message);
+    g_clear_error (&error);
     return 0;
   }
 
-  /* get the proxy for PowerManagement */
-  proxy = dbus_g_proxy_new_for_name (session_connection,
-				      PM_DBUS_SERVICE,
-				      PM_DBUS_INHIBIT_PATH,
-				      PM_DBUS_INHIBIT_INTERFACE);
-  if (proxy == NULL) {
-    g_warning ("Could not get DBUS proxy: %s", PM_DBUS_SERVICE);
-    return 0;
-  }
 
-  res = dbus_g_proxy_call (proxy,
-			    "Inhibit", &error,
-			    G_TYPE_STRING, appname, /* app-id */
-			    G_TYPE_UINT, xid,
-			    G_TYPE_STRING, reason,
-			    G_TYPE_UINT, 4+8, /* flags, inhibit being marked idle and allowing suspend */
-			    G_TYPE_INVALID,
-			    G_TYPE_UINT, &cookie,
-                            G_TYPE_INVALID);
+  variant = g_dbus_proxy_call_sync (proxy,
+                                    "Inhibit",
+                                    g_variant_new ("(susu)",
+                                                   appname,
+                                                   xid,
+                                                   reason,
+                                                   4+8),
+                                    G_DBUS_CALL_FLAGS_NONE, -1, NULL,
+                                    &error);
+  if (variant)
+    {
+      g_variant_get (variant, "(u)", &cookie);
+      g_variant_unref (variant);
+    }
+  else
+    {
+      g_warning ("Problem calling inhibit %s", error->message);
+    }
 
-  /* check the return value */
-  if (!res) {
-    cookie = 0;
-    g_warning ("Inhibit method failed");
-  }
+  g_object_unref (proxy);
 
-  /* check the error value */
-  if (error != NULL) {
-    g_warning ("Inhibit problem : %s", error->message);
-    g_error_free (error);
-    cookie = 0;
-  }
-
-  g_object_unref (G_OBJECT (proxy));
   return cookie;
 }
 
 void
 sj_uninhibit (guint cookie)
 {
-  gboolean res;
   GError *error = NULL;
-  DBusGProxy *proxy = NULL;
-  DBusGConnection *session_connection = NULL;
+  GDBusProxy *proxy = NULL;
 
   /* check if the cookie is valid */
-  if (cookie <= 0) {
-    g_warning ("Invalid cookie");
-    return;
-  }
+  if (cookie <= 0)
+    {
+      g_warning ("Invalid cookie");
+      return;
+    }
 
-  /* get the DBUS session connection */
-  session_connection = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
-  if (error) {
-    g_warning ("DBUS cannot connect : %s", error->message);
-    g_error_free (error);
-    return;
-  }
 
-  /* get the proxy for PowerManagement */
-  proxy = dbus_g_proxy_new_for_name (session_connection,
-				      PM_DBUS_SERVICE,
-				      PM_DBUS_INHIBIT_PATH,
-				      PM_DBUS_INHIBIT_INTERFACE);
-  if (proxy == NULL) {
-    g_warning ("Could not get DBUS proxy: %s", PM_DBUS_SERVICE);
-    return;
-  }
+  proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
+                                         G_DBUS_PROXY_FLAGS_NONE,
+                                         NULL,
+                                         PM_DBUS_SERVICE,
+                                         PM_DBUS_INHIBIT_PATH,
+                                         PM_DBUS_INHIBIT_INTERFACE,
+                                         NULL,
+                                         &error);
 
-  res = dbus_g_proxy_call (proxy,
-			    "Uninhibit",
-			    &error,
-			    G_TYPE_UINT, cookie,
-			    G_TYPE_INVALID,
-                            G_TYPE_INVALID);
+  if (!proxy)
+    {
+      g_warning ("Could not get DBUS proxy: %s", error->message);
+      g_clear_error (&error);
+      return;
+    }
 
-  /* check the return value */
-  if (!res) {
-    g_warning ("Uninhibit method failed");
-  }
+  g_dbus_proxy_call_sync (proxy, "Uninhibit",
+                          g_variant_new ("(u)", cookie),
+                          G_DBUS_CALL_FLAGS_NONE, -1, NULL,
+                          &error);
 
-  /* check the error value */
-  if (error != NULL) {
-    g_warning ("Inhibit problem : %s", error->message);
-    g_error_free (error);
-  }
-  g_object_unref (G_OBJECT (proxy));
+  if (error)
+    {
+      g_warning ("Problem uninhibiting: %s", error->message);
+      g_clear_error (&error);
+    }
+
+  g_object_unref (proxy);
 }
 

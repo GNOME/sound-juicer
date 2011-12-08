@@ -56,7 +56,7 @@ LIBS="$LIBS $BURN_LIBS"
 # LIBS="$oldlibs"
 
 # Find the UI libraries
-PKG_CHECK_MODULES(UI, gtk+-3.0 >= $GTK_REQUIRED gconf-2.0 gio-2.0 gmodule-export-2.0 dbus-glib-1 libcanberra-gtk3)
+PKG_CHECK_MODULES(UI, gtk+-3.0 >= $GTK_REQUIRED gconf-2.0 gio-2.0 gmodule-export-2.0 libcanberra-gtk3)
 AC_SUBST(UI_CFLAGS)
 AC_SUBST(UI_LIBS)
 
@@ -90,10 +90,6 @@ LIBS="$oldlibs"
 PKG_CHECK_MODULES(GIO, gio-2.0)
 AC_SUBST(GIO_CFLAGS)
 AC_SUBST(GIO_LIBS)
-
-PKG_CHECK_MODULES(DBUS, dbus-1)
-AC_SUBST(DBUS_CFLAGS)
-AC_SUBST(DBUS_LIBS)
 
 # Find how and where to put the GConf schemas
 AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
