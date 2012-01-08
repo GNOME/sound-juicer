@@ -57,3 +57,18 @@ void album_details_free(AlbumDetails *album)
   g_free (album->wikipedia);
   g_free (album);
 }
+
+/*
+ * Free a ArtistDetails*
+ */
+void artist_details_free (ArtistDetails *artist)
+{
+  g_free (artist->id);
+  g_free (artist->name);
+  g_free (artist->sortname);
+  g_free (artist->disambiguation);
+  g_free (artist->gender);
+  g_free (artist->country);
+  g_free (artist->joinphrase);
+  g_free (artist);
+}

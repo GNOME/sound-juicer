@@ -87,22 +87,6 @@ G_DEFINE_TYPE_WITH_CODE (SjMetadataMusicbrainz4,
 /*
  * Private methods
  */
-
-
-struct _SjMb4ArtistDetails {
-  char *id;
-  char *name;
-  char *sortname;
-  char *disambiguation;
-  char *gender;
-  char *country;
-
-  /* doesn't belong in here, prevent sharing the artist structure between
-   * distinct ReleaseGroups - more convenient for now */
-  char *joinphrase;
-};
-typedef struct _SjMb4ArtistDetails SjMb4ArtistDetails;
-
 struct _SjMb4AlbumDetails {
     AlbumDetails parent;
     GList *artists;
@@ -125,22 +109,9 @@ struct _SjMb4TrackDetails {
 typedef struct _SjMb4TrackDetails SjMb4TrackDetails;
 
 static void
-sj_mb4_artist_details_free (SjMb4ArtistDetails *details)
-{
-  g_free (details->id);
-  g_free (details->name);
-  g_free (details->sortname);
-  g_free (details->disambiguation);
-  g_free (details->gender);
-  g_free (details->country);
-  g_free (details->joinphrase);
-  g_free (details);
-}
-
-static void
 sj_mb4_track_details_free (SjMb4TrackDetails *details)
 {
-  g_list_foreach (details->artists, (GFunc)sj_mb4_artist_details_free, NULL);
+  g_list_foreach (details->artists, (GFunc)artist_details_free, NULL);
   g_list_free (details->artists);
   track_details_free ((TrackDetails *)details);
 }
@@ -148,7 +119,7 @@ sj_mb4_track_details_free (SjMb4TrackDetails *details)
 static void
 sj_mb4_album_details_free (SjMb4AlbumDetails *details)
 {
-  g_list_foreach (details->artists, (GFunc)sj_mb4_artist_details_free, NULL);
+  g_list_foreach (details->artists, (GFunc)artist_details_free, NULL);
   g_list_free (details->artists);
   g_free (details->status);
   g_free (details->quality);
@@ -213,10 +184,10 @@ get_artist_list (Mb4ArtistCredit credit)
   for (i = 0; i < mb4_namecredit_list_size (name_list); i++) {
     Mb4NameCredit name_credit;
     Mb4Artist artist;
-    SjMb4ArtistDetails *details;
+    ArtistDetails *details;
 
     name_credit = mb4_namecredit_list_item (name_list, i);
-    details = g_new0 (SjMb4ArtistDetails, 1);
+    details = g_new0 (ArtistDetails, 1);
     GET (details->joinphrase, mb4_namecredit_get_joinphrase, name_credit);
     artists = g_list_prepend (artists, details);
     artist = mb4_namecredit_get_artist (name_credit);
@@ -247,7 +218,7 @@ get_artist_info (GList *artists, char **name, char **sortname, char **id)
   artist_name = g_string_new (NULL);
   artist_count = 0;
   for (it = artists; it != NULL; it = it->next) {
-    SjMb4ArtistDetails *details = (SjMb4ArtistDetails *)it->data;
+    ArtistDetails *details = (ArtistDetails *)it->data;
     artist_count++;
     g_string_append (artist_name, details->name);
     if (details->joinphrase != NULL)
@@ -261,7 +232,7 @@ get_artist_info (GList *artists, char **name, char **sortname, char **id)
       if (id != NULL)
         *id = NULL;
   } else {
-      SjMb4ArtistDetails *details = (SjMb4ArtistDetails *)artists->data;
+      ArtistDetails *details = (ArtistDetails *)artists->data;
       if (sortname != NULL)
         *sortname = g_strdup (details->sortname);
       if (id != NULL)

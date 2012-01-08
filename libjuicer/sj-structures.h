@@ -29,6 +29,7 @@
 typedef enum _MetadataSource MetadataSource;
 
 typedef struct _AlbumDetails AlbumDetails;
+typedef struct _ArtistDetails ArtistDetails;
 typedef struct _TrackDetails TrackDetails;
 
 enum _MetadataSource {
@@ -68,7 +69,22 @@ struct _AlbumDetails {
   gboolean is_spoken_word;
 };
 
+struct _ArtistDetails {
+  char *id;
+  char *name;
+  char *sortname;
+  char *disambiguation;
+  char *gender;
+  char *country;
+
+  /* doesn't belong in here, prevent sharing the artist structure between
+   * distinct ReleaseGroups - more convenient for now */
+  char *joinphrase;
+};
+
+
 void album_details_free(AlbumDetails *album);
+void artist_details_free(ArtistDetails *artist);
 void track_details_free(TrackDetails *track);
 
 #endif
