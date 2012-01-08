@@ -55,6 +55,11 @@ void album_details_free(AlbumDetails *album)
   g_free (album->asin);
   g_free (album->discogs);
   g_free (album->wikipedia);
+  g_free (album->lyrics_url);
+  g_free (album->country);
+  g_free (album->type);
+  g_list_foreach (album->artists, (GFunc)artist_details_free, NULL);
+
   g_free (album);
 }
 

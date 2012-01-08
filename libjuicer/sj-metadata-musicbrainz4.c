@@ -87,21 +87,6 @@ G_DEFINE_TYPE_WITH_CODE (SjMetadataMusicbrainz4,
 /*
  * Private methods
  */
-struct _SjMb4AlbumDetails {
-    AlbumDetails parent;
-    GList *artists;
-    char *status;
-    char *quality;
-    char *disambiguation;
-    char *packaging;
-    char *country;
-    char *barcode;
-    char *type;
-    char *format;
-    char *lyrics_url;
-};
-typedef struct _SjMb4AlbumDetails SjMb4AlbumDetails;
-
 struct _SjMb4TrackDetails {
     TrackDetails parent;
     GList *artists;
@@ -116,47 +101,14 @@ sj_mb4_track_details_free (SjMb4TrackDetails *details)
   track_details_free ((TrackDetails *)details);
 }
 
-static void
-sj_mb4_album_details_free (SjMb4AlbumDetails *details)
-{
-  g_list_foreach (details->artists, (GFunc)artist_details_free, NULL);
-  g_list_free (details->artists);
-  g_free (details->status);
-  g_free (details->quality);
-  g_free (details->disambiguation);
-  g_free (details->packaging);
-  g_free (details->country);
-  g_free (details->barcode);
-  g_free (details->type);
-  g_free (details->format);
-  g_free (details->lyrics_url);
-  g_list_foreach (details->parent.tracks, (GFunc)sj_mb4_track_details_free, NULL);
-  g_list_free (details->parent.tracks);
-  /* prevent album_details_free from double-freeing ::tracks */
-  details->parent.tracks = NULL;
-  album_details_free ((AlbumDetails *)details);
-}
-
 #ifdef DUMP_DETAILS
 static void
-sj_mb4_album_details_dump (SjMb4AlbumDetails *details)
+sj_mb4_album_details_dump (AlbumDetails *details)
 {
-  if (details->status)
-    g_print ("Status: %s\n", details->status);
-  if (details->quality)
-    g_print ("Quality: %s\n", details->quality);
-  if (details->disambiguation)
-    g_print ("Disambiguation: %s\n", details->disambiguation);
-  if (details->packaging)
-    g_print ("Packaging: %s\n", details->packaging);
   if (details->country)
     g_print ("Country: %s\n", details->country);
-  if (details->barcode)
-    g_print ("Barcode: %s\n", details->barcode);
   if (details->type)
     g_print ("Type: %s\n", details->type);
-  if (details->format)
-    g_print ("Format: %s\n", details->format);
   if (details->lyrics_url)
     g_print ("Lyrics URL: %s\n", details->lyrics_url);
 }
@@ -247,7 +199,7 @@ get_artist_info (GList *artists, char **name, char **sortname, char **id)
 
 
 static void
-fill_relations (Mb4RelationList relations, SjMb4AlbumDetails *mb4_album)
+fill_relations (Mb4RelationList relations, AlbumDetails *album)
 {
   unsigned int i;
 
@@ -268,22 +220,22 @@ fill_relations (Mb4RelationList relations, SjMb4AlbumDetails *mb4_album)
       char *wikipedia = NULL;
       GET (wikipedia, mb4_relation_get_target, relation);
       if (wikipedia != NULL) {
-          g_free (mb4_album->parent.wikipedia);
-          mb4_album->parent.wikipedia = wikipedia;
+          g_free (album->wikipedia);
+          album->wikipedia = wikipedia;
       }
     } else if (g_str_equal (type, "discogs")) {
       char *discogs = NULL;
       GET (discogs, mb4_relation_get_target, relation);
       if (discogs != NULL) {
-          g_free (mb4_album->parent.discogs);
-          mb4_album->parent.discogs = discogs;
+          g_free (album->discogs);
+          album->discogs = discogs;
       }
     } else if (g_str_equal (type, "lyrics")) {
       char *lyrics = NULL;
       GET (lyrics, mb4_relation_get_target, relation);
       if (lyrics != NULL) {
-          g_free (mb4_album->lyrics_url);
-          mb4_album->lyrics_url = lyrics;
+          g_free (album->lyrics_url);
+          album->lyrics_url = lyrics;
       }
     }
     g_free (type);
@@ -363,7 +315,6 @@ make_album_from_release (Mb4ReleaseGroup group,
                          Mb4Medium medium)
 {
   AlbumDetails *album;
-  SjMb4AlbumDetails *mb4_album;
   Mb4ArtistCredit credit;
   GList *artists;
   char *date = NULL;
@@ -372,8 +323,7 @@ make_album_from_release (Mb4ReleaseGroup group,
   g_assert (release);
   g_return_val_if_fail (medium != NULL, NULL);
 
-  mb4_album = g_new0 (SjMb4AlbumDetails, 1);
-  album = &mb4_album->parent;
+  album = g_new0 (AlbumDetails, 1);
 
   GET (album->album_id, mb4_release_get_id, release);
   GET (album->title, mb4_medium_get_title, medium);
@@ -388,35 +338,29 @@ make_album_from_release (Mb4ReleaseGroup group,
                      &album->artist_sortname,
                      &album->artist_id);
   }
-  mb4_album->artists = artists;
+  album->artists = artists;
 
   GET (date, mb4_release_get_date, release);
   album->release_date = sj_metadata_helper_scan_date (date);
   g_free (date);
 
   GET (album->asin, mb4_release_get_asin, release);
-  GET (mb4_album->status, mb4_release_get_status, release);
-  GET (mb4_album->quality, mb4_release_get_quality, release);
-  GET (mb4_album->disambiguation, mb4_release_get_disambiguation, release);
-  GET (mb4_album->packaging, mb4_release_get_packaging, release);
-  GET (mb4_album->country, mb4_release_get_country, release);
-  GET (mb4_album->barcode, mb4_release_get_barcode, release);
+  GET (album->country, mb4_release_get_country, release);
   if (group) {
-    GET (mb4_album->type, mb4_releasegroup_get_type, group);
-    if (g_str_has_suffix (mb4_album->type, "Spokenword")
-        || g_str_has_suffix (mb4_album->type, "Interview")
-        || g_str_has_suffix (mb4_album->type, "Audiobook")) {
+    GET (album->type, mb4_releasegroup_get_type, group);
+    if (g_str_has_suffix (album->type, "Spokenword")
+        || g_str_has_suffix (album->type, "Interview")
+        || g_str_has_suffix (album->type, "Audiobook")) {
       album->is_spoken_word = TRUE;
     }
-    fill_relations (mb4_releasegroup_get_relationlist(group), mb4_album);
+    fill_relations (mb4_releasegroup_get_relationlist(group), album);
   }
-  GET(mb4_album->format, mb4_medium_get_format, medium);
 
   album->disc_number = mb4_medium_get_position (medium);
   fill_tracks_from_medium (medium, album);
-  fill_relations (mb4_release_get_relationlist (release), mb4_album);
+  fill_relations (mb4_release_get_relationlist (release), album);
 
-  sj_mb4_album_details_dump (mb4_album);
+  sj_mb4_album_details_dump (album);
   return album;
 }
 

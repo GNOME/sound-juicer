@@ -67,6 +67,14 @@ struct _AlbumDetails {
   char* wikipedia;
   MetadataSource metadata_source;
   gboolean is_spoken_word;
+
+  /* some of the new properties that we can get with the NGS musicbrainz
+   * API
+   */
+  char *type;
+  char *lyrics_url;
+  char *country;
+  GList *artists;
 };
 
 struct _ArtistDetails {
