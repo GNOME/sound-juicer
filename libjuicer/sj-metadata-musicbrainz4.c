@@ -87,20 +87,6 @@ G_DEFINE_TYPE_WITH_CODE (SjMetadataMusicbrainz4,
 /*
  * Private methods
  */
-struct _SjMb4TrackDetails {
-    TrackDetails parent;
-    GList *artists;
-};
-typedef struct _SjMb4TrackDetails SjMb4TrackDetails;
-
-static void
-sj_mb4_track_details_free (SjMb4TrackDetails *details)
-{
-  g_list_foreach (details->artists, (GFunc)artist_details_free, NULL);
-  g_list_free (details->artists);
-  track_details_free ((TrackDetails *)details);
-}
-
 #ifdef DUMP_DETAILS
 static void
 sj_mb4_album_details_dump (AlbumDetails *details)
@@ -263,14 +249,12 @@ fill_tracks_from_medium (Mb4Medium medium, AlbumDetails *album)
     Mb4ArtistCredit credit;
     Mb4Recording recording;
     TrackDetails *track;
-    SjMb4TrackDetails *mb4_track;
 
     mbt = mb4_track_list_item (track_list, i);
     if (!mbt)
       continue;
 
-    mb4_track = g_new0 (SjMb4TrackDetails, 1);
-    track = &mb4_track->parent;
+    track = g_new0 (TrackDetails, 1);
 
     track->album = album;
 
@@ -295,7 +279,7 @@ fill_tracks_from_medium (Mb4Medium medium, AlbumDetails *album)
                          &track->artist_sortname,
                          &track->artist_id);
       }
-      mb4_track->artists = artists;
+      track->artists = artists;
     }
     if (track->artist == NULL)
       track->artist = g_strdup (album->artist);

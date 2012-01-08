@@ -35,6 +35,8 @@ void track_details_free(TrackDetails *track)
   g_free (track->track_id);
   g_free (track->artist_id);
   g_free (track->artist_sortname);
+  g_list_foreach (track->artists, (GFunc)artist_details_free, NULL);
+
   g_free (track);
 }
 

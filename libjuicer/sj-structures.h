@@ -49,6 +49,7 @@ struct _TrackDetails {
   int duration; /* seconds */
   char* track_id;
   char* artist_id;
+  GList *artists;
 };
 
 struct _AlbumDetails {
