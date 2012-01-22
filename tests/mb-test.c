@@ -2,7 +2,6 @@
 #include <brasero-medium-monitor.h>
 #include <glib.h>
 #include <gconf/gconf-client.h>
-#include <dbus/dbus.h>
 #include <stdlib.h>
 #include "sj-structures.h"
 #include "sj-metadata.h"
@@ -97,8 +96,6 @@ int main (int argc, char** argv)
   GConfClient *gconf_client;
   GError *error = NULL;
   BraseroMediumMonitor *monitor;
-
-  dbus_threads_init_default ();
 
   g_type_init ();
   g_thread_init (NULL);

@@ -15,13 +15,11 @@ mb_test_CFLAGS = \
 	$(GSTREAMER_CFLAGS) \
 	$(BURN_CFLAGS) \
 	$(UI_CFLAGS) \
-	$(DBUS_CFLAGS) \
 	$(AM_CPPFLAGS)
 
 mb_test_LDADD = \
 	$(BURN_LIBS) \
 	$(UI_LIBS) \
-	$(DBUS_LIBS) \
 	$(top_builddir)/libjuicer/libjuicer.la
 
 mb_test_LDFLAGS = \
