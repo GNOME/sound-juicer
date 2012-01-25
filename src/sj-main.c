@@ -1560,6 +1560,31 @@ G_MODULE_EXPORT void on_title_edit_changed(GtkEditable *widget, gpointer user_da
   current_album->title = gtk_editable_get_chars (widget, 0, -1); /* get all the characters */
 }
 
+/**
+ * Return TRUE if s1 and s2 are equal according to g_utf8_casefold or
+ * if they are NULL, NUL or just ascii space. NULL, NUL and space are
+ * considered equal
+ */
+static gboolean str_case_equal (const char*s1, const char *s2)
+{
+  gboolean retval;
+  char *t1, *t2;
+
+  if (sj_str_is_empty (s1) && sj_str_is_empty (s2))
+    return TRUE;
+
+  /* is_empty can handle NULL pointers but g_utf8_casefold cannot */
+  if (!s1 || !s2)
+    return FALSE;
+
+  t1 = g_utf8_casefold (s1, -1);
+  t2 = g_utf8_casefold (s2, -1);
+  retval = g_str_equal (t1, t2);
+  g_free (t1);
+  g_free (t2);
+  return retval;
+}
+
 G_MODULE_EXPORT void on_artist_edit_changed(GtkEditable *widget, gpointer user_data) {
   GtkTreeIter iter;
   TrackDetails *track;
@@ -1589,7 +1614,8 @@ G_MODULE_EXPORT void on_artist_edit_changed(GtkEditable *widget, gpointer user_d
   do {
     gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, COLUMN_ARTIST, &current_track_artist, -1);
     /* Change track artist if it matched album artist before the change */
-    if ((strcasecmp (current_track_artist, former_album_artist) == 0) || (strcasecmp (current_track_artist, current_album->artist) == 0)) {
+    if ((str_case_equal (current_track_artist, former_album_artist)) ||
+        (str_case_equal (current_track_artist, current_album->artist))) {
       gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, COLUMN_DETAILS, &track, -1);
 
       g_free (track->artist);
