@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: sound-juicer master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
 "juicer&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-10-31 14:36+0000\n"
-"PO-Revision-Date: 2011-10-26 06:47+0900\n"
+"POT-Creation-Date: 2012-01-19 10:18+0000\n"
+"PO-Revision-Date: 2011-11-05 23:49+0900\n"
 "Last-Translator: Hideki Yamane <henrich@debian.org>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgid "Copy music from your CDs"
 msgstr "お気に入りの CD から楽曲をコピーします"
 
 #: ../data/sound-juicer.desktop.in.in.h:3 ../data/sound-juicer.ui.h:17
-#: ../src/sj-main.c:142 ../src/sj-main.c:144 ../src/sj-main.c:1646
+#: ../src/sj-main.c:142 ../src/sj-main.c:144 ../src/sj-main.c:1654
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -375,12 +375,12 @@ msgstr ""
 "取り込みオブジェクトが不正です。この状態は最悪です。端末からエラーを確認して"
 "ください。"
 
-#: ../libjuicer/sj-extractor.c:653
+#: ../libjuicer/sj-extractor.c:665
 #, c-format
 msgid "The plugin necessary for CD access was not found"
 msgstr "音楽 CD へのアクセスに必要なプラグインが見つかりませんでした"
 
-#: ../libjuicer/sj-extractor.c:661
+#: ../libjuicer/sj-extractor.c:673
 #, c-format
 msgid "The plugin necessary for file access was not found"
 msgstr "ファイルへのアクセスに必要なプラグインが見つかりませんでした"
@@ -396,7 +396,7 @@ msgstr "音楽 CD を読み込めません: %s"
 
 #: ../libjuicer/sj-metadata.c:183
 msgid "Devices haven't been all probed yet"
-msgstr ""
+msgstr "まだデバイスがすべて検索されていません"
 
 #: ../libjuicer/sj-metadata.c:199
 #, c-format
@@ -411,7 +411,7 @@ msgstr ""
 "デバイス '%s' を開けませんでした。デバイスのアクセス権限をチェックしてくださ"
 "い。"
 
-#: ../libjuicer/sj-metadata-getter.c:247
+#: ../libjuicer/sj-metadata-getter.c:253
 #, c-format
 msgid "Could not create CD lookup thread"
 msgstr "音楽 CD の問い合わせスレッドを生成できませんでした"
@@ -448,7 +448,7 @@ msgstr "URI"
 msgid "The URI of the audio file"
 msgstr "楽曲ファイルの所在を表す URI です"
 
-#: ../src/egg-play-preview.c:179 ../src/sj-main.c:630 ../src/sj-main.c:1800
+#: ../src/egg-play-preview.c:179 ../src/sj-main.c:630 ../src/sj-main.c:1808
 msgid "Title"
 msgstr "タイトル"
 
@@ -456,7 +456,7 @@ msgstr "タイトル"
 msgid "The title of the current stream."
 msgstr "現在のストリームのタイトルです"
 
-#: ../src/egg-play-preview.c:189 ../src/sj-main.c:636 ../src/sj-main.c:1809
+#: ../src/egg-play-preview.c:189 ../src/sj-main.c:636 ../src/sj-main.c:1817
 msgid "Artist"
 msgstr "演奏者"
 
@@ -480,7 +480,7 @@ msgstr "位置"
 msgid "The position in the current stream in seconds."
 msgstr "現在のストリームで演奏している位置 (秒単位) です"
 
-#: ../src/egg-play-preview.c:219 ../src/sj-main.c:1820
+#: ../src/egg-play-preview.c:219 ../src/sj-main.c:1828
 msgid "Duration"
 msgstr "演奏時間"
 
@@ -615,9 +615,9 @@ msgstr "CD の取り込みが完了しました"
 msgid "Sound Juicer could not extract this CD."
 msgstr "Sound Juicer は、この CD を取り込めませんでした。"
 
-#: ../src/sj-extracting.c:703 ../src/sj-main.c:188 ../src/sj-main.c:818
-#: ../src/sj-main.c:938 ../src/sj-main.c:1037 ../src/sj-main.c:1252
-#: ../src/sj-main.c:1607
+#: ../src/sj-extracting.c:703 ../src/sj-main.c:188 ../src/sj-main.c:826
+#: ../src/sj-main.c:946 ../src/sj-main.c:1045 ../src/sj-main.c:1260
+#: ../src/sj-main.c:1615
 msgid "Reason"
 msgstr "理由"
 
@@ -740,64 +740,64 @@ msgstr ""
 "このアルバムを MusicBrainz データベースに追加することで、楽曲データベースの改"
 "善ができます。"
 
-#: ../src/sj-main.c:816 ../src/sj-main.c:934 ../src/sj-main.c:1035
+#: ../src/sj-main.c:824 ../src/sj-main.c:942 ../src/sj-main.c:1043
 msgid "Could not read the CD"
 msgstr "音楽 CD を読み込めませんでした"
 
-#: ../src/sj-main.c:817 ../src/sj-main.c:937
+#: ../src/sj-main.c:825 ../src/sj-main.c:945
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer は、この音楽 CD のトラック一覧を読み込めませんでした。"
 
 #. Set statusbar message
-#: ../src/sj-main.c:908
+#: ../src/sj-main.c:916
 msgid "Retrieving track listing...please wait."
 msgstr "トラック一覧の問い合わせ中...少々お待ちください"
 
-#: ../src/sj-main.c:997
+#: ../src/sj-main.c:1005
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "CD-ROM デバイス '%s' にアクセスできませんでした。"
 
-#: ../src/sj-main.c:1004
+#: ../src/sj-main.c:1012
 msgid "HAL daemon may not be running."
 msgstr "HAL デーモンが起動されていないようです。"
 
-#: ../src/sj-main.c:1028
+#: ../src/sj-main.c:1036
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer は CD-ROM デバイス '%s' にアクセスできませんでした。"
 
-#: ../src/sj-main.c:1126
+#: ../src/sj-main.c:1134
 msgid "No CD-ROM drives found"
 msgstr "CD-ROM ドライブが見つかりません"
 
-#: ../src/sj-main.c:1127
+#: ../src/sj-main.c:1135
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer は CD-ROM ドライブを見つけることができませんでした。"
 
-#: ../src/sj-main.c:1159
+#: ../src/sj-main.c:1167
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "指定したオーディオプロファイルは利用できません。"
 
-#: ../src/sj-main.c:1161
+#: ../src/sj-main.c:1169
 msgid "_Change Profile"
 msgstr "プロファイルの変更(_C)"
 
-#: ../src/sj-main.c:1250
+#: ../src/sj-main.c:1258
 msgid "Could not open URL"
 msgstr "URL を開けませんでした"
 
-#: ../src/sj-main.c:1251
+#: ../src/sj-main.c:1259
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer は指定した URL を開けませんでした。"
 
-#: ../src/sj-main.c:1359
+#: ../src/sj-main.c:1367
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "不明なエントリ %d が変更されました"
 
-#: ../src/sj-main.c:1500 ../src/sj-prefs.c:111
+#: ../src/sj-main.c:1508 ../src/sj-prefs.c:111
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -806,43 +806,43 @@ msgstr ""
 "Sound Juicer のヘルプを表示できませんでした。\n"
 "%s"
 
-#: ../src/sj-main.c:1605
+#: ../src/sj-main.c:1613
 msgid "Could not duplicate disc"
 msgstr "ディスクの複製を生成できませんでした"
 
-#: ../src/sj-main.c:1606
+#: ../src/sj-main.c:1614
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Sound Juicer はディスクをコピーできませんでした。"
 
-#: ../src/sj-main.c:1633
+#: ../src/sj-main.c:1641
 msgid "Start extracting immediately"
 msgstr "起動後に取り込む"
 
-#: ../src/sj-main.c:1634
+#: ../src/sj-main.c:1642
 msgid "Start playing immediately"
 msgstr "起動後に演奏する"
 
-#: ../src/sj-main.c:1635
+#: ../src/sj-main.c:1643
 msgid "What CD device to read"
 msgstr "CD デバイスを指定する"
 
-#: ../src/sj-main.c:1635
+#: ../src/sj-main.c:1643
 msgid "DEVICE"
 msgstr "DEVICE"
 
-#: ../src/sj-main.c:1636
+#: ../src/sj-main.c:1644
 msgid "URI to the CD device to read"
 msgstr "CD デバイスを指す URI"
 
-#: ../src/sj-main.c:1649
+#: ../src/sj-main.c:1657
 msgid "- Extract music from your CDs"
 msgstr "- お気に入り CD から楽曲を取り込む"
 
-#: ../src/sj-main.c:1686
+#: ../src/sj-main.c:1694
 msgid "Could not create GConf client.\n"
 msgstr "GConf クライアントを生成できませんでした。\n"
 
-#: ../src/sj-main.c:1785
+#: ../src/sj-main.c:1793
 msgid "Track"
 msgstr "トラック"
 
@@ -954,43 +954,3 @@ msgstr "トラックの番号. トラックの演奏者 - トラックのタイ�
 #: ../src/sj-prefs.c:297
 msgid "Example Path"
 msgstr "パス名の例"
-
-#~ msgid "Edit _Profiles..."
-#~ msgstr "プロファイルの編集(_P)..."
-
-#~ msgid "The GNOME Audio Profile with which to encode."
-#~ msgstr "GNOME オーディオ・プロファイルで使用するエンコードです。"
-
-#~ msgid "<b>Device</b>"
-#~ msgstr "<b>デバイス</b>"
-
-#~ msgid "<b>Disc:</b>"
-#~ msgstr "<b>ディスク:</b>"
-
-#~ msgid "<b>Duration:</b>"
-#~ msgstr "<b>演奏時間:</b>"
-
-#~ msgid "<b>_Artist:</b>"
-#~ msgstr "<b>演奏者(_A):</b>"
-
-#~ msgid "<b>_Title:</b>"
-#~ msgstr "<b>タイトル(_T):</b>"
-
-#~ msgid "Cannot read CD"
-#~ msgstr "CD を読み込めません"
-
-#~ msgid "This CD could not be queried: %s\n"
-#~ msgstr "この音楽 CD を音楽 DB に問い合わせできませんでした: %s\n"
-
-#~ msgid "Various"
-#~ msgstr "いろいろ"
-
-#~ msgid "Incomplete metadata for this CD"
-#~ msgstr "この CD のメタデータが不完全です。"
-
-#~ msgid "[Untitled]"
-#~ msgstr "[タイトルなし]"
-
-#~ msgid "The interface file for Sound Juicer could not be read."
-#~ msgstr ""
-#~ "Sound Juicer のインタフェース・ファイル (.glade) を読み込めませんでした。"
