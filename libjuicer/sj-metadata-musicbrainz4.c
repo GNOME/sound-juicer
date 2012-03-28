@@ -229,6 +229,95 @@ fill_relations (Mb4RelationList relations, AlbumDetails *album)
 }
 
 static void
+fill_work_relations (Mb4Work work, TrackDetails *track)
+{
+  Mb4RelationListList relation_lists;
+  unsigned int j;
+
+  if (work == NULL)
+    return;
+
+  relation_lists = mb4_work_get_relationlistlist (work);
+  if (relation_lists == NULL)
+    return;
+
+  for (j = 0; j < mb4_relationlist_list_size (relation_lists); j++) {
+    Mb4RelationList relations;
+    char buffer[512]; /* for the GET() macro */
+    unsigned int i;
+
+    relations = mb4_relationlist_list_item (relation_lists, j);
+    if (relations == NULL)
+      return;
+
+    mb4_relation_list_get_targettype (relations, buffer, sizeof (buffer));
+    if (!g_str_equal (buffer, "artist"))
+      continue;
+
+    for (i = 0; i < mb4_relation_list_size (relations); i++) {
+      Mb4Relation relation;
+      Mb4Artist composer;
+
+      relation = mb4_relation_list_item (relations, i);
+      if (relation == NULL)
+        continue;
+
+      mb4_relation_get_type (relation, buffer, sizeof (buffer));
+      if (!g_str_equal (buffer, "composer"))
+        continue;
+
+      composer = mb4_relation_get_artist (relation);
+      if (composer == NULL)
+        continue;
+
+      GET (track->composer, mb4_artist_get_name, composer);
+      GET (track->composer_sortname, mb4_artist_get_sortname, composer);
+    }
+  }
+}
+
+static void
+fill_recording_relations (Mb4Recording recording, TrackDetails *track)
+{
+  Mb4RelationListList relation_lists;
+  unsigned int j;
+
+  relation_lists = mb4_recording_get_relationlistlist (recording);
+  if (relation_lists == NULL)
+    return;
+
+  for (j = 0; j < mb4_relationlist_list_size (relation_lists); j++) {
+    Mb4RelationList relations;
+    char type[512]; /* To hold relationlist target-type and relation type */
+    unsigned int i;
+
+    relations = mb4_relationlist_list_item (relation_lists, j);
+    if (relations == NULL)
+      return;
+
+    mb4_relation_list_get_targettype (relations, type, sizeof (type));
+    if (!g_str_equal (type, "work"))
+      continue;
+
+    for (i = 0; i < mb4_relation_list_size (relations); i++) {
+      Mb4Relation relation;
+      Mb4Work work;
+
+      relation = mb4_relation_list_item (relations, i);
+      if (relation == NULL)
+        continue;
+
+      mb4_relation_get_type (relation, type, sizeof (type));
+      if (!g_str_equal (type, "performance"))
+        continue;
+
+      work = mb4_relation_get_work (relation);
+      fill_work_relations (work, track);
+    }
+  }
+}
+
+static void
 fill_tracks_from_medium (Mb4Medium medium, AlbumDetails *album)
 {
   Mb4TrackList track_list;
@@ -259,15 +348,20 @@ fill_tracks_from_medium (Mb4Medium medium, AlbumDetails *album)
     track->album = album;
 
     track->number = mb4_track_get_position (mbt);
+
+    /* duration from track is more reliable than from recording */
+    track->duration = mb4_track_get_length (mbt) / 1000;
+
     recording = mb4_track_get_recording (mbt);
     if (recording != NULL) {
       GET (track->title, mb4_recording_get_title, recording);
       GET (track->track_id, mb4_recording_get_id, recording);
-      track->duration = mb4_recording_get_length (recording) / 1000;
+      fill_recording_relations (recording, track);
+      if (track->duration == 0)
+        track->duration = mb4_recording_get_length (recording) / 1000;
       credit = mb4_recording_get_artistcredit (recording);
     } else {
       GET (track->title, mb4_track_get_title, mbt);
-      track->duration = mb4_track_get_length (mbt) / 1000;
       credit = mb4_track_get_artistcredit (mbt);
     }
 
@@ -386,13 +480,11 @@ mb4_list_albums (SjMetadata *metadata, char **url, GError **error)
 
   releases = mb4_query_lookup_discid(priv->mb, discid);
 
-  if (releases == NULL) {
+  if (releases == NULL)
     return NULL;
-  }
 
-  if (mb4_release_list_size (releases) == 0) {
+  if (mb4_release_list_size (releases) == 0)
     return NULL;
-  }
 
   for (i = 0; i < mb4_release_list_size (releases); i++) {
     AlbumDetails *album;
@@ -400,13 +492,26 @@ mb4_list_albums (SjMetadata *metadata, char **url, GError **error)
     release = mb4_release_list_item (releases, i);
     if (release) {
       char *releaseid = NULL;
-      Mb4Release full_release;
+      Mb4Release full_release = NULL;
+      Mb4Metadata release_md = NULL;
+      const char *query_entity = "release";
+      char *params_names[] = { "inc" };
+      char *params_values[] = { "artists artist-credits labels recordings \
+release-groups url-rels discids recording-level-rels work-level-rels work-rels \
+artist-rels" };
 
       releaseid = NULL;
       GET(releaseid, mb4_release_get_id, release);
+      /* Inorder to get metadata from work and composer relationships
+       * we need to perform a custom query
+       */
+      release_md = mb4_query_query (priv->mb, query_entity, releaseid, "", 1,
+                                    params_names, params_values);
 
-      full_release = mb4_query_lookup_release (priv->mb, releaseid);
+      if (release_md && mb4_metadata_get_release (release_md))
+        full_release = mb4_metadata_get_release (release_md);
       g_free (releaseid);
+
       if (full_release) {
         Mb4MediumList media;
         Mb4Metadata metadata = NULL;
@@ -444,8 +549,8 @@ mb4_list_albums (SjMetadata *metadata, char **url, GError **error)
         }
         mb4_metadata_delete (metadata);
         mb4_medium_list_delete (media);
-        mb4_release_delete (full_release);
       }
+      mb4_metadata_delete (release_md);
     }
   }
   mb4_release_list_delete (releases);
