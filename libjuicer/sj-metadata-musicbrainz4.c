@@ -228,6 +228,43 @@ fill_relations (Mb4RelationList relations, AlbumDetails *album)
   }
 }
 
+static void
+fill_album_composer (AlbumDetails *album)
+{
+  char *old_composer;
+  GList *l;
+  TrackDetails *track_one; /* The first track on the album */
+  gboolean one_composer = TRUE; /* TRUE if all tracks have the same composer */
+
+  if (album->composer != NULL)
+    return;
+
+  if (album->tracks == NULL)
+    return;
+
+  l = album->tracks;
+  track_one = (TrackDetails*)l->data;
+  old_composer = track_one->composer;
+
+  for (l = l->next; l != NULL; l = l->next) {
+    char *new_composer;
+    TrackDetails *track = (TrackDetails*)l->data;
+    new_composer = track->composer;
+    if (g_strcmp0 (old_composer, new_composer) != 0) {
+      one_composer = FALSE;
+      break;
+    }
+  }
+
+  if (one_composer) {
+    album->composer = g_strdup (track_one->composer);
+    album->composer_sortname = g_strdup (track_one->composer_sortname);
+  } else {
+    album->composer = g_strdup ("Various Composers");
+    album->composer_sortname = g_strdup ("Various Composers");
+  }
+}
+
 typedef void (*RelationForeachFunc)(Mb4Relation relation, gpointer user_data);
 
 static void relationlist_list_foreach_relation(Mb4RelationListList relation_lists,
@@ -426,6 +463,7 @@ make_album_from_release (Mb4ReleaseGroup group,
 
   album->disc_number = mb4_medium_get_position (medium);
   fill_tracks_from_medium (medium, album);
+  fill_album_composer (album);
   fill_relations (mb4_release_get_relationlist (release), album);
 
   sj_mb4_album_details_dump (album);
