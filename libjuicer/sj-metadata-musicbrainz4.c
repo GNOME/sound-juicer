@@ -421,9 +421,11 @@ make_album_from_release (Mb4ReleaseGroup group,
 {
   AlbumDetails *album;
   Mb4ArtistCredit credit;
+  Mb4RelationListList relationlists;
   GList *artists;
   char *date = NULL;
   char buffer[512]; /* for the GET macro */
+  unsigned int i;
 
   g_assert (release);
   g_return_val_if_fail (medium != NULL, NULL);
@@ -458,13 +460,21 @@ make_album_from_release (Mb4ReleaseGroup group,
         || g_str_has_suffix (album->type, "Audiobook")) {
       album->is_spoken_word = TRUE;
     }
-    fill_relations (mb4_releasegroup_get_relationlist(group), album);
+    relationlists = mb4_releasegroup_get_relationlistlist (group);
+    for (i = 0;
+         relationlists && i < mb4_relationlist_list_size (relationlists);
+         i++)
+      fill_relations (mb4_relationlist_list_item(relationlists, i), album);
   }
 
   album->disc_number = mb4_medium_get_position (medium);
   fill_tracks_from_medium (medium, album);
   fill_album_composer (album);
-  fill_relations (mb4_release_get_relationlist (release), album);
+  relationlists = mb4_release_get_relationlistlist (release);
+  for (i = 0;
+       relationlists && i < mb4_relationlist_list_size (relationlists);
+       i++)
+    fill_relations (mb4_relationlist_list_item (relationlists, i), album);
 
   sj_mb4_album_details_dump (album);
   return album;
