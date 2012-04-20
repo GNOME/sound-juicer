@@ -102,12 +102,12 @@ extern GFile *base_uri;
 /**
  * The pattern to expand when naming folders
  */
-extern const char *path_pattern;
+extern char *path_pattern;
 
 /**
  * The pattern to expand when naming files
  */
-extern const char *file_pattern;
+extern char *file_pattern;
 
 /**
  * If file names should be shell-friendly (i.e no [ /&*?\] characters

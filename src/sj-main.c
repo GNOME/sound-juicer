@@ -87,7 +87,7 @@ GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer;
 
 GtkWidget *current_message_area;
 
-const char *path_pattern, *file_pattern;
+char *path_pattern, *file_pattern;
 GFile *base_uri;
 BraseroDrive *drive = NULL;
 gboolean strip_chars;
