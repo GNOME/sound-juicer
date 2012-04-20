@@ -122,7 +122,7 @@ static void _stop                            (EggPlayPreview *play_preview);
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (EggPlayPreview, egg_play_preview, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (EggPlayPreview, egg_play_preview, GTK_TYPE_BOX)
 
 static void
 egg_play_preview_class_init (EggPlayPreviewClass *klass)
@@ -255,7 +255,7 @@ egg_play_preview_init (EggPlayPreview *play_preview)
 	gtk_box_set_spacing (GTK_BOX (play_preview), 6);
 
 	/* track info */
-	vbox = gtk_vbox_new (TRUE, 0);
+	vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 
 	priv->title_label = gtk_label_new (NULL);
 	gtk_label_set_justify (GTK_LABEL (priv->title_label), GTK_JUSTIFY_LEFT);
@@ -274,7 +274,7 @@ egg_play_preview_init (EggPlayPreview *play_preview)
 	gtk_misc_set_alignment (GTK_MISC (priv->artist_album_label), 0.0, 0.5);
 	gtk_box_pack_start (GTK_BOX (vbox), priv->artist_album_label, TRUE, TRUE, 0);
 
-	hbox = gtk_hbox_new (FALSE, 12);
+	hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
 
 	/* play button */
 	priv->play_button = gtk_button_new ();
