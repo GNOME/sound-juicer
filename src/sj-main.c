@@ -908,7 +908,7 @@ static void reread_cd (gboolean ignore_no_media)
   if (realized) {
     cursor = gdk_cursor_new_for_display (gtk_widget_get_display (GTK_WIDGET (main_window)), GDK_WATCH);
     gdk_window_set_cursor (window, cursor);
-    gdk_cursor_unref (cursor);
+    g_object_unref (cursor);
     gdk_display_sync (gtk_widget_get_display (GTK_WIDGET (main_window)));
   }
 
