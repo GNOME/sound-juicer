@@ -284,7 +284,7 @@ egg_play_preview_init (EggPlayPreview *play_preview)
 	gtk_container_add (GTK_CONTAINER (align), priv->play_button);
 
 	/* time scale */
-	priv->time_scale = gtk_hscale_new_with_range (0.0, 100.0, 1.0);
+	priv->time_scale = gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0.0, 100.0, 1.0);
 	gtk_scale_set_draw_value (GTK_SCALE (priv->time_scale), FALSE);
 	gtk_widget_set_size_request (priv->time_scale, EGG_PLAYER_PREVIEW_WIDTH, -1);
 	priv->time_label = gtk_label_new ("0:00");
