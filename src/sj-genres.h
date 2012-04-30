@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2007 Jonh Wendell <wendell@bani.com.br>
  *
  * Sound Juicer - sj-genres.h

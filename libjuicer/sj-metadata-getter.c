@@ -94,7 +94,7 @@ static void
 sj_metadata_getter_finalize (GObject *object)
 {
   SjMetadataGetterPrivate *priv = GETTER_PRIVATE (object);
-  
+
   g_free (priv->url);
   g_free (priv->cdrom);
   g_free (priv->proxy_host);

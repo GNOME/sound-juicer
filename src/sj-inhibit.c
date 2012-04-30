@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2007 Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
  * Copyright (C) 2006-2007 Richard Hughes <richard@hughsie.com>
  *
@@ -26,9 +26,9 @@
 #endif
 
 #include <gio/gio.h>
- 
+
 #include "sj-inhibit.h"
- 
+
 /* PowerManagent defines */
 #define	PM_DBUS_SERVICE    "org.gnome.SessionManager"
 #define	PM_DBUS_INHIBIT_PATH   "/org/gnome/SessionManager"

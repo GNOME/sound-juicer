@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2003-2007 Ross Burton <ross@burtonini.com>
  *
  * Sound Juicer - sj-extractor.c
@@ -160,12 +160,12 @@ static void
 sj_extractor_finalize (GObject *object)
 {
   SjExtractorPrivate *priv = SJ_EXTRACTOR (object)->priv;
-  
+
   if (priv->tick_id)
     g_source_remove (priv->tick_id);
 
   g_free (priv->device_path);
-  
+
   if (priv->construct_error)
     g_error_free (priv->construct_error);
 
@@ -453,7 +453,7 @@ sj_extractor_set_device (SjExtractor *extractor, const char* device)
 {
   g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
   g_return_if_fail (device != NULL);
-  
+
   g_object_set (extractor, "device", device, NULL);
 }
 
@@ -461,7 +461,7 @@ void
 sj_extractor_set_paranoia (SjExtractor *extractor, const int paranoia_mode)
 {
   g_return_if_fail (SJ_IS_EXTRACTOR (extractor));
-  
+
   g_object_set (extractor, "paranoia", paranoia_mode, NULL);
 }
 
@@ -608,7 +608,7 @@ sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, G
 
   /* Seek to the right track */
   g_object_set (G_OBJECT (priv->cdsrc), "track", track->number, NULL);
-  
+
   /* Let's get ready to rumble! */
   state_ret = gst_element_set_state (priv->pipeline, GST_STATE_PLAYING);
 

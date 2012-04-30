@@ -2,7 +2,7 @@
 
 /*
  * EggPlayPreview GTK+ Widget - egg-play-preview.c
- * 
+ *
  * Copyright (C) 2008 Luca Cavalli <luca.cavalli@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
@@ -374,7 +374,7 @@ egg_play_preview_set_property (GObject       *object,
     }
 }
 
-static void 
+static void
 egg_play_preview_get_property (GObject     *object,
 							   guint        prop_id,
 							   GValue      *value,

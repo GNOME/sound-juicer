@@ -232,7 +232,7 @@ static void
 metadata_iface_init (gpointer g_iface, gpointer iface_data)
 {
   SjMetadataClass *klass = (SjMetadataClass*)g_iface;
-  
+
   klass->list_albums = gvfs_list_albums;
 }
 

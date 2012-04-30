@@ -85,7 +85,7 @@ static void
 _play (void)
 {
   gst_element_set_state (pipeline, GST_STATE_PLAYING);
-  
+
   gtk_widget_set_sensitive (next_menuitem, TRUE);
   gtk_widget_set_sensitive (prev_menuitem, TRUE);
 }
@@ -191,7 +191,7 @@ cb_error (GstBus *bus, GstMessage *message, gpointer user_data)
 				   error->message);
   gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_destroy (dialog);
-  
+
   g_error_free (error);
 
   /* There may be other (more generic) error messages on the bus; set pipeline
@@ -337,7 +337,7 @@ setup (GError **err)
 
     /* TODO:
      * replace with playbin.  Tim says:
-     * 
+     *
      * just create playbin and your audio sink, then do g_object_set (playbin,
      * "audio-sink", audiosink, NULL); and set cdda://<track-number> as URI on
      * playbin and set it to PLAYING.  and then go
@@ -413,7 +413,7 @@ setup (GError **err)
     if (!gtk_tree_model_get_iter_first (GTK_TREE_MODEL (track_store), &current_iter))
       g_warning ("Cannot get first iter");
   }
-  
+
   return TRUE;
 }
 
@@ -440,7 +440,7 @@ on_play_activate (GtkWidget *button, gpointer user_data)
     _pause ();
     gtk_list_store_set (track_store, &current_iter,
                         COLUMN_STATE, STATE_PAUSED, -1);
- } else if (pipeline && GST_STATE (pipeline) == GST_STATE_PAUSED && 
+ } else if (pipeline && GST_STATE (pipeline) == GST_STATE_PAUSED &&
              current_track == seek_to_track) {
     _play ();
     gtk_list_store_set (track_store, &current_iter,
@@ -583,7 +583,7 @@ on_volume_changed (GtkWidget * volb, gdouble value, gpointer data)
 
     volume = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "vol");
     g_object_set (G_OBJECT (volume), "volume", vol, NULL);
-  }  
+  }
   gconf_client_set_float (gconf_client, GCONF_AUDIO_VOLUME, vol, NULL);
 }
 

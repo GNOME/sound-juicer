@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2003-2005 Ross Burton <ross@burtonini.com>
  *
  * Sound Juicer - sj-about.c
@@ -33,7 +33,7 @@
 G_MODULE_EXPORT void on_about_activate (void)
 {
   char *license_trans;
-    
+
   const gchar *authors[] = {
     "Ross Burton <ross@burtonini.com>",
     "And many others who have contributed patches.",
@@ -66,7 +66,7 @@ G_MODULE_EXPORT void on_about_activate (void)
                                _(license[1]), "\n\n",
                                _(license[2]), "\n\n",
                                NULL);
-  
+
   gtk_show_about_dialog (GTK_WINDOW (main_window),
                          "comments", _("An Audio CD Extractor"),
                          "version", VERSION,
@@ -84,6 +84,6 @@ G_MODULE_EXPORT void on_about_activate (void)
                          "wrap-license", TRUE,
                          "website", "http://burtonini.com/blog/computers/sound-juicer",
                          NULL);
-  
+
   g_free (license_trans);
 }

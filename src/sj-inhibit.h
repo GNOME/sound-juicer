@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2007 Carl-Anton Ingmarsson <ca.ingmarsson@gmail.com>
  *
  * Sound Juicer - sj-inhibit.h
@@ -24,7 +24,7 @@
 #define SJ_INHIBIT_H
 
 #include <glib.h>
- 
+
 guint sj_inhibit (const gchar * appname, const gchar * reason, guint xid);
 void sj_uninhibit (guint cookie);
 

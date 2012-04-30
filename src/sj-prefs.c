@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2003 Ross Burton <ross@burtonini.com>
  *
  * Sound Juicer - sj-about.c
@@ -125,14 +125,14 @@ void show_help (GtkWindow *parent)
 G_MODULE_EXPORT void prefs_base_folder_changed (GtkWidget *chooser, gpointer user_data)
 {
   char *new_uri, *current_uri;
-  
+
   current_uri = gconf_client_get_string (gconf_client, GCONF_BASEURI, NULL);
-  new_uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (chooser)); 
+  new_uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (chooser));
 
   if (current_uri == NULL || strcmp(current_uri, new_uri) != 0) {
       gconf_client_set_string (gconf_client, GCONF_BASEURI, new_uri, NULL);
   }
-  
+
   g_free (new_uri);
   g_free (current_uri);
 }
@@ -230,9 +230,9 @@ static void baseuri_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *
   } else {
     g_return_if_fail (entry->value->type == GCONF_VALUE_STRING);
     current_uri = gtk_file_chooser_get_current_folder_uri (GTK_FILE_CHOOSER (basepath_fcb));
-    if (current_uri == NULL || strcmp (current_uri, base_uri) != 0) 
+    if (current_uri == NULL || strcmp (current_uri, base_uri) != 0)
       gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (basepath_fcb), base_uri);
-    
+
   }
 }
 
@@ -265,7 +265,7 @@ static void pattern_label_update (void)
     NULL, /* track ID */
     NULL, /* artist ID */
   };
-  
+
   g_object_get (extractor, "profile", &profile, NULL);
   /* It's possible the profile isn't set, in which case do nothing */
   if (!profile) {
@@ -302,7 +302,7 @@ static void pattern_label_update (void)
                         "</i></small>", NULL);
   g_free (example);
   g_free (media_type);
-  
+
   gtk_label_set_markup (GTK_LABEL (path_example_label), format);
   g_free (format);
 }
@@ -331,9 +331,9 @@ static void file_pattern_changed_cb (GConfClient *client, guint cnxn_id, GConfEn
 {
   char *value;
   int i = 0;
-  
+
   g_return_if_fail (strcmp (entry->key, GCONF_FILE_PATTERN) == 0);
-  
+
   if (entry->value == NULL) {
     value = g_strdup (file_patterns[0].pattern);
   } else if (entry->value->type == GCONF_VALUE_STRING) {
@@ -403,7 +403,7 @@ static void populate_pattern_combo (GtkComboBox *combo, const FilePattern *patte
 {
   GtkListStore *store;
   int i;
-  
+
   store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
   for (i = 0; patterns[i].pattern; ++i) {
     GtkTreeIter iter;
