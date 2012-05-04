@@ -24,7 +24,7 @@
 #define SJ_PREFS_H
 
 extern const char* prefs_get_default_device ();
-void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data);
+void show_preferences_dialog (void);
 gboolean cd_drive_exists (const char *device);
 void show_help (GtkWindow *parent);
 
@@ -32,6 +32,5 @@ void prefs_profile_changed (GtkWidget *widget, gpointer user_data);
 G_MODULE_EXPORT void prefs_base_folder_changed (GtkWidget *chooser, gpointer user_data);
 void prefs_path_option_changed (GtkComboBox *combo, gpointer user_data);
 void prefs_file_option_changed (GtkComboBox *combo, gpointer user_data);
-G_MODULE_EXPORT void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data);
 
 #endif /* SJ_PREFS_H */

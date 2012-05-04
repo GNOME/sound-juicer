@@ -41,6 +41,7 @@
 
 #include "sj-error.h"
 #include "sj-extracting.h"
+#include "sj-main.h"
 #include "sj-util.h"
 #include "sj-play.h"
 #include "sj-inhibit.h"
@@ -88,7 +89,7 @@ static GtkWidget *progress_bar, *status_bar;
 static GtkWidget *extract_button, *play_button, *title_entry, *artist_entry, *genre_entry, *year_entry, *disc_number_entry, *track_listview;
 
 /** The menuitem in the main menu */
-static GtkWidget *extract_menuitem, *play_menuitem, *reread_menuitem, *select_all_menuitem, *deselect_all_menuitem;
+static GtkWidget *extract_menuitem, *play_menuitem, *select_all_menuitem, *deselect_all_menuitem;
 
 static GtkTreeIter current;
 
@@ -251,9 +252,10 @@ cleanup (void)
   /* Enabling the Menuitem */
   gtk_widget_set_sensitive (play_menuitem, TRUE);
   gtk_widget_set_sensitive (extract_menuitem, TRUE);
-  gtk_widget_set_sensitive (reread_menuitem, TRUE);
   gtk_widget_set_sensitive (select_all_menuitem, TRUE);
   gtk_widget_set_sensitive (deselect_all_menuitem, TRUE);
+
+  set_action_enabled ("re-read", TRUE);
 
   /*Enable the Extract column and Make the Title and Artist column Editable*/
   g_object_set (G_OBJECT (toggle_renderer), "mode", GTK_CELL_RENDERER_MODE_ACTIVATABLE, NULL);
@@ -791,7 +793,6 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
 
     play_menuitem         = GET_WIDGET ("play_menuitem");
     extract_menuitem      = GET_WIDGET ("extract_menuitem");
-    reread_menuitem       = GET_WIDGET ("re-read");
     select_all_menuitem   = GET_WIDGET ("select_all");
     deselect_all_menuitem = GET_WIDGET ("deselect_all");
 
@@ -819,9 +820,10 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   /* Disable the menuitems in the main menu*/
   gtk_widget_set_sensitive (play_menuitem, FALSE);
   gtk_widget_set_sensitive (extract_menuitem, FALSE);
-  gtk_widget_set_sensitive (reread_menuitem, FALSE);
   gtk_widget_set_sensitive (select_all_menuitem, FALSE);
   gtk_widget_set_sensitive (deselect_all_menuitem, FALSE);
+
+  set_action_enabled ("re-read", FALSE);
 
   /* Disable the Extract column */
   g_object_set (G_OBJECT (toggle_renderer), "mode", GTK_CELL_RENDERER_MODE_INERT, NULL);

@@ -30,7 +30,7 @@
 #include <string.h>
 #include "sj-about.h"
 
-G_MODULE_EXPORT void on_about_activate (void)
+void show_about_dialog (void)
 {
   char *license_trans;
 

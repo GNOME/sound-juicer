@@ -58,7 +58,6 @@ gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data
 
 static void reread_cd (gboolean ignore_no_media);
 static void update_ui_for_album (AlbumDetails *album);
-static void set_duplication (gboolean enable);
 
 /* Prototypes for the signal blocking/unblocking in update_ui_for_album */
 G_MODULE_EXPORT void on_title_edit_changed(GtkEditable *widget, gpointer user_data);
@@ -79,9 +78,6 @@ static GtkWidget *title_entry, *artist_entry, *duration_label, *genre_entry, *ye
 static GtkWidget *track_listview, *extract_button, *play_button;
 static GtkWidget *status_bar;
 static GtkWidget *extract_menuitem, *play_menuitem, *next_menuitem, *prev_menuitem, *select_all_menuitem, *deselect_all_menuitem;
-static GtkWidget *submit_menuitem;
-static GtkWidget *reread_menuitem;
-static GtkWidget *duplicate, *eject;
 GtkListStore *track_store;
 GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer;
 
@@ -110,6 +106,8 @@ static guint debug_flags = 0;
 #define RAISE_WINDOW "raise-window"
 #define SOURCE_BUILDER "../data/sound-juicer.ui"
 #define INSTALLED_BUILDER DATADIR"/sound-juicer/sound-juicer.ui"
+#define SOURCE_MENU_BUILDER "../data/sound-juicer-menu.ui"
+#define INSTALLED_MENU_BUILDER DATADIR"/sound-juicer/sound-juicer-menu.ui"
 
 void
 sj_stock_init (void)
@@ -195,7 +193,7 @@ static void error_on_start (GError *error)
 /**
  * Clicked Quit
  */
-G_MODULE_EXPORT void on_quit_activate (GtkMenuItem *item, gpointer user_data)
+static void on_quit_activate (GSimpleAction *action, GVariant *parameter, gpointer data)
 {
   if (on_delete_event (NULL, NULL, NULL) == FALSE) {
     gtk_widget_destroy (GTK_WIDGET (main_window));
@@ -205,7 +203,7 @@ G_MODULE_EXPORT void on_quit_activate (GtkMenuItem *item, gpointer user_data)
 /**
  * Clicked Eject
  */
-G_MODULE_EXPORT void on_eject_activate (GtkMenuItem *item, gpointer user_data)
+static void on_eject_activate (GSimpleAction *action, GVariant *parameter, gpointer data)
 {
   /* first make sure we're not playing */
   stop_playback ();
@@ -428,13 +426,77 @@ musicbrainz_submit_info_bar_new (char *title, char *artist)
   return infobar;
 }
 
+/**
+ * Clicked the Submit menu item in the UI
+ */
+static void on_submit_activate (GSimpleAction *action, GVariant *parameter, gpointer data)
+{
+  GError *error = NULL;
+
+  if (current_submit_url) {
+      if (!gtk_show_uri (NULL, current_submit_url, GDK_CURRENT_TIME, &error)) {
+      GtkWidget *dialog;
+
+      dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (main_window),
+                                                   GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                   GTK_MESSAGE_ERROR,
+                                                   GTK_BUTTONS_CLOSE,
+                                                   "<b>%s</b>\n\n%s\n%s: %s",
+                                                   _("Could not open URL"),
+                                                   _("Sound Juicer could not open the submission URL"),
+                                                   _("Reason"),
+                                                   error->message);
+      gtk_dialog_run (GTK_DIALOG (dialog));
+      gtk_widget_destroy (dialog);
+      g_error_free (error);
+    }
+  }
+}
+
+static void on_preferences_activate (GSimpleAction *action, GVariant *parameter, gpointer data)
+{
+  show_preferences_dialog ();
+}
+
+static void on_about_activate (GSimpleAction *action, GVariant *parameter, gpointer data)
+{
+  show_about_dialog ();
+}
+
+/**
+ * Clicked on duplicate in the UI (button/menu)
+ */
+static void on_duplicate_activate (GSimpleAction *action, GVariant *parameter, gpointer data)
+{
+  GError *error = NULL;
+  const gchar* device;
+
+  device = brasero_drive_get_device (drive);
+  if (!g_spawn_command_line_async (g_strconcat ("brasero -c ", device, NULL), &error)) {
+      GtkWidget *dialog;
+
+      dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (main_window),
+                                                   GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                   GTK_MESSAGE_ERROR,
+                                                   GTK_BUTTONS_CLOSE,
+                                                   "<b>%s</b>\n\n%s\n%s: %s",
+                                                   _("Could not duplicate disc"),
+                                                   _("Sound Juicer could not duplicate the disc"),
+                                                   _("Reason"),
+                                                   error->message);
+      gtk_dialog_run (GTK_DIALOG (dialog));
+      gtk_widget_destroy (dialog);
+      g_error_free (error);
+  }
+}
+
 static void
 musicbrainz_submit_info_bar_response (GtkInfoBar *infobar,
                                       int         response_id,
                                       gpointer    user_data)
 {
   if (response_id == GTK_RESPONSE_OK) {
-    on_submit_activate (NULL, NULL);
+    on_submit_activate (NULL, NULL, NULL);
   }
 
   set_message_area (message_area_eventbox, NULL);
@@ -474,7 +536,7 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (deselect_all_menuitem, FALSE);
     gtk_widget_set_sensitive (prev_menuitem, FALSE);
     gtk_widget_set_sensitive (next_menuitem, FALSE);
-    set_duplication (FALSE);
+    set_action_enabled ("duplicate", FALSE);
 
     set_message_area (message_area_eventbox, NULL);
   } else {
@@ -516,7 +578,7 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (deselect_all_menuitem, TRUE);
     gtk_widget_set_sensitive (prev_menuitem, FALSE);
     gtk_widget_set_sensitive (next_menuitem, FALSE);
-    set_duplication (TRUE);
+    set_action_enabled ("duplicate", TRUE);
 
     for (l = album->tracks; l; l=g_list_next (l)) {
       GtkTreeIter iter;
@@ -827,9 +889,9 @@ metadata_cb (SjMetadataGetter *m, GList *albums, GError *error)
   g_free (current_submit_url);
   current_submit_url = sj_metadata_getter_get_submit_url (metadata);
   if (current_submit_url) {
-    gtk_widget_set_sensitive (submit_menuitem, TRUE);
+    set_action_enabled ("submit-tracks", TRUE);
   }
-  gtk_widget_set_sensitive (reread_menuitem, TRUE);
+  set_action_enabled ("re-read", TRUE);
 
   /* Free old album details */
   if (current_album != NULL) {
@@ -895,7 +957,7 @@ static void reread_cd (gboolean ignore_no_media)
 
   window = gtk_widget_get_window (main_window);
 
-  gtk_widget_set_sensitive (reread_menuitem, FALSE);
+  set_action_enabled ("re-read", FALSE);
 
   /* Make sure nothing is playing */
   stop_playback ();
@@ -916,7 +978,7 @@ static void reread_cd (gboolean ignore_no_media)
 
   g_free (current_submit_url);
   current_submit_url = NULL;
-  gtk_widget_set_sensitive (submit_menuitem, FALSE);
+  set_action_enabled ("submit-tracks", FALSE);
 
   if (!is_audio_cd (drive)) {
     sj_debug (DEBUG_CD, "Media is not an audio CD\n");
@@ -1061,7 +1123,7 @@ set_device (const char* device, gboolean ignore_no_media)
     }
 
     /* Enable/disable the eject options based on wether the drive supports ejection */
-    gtk_widget_set_sensitive (eject, brasero_drive_can_eject (drive));
+    set_action_enabled ("eject", brasero_drive_can_eject (drive));
   }
 }
 
@@ -1166,7 +1228,7 @@ static void profile_changed_cb (GConfClient *client, guint cnxn_id, GConfEntry *
     response = gtk_dialog_run (GTK_DIALOG (dialog));
     if (response == GTK_RESPONSE_ACCEPT) {
       gtk_widget_destroy (dialog);
-      on_edit_preferences_cb (NULL, NULL);
+      show_preferences_dialog ();
     } else {
       /* Can't use gtk_main_quit here, we may be outside the main loop */
       exit(0);
@@ -1230,37 +1292,9 @@ static void http_proxy_port_changed_cb (GConfClient *client, guint cnxn_id, GCon
 /**
  * Clicked on Reread in the UI (button/menu)
  */
-G_MODULE_EXPORT void on_reread_activate (GtkWidget *button, gpointer user_data)
+static void on_reread_activate (GSimpleAction *action, GVariant *parameter, gpointer data)
 {
   reread_cd (FALSE);
-}
-
-/**
- * Clicked the Submit menu item in the UI
- */
-G_MODULE_EXPORT void on_submit_activate (GtkWidget *menuitem, gpointer user_data)
-{
-  GError *error = NULL;
-
-  if (current_submit_url) {
-      if (!gtk_show_uri (NULL, current_submit_url, GDK_CURRENT_TIME, &error)) {
-      GtkWidget *dialog;
-
-      dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (main_window),
-                                                   GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                   GTK_MESSAGE_ERROR,
-                                                   GTK_BUTTONS_CLOSE,
-                                                   "<b>%s</b>\n\n%s\n%s: %s",
-                                                   _("Could not open URL"),
-                                                   _("Sound Juicer could not open the submission URL"),
-                                                   _("Reason"),
-                                                   error->message);
-      gtk_dialog_run (GTK_DIALOG (dialog));
-      gtk_widget_destroy (dialog);
-      g_error_free (error);
-    }
-  }
-
 }
 
 /**
@@ -1490,7 +1524,7 @@ G_MODULE_EXPORT void on_disc_number_edit_changed(GtkEditable *widget, gpointer u
     current_album->disc_number = disc_number;
 }
 
-G_MODULE_EXPORT void on_contents_activate(GtkWidget *button, gpointer user_data) {
+static void on_contents_activate(GSimpleAction *action, GVariant *parameter, gpointer data) {
   GError *error = NULL;
 
   gtk_show_uri (NULL, "ghelp:sound-juicer", GDK_CURRENT_TIME, &error);
@@ -1579,6 +1613,17 @@ is_cd_duplication_available()
   return FALSE;
 }
 
+GActionEntry app_entries[] = {
+  { "re-read", on_reread_activate, NULL, NULL, NULL },
+  { "duplicate", on_duplicate_activate, NULL, NULL, NULL },
+  { "eject", on_eject_activate, NULL, NULL, NULL },
+  { "submit-tracks", on_submit_activate, NULL, NULL, NULL },
+  { "preferences", on_preferences_activate, NULL, NULL, NULL },
+  { "about", on_about_activate, NULL, NULL, NULL },
+  { "help", on_contents_activate, NULL, NULL, NULL },
+  { "quit", on_quit_activate, NULL, NULL, NULL }
+};
+
 static void
 startup_cb (GApplication *app, gpointer user_data)
 {
@@ -1614,12 +1659,25 @@ startup_cb (GApplication *app, gpointer user_data)
   gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY, http_proxy_changed_cb, NULL, NULL, NULL);
   gconf_client_notify_add (gconf_client, GCONF_HTTP_PROXY_PORT, http_proxy_port_changed_cb, NULL, NULL, NULL);
 
+  g_action_map_add_action_entries (G_ACTION_MAP (app),
+                                   app_entries, G_N_ELEMENTS (app_entries),
+                                   NULL);
+
   builder = gtk_builder_new ();
   if (g_file_test (SOURCE_BUILDER, G_FILE_TEST_EXISTS) != FALSE) {
     gtk_builder_add_from_file (builder, SOURCE_BUILDER, &error);
   } else {
     gtk_builder_add_from_file (builder, INSTALLED_BUILDER, &error);
   }
+
+  if (g_file_test (SOURCE_MENU_BUILDER, G_FILE_TEST_EXISTS) != FALSE) {
+    gtk_builder_add_from_file (builder, SOURCE_MENU_BUILDER, &error);
+  } else {
+    gtk_builder_add_from_file (builder, INSTALLED_MENU_BUILDER, &error);
+  }
+
+  gtk_application_set_app_menu (GTK_APPLICATION (app),
+                                G_MENU_MODEL (gtk_builder_get_object (builder, "app-menu")));
 
   if (error != NULL) {
     error_on_start (error);
@@ -1633,8 +1691,6 @@ startup_cb (GApplication *app, gpointer user_data)
   message_area_eventbox = GET_WIDGET ("message_area_eventbox");
   select_all_menuitem   = GET_WIDGET ("select_all");
   deselect_all_menuitem = GET_WIDGET ("deselect_all");
-  submit_menuitem       = GET_WIDGET ("submit");
-  reread_menuitem       = GET_WIDGET ("re-read");
   title_entry           = GET_WIDGET ("title_entry");
   artist_entry          = GET_WIDGET ("artist_entry");
   duration_label        = GET_WIDGET ("duration_label");
@@ -1649,8 +1705,6 @@ startup_cb (GApplication *app, gpointer user_data)
   next_menuitem         = GET_WIDGET ("next_track_menuitem");
   prev_menuitem         = GET_WIDGET ("previous_track_menuitem");
   status_bar            = GET_WIDGET ("status_bar");
-  duplicate             = GET_WIDGET ("duplicate_menuitem");
-  eject                 = GET_WIDGET ("eject");
 
   { /* ensure that the play/pause button's size is constant */
     GtkWidget *fake_button1, *fake_button2;
@@ -1833,7 +1887,7 @@ startup_cb (GApplication *app, gpointer user_data)
   }
 
   /* Set whether duplication of a cd is available using the brasero tool */
-  gtk_widget_set_sensitive (duplicate, FALSE);
+  set_action_enabled ("duplicate", FALSE);
   duplication_enabled = is_cd_duplication_available();
 
   gconf_bridge_bind_window_size(gconf_bridge_get(), GCONF_WINDOW, GTK_WINDOW (main_window));
@@ -1848,42 +1902,12 @@ activate_cb (GApplication *app, gpointer user_data)
   gtk_window_present (GTK_WINDOW (main_window));
 }
 
-/**
- * Clicked on duplicate in the UI (button/menu)
- */
-G_MODULE_EXPORT void on_duplicate_activate (GtkWidget *button, gpointer user_data)
+void set_action_enabled (const char *name, gboolean enabled)
 {
-  GError *error = NULL;
-  const gchar* device;
+  GActionMap *map = G_ACTION_MAP (g_application_get_default ());
+  GAction *action = g_action_map_lookup_action (map, name);
 
-  device = brasero_drive_get_device (drive);
-  if (!g_spawn_command_line_async (g_strconcat ("brasero -c ", device, NULL), &error)) {
-      GtkWidget *dialog;
-
-      dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (main_window),
-                                                   GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                   GTK_MESSAGE_ERROR,
-                                                   GTK_BUTTONS_CLOSE,
-                                                   "<b>%s</b>\n\n%s\n%s: %s",
-                                                   _("Could not duplicate disc"),
-                                                   _("Sound Juicer could not duplicate the disc"),
-                                                   _("Reason"),
-                                                   error->message);
-      gtk_dialog_run (GTK_DIALOG (dialog));
-      gtk_widget_destroy (dialog);
-      g_error_free (error);
-  }
-}
-
-/**
- * Sets the duplication buttons sensitive property if duplication is enabled.
- * This is setup in the main entry point.
- */
-static void set_duplication(gboolean enabled)
-{
-  if (duplication_enabled) {
-    gtk_widget_set_sensitive (duplicate, enabled);
-  }
+  g_simple_action_set_enabled (G_SIMPLE_ACTION (action), enabled);
 }
 
 int main (int argc, char **argv)

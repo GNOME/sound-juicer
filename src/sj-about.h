@@ -25,6 +25,6 @@
 
 #include <gtk/gtk.h>
 
-G_MODULE_EXPORT void on_about_activate (void);
+void show_about_dialog (void);
 
 #endif /* SJ_ABOUT_H */

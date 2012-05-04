@@ -463,7 +463,7 @@ static GtkWidget *sj_audio_profile_chooser_new(void)
 /**
  * Clicked on Preferences in the UI
  */
-G_MODULE_EXPORT void on_edit_preferences_cb (GtkMenuItem *item, gpointer user_data)
+void show_preferences_dialog ()
 {
   static GtkWidget *prefs_dialog = NULL;
 

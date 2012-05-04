@@ -29,6 +29,7 @@
 
 #include "sound-juicer.h"
 #include "sj-play.h"
+#include "sj-main.h"
 
 static GstElement *pipeline = NULL;
 static guint id = 0, button_change_id = 0;
@@ -111,6 +112,9 @@ _stop (void)
   /* TODO: this should be centralised into the state change logic really */
   gtk_widget_set_sensitive (next_menuitem, FALSE);
   gtk_widget_set_sensitive (prev_menuitem, FALSE);
+
+  set_action_enabled ("re-read", TRUE);
+
   gtk_widget_hide (seek_scale);
   gtk_widget_hide (volume_button);
   sj_main_set_title (NULL);

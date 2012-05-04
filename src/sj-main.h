@@ -26,9 +26,9 @@
 
 void sj_stock_init (void);
 
-G_MODULE_EXPORT void on_quit_activate (GtkMenuItem *item, gpointer user_data);
+void set_action_enabled (const char *name, gboolean enabled);
+
 G_MODULE_EXPORT void on_destroy_activate (GtkMenuItem *item, gpointer user_data);
-G_MODULE_EXPORT void on_eject_activate (GtkMenuItem *item, gpointer user_data);
 G_MODULE_EXPORT void on_select_all_activate (GtkMenuItem *item, gpointer user_data);
 G_MODULE_EXPORT void on_deselect_all_activate (GtkMenuItem *item, gpointer user_data);
 
@@ -36,12 +36,8 @@ AlbumDetails* multiple_album_dialog (GList* albums);
 
 const char* prefs_get_default_device (void);
 
-G_MODULE_EXPORT void on_reread_activate (GtkWidget *button, gpointer user_data);
-G_MODULE_EXPORT void on_submit_activate (GtkWidget *menuitem, gpointer user_data);
 G_MODULE_EXPORT void on_genre_edit_changed(GtkEditable *widget, gpointer user_data);
 G_MODULE_EXPORT void on_year_edit_changed(GtkEditable *widget, gpointer user_data);
-G_MODULE_EXPORT void on_contents_activate(GtkWidget *button, gpointer user_data);
-G_MODULE_EXPORT void on_duplicate_activate (GtkWidget *button, gpointer user_data);
 
 GtkWidget* sj_make_volume_button (void);
 
