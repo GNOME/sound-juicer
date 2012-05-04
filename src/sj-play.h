@@ -35,12 +35,11 @@ G_MODULE_EXPORT void on_tracklist_row_activate (GtkTreeView *treeview, GtkTreePa
 
 void stop_ui_hack (void);
 
-G_MODULE_EXPORT void on_play_activate (GtkWidget *button, gpointer user_data);
+void toggle_play (void);
 
-G_MODULE_EXPORT void on_next_track_activate(GtkWidget *button, gpointer data);
+void play_next_track (void);
 
-G_MODULE_EXPORT void on_previous_track_activate(GtkWidget *button, gpointer data);
-
+void play_previous_track (void);
 
 G_MODULE_EXPORT void on_tracklist_row_selected (GtkTreeView *treeview,
 		                gpointer user_data);

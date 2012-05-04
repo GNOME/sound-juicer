@@ -88,9 +88,6 @@ static GtkWidget *progress_bar, *status_bar;
 /** The widgets in the main UI */
 static GtkWidget *extract_button, *play_button, *title_entry, *artist_entry, *genre_entry, *year_entry, *disc_number_entry, *track_listview;
 
-/** The menuitem in the main menu */
-static GtkWidget *extract_menuitem, *play_menuitem, *select_all_menuitem, *deselect_all_menuitem;
-
 static GtkTreeIter current;
 
 /**
@@ -250,11 +247,9 @@ cleanup (void)
   gtk_widget_set_sensitive (year_entry, TRUE);
   gtk_widget_set_sensitive (disc_number_entry, TRUE);
   /* Enabling the Menuitem */
-  gtk_widget_set_sensitive (play_menuitem, TRUE);
-  gtk_widget_set_sensitive (extract_menuitem, TRUE);
-  gtk_widget_set_sensitive (select_all_menuitem, TRUE);
-  gtk_widget_set_sensitive (deselect_all_menuitem, TRUE);
-
+  set_action_enabled ("play", TRUE);
+  set_action_enabled ("select-all", TRUE);
+  set_action_enabled ("deselect-all", TRUE);
   set_action_enabled ("re-read", TRUE);
 
   /*Enable the Extract column and Make the Title and Artist column Editable*/
@@ -791,11 +786,6 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
     progress_bar      = GET_WIDGET ("progress_bar");
     status_bar        = GET_WIDGET ("status_bar");
 
-    play_menuitem         = GET_WIDGET ("play_menuitem");
-    extract_menuitem      = GET_WIDGET ("extract_menuitem");
-    select_all_menuitem   = GET_WIDGET ("select_all");
-    deselect_all_menuitem = GET_WIDGET ("deselect_all");
-
     initialised = TRUE;
   }
 
@@ -818,11 +808,9 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   gtk_widget_set_sensitive (disc_number_entry, FALSE);
 
   /* Disable the menuitems in the main menu*/
-  gtk_widget_set_sensitive (play_menuitem, FALSE);
-  gtk_widget_set_sensitive (extract_menuitem, FALSE);
-  gtk_widget_set_sensitive (select_all_menuitem, FALSE);
-  gtk_widget_set_sensitive (deselect_all_menuitem, FALSE);
-
+  set_action_enabled ("play", FALSE);
+  set_action_enabled ("select-all", FALSE);
+  set_action_enabled ("deselect-all", FALSE);
   set_action_enabled ("re-read", FALSE);
 
   /* Disable the Extract column */

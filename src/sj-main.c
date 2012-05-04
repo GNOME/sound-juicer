@@ -77,7 +77,6 @@ static GtkWidget *message_area_eventbox;
 static GtkWidget *title_entry, *artist_entry, *duration_label, *genre_entry, *year_entry, *disc_number_entry;
 static GtkWidget *track_listview, *extract_button, *play_button;
 static GtkWidget *status_bar;
-static GtkWidget *extract_menuitem, *play_menuitem, *next_menuitem, *prev_menuitem, *select_all_menuitem, *deselect_all_menuitem;
 GtkListStore *track_store;
 GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer;
 
@@ -244,23 +243,40 @@ static gboolean select_all_foreach_cb (GtkTreeModel *model,
   return FALSE;
 }
 
-G_MODULE_EXPORT void on_select_all_activate (GtkMenuItem *item, gpointer user_data)
+static void on_play_activate (GSimpleAction *action, GVariant *parameter, gpointer data)
+{
+  toggle_play ();
+}
+
+static void on_next_track_activate (GSimpleAction *action, GVariant *parameter, gpointer data)
+{
+  play_next_track ();
+}
+
+static void on_previous_track_activate (GSimpleAction *action, GVariant *parameter, gpointer data)
+{
+  play_previous_track ();
+}
+
+static void on_select_all_activate (GSimpleAction *action, GVariant *parameter, gpointer data)
 {
   gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), select_all_foreach_cb, GINT_TO_POINTER (TRUE));
   gtk_widget_set_sensitive (extract_button, TRUE);
-  gtk_widget_set_sensitive (extract_menuitem, TRUE);
-  gtk_widget_set_sensitive (select_all_menuitem, FALSE);
-  gtk_widget_set_sensitive (deselect_all_menuitem, TRUE);
+
+  set_action_enabled ("select-all", FALSE);
+  set_action_enabled ("deselect-all", TRUE);
+
   no_of_tracks_selected = total_no_of_tracks;
 }
 
-G_MODULE_EXPORT void on_deselect_all_activate (GtkMenuItem *item, gpointer user_data)
+static void on_deselect_all_activate (GSimpleAction *action, GVariant *parameter, gpointer data)
 {
   gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), select_all_foreach_cb, GINT_TO_POINTER (FALSE));
   gtk_widget_set_sensitive (extract_button, FALSE);
-  gtk_widget_set_sensitive (extract_menuitem, FALSE);
-  gtk_widget_set_sensitive (deselect_all_menuitem, FALSE);
-  gtk_widget_set_sensitive (select_all_menuitem,TRUE);
+
+  set_action_enabled ("deselect-all", FALSE);
+  set_action_enabled ("select-all", TRUE);
+
   no_of_tracks_selected = 0;
 }
 
@@ -529,13 +545,12 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (year_entry, FALSE);
     gtk_widget_set_sensitive (disc_number_entry, FALSE);
     gtk_widget_set_sensitive (play_button, FALSE);
-    gtk_widget_set_sensitive (play_menuitem, FALSE);
     gtk_widget_set_sensitive (extract_button, FALSE);
-    gtk_widget_set_sensitive (extract_menuitem, FALSE);
-    gtk_widget_set_sensitive (select_all_menuitem, FALSE);
-    gtk_widget_set_sensitive (deselect_all_menuitem, FALSE);
-    gtk_widget_set_sensitive (prev_menuitem, FALSE);
-    gtk_widget_set_sensitive (next_menuitem, FALSE);
+    set_action_enabled ("play", FALSE);
+    set_action_enabled ("select-all", FALSE);
+    set_action_enabled ("deselect-all", FALSE);
+    set_action_enabled ("previous-track", FALSE);
+    set_action_enabled ("next-track", FALSE);
     set_action_enabled ("duplicate", FALSE);
 
     set_message_area (message_area_eventbox, NULL);
@@ -571,13 +586,12 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_widget_set_sensitive (year_entry, TRUE);
     gtk_widget_set_sensitive (disc_number_entry, TRUE);
     gtk_widget_set_sensitive (play_button, TRUE);
-    gtk_widget_set_sensitive (play_menuitem, TRUE);
     gtk_widget_set_sensitive (extract_button, TRUE);
-    gtk_widget_set_sensitive (extract_menuitem, TRUE);
-    gtk_widget_set_sensitive (select_all_menuitem, FALSE);
-    gtk_widget_set_sensitive (deselect_all_menuitem, TRUE);
-    gtk_widget_set_sensitive (prev_menuitem, FALSE);
-    gtk_widget_set_sensitive (next_menuitem, FALSE);
+    set_action_enabled ("play", TRUE);
+    set_action_enabled ("select-all", FALSE);
+    set_action_enabled ("deselect-all", TRUE);
+    set_action_enabled ("previous-track", FALSE);
+    set_action_enabled ("next-track", FALSE);
     set_action_enabled ("duplicate", TRUE);
 
     for (l = album->tracks; l; l=g_list_next (l)) {
@@ -1339,26 +1353,24 @@ static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
   if (extract) {
     /* If true, then we can extract */
     gtk_widget_set_sensitive (extract_button, TRUE);
-    gtk_widget_set_sensitive (extract_menuitem, TRUE);
     no_of_tracks_selected++;
   } else {
     /* Reuse the boolean extract */
     extract = FALSE;
     gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), (GtkTreeModelForeachFunc)extract_available_foreach, &extract);
     gtk_widget_set_sensitive (extract_button, extract);
-    gtk_widget_set_sensitive (extract_menuitem, extract);
     no_of_tracks_selected--;
   }
   /* Enable and disable the Select/Deselect All buttons */
   if (no_of_tracks_selected == total_no_of_tracks) {
-    gtk_widget_set_sensitive(deselect_all_menuitem, TRUE);
-    gtk_widget_set_sensitive(select_all_menuitem, FALSE);
+    set_action_enabled ("deselect-all", TRUE);
+    set_action_enabled ("select-all", FALSE);
   } else if (no_of_tracks_selected == 0) {
-    gtk_widget_set_sensitive(deselect_all_menuitem, FALSE);
-    gtk_widget_set_sensitive(select_all_menuitem, TRUE);
+    set_action_enabled ("deselect-all", FALSE);
+    set_action_enabled ("select-all", TRUE);
   } else {
-    gtk_widget_set_sensitive(select_all_menuitem, TRUE);
-    gtk_widget_set_sensitive(deselect_all_menuitem, TRUE);
+    set_action_enabled ("select-all", TRUE);
+    set_action_enabled ("deselect-all", TRUE);
   }
 }
 
@@ -1624,6 +1636,14 @@ GActionEntry app_entries[] = {
   { "quit", on_quit_activate, NULL, NULL, NULL }
 };
 
+GActionEntry win_entries[] = {
+  { "play", on_play_activate, NULL, NULL, NULL },
+  { "next-track", on_next_track_activate, NULL, NULL, NULL },
+  { "previous-track", on_previous_track_activate, NULL, NULL, NULL },
+  { "select-all", on_select_all_activate, NULL, NULL, NULL },
+  { "deselect-all", on_deselect_all_activate, NULL, NULL, NULL }
+};
+
 static void
 startup_cb (GApplication *app, gpointer user_data)
 {
@@ -1689,8 +1709,6 @@ startup_cb (GApplication *app, gpointer user_data)
 
   main_window           = GET_WIDGET ("main_window");
   message_area_eventbox = GET_WIDGET ("message_area_eventbox");
-  select_all_menuitem   = GET_WIDGET ("select_all");
-  deselect_all_menuitem = GET_WIDGET ("deselect_all");
   title_entry           = GET_WIDGET ("title_entry");
   artist_entry          = GET_WIDGET ("artist_entry");
   duration_label        = GET_WIDGET ("duration_label");
@@ -1699,12 +1717,25 @@ startup_cb (GApplication *app, gpointer user_data)
   disc_number_entry     = GET_WIDGET ("disc_number_entry");
   track_listview        = GET_WIDGET ("track_listview");
   extract_button        = GET_WIDGET ("extract_button");
-  extract_menuitem      = GET_WIDGET ("extract_menuitem");
   play_button           = GET_WIDGET ("play_button");
-  play_menuitem         = GET_WIDGET ("play_menuitem");
-  next_menuitem         = GET_WIDGET ("next_track_menuitem");
-  prev_menuitem         = GET_WIDGET ("previous_track_menuitem");
   status_bar            = GET_WIDGET ("status_bar");
+
+  g_action_map_add_action_entries (G_ACTION_MAP (main_window),
+                                   win_entries, G_N_ELEMENTS (win_entries),
+                                   NULL);
+  gtk_actionable_set_action_name(GTK_ACTIONABLE(play_button), "win.play");
+
+  /* window actions are only available via shortcuts */
+  gtk_application_add_accelerator (GTK_APPLICATION (app),
+                                   "<Primary>p", "win.play", NULL);
+  gtk_application_add_accelerator (GTK_APPLICATION (app),
+                                   "<Primary>n", "win.next-track", NULL);
+  gtk_application_add_accelerator (GTK_APPLICATION (app),
+                                   "<Primary>b", "win.previous-track", NULL);
+  gtk_application_add_accelerator (GTK_APPLICATION (app),
+                                   "<Primary>a", "win.select-all", NULL);
+  gtk_application_add_accelerator (GTK_APPLICATION (app),
+                                   "<Primary><Shift>a", "win.deselect-all", NULL);
 
   { /* ensure that the play/pause button's size is constant */
     GtkWidget *fake_button1, *fake_button2;
@@ -1906,6 +1937,9 @@ void set_action_enabled (const char *name, gboolean enabled)
 {
   GActionMap *map = G_ACTION_MAP (g_application_get_default ());
   GAction *action = g_action_map_lookup_action (map, name);
+
+  if (action == NULL)
+    action = g_action_map_lookup_action (G_ACTION_MAP (main_window), name);
 
   g_simple_action_set_enabled (G_SIMPLE_ACTION (action), enabled);
 }

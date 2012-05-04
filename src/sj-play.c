@@ -41,7 +41,7 @@ static void set_gst_ui_and_play (void);
 
 static GtkTreeIter current_iter;
 
-static GtkWidget *play_button, *next_menuitem, *prev_menuitem, *seek_scale, *volume_button, *statusbar,  *track_listview;
+static GtkWidget *play_button, *seek_scale, *volume_button, *statusbar,  *track_listview;
 
 /**
  * Select track number.
@@ -87,8 +87,8 @@ _play (void)
 {
   gst_element_set_state (pipeline, GST_STATE_PLAYING);
 
-  gtk_widget_set_sensitive (next_menuitem, TRUE);
-  gtk_widget_set_sensitive (prev_menuitem, TRUE);
+  set_action_enabled ("next-track", TRUE);
+  set_action_enabled ("previous-track", TRUE);
 }
 
 /**
@@ -110,8 +110,8 @@ _stop (void)
     gst_element_set_state (pipeline, GST_STATE_NULL);
 
   /* TODO: this should be centralised into the state change logic really */
-  gtk_widget_set_sensitive (next_menuitem, FALSE);
-  gtk_widget_set_sensitive (prev_menuitem, FALSE);
+  set_action_enabled ("next-track", FALSE);
+  set_action_enabled ("previous-track", FALSE);
 
   set_action_enabled ("re-read", TRUE);
 
@@ -390,9 +390,7 @@ stop_playback (void)
 /*
  * Interface entry point.
  */
-
-G_MODULE_EXPORT void
-on_play_activate (GtkWidget *button, gpointer user_data)
+void toggle_play ()
 {
   GError *err = NULL;
 
@@ -456,14 +454,12 @@ on_tracklist_row_activate (GtkTreeView * treeview, GtkTreePath * path,
   }
 }
 
-G_MODULE_EXPORT void
-on_next_track_activate(GtkWidget *button, gpointer data)
+void play_next_track ()
 {
   cb_hop_track (NULL, NULL, NULL);
 }
 
-G_MODULE_EXPORT void
-on_previous_track_activate(GtkWidget *button, gpointer data)
+void play_previous_track ()
 {
   GtkTreeModel *model;
   gint prev_track = current_track - 1;
@@ -608,8 +604,6 @@ void
 sj_play_init (void)
 {
   play_button     = GET_WIDGET ("play_button");
-  next_menuitem   = GET_WIDGET ("next_track_menuitem");
-  prev_menuitem   = GET_WIDGET ("previous_track_menuitem");
   seek_scale      = GET_WIDGET ("seek_scale");
   volume_button   = GET_WIDGET ("volume_button");
   statusbar       = GET_WIDGET ("status_bar");

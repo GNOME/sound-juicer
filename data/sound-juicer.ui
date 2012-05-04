@@ -12,102 +12,6 @@
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkMenuBar" id="menubar1">
-            <property name="visible">True</property>
-            <child>
-              <object class="GtkMenuItem" id="menuitem1">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes">_Disc</property>
-                <property name="use_underline">True</property>
-                <child type="submenu">
-                  <object class="GtkMenu" id="menuitem1_menu">
-                    <child>
-                      <object class="GtkImageMenuItem" id="play_menuitem">
-                        <property name="label" translatable="yes">_Play / Pause</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <accelerator key="p" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_play_activate"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem" id="next_track_menuitem">
-                        <property name="label" translatable="yes">_Next Track</property>
-                        <property name="visible">True</property>
-                        <property name="tooltip_text" translatable="yes">Skip to the next track</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <accelerator key="N" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_next_track_activate"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem" id="previous_track_menuitem">
-                        <property name="label" translatable="yes">Pre_vious Track</property>
-                        <property name="visible">True</property>
-                        <property name="tooltip_text" translatable="yes">Skip to the previous track</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <accelerator key="B" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_previous_track_activate"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkSeparatorMenuItem" id="separatormenuitem1">
-                        <property name="visible">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem" id="extract_menuitem">
-                        <property name="label">sj-stock-extract</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <signal name="activate" handler="on_extract_activate"/>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkMenuItem" id="menuitem2">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes">_Edit</property>
-                <property name="use_underline">True</property>
-                <child type="submenu">
-                  <object class="GtkMenu" id="menuitem2_menu">
-                    <child>
-                      <object class="GtkMenuItem" id="select_all">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">_Select All</property>
-                        <property name="use_underline">True</property>
-                        <accelerator key="A" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_select_all_activate"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkMenuItem" id="deselect_all">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">_Deselect All</property>
-                        <property name="use_underline">True</property>
-                        <accelerator key="A" signal="activate" modifiers="GDK_SHIFT_MASK | GDK_CONTROL_MASK"/>
-                        <signal name="activate" handler="on_deselect_all_activate"/>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkEventBox" id="message_area_eventbox">
             <property name="visible">True</property>
             <child>
@@ -395,7 +299,6 @@
                         <property name="can_default">True</property>
                         <property name="receives_default">False</property>
                         <property name="use_stock">True</property>
-                        <signal name="clicked" handler="on_play_activate"/>
                       </object>
                       <packing>
                         <property name="expand">False</property>
