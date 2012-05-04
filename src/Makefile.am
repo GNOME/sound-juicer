@@ -19,8 +19,7 @@ sound_juicer_SOURCES = \
 	gconf-bridge.h \
 	gconf-bridge.c \
 	egg-play-preview.c \
-	egg-play-preview.h \
-	$(BACON_FILES)
+	egg-play-preview.h
 
 sound_juicer_CPPFLAGS = \
 	-I$(top_srcdir)/libjuicer \
@@ -49,11 +48,5 @@ sound_juicer_LDADD = \
 
 sound_juicer_LDFLAGS = \
 	$(AM_LDFLAGS)
-
-BACON_DIR=$(srcdir)/../../libbacon/src/
-BACON_FILES=bacon-message-connection.h bacon-message-connection.c
-
-regenerate-built-sources:
-	$(AM_V_GEN) BACONFILES="$(BACON_FILES)" BACONDIR="$(BACON_DIR)" $(top_srcdir)/src/update-from-bacon.sh
 
 -include $(top_srcdir)/git.mk
