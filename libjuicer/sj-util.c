@@ -120,3 +120,19 @@ sj_add_default_dirs (GtkFileChooser *dialog)
 	}
 }
 
+/*
+ * True if string is NULL, empty or contains only ascii space
+ */
+gboolean
+sj_str_is_empty (const char *s)
+{
+  int i = 0;
+
+  if (s == NULL)
+    return TRUE;
+  while (s[i]) {
+    if (!g_ascii_isspace (s[i++]))
+      return FALSE;
+  }
+  return TRUE;
+}

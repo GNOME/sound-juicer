@@ -33,5 +33,5 @@ void g_list_deep_free (GList *l, GFunc free_func);
 
 void sj_add_default_dirs (GtkFileChooser *dialog);
 GFile *sj_get_default_music_directory (void);
-
+gboolean sj_str_is_empty (const char *s);
 #endif /* SJ_UTIL_H */
