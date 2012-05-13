@@ -40,7 +40,7 @@ static void set_gst_ui_and_play (void);
 
 static GtkTreeIter current_iter;
 
-static GtkWidget *play_button, *next_menuitem, *prev_menuitem, *reread_menuitem, *seek_scale, *volume_button, *statusbar,  *track_listview;
+static GtkWidget *play_button, *next_menuitem, *prev_menuitem, *seek_scale, *volume_button, *statusbar,  *track_listview;
 
 /**
  * Select track number.
@@ -111,7 +111,6 @@ _stop (void)
   /* TODO: this should be centralised into the state change logic really */
   gtk_widget_set_sensitive (next_menuitem, FALSE);
   gtk_widget_set_sensitive (prev_menuitem, FALSE);
-  gtk_widget_set_sensitive (reread_menuitem, TRUE);
   gtk_widget_hide (seek_scale);
   gtk_widget_hide (volume_button);
   sj_main_set_title (NULL);
@@ -655,7 +654,6 @@ sj_play_init (void)
   play_button     = GET_WIDGET ("play_button");
   next_menuitem   = GET_WIDGET ("next_track_menuitem");
   prev_menuitem   = GET_WIDGET ("previous_track_menuitem");
-  reread_menuitem = GET_WIDGET ("re-read");
   seek_scale      = GET_WIDGET ("seek_scale");
   volume_button   = GET_WIDGET ("volume_button");
   statusbar       = GET_WIDGET ("status_bar");
