@@ -59,6 +59,7 @@ struct _AlbumDetails {
   char* artist;
   char* artist_sortname;
   char* composer;
+  char* composer_sortname;
   char *genre;
   int   number; /* number of tracks in the album */
   int   disc_number;
