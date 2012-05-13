@@ -80,6 +80,7 @@ static GtkWidget *track_listview, *extract_button, *play_button;
 static GtkWidget *status_bar;
 static GtkWidget *extract_menuitem, *play_menuitem, *next_menuitem, *prev_menuitem, *select_all_menuitem, *deselect_all_menuitem;
 static GtkWidget *submit_menuitem;
+static GtkWidget *reread_menuitem;
 static GtkWidget *duplicate, *eject;
 GtkListStore *track_store;
 static BaconMessageConnection *connection;
@@ -836,6 +837,7 @@ metadata_cb (SjMetadataGetter *m, GList *albums, GError *error)
   if (current_submit_url) {
     gtk_widget_set_sensitive (submit_menuitem, TRUE);
   }
+  gtk_widget_set_sensitive (reread_menuitem, TRUE);
 
   /* Free old album details */
   if (current_album != NULL) {
@@ -900,6 +902,8 @@ static void reread_cd (gboolean ignore_no_media)
   gboolean realized = gtk_widget_get_realized (main_window);
 
   window = gtk_widget_get_window (main_window);
+
+  gtk_widget_set_sensitive (reread_menuitem, FALSE);
 
   /* Make sure nothing is playing */
   stop_playback ();
@@ -1733,6 +1737,7 @@ int main (int argc, char **argv)
   select_all_menuitem   = GET_WIDGET ("select_all");
   deselect_all_menuitem = GET_WIDGET ("deselect_all");
   submit_menuitem       = GET_WIDGET ("submit");
+  reread_menuitem       = GET_WIDGET ("re-read");
   title_entry           = GET_WIDGET ("title_entry");
   artist_entry          = GET_WIDGET ("artist_entry");
   duration_label        = GET_WIDGET ("duration_label");
