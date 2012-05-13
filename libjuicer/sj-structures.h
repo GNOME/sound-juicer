@@ -46,6 +46,7 @@ struct _TrackDetails {
   char *title;
   char *artist;
   char* artist_sortname; /* Can be NULL, so fall back onto artist */
+  char* composer;
   int duration; /* seconds */
   char* track_id;
   char* artist_id;

@@ -261,6 +261,7 @@ static void pattern_label_update (void)
     .title = "Ticket To Ride", /* title */
     .artist = "The Beatles", /* artist */
     .artist_sortname = "Beatles, The", /* sortname */
+    .composer = "John Lennon and Paul McCartney", /* composer */
     .duration = 0, /* duration */
     .track_id = NULL, /* track ID */
     .artist_id = NULL, /* artist ID */
