@@ -1391,13 +1391,10 @@ static void on_cell_edited (GtkCellRendererText *renderer,
   ViewColumn column = GPOINTER_TO_INT (column_data);
   GtkTreeIter iter;
   TrackDetails *track;
-  char *artist, *title;
 
   if (!gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (track_store), &iter, path))
     return;
   gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter,
-                      COLUMN_ARTIST, &artist,
-                      COLUMN_TITLE, &title,
                       COLUMN_DETAILS, &track,
                       -1);
   switch (column) {
@@ -1414,8 +1411,6 @@ static void on_cell_edited (GtkCellRendererText *renderer,
   default:
     g_warning (_("Unknown column %d was edited"), column);
   }
-  g_free (artist);
-  g_free (title);
 
   return;
 }
