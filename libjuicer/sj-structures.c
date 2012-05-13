@@ -54,6 +54,7 @@ void album_details_free(AlbumDetails *album)
   g_list_foreach (album->tracks, (GFunc)track_details_free, NULL);
   g_list_free (album->tracks);
   g_free (album->artist_sortname);
+  g_free (album->artist_id);
   g_free (album->asin);
   g_free (album->discogs);
   g_free (album->wikipedia);
