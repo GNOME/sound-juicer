@@ -246,7 +246,7 @@ static void pattern_label_update (void)
   static const AlbumDetails sample_album = {
     .title = "Help!", /* title */
     .artist = "The Beatles", /* artist */
-    .artist_sortname = "Beatles, The", /* sortname */
+    .artist_sortname = "Beatles, The", /* artist_sortname */
     .genre = NULL, /* genre */
     .number = 0, /* number of tracks*/
     .disc_number = 1, /* disc number */
@@ -260,8 +260,9 @@ static void pattern_label_update (void)
     .number = 7, /* track number */
     .title = "Ticket To Ride", /* title */
     .artist = "The Beatles", /* artist */
-    .artist_sortname = "Beatles, The", /* sortname */
+    .artist_sortname = "Beatles, The", /* artist_sortname */
     .composer = "John Lennon and Paul McCartney", /* composer */
+    .composer_sortname = "Lennon, John", /* composer_sortname */
     .duration = 0, /* duration */
     .track_id = NULL, /* track ID */
     .artist_id = NULL, /* artist ID */
