@@ -523,6 +523,13 @@ sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, G
                                GST_TAG_DURATION, track->duration * GST_SECOND,
                                NULL);
 
+     if (track->composer != NULL && strcmp (track->composer, "") != 0) {
+        gst_tag_setter_add_tags (tagger,
+                            GST_TAG_MERGE_APPEND,
+                            GST_TAG_COMPOSER, track->composer,
+                            NULL);
+      }
+
       if (track->album->album_id != NULL && strcmp (track->album->album_id, "") != 0) {
         gst_tag_setter_add_tags (tagger,
                             GST_TAG_MERGE_APPEND,
