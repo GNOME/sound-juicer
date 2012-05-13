@@ -78,7 +78,7 @@ static GtkWidget *title_entry, *artist_entry, *duration_label, *genre_entry, *ye
 static GtkWidget *track_listview, *extract_button, *play_button, *select_button;
 static GtkWidget *status_bar;
 GtkListStore *track_store;
-GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer;
+GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer, *composer_renderer;
 
 GtkWidget *current_message_area;
 
@@ -1381,8 +1381,8 @@ static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
 }
 
 /**
- * Callback when the title or artist cells are edited in the list. column_data
- * contains the column number in the model which was modified.
+ * Callback when the title, artist or composer cells are edited in the list.
+ * column_data contains the column number in the model which was modified.
  */
 static void on_cell_edited (GtkCellRendererText *renderer,
                  gchar *path, gchar *string,
@@ -1407,6 +1407,11 @@ static void on_cell_edited (GtkCellRendererText *renderer,
     g_free (track->artist);
     track->artist = g_strdup (string);
     gtk_list_store_set (track_store, &iter, COLUMN_ARTIST, track->artist, -1);
+    break;
+  case COLUMN_COMPOSER:
+    g_free (track->composer);
+    track->composer = g_strdup (string);
+    gtk_list_store_set (track_store, &iter, COLUMN_COMPOSER, track->composer, -1);
     break;
   default:
     g_warning (_("Unknown column %d was edited"), column);
@@ -1787,7 +1792,7 @@ startup_cb (GApplication *app, gpointer user_data)
 
   setup_genre_entry (genre_entry);
 
-  track_store = gtk_list_store_new (COLUMN_TOTAL, G_TYPE_INT, G_TYPE_BOOLEAN, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_POINTER);
+  track_store = gtk_list_store_new (COLUMN_TOTAL, G_TYPE_INT, G_TYPE_BOOLEAN, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_POINTER);
   gtk_tree_view_set_model (GTK_TREE_VIEW (track_listview), GTK_TREE_MODEL (track_store));
   {
     GtkTreeViewColumn *column;
@@ -1835,6 +1840,17 @@ startup_cb (GApplication *app, gpointer user_data)
     gtk_tree_view_column_set_expand (column, TRUE);
     g_signal_connect (artist_renderer, "edited", G_CALLBACK (on_cell_edited), GUINT_TO_POINTER (COLUMN_ARTIST));
     g_object_set (G_OBJECT (artist_renderer), "editable", TRUE, NULL);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
+
+    composer_renderer = gtk_cell_renderer_text_new ();
+    column = gtk_tree_view_column_new_with_attributes (_("Composer"),
+                                                       composer_renderer,
+                                                       "text", COLUMN_COMPOSER,
+                                                       NULL);
+    gtk_tree_view_column_set_resizable (column, TRUE);
+    gtk_tree_view_column_set_expand (column, TRUE);
+    g_signal_connect (composer_renderer, "edited", G_CALLBACK (on_cell_edited), GUINT_TO_POINTER (COLUMN_COMPOSER));
+    g_object_set (G_OBJECT (composer_renderer), "editable", TRUE, NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
     renderer = gtk_cell_renderer_text_new ();

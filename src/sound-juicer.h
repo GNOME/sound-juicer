@@ -65,6 +65,7 @@ typedef enum {
   COLUMN_NUMBER,
   COLUMN_TITLE,
   COLUMN_ARTIST,
+  COLUMN_COMPOSER,
   COLUMN_DURATION,
   COLUMN_DETAILS,
   COLUMN_TOTAL
@@ -130,9 +131,9 @@ extern gboolean open_finished;
 extern gboolean autostart;
 
 /**
- * Toggle, Title and Artist Renderers
+ * Toggle, Title, Artist and Composer Renderers
  */
-extern GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer;
+extern GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer, *composer_renderer;
 
 /**
  * Debug
