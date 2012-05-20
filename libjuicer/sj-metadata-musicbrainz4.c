@@ -228,61 +228,16 @@ fill_relations (Mb4RelationList relations, AlbumDetails *album)
   }
 }
 
-static void
-fill_work_relations (Mb4Work work, TrackDetails *track)
+typedef void (*RelationForeachFunc)(Mb4Relation relation, gpointer user_data);
+
+static void relationlist_list_foreach_relation(Mb4RelationListList relation_lists,
+                                               const char *targettype,
+                                               const char *relation_type,
+                                               RelationForeachFunc callback,
+                                               gpointer user_data)
 {
-  Mb4RelationListList relation_lists;
   unsigned int j;
 
-  if (work == NULL)
-    return;
-
-  relation_lists = mb4_work_get_relationlistlist (work);
-  if (relation_lists == NULL)
-    return;
-
-  for (j = 0; j < mb4_relationlist_list_size (relation_lists); j++) {
-    Mb4RelationList relations;
-    char buffer[512]; /* for the GET() macro */
-    unsigned int i;
-
-    relations = mb4_relationlist_list_item (relation_lists, j);
-    if (relations == NULL)
-      return;
-
-    mb4_relation_list_get_targettype (relations, buffer, sizeof (buffer));
-    if (!g_str_equal (buffer, "artist"))
-      continue;
-
-    for (i = 0; i < mb4_relation_list_size (relations); i++) {
-      Mb4Relation relation;
-      Mb4Artist composer;
-
-      relation = mb4_relation_list_item (relations, i);
-      if (relation == NULL)
-        continue;
-
-      mb4_relation_get_type (relation, buffer, sizeof (buffer));
-      if (!g_str_equal (buffer, "composer"))
-        continue;
-
-      composer = mb4_relation_get_artist (relation);
-      if (composer == NULL)
-        continue;
-
-      GET (track->composer, mb4_artist_get_name, composer);
-      GET (track->composer_sortname, mb4_artist_get_sortname, composer);
-    }
-  }
-}
-
-static void
-fill_recording_relations (Mb4Recording recording, TrackDetails *track)
-{
-  Mb4RelationListList relation_lists;
-  unsigned int j;
-
-  relation_lists = mb4_recording_get_relationlistlist (recording);
   if (relation_lists == NULL)
     return;
 
@@ -296,25 +251,60 @@ fill_recording_relations (Mb4Recording recording, TrackDetails *track)
       return;
 
     mb4_relation_list_get_targettype (relations, type, sizeof (type));
-    if (!g_str_equal (type, "work"))
+    if (!g_str_equal (type, targettype))
       continue;
 
     for (i = 0; i < mb4_relation_list_size (relations); i++) {
       Mb4Relation relation;
-      Mb4Work work;
 
       relation = mb4_relation_list_item (relations, i);
       if (relation == NULL)
         continue;
 
       mb4_relation_get_type (relation, type, sizeof (type));
-      if (!g_str_equal (type, "performance"))
+      if (!g_str_equal (type, relation_type))
         continue;
 
-      work = mb4_relation_get_work (relation);
-      fill_work_relations (work, track);
+      callback(relation, user_data);
     }
   }
+}
+
+static void composer_cb (Mb4Relation relation, gpointer user_data)
+{
+      Mb4Artist composer;
+      TrackDetails *track = (TrackDetails *)user_data;
+      char buffer[512]; /* for the GET() macro */
+
+      composer = mb4_relation_get_artist (relation);
+      if (composer == NULL)
+        return;
+
+      GET (track->composer, mb4_artist_get_name, composer);
+      GET (track->composer_sortname, mb4_artist_get_sortname, composer);
+}
+
+static void work_cb (Mb4Relation relation, gpointer user_data)
+{
+    Mb4RelationListList relation_lists;
+    Mb4Work work;
+
+    work = mb4_relation_get_work (relation);
+    if (work == NULL)
+        return;
+    relation_lists = mb4_work_get_relationlistlist (work);
+    relationlist_list_foreach_relation (relation_lists, "artist", "composer",
+                                        composer_cb, user_data);
+}
+
+static void
+fill_recording_relations (Mb4Recording recording, TrackDetails *track)
+{
+  Mb4RelationListList relation_lists;
+
+  relation_lists = mb4_recording_get_relationlistlist (recording);
+  relationlist_list_foreach_relation(relation_lists, "work", "performance",
+                                     work_cb, track);
 }
 
 static void
