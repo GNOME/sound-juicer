@@ -183,51 +183,6 @@ get_artist_info (GList *artists, char **name, char **sortname, char **id)
   g_string_free (artist_name, FALSE);
 }
 
-
-static void
-fill_relations (Mb4RelationList relations, AlbumDetails *album)
-{
-  unsigned int i;
-
-  for (i = 0; i < mb4_relation_list_size (relations); i++) {
-    Mb4Relation relation;
-    char buffer[512]; /* for the GET() macro */
-    char *type = NULL;
-
-    relation = mb4_relation_list_item (relations, i);
-    if (relation == NULL)
-      continue;
-
-    GET (type, mb4_relation_get_type, relation);
-    if (type == NULL) {
-      continue;
-    }
-    if (g_str_equal (type, "wikipedia")) {
-      char *wikipedia = NULL;
-      GET (wikipedia, mb4_relation_get_target, relation);
-      if (wikipedia != NULL) {
-          g_free (album->wikipedia);
-          album->wikipedia = wikipedia;
-      }
-    } else if (g_str_equal (type, "discogs")) {
-      char *discogs = NULL;
-      GET (discogs, mb4_relation_get_target, relation);
-      if (discogs != NULL) {
-          g_free (album->discogs);
-          album->discogs = discogs;
-      }
-    } else if (g_str_equal (type, "lyrics")) {
-      char *lyrics = NULL;
-      GET (lyrics, mb4_relation_get_target, relation);
-      if (lyrics != NULL) {
-          g_free (album->lyrics_url);
-          album->lyrics_url = lyrics;
-      }
-    }
-    g_free (type);
-  }
-}
-
 static void
 fill_album_composer (AlbumDetails *album)
 {
@@ -414,6 +369,56 @@ fill_tracks_from_medium (Mb4Medium medium, AlbumDetails *album)
   album->tracks = g_list_reverse (tracks);
 }
 
+static void wikipedia_cb (Mb4Relation relation, gpointer user_data)
+{
+  AlbumDetails *album = (AlbumDetails *)user_data;
+  char buffer[512]; /* for the GET() macro */
+  char *wikipedia = NULL;
+
+  GET (wikipedia, mb4_relation_get_target, relation);
+  if (wikipedia != NULL) {
+    g_free (album->wikipedia);
+    album->wikipedia = wikipedia;
+  }
+}
+
+static void discogs_cb (Mb4Relation relation, gpointer user_data)
+{
+  AlbumDetails *album = (AlbumDetails *)user_data;
+  char buffer[512]; /* for the GET() macro */
+  char *discogs = NULL;
+
+  GET (discogs, mb4_relation_get_target, relation);
+  if (discogs != NULL) {
+    g_free (album->discogs);
+    album->discogs = discogs;
+  }
+}
+
+static void lyrics_cb (Mb4Relation relation, gpointer user_data)
+{
+  AlbumDetails *album = (AlbumDetails *)user_data;
+  char buffer[512]; /* for the GET() macro */
+  char *lyrics = NULL;
+
+  GET (lyrics, mb4_relation_get_target, relation);
+  if (lyrics != NULL) {
+    g_free (album->lyrics_url);
+    album->lyrics_url = lyrics;
+  }
+}
+
+static void
+fill_relations (Mb4RelationListList relation_lists, AlbumDetails *album)
+{
+  relationlist_list_foreach_relation (relation_lists, "url", "wikipedia",
+                                      wikipedia_cb, album);
+  relationlist_list_foreach_relation (relation_lists, "url", "discogs",
+                                      discogs_cb, album);
+  relationlist_list_foreach_relation (relation_lists, "url", "lyrics",
+                                      lyrics_cb, album);
+}
+
 static AlbumDetails *
 make_album_from_release (Mb4ReleaseGroup group,
                          Mb4Release release,
@@ -425,7 +430,6 @@ make_album_from_release (Mb4ReleaseGroup group,
   GList *artists;
   char *date = NULL;
   char buffer[512]; /* for the GET macro */
-  unsigned int i;
 
   g_assert (release);
   g_return_val_if_fail (medium != NULL, NULL);
@@ -461,20 +465,14 @@ make_album_from_release (Mb4ReleaseGroup group,
       album->is_spoken_word = TRUE;
     }
     relationlists = mb4_releasegroup_get_relationlistlist (group);
-    for (i = 0;
-         relationlists && i < mb4_relationlist_list_size (relationlists);
-         i++)
-      fill_relations (mb4_relationlist_list_item(relationlists, i), album);
+    fill_relations (relationlists, album);
   }
 
   album->disc_number = mb4_medium_get_position (medium);
   fill_tracks_from_medium (medium, album);
   fill_album_composer (album);
   relationlists = mb4_release_get_relationlistlist (release);
-  for (i = 0;
-       relationlists && i < mb4_relationlist_list_size (relationlists);
-       i++)
-    fill_relations (mb4_relationlist_list_item (relationlists, i), album);
+  fill_relations (relationlists, album);
 
   sj_mb4_album_details_dump (album);
   return album;
