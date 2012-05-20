@@ -244,26 +244,26 @@ static void pattern_label_update (void)
   GstEncodingProfile *profile;
 
   static const AlbumDetails sample_album = {
-    "Help!", /* title */
-    "The Beatles", /* artist */
-    "Beatles, The", /* sortname */
-    NULL, /* genre */
-    0, /* number of tracks*/
-    1, /* disc number */
-    NULL, /* track list */
-    NULL, /* release date */
-    NULL, /* album ID */
-    NULL /* artist ID */
+    .title = "Help!", /* title */
+    .artist = "The Beatles", /* artist */
+    .artist_sortname = "Beatles, The", /* sortname */
+    .genre = NULL, /* genre */
+    .number = 0, /* number of tracks*/
+    .disc_number = 1, /* disc number */
+    .tracks = NULL, /* track list */
+    .release_date = NULL, /* release date */
+    .album_id = NULL, /* album ID */
+    .artist_id = NULL /* artist ID */
   };
   static const TrackDetails sample_track = {
-    (AlbumDetails*)&sample_album,  /*album */
-    7, /* track number */
-    "Ticket To Ride", /* title */
-    "The Beatles", /* artist */
-    "Beatles, The", /* sortname */
-    0, /* duration */
-    NULL, /* track ID */
-    NULL, /* artist ID */
+    .album = (AlbumDetails*)&sample_album,  /*album */
+    .number = 7, /* track number */
+    .title = "Ticket To Ride", /* title */
+    .artist = "The Beatles", /* artist */
+    .artist_sortname = "Beatles, The", /* sortname */
+    .duration = 0, /* duration */
+    .track_id = NULL, /* track ID */
+    .artist_id = NULL, /* artist ID */
   };
 
   g_object_get (extractor, "profile", &profile, NULL);
