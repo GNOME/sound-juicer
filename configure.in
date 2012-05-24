@@ -40,7 +40,7 @@ AC_CHECK_FUNC(socket,,[AC_CHECK_LIB(socket,socket)])
 GNOME_DOC_INIT
 
 # Find GLib and GObject
-PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.18 gthread-2.0 gobject-2.0)
+PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.32 gthread-2.0 gobject-2.0)
 AC_SUBST(GLIB_CFLAGS)
 AC_SUBST(GLIB_LIBS)
 

@@ -98,7 +98,6 @@ int main (int argc, char** argv)
   BraseroMediumMonitor *monitor;
 
   g_type_init ();
-  g_thread_init (NULL);
 
   gconf_client = gconf_client_get_default ();
   if (gconf_client == NULL) {
