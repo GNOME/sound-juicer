@@ -26,15 +26,9 @@
 #include "sj-metadata-getter.h"
 #include "sj-metadata-marshal.h"
 #include "sj-metadata.h"
-#ifdef HAVE_MUSICBRAINZ4
-#include "sj-metadata-musicbrainz4.h"
-#endif /* HAVE_MUSICBRAINZ4 */
-#ifdef HAVE_MUSICBRAINZ3
-#include "sj-metadata-musicbrainz3.h"
-#endif /* HAVE_MUSICBRAINZ3 */
-#ifdef HAVE_MUSICBRAINZ
-#include "sj-metadata-musicbrainz.h"
-#endif /* HAVE_MUSICBRAINZ */
+#ifdef HAVE_MUSICBRAINZ5
+#include "sj-metadata-musicbrainz5.h"
+#endif /* HAVE_MUSICBRAINZ5 */
 #include "sj-metadata-gvfs.h"
 #include "sj-error.h"
 
@@ -178,15 +172,9 @@ lookup_cd (SjMetadataGetter *mdg)
   GError *error = NULL;
   gboolean found = FALSE;
   GType types[] = {
-#ifdef HAVE_MUSICBRAINZ4
-    SJ_TYPE_METADATA_MUSICBRAINZ4,
-#endif /* HAVE_MUSICBRAINZ4 */
-#ifdef HAVE_MUSICBRAINZ3
-    SJ_TYPE_METADATA_MUSICBRAINZ3,
-#endif /* HAVE_MUSICBRAINZ3 */
-#ifdef HAVE_MUSICBRAINZ
-    SJ_TYPE_METADATA_MUSICBRAINZ,
-#endif /* HAVE_MUSICBRAINZ */
+#ifdef HAVE_MUSICBRAINZ5
+    SJ_TYPE_METADATA_MUSICBRAINZ5,
+#endif /* HAVE_MUSICBRAINZ5 */
     SJ_TYPE_METADATA_GVFS
   };
 

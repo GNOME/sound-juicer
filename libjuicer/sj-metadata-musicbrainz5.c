@@ -1,5 +1,5 @@
 /*
- * sj-metadata-musicbrainz4.c
+ * sj-metadata-musicbrainz5.c
  * Copyright (C) 2008 Ross Burton <ross@burtonini.com>
  * Copyright (C) 2008 Bastien Nocera <hadess@hadess.net>
  * Copyright (C) 2011 Christophe Fergeau <cfergeau@redhat.com>
@@ -30,9 +30,9 @@
 #include <glib-object.h>
 #include <gconf/gconf-client.h>
 #include <discid/discid.h>
-#include <musicbrainz4/mb4_c.h>
+#include <musicbrainz5/mb5_c.h>
 
-#include "sj-metadata-musicbrainz4.h"
+#include "sj-metadata-musicbrainz5.h"
 #include "sj-structures.h"
 #include "sj-error.h"
 
@@ -56,16 +56,16 @@
 #define SJ_MUSICBRAINZ_USER_AGENT "libjuicer-"VERSION
 
 typedef struct {
-  Mb4Query mb;
+  Mb5Query mb;
   DiscId *disc;
   char *cdrom;
   /* Proxy */
   char *http_proxy;
   int http_proxy_port;
-} SjMetadataMusicbrainz4Private;
+} SjMetadataMusicbrainz5Private;
 
 #define GET_PRIVATE(o)  \
-  (G_TYPE_INSTANCE_GET_PRIVATE ((o), SJ_TYPE_METADATA_MUSICBRAINZ4, SjMetadataMusicbrainz4Private))
+  (G_TYPE_INSTANCE_GET_PRIVATE ((o), SJ_TYPE_METADATA_MUSICBRAINZ5, SjMetadataMusicbrainz5Private))
 
 enum {
   PROP_0,
@@ -77,8 +77,8 @@ enum {
 
 static void metadata_interface_init (gpointer g_iface, gpointer iface_data);
 
-G_DEFINE_TYPE_WITH_CODE (SjMetadataMusicbrainz4,
-                         sj_metadata_musicbrainz4,
+G_DEFINE_TYPE_WITH_CODE (SjMetadataMusicbrainz5,
+                         sj_metadata_musicbrainz5,
                          G_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (SJ_TYPE_METADATA,
                                                 metadata_interface_init));
@@ -89,7 +89,7 @@ G_DEFINE_TYPE_WITH_CODE (SjMetadataMusicbrainz4,
  */
 #ifdef DUMP_DETAILS
 static void
-sj_mb4_album_details_dump (AlbumDetails *details)
+sj_mb5_album_details_dump (AlbumDetails *details)
 {
   if (details->country)
     g_print ("Country: %s\n", details->country);
@@ -99,13 +99,13 @@ sj_mb4_album_details_dump (AlbumDetails *details)
     g_print ("Lyrics URL: %s\n", details->lyrics_url);
 }
 #else
-#define sj_mb4_album_details_dump(...)
+#define sj_mb5_album_details_dump(...)
 #endif
 
 static GList *
-get_artist_list (Mb4ArtistCredit credit)
+get_artist_list (Mb5ArtistCredit credit)
 {
-  Mb4NameCreditList name_list;
+  Mb5NameCreditList name_list;
   GList *artists;
   unsigned int i;
   char buffer[512]; /* for the GET macro */
@@ -113,34 +113,34 @@ get_artist_list (Mb4ArtistCredit credit)
   if (credit == NULL)
     return NULL;
 
-  name_list = mb4_artistcredit_get_namecreditlist (credit);
+  name_list = mb5_artistcredit_get_namecreditlist (credit);
   if (name_list == NULL) {
     return NULL;
   }
 
   artists = NULL;
-  for (i = 0; i < mb4_namecredit_list_size (name_list); i++) {
-    Mb4NameCredit name_credit;
-    Mb4Artist artist;
+  for (i = 0; i < mb5_namecredit_list_size (name_list); i++) {
+    Mb5NameCredit name_credit;
+    Mb5Artist artist;
     ArtistDetails *details;
 
-    name_credit = mb4_namecredit_list_item (name_list, i);
+    name_credit = mb5_namecredit_list_item (name_list, i);
     details = g_new0 (ArtistDetails, 1);
-    GET (details->joinphrase, mb4_namecredit_get_joinphrase, name_credit);
+    GET (details->joinphrase, mb5_namecredit_get_joinphrase, name_credit);
     artists = g_list_prepend (artists, details);
-    artist = mb4_namecredit_get_artist (name_credit);
+    artist = mb5_namecredit_get_artist (name_credit);
     if (!artist) {
-      g_warning ("no Mb4Artist associated with Mb4NameCredit, falling back to Mb4NameCredit::name");
-      GET (details->name, mb4_namecredit_get_name, name_credit);
+      g_warning ("no Mb5Artist associated with Mb5NameCredit, falling back to Mb5NameCredit::name");
+      GET (details->name, mb5_namecredit_get_name, name_credit);
       continue;
     }
 
-    GET (details->id, mb4_artist_get_id, artist);
-    GET (details->name, mb4_artist_get_name, artist);
-    GET (details->sortname, mb4_artist_get_sortname, artist);
-    GET (details->disambiguation, mb4_artist_get_disambiguation, artist);
-    GET (details->gender, mb4_artist_get_gender, artist);
-    GET (details->country, mb4_artist_get_country, artist);
+    GET (details->id, mb5_artist_get_id, artist);
+    GET (details->name, mb5_artist_get_name, artist);
+    GET (details->sortname, mb5_artist_get_sortname, artist);
+    GET (details->disambiguation, mb5_artist_get_disambiguation, artist);
+    GET (details->gender, mb5_artist_get_gender, artist);
+    GET (details->country, mb5_artist_get_country, artist);
   }
 
   return g_list_reverse(artists);
@@ -220,9 +220,9 @@ fill_album_composer (AlbumDetails *album)
   }
 }
 
-typedef void (*RelationForeachFunc)(Mb4Relation relation, gpointer user_data);
+typedef void (*RelationForeachFunc)(Mb5Relation relation, gpointer user_data);
 
-static void relationlist_list_foreach_relation(Mb4RelationListList relation_lists,
+static void relationlist_list_foreach_relation(Mb5RelationListList relation_lists,
                                                const char *targettype,
                                                const char *relation_type,
                                                RelationForeachFunc callback,
@@ -233,27 +233,27 @@ static void relationlist_list_foreach_relation(Mb4RelationListList relation_list
   if (relation_lists == NULL)
     return;
 
-  for (j = 0; j < mb4_relationlist_list_size (relation_lists); j++) {
-    Mb4RelationList relations;
+  for (j = 0; j < mb5_relationlist_list_size (relation_lists); j++) {
+    Mb5RelationList relations;
     char type[512]; /* To hold relationlist target-type and relation type */
     unsigned int i;
 
-    relations = mb4_relationlist_list_item (relation_lists, j);
+    relations = mb5_relationlist_list_item (relation_lists, j);
     if (relations == NULL)
       return;
 
-    mb4_relation_list_get_targettype (relations, type, sizeof (type));
+    mb5_relation_list_get_targettype (relations, type, sizeof (type));
     if (!g_str_equal (type, targettype))
       continue;
 
-    for (i = 0; i < mb4_relation_list_size (relations); i++) {
-      Mb4Relation relation;
+    for (i = 0; i < mb5_relation_list_size (relations); i++) {
+      Mb5Relation relation;
 
-      relation = mb4_relation_list_item (relations, i);
+      relation = mb5_relation_list_item (relations, i);
       if (relation == NULL)
         continue;
 
-      mb4_relation_get_type (relation, type, sizeof (type));
+      mb5_relation_get_type (relation, type, sizeof (type));
       if (!g_str_equal (type, relation_type))
         continue;
 
@@ -262,66 +262,66 @@ static void relationlist_list_foreach_relation(Mb4RelationListList relation_list
   }
 }
 
-static void composer_cb (Mb4Relation relation, gpointer user_data)
+static void composer_cb (Mb5Relation relation, gpointer user_data)
 {
-      Mb4Artist composer;
+      Mb5Artist composer;
       TrackDetails *track = (TrackDetails *)user_data;
       char buffer[512]; /* for the GET() macro */
 
-      composer = mb4_relation_get_artist (relation);
+      composer = mb5_relation_get_artist (relation);
       if (composer == NULL)
         return;
 
-      GET (track->composer, mb4_artist_get_name, composer);
-      GET (track->composer_sortname, mb4_artist_get_sortname, composer);
+      GET (track->composer, mb5_artist_get_name, composer);
+      GET (track->composer_sortname, mb5_artist_get_sortname, composer);
 }
 
-static void work_cb (Mb4Relation relation, gpointer user_data)
+static void work_cb (Mb5Relation relation, gpointer user_data)
 {
-    Mb4RelationListList relation_lists;
-    Mb4Work work;
+    Mb5RelationListList relation_lists;
+    Mb5Work work;
 
-    work = mb4_relation_get_work (relation);
+    work = mb5_relation_get_work (relation);
     if (work == NULL)
         return;
-    relation_lists = mb4_work_get_relationlistlist (work);
+    relation_lists = mb5_work_get_relationlistlist (work);
     relationlist_list_foreach_relation (relation_lists, "artist", "composer",
                                         composer_cb, user_data);
 }
 
 static void
-fill_recording_relations (Mb4Recording recording, TrackDetails *track)
+fill_recording_relations (Mb5Recording recording, TrackDetails *track)
 {
-  Mb4RelationListList relation_lists;
+  Mb5RelationListList relation_lists;
 
-  relation_lists = mb4_recording_get_relationlistlist (recording);
+  relation_lists = mb5_recording_get_relationlistlist (recording);
   relationlist_list_foreach_relation(relation_lists, "work", "performance",
                                      work_cb, track);
 }
 
 static void
-fill_tracks_from_medium (Mb4Medium medium, AlbumDetails *album)
+fill_tracks_from_medium (Mb5Medium medium, AlbumDetails *album)
 {
-  Mb4TrackList track_list;
+  Mb5TrackList track_list;
   GList *tracks;
   unsigned int i;
   char buffer[512]; /* for the GET() macro */
 
-  track_list = mb4_medium_get_tracklist (medium);
+  track_list = mb5_medium_get_tracklist (medium);
   if (!track_list)
     return;
 
-  album->number = mb4_track_list_size (track_list);
+  album->number = mb5_track_list_size (track_list);
 
   tracks = NULL;
 
-  for (i = 0; i < mb4_track_list_size (track_list); i++) {
-    Mb4Track mbt;
-    Mb4ArtistCredit credit;
-    Mb4Recording recording;
+  for (i = 0; i < mb5_track_list_size (track_list); i++) {
+    Mb5Track mbt;
+    Mb5ArtistCredit credit;
+    Mb5Recording recording;
     TrackDetails *track;
 
-    mbt = mb4_track_list_item (track_list, i);
+    mbt = mb5_track_list_item (track_list, i);
     if (!mbt)
       continue;
 
@@ -329,22 +329,22 @@ fill_tracks_from_medium (Mb4Medium medium, AlbumDetails *album)
 
     track->album = album;
 
-    track->number = mb4_track_get_position (mbt);
+    track->number = mb5_track_get_position (mbt);
 
     /* duration from track is more reliable than from recording */
-    track->duration = mb4_track_get_length (mbt) / 1000;
+    track->duration = mb5_track_get_length (mbt) / 1000;
 
-    recording = mb4_track_get_recording (mbt);
+    recording = mb5_track_get_recording (mbt);
     if (recording != NULL) {
-      GET (track->title, mb4_recording_get_title, recording);
-      GET (track->track_id, mb4_recording_get_id, recording);
+      GET (track->title, mb5_recording_get_title, recording);
+      GET (track->track_id, mb5_recording_get_id, recording);
       fill_recording_relations (recording, track);
       if (track->duration == 0)
-        track->duration = mb4_recording_get_length (recording) / 1000;
-      credit = mb4_recording_get_artistcredit (recording);
+        track->duration = mb5_recording_get_length (recording) / 1000;
+      credit = mb5_recording_get_artistcredit (recording);
     } else {
-      GET (track->title, mb4_track_get_title, mbt);
-      credit = mb4_track_get_artistcredit (mbt);
+      GET (track->title, mb5_track_get_title, mbt);
+      credit = mb5_track_get_artistcredit (mbt);
     }
 
     if (credit) {
@@ -369,39 +369,39 @@ fill_tracks_from_medium (Mb4Medium medium, AlbumDetails *album)
   album->tracks = g_list_reverse (tracks);
 }
 
-static void wikipedia_cb (Mb4Relation relation, gpointer user_data)
+static void wikipedia_cb (Mb5Relation relation, gpointer user_data)
 {
   AlbumDetails *album = (AlbumDetails *)user_data;
   char buffer[512]; /* for the GET() macro */
   char *wikipedia = NULL;
 
-  GET (wikipedia, mb4_relation_get_target, relation);
+  GET (wikipedia, mb5_relation_get_target, relation);
   if (wikipedia != NULL) {
     g_free (album->wikipedia);
     album->wikipedia = wikipedia;
   }
 }
 
-static void discogs_cb (Mb4Relation relation, gpointer user_data)
+static void discogs_cb (Mb5Relation relation, gpointer user_data)
 {
   AlbumDetails *album = (AlbumDetails *)user_data;
   char buffer[512]; /* for the GET() macro */
   char *discogs = NULL;
 
-  GET (discogs, mb4_relation_get_target, relation);
+  GET (discogs, mb5_relation_get_target, relation);
   if (discogs != NULL) {
     g_free (album->discogs);
     album->discogs = discogs;
   }
 }
 
-static void lyrics_cb (Mb4Relation relation, gpointer user_data)
+static void lyrics_cb (Mb5Relation relation, gpointer user_data)
 {
   AlbumDetails *album = (AlbumDetails *)user_data;
   char buffer[512]; /* for the GET() macro */
   char *lyrics = NULL;
 
-  GET (lyrics, mb4_relation_get_target, relation);
+  GET (lyrics, mb5_relation_get_target, relation);
   if (lyrics != NULL) {
     g_free (album->lyrics_url);
     album->lyrics_url = lyrics;
@@ -409,7 +409,7 @@ static void lyrics_cb (Mb4Relation relation, gpointer user_data)
 }
 
 static void
-fill_relations (Mb4RelationListList relation_lists, AlbumDetails *album)
+fill_relations (Mb5RelationListList relation_lists, AlbumDetails *album)
 {
   relationlist_list_foreach_relation (relation_lists, "url", "wikipedia",
                                       wikipedia_cb, album);
@@ -420,13 +420,13 @@ fill_relations (Mb4RelationListList relation_lists, AlbumDetails *album)
 }
 
 static AlbumDetails *
-make_album_from_release (Mb4ReleaseGroup group,
-                         Mb4Release release,
-                         Mb4Medium medium)
+make_album_from_release (Mb5ReleaseGroup group,
+                         Mb5Release release,
+                         Mb5Medium medium)
 {
   AlbumDetails *album;
-  Mb4ArtistCredit credit;
-  Mb4RelationListList relationlists;
+  Mb5ArtistCredit credit;
+  Mb5RelationListList relationlists;
   GList *artists;
   char *date = NULL;
   char buffer[512]; /* for the GET macro */
@@ -436,12 +436,12 @@ make_album_from_release (Mb4ReleaseGroup group,
 
   album = g_new0 (AlbumDetails, 1);
 
-  GET (album->album_id, mb4_release_get_id, release);
-  GET (album->title, mb4_medium_get_title, medium);
+  GET (album->album_id, mb5_release_get_id, release);
+  GET (album->title, mb5_medium_get_title, medium);
   if (album->title == NULL)
-    GET (album->title, mb4_release_get_title, release);
+    GET (album->title, mb5_release_get_title, release);
 
-  credit = mb4_release_get_artistcredit (release);
+  credit = mb5_release_get_artistcredit (release);
 
   artists = get_artist_list (credit);
   if (artists) {
@@ -451,30 +451,30 @@ make_album_from_release (Mb4ReleaseGroup group,
   }
   album->artists = artists;
 
-  GET (date, mb4_release_get_date, release);
+  GET (date, mb5_release_get_date, release);
   album->release_date = sj_metadata_helper_scan_date (date);
   g_free (date);
 
-  GET (album->asin, mb4_release_get_asin, release);
-  GET (album->country, mb4_release_get_country, release);
+  GET (album->asin, mb5_release_get_asin, release);
+  GET (album->country, mb5_release_get_country, release);
   if (group) {
-    GET (album->type, mb4_releasegroup_get_primarytype, group);
+    GET (album->type, mb5_releasegroup_get_primarytype, group);
     if (g_str_has_suffix (album->type, "Spokenword")
         || g_str_has_suffix (album->type, "Interview")
         || g_str_has_suffix (album->type, "Audiobook")) {
       album->is_spoken_word = TRUE;
     }
-    relationlists = mb4_releasegroup_get_relationlistlist (group);
+    relationlists = mb5_releasegroup_get_relationlistlist (group);
     fill_relations (relationlists, album);
   }
 
-  album->disc_number = mb4_medium_get_position (medium);
+  album->disc_number = mb5_medium_get_position (medium);
   fill_tracks_from_medium (medium, album);
   fill_album_composer (album);
-  relationlists = mb4_release_get_relationlistlist (release);
+  relationlists = mb5_release_get_relationlistlist (release);
   fill_relations (relationlists, album);
 
-  sj_mb4_album_details_dump (album);
+  sj_mb5_album_details_dump (album);
   return album;
 }
 
@@ -482,16 +482,16 @@ make_album_from_release (Mb4ReleaseGroup group,
  * Virtual methods
  */
 static GList *
-mb4_list_albums (SjMetadata *metadata, char **url, GError **error)
+mb5_list_albums (SjMetadata *metadata, char **url, GError **error)
 {
-  SjMetadataMusicbrainz4Private *priv;
+  SjMetadataMusicbrainz5Private *priv;
   GList *albums = NULL;
-  Mb4ReleaseList releases;
-  Mb4Release release;
+  Mb5ReleaseList releases;
+  Mb5Release release;
   const char *discid = NULL;
   char buffer[1024];
   int i;
-  g_return_val_if_fail (SJ_IS_METADATA_MUSICBRAINZ4 (metadata), NULL);
+  g_return_val_if_fail (SJ_IS_METADATA_MUSICBRAINZ5 (metadata), NULL);
 
   priv = GET_PRIVATE (metadata);
 
@@ -514,22 +514,22 @@ mb4_list_albums (SjMetadata *metadata, char **url, GError **error)
     discid = discid_get_id (priv->disc);
   }
 
-  releases = mb4_query_lookup_discid(priv->mb, discid);
+  releases = mb5_query_lookup_discid(priv->mb, discid);
 
   if (releases == NULL)
     return NULL;
 
-  if (mb4_release_list_size (releases) == 0)
+  if (mb5_release_list_size (releases) == 0)
     return NULL;
 
-  for (i = 0; i < mb4_release_list_size (releases); i++) {
+  for (i = 0; i < mb5_release_list_size (releases); i++) {
     AlbumDetails *album;
 
-    release = mb4_release_list_item (releases, i);
+    release = mb5_release_list_item (releases, i);
     if (release) {
       char *releaseid = NULL;
-      Mb4Release full_release = NULL;
-      Mb4Metadata release_md = NULL;
+      Mb5Release full_release = NULL;
+      Mb5Metadata release_md = NULL;
       const char *query_entity = "release";
       char *params_names[] = { "inc" };
       char *params_values[] = { "artists artist-credits labels recordings \
@@ -537,24 +537,24 @@ release-groups url-rels discids recording-level-rels work-level-rels work-rels \
 artist-rels" };
 
       releaseid = NULL;
-      GET(releaseid, mb4_release_get_id, release);
+      GET(releaseid, mb5_release_get_id, release);
       /* Inorder to get metadata from work and composer relationships
        * we need to perform a custom query
        */
-      release_md = mb4_query_query (priv->mb, query_entity, releaseid, "", 1,
+      release_md = mb5_query_query (priv->mb, query_entity, releaseid, "", 1,
                                     params_names, params_values);
 
-      if (release_md && mb4_metadata_get_release (release_md))
-        full_release = mb4_metadata_get_release (release_md);
+      if (release_md && mb5_metadata_get_release (release_md))
+        full_release = mb5_metadata_get_release (release_md);
       g_free (releaseid);
 
       if (full_release) {
-        Mb4MediumList media;
-        Mb4Metadata metadata = NULL;
-        Mb4ReleaseGroup group;
+        Mb5MediumList media;
+        Mb5Metadata metadata = NULL;
+        Mb5ReleaseGroup group;
         unsigned int j;
 
-        group = mb4_release_get_releasegroup (full_release);
+        group = mb5_release_get_releasegroup (full_release);
         if (group) {
           /* The release-group information we can extract from the
            * lookup_release query doesn't have the url relations for the
@@ -564,32 +564,32 @@ artist-rels" };
           char *params_names[] = { "inc" };
           char *params_values[] = { "artists url-rels" };
 
-          GET (releasegroupid, mb4_releasegroup_get_id, group);
-          metadata = mb4_query_query (priv->mb, "release-group", releasegroupid, "",
+          GET (releasegroupid, mb5_releasegroup_get_id, group);
+          metadata = mb5_query_query (priv->mb, "release-group", releasegroupid, "",
                                       1, params_names, params_values);
           g_free (releasegroupid);
         }
 
-        if (metadata && mb4_metadata_get_releasegroup (metadata))
-          group = mb4_metadata_get_releasegroup (metadata);
+        if (metadata && mb5_metadata_get_releasegroup (metadata))
+          group = mb5_metadata_get_releasegroup (metadata);
 
-        media = mb4_release_media_matching_discid (full_release, discid);
-        for (j = 0; j < mb4_medium_list_size (media); j++) {
-          Mb4Medium medium;
-          medium = mb4_medium_list_item (media, j);
+        media = mb5_release_media_matching_discid (full_release, discid);
+        for (j = 0; j < mb5_medium_list_size (media); j++) {
+          Mb5Medium medium;
+          medium = mb5_medium_list_item (media, j);
           if (medium) {
             album = make_album_from_release (group, full_release, medium);
             album->metadata_source = SOURCE_MUSICBRAINZ;
             albums = g_list_append (albums, album);
           }
         }
-        mb4_metadata_delete (metadata);
-        mb4_medium_list_delete (media);
+        mb5_metadata_delete (metadata);
+        mb5_medium_list_delete (media);
       }
-      mb4_metadata_delete (release_md);
+      mb5_metadata_delete (release_md);
     }
   }
-  mb4_release_list_delete (releases);
+  mb5_release_list_delete (releases);
   return albums;
 }
 
@@ -602,16 +602,16 @@ metadata_interface_init (gpointer g_iface, gpointer iface_data)
 {
   SjMetadataClass *klass = (SjMetadataClass*)g_iface;
 
-  klass->list_albums = mb4_list_albums;
+  klass->list_albums = mb5_list_albums;
 }
 
 static void
-sj_metadata_musicbrainz4_init (SjMetadataMusicbrainz4 *self)
+sj_metadata_musicbrainz5_init (SjMetadataMusicbrainz5 *self)
 {
   GConfClient *gconf_client;
   gchar *server_name;
 
-  SjMetadataMusicbrainz4Private *priv;
+  SjMetadataMusicbrainz5Private *priv;
 
   priv = GET_PRIVATE (self);
 
@@ -624,7 +624,7 @@ sj_metadata_musicbrainz4_init (SjMetadataMusicbrainz4 *self)
     server_name = NULL;
   }
 
-  priv->mb = mb4_query_new (SJ_MUSICBRAINZ_USER_AGENT, server_name, 0);
+  priv->mb = mb5_query_new (SJ_MUSICBRAINZ_USER_AGENT, server_name, 0);
   g_free (server_name);
 
 
@@ -634,21 +634,21 @@ sj_metadata_musicbrainz4_init (SjMetadataMusicbrainz4 *self)
     int port;
 
     proxy_host = gconf_client_get_string (gconf_client, GCONF_PROXY_HOST, NULL);
-    mb4_query_set_proxyhost (priv->mb, proxy_host);
+    mb5_query_set_proxyhost (priv->mb, proxy_host);
     g_free (proxy_host);
 
     port = gconf_client_get_int (gconf_client, GCONF_PROXY_PORT, NULL);
-    mb4_query_set_proxyport (priv->mb, port);
+    mb5_query_set_proxyport (priv->mb, port);
 
     if (gconf_client_get_bool (gconf_client, GCONF_PROXY_USE_AUTHENTICATION, NULL)) {
       char *username, *password;
 
       username = gconf_client_get_string (gconf_client, GCONF_PROXY_USERNAME, NULL);
-      mb4_query_set_proxyusername (priv->mb, username);
+      mb5_query_set_proxyusername (priv->mb, username);
       g_free (username);
 
       password = gconf_client_get_string (gconf_client, GCONF_PROXY_PASSWORD, NULL);
-      mb4_query_set_proxypassword (priv->mb, password);
+      mb5_query_set_proxypassword (priv->mb, password);
       g_free (password);
     }
   }
@@ -657,10 +657,10 @@ sj_metadata_musicbrainz4_init (SjMetadataMusicbrainz4 *self)
 }
 
 static void
-sj_metadata_musicbrainz4_get_property (GObject *object, guint property_id,
+sj_metadata_musicbrainz5_get_property (GObject *object, guint property_id,
                                        GValue *value, GParamSpec *pspec)
 {
-  SjMetadataMusicbrainz4Private *priv = GET_PRIVATE (object);
+  SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (object);
   g_assert (priv);
 
   switch (property_id) {
@@ -679,10 +679,10 @@ sj_metadata_musicbrainz4_get_property (GObject *object, guint property_id,
 }
 
 static void
-sj_metadata_musicbrainz4_set_property (GObject *object, guint property_id,
+sj_metadata_musicbrainz5_set_property (GObject *object, guint property_id,
                                        const GValue *value, GParamSpec *pspec)
 {
-  SjMetadataMusicbrainz4Private *priv = GET_PRIVATE (object);
+  SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (object);
   g_assert (priv);
 
   switch (property_id) {
@@ -697,11 +697,11 @@ sj_metadata_musicbrainz4_set_property (GObject *object, guint property_id,
     }
     priv->http_proxy = g_value_dup_string (value);
     /* TODO: check this unsets the proxy if NULL, or should we pass "" ? */
-    mb4_query_set_proxyhost (priv->mb, priv->http_proxy);
+    mb5_query_set_proxyhost (priv->mb, priv->http_proxy);
     break;
   case PROP_PROXY_PORT:
     priv->http_proxy_port = g_value_get_int (value);
-    mb4_query_set_proxyport (priv->mb, priv->http_proxy_port);
+    mb5_query_set_proxyport (priv->mb, priv->http_proxy_port);
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -709,14 +709,14 @@ sj_metadata_musicbrainz4_set_property (GObject *object, guint property_id,
 }
 
 static void
-sj_metadata_musicbrainz4_finalize (GObject *object)
+sj_metadata_musicbrainz5_finalize (GObject *object)
 {
-  SjMetadataMusicbrainz4Private *priv;
+  SjMetadataMusicbrainz5Private *priv;
 
   priv = GET_PRIVATE (object);
 
   if (priv->mb != NULL) {
-    mb4_query_delete (priv->mb);
+    mb5_query_delete (priv->mb);
     priv->mb = NULL;
   }
   if (priv->disc != NULL) {
@@ -725,19 +725,19 @@ sj_metadata_musicbrainz4_finalize (GObject *object)
   }
   g_free (priv->cdrom);
 
-  G_OBJECT_CLASS (sj_metadata_musicbrainz4_parent_class)->finalize (object);
+  G_OBJECT_CLASS (sj_metadata_musicbrainz5_parent_class)->finalize (object);
 }
 
 static void
-sj_metadata_musicbrainz4_class_init (SjMetadataMusicbrainz4Class *class)
+sj_metadata_musicbrainz5_class_init (SjMetadataMusicbrainz5Class *class)
 {
   GObjectClass *object_class = (GObjectClass*)class;
 
-  g_type_class_add_private (class, sizeof (SjMetadataMusicbrainz4Private));
+  g_type_class_add_private (class, sizeof (SjMetadataMusicbrainz5Private));
 
-  object_class->get_property = sj_metadata_musicbrainz4_get_property;
-  object_class->set_property = sj_metadata_musicbrainz4_set_property;
-  object_class->finalize = sj_metadata_musicbrainz4_finalize;
+  object_class->get_property = sj_metadata_musicbrainz5_get_property;
+  object_class->set_property = sj_metadata_musicbrainz5_set_property;
+  object_class->finalize = sj_metadata_musicbrainz5_finalize;
 
   g_object_class_override_property (object_class, PROP_DEVICE, "device");
   g_object_class_override_property (object_class, PROP_PROXY_HOST, "proxy-host");
@@ -750,7 +750,7 @@ sj_metadata_musicbrainz4_class_init (SjMetadataMusicbrainz4Class *class)
  */
 
 GObject *
-sj_metadata_musicbrainz4_new (void)
+sj_metadata_musicbrainz5_new (void)
 {
-  return g_object_new (SJ_TYPE_METADATA_MUSICBRAINZ4, NULL);
+  return g_object_new (SJ_TYPE_METADATA_MUSICBRAINZ5, NULL);
 }
