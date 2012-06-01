@@ -458,7 +458,7 @@ make_album_from_release (Mb4ReleaseGroup group,
   GET (album->asin, mb4_release_get_asin, release);
   GET (album->country, mb4_release_get_country, release);
   if (group) {
-    GET (album->type, mb4_releasegroup_get_type, group);
+    GET (album->type, mb4_releasegroup_get_primarytype, group);
     if (g_str_has_suffix (album->type, "Spokenword")
         || g_str_has_suffix (album->type, "Interview")
         || g_str_has_suffix (album->type, "Audiobook")) {
