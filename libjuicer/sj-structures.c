@@ -38,6 +38,7 @@ void track_details_free(TrackDetails *track)
   g_free (track->artist_id);
   g_free (track->artist_sortname);
   g_list_foreach (track->artists, (GFunc)artist_details_free, NULL);
+  g_list_free (track->artists);
   g_free (track);
 }
 
@@ -65,7 +66,7 @@ void album_details_free(AlbumDetails *album)
   g_free (album->country);
   g_free (album->type);
   g_list_foreach (album->artists, (GFunc)artist_details_free, NULL);
-
+  g_list_free (album->artists);
   g_free (album);
 }
 
