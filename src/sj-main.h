@@ -31,7 +31,6 @@ G_MODULE_EXPORT void on_destroy_activate (GtkMenuItem *item, gpointer user_data)
 G_MODULE_EXPORT void on_eject_activate (GtkMenuItem *item, gpointer user_data);
 G_MODULE_EXPORT void on_select_all_activate (GtkMenuItem *item, gpointer user_data);
 G_MODULE_EXPORT void on_deselect_all_activate (GtkMenuItem *item, gpointer user_data);
-G_MODULE_EXPORT void on_destroy_signal (GtkMenuItem *item, gpointer user_data);
 
 AlbumDetails* multiple_album_dialog (GList* albums);
 

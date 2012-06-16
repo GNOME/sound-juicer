@@ -41,7 +41,6 @@
 #include <gst/gst.h>
 #include <gst/pbutils/encoding-profile.h>
 
-#include "bacon-message-connection.h"
 #include "gconf-bridge.h"
 #include "rb-gst-media-types.h"
 #include "sj-about.h"
@@ -84,7 +83,6 @@ static GtkWidget *submit_menuitem;
 static GtkWidget *reread_menuitem;
 static GtkWidget *duplicate, *eject;
 GtkListStore *track_store;
-static BaconMessageConnection *connection;
 GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer;
 
 GtkWidget *current_message_area;
@@ -104,6 +102,7 @@ static AlbumDetails *current_album;
 static char *current_submit_url = NULL;
 
 gboolean autostart = FALSE, autoplay = FALSE;
+static char *device = NULL, **uris = NULL;
 
 static guint debug_flags = 0;
 
@@ -199,16 +198,8 @@ static void error_on_start (GError *error)
 G_MODULE_EXPORT void on_quit_activate (GtkMenuItem *item, gpointer user_data)
 {
   if (on_delete_event (NULL, NULL, NULL) == FALSE) {
-    gtk_main_quit ();
+    gtk_widget_destroy (GTK_WIDGET (main_window));
   }
-}
-
-/**
- * Destroy signal Callback
- */
-G_MODULE_EXPORT void on_destroy_signal (GtkMenuItem *item, gpointer user_data)
-{
-   gtk_main_quit ();
 }
 
 /**
@@ -1543,16 +1534,6 @@ upgrade_gconf (void)
   }
 }
 
-static void
-on_message_received (const char *message, gpointer user_data)
-{
-  if (message == NULL)
-    return;
-  if (strcmp (RAISE_WINDOW, message) == 0) {
-    gtk_window_present (GTK_WINDOW (main_window));
-  }
-}
-
 /**
  * Performs various checks to ensure CD duplication is available.
  * If this is found TRUE is returned, otherwise FALSE is returned.
@@ -1598,94 +1579,11 @@ is_cd_duplication_available()
   return FALSE;
 }
 
-/**
- * Clicked on duplicate in the UI (button/menu)
- */
-G_MODULE_EXPORT void on_duplicate_activate (GtkWidget *button, gpointer user_data)
+static void
+startup_cb (GApplication *app, gpointer user_data)
 {
-  GError *error = NULL;
-  const gchar* device;
-
-  device = brasero_drive_get_device (drive);
-  if (!g_spawn_command_line_async (g_strconcat ("brasero -c ", device, NULL), &error)) {
-      GtkWidget *dialog;
-
-      dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (main_window),
-                                                   GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                   GTK_MESSAGE_ERROR,
-                                                   GTK_BUTTONS_CLOSE,
-                                                   "<b>%s</b>\n\n%s\n%s: %s",
-                                                   _("Could not duplicate disc"),
-                                                   _("Sound Juicer could not duplicate the disc"),
-                                                   _("Reason"),
-                                                   error->message);
-      gtk_dialog_run (GTK_DIALOG (dialog));
-      gtk_widget_destroy (dialog);
-      g_error_free (error);
-  }
-}
-
-/**
- * Sets the duplication buttons sensitive property if duplication is enabled.
- * This is setup in the main entry point.
- */
-static void set_duplication(gboolean enabled)
-{
-  if (duplication_enabled) {
-    gtk_widget_set_sensitive (duplicate, enabled);
-  }
-}
-
-int main (int argc, char **argv)
-{
-  GError *error = NULL;
   GtkTreeSelection *selection;
-  char *device = NULL, **uris = NULL;
-  GOptionContext *ctx;
-  const GOptionEntry entries[] = {
-    { "auto-start", 'a', 0, G_OPTION_ARG_NONE, &autostart, N_("Start extracting immediately"), NULL },
-    { "play", 'p', 0, G_OPTION_ARG_NONE, &autoplay, N_("Start playing immediately"), NULL},
-    { "device", 'd', 0, G_OPTION_ARG_FILENAME, &device, N_("What CD device to read"), N_("DEVICE") },
-    { G_OPTION_REMAINING, '\0', 0, G_OPTION_ARG_FILENAME_ARRAY, &uris, N_("URI to the CD device to read"), NULL },
-    { NULL }
-  };
-
-  bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
-  bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-  textdomain (GETTEXT_PACKAGE);
-
-  g_set_application_name (_("Sound Juicer"));
-  g_setenv ("PULSE_PROP_media.role", "music", TRUE);
-
-  ctx = g_option_context_new (N_("- Extract music from your CDs"));
-  g_option_context_add_main_entries (ctx, entries, GETTEXT_PACKAGE);
-  g_option_context_set_translation_domain(ctx, GETTEXT_PACKAGE);
-  g_option_context_add_group (ctx, gtk_get_option_group (TRUE));
-  g_option_context_add_group (ctx, gst_init_get_option_group ());
-  g_option_context_add_group (ctx, brasero_media_get_option_group ());
-  g_option_context_set_ignore_unknown_options (ctx, TRUE);
-
-  g_option_context_parse (ctx, &argc, &argv, &error);
-  if (error != NULL) {
-      g_printerr ("Error parsing options: %s", error->message);
-      exit (1);
-  }
-  g_option_context_free (ctx);
-
-  sj_debug_init ();
-
-  sj_stock_init ();
-
-  gtk_window_set_default_icon_name ("sound-juicer");
-
-  connection = bacon_message_connection_new ("sound-juicer");
-  if (bacon_message_connection_get_is_server (connection) == FALSE) {
-    bacon_message_connection_send (connection, RAISE_WINDOW);
-    bacon_message_connection_free (connection);
-    exit (0);
-  } else {
-    bacon_message_connection_set_callback (connection, on_message_received, NULL);
-  }
+  GError *error = NULL;
 
   brasero_media_library_start ();
 
@@ -1931,7 +1829,7 @@ int main (int argc, char **argv)
 
   if (sj_extractor_supports_encoding (&error) == FALSE) {
     error_on_start (error);
-    return 0;
+    return;
   }
 
   /* Set whether duplication of a cd is available using the brasero tool */
@@ -1939,8 +1837,106 @@ int main (int argc, char **argv)
   duplication_enabled = is_cd_duplication_available();
 
   gconf_bridge_bind_window_size(gconf_bridge_get(), GCONF_WINDOW, GTK_WINDOW (main_window));
+
+  gtk_application_add_window (GTK_APPLICATION (app), GTK_WINDOW (main_window));
   gtk_widget_show (main_window);
-  gtk_main ();
+}
+
+static void
+activate_cb (GApplication *app, gpointer user_data)
+{
+  gtk_window_present (GTK_WINDOW (main_window));
+}
+
+/**
+ * Clicked on duplicate in the UI (button/menu)
+ */
+G_MODULE_EXPORT void on_duplicate_activate (GtkWidget *button, gpointer user_data)
+{
+  GError *error = NULL;
+  const gchar* device;
+
+  device = brasero_drive_get_device (drive);
+  if (!g_spawn_command_line_async (g_strconcat ("brasero -c ", device, NULL), &error)) {
+      GtkWidget *dialog;
+
+      dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (main_window),
+                                                   GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                   GTK_MESSAGE_ERROR,
+                                                   GTK_BUTTONS_CLOSE,
+                                                   "<b>%s</b>\n\n%s\n%s: %s",
+                                                   _("Could not duplicate disc"),
+                                                   _("Sound Juicer could not duplicate the disc"),
+                                                   _("Reason"),
+                                                   error->message);
+      gtk_dialog_run (GTK_DIALOG (dialog));
+      gtk_widget_destroy (dialog);
+      g_error_free (error);
+  }
+}
+
+/**
+ * Sets the duplication buttons sensitive property if duplication is enabled.
+ * This is setup in the main entry point.
+ */
+static void set_duplication(gboolean enabled)
+{
+  if (duplication_enabled) {
+    gtk_widget_set_sensitive (duplicate, enabled);
+  }
+}
+
+int main (int argc, char **argv)
+{
+  GError *error = NULL;
+  GtkApplication *app;
+  GOptionContext *ctx;
+  const GOptionEntry entries[] = {
+    { "auto-start", 'a', 0, G_OPTION_ARG_NONE, &autostart, N_("Start extracting immediately"), NULL },
+    { "play", 'p', 0, G_OPTION_ARG_NONE, &autoplay, N_("Start playing immediately"), NULL},
+    { "device", 'd', 0, G_OPTION_ARG_FILENAME, &device, N_("What CD device to read"), N_("DEVICE") },
+    { G_OPTION_REMAINING, '\0', 0, G_OPTION_ARG_FILENAME_ARRAY, &uris, N_("URI to the CD device to read"), NULL },
+    { NULL }
+  };
+  guint status = 0;
+
+  bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
+  bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+  textdomain (GETTEXT_PACKAGE);
+
+  g_set_application_name (_("Sound Juicer"));
+  g_setenv ("PULSE_PROP_media.role", "music", TRUE);
+
+  ctx = g_option_context_new (N_("- Extract music from your CDs"));
+  g_option_context_add_main_entries (ctx, entries, GETTEXT_PACKAGE);
+  g_option_context_set_translation_domain(ctx, GETTEXT_PACKAGE);
+  g_option_context_add_group (ctx, gtk_get_option_group (TRUE));
+  g_option_context_add_group (ctx, gst_init_get_option_group ());
+  g_option_context_add_group (ctx, brasero_media_get_option_group ());
+  g_option_context_set_ignore_unknown_options (ctx, TRUE);
+
+  g_option_context_parse (ctx, &argc, &argv, &error);
+  if (error != NULL) {
+      g_printerr ("Error parsing options: %s", error->message);
+      exit (1);
+  }
+  g_option_context_free (ctx);
+
+  sj_debug_init ();
+
+  sj_stock_init ();
+
+  gtk_window_set_default_icon_name ("sound-juicer");
+
+  app = gtk_application_new ("org.gnome.sound-juicer",
+                             G_APPLICATION_FLAGS_NONE);
+
+  g_signal_connect (app, "startup", G_CALLBACK (startup_cb), NULL);
+  g_signal_connect (app, "activate", G_CALLBACK (activate_cb), NULL);
+
+  status = g_application_run (G_APPLICATION (app), argc, argv);
+
+  g_object_unref (app);
 
   g_object_unref (base_uri);
   g_object_unref (metadata);
@@ -1948,5 +1944,5 @@ int main (int argc, char **argv)
   g_object_unref (gconf_client);
   brasero_media_library_stop ();
 
-  return 0;
+  return status;
 }
