@@ -894,10 +894,19 @@ AlbumDetails* multiple_album_dialog(GList *albums)
   GtkTreeIter iter;
   int response;
   GtkWidget *ok_button = NULL;
+  enum COLUMNS
+  {
+    COLUMN_TITLE,
+    COLUMN_ARTIST,
+    COLUMN_DETAILS,
+    COLUMN_COUNT
+  };
 
   if (dialog == NULL) {
-    GtkTreeViewColumn *column;
-    GtkCellRenderer *text_renderer = gtk_cell_renderer_text_new ();
+    GtkTreeViewColumn *column = gtk_tree_view_column_new ();
+    GtkCellArea *cell_area = gtk_cell_area_box_new ();
+    GtkCellRenderer *title_renderer  = gtk_cell_renderer_text_new ();
+    GtkCellRenderer *artist_renderer = gtk_cell_renderer_text_new ();
 
     dialog = GET_WIDGET ("multiple_dialog");
     g_assert (dialog != NULL);
@@ -905,38 +914,50 @@ AlbumDetails* multiple_album_dialog(GList *albums)
     albums_listview = GET_WIDGET ("albums_listview");
     ok_button       = GET_WIDGET ("ok_button");
 
-    g_signal_connect (albums_listview, "row-activated", G_CALLBACK (album_row_activated), dialog);
+    g_object_get (G_OBJECT (column), "cell-area", &cell_area, NULL);
+    g_assert (cell_area != NULL);
+    gtk_orientable_set_orientation (GTK_ORIENTABLE (cell_area),
+                                    GTK_ORIENTATION_VERTICAL);
+    gtk_tree_view_column_set_title (column, _("Albums"));
+    gtk_tree_view_column_pack_start (column, title_renderer,  TRUE);
+    gtk_tree_view_column_pack_start (column, artist_renderer, TRUE);
+    g_object_set(title_renderer, "weight", PANGO_WEIGHT_BOLD, "weight-set",
+                 TRUE, NULL);
+    g_object_set(artist_renderer, "style", PANGO_STYLE_ITALIC, "style-set",
+                 TRUE, NULL);
+    gtk_tree_view_column_add_attribute (column, title_renderer,  "text",
+                                        COLUMN_TITLE);
+    gtk_tree_view_column_add_attribute (column, artist_renderer, "text",
+                                        COLUMN_ARTIST);
 
-    albums_store = gtk_list_store_new (3, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
-    column = gtk_tree_view_column_new_with_attributes (_("Title"),
-                                                       text_renderer,
-                                                       "text", 0,
-                                                       NULL);
+    g_signal_connect (albums_listview, "row-activated",
+                      G_CALLBACK (album_row_activated), dialog);
+
+    albums_store = gtk_list_store_new (COLUMN_COUNT, G_TYPE_STRING,
+                                       G_TYPE_STRING, G_TYPE_POINTER);
     gtk_tree_view_append_column (GTK_TREE_VIEW (albums_listview), column);
 
-    column = gtk_tree_view_column_new_with_attributes (_("Artist"),
-                                                       text_renderer,
-                                                       "text", 1,
-                                                       NULL);
-    gtk_tree_view_append_column (GTK_TREE_VIEW (albums_listview), column);
-    gtk_tree_view_set_model (GTK_TREE_VIEW (albums_listview), GTK_TREE_MODEL (albums_store));
+    gtk_tree_view_set_model (GTK_TREE_VIEW (albums_listview),
+                             GTK_TREE_MODEL (albums_store));
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW (albums_listview));
     gtk_tree_selection_set_mode(selection, GTK_SELECTION_BROWSE);
     gtk_widget_set_sensitive (ok_button, FALSE);
-    g_signal_connect (selection, "changed", (GCallback)selected_album_changed, ok_button);
+    g_signal_connect (selection, "changed", (GCallback)selected_album_changed,
+                      ok_button);
   }
 
   gtk_list_store_clear (albums_store);
   for (; albums ; albums = g_list_next (albums)) {
     GtkTreeIter iter;
     AlbumDetails *album = (AlbumDetails*)(albums->data);
+
     gtk_list_store_append (albums_store, &iter);
     gtk_list_store_set (albums_store, &iter,
-                        0, album->title,
-                        1, album->artist,
-                        2, album,
+                        COLUMN_TITLE, album->title,
+                        COLUMN_ARTIST, album->artist,
+                        COLUMN_DETAILS, album,
                         -1);
-  }
+    }
 
   /* Select the first album */
   if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (albums_store), &iter))
@@ -953,7 +974,8 @@ AlbumDetails* multiple_album_dialog(GList *albums)
   }
 
   if (gtk_tree_selection_get_selected (selection, NULL, &iter)) {
-    gtk_tree_model_get (GTK_TREE_MODEL (albums_store), &iter, 2, &album, -1);
+    gtk_tree_model_get (GTK_TREE_MODEL (albums_store), &iter, COLUMN_DETAILS,
+                        &album, -1);
     return album;
   } else {
     return NULL;
