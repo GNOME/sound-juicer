@@ -65,6 +65,7 @@ void album_details_free(AlbumDetails *album)
   g_free (album->lyrics_url);
   g_free (album->country);
   g_free (album->type);
+  g_list_foreach (album->labels, (GFunc)label_details_free, NULL);
   g_list_foreach (album->artists, (GFunc)artist_details_free, NULL);
   g_list_free (album->artists);
   g_free (album);
@@ -83,4 +84,14 @@ void artist_details_free (ArtistDetails *artist)
   g_free (artist->country);
   g_free (artist->joinphrase);
   g_free (artist);
+}
+
+/*
+ * Free a LabelDetails
+ */
+void label_details_free (LabelDetails *label)
+{
+  g_free (label->name);
+  g_free (label->sortname);
+  g_free (label);
 }

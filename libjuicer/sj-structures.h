@@ -30,6 +30,7 @@ typedef enum _MetadataSource MetadataSource;
 
 typedef struct _AlbumDetails AlbumDetails;
 typedef struct _ArtistDetails ArtistDetails;
+typedef struct _LabelDetails LabelDetails;
 typedef struct _TrackDetails TrackDetails;
 
 enum _MetadataSource {
@@ -68,6 +69,7 @@ struct _AlbumDetails {
   GDate *release_date; /* MusicBrainz support multiple releases per album */
   char* album_id;
   char* artist_id;
+  GList* labels;
   char* asin;
   char* discogs;
   char* wikipedia;
@@ -96,9 +98,13 @@ struct _ArtistDetails {
   char *joinphrase;
 };
 
+struct _LabelDetails {
+  char *name;
+  char *sortname;
+};
 
 void album_details_free(AlbumDetails *album);
 void artist_details_free(ArtistDetails *artist);
+void label_details_free (LabelDetails *label);
 void track_details_free(TrackDetails *track);
-
 #endif
