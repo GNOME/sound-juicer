@@ -183,6 +183,40 @@ get_artist_info (GList *artists, char **name, char **sortname, char **id)
   g_string_free (artist_name, FALSE);
 }
 
+static GList*
+get_release_labels (Mb5Release *release)
+{
+  Mb5LabelInfoList list;
+  int i;
+  char buffer[512]; /* for the GET() macro */
+  GList *label_list = NULL;
+
+  list = mb5_release_get_labelinfolist (release);
+  if (list == NULL)
+    return NULL;
+
+  for (i = 0; i < mb5_labelinfo_list_size (list); i++) {
+    Mb5LabelInfo info;
+    Mb5Label label;
+    LabelDetails *label_data;
+
+    info = mb5_labelinfo_list_item (list, i);
+    if (info == NULL)
+      continue;
+
+    label = mb5_labelinfo_get_label (info);
+    if (label == NULL)
+      continue;
+
+    label_data = g_new0 (LabelDetails, 1);
+    GET (label_data->name,     mb5_label_get_name,     label);
+    GET (label_data->sortname, mb5_label_get_sortname, label);
+    label_list = g_list_prepend (label_list, label_data);
+  }
+  label_list = g_list_reverse (label_list);
+  return label_list;
+}
+
 static void
 fill_album_composer (AlbumDetails *album)
 {
@@ -483,6 +517,7 @@ make_album_from_release (Mb5ReleaseGroup group,
   fill_album_composer (album);
   relationlists = mb5_release_get_relationlistlist (release);
   fill_relations (relationlists, album);
+  album->labels = get_release_labels (release);
 
   sj_mb5_album_details_dump (album);
   return album;
