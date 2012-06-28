@@ -783,6 +783,36 @@ static void selected_album_changed (GtkTreeSelection *selection,
 }
 
 /**
+ * Utility function to format label string for multiple_album_dialog
+ */
+static GString* format_label_text (GList* labels)
+{
+  int count;
+  GString *label_text;
+
+  if (labels == NULL)
+    return NULL;
+
+  label_text = g_string_new (NULL);
+  count = g_list_length (labels);
+  while (count > 2) {
+    g_string_append (label_text, ((LabelDetails*)labels->data)->name);
+    g_string_append (label_text, ", ");
+    labels = labels->next;
+    count--;
+  }
+
+  if (count > 1) {
+    g_string_append (label_text, ((LabelDetails*)labels->data)->name);
+    g_string_append (label_text, " & ");
+  }
+
+  g_string_append (label_text, ((LabelDetails*)labels->data)->name);
+
+  return label_text;
+}
+
+/**
  * Utility function for when there are more than one albums available
  */
 AlbumDetails* multiple_album_dialog(GList *albums)
