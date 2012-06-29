@@ -898,6 +898,7 @@ AlbumDetails* multiple_album_dialog(GList *albums)
   {
     COLUMN_TITLE,
     COLUMN_ARTIST,
+    COLUMN_RELEASE_DETAILS,
     COLUMN_DETAILS,
     COLUMN_COUNT
   };
@@ -907,6 +908,7 @@ AlbumDetails* multiple_album_dialog(GList *albums)
     GtkCellArea *cell_area = gtk_cell_area_box_new ();
     GtkCellRenderer *title_renderer  = gtk_cell_renderer_text_new ();
     GtkCellRenderer *artist_renderer = gtk_cell_renderer_text_new ();
+    GtkCellRenderer *release_details_renderer   = gtk_cell_renderer_text_new ();
 
     dialog = GET_WIDGET ("multiple_dialog");
     g_assert (dialog != NULL);
@@ -921,6 +923,7 @@ AlbumDetails* multiple_album_dialog(GList *albums)
     gtk_tree_view_column_set_title (column, _("Albums"));
     gtk_tree_view_column_pack_start (column, title_renderer,  TRUE);
     gtk_tree_view_column_pack_start (column, artist_renderer, TRUE);
+    gtk_tree_view_column_pack_start (column, release_details_renderer,   TRUE);
     g_object_set(title_renderer, "weight", PANGO_WEIGHT_BOLD, "weight-set",
                  TRUE, NULL);
     g_object_set(artist_renderer, "style", PANGO_STYLE_ITALIC, "style-set",
@@ -929,12 +932,15 @@ AlbumDetails* multiple_album_dialog(GList *albums)
                                         COLUMN_TITLE);
     gtk_tree_view_column_add_attribute (column, artist_renderer, "text",
                                         COLUMN_ARTIST);
+    gtk_tree_view_column_add_attribute (column, release_details_renderer,   "text",
+                                        COLUMN_RELEASE_DETAILS);
 
     g_signal_connect (albums_listview, "row-activated",
                       G_CALLBACK (album_row_activated), dialog);
 
     albums_store = gtk_list_store_new (COLUMN_COUNT, G_TYPE_STRING,
-                                       G_TYPE_STRING, G_TYPE_POINTER);
+                                       G_TYPE_STRING, G_TYPE_STRING,
+                                       G_TYPE_POINTER);
     gtk_tree_view_append_column (GTK_TREE_VIEW (albums_listview), column);
 
     gtk_tree_view_set_model (GTK_TREE_VIEW (albums_listview),
@@ -951,6 +957,7 @@ AlbumDetails* multiple_album_dialog(GList *albums)
     GtkTreeIter iter;
     AlbumDetails *album = (AlbumDetails*)(albums->data);
     GString *album_title = g_string_new (album->title);
+    gchar *release_details = format_release_details (album);
 
     if (album->disc_number > 0 && album->disc_count > 1)
       g_string_append_printf (album_title,_(" (Disc %d/%d)"),
@@ -960,10 +967,14 @@ AlbumDetails* multiple_album_dialog(GList *albums)
     gtk_list_store_set (albums_store, &iter,
                         COLUMN_TITLE, album_title->str,
                         COLUMN_ARTIST, album->artist,
+                        COLUMN_RELEASE_DETAILS, release_details,
                         COLUMN_DETAILS, album,
                         -1);
+
     g_string_free (album_title, TRUE);
+    g_free (release_details);
   }
+
 
   /* Select the first album */
   if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (albums_store), &iter))
