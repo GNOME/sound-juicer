@@ -813,6 +813,76 @@ static GString* format_label_text (GList* labels)
 }
 
 /**
+ * Utility function for multiple_album_dialog to format the
+ * release label, date and country.
+ */
+static char *format_release_details (AlbumDetails *album)
+{
+  gchar *details;
+  GString *label_text = NULL;
+
+  if (album->labels)
+    label_text = format_label_text (album->labels);
+
+  if (!sj_str_is_empty (album->country)) {
+    if (album->labels) {
+      if (album->release_date) {
+        /* Translators: this string appears when multiple CDs were
+         * found in musicbrainz online database, it corresponds to
+         * "Released: <country> in <year> on <label>" */
+        details = g_strdup_printf (_("Released: %s in %d on %s"),
+                                   album->country,
+                                   g_date_get_year(album->release_date),
+                                   label_text->str);
+      } else {
+        /* Translators: this string appears when multiple CDs were
+         * found in musicbrainz online database, it corresponds to
+         * "Released: <country> on <label>" */
+        details = g_strdup_printf (_("Released: %s on %s"), album->country, label_text->str);
+      }
+    } else if (album->release_date) {
+      /* Translators: this string appears when multiple CDs were
+       * found in musicbrainz online database, it corresponds to
+       * "Released: <country> in <year>" */
+      details = g_strdup_printf (_("Released: %s in %d"), album->country,
+                                 g_date_get_year (album->release_date));
+    } else {
+      /* Translators: this string appears when multiple CDs were
+       * found in musicbrainz online database, it corresponds to
+       * "Released: <country>" */
+      details = g_strdup_printf (_("Released: %s"), album->country);
+    }
+  } else if (album->release_date) {
+    if (album->labels) {
+        /* Translators: this string appears when multiple CDs were
+         * found in musicbrainz online database, it corresponds to
+         * "Released in <year> on <label>" */
+        details = g_strdup_printf (_("Released in %d on %s"),
+                                   g_date_get_year(album->release_date),
+                                   label_text->str);
+    } else {
+        /* Translators: this string appears when multiple CDs were
+         * found in musicbrainz online database, it corresponds to
+         * "Released in <year>" */
+        details = g_strdup_printf(_("Released in %d"),
+                                  g_date_get_year(album->release_date));
+    }
+  } else if (album->labels) {
+    /* Translators: this string appears when multiple CDs were
+     * found in musicbrainz online database, it corresponds to
+     * "Released on <label>" */
+    details = g_strdup_printf (_("Released on %s"), label_text->str);
+  } else {
+    details = _("Release label, year & country unknown");
+  }
+
+  if (label_text)
+    g_string_free (label_text, TRUE);
+
+  return details;
+}
+
+/**
  * Utility function for when there are more than one albums available
  */
 AlbumDetails* multiple_album_dialog(GList *albums)
