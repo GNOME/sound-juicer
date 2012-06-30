@@ -80,6 +80,14 @@ else
         AC_MSG_ERROR([libmusicbrainz5 needs to be available for sound-juicer to build])
 fi
 
+# ISO-CODES
+PKG_CHECK_MODULES(ISO_CODES, [iso-codes])
+if $PKG_CONFIG --variable=domains iso-codes | grep 3166 >/dev/null ; then
+  AC_DEFINE_UNQUOTED([ISO_CODES_PREFIX],["`$PKG_CONFIG --variable=prefix iso-codes`"],[ISO codes prefix])
+else
+  AC_MSG_ERROR([iso-codes database does not support iso3166 country codes])
+fi
+
 # Find gio for the metadata extractor
 PKG_CHECK_MODULES(GIO, gio-2.0)
 AC_SUBST(GIO_CFLAGS)

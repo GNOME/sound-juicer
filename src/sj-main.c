@@ -44,6 +44,7 @@
 #include "gconf-bridge.h"
 #include "rb-gst-media-types.h"
 #include "sj-about.h"
+#include "sj-metadata.h"
 #include "sj-metadata-getter.h"
 #include "sj-extractor.h"
 #include "sj-structures.h"
@@ -2225,6 +2226,7 @@ int main (int argc, char **argv)
 
   g_object_unref (app);
 
+  sj_metadata_helper_cleanup ();
   g_object_unref (base_uri);
   g_object_unref (metadata);
   g_object_unref (extractor);

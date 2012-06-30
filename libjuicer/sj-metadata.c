@@ -223,3 +223,131 @@ sj_metadata_helper_check_media (const char *cdrom, GError **error)
   return TRUE;
 }
 
+/* ISO-3166 helpers, these functions translate between a country code
+ * returned by MusicBrainz and the country name. Adapted from the
+ * totem language name lookup functions before it switched to using
+ * the GStreamer language helpers
+ */
+static GHashTable *country_table;
+
+void
+sj_metadata_helper_cleanup (void)
+{
+  if (country_table == NULL)
+    return;
+
+  g_hash_table_destroy (country_table);
+  country_table = NULL;
+}
+
+static void
+country_table_parse_start_tag (GMarkupParseContext *ctx,
+                               const gchar         *element_name,
+                               const gchar        **attr_names,
+                               const gchar        **attr_values,
+                               gpointer             data,
+                               GError             **error)
+{
+  const char *ccode, *country_name;
+
+  if (!g_str_equal (element_name, "iso_3166_entry")
+      || attr_names == NULL
+      || attr_values == NULL)
+    return;
+
+  ccode = NULL;
+  country_name = NULL;
+
+  while (*attr_names && *attr_values)
+    {
+      if (g_str_equal (*attr_names, "alpha_2_code"))
+        {
+          /* skip if empty */
+          if (**attr_values)
+            {
+              g_return_if_fail (strlen (*attr_values) == 2);
+              ccode = *attr_values;
+            }
+        } else if (g_str_equal (*attr_names, "name")) {
+        country_name = *attr_values;
+      }
+
+      ++attr_names;
+      ++attr_values;
+    }
+
+  if (country_name == NULL)
+    return;
+
+  if (ccode != NULL)
+    {
+      g_hash_table_insert (country_table,
+                           g_strdup (ccode),
+                           g_strdup (country_name));
+    }
+}
+
+#define ISO_CODES_DATADIR ISO_CODES_PREFIX"/share/xml/iso-codes"
+#define ISO_CODES_LOCALESDIR ISO_CODES_PREFIX"/share/locale"
+
+static void
+country_table_init (void)
+{
+  GError *err = NULL;
+  char *buf;
+  gsize buf_len;
+
+  country_table = g_hash_table_new_full
+    (g_str_hash, g_str_equal, g_free, g_free);
+
+  bindtextdomain ("iso_3166", ISO_CODES_LOCALESDIR);
+  bind_textdomain_codeset ("iso_3166", "UTF-8");
+
+  if (g_file_get_contents (ISO_CODES_DATADIR "/iso_3166.xml",
+                           &buf, &buf_len, &err))
+    {
+      GMarkupParseContext *ctx;
+      GMarkupParser parser =
+        { country_table_parse_start_tag, NULL, NULL, NULL, NULL };
+
+      ctx = g_markup_parse_context_new (&parser, 0, NULL, NULL);
+
+      if (!g_markup_parse_context_parse (ctx, buf, buf_len, &err))
+        {
+          g_warning ("Failed to parse '%s': %s\n",
+                     ISO_CODES_DATADIR"/iso_3166.xml",
+                     err->message);
+          g_error_free (err);
+        }
+
+      g_markup_parse_context_free (ctx);
+      g_free (buf);
+    } else {
+    g_warning ("Failed to load '%s': %s\n",
+               ISO_CODES_DATADIR"/iso_3166.xml", err->message);
+    g_error_free (err);
+  }
+}
+
+char *
+sj_metadata_helper_lookup_country_code (const char *code)
+{
+  const char *country_name;
+  int len;
+
+  g_return_val_if_fail (code != NULL, NULL);
+
+  len = strlen (code);
+  if (len != 2)
+    return NULL;
+  if (country_table == NULL)
+    country_table_init ();
+
+  country_name = (const gchar*) g_hash_table_lookup (country_table, code);
+
+  if (country_name)
+    return g_strdup (dgettext ("iso_3166", country_name));
+
+  g_warning ("Unknown country code: %s", code);
+  return NULL;
+}

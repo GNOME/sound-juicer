@@ -460,7 +460,8 @@ make_album_from_release (Mb5ReleaseGroup group,
   g_free (date);
 
   GET (album->asin, mb5_release_get_asin, release);
-  GET (album->country, mb5_release_get_country, release);
+  mb5_release_get_country (release, buffer, sizeof(buffer));
+  album->country = sj_metadata_helper_lookup_country_code (buffer);
   if (group) {
     GET (album->type, mb5_releasegroup_get_primarytype, group);
     if (g_str_has_suffix (album->type, "Spokenword")
