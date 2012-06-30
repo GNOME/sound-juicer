@@ -782,6 +782,91 @@ static void selected_album_changed (GtkTreeSelection *selection,
   }
 }
 
+
+/**
+ * NULL safe utility to collate utf8 strings
+ */
+static gint collate (const char *a, const char *b)
+{
+  gint ret_val = 0;
+
+  if (a) {
+    if (b) {
+      ret_val = g_utf8_collate (a, b);
+    } else {
+      ret_val = 1;
+    }
+  } else if (b) {
+    ret_val = -1;
+  }
+  return ret_val;
+}
+
+/**
+ * Utility function to sort albums in multiple_album_dialog
+ */
+static gint sort_release_info (GtkTreeModel *model, GtkTreeIter *a,
+                               GtkTreeIter *b, gpointer user_data)
+{
+  AlbumDetails *album_a, *album_b;
+  GList *label_a, *label_b;
+  gint ret_val = 0;
+  const gint column = GPOINTER_TO_INT (user_data);
+
+  gtk_tree_model_get (model, a, column, &album_a, -1);
+  gtk_tree_model_get (model, b, column, &album_b, -1);
+
+  ret_val = collate (album_a->title, album_b->title);
+  if (ret_val)
+    return ret_val;
+
+  ret_val = collate (album_a->artist_sortname, album_b->artist_sortname);
+  if (ret_val)
+    return ret_val;
+
+  ret_val = collate (album_a->country, album_b->country);
+  if (ret_val)
+    return ret_val;
+
+  if (album_a->release_date) {
+    if (album_b->release_date) {
+      ret_val = g_date_compare (album_a->release_date, album_b->release_date);
+      if (ret_val)
+        return ret_val;
+    } else {
+      return -1;
+    }
+  } else if (album_b->release_date) {
+    return 1;
+  }
+
+  label_a = album_a->labels;
+  label_b = album_b->labels;
+  while (label_a && label_b) {
+    LabelDetails *a = label_a->data;
+    LabelDetails *b = label_b->data;
+    ret_val = collate (a->sortname,b->sortname);
+    if (ret_val)
+      return ret_val;
+
+    label_a = label_a->next;
+    label_b = label_b->next;
+  }
+  if (label_a && !label_b)
+    return -1;
+  if (!label_a && label_b)
+    return 1;
+
+  ret_val = (album_a->disc_number < album_b->disc_number) ? -1 :
+    ((album_a->disc_number > album_b->disc_number) ? 1 : 0);
+  if (ret_val)
+    return ret_val;
+
+  return (album_a->disc_count < album_b->disc_count) ? -1 :
+    ((album_a->disc_count > album_b->disc_count) ? 1 : 0);
+}
+
+
 /**
  * Utility function to format label string for multiple_album_dialog
  */
@@ -941,6 +1026,9 @@ AlbumDetails* multiple_album_dialog(GList *albums)
     albums_store = gtk_list_store_new (COLUMN_COUNT, G_TYPE_STRING,
                                        G_TYPE_STRING, G_TYPE_STRING,
                                        G_TYPE_POINTER);
+    gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (albums_store),
+                                     COLUMN_DETAILS, sort_release_info,
+                                     GINT_TO_POINTER (COLUMN_DETAILS), NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (albums_listview), column);
 
     gtk_tree_view_set_model (GTK_TREE_VIEW (albums_listview),
@@ -975,6 +1063,9 @@ AlbumDetails* multiple_album_dialog(GList *albums)
     g_free (release_details);
   }
 
+  /* Sort the model */
+  gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (albums_store),
+                                        COLUMN_DETAILS, GTK_SORT_ASCENDING);
 
   /* Select the first album */
   if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (albums_store), &iter))
