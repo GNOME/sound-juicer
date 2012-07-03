@@ -231,7 +231,6 @@ static gboolean
 cb_set_time (gpointer data)
 {
   GstElement *cd;
-  GstFormat fmt = GST_FORMAT_TIME;
   gint64 pos, len;
 
   if (seeking)
@@ -239,8 +238,8 @@ cb_set_time (gpointer data)
 
   cd = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "cd-source");
 
-  if (gst_element_query_duration (cd, &fmt, &len) &&
-      gst_element_query_position (cd, &fmt, &pos)) {
+  if (gst_element_query_duration (cd, GST_FORMAT_TIME, &len) &&
+      gst_element_query_position (cd, GST_FORMAT_TIME, &pos)) {
     internal_update = TRUE;
     gtk_range_set_value (GTK_RANGE (seek_scale), (gdouble) pos / len);
     set_statusbar_pos (pos / GST_SECOND, len / GST_SECOND);
@@ -355,7 +354,7 @@ setup (GError **err)
     g_signal_connect (bus, "message::error", G_CALLBACK (cb_error), NULL);
     g_signal_connect (bus, "message::state-changed", G_CALLBACK (cb_state), NULL);
 
-    cdp = gst_element_make_from_uri (GST_URI_SRC, "cdda://1", "cd-source");
+    cdp = gst_element_make_from_uri (GST_URI_SRC, "cdda://1", "cd-source", NULL);
     if (!cdp) {
       gst_object_unref (GST_OBJECT (pipeline));
       pipeline = NULL;

@@ -684,10 +684,8 @@ _query_duration (GstElement *element)
 	GstState state;
 	GstState pending;
 	gint64 duration;
-	GstFormat format;
 
 	duration = 0;
-	format = GST_FORMAT_TIME;
 
 	result = gst_element_get_state (element, &state, &pending, GST_CLOCK_TIME_NONE);
 
@@ -702,7 +700,7 @@ _query_duration (GstElement *element)
 	if (result == GST_STATE_CHANGE_ASYNC)
 		gst_element_get_state (element, NULL, NULL, GST_CLOCK_TIME_NONE);
 
-	gst_element_query_duration (element, &format, &duration);
+	gst_element_query_duration (element, GST_FORMAT_TIME, &duration);
 
 	gst_element_set_state (element, state);
 
@@ -713,12 +711,10 @@ static gint
 _query_position (GstElement *element)
 {
 	gint64 position;
-	GstFormat format;
 
 	position = 0;
-	format = GST_FORMAT_TIME;
 
-	gst_element_query_position (element, &format, &position);
+	gst_element_query_position (element, GST_FORMAT_TIME, &position);
 
 	return (gint) (position / GST_SECOND);
 }

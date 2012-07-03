@@ -341,7 +341,7 @@ build_pipeline (SjExtractor *extractor)
   g_signal_connect (G_OBJECT (bus), "message::error", G_CALLBACK (error_cb), extractor);
 
   /* Read from CD */
-  priv->cdsrc = gst_element_make_from_uri (GST_URI_SRC, "cdda://1", "cd_src");
+  priv->cdsrc = gst_element_make_from_uri (GST_URI_SRC, "cdda://1", "cd_src", NULL);
   if (priv->cdsrc == NULL) {
     g_set_error (&priv->construct_error,
                  SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
@@ -402,7 +402,6 @@ tick_timeout_cb(SjExtractor *extractor)
   gint64 nanos;
   gint secs;
   GstState state, pending_state;
-  static GstFormat format = GST_FORMAT_TIME;
 
   g_return_val_if_fail (SJ_IS_EXTRACTOR (extractor), FALSE);
 
@@ -412,7 +411,7 @@ tick_timeout_cb(SjExtractor *extractor)
     return FALSE;
   }
 
-  if (!gst_element_query_position (extractor->priv->cdsrc, &format, &nanos)) {
+  if (!gst_element_query_position (extractor->priv->cdsrc, GST_FORMAT_TIME, &nanos)) {
     g_warning (_("Could not get current track position"));
     return TRUE;
   }
@@ -472,6 +471,7 @@ sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, G
   GstStateChangeReturn state_ret;
   SjExtractorPrivate *priv;
   GstIterator *iter;
+  GValue item = {0, };
   GstTagSetter *tagger;
   gboolean done;
   char *uri;
@@ -509,9 +509,10 @@ sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, G
   iter = gst_bin_iterate_all_by_interface (GST_BIN (priv->pipeline), GST_TYPE_TAG_SETTER);
   done = FALSE;
   while (!done) {
-    switch (gst_iterator_next (iter, (gpointer)&tagger)) {
+    switch (gst_iterator_next (iter, &item)) {
     case GST_ITERATOR_OK:
       /* TODO: generate this as a taglist once, and apply it to all elements */
+      tagger = g_value_get_object (&item);
       gst_tag_setter_add_tags (tagger,
                                GST_TAG_MERGE_REPLACE_ALL,
                                GST_TAG_TITLE, track->title,
@@ -589,7 +590,7 @@ sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, G
                                  GST_TAG_ALBUM_VOLUME_NUMBER, track->album->disc_number,
                                  NULL);
       }
-      gst_object_unref (tagger);
+      g_value_unset (&item);
       break;
     case GST_ITERATOR_RESYNC:
       /* TODO? */
@@ -604,6 +605,7 @@ sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, G
       break;
     }
   }
+  g_value_unset (&item);
   gst_iterator_free (iter);
 
   /* Seek to the right track */
@@ -659,7 +661,7 @@ sj_extractor_supports_encoding (GError **error)
 {
   GstElement *element = NULL;
 
-  element = gst_element_make_from_uri (GST_URI_SRC, "cdda://1", "test");
+  element = gst_element_make_from_uri (GST_URI_SRC, "cdda://1", "test", NULL);
   if (element == NULL) {
     g_set_error (error, SJ_ERROR, SJ_ERROR_INTERNAL_ERROR,
                  _("The plugin necessary for CD access was not found"));
