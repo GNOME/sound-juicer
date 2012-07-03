@@ -29,6 +29,7 @@
 
 #include <string.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 #include <glib/gi18n.h>
 #include <gdk/gdkkeysyms.h>
