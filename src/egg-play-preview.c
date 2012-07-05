@@ -518,8 +518,8 @@ static void
 _setup_pipeline (EggPlayPreview *play_preview)
 {
 	EggPlayPreviewPrivate *priv;
-	GstElement *audiosink;
 	GstBus *bus = NULL;
+        guint flags;
 
 	priv = GET_PRIVATE (play_preview);
 
@@ -529,21 +529,14 @@ _setup_pipeline (EggPlayPreview *play_preview)
 	if (!priv->playbin)
 		return;
 
-	audiosink = gst_element_factory_make ("gconfaudiosink", "audiosink");
-	if (!audiosink) {
-		audiosink = gst_element_factory_make ("autoaudiosink", "audiosink");
-		if (!audiosink) {
-			audiosink = gst_element_factory_make ("alsasink", "audiosink");
-			if (!audiosink) {
-				return;
-			}
-		}
-	}
-
+        /* Disable video output */
+        g_object_get (G_OBJECT (priv->playbin),
+                      "flags", &flags,
+                      NULL);
+        flags &= ~0x00000001;
 	g_object_set (G_OBJECT (priv->playbin),
-				  "audio-sink", audiosink,
-				  "video-sink", NULL,
-				  NULL);
+                      "flags", flags,
+                      NULL);
 
 	bus = gst_pipeline_get_bus (GST_PIPELINE (priv->playbin));
 	gst_bus_add_watch (bus, (GstBusFunc) _process_bus_messages, play_preview);
@@ -566,7 +559,7 @@ _clear_pipeline (EggPlayPreview *play_preview)
 		gst_object_unref (bus);
 
 		gst_element_set_state (priv->playbin, GST_STATE_NULL);
-        gst_object_unref (GST_OBJECT (priv->playbin));
+                gst_object_unref (GST_OBJECT (priv->playbin));
 		priv->playbin = NULL;
 	}
 }
