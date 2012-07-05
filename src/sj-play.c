@@ -230,16 +230,13 @@ set_statusbar_pos (gint pos, gint len)
 static gboolean
 cb_set_time (gpointer data)
 {
-  GstElement *cd;
   gint64 pos, len;
 
   if (seeking)
     return TRUE;
 
-  cd = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "cd-source");
-
-  if (gst_element_query_duration (cd, GST_FORMAT_TIME, &len) &&
-      gst_element_query_position (cd, GST_FORMAT_TIME, &pos)) {
+  if (gst_element_query_duration (pipeline, GST_FORMAT_TIME, &len) &&
+      gst_element_query_position (pipeline, GST_FORMAT_TIME, &pos)) {
     internal_update = TRUE;
     gtk_range_set_value (GTK_RANGE (seek_scale), (gdouble) pos / len);
     set_statusbar_pos (pos / GST_SECOND, len / GST_SECOND);
@@ -323,6 +320,23 @@ cb_state (GstBus *bus, GstMessage *message, gpointer user_data)
   }
 }
 
+static void
+cb_source_setup (GstElement *playbin, GstElement *source, gpointer user_data)
+{
+    if (g_object_class_find_property (G_OBJECT_GET_CLASS (source), "read-speed") != NULL) {
+    	g_object_set (G_OBJECT (source),
+    	              "read-speed", 2,
+                      NULL);
+    }
+    /* Disable paranoia in playback mode */
+    if (g_object_class_find_property (G_OBJECT_GET_CLASS (source), "paranoia-mode"))
+      g_object_set (source, "paranoia-mode", 0, NULL);
+
+    g_object_set (G_OBJECT (source),
+                  "device", brasero_drive_get_device (drive),
+                  NULL);
+}
+
 /**
  * Create and update pipeline for playback of a particular track.
  */
@@ -332,20 +346,14 @@ setup (GError **err)
 {
   if (!pipeline) {
     GstBus *bus;
-    GstElement *out, *queue, *conv, *resample, *cdp, *volume;
 
-    /* TODO:
-     * replace with playbin.  Tim says:
-     *
-     * just create playbin and your audio sink, then do g_object_set (playbin,
-     * "audio-sink", audiosink, NULL); and set cdda://<track-number> as URI on
-     * playbin and set it to PLAYING.  and then go
-     * gst_element_query_duration/position(playbin) and
-     * gst_element_seek(playbin, .... track_format, track-1, ...) for changing
-     * track
-     */
-
-    pipeline = gst_pipeline_new ("playback");
+    pipeline = gst_element_factory_make ("playbin", "playbin");
+    if (!pipeline) {
+      gst_object_unref (GST_OBJECT (pipeline));
+      pipeline = NULL;
+      g_set_error (err, 0, 0, _("Failed to create CD source element"));
+      return FALSE;
+    }
 
     bus = gst_element_get_bus (pipeline);
     gst_bus_add_signal_watch (bus);
@@ -354,60 +362,9 @@ setup (GError **err)
     g_signal_connect (bus, "message::error", G_CALLBACK (cb_error), NULL);
     g_signal_connect (bus, "message::state-changed", G_CALLBACK (cb_state), NULL);
 
-    cdp = gst_element_make_from_uri (GST_URI_SRC, "cdda://1", "cd-source", NULL);
-    if (!cdp) {
-      gst_object_unref (GST_OBJECT (pipeline));
-      pipeline = NULL;
-      g_set_error (err, 0, 0, _("Failed to create CD source element"));
-      return FALSE;
-    }
-    /* do not set to 1, that messes up buffering. 2 is enough to keep
-     * noise from the drive down. */
-    /* TODO: will not notice drive changes, should monitor */
-    if (g_object_class_find_property (G_OBJECT_GET_CLASS (cdp), "read-speed") != NULL) {
-    	g_object_set (G_OBJECT (cdp),
-    	              "read-speed", 2,
-                      NULL);
-    }
-    /* Disable paranoia in playback mode */
-    if (g_object_class_find_property (G_OBJECT_GET_CLASS (cdp), "paranoia-mode"))
-      g_object_set (cdp, "paranoia-mode", 0, NULL);
+    g_signal_connect (pipeline, "source-setup", G_CALLBACK (cb_source_setup), NULL);
 
-    g_object_set (G_OBJECT (cdp),
-                  "device", brasero_drive_get_device (drive),
-                  NULL);
-
-    queue = gst_element_factory_make ("queue", "queue"); g_assert (queue);
-    /* Set the buffer size to protect against underflow on busy systems */
-    g_object_set (queue,
-                  "min-threshold-time", (guint64) 200 * GST_MSECOND,
-                  "max-size-time", (guint64) 2 * GST_SECOND,
-                  NULL);
-    conv = gst_element_factory_make ("audioconvert", "conv"); g_assert (conv);
-    resample = gst_element_factory_make ("audioresample", "resample"); g_assert (resample);
-    volume = gst_element_factory_make ("volume", "vol"); g_assert (volume);
-    g_object_set (G_OBJECT (volume), "volume", vol, NULL);
-    out = gst_element_factory_make ("gconfaudiosink", "out");
-    if (!out) {
-        /* fall back to autoaudiosink */
-        out = gst_element_factory_make ("autoaudiosink", "out");
-    }
-    if (out) {
-        if (g_object_class_find_property (G_OBJECT_GET_CLASS (out), "profile"))
-	    g_object_set (G_OBJECT (out), "profile", 1, NULL);
-    }
-
-    gst_bin_add_many (GST_BIN (pipeline), cdp, queue, conv, resample, volume, out, NULL);
-    if (!gst_element_link_many (cdp, queue, conv, resample, volume, out, NULL))
-      g_warning (_("Failed to link pipeline"));
-
-    /* if something went wrong, cleanup here is easier... */
-    if (!out) {
-      gst_object_unref (GST_OBJECT (pipeline));
-      pipeline = NULL;
-      g_set_error (err, 0, 0, _("Failed to create audio output"));
-      return FALSE;
-    }
+    g_object_set (G_OBJECT (pipeline), "uri", "cdda://1", NULL);
 
     if (!gtk_tree_model_get_iter_first (GTK_TREE_MODEL (track_store), &current_iter))
       g_warning ("Cannot get first iter");
@@ -577,12 +534,8 @@ G_MODULE_EXPORT void
 on_volume_changed (GtkWidget * volb, gdouble value, gpointer data)
 {
   vol = value;
-  if (pipeline) {
-    GstElement *volume;
-
-    volume = gst_bin_get_by_name_recurse_up (GST_BIN (pipeline), "vol");
-    g_object_set (G_OBJECT (volume), "volume", vol, NULL);
-  }
+  if (pipeline)
+    g_object_set (G_OBJECT (pipeline), "volume", vol, NULL);
   gconf_client_set_float (gconf_client, GCONF_AUDIO_VOLUME, vol, NULL);
 }
 
