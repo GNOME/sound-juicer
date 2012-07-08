@@ -431,6 +431,7 @@ make_album_from_release (Mb5ReleaseGroup group,
   AlbumDetails *album;
   Mb5ArtistCredit credit;
   Mb5RelationListList relationlists;
+  Mb5MediumList media;
   GList *artists;
   char *date = NULL;
   char buffer[512]; /* for the GET macro */
@@ -439,6 +440,10 @@ make_album_from_release (Mb5ReleaseGroup group,
   g_return_val_if_fail (medium != NULL, NULL);
 
   album = g_new0 (AlbumDetails, 1);
+
+  media = mb5_release_get_mediumlist (release);
+  if (media)
+    album->disc_count = mb5_medium_list_size (media);
 
   GET (album->album_id, mb5_release_get_id, release);
   GET (album->title, mb5_medium_get_title, medium);
