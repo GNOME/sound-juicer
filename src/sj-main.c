@@ -61,7 +61,7 @@ static void update_ui_for_album (AlbumDetails *album);
 
 /* Prototypes for the signal blocking/unblocking in update_ui_for_album */
 G_MODULE_EXPORT void on_title_edit_changed(GtkEditable *widget, gpointer user_data);
-G_MODULE_EXPORT void on_artist_edit_changed(GtkEditable *widget, gpointer user_data);
+G_MODULE_EXPORT void on_person_edit_changed(GtkEditable *widget, gpointer user_data);
 G_MODULE_EXPORT void on_year_edit_changed(GtkEditable *widget, gpointer user_data);
 G_MODULE_EXPORT void on_disc_number_edit_changed(GtkEditable *widget, gpointer user_data);
 
@@ -655,7 +655,7 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_list_store_clear (track_store);
 
     g_signal_handlers_block_by_func (title_entry, on_title_edit_changed, NULL);
-    g_signal_handlers_block_by_func (artist_entry, on_artist_edit_changed, NULL);
+    g_signal_handlers_block_by_func (artist_entry, on_person_edit_changed, NULL);
     g_signal_handlers_block_by_func (year_entry, on_year_edit_changed, NULL);
     g_signal_handlers_block_by_func (disc_number_entry, on_disc_number_edit_changed, NULL);
     gtk_entry_set_text (GTK_ENTRY (title_entry), album->title);
@@ -677,7 +677,7 @@ static void update_ui_for_album (AlbumDetails *album)
       g_free (release_date);
     }
     g_signal_handlers_unblock_by_func (title_entry, on_title_edit_changed, NULL);
-    g_signal_handlers_unblock_by_func (artist_entry, on_artist_edit_changed, NULL);
+    g_signal_handlers_unblock_by_func (artist_entry, on_person_edit_changed, NULL);
     g_signal_handlers_unblock_by_func (year_entry, on_year_edit_changed, NULL);
     g_signal_handlers_unblock_by_func (disc_number_entry, on_disc_number_edit_changed, NULL);
     /* Clear the genre field, it's from the user */
@@ -1585,52 +1585,79 @@ static gboolean str_case_equal (const char*s1, const char *s2)
   return retval;
 }
 
-G_MODULE_EXPORT void on_artist_edit_changed(GtkEditable *widget, gpointer user_data) {
+G_MODULE_EXPORT void on_person_edit_changed(GtkEditable *widget,
+                                            gpointer user_data) {
   GtkTreeIter iter;
+  gboolean ok; /* TRUE if iter is valid */
   TrackDetails *track;
-  gchar *current_track_artist, *former_album_artist = NULL;
+  gchar *former_album_person = NULL;
+  /* Album person name and sortname */
+  gchar **album_person_name, **album_person_sortname;
+  /* Offsets for track person name and sortname */
+  int off_person_name, off_person_sortname;
+  int column; /* column for person in listview */
 
   g_return_if_fail (current_album != NULL);
 
-  remove_musicbrainz_ids (current_album);
-
-  /* Unset the sortable artist field, as we can't change it automatically */
-  if (current_album->artist_sortname) {
-    g_free (current_album->artist_sortname);
-    current_album->artist_sortname = NULL;
-  }
-
-  if (current_album->artist) {
-    former_album_artist = current_album->artist;
-  }
-  current_album->artist = gtk_editable_get_chars (widget, 0, -1); /* get all the characters */
-
-  if (!gtk_tree_model_get_iter_first (GTK_TREE_MODEL (track_store), &iter)) {
-    g_free (former_album_artist);
+  if (widget == GTK_EDITABLE (artist_entry)) {
+    column = COLUMN_ARTIST;
+    album_person_name = &current_album->artist;
+    album_person_sortname = &current_album->artist_sortname;
+    off_person_name = G_STRUCT_OFFSET (TrackDetails, artist);
+    off_person_sortname = G_STRUCT_OFFSET (TrackDetails,
+                                           artist_sortname);
+  } else {
+    g_warning (_("Unknown widget calling on_person_edit_changed."));
     return;
   }
 
-  /* Set the artist field in each tree row */
-  do {
-    gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, COLUMN_ARTIST, &current_track_artist, -1);
-    /* Change track artist if it matched album artist before the change */
-    if ((str_case_equal (current_track_artist, former_album_artist)) ||
-        (str_case_equal (current_track_artist, current_album->artist))) {
-      gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, COLUMN_DETAILS, &track, -1);
+  remove_musicbrainz_ids (current_album);
 
-      g_free (track->artist);
-      track->artist = g_strdup (current_album->artist);
+  /* Unset the sortname field, as we can't change it automatically */
+  if (*album_person_sortname) {
+    g_free (*album_person_sortname);
+    *album_person_sortname = NULL;
+  }
 
-      if (track->artist_sortname) {
-        g_free (track->artist_sortname);
-        track->artist_sortname = NULL;
-      }
+  if (*album_person_name) {
+    former_album_person = *album_person_name;
+  }
 
-      gtk_list_store_set (track_store, &iter, COLUMN_ARTIST, track->artist, -1);
+  /* get all the characters */
+  *album_person_name = gtk_editable_get_chars (widget, 0, -1);
+
+  /* Set the person field in each tree row */
+  for (ok = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (track_store), &iter);
+       ok;
+       ok = gtk_tree_model_iter_next (GTK_TREE_MODEL (track_store), &iter)) {
+    gchar *current_track_person;
+    gchar **track_person_name, **track_person_sortname;
+
+    gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, column,
+                        &current_track_person, -1);
+
+    /* Change track person if it matched album person before the change */
+    if (!str_case_equal (current_track_person, former_album_person) &&
+        !str_case_equal (current_track_person, *album_person_name))
+      continue;
+
+    gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, COLUMN_DETAILS,
+                        &track, -1);
+    track_person_name     = G_STRUCT_MEMBER_P (track, off_person_name);
+    track_person_sortname = G_STRUCT_MEMBER_P (track, off_person_sortname);
+
+    g_free (*track_person_name);
+    *track_person_name = g_strdup (*album_person_name);
+
+    /* Unset the sortname field, as we can't change it automatically */
+    if (*track_person_sortname) {
+      g_free (*track_person_sortname);
+      *track_person_sortname = NULL;
     }
-  } while (gtk_tree_model_iter_next (GTK_TREE_MODEL (track_store), &iter));
 
-  g_free (former_album_artist);
+    gtk_list_store_set (track_store, &iter, column, *track_person_name, -1);
+  }
+  g_free (former_album_person);
 }
 
 G_MODULE_EXPORT void on_genre_edit_changed(GtkEditable *widget, gpointer user_data) {
