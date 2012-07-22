@@ -632,12 +632,14 @@ static void update_ui_for_album (AlbumDetails *album)
     gtk_list_store_clear (track_store);
     gtk_entry_set_text (GTK_ENTRY (title_entry), "");
     gtk_entry_set_text (GTK_ENTRY (artist_entry), "");
+    gtk_entry_set_text (GTK_ENTRY (composer_entry), "");
     gtk_entry_set_text (GTK_ENTRY (genre_entry), "");
     gtk_entry_set_text (GTK_ENTRY (year_entry), "");
     gtk_entry_set_text (GTK_ENTRY (disc_number_entry), "");
     gtk_label_set_text (GTK_LABEL (duration_label), "");
     gtk_widget_set_sensitive (title_entry, FALSE);
     gtk_widget_set_sensitive (artist_entry, FALSE);
+    gtk_widget_set_sensitive (composer_entry, FALSE);
     gtk_widget_set_sensitive (genre_entry, FALSE);
     gtk_widget_set_sensitive (year_entry, FALSE);
     gtk_widget_set_sensitive (disc_number_entry, FALSE);
@@ -656,6 +658,7 @@ static void update_ui_for_album (AlbumDetails *album)
 
     g_signal_handlers_block_by_func (title_entry, on_title_edit_changed, NULL);
     g_signal_handlers_block_by_func (artist_entry, on_person_edit_changed, NULL);
+    g_signal_handlers_block_by_func (composer_entry, on_person_edit_changed, NULL);
     g_signal_handlers_block_by_func (year_entry, on_year_edit_changed, NULL);
     g_signal_handlers_block_by_func (disc_number_entry, on_disc_number_edit_changed, NULL);
     gtk_entry_set_text (GTK_ENTRY (title_entry), album->title);
@@ -678,6 +681,7 @@ static void update_ui_for_album (AlbumDetails *album)
     }
     g_signal_handlers_unblock_by_func (title_entry, on_title_edit_changed, NULL);
     g_signal_handlers_unblock_by_func (artist_entry, on_person_edit_changed, NULL);
+    g_signal_handlers_unblock_by_func (composer_entry, on_person_edit_changed, NULL);
     g_signal_handlers_unblock_by_func (year_entry, on_year_edit_changed, NULL);
     g_signal_handlers_unblock_by_func (disc_number_entry, on_disc_number_edit_changed, NULL);
     /* Clear the genre field, it's from the user */
@@ -685,6 +689,7 @@ static void update_ui_for_album (AlbumDetails *album)
 
     gtk_widget_set_sensitive (title_entry, TRUE);
     gtk_widget_set_sensitive (artist_entry, TRUE);
+    gtk_widget_set_sensitive (composer_entry, TRUE);
     gtk_widget_set_sensitive (genre_entry, TRUE);
     gtk_widget_set_sensitive (year_entry, TRUE);
     gtk_widget_set_sensitive (disc_number_entry, TRUE);
@@ -1606,6 +1611,13 @@ G_MODULE_EXPORT void on_person_edit_changed(GtkEditable *widget,
     off_person_name = G_STRUCT_OFFSET (TrackDetails, artist);
     off_person_sortname = G_STRUCT_OFFSET (TrackDetails,
                                            artist_sortname);
+  } else if (widget == GTK_EDITABLE (composer_entry)) {
+    column = COLUMN_COMPOSER;
+    album_person_name = &current_album->composer;
+    album_person_sortname = &current_album->composer_sortname;
+    off_person_name = G_STRUCT_OFFSET (TrackDetails, composer);
+    off_person_sortname = G_STRUCT_OFFSET (TrackDetails,
+                                           composer_sortname);
   } else {
     g_warning (_("Unknown widget calling on_person_edit_changed."));
     return;
