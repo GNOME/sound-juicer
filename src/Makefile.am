@@ -41,13 +41,6 @@ sound_juicer_CFLAGS = \
 	$(WARN_CFLAGS) \
 	$(AM_CFLAGS)
 
-sound_juicer_CFLAGS = \
-	$(GSTREAMER_CFLAGS) \
-	$(BURN_CFLAGS) \
-	$(UI_CFLAGS) \
-	$(WARN_CFLAGS) \
-	$(AM_CFLAGS)
-
 sound_juicer_LDADD = \
 	$(top_builddir)/libjuicer/libjuicer.la \
 	$(GSTREAMER_LIBS) \
