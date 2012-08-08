@@ -38,6 +38,8 @@ install-icons:
 		mkdir -p $(DESTDIR)$(datadir)/icons/hicolor/$$SIZE/apps; \
 		$(INSTALL_DATA) $(srcdir)/$$icon $(DESTDIR)$(datadir)/icons/hicolor/$$SIZE/apps/sound-juicer.$$EXTENSION; \
 	done
+
+update-icon-cache:
 	@-if test -z "$(DESTDIR)"; then \
 		echo "Updating GTK icon cache."; \
 		$(gtk_update_icon_cache); \
@@ -59,6 +61,7 @@ uninstall-icons:
 	done
 
 install-data-local: install-icons
+install-data-hook: update-icon-cache
 if GCONF_SCHEMAS_INSTALL
 	@if test -z "$(DESTDIR)" ; then \
 		for p in $(schema_DATA) ; do \
@@ -72,6 +75,7 @@ if GCONF_SCHEMAS_INSTALL
 endif
 
 uninstall-local: uninstall-icons
+uninstall-hook: update-icon-cache
 
 CLEANFILES = \
 	$(desktop_DATA) \
