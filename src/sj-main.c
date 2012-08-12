@@ -75,7 +75,7 @@ GConfClient *gconf_client;
 GtkWidget *main_window;
 static GtkWidget *message_area_eventbox;
 static GtkWidget *title_entry, *artist_entry, *duration_label, *genre_entry, *year_entry, *disc_number_entry;
-static GtkWidget *track_listview, *extract_button, *play_button;
+static GtkWidget *track_listview, *extract_button, *play_button, *select_button;
 static GtkWidget *status_bar;
 GtkListStore *track_store;
 GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer;
@@ -266,6 +266,9 @@ static void on_select_all_activate (GSimpleAction *action, GVariant *parameter, 
   set_action_enabled ("select-all", FALSE);
   set_action_enabled ("deselect-all", TRUE);
 
+  gtk_actionable_set_action_name(GTK_ACTIONABLE(select_button), "win.deselect-all");
+  gtk_button_set_label(GTK_BUTTON(select_button), _("Select None"));
+
   no_of_tracks_selected = total_no_of_tracks;
 }
 
@@ -276,6 +279,9 @@ static void on_deselect_all_activate (GSimpleAction *action, GVariant *parameter
 
   set_action_enabled ("deselect-all", FALSE);
   set_action_enabled ("select-all", TRUE);
+
+  gtk_actionable_set_action_name(GTK_ACTIONABLE(select_button), "win.select-all");
+  gtk_button_set_label(GTK_BUTTON(select_button), _("Select All"));
 
   no_of_tracks_selected = 0;
 }
@@ -1718,11 +1724,14 @@ startup_cb (GApplication *app, gpointer user_data)
   track_listview        = GET_WIDGET ("track_listview");
   extract_button        = GET_WIDGET ("extract_button");
   play_button           = GET_WIDGET ("play_button");
+  select_button         = GET_WIDGET ("select_button");
   status_bar            = GET_WIDGET ("status_bar");
 
   g_action_map_add_action_entries (G_ACTION_MAP (main_window),
                                    win_entries, G_N_ELEMENTS (win_entries),
                                    NULL);
+  gtk_button_set_label(GTK_BUTTON(select_button), _("Select None"));
+  gtk_actionable_set_action_name(GTK_ACTIONABLE(select_button), "win.deselect-all");
   gtk_actionable_set_action_name(GTK_ACTIONABLE(play_button), "win.play");
 
   /* window actions are only available via shortcuts */
@@ -1756,6 +1765,28 @@ startup_cb (GApplication *app, gpointer user_data)
                               fake_button2);
 
     gtk_size_group_add_widget (size_group, play_button);
+    g_object_unref (G_OBJECT (size_group));
+  }
+
+  { /* ensure that the select/unselect button's size is constant */
+    GtkWidget *fake_button1, *fake_button2;
+    GtkSizeGroup *size_group;
+
+    size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
+
+    fake_button1 = gtk_button_new_with_label (_("Select All"));
+    gtk_size_group_add_widget (size_group, fake_button1);
+    g_signal_connect_swapped (select_button, "destroy",
+                              G_CALLBACK (gtk_widget_destroy),
+                              fake_button1);
+
+    fake_button2 = gtk_button_new_with_label (_("Select None"));
+    gtk_size_group_add_widget (size_group, fake_button2);
+    g_signal_connect_swapped (select_button, "destroy",
+                              G_CALLBACK (gtk_widget_destroy),
+                              fake_button2);
+
+    gtk_size_group_add_widget (size_group, select_button);
     g_object_unref (G_OBJECT (size_group));
   }
 
