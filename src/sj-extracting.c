@@ -862,6 +862,8 @@ sanitize_path (const char* str, const char* filesystem_type)
   gchar *res = NULL;
   gchar *s;
 
+  g_return_val_if_fail (str != NULL, NULL);
+
   /* Skip leading periods, otherwise files disappear... */
   while (*str == '.')
     str++;
