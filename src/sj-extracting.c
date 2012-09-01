@@ -971,8 +971,8 @@ lower_sanitize_sortname (const char *sortname, const char *name,
  * %tC -- track composer (lowercase)
  * %tp -- track composer (sortable)
  * %tP -- track composer (sortable lowercase)
- * %dn -- disc and track number (i.e Disk 2 - 6, or 6)
- * %dN -- disc number, zero padded (i.e d02t06, or 06)
+ * %dn -- disc and track number, track zero padded (i.e Disk 2 - 06, or 06)
+ * %dN -- condensed disc and track number, zero padded (i.e d02t06, or 06)
  */
 char*
 filepath_parse_pattern (const char* pattern, const TrackDetails *track)
@@ -1160,7 +1160,7 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
       case 'n':
         /* Disc and track number */
         if (track->album->disc_number > 0) {
-          char *s = g_strdup_printf ("Disc %d - %d", track->album->disc_number, track->number);
+          char *s = g_strdup_printf ("Disc %d - %02d", track->album->disc_number, track->number);
           string = sanitize_path (s, filesystem_type); /* strip spaces if required */
           g_free (s);
         } else {
