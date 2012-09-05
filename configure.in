@@ -65,10 +65,10 @@ AC_SUBST(GSTREAMER_CFLAGS)
 AC_SUBST(GSTREAMER_LIBS)
 
 # Find the GStreamer elements we use, and warn if they are not present.
-AM_GST_ELEMENT_CHECK(vorbisenc,,AC_MSG_WARN([The 'vorbisenc' element was not found. This will cause encoding to Ogg Vorbis to fail.]))
-AM_GST_ELEMENT_CHECK(flacenc,,AC_MSG_WARN([The 'flacenc' element was not found. This will cause encoding to FLAC to fail.]))
-AM_GST_ELEMENT_CHECK(wavenc,,AC_MSG_WARN([The 'wavenc' element was not found. This will cause encoding to Wave to fail.]))
-AM_GST_ELEMENT_CHECK(giosink,,AC_MSG_WARN([The 'giosink' element was not found. This will cause Sound Juicer to fail at runtime.]))
+GST_ELEMENT_CHECK(vorbisenc,1.0,,AC_MSG_WARN([The 'vorbisenc' element was not found. This will cause encoding to Ogg Vorbis to fail.]))
+GST_ELEMENT_CHECK(flacenc,1.0,,AC_MSG_WARN([The 'flacenc' element was not found. This will cause encoding to FLAC to fail.]))
+GST_ELEMENT_CHECK(wavenc,1.0,,AC_MSG_WARN([The 'wavenc' element was not found. This will cause encoding to Wave to fail.]))
+GST_ELEMENT_CHECK(giosink,1.0,,AC_MSG_WARN([The 'giosink' element was not found. This will cause Sound Juicer to fail at runtime.]))
 
 # MusicBrainz5
 PKG_CHECK_MODULES(MUSICBRAINZ5, libmusicbrainz5 >= 5.0.1 libdiscid, [have_mb5=yes], [have_mb5=no])
