@@ -1,689 +1,962 @@
 # Беларускі пераклад sound-juicer.
-# Беларуская translation of PACKAGE.
-# Copyright (C) 2003 Free Software Foundation, Inc.
 # Vital Khilko <dojlid@mova.org>, 2003.
 # Ales Nyakhaychyk <nab@mail.by>, 2003.
+# Ihar Hrachyshka <ihar.hrachyshka@gmail.com>, 2006, 2012.
 #
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: sound-juicer\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-20 19:22+0100\n"
-"PO-Revision-Date: 2006-12-21 02:43+0300\n"
+"Project-Id-Version: sound-juicer master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
+"juicer&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2012-09-06 18:41+0000\n"
+"PO-Revision-Date: 2012-10-08 09:36+0300\n"
 "Last-Translator: Ihar Hrachyshka <ihar.hrachyshka@gmail.com>\n"
-"Language-Team: Belarusian <i18n@mova.org>\n"
+"Language-Team: Belarusian <i18n-bel-gnome@googlegroups.com>\n"
+"Language: be\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../data/sound-juicer.desktop.in.in.h:1
-msgid "CD Extractor"
-msgstr "Выціскач CD"
+#: ../data/sound-juicer.desktop.in.in.h:1 ../data/sound-juicer.ui.h:1
+#: ../src/sj-main.c:143 ../src/sj-main.c:145 ../src/sj-main.c:2194
+msgid "Sound Juicer"
+msgstr "Гукавыціскалка"
 
 #: ../data/sound-juicer.desktop.in.in.h:2
-msgid "Extract music from your CDs"
-msgstr "Здабывае музыку з вашых музычных дыскаў"
+msgid "Audio CD Extractor"
+msgstr "Прылада капіравання аўдыядыскаў"
 
 #: ../data/sound-juicer.desktop.in.in.h:3
-msgid "Sound Juicer CD Extractor"
-msgstr "Sound Juicer выціскач дыскаў"
+msgid "Sound Juicer Audio CD Extractor"
+msgstr "Гукавыціскалка, прылада капіравання аўдыядыскаў"
 
-#: ../data/sound-juicer.glade.h:1
-msgid "<b>Device</b>"
-msgstr "<b>Прылада</b>"
+#: ../data/sound-juicer.desktop.in.in.h:4
+msgid "Copy music from your CDs"
+msgstr "Капіраванне музыкі з кампакт-дыскаў"
 
-#: ../data/sound-juicer.glade.h:2
-msgid "<b>Duration:</b>"
-msgstr "<b>Працягласьць:</b>"
+#: ../data/sound-juicer.schemas.in.h:1
+msgid "Whether to eject the CD when finished extracting."
+msgstr "Ці трэба вымаць кампакт-дыск пасля заканчэння капіравання."
 
-#: ../data/sound-juicer.glade.h:3
-msgid "<b>Format</b>"
-msgstr "<b>Фармат</b>"
+#: ../data/sound-juicer.schemas.in.h:2
+msgid "Whether to open the target directory when finished extracting."
+msgstr "Ці трэба адкрываць мэтавы каталог пасля заканчэння капіравання."
 
-#: ../data/sound-juicer.glade.h:4
-msgid "<b>Music Folder</b>"
-msgstr "<b>Тэчка з музыкай</b>"
+#: ../data/sound-juicer.schemas.in.h:3
+msgid "The directory structure for the files"
+msgstr "Структура каталогаў для файлаў"
 
-#: ../data/sound-juicer.glade.h:5
-msgid "<b>Track Names</b>"
-msgstr "<b>Назвы запісаў</b>"
+#: ../data/sound-juicer.schemas.in.h:5
+#, no-c-format
+msgid ""
+"%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
+"album artist (lowercase) %as -- album artist (sortable) %aS -- album artist "
+"(sortable lowercase) %ac -- album composer %aC -- album composer (lowercase) "
+"%ap -- album composer (sortable) %aP -- album composer (sortable lowercase) "
+"%ay -- album year %tt -- track title %tT -- track title (lowercase) %ta -- "
+"track artist %tA -- track artist (lowercase) %ts -- track artist (sortable) "
+"%tS -- track artist (sortable lowercase) %tc -- track composer %tC -- track "
+"composer (lowercase) %tp -- track composer (sortable) %tP -- track composer "
+"(sortable lowercase)"
+msgstr ""
 
-#: ../data/sound-juicer.glade.h:6
-msgid "<b>_Artist:</b>"
-msgstr "<b>_Выканаўца:</b>"
+#: ../data/sound-juicer.schemas.in.h:6
+msgid "The name pattern for files"
+msgstr "Шаблон назваў файлаў"
 
-#: ../data/sound-juicer.glade.h:7
-msgid "<b>_Genre:</b>"
-msgstr "<b>_Жанр:</b>"
+#: ../data/sound-juicer.schemas.in.h:8
+#, no-c-format
+msgid ""
+"Do not specify an extension. %at -- album title %aT -- album title "
+"(lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album "
+"artist (sortable) %aS -- album artist (sortable lowercase) %ac -- album "
+"composer %aC -- album composer (lowercase) %ap -- album composer (sortable) "
+"%aP -- album composer (sortable lowercase) %tn -- track number (i.e 8) %tN "
+"-- track number, zero padded (i.e 08) %tt -- track title %tT -- track title "
+"(lowercase) %ta -- track artist %tA -- track artist (lowercase) %ts -- track "
+"artist (sortable) %tS -- track artist (sortable lowercase) %tc -- track "
+"composer %tC -- track composer (lowercase) %tp -- track composer (sortable) "
+"%tP -- track composer (sortable lowercase) %dn -- disc and track number, "
+"track zero padded (i.e Disk 2 - 06, or 06) %dN -- condensed disc and track "
+"number, zero padded (i.e d02t06, or 06)"
+msgstr ""
 
-#: ../data/sound-juicer.glade.h:8
-msgid "<b>_Title:</b>"
-msgstr "<b>_Назва:</b>"
+#: ../data/sound-juicer.schemas.in.h:9
+msgid "The paranoia mode to use"
+msgstr "Патрэбны рэжым параноі"
 
-#: ../data/sound-juicer.glade.h:9
-msgid "CD _drive:"
-msgstr "Дыскавая прылада:"
+#: ../data/sound-juicer.schemas.in.h:10
+msgid ""
+"Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) "
+"full"
+msgstr ""
 
-#: ../data/sound-juicer.glade.h:10
-msgid "E_ject"
-msgstr "_Вызваліць"
+#: ../data/sound-juicer.schemas.in.h:11
+msgid "If to strip special characters from filenames"
+msgstr "Ці трэба прыбіраць спецыяльныя знакі з назваў файлаў"
 
-#: ../data/sound-juicer.glade.h:11
-msgid "Edit _Profiles..."
-msgstr "Рэдагаваньне _профіляў..."
+#: ../data/sound-juicer.schemas.in.h:12
+msgid ""
+"If enabled, special characters such as space, wildcards and backslashes will "
+"be removed from the output filename."
+msgstr ""
+"Калі ўключана, спецыяльныя знакі, напрыклад, прабелы, знакі падстаноўкі і адваротныя скосы, "
+"будуць выдаленыя з назваў выніковых файлаў."
 
-#: ../data/sound-juicer.glade.h:12
-msgid "File _name:"
-msgstr "_Назва файла:"
+#: ../data/sound-juicer.schemas.in.h:13
+msgid "The MusicBrainz server to use"
+msgstr "MusicBrainz-сервер"
 
-#: ../data/sound-juicer.glade.h:13
-msgid "Folder hie_rarchy:"
-msgstr "Гіе_рархія тэчак:"
+#: ../data/sound-juicer.schemas.in.h:14
+msgid "If specified, this value will override the default MusicBrainz server."
+msgstr "Калі гэты ключ мае значэнне, яно засланяе прадвызначаны MusicBrainz-сервер."
 
-#: ../data/sound-juicer.glade.h:14
+#: ../data/sound-juicer.schemas.in.h:15
+msgid "(obsolete) Audio Profile with which to encode"
+msgstr "(састарэлы ключ) Аўдыяпрофіль для кадавання"
+
+#: ../data/sound-juicer.schemas.in.h:16
+msgid ""
+"This key used to store the GNOME Audio Profile with which to encode. This "
+"has been superseded by GStreamer encoding profiles, which are configured "
+"using the audio_profile_media_type key."
+msgstr ""
+"Раней гэты ключ захоўваў аўдыяпрофіль GNOME для кадавання. Гэта настройка была "
+"заменена профілямі GStreamer, якія вызначаюцца з дапамогай ключа "
+"audio_profile_media_type."
+
+#: ../data/sound-juicer.schemas.in.h:17
+msgid "Media type to encode to"
+msgstr "Тып файлаў"
+
+#: ../data/sound-juicer.schemas.in.h:18
+msgid "The GStreamer media type to encode to."
+msgstr "Тып медыяданых GStreamer для кадавання."
+
+#: ../data/sound-juicer.schemas.in.h:19
+msgid "Audio volume"
+msgstr "Гучнасць"
+
+#: ../data/sound-juicer.ui.h:2
+msgid "_Year:"
+msgstr "_Год:"
+
+#: ../data/sound-juicer.ui.h:3
+msgid "Disc:"
+msgstr "Дыск:"
+
+#: ../data/sound-juicer.ui.h:4
+msgid "_Title:"
+msgstr "_Назва:"
+
+#: ../data/sound-juicer.ui.h:5
+msgid "_Artist:"
+msgstr "_Выканаўца:"
+
+#: ../data/sound-juicer.ui.h:6
+msgid "_Composer:"
+msgstr "_Кампазітар:"
+
+#: ../data/sound-juicer.ui.h:7
+msgid "_Genre:"
+msgstr "_Жанр:"
+
+#: ../data/sound-juicer.ui.h:8
+msgid "Duration:"
+msgstr "Працягласць:"
+
+#: ../data/sound-juicer.ui.h:9
+msgid "Tracks"
+msgstr "Трэкі"
+
+#: ../data/sound-juicer.ui.h:10
+msgid "Track Progress"
+msgstr "Бег аперацыі"
+
+#: ../data/sound-juicer.ui.h:11
 msgid "Multiple Albums Found"
-msgstr "Адшукана некалькі альбомаў"
+msgstr "Знойдзена некалькі альбомаў"
 
-#: ../data/sound-juicer.glade.h:15
-msgid "O_utput Format:"
-msgstr "Фармат _вываду:"
+#: ../data/sound-juicer.ui.h:12
+msgid ""
+"This CD could be more than one album. Please select which album it is below "
+"and press <i>Continue</i>."
+msgstr ""
+"Гэты дыск адпавядае некалькім альбомам. Калі ласка, выберыце адзін "
+"з магчымых альбомаў і націсніце <i>Працягнуць</i>."
 
-#: ../data/sound-juicer.glade.h:16
-msgid "Pre_vious Track"
-msgstr "Папя_рэдні запіс"
-
-#: ../data/sound-juicer.glade.h:17
-msgid "Preferences"
-msgstr "Перавагі"
-
-#: ../data/sound-juicer.glade.h:18
-msgid "Select A Folder"
-msgstr "Вылучыце тэчку"
-
-#: ../data/sound-juicer.glade.h:19
-msgid "Skip to the next track"
-msgstr "Пераход да наступнага запісу"
-
-#: ../data/sound-juicer.glade.h:20
-msgid "Skip to the previous track"
-msgstr "Пераход да папярэдняга запісу"
-
-#: ../data/sound-juicer.glade.h:21
-#: ../src/sj-main.c:167
-#: ../src/sj-main.c:169
-#: ../src/sj-main.c:1328
-msgid "Sound Juicer"
-msgstr "Саўнд джуйсэр"
-
-#: ../data/sound-juicer.glade.h:22
-msgid "This CD could be more than one album. Please select which album it is below and press <i>Continue</i>."
-msgstr "Дыскі могуць утрымліваць больш чым адзін альбом. Калі ласка, абярыце які гэта альбом з прапанаваных ніжэй і націсьніце <i>Працягваць</i>."
-
-#: ../data/sound-juicer.glade.h:23
-msgid "_Contents"
-msgstr "_Зьмест"
-
-#: ../data/sound-juicer.glade.h:24
-#: ../src/sj-main.c:267
+#: ../data/sound-juicer.ui.h:13 ../src/sj-main.c:227
 msgid "_Continue"
 msgstr "_Працягнуць"
 
-#: ../data/sound-juicer.glade.h:25
-msgid "_Deselect All"
-msgstr "_Развылучыць усё"
+#: ../data/sound-juicer.ui.h:14 ../data/sound-juicer-menu.ui.h:6
+msgid "Preferences"
+msgstr "Настройкі"
 
-#: ../data/sound-juicer.glade.h:26
-msgid "_Disc"
-msgstr "_Дыск"
+#: ../data/sound-juicer.ui.h:15
+msgid "Device"
+msgstr "Прыстасаванне"
 
-#: ../data/sound-juicer.glade.h:27
-msgid "_Edit"
-msgstr "_Рэдагаваньне"
+#: ../data/sound-juicer.ui.h:16
+msgid "CD _drive:"
+msgstr "CD-_прыстасаванне:"
 
-#: ../data/sound-juicer.glade.h:28
-msgid "_Eject when finished"
-msgstr "Выз_валіць пасьля адпрацоўкі"
+#: ../data/sound-juicer.ui.h:17
+msgid "_Eject after extracting tracks"
+msgstr "_Выняць дыск пасля капіравання трэкаў"
 
-#: ../data/sound-juicer.glade.h:29
+#: ../data/sound-juicer.ui.h:18
+msgid "_Open music folder when finished"
+msgstr "_Адкрыць папку музыкі пасля заканчэння"
+
+#: ../data/sound-juicer.ui.h:19
+msgid "Music Folder"
+msgstr "Папка музыкі"
+
+#: ../data/sound-juicer.ui.h:20
 msgid "_Folder:"
-msgstr "_Тэчка:"
+msgstr "_Папка:"
 
-#: ../data/sound-juicer.glade.h:30
-msgid "_Help"
-msgstr "_Даведка"
+#: ../data/sound-juicer.ui.h:21
+msgid "Select A Folder"
+msgstr "Выбраць папку"
 
-#: ../data/sound-juicer.glade.h:31
-msgid "_Next Track"
-msgstr "_Наступны запіс"
+#: ../data/sound-juicer.ui.h:22
+msgid "Track Names"
+msgstr "Назвы трэкаў"
 
-#: ../data/sound-juicer.glade.h:32
-msgid "_Play / Pause"
-msgstr "_Граць / Прыпыніць"
+#: ../data/sound-juicer.ui.h:23
+msgid "Folder hie_rarchy:"
+msgstr "І_ерархія папак:"
 
-#: ../data/sound-juicer.glade.h:33
-msgid "_Re-read Disc"
-msgstr "Пера_чытаць дыск"
+#: ../data/sound-juicer.ui.h:24
+msgid "File _name:"
+msgstr "_Назва файла:"
 
-#: ../data/sound-juicer.glade.h:34
-msgid "_Select All"
-msgstr "Вылучыць _усё"
-
-#: ../data/sound-juicer.glade.h:35
+#: ../data/sound-juicer.ui.h:25
 msgid "_Strip special characters"
-msgstr "Вы_разаць адмысловыя знакі"
+msgstr "Пры_браць спецыяльныя знакі"
 
-#: ../data/sound-juicer.glade.h:36
-msgid "_Submit Track Names..."
-msgstr "Да_слаць назвы запісаў..."
+#: ../data/sound-juicer.ui.h:26
+msgid "Format"
+msgstr "Фармат"
 
-#: ../data/sound-juicer.schemas.in.h:2
-#, no-c-format
-msgid "%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album artist (sortable) %aS -- album artist (sortable lowercase) %tt -- track title %tT -- track title (lowercase) %ta -- track artist %tA -- track artist (lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable lowercase)"
-msgstr "%at -- альбом %aT -- альбом (ніжні рэгістар) %aa -- выканаўца альбому %aA -- выканаўца альбому (ніжні рэгістар) %as -- выканаўца альбому (для парадкаваньня) %aS -- выканаўца альбому (парадкаваны, ніжні рэгістар) %tt -- песьня %tT -- песьня (ніжні рэгістар) %ta -- выканаўца песьні %tA -- выканаўца песьні (ніжні рэгістар) %ts -- выканаўца песьні (для парадкаваньня) %tS -- выканаўца песьні (парадкаваны, ніжні рэгістар)"
+#: ../data/sound-juicer.ui.h:27
+msgid "O_utput Format:"
+msgstr "Фармат _вываду:"
 
-#: ../data/sound-juicer.schemas.in.h:3
-msgid "Audio Profile with which to encode"
-msgstr "Аўдыё профіль для кадаваньня"
+#: ../data/sound-juicer-menu.ui.h:1
+msgid "Disc"
+msgstr "Дыск"
 
-#: ../data/sound-juicer.schemas.in.h:4
-msgid "Audio volume"
-msgstr "Гучнасьць"
+#: ../data/sound-juicer-menu.ui.h:2
+msgid "Re-read"
+msgstr "Перачытаць"
 
-#: ../data/sound-juicer.schemas.in.h:6
-#, no-c-format
-msgid "Do not specify an extension. %at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album artist (sortable) %aS -- album artist (sortable lowercase) %tn -- track number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %tT -- track title (lowercase) %ta -- track artist %tA -- track artist (lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable lowercase)"
-msgstr "Не вызначыць пашырэньне. %at -- альбом %aT -- альбом (ніжні рэгістар) %aa -- выканаўца альбому %aA -- выканаўца альбому (ніжні рэгістар) %as -- выканаўца альбому (для парадкаваньня) %aS -- выканаўца альбому (парадкаваны, ніжні рэгістар) %tt -- песьня %tT -- песьня (ніжні рэгістар) %ta -- выканаўца песьні %tA -- выканаўца песьні (ніжні рэгістар) %ts -- выканаўца песьні (для парадкаваньня) %tS -- выканаўца песьні (парадкаваны, ніжні рэгістар)"
+#: ../data/sound-juicer-menu.ui.h:3
+msgid "Duplicate"
+msgstr "Зрабіць дублікат"
 
-#: ../data/sound-juicer.schemas.in.h:7
-msgid "If enabled, special characters such as space, wildcards and backslashes will be removed from the output filename."
-msgstr "Калі ўключана, адмысловыя знакі такія, як прагалы, шаблёны й адваротныя скрывы будуць выдалены з назваў файлаў вываду."
+#: ../data/sound-juicer-menu.ui.h:4
+msgid "Eject"
+msgstr "Выняць дыск"
 
-#: ../data/sound-juicer.schemas.in.h:8
-msgid "If specified, this value will override the default MusicBrainz server."
-msgstr "Калі зададзена, гэтае значэньне перакрывае прадвызначаны MusicBrainz паслужнік."
+#: ../data/sound-juicer-menu.ui.h:5
+msgid "Submit Track Names"
+msgstr "Паслаць назвы трэкаў"
 
-#: ../data/sound-juicer.schemas.in.h:9
-msgid "If to strip special characters from filenames"
-msgstr "Ці выразаць адмысловыя знакі з назваў файлаў"
+#: ../data/sound-juicer-menu.ui.h:7
+msgid "About Sound Juicer"
+msgstr "Аб Гукавыціскалцы"
 
-#: ../data/sound-juicer.schemas.in.h:10
-msgid "Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) full"
-msgstr "Рэжым Paranoia: 0) выключаны 2) фрагмэнты 4) перакрыцьцё 8) драпіны 16) аднаўленьне 255) поўны"
+#: ../data/sound-juicer-menu.ui.h:8
+msgid "Help"
+msgstr "Дапамога"
 
-#: ../data/sound-juicer.schemas.in.h:11
-msgid "The GNOME Audio Profile with which to encode."
-msgstr "Аўдыё профіль GNOME зь якім кадаваць музыку."
+#: ../data/sound-juicer-menu.ui.h:9
+msgid "Quit"
+msgstr "Выйсці"
 
-#: ../data/sound-juicer.schemas.in.h:12
-msgid "The MusicBrainz server to use"
-msgstr "Паслужнік MusicBrainz для выкарыстаньня"
-
-#: ../data/sound-juicer.schemas.in.h:13
-msgid "The directory structure for the files"
-msgstr "Дрэва тэчак для гэтых файлаў"
-
-#: ../data/sound-juicer.schemas.in.h:14
-msgid "The name pattern for files"
-msgstr "Шаблён назвы для гэтых файлаў"
-
-#: ../data/sound-juicer.schemas.in.h:15
-msgid "The paranoia mode to use"
-msgstr "Рэжым paranoia для выкарыстаньня"
-
-#: ../data/sound-juicer.schemas.in.h:16
-msgid "Whether to eject the CD when finished extracting."
-msgstr "Ці вызваляць дыск па заканчэньні здабычы музыкі."
-
-#: ../libjuicer/sj-extractor.c:103
+#: ../libjuicer/sj-extractor.c:193
 msgid "Audio Profile"
-msgstr "Аўдыё профіль"
+msgstr "Аўдыяпрофіль"
 
-#: ../libjuicer/sj-extractor.c:104
-msgid "The GNOME Audio Profile used for encoding audio"
-msgstr "Аўдыё профіль GNOME ўжываецца для кадаваньня аўдыё"
+#: ../libjuicer/sj-extractor.c:194
+msgid "The GStreamer Encoding Profile used for encoding audio"
+msgstr "Профіль GStreamer для аўдыякадавання"
 
-#: ../libjuicer/sj-extractor.c:278
+#: ../libjuicer/sj-extractor.c:199
+msgid "Paranoia Level"
+msgstr "Узровень параноі"
+
+#: ../libjuicer/sj-extractor.c:200
+msgid "The paranoia level"
+msgstr "Узровень параноі"
+
+#: ../libjuicer/sj-extractor.c:205
+msgid "device"
+msgstr "прыстасаванне"
+
+#: ../libjuicer/sj-extractor.c:206
+msgid "The device"
+msgstr "Прыстасаванне"
+
+#: ../libjuicer/sj-extractor.c:348
+#, c-format
 msgid "Could not create GStreamer CD reader"
-msgstr "Немагчыма стварыць чытача GStreamer"
+msgstr "Не ўдалося стварыць GStreamer-модуль чытальніка кампакт-дыскаў"
 
-#: ../libjuicer/sj-extractor.c:298
+#: ../libjuicer/sj-extractor.c:366
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
-msgstr "Немагчыма стварыць GStreamer кадавальнік для %s"
+msgstr "Не ўдалося стварыць GStreamer-кадавальнікі для %s"
 
-#: ../libjuicer/sj-extractor.c:309
+#: ../libjuicer/sj-extractor.c:378
+#, c-format
 msgid "Could not create GStreamer file output"
-msgstr "Немагчыма стварыць GStreamer файл вываду"
+msgstr "Не ўдалося стварыць файл вываду GStreamer"
 
-#: ../libjuicer/sj-extractor.c:321
+#: ../libjuicer/sj-extractor.c:392
+#, c-format
 msgid "Could not link pipeline"
-msgstr "Немагчыма злучыць трубаправоды"
+msgstr "Не ўдалося спалучыць канвеер"
 
-#: ../libjuicer/sj-extractor.c:344
+#: ../libjuicer/sj-extractor.c:415
 msgid "Could not get current track position"
-msgstr "Немагыма атрымаць бягучае становішча фанаграмы"
+msgstr "Не ўдалося атрымаць бягучае становішча трэка"
 
-#: ../libjuicer/sj-extractor.c:371
-msgid "Extractor object is not valid. This is bad, check your console for errors."
-msgstr "Нерэчаісны аб'ект здабывальніка. Гэта вельмі дрэнна; праверце кансоль на наяўнасьць памылак."
+#: ../libjuicer/sj-extractor.c:444
+#, c-format
+msgid ""
+"Extractor object is not valid. This is bad, check your console for errors."
+msgstr ""
+"Хібны аб'ект капіравання. Гэта вельмі кепскі знак, праверце, ці няма якіх-"
+"небудзь памылак у кансолі."
 
-#: ../libjuicer/sj-extractor.c:563
+#: ../libjuicer/sj-extractor.c:681
+#, c-format
 msgid "The plugin necessary for CD access was not found"
-msgstr "Утулка, неабходная для доступу да дыска не была адшуканая"
+msgstr "Плугін, патрэбны для доступу да кампакт-дыскаў, не знойдзены"
 
-#: ../libjuicer/sj-extractor.c:571
+#: ../libjuicer/sj-extractor.c:689
+#, c-format
 msgid "The plugin necessary for file access was not found"
-msgstr "Утулка, неабходная для доступу да файла не была адшуканая"
+msgstr "Плугін, патрэбны для доступу да файлаў, не знойдзены"
 
-#: ../libjuicer/sj-metadata-cdtext.c:127
-msgid "CD-TEXT metadata plugin failed to initialise."
-msgstr "Немагчыма ініцыялізаваць утулку мэта даньняў CD-TEXT."
-
-#: ../libjuicer/sj-metadata-cdtext.c:178
-msgid "Cannot read CD"
-msgstr "Немагчыма прачытаць дыск"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:102
-msgid "Cannot create MusicBrainz client"
-msgstr "Немагчыма стварыць кліента MusicBrainz"
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:227
-#: ../libjuicer/sj-metadata-musicbrainz.c:510
+#. FIXME: would be nicer to only check if "cdrom" is being probed,
+#. * but libbrasero doesn't seem to have an API for that
+#.
+#: ../libjuicer/sj-metadata.c:182 ../libjuicer/sj-metadata.c:205
+#: ../libjuicer/sj-metadata.c:216
 #, c-format
 msgid "Cannot read CD: %s"
-msgstr "Немагчыма прачытаць дыск: %s"
+msgstr "Не ўдалося прачытаць кампакт-дыск: %s"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:234
-#: ../libjuicer/sj-metadata-musicbrainz.c:548
-msgid "Unknown Artist"
-msgstr "Невядомы выканаўца"
+#: ../libjuicer/sj-metadata.c:183
+msgid "Devices haven't been all probed yet"
+msgstr "Яшчэ не ўсе прыстасаванні былі апытаныя"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:235
-#: ../libjuicer/sj-metadata-musicbrainz.c:559
+#: ../libjuicer/sj-metadata.c:199
+#, c-format
+msgid "Device '%s' does not contain any media"
+msgstr "Прыстасаванне \"%s\" не змяшчае носьбіт даных"
+
+#: ../libjuicer/sj-metadata.c:202
+#, c-format
+msgid ""
+"Device '%s' could not be opened. Check the access permissions on the device."
+msgstr "Не ўдалося адкрыць прыстасаванне \"%s\". Праверце, ці ёсць дазвол на "
+"доступ да гэтага прыстасавання."
+
+#: ../libjuicer/sj-metadata-gvfs.c:90
+#, c-format
+msgid "Cannot access CD"
+msgstr "Не ўдалося атрымаць доступ да кампакт-дыска"
+
+#: ../libjuicer/sj-metadata-gvfs.c:109 ../src/egg-play-preview.c:463
 msgid "Unknown Title"
 msgstr "Невядомая назва"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:241
+#: ../libjuicer/sj-metadata-gvfs.c:113 ../libjuicer/sj-metadata-gvfs.c:139
+#: ../src/egg-play-preview.c:468 ../src/sj-extracting.c:986
+msgid "Unknown Artist"
+msgstr "Невядомы выканаўца"
+
+#: ../libjuicer/sj-metadata-gvfs.c:135
 #, c-format
 msgid "Track %d"
-msgstr "Фанаграма %d"
+msgstr "Трэк %d"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:269
-msgid "MusicBrainz metadata object is not valid. This is bad, check your console for errors."
-msgstr "Нерэчаісныя мэтаданьні MusicBrainz. Гэта вельмі дрэнна; праверце кансоль на наяўнасьць памылак."
-
-#: ../libjuicer/sj-metadata-musicbrainz.c:436
-#: ../libjuicer/sj-metadata-musicbrainz.c:443
-#: ../libjuicer/sj-metadata-musicbrainz.c:457
+#: ../libjuicer/sj-metadata-gvfs.c:160
 #, c-format
-msgid "This CD could not be queried: %s\n"
-msgstr "Гэты дыск ня можа быць запытаны:·%s\n"
+msgid "Cannot access CD: %s"
+msgstr "Не ўдалося атрымаць доступ да кампакт-дыска: %s"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:504
-#, c-format
-msgid "Device '%s' does not contain any media"
-msgstr "Прылада '%s' ня ўтрымлівае носьбіт"
+#: ../src/egg-play-preview.c:169
+msgid "URI"
+msgstr "URI-адрас"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:507
-#, c-format
-msgid "Device '%s' could not be opened. Check the access permissions on the device."
-msgstr "Немагчыма адкрыць прыладу '%s'. Праверце правы доступу."
+#: ../src/egg-play-preview.c:170
+msgid "The URI of the audio file"
+msgstr "URI-адрас аўдыяфайла"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:543
-msgid "Various"
-msgstr "Разнастайны"
+#: ../src/egg-play-preview.c:179 ../src/sj-main.c:810 ../src/sj-main.c:2011
+msgid "Title"
+msgstr "Назва"
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:584
-msgid "Incomplete metadata for this CD"
-msgstr "Ня поўныя мэта-даньні для гэтага дыска"
+#: ../src/egg-play-preview.c:180
+msgid "The title of the current stream."
+msgstr "Назва бягучага струменя."
 
-#: ../libjuicer/sj-metadata-musicbrainz.c:675
-msgid "Could not create CD lookup thread"
-msgstr "Немагчыма стварыць ніць пошуку дыска"
+#: ../src/egg-play-preview.c:189 ../src/sj-main.c:816 ../src/sj-main.c:2020
+msgid "Artist"
+msgstr "Выканаўца"
 
-#: ../src/bacon-volume.c:181
-msgid "Volume"
-msgstr "Гучнасьць"
+#: ../src/egg-play-preview.c:190
+msgid "The artist of the current stream."
+msgstr "Выканаўца бягучага струменя."
 
-#. +
-#: ../src/bacon-volume.c:214
-msgid "+"
-msgstr "+"
+#: ../src/egg-play-preview.c:199
+msgid "Album"
+msgstr "Альбом"
 
-#: ../src/bacon-volume.c:216
-msgid "Volume Down"
-msgstr "Паменшыць гучнасьць"
+#: ../src/egg-play-preview.c:200
+msgid "The album of the current stream."
+msgstr "Альбом бягучага струменя."
 
-#. -
-#: ../src/bacon-volume.c:232
-msgid "-"
-msgstr "-"
+#: ../src/egg-play-preview.c:209
+msgid "Position"
+msgstr "Становішча"
 
-#: ../src/bacon-volume.c:234
-msgid "Volume Up"
-msgstr "Павялічыць гучнасьць"
+#: ../src/egg-play-preview.c:210
+msgid "The position in the current stream in seconds."
+msgstr "Становішча ў бягучым струмені, сек."
 
-#: ../src/gconf-bridge.c:1218
+#: ../src/egg-play-preview.c:219 ../src/sj-main.c:2044
+msgid "Duration"
+msgstr "Працягласць"
+
+#: ../src/egg-play-preview.c:220
+msgid "The duration of the current stream in seconds."
+msgstr "Працягласць бягучага струменя, сек."
+
+#: ../src/egg-play-preview.c:469 ../src/sj-extracting.c:985
+msgid "Unknown Album"
+msgstr "Невядомы альбом"
+
+#: ../src/gconf-bridge.c:1220
 #, c-format
 msgid "GConf error: %s"
 msgstr "Памылка GConf: %s"
 
-#: ../src/gconf-bridge.c:1228
+#: ../src/gconf-bridge.c:1225
 msgid "All further errors shown only on terminal."
-msgstr "Усе далейшыя памылкі будуць бачныя толькін на тэрмінале."
-
-#: ../src/sj-about.c:48
-msgid "Sound Juicer is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
-msgstr "Sound Juicer - гэта свабодная праграма; Вы можаце распаўсюджваць яе і/ці зьмяняць згодна з умовамі Агульнай Грамадзкай Ліцэнзіі GNU, апублікаванай Фондам Свабодных Праграмаў; альбо вэрсіі 2 гэтай Ліцэнзіі, альбо (на Ваш выбар) любой пазьнейшай вэрсіі."
+msgstr "Усе наступныя памылкі будуць паказаныя толькі ў тэрмінале."
 
 #: ../src/sj-about.c:52
-msgid "Sound Juicer is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details."
-msgstr "Sound Juicer распаўсюджваецца з надзеяй на тое, што яна будзе карыснай, але БЕЗ АНІЯКАЙ ГАРАНТЫІ; нават без гарантыі яе карыснасці альбо прыдатнасці для выкарыстання для нейкіх заданьняў.  Глядзіце Агульную Грамадзкую Ліцэнзію GNU для падрабязьнейшых зьвестак."
+msgid ""
+"Sound Juicer is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version."
+msgstr ""
+"Гукавыціскалка з'яўляецца свабодным апраграмаваннем. Вы можаце распаўсюджваць яе згодна з умовамі Агульнай Грамадскай Ліцэнзіі GNU (GPL), апублікаванай Фондам свабоднага апраграмавання, версіі 2 ці любой пазнейшай."
 
 #: ../src/sj-about.c:56
-msgid "You should have received a copy of the GNU General Public License along with Sound Juicer; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA"
-msgstr "Вы павінны былі атрымаць копію Агульнай Грамадзкай Ліцэнзіі GNU разам з Sound Juicer; калі не, напішыце пра гэта ў Фонд Свабодных Праграмаў, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA"
+msgid ""
+"Sound Juicer is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details."
+msgstr ""
+"Гукавыціскалка распаўсюджваецца з надзеяй, што яна будзе карыснай, але без ніякіх гарантый, у тым ліку камерцыйнай вартасці праграмы і наогул яе карысці. Падрабязней глядзіце ў тэксце Агульнай Грамадскай Ліцэнзіі GNU (GPL)."
 
-#: ../src/sj-about.c:67
+#: ../src/sj-about.c:60
+msgid ""
+"You should have received a copy of the GNU General Public License along with "
+"Sound Juicer; if not, write to the Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
+msgstr ""
+"Вы павінны былі атрымаць копію Агульнай Грамадскай Ліцэнзіі GNU (GPL) разам з Гукавыціскалкай. Калі вы не атрымалі яе, паведаміце пра гэта Фонду свабоднага апраграмавання на адрас: the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
+
+#: ../src/sj-about.c:71
 msgid "An Audio CD Extractor"
-msgstr "Здабывач музыкі з дыскаў"
+msgstr "Прылада для капіравання гукавых кампакт-дыскаў"
 
 #.
 #. * Note to translators: put here your name and email so it will show
 #. * up in the "about" box
 #.
-#: ../src/sj-about.c:77
+#: ../src/sj-about.c:81
 msgid "translator-credits"
 msgstr ""
 "Алесь Няхайчык <nab@mail.by>\n"
-"Віталь Хілько <dojlid@mova.org>"
+"Віталь Хілько <dojlid@mova.org>\n"
+"Ігар Грачышка <ihar.hrachyshka@gmail.com>"
 
-#: ../src/sj-extracting.c:214
+#: ../src/sj-extracting.c:150
+#, c-format
+msgid "Failed to get output format"
+msgstr "Не ўдалося вызначыць фармат вываду"
+
+#: ../src/sj-extracting.c:175
+msgid "Name too long"
+msgstr "Надта доўгая назва"
+
+#. TODO: find out why GTK+ needs this to work (see #364371)
+#: ../src/sj-extracting.c:234
+msgid "Extract"
+msgstr "Скапіраваць"
+
+#: ../src/sj-extracting.c:315
+msgid "A file with the same name exists"
+msgstr "Файл з такой назвай ужо існуе"
+
+#: ../src/sj-extracting.c:317
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
 "Do you want to skip this track or overwrite it?"
 msgstr ""
-"Файл пад назвай \"%s\" ужо йснуе, і мае памер %s.\n"
-"Жадаеце прапусьціць гэтую фанаграму ці перазапісаць?"
+"Файл з назвай \"%s\" ужо існуе і мае памер %s.\n"
+"Ці трэба прапусціць гэты трэк або запісаць яго замест існуючага файла?"
 
-#: ../src/sj-extracting.c:218
+#: ../src/sj-extracting.c:327
 msgid "_Skip"
-msgstr "_Прапусьціць"
+msgstr "_Прапусціць"
 
-#: ../src/sj-extracting.c:219
+#: ../src/sj-extracting.c:328
+msgid "S_kip All"
+msgstr "Пр_апусціць усё"
+
+#: ../src/sj-extracting.c:329
 msgid "_Overwrite"
-msgstr "_Перапісаць"
+msgstr "П_ерапісаць"
 
-#. Display a nice dialog
-#: ../src/sj-extracting.c:281
-#: ../src/sj-extracting.c:316
-#: ../src/sj-extracting.c:525
+#: ../src/sj-extracting.c:330
+msgid "Overwrite _All"
+msgstr "Перапі_саць усё"
+
+#: ../src/sj-extracting.c:379
 #, c-format
-msgid ""
-"Sound Juicer could not extract this CD.\n"
-"Reason: %s"
-msgstr ""
-"Sound Juicer ня можа здабыць гэты дыск.\n"
-"Прычына: %s"
+msgid "Failed to create output directory: %s"
+msgstr "Не ўдалося стварыць каталог для вываду: %s"
 
-#: ../src/sj-extracting.c:366
+#: ../src/sj-extracting.c:519
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
-msgstr "Засталося часу: %d:%02d (хуткасьць: %0.1f×)"
+msgstr "Засталося часу: %d:%02d (хуткасць: %0.1f×)"
 
-#: ../src/sj-extracting.c:368
+#: ../src/sj-extracting.c:521
 msgid "Estimated time left: unknown"
 msgstr "Застаўшыся час: невядома"
 
-#. TODO: need to have a better message here
-#: ../src/sj-extracting.c:463
-msgid "The tracks have been copied successfully."
-msgstr "Запісы былі пасьпяхова скапіяваны."
+#: ../src/sj-extracting.c:611
+msgid "CD rip complete"
+msgstr "Капіраванне кампакт-дыска закончана"
 
-#: ../src/sj-extracting.c:468
-msgid "_Eject"
-msgstr "_Вызваліць"
+#: ../src/sj-extracting.c:703
+msgid "Sound Juicer could not extract this CD."
+msgstr ""
+"Гукавыціскалка не здолела скапіраваць гэты кампакт-дыск."
 
-#: ../src/sj-main.c:144
-msgid "E_xtract"
-msgstr "Зда_быць"
-
-#: ../src/sj-main.c:218
-msgid "Could not start Sound Juicer"
-msgstr "Немагчыма запусьціць Sound Juicer"
-
-#: ../src/sj-main.c:219
-#: ../src/sj-main.c:638
-#: ../src/sj-main.c:747
-#: ../src/sj-main.c:842
-#: ../src/sj-main.c:1049
+#: ../src/sj-extracting.c:705 ../src/sj-main.c:189 ../src/sj-main.c:472
+#: ../src/sj-main.c:510 ../src/sj-main.c:1006 ../src/sj-main.c:1129
+#: ../src/sj-main.c:1228
 msgid "Reason"
 msgstr "Прычына"
 
-#: ../src/sj-main.c:221
+#. Change the label to Stop while extracting
+#. TODO: find out why GTK+ needs this to work (see #364371)
+#: ../src/sj-extracting.c:796
+msgid "Stop"
+msgstr "Спыніць"
+
+#: ../src/sj-extracting.c:825 ../src/sj-extracting.c:831
+msgid "Extracting audio from CD"
+msgstr "Капіраванне гуку з кампакт-дыска"
+
+#: ../src/sj-extracting.c:987
+msgid "Unknown Composer"
+msgstr "Невядомы кампазітар"
+
+#: ../src/sj-extracting.c:988
+msgid "Unknown Track"
+msgstr "Невядомы трэк"
+
+#: ../src/sj-genres.c:34
+msgid "Ambient"
+msgstr "Эмбіент"
+
+#: ../src/sj-genres.c:35
+msgid "Blues"
+msgstr "Блюз"
+
+#: ../src/sj-genres.c:36 ../src/sj-main.c:571
+msgid "Classical"
+msgstr "Класіка"
+
+#: ../src/sj-genres.c:37
+msgid "Country"
+msgstr "Кантры"
+
+#: ../src/sj-genres.c:38
+msgid "Dance"
+msgstr "Дэнс"
+
+#: ../src/sj-genres.c:39
+msgid "Electronica"
+msgstr "Электроніка"
+
+#: ../src/sj-genres.c:40
+msgid "Folk"
+msgstr "Фолк"
+
+#: ../src/sj-genres.c:41
+msgid "Funk"
+msgstr "Фанк"
+
+#: ../src/sj-genres.c:42
+msgid "Jazz"
+msgstr "Джаз"
+
+#: ../src/sj-genres.c:43
+msgid "Latin"
+msgstr "Лаціна"
+
+#: ../src/sj-genres.c:44
+msgid "Pop"
+msgstr "Поп"
+
+#: ../src/sj-genres.c:45
+msgid "Rap"
+msgstr "Рэп"
+
+#: ../src/sj-genres.c:46
+msgid "Reggae"
+msgstr "Рэгі"
+
+#: ../src/sj-genres.c:47
+msgid "Rock"
+msgstr "Рок"
+
+#: ../src/sj-genres.c:48
+msgid "Soul"
+msgstr "Соўл"
+
+#: ../src/sj-genres.c:49
+msgid "Spoken Word"
+msgstr "Чытанне"
+
+#: ../src/sj-genres.c:189
+#, c-format
+msgid "Error while saving custom genre: %s"
+msgstr "Памылка падчас захавання ўласнага жанру: %s"
+
+#: ../src/sj-main.c:122
+msgid "E_xtract"
+msgstr "С_капіраваць"
+
+#: ../src/sj-main.c:188
+msgid "Could not start Sound Juicer"
+msgstr "Не ўдалося запусціць Гукавыціскалку"
+
+#: ../src/sj-main.c:191
 msgid "Please consult the documentation for assistance."
-msgstr "Калі ласка, зазірніце ў дакумэнтацыю па тлумачэньні."
+msgstr "Зазірніце ў дакументацыю па тлумачэнні."
 
-#: ../src/sj-main.c:265
+#: ../src/sj-main.c:225
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
-msgstr "У бягучы момант вы здабываеце запісы з дыска. Вы жадаеце выйсьці зараз ці працягнуць?"
+msgstr ""
+"Зараз адбываецца капіраванне кампакт-дыска. Сапраўды хочаце выйсці з праграмы, або ўсё-такі працягнуць бягучую аперацыю?"
 
-#: ../src/sj-main.c:325
-#: ../src/sj-main.c:432
+#: ../src/sj-main.c:273 ../src/sj-main.c:1915 ../src/sj-main.c:1965
+msgid "Select None"
+msgstr "Зняць вылучэнне"
+
+#: ../src/sj-main.c:287 ../src/sj-main.c:1959
+msgid "Select All"
+msgstr "Вылучыць усё"
+
+#: ../src/sj-main.c:308 ../src/sj-main.c:732
 msgid "(unknown)"
 msgstr "(невядома)"
 
-#: ../src/sj-main.c:474
-#: ../src/sj-main.c:1475
-msgid "Title"
-msgstr "Назва"
+#: ../src/sj-main.c:436
+msgid "S_ubmit Album"
+msgstr "_Паслаць звесткі аб альбоме"
 
-#: ../src/sj-main.c:480
-#: ../src/sj-main.c:1484
-msgid "Artist"
-msgstr "Выканаўца"
-
-#: ../src/sj-main.c:636
-#: ../src/sj-main.c:745
-#: ../src/sj-main.c:840
-msgid "Could not read the CD"
-msgstr "Немагчыма прачытаць дыск"
-
-#: ../src/sj-main.c:637
-#: ../src/sj-main.c:746
-msgid "Sound Juicer could not read the track listing on this CD."
-msgstr "Sound Juicer ня можа прачытаць сьпіс фанаграмаў гэтага дыска."
-
-#. Set statusbar message
-#: ../src/sj-main.c:717
-msgid "Retrieving track listing...please wait."
-msgstr "Выцягваньне сьпісу фанаграмаў... калі ласка, пачакайце..."
-
-#: ../src/sj-main.c:814
-msgid "Extracting audio from CD"
-msgstr "Здабывае музыку з музычных дыскаў"
-
-#: ../src/sj-main.c:834
+#. Translators: title, artist
+#: ../src/sj-main.c:441
 #, c-format
-msgid "Sound Juicer could not access the CD-ROM device '%s'"
-msgstr "Sound Juicer ня можа атрымаць доступ да прылады CD-ROM \"%s\""
+msgid "Could not find %s by %s on MusicBrainz."
+msgstr "Не ўдалося адшукаць %s (%s) на MusicBrainz."
 
-#: ../src/sj-main.c:927
-msgid "No CD-ROM drives found"
-msgstr "Не адшуканы прылады CD-ROM"
+#: ../src/sj-main.c:446
+msgid "You can improve the MusicBrainz database by adding this album."
+msgstr "Вы можаце ўдасканаліць базу даных MusicBrainz, дадаўшы туды звесткі аб гэтым альбоме."
 
-#: ../src/sj-main.c:928
-msgid "Sound Juicer could not find any CD-ROM drives to read."
-msgstr "Sound Juicer ня можа адшукаць прыладу CD-ROM."
-
-#: ../src/sj-main.c:959
-msgid "The currently selected audio profile is not available on your installation."
-msgstr "Вылучаны аўдыёпрофіль недаступны з вашай усталёўкай."
-
-#: ../src/sj-main.c:961
-msgid "_Change Profile"
-msgstr "_Зьмяніць профіль"
-
-#: ../src/sj-main.c:1047
+#: ../src/sj-main.c:470
 msgid "Could not open URL"
-msgstr "Немагчыма адчыніць URL"
+msgstr "Не ўдалося адкрыць URL-адрас"
 
-#: ../src/sj-main.c:1048
+#: ../src/sj-main.c:471
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer ня можа адчыніць URL куды трэба даслаць даньні"
 
-#: ../src/sj-main.c:1157
+#: ../src/sj-main.c:508
+msgid "Could not duplicate disc"
+msgstr "Не ўдалося стварыць дублікат дыска"
+
+#: ../src/sj-main.c:509
+msgid "Sound Juicer could not duplicate the disc"
+msgstr "Гукавыціскалка не здолела зрабіць дублікат дыска"
+
+#: ../src/sj-main.c:571
+msgid "Lieder"
+msgstr "Рамансы"
+
+#: ../src/sj-main.c:571
+msgid "Opera"
+msgstr "Опера"
+
+#: ../src/sj-main.c:571
+msgid "Chamber"
+msgstr "Камерная музыка"
+
+#: ../src/sj-main.c:571
+msgid "Musical"
+msgstr "Мюзікл"
+
+#: ../src/sj-main.c:1004 ../src/sj-main.c:1125 ../src/sj-main.c:1226
+msgid "Could not read the CD"
+msgstr "Не ўдалося прачытаць кампакт-дыск"
+
+#: ../src/sj-main.c:1005 ../src/sj-main.c:1128
+msgid "Sound Juicer could not read the track listing on this CD."
+msgstr "Гукавыціскалка не здолела прачытаць спіс трэкаў гэтага кампакт-дыска."
+
+#. Set statusbar message
+#: ../src/sj-main.c:1099
+msgid "Retrieving track listing...please wait."
+msgstr "Атрыманне спіса трэкаў, пачакайце..."
+
+#: ../src/sj-main.c:1188
+#, c-format
+msgid "Sound Juicer could not use the CD-ROM device '%s'"
+msgstr "Гукавыціскалка не здолела выкарыстаць прыстасаванне CD-ROM \"%s\""
+
+#: ../src/sj-main.c:1195
+msgid "HAL daemon may not be running."
+msgstr "Дэман HAL не працуе."
+
+#: ../src/sj-main.c:1219
+#, c-format
+msgid "Sound Juicer could not access the CD-ROM device '%s'"
+msgstr "Гукавыціскалка не здолела атрымаць доступ да прыстасавання CD-ROM \"%s\""
+
+#: ../src/sj-main.c:1317
+msgid "No CD-ROM drives found"
+msgstr "Прыводы CD-ROM не знойдзеныя"
+
+#: ../src/sj-main.c:1318
+msgid "Sound Juicer could not find any CD-ROM drives to read."
+msgstr "Гукавыціскалка не здолела адшукаць прыводы CD-ROM, якія б можна было прачытаць."
+
+#: ../src/sj-main.c:1350
+msgid ""
+"The currently selected audio profile is not available on your installation."
+msgstr "Выбраны аўдыяпрофіль недаступны ў вашым усталяванні праграмы."
+
+#: ../src/sj-main.c:1352
+msgid "_Change Profile"
+msgstr "_Змяніць профіль"
+
+#: ../src/sj-main.c:1534
 #, c-format
 msgid "Unknown column %d was edited"
-msgstr "Быў рэдагаваны невядомы слупок %d"
+msgstr "Быў адрэдагаваны невядомы слупок %d"
 
-#: ../src/sj-main.c:1213
-#: ../src/sj-prefs.c:103
+#: ../src/sj-main.c:1634
+msgid "Unknown widget calling on_person_edit_changed."
+msgstr "Невядомы віджэт выклікаў on_person_edit_changed."
+
+#: ../src/sj-main.c:1735 ../src/sj-prefs.c:119
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
 "%s"
 msgstr ""
-"Немагчыма адлюстраваць дапамогу для Sound Juicer\n"
+"Не ўдалося паказаць даведку Гукавыціскалкі\n"
 "%s"
 
-#: ../src/sj-main.c:1306
-msgid "Start extracting immediately"
-msgstr "Пачаць неадкладна здабычу"
-
-#: ../src/sj-main.c:1307
-msgid "Start playing immediately"
-msgstr "Пачаць неадкладна прайграваньне"
-
-#: ../src/sj-main.c:1308
-msgid "What CD device to read"
-msgstr "Зь якой CD прылады чытаць"
-
-#: ../src/sj-main.c:1308
-msgid "DEVICE"
-msgstr "ПРЫЛАДА"
-
-#: ../src/sj-main.c:1316
-msgid "- Extract music from your CDs"
-msgstr "- Выціснуць музыку з CD"
-
-#: ../src/sj-main.c:1359
+#: ../src/sj-main.c:1845
 msgid "Could not create GConf client.\n"
-msgstr "Немагчыма стварыць кліента GConf.\n"
+msgstr "Не ўдалося стварыць кліента GConf.\n"
 
-#: ../src/sj-main.c:1390
-msgid "The interface file for Sound Juicer could not be read."
-msgstr "Файл спалучэньня для Sound Juicer ня знойдзены."
-
-#: ../src/sj-main.c:1460
+#: ../src/sj-main.c:1996
 msgid "Track"
-msgstr "Фанаграма"
+msgstr "Трэк"
 
-#: ../src/sj-main.c:1495
-msgid "Duration"
-msgstr "Працягласьць"
+#: ../src/sj-main.c:2031
+msgid "Composer"
+msgstr "Кампазітар"
 
-#: ../src/sj-play.c:201
-#: ../src/sj-play.c:457
-#: ../src/sj-play.c:507
+#: ../src/sj-main.c:2182
+msgid "Start extracting immediately"
+msgstr "Зараз жа пачаць капіраванне"
+
+#: ../src/sj-main.c:2183
+msgid "Start playing immediately"
+msgstr "Зараз жа зайграць"
+
+#: ../src/sj-main.c:2184
+msgid "What CD device to read"
+msgstr "CD-прыстасаванне для чытання"
+
+#: ../src/sj-main.c:2184
+msgid "DEVICE"
+msgstr "ПРЫСТАСАВАННЕ"
+
+#: ../src/sj-main.c:2185
+msgid "URI to the CD device to read"
+msgstr "URI-адрас прыстасавання для чытання"
+
+#: ../src/sj-main.c:2197
+msgid "- Extract music from your CDs"
+msgstr "- Капіраванне музыкы з кампакт-дыскаў"
+
+#: ../src/sj-play.c:194 ../src/sj-play.c:420 ../src/sj-play.c:449
 #, c-format
 msgid ""
 "Error playing CD.\n"
 "\n"
 "Reason: %s"
 msgstr ""
-"Памылка прайграваньня дыска.\n"
+"Памылка прайгравання кампакт-дыска.\n"
 "\n"
 "Прычына: %s"
 
-#: ../src/sj-play.c:364
+#. TODO: find out why GTK+ needs this to work (see #364371)
+#: ../src/sj-play.c:261
+msgid "Play"
+msgstr "Зайграць"
+
+#. TODO: find out why GTK+ needs this to work (see #364371)
+#: ../src/sj-play.c:305
+msgid "Pause"
+msgstr "Прыпыніць"
+
+#: ../src/sj-play.c:358
+#, c-format
 msgid "Failed to create CD source element"
-msgstr "Немагчыма стварыць элемэнт крыніцы дыска"
+msgstr "Не ўдалося стварыць элемент-крыніцу на аснове кампакт-дыска"
 
-#: ../src/sj-play.c:389
-msgid "Failed to link pipeline"
-msgstr "Немагчыма злучыць трубаправод"
-
-#: ../src/sj-play.c:395
-msgid "Failed to create audio output"
-msgstr "Немагчыма стварыць аўдыё-вывад"
-
-#: ../src/sj-play.c:618
+#: ../src/sj-play.c:564
 #, c-format
 msgid "Seeking to %s"
 msgstr "Пераход да %s"
 
-#: ../src/sj-prefs.c:52
+#: ../src/sj-prefs.c:54
 msgid "Album Artist, Album Title"
 msgstr "Выканаўца альбома, Назва альбома"
 
-#: ../src/sj-prefs.c:53
-msgid "Album Artist (sortable), Album Title"
-msgstr "Выканаўца альбома, Назва альбома"
-
-#: ../src/sj-prefs.c:54
-msgid "Track Artist, Album Title"
-msgstr "Выканаўца фанаграмы, Назва альбома"
-
 #: ../src/sj-prefs.c:55
-msgid "Track Artist (sortable), Album Title"
-msgstr "Выканаўца фанаграмы, Назва альбома"
+msgid "Album Artist (sortable), Album Title"
+msgstr "Выканаўца альбома (адсартавана), Назва альбома"
 
 #: ../src/sj-prefs.c:56
+msgid "Track Artist, Album Title"
+msgstr "Выканаўца трэка, Назва альбома"
+
+#: ../src/sj-prefs.c:57
+msgid "Track Artist (sortable), Album Title"
+msgstr "Выканаўца трэка (адсартавана), Назва альбома"
+
+#: ../src/sj-prefs.c:58
 msgid "Album Title"
 msgstr "Назва альбома"
 
-#: ../src/sj-prefs.c:57
+#: ../src/sj-prefs.c:59
 msgid "Album Artist"
 msgstr "Выканаўца альбома"
 
-#: ../src/sj-prefs.c:58
+#: ../src/sj-prefs.c:60
 msgid "Album Artist (sortable)"
-msgstr "Выканаўца альбома"
+msgstr "Выканаўца альбома (адсартавана)"
 
-#: ../src/sj-prefs.c:59
+#: ../src/sj-prefs.c:61
 msgid "Album Artist - Album Title"
 msgstr "Выканаўца альбома - Назва альбома"
 
-#: ../src/sj-prefs.c:60
+#: ../src/sj-prefs.c:62
 msgid "Album Artist (sortable) - Album Title"
-msgstr "Выканаўца альбома - Назва альбома"
+msgstr "Выканаўца альбома (адсартавана) - Назва альбома"
 
-#: ../src/sj-prefs.c:61
+#: ../src/sj-prefs.c:63
+msgid "Album Composer, Album Title"
+msgstr "Кампазітар альбома, Назва альбома"
+
+#: ../src/sj-prefs.c:64
+msgid "Album Composer (sortable), Album Title"
+msgstr "Кампазітар альбома (адсартавана), Назва альбома"
+
+#: ../src/sj-prefs.c:65
+msgid "Track Composer, Album Title"
+msgstr "Кампазітар трэка, Назва альбома"
+
+#: ../src/sj-prefs.c:66
+msgid "Track Composer (sortable), Album Title"
+msgstr "Кампазітар трэка (адсартавана), Назва альбома"
+
+#: ../src/sj-prefs.c:67
 msgid "[none]"
 msgstr "[няма]"
 
-#: ../src/sj-prefs.c:66
+#: ../src/sj-prefs.c:72
 msgid "Number - Title"
 msgstr "Нумар - Назва"
 
-#: ../src/sj-prefs.c:67
+#: ../src/sj-prefs.c:73
 msgid "Track Title"
-msgstr "Назва фанаграмы"
+msgstr "Назва трэка"
 
-#: ../src/sj-prefs.c:68
+#: ../src/sj-prefs.c:74
 msgid "Track Artist - Track Title"
-msgstr "Выканаўца фанаграмы - Назва фанаграмы"
+msgstr "Выканаўца трэка - Назва трэка"
 
-#: ../src/sj-prefs.c:69
+#: ../src/sj-prefs.c:75
 msgid "Track Artist (sortable) - Track Title"
-msgstr "Выканаўца фанаграмы - Назва фанаграмы"
+msgstr "Выканаўца трэка (адсартавана) - Назва трэка"
 
-#: ../src/sj-prefs.c:70
+#: ../src/sj-prefs.c:76
 msgid "Number. Track Artist - Track Title"
-msgstr "Нумар. Выканаўца фанаграмы - Назва фанаграмы"
+msgstr "Нумар. Выканаўца трэка - Назва трэка"
 
 #. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
-#: ../src/sj-prefs.c:72
+#: ../src/sj-prefs.c:78
 msgid "Number-Track Artist-Track Title (lowercase)"
-msgstr "Нумар-Выканаўца фанаграмы-Назва фанаграмы (маленькімі літарамі)"
+msgstr "Нумар-Выканаўца трэка-Назва трэка (у ніжнім рэгістры)"
 
-#: ../src/sj-prefs.c:252
+#. {N_("Number-Track Artist (sortable)-Track Title (lowercase)"), "%tN-%tS-%tT"},
+#: ../src/sj-prefs.c:80
+msgid "Track Composer - Track Artist - Track Title"
+msgstr "Кампазітар трэка - Выканаўца трэка - Назва трэка"
+
+#: ../src/sj-prefs.c:81
+msgid "Track Composer (sortable) - Track Artist (sortable) - Track Title"
+msgstr "Кампазітар трэка (адсартавана) - Выканаўца трэка (адсартавана) - Назва трэка"
+
+#: ../src/sj-prefs.c:82
+msgid "Number. Track Composer - Track Artist - Track Title"
+msgstr "Нумар. Кампазітар трэка - Выканаўца трэка - Назва трэка"
+
+#: ../src/sj-prefs.c:83
+msgid "Number-Track Composer-Track Artist-Track Title (lowercase)"
+msgstr "Нумар-Кампазітар трэка-Выканаўца трэка-Назва трэка (у ніжнім рэгістры)"
+
+#: ../src/sj-prefs.c:307
 msgid "Example Path"
-msgstr "Узор шляху"
-
-#~ msgid "Could not get track start position"
-#~ msgstr "Немагчыма атрымаць становішча пачатку фанаграмы"
+msgstr "Узорная сцежка"
 
