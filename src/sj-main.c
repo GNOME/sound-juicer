@@ -950,14 +950,20 @@ AlbumDetails* multiple_album_dialog(GList *albums)
   for (; albums ; albums = g_list_next (albums)) {
     GtkTreeIter iter;
     AlbumDetails *album = (AlbumDetails*)(albums->data);
+    GString *album_title = g_string_new (album->title);
+
+    if (album->disc_number > 0 && album->disc_count > 1)
+      g_string_append_printf (album_title,_(" (Disc %d/%d)"),
+                              album->disc_number, album->disc_count);
 
     gtk_list_store_append (albums_store, &iter);
     gtk_list_store_set (albums_store, &iter,
-                        COLUMN_TITLE, album->title,
+                        COLUMN_TITLE, album_title->str,
                         COLUMN_ARTIST, album->artist,
                         COLUMN_DETAILS, album,
                         -1);
-    }
+    g_string_free (album_title, TRUE);
+  }
 
   /* Select the first album */
   if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (albums_store), &iter))
