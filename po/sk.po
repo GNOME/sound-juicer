@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
 "juicer&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-01-02 20:53+0000\n"
-"PO-Revision-Date: 2013-01-15 22:01+0100\n"
+"POT-Creation-Date: 2013-02-01 22:18+0000\n"
+"PO-Revision-Date: 2013-02-02 12:51+0100\n"
 "Last-Translator: Ján Kyselica <kyselica.jan@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -21,10 +21,10 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 # PM: rozmýšľam či nezvoliť slovenský názov niečo ako Pasírovač zvuku alebo niečo v tom štýle; ak súhlasíš zmeň všade
+# JK: Nezdá sa mi to rozumné, pretože ak sa v programe vyskytne problém a používateľ sa pokúsi vyhľadať nejaké informácie tak po zadaní preloženého názvu sa mu zobrazia nerelevantné výsledky.
 # desktop entry name
 #: ../data/sound-juicer.desktop.in.in.h:1 ../data/sound-juicer.ui.h:1
 #: ../src/sj-main.c:143 ../src/sj-main.c:145 ../src/sj-main.c:2194
-#, fuzzy
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -38,7 +38,7 @@ msgstr "Extraktor audio CD"
 msgid "Sound Juicer Audio CD Extractor"
 msgstr "Sound Juicer - extraktor audio CD"
 
-# desktop entry 
+# desktop entry
 #: ../data/sound-juicer.desktop.in.in.h:4
 msgid "Copy music from your CDs"
 msgstr "Kopíruje hudbu z vašich CD"
@@ -51,7 +51,7 @@ msgstr "Určuje, či sa má vysunúť CD po skončení extrahovania."
 # short description
 #: ../data/sound-juicer.schemas.in.h:2
 msgid "Whether to open the target directory when finished extracting."
-msgstr "Určzje, či sa má otvoriť cieľový priečinok po skončení extrahovania."
+msgstr "Určuje, či sa má otvoriť cieľový priečinok po skončení extrahovania."
 
 # short description
 #: ../data/sound-juicer.schemas.in.h:3
@@ -448,8 +448,8 @@ msgid "Cannot read CD: %s"
 msgstr "Nedá sa čítať CD: %s"
 
 # PM: skôr vyskúšané
+# JK: Zariadeniami sa myslia CD-romky a hľadá sa v nich audio obsah, sloveso vyskúšať sa mi tam nehodí.
 #: ../libjuicer/sj-metadata.c:183
-#, fuzzy
 msgid "Devices haven't been all probed yet"
 msgstr "Zariadenia zatiaľ neboli preskúmané"
 
@@ -482,9 +482,9 @@ msgstr "Neznámy umelec"
 
 # PM: nebude lepšie "%d. stopa"?
 #: ../libjuicer/sj-metadata-gvfs.c:135
-#, fuzzy, c-format
+#, c-format
 msgid "Track %d"
-msgstr "Stopa %d"
+msgstr "%d. stopa"
 
 #: ../libjuicer/sj-metadata-gvfs.c:160
 #, c-format
@@ -567,9 +567,7 @@ msgstr "Chyba GConf: %s"
 msgid "All further errors shown only on terminal."
 msgstr "Všetky ďalšie chyby sa zobrazia iba v termináli."
 
-# PM: treba znenie upraviť podľa slovníka - názov licencie prekladáme len informatívne do zátvorky
 #: ../src/sj-about.c:52
-#, fuzzy
 msgid ""
 "Sound Juicer is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -577,12 +575,12 @@ msgid ""
 "any later version."
 msgstr ""
 "Sound Juicer je slobodný softvér; môžete ho ďalej šíriť a/alebo upravovať "
-"podľa ustanovení Všeobecnej verejnej licencie GNU tak, ako bola vydaná "
-"organizáciou Free Software Foundation, a to buď verzie 2 tejto licencie, "
-"alebo (podľa vášho uváženia) ktorejkoľvek neskoršej verzie."
+"podľa ustanovení licencie GNU General Public License (Všeobecnej verejnej "
+"licencie GNU), vydávanej nadáciou Free Software Foundation, a to buď podľa "
+"2. verzie tejto licencie, alebo (podľa vášho uváženia) ktorejkoľvek "
+"neskoršej verzie."
 
 #: ../src/sj-about.c:56
-#, fuzzy
 msgid ""
 "Sound Juicer is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -590,20 +588,20 @@ msgid ""
 "more details."
 msgstr ""
 "Sound Juicer je rozširovaný v nádeji, že bude užitočný, avšak BEZ AKEJKOĽVEK "
-"ZÁRUKY. Neposkytujú sa ani odvodené záruky OBCHODOVATEĽNOSTI alebo VHODNOSTI "
-"PRE URČITÝ ÚČEL. Ďalšie podrobnosti hľadajte vo Všeobecnej verejnej licencii "
-"GNU."
+"ZÁRUKY. Neposkytujú sa ani odvodené záruky PREDAJNOSTI alebo VHODNOSTI PRE "
+"URČITÝ ÚČEL. Ďalšie podrobnosti hľadajte v licencii GNU General Public "
+"License."
 
 #: ../src/sj-about.c:60
-#, fuzzy
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "Sound Juicer; if not, write to the Free Software Foundation, Inc., 51 "
 "Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
 msgstr ""
-"Kópiu Všeobecnej verejnej licencie GNU ste mali dostať spolu s programom "
-"Sound Juicer; ak sa tak nestalo, napíšte na Free Software Foundation, Inc., "
-"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+"Kópiu licencie GNU General Public License by ste mali dostať spolu s "
+"programom Sound Juicer. Ak sa tak nestalo, napíšte na Free Software "
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, "
+"USA."
 
 #: ../src/sj-about.c:71
 msgid "An Audio CD Extractor"
@@ -733,9 +731,8 @@ msgstr "Country"
 
 # PM: nebude lepšie Tanečná?
 #: ../src/sj-genres.c:38
-#, fuzzy
 msgid "Dance"
-msgstr "Dance"
+msgstr "Tanečná"
 
 #: ../src/sj-genres.c:39
 msgid "Electronica"
@@ -754,8 +751,8 @@ msgid "Jazz"
 msgstr "Jazz"
 
 # PM: toto sa skor hovorí latinsko španielska hudba nie?
+# JK: Je to odvodené od regiónu Latinská Amerika a bežne sa používa tento názov.
 #: ../src/sj-genres.c:43
-#, fuzzy
 msgid "Latin"
 msgstr "Latinsko-americká"
 
@@ -799,9 +796,8 @@ msgstr "Nepodarilo sa spustiť program Sound Juicer"
 
 # PM: znie to neprirodzene, Viac informácii záskate v dokumentácii - alebo niečo v tom štýle
 #: ../src/sj-main.c:191
-#, fuzzy
 msgid "Please consult the documentation for assistance."
-msgstr "Pre viac informácií si prosím prečítajte dokumentáciu."
+msgstr "Viac informácií získate v dokumentácií."
 
 #: ../src/sj-main.c:225
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
@@ -825,9 +821,8 @@ msgstr "(neznámy)"
 # PM: toto sa mi nevidí; skor to zašle údaje o albume do MusicBrainz kvôli získaniu názvu albumu a pesniciek
 # button
 #: ../src/sj-main.c:436
-#, fuzzy
 msgid "S_ubmit Album"
-msgstr "_Potvrdiť album"
+msgstr "_Odoslať album"
 
 #. Translators: title, artist
 #: ../src/sj-main.c:441
@@ -837,9 +832,8 @@ msgstr "Nepodarilo sa nájsť %s od %s na MusicBrainz."
 
 # PM: znie to neprirodzene Databázu... môžete zlepšiť...
 #: ../src/sj-main.c:446
-#, fuzzy
 msgid "You can improve the MusicBrainz database by adding this album."
-msgstr "Môžete zlepšiť databázu služby MusicBrainz pridaním tohoto albumu."
+msgstr "Databázu služby MusicBrainz môžete zlepšiť pridaním tohoto albumu."
 
 #: ../src/sj-main.c:470
 msgid "Could not open URL"
@@ -913,8 +907,7 @@ msgstr ""
 #: ../src/sj-main.c:1350
 msgid ""
 "The currently selected audio profile is not available on your installation."
-msgstr ""
-"Aktuálne zvolený profil zvuku nie je vo vašej inštalácii k dispozícii."
+msgstr "Aktuálne zvolený profil zvuku nie je vo vašej inštalácii k dispozícii."
 
 # button
 #: ../src/sj-main.c:1352
@@ -1068,9 +1061,9 @@ msgid "Track Composer (sortable), Album Title"
 msgstr "Skladateľ stopy (zoraditeľný), názov albumu"
 
 # Hierarchia priečinkov:
+# JK: čo je nesprávne?
 # path paterns
 #: ../src/sj-prefs.c:67
-#, fuzzy
 msgid "[none]"
 msgstr "[žiadna]"
 
