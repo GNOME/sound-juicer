@@ -331,20 +331,24 @@ fill_tracks_from_medium (Mb5Medium medium, AlbumDetails *album)
 
     track->number = mb5_track_get_position (mbt);
 
-    /* duration from track is more reliable than from recording */
+    /* Prefer metadata from Mb5Track over metadata from Mb5Recording
+     * https://bugzilla.gnome.org/show_bug.cgi?id=690903#c8
+     */
     track->duration = mb5_track_get_length (mbt) / 1000;
+    GET (track->title, mb5_track_get_title, mbt);
+    credit = mb5_track_get_artistcredit (mbt);
 
     recording = mb5_track_get_recording (mbt);
     if (recording != NULL) {
-      GET (track->title, mb5_recording_get_title, recording);
       GET (track->track_id, mb5_recording_get_id, recording);
       fill_recording_relations (recording, track);
+
       if (track->duration == 0)
         track->duration = mb5_recording_get_length (recording) / 1000;
-      credit = mb5_recording_get_artistcredit (recording);
-    } else {
-      GET (track->title, mb5_track_get_title, mbt);
-      credit = mb5_track_get_artistcredit (mbt);
+      if (track->title == NULL)
+        GET (track->title, mb5_recording_get_title, recording);
+      if (credit == NULL)
+          credit = mb5_recording_get_artistcredit (recording);
     }
 
     if (credit) {
