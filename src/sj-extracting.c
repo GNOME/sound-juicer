@@ -744,7 +744,7 @@ on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
 G_MODULE_EXPORT void
 on_extract_activate (GtkWidget *button, gpointer user_data)
 {
-  char *reason;
+  char *reason = NULL;
 
   /* first make sure we're not playing, we cannot share the resource */
   stop_playback ();
