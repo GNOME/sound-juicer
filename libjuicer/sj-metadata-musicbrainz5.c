@@ -46,6 +46,10 @@
 		field = g_strdup (buffer);					\
 }
 
+#ifndef DISCID_HAVE_SPARSE_READ
+#define discid_read_sparse(disc, dev, i) discid_read(disc, dev)
+#endif
+
 #define GCONF_MUSICBRAINZ_SERVER "/apps/sound-juicer/musicbrainz_server"
 #define GCONF_PROXY_USE_PROXY "/system/http_proxy/use_http_proxy"
 #define GCONF_PROXY_HOST "/system/http_proxy/host"
@@ -547,7 +551,7 @@ mb5_list_albums (SjMetadata *metadata, char **url, GError **error)
   priv->disc = discid_new ();
   if (priv->disc == NULL)
     return NULL;
-  if (discid_read (priv->disc, priv->cdrom) == 0)
+  if (discid_read_sparse (priv->disc, priv->cdrom, 0) == 0)
     return NULL;
 
   if (url != NULL)
