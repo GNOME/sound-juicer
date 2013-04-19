@@ -1980,7 +1980,7 @@ upgrade_gconf (void)
  * If this is found TRUE is returned, otherwise FALSE is returned.
  */
 static gboolean
-is_cd_duplication_available()
+is_cd_duplication_available(void)
 {
   /* First check the brasero tool is available in the path */
   gchar* brasero_cd_burner = g_find_program_in_path ("brasero");

@@ -23,7 +23,7 @@
 #ifndef SJ_PREFS_H
 #define SJ_PREFS_H
 
-extern const char* prefs_get_default_device ();
+extern const char* prefs_get_default_device (void);
 void show_preferences_dialog (void);
 gboolean cd_drive_exists (const char *device);
 void show_help (GtkWindow *parent);

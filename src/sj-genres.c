@@ -61,7 +61,7 @@ static gboolean in_array (const char *str, const char** array) {
   return found;
 }
 
-static char* genre_filename () {
+static char* genre_filename (void) {
   return g_build_filename (g_get_user_config_dir (),
 			   "sound-juicer",
 			   "genres",
@@ -192,4 +192,3 @@ void save_genre (GtkWidget *entry) {
 
   setup_genre_entry (entry);
 }
-
