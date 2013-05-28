@@ -1883,6 +1883,28 @@ GActionEntry win_entries[] = {
   { "deselect-all", on_deselect_all_activate, NULL, NULL, NULL }
 };
 
+static GtkCellRenderer*
+add_editable_listview_column (const char       *title,
+                              const ViewColumn  model_column)
+{
+  GtkCellRenderer *renderer;
+  GtkTreeViewColumn *column;
+
+  renderer = gtk_cell_renderer_text_new ();
+  g_signal_connect (renderer,
+                    "edited",
+                    G_CALLBACK (on_cell_edited),
+                    GUINT_TO_POINTER (model_column));
+  g_object_set (G_OBJECT (renderer), "editable", TRUE, NULL);
+  column = gtk_tree_view_column_new_with_attributes (title, renderer,
+                                                     "text", model_column,
+                                                     NULL);
+  gtk_tree_view_column_set_resizable (column, TRUE);
+  gtk_tree_view_column_set_expand (column, TRUE);
+  gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
+  return renderer;
+}
+
 static void
 startup_cb (GApplication *app, gpointer user_data)
 {
@@ -2091,40 +2113,12 @@ startup_cb (GApplication *app, gpointer user_data)
     gtk_tree_view_column_set_cell_data_func (column, renderer, number_cell_icon_data_cb, NULL, NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
 
-    title_renderer = gtk_cell_renderer_text_new ();
-    g_signal_connect (title_renderer, "edited", G_CALLBACK (on_cell_edited), GUINT_TO_POINTER (COLUMN_TITLE));
-    g_object_set (G_OBJECT (title_renderer), "editable", TRUE, NULL);
-    column = gtk_tree_view_column_new_with_attributes (_("Title"),
-                                                       title_renderer,
-                                                       "text", COLUMN_TITLE,
-                                                       NULL);
-    gtk_tree_view_column_set_resizable (column, TRUE);
-    gtk_tree_view_column_set_expand (column, TRUE);
-    gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
-
-    artist_renderer = gtk_cell_renderer_text_new ();
-    column = gtk_tree_view_column_new_with_attributes (_("Artist"),
-                                                       artist_renderer,
-                                                       "text", COLUMN_ARTIST,
-                                                       NULL);
-    gtk_tree_view_column_set_resizable (column, TRUE);
-    gtk_tree_view_column_set_expand (column, TRUE);
-    g_signal_connect (artist_renderer, "edited", G_CALLBACK (on_cell_edited), GUINT_TO_POINTER (COLUMN_ARTIST));
-    g_object_set (G_OBJECT (artist_renderer), "editable", TRUE, NULL);
-    gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
-
-    composer_renderer = gtk_cell_renderer_text_new ();
-    column = gtk_tree_view_column_new_with_attributes (_("Composer"),
-                                                       composer_renderer,
-                                                       "text", COLUMN_COMPOSER,
-                                                       NULL);
-    gtk_tree_view_column_set_resizable (column, TRUE);
-    gtk_tree_view_column_set_expand (column, TRUE);
-    g_signal_connect (composer_renderer, "edited", G_CALLBACK (on_cell_edited), GUINT_TO_POINTER (COLUMN_COMPOSER));
-    g_object_set (G_OBJECT (composer_renderer), "editable", TRUE, NULL);
-    gtk_tree_view_column_set_visible (column, FALSE);
-    composer_column = column;
-    gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
+    title_renderer = add_editable_listview_column (_("Title"), COLUMN_TITLE);
+    artist_renderer = add_editable_listview_column (_("Artist"), COLUMN_ARTIST);
+    composer_renderer = add_editable_listview_column (_("Composer"), COLUMN_COMPOSER);
+    composer_column = gtk_tree_view_get_column (GTK_TREE_VIEW (track_listview),
+                                                gtk_tree_view_get_n_columns (GTK_TREE_VIEW (track_listview)) - 1);
+    gtk_tree_view_column_set_visible (composer_column, FALSE);
 
     renderer = gtk_cell_renderer_text_new ();
     column = gtk_tree_view_column_new_with_attributes (_("Duration"),
