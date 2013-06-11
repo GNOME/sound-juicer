@@ -506,21 +506,29 @@ set_gst_ui_and_play (void)
   }
 }
 
+static void
+select_track_foreach (GtkTreeModel *model,
+                      GtkTreePath  *path,
+                      GtkTreeIter  *iter,
+                      gpointer      data)
+{
+  gint track;
+
+  gtk_tree_model_get (model, iter, COLUMN_NUMBER, &track, -1);
+  seek_to_track = track - 1;
+}
+
 G_MODULE_EXPORT void
 on_tracklist_row_selected (GtkTreeView *treeview,
                gpointer user_data)
 {
-  gint track;
   GtkTreeSelection *selection = gtk_tree_view_get_selection (treeview);
 
   if (is_playing () || is_paused ())
     return;
 
-  if (gtk_tree_selection_get_selected (selection, NULL, &current_iter)) {
-    gtk_tree_model_get (GTK_TREE_MODEL (track_store),
-        &current_iter, COLUMN_NUMBER, &track, -1);
-    seek_to_track = track - 1;
-  }
+  if (gtk_tree_selection_count_selected_rows (selection) == 1)
+    gtk_tree_selection_selected_foreach (selection, select_track_foreach, NULL);
 }
 
 /*
