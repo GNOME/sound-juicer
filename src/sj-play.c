@@ -539,13 +539,30 @@ on_volume_changed (GtkWidget * volb, gdouble value, gpointer data)
   gconf_client_set_float (gconf_client, GCONF_AUDIO_VOLUME, vol, NULL);
 }
 
+static gboolean
+is_non_seek_key (GdkEvent * event)
+{
+  guint key;
+
+  return gdk_event_get_keyval (event, &key) &&
+    key != GDK_KEY_Left  && key != GDK_KEY_KP_Left  &&
+    key != GDK_KEY_Right && key != GDK_KEY_KP_Right &&
+    key != GDK_KEY_Up    && key != GDK_KEY_KP_Up    &&
+    key != GDK_KEY_Down  && key != GDK_KEY_KP_Down  &&
+    key != GDK_KEY_End   && key != GDK_KEY_KP_End   &&
+    key != GDK_KEY_Home  && key != GDK_KEY_KP_Home;
+}
+
 /*
  * Seeking.
  */
 
 G_MODULE_EXPORT gboolean
-on_seek_press (GtkWidget * scale, GdkEventButton * event, gpointer user_data)
+on_seek_press (GtkWidget * scale, GdkEvent * event, gpointer user_data)
 {
+  if (is_non_seek_key (event))
+    return FALSE;
+
   seeking = TRUE;
 
   return FALSE;
@@ -568,9 +585,14 @@ on_seek_moved (GtkWidget * scale, gpointer user_data)
 }
 
 G_MODULE_EXPORT gboolean
-on_seek_release (GtkWidget * scale, GdkEventButton * event, gpointer user_data)
+on_seek_release (GtkWidget * scale, GdkEvent * event, gpointer user_data)
 {
   gdouble val = gtk_range_get_value (GTK_RANGE (scale));
+
+  /* If gst_element_seek is called when non-seeking key is released it
+     causes a glitch in playback*/
+  if (is_non_seek_key (event))
+    return FALSE;
 
   seeking = FALSE;
 

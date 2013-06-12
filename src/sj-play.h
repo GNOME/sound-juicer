@@ -47,13 +47,13 @@ G_MODULE_EXPORT void on_tracklist_row_selected (GtkTreeView *treeview,
 G_MODULE_EXPORT void on_volume_changed (GtkWidget* volb, gdouble value, gpointer data);
 
 G_MODULE_EXPORT gboolean on_seek_press (GtkWidget * scale,
-			GdkEventButton * event,
+			GdkEvent * event,
 			gpointer user_data);
 
 G_MODULE_EXPORT void on_seek_moved (GtkWidget * scale, gpointer user_data);
 
 G_MODULE_EXPORT gboolean on_seek_release (GtkWidget * scale,
-			  GdkEventButton * event,
+			  GdkEvent * event,
 			  gpointer user_data);
 
 #endif /* SJ_PLAY_H_H */

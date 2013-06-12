@@ -361,7 +361,9 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkHScale" id="seek_scale">
+                  <object class="GtkScale" id="seek_scale">
+                    <property name="orientation">0</property>
+                    <property name="adjustment">seek_adjustment</property>
                     <property name="can_focus">True</property>
                     <property name="digits">0</property>
                     <property name="draw_value">False</property>
@@ -371,12 +373,21 @@
                       </object>
                     </child>
                     <signal name="button_press_event" handler="on_seek_press"/>
+                    <signal name="key_press_event" handler="on_seek_press"/>
                     <signal name="value_changed" handler="on_seek_moved"/>
                     <signal name="button_release_event" handler="on_seek_release"/>
+                    <signal name="key_release_event" handler="on_seek_release"/>
                   </object>
                   <packing>
                     <property name="position">2</property>
                   </packing>
+                    <object class="GtkAdjustment" id="seek_adjustment">
+                      <property name="value">0</property>
+                      <property name="lower">0</property>
+                      <property name="upper">1</property>
+                      <property name="step_increment">0.01</property>
+                      <property name="page_increment">0</property>
+                    </object>
                 </child>
                 <child>
                   <object class="GtkVolumeButton" id="volume_button">
