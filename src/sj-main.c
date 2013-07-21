@@ -1933,7 +1933,7 @@ G_MODULE_EXPORT void on_disc_number_edit_changed(GtkEditable *widget, gpointer u
 static void on_contents_activate(GSimpleAction *action, GVariant *parameter, gpointer data) {
   GError *error = NULL;
 
-  gtk_show_uri (NULL, "ghelp:sound-juicer", GDK_CURRENT_TIME, &error);
+  gtk_show_uri (NULL, "help:sound-juicer", GDK_CURRENT_TIME, &error);
   if (error) {
     GtkWidget *dialog;
 

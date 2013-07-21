@@ -4,8 +4,7 @@ ACLOCAL_AMFLAGS = -I m4
 
 EXTRA_DIST = \
 	autogen.sh \
-	sound-juicer.spec \
-	gnome-doc-utils.make
+	sound-juicer.spec
 
 MAINTAINERCLEANFILES = \
 	$(srcdir)/aclocal.m4 \
@@ -19,11 +18,7 @@ MAINTAINERCLEANFILES = \
 	$(srcdir)/missing \
 	$(srcdir)/mkinstalldirs
 
-DISTCLEANFILES = po/.intltool-merge-cache \
-	gnome-doc-utils.make
-
-DISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper
-
+DISTCLEANFILES = po/.intltool-merge-cache
 
 WEBROOT := $(HOME)/WebSites/Burtonini/htdocs
 

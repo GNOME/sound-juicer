@@ -37,7 +37,7 @@ GTK_REQUIRED=3.2.0
 AC_CHECK_FUNC(socket,,[AC_CHECK_LIB(socket,socket)])
 
 # Use the GNOME documentation framework
-GNOME_DOC_INIT
+YELP_HELP_INIT
 
 # Find GLib and GObject
 PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.32 gthread-2.0 gobject-2.0)
@@ -114,10 +114,6 @@ if test "$enable_deprecations" = "no"; then
 	AC_SUBST(DISABLE_DEPRECATED)
 fi
 
-# We require Scroll Keeper 0.3.5 or above for the help
-SCROLLKEEPER_BUILD_REQUIRED=0.3.5
-AC_SUBST(SCROLLKEEPER_BUILD_REQUIRED)
-
 AC_SUBST([AM_CPPFLAGS])
 AC_SUBST([AM_CFLAGS])
 AC_SUBST([AM_CXXFLAGS])
@@ -130,7 +126,6 @@ Makefile
 data/Makefile
 data/sound-juicer.desktop.in
 help/Makefile
-help/sound-juicer/Makefile
 libjuicer/Makefile
 po/Makefile.in
 src/Makefile
