@@ -322,16 +322,20 @@ static void number_cell_icon_data_cb (GtkTreeViewColumn *tree_column,
   gtk_tree_model_get (tree_model, iter, COLUMN_STATE, &state, -1);
   switch (state) {
   case STATE_IDLE:
-    g_object_set (G_OBJECT (cell), "stock-id", NULL, NULL);
+    g_object_set (G_OBJECT (cell), "icon-name", NULL, NULL);
     break;
   case STATE_PLAYING:
-    g_object_set (G_OBJECT (cell), "stock-id", GTK_STOCK_MEDIA_PLAY, NULL);
+    {
+      gboolean rtl = gtk_widget_get_direction (track_listview) == GTK_TEXT_DIR_RTL;
+      gchar *name = rtl ? "media-playback-start-rtl" : "media-playback-start";
+      g_object_set (G_OBJECT (cell), "icon-name", name, NULL);
+    }
     break;
   case STATE_PAUSED:
-    g_object_set (G_OBJECT (cell), "stock-id", GTK_STOCK_MEDIA_PAUSE, NULL);
+    g_object_set (G_OBJECT (cell), "icon-name", "media-playback-pause", NULL);
     break;
   case STATE_EXTRACTING:
-    g_object_set (G_OBJECT (cell), "stock-id", GTK_STOCK_MEDIA_RECORD, NULL);
+    g_object_set (G_OBJECT (cell), "icon-name", "media-record", NULL);
     break;
   default:
     g_warning("Unhandled track state %d\n", state);
