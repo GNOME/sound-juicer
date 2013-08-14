@@ -163,11 +163,6 @@ void sj_debug (SjDebugDomain domain, const gchar* format, ...);
 #define GCONF_HTTP_PROXY GCONF_PROXY_ROOT "/host"
 #define GCONF_HTTP_PROXY_PORT GCONF_PROXY_ROOT "/port"
 
-/**
- * Custom stock icons
- */
-#define SJ_STOCK_EXTRACT "sj-stock-extract"
-
 /* TODO: need to add a SjWindow object or something */
 void sj_main_set_title (const char* detail);
 

@@ -24,8 +24,6 @@
 #include <gtk/gtk.h>
 #include "sj-structures.h"
 
-void sj_stock_init (void);
-
 void set_action_enabled (const char *name, gboolean enabled);
 
 G_MODULE_EXPORT void on_destroy_activate (GtkMenuItem *item, gpointer user_data);

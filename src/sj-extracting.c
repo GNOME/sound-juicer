@@ -230,9 +230,8 @@ cleanup (void)
   }
   /* Forcibly invalidate the iterator */
   current.stamp = 0;
-  /* TODO: find out why GTK+ needs this to work (see #364371) */
-  gtk_button_set_label (GTK_BUTTON (extract_button), _("Extract"));
-  gtk_button_set_label (GTK_BUTTON (extract_button), SJ_STOCK_EXTRACT);
+
+  gtk_button_set_label (GTK_BUTTON (extract_button), _("E_xtract"));
 
   /* Clear the Status bar */
   gtk_statusbar_push (GTK_STATUSBAR (status_bar), 0, "");
@@ -456,7 +455,7 @@ pop_and_extract (int *overwrite_mode)
     /* OK, we can write/overwrite the file */
 
 
-    /* Update the state stock image */
+    /* Update the state image */
     gtk_list_store_set (track_store, &current,
                    COLUMN_STATE, STATE_EXTRACTING, -1);
 
@@ -792,9 +791,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   }
 
   /* Change the label to Stop while extracting*/
-  /* TODO: find out why GTK+ needs this to work (see #364371) */
-  gtk_button_set_label (GTK_BUTTON (extract_button), _("Stop"));
-  gtk_button_set_label (GTK_BUTTON (extract_button), GTK_STOCK_STOP);
+  gtk_button_set_label (GTK_BUTTON (extract_button), _("_Stop"));
   gtk_widget_show (progress_bar);
 
   /* Reset the progress dialog */

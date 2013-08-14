@@ -119,7 +119,7 @@ _stop (void)
   gtk_widget_hide (volume_button);
   sj_main_set_title (NULL);
   gtk_statusbar_push (GTK_STATUSBAR (statusbar), 0, "");
-  gtk_button_set_label (GTK_BUTTON (play_button), GTK_STOCK_MEDIA_PLAY);
+  gtk_button_set_label (GTK_BUTTON (play_button), _("_Play"));
   slen = GST_CLOCK_TIME_NONE;
 
   if (current_track != -1 &&
@@ -257,9 +257,7 @@ cb_change_button (gpointer data)
 {
   button_change_id = 0;
 
-  /* TODO: find out why GTK+ needs this to work (see #364371) */
-  gtk_button_set_label (GTK_BUTTON (data), _("Play"));
-  gtk_button_set_label (GTK_BUTTON (data), GTK_STOCK_MEDIA_PLAY);
+  gtk_button_set_label (GTK_BUTTON (data), _("_Play"));
 
   /* once */
   return FALSE;
@@ -301,9 +299,7 @@ cb_state (GstBus *bus, GstMessage *message, gpointer user_data)
     gtk_statusbar_push (GTK_STATUSBAR (statusbar), 0, "");
     current_track = -1;
   } else if (transition == GST_STATE_CHANGE_PAUSED_TO_PLAYING) {
-    /* TODO: find out why GTK+ needs this to work (see #364371) */
-    gtk_button_set_label (GTK_BUTTON (play_button), _("Pause"));
-    gtk_button_set_label (GTK_BUTTON (play_button), GTK_STOCK_MEDIA_PAUSE);
+    gtk_button_set_label (GTK_BUTTON (play_button), _("_Pause"));
     if (id)
       g_source_remove (id);
     id = g_timeout_add (100, (GSourceFunc) cb_set_time, NULL);
@@ -607,7 +603,7 @@ on_seek_release (GtkWidget * scale, GdkEvent * event, gpointer user_data)
 void
 stop_ui_hack (void)
 {
-  gtk_button_set_label (GTK_BUTTON (play_button), GTK_STOCK_MEDIA_PLAY);
+  gtk_button_set_label (GTK_BUTTON (play_button), _("_Play"));
   gtk_widget_hide (seek_scale);
   gtk_widget_hide (volume_button);
   gtk_statusbar_pop (GTK_STATUSBAR (statusbar), 0);

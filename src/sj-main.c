@@ -113,31 +113,6 @@ static guint debug_flags = 0;
 #define COMPOSER_ROW 2 /* Row of entry_table containing composer_entry */
 
 void
-sj_stock_init (void)
-{
-  static gboolean initialized = FALSE;
-  static GtkIconFactory *sj_icon_factory = NULL;
-
-  static const GtkStockItem sj_stock_items[] =
-  {
-    { SJ_STOCK_EXTRACT, N_("E_xtract"), GDK_CONTROL_MASK, GDK_KEY_Return, NULL }
-  };
-
-  if (initialized)
-    return;
-
-  sj_icon_factory = gtk_icon_factory_new ();
-
-  gtk_icon_factory_add (sj_icon_factory, SJ_STOCK_EXTRACT, gtk_icon_factory_lookup_default (GTK_STOCK_CDROM));
-
-  gtk_icon_factory_add_default (sj_icon_factory);
-
-  gtk_stock_add_static (sj_stock_items, G_N_ELEMENTS (sj_stock_items));
-
-  initialized = TRUE;
-}
-
-void
 sj_main_set_title (const char* detail)
 {
   if (detail == NULL) {
@@ -345,7 +320,7 @@ static void number_cell_icon_data_cb (GtkTreeViewColumn *tree_column,
 /* Taken from gedit */
 static void
 set_info_bar_text_and_icon (GtkInfoBar  *infobar,
-                            const gchar *icon_stock_id,
+                            const gchar *icon_name,
                             const gchar *primary_text,
                             const gchar *secondary_text,
                             GtkWidget   *button)
@@ -365,7 +340,7 @@ set_info_bar_text_and_icon (GtkInfoBar  *infobar,
   hbox_content = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 8); 
   gtk_widget_show (hbox_content);
 
-  image = gtk_image_new_from_stock (icon_stock_id, GTK_ICON_SIZE_DIALOG);
+  image = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_DIALOG);
   gtk_widget_show (image);
   gtk_box_pack_start (GTK_BOX (hbox_content), image, FALSE, FALSE, 0);
   gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0);
@@ -440,13 +415,13 @@ musicbrainz_submit_info_bar_new (char *title, char *artist)
   button = gtk_info_bar_add_button (GTK_INFO_BAR (infobar),
                                     _("S_ubmit Album"), GTK_RESPONSE_OK);
   gtk_info_bar_add_button (GTK_INFO_BAR (infobar),
-                           GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+                           _("Ca_ncel"), GTK_RESPONSE_CANCEL);
 
   /* Translators: title, artist */
   primary_text = g_strdup_printf (_("Could not find %s by %s on MusicBrainz."), title, artist);
 
   set_info_bar_text_and_icon (GTK_INFO_BAR (infobar),
-                              "gtk-dialog-info",
+                              "dialog-information",
                               primary_text,
                               _("You can improve the MusicBrainz database by adding this album."),
                               button);
@@ -2169,13 +2144,15 @@ startup_cb (GApplication *app, gpointer user_data)
 
     size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
 
-    fake_button1 = gtk_button_new_from_stock (GTK_STOCK_MEDIA_PLAY);
+    fake_button1 = gtk_button_new_with_label (_("_Play"));
+    gtk_button_set_use_underline (GTK_BUTTON (fake_button1), TRUE);
     gtk_size_group_add_widget (size_group, fake_button1);
     g_signal_connect_swapped (play_button, "destroy",
                               G_CALLBACK (gtk_widget_destroy),
                               fake_button1);
 
-    fake_button2 = gtk_button_new_from_stock (GTK_STOCK_MEDIA_PAUSE);
+    fake_button2 = gtk_button_new_with_label (_("_Pause"));
+    gtk_button_set_use_underline (GTK_BUTTON (fake_button2), TRUE);
     gtk_size_group_add_widget (size_group, fake_button2);
     g_signal_connect_swapped (play_button, "destroy",
                               G_CALLBACK (gtk_widget_destroy),
@@ -2445,8 +2422,6 @@ int main (int argc, char **argv)
   g_option_context_free (ctx);
 
   sj_debug_init ();
-
-  sj_stock_init ();
 
   gtk_window_set_default_icon_name ("sound-juicer");
 

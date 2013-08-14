@@ -92,7 +92,7 @@
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Disc:</property>
+                        <property name="label" translatable="yes">_Disc:</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">disc_number_entry</property>
                         <accessibility>
@@ -325,12 +325,12 @@
                     <property name="layout_style">end</property>
                     <child>
                       <object class="GtkButton" id="play_button">
-                        <property name="label">gtk-media-play</property>
+                        <property name="label" translatable="yes">_Play</property>
+                        <property name="use-underline">True</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="can_default">True</property>
                         <property name="receives_default">False</property>
-                        <property name="use_stock">True</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -340,12 +340,12 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="extract_button">
-                        <property name="label">sj-stock-extract</property>
+                        <property name="label" translatable="yes">E_xtract</property>
+                        <property name="use-underline">True</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="can_default">True</property>
                         <property name="receives_default">False</property>
-                        <property name="use_stock">True</property>
                         <signal name="clicked" handler="on_extract_activate"/>
                       </object>
                       <packing>
@@ -536,46 +536,12 @@ audio-volume-medium</property>
             <child>
               <object class="GtkButton" id="ok_button">
                 <property name="visible">True</property>
+                <property name="label" translatable="yes">_Continue</property>
+                <property name="use_underline">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="has_default">True</property>
                 <property name="receives_default">False</property>
-                <child>
-                  <object class="GtkAlignment" id="alignment2">
-                    <property name="visible">True</property>
-                    <property name="xscale">0</property>
-                    <property name="yscale">0</property>
-                    <child>
-                      <object class="GtkHBox" id="hbox2">
-                        <property name="visible">True</property>
-                        <property name="spacing">2</property>
-                        <child>
-                          <object class="GtkImage" id="image16">
-                            <property name="visible">True</property>
-                            <property name="stock">gtk-go-forward</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel" id="label11">
-                            <property name="visible">True</property>
-                            <property name="label" translatable="yes">_Continue</property>
-                            <property name="use_underline">True</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -1018,12 +984,12 @@ audio-volume-medium</property>
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="prefs_help">
-                <property name="label">gtk-help</property>
+                <property name="label" translatable="yes">_Help</property>
+                <property name="use_underline">True</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_stock">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -1033,12 +999,12 @@ audio-volume-medium</property>
             </child>
             <child>
               <object class="GtkButton" id="prefs_close">
-                <property name="label">gtk-close</property>
+                <property name="label" translatable="yes">_Close</property>
+                <property name="use_underline">True</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_stock">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>

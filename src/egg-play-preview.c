@@ -67,6 +67,8 @@ struct _EggPlayPreviewPrivate {
 	GstElement *playbin;
 	GstState state;
 
+	gchar *play_icon_name;
+
 	gchar *title;
 	gchar *artist;
 	gchar *album;
@@ -278,7 +280,11 @@ egg_play_preview_init (EggPlayPreview *play_preview)
 
 	/* play button */
 	priv->play_button = gtk_button_new ();
-	priv->play_button_image = gtk_image_new_from_stock (GTK_STOCK_MEDIA_PLAY, GTK_ICON_SIZE_BUTTON);
+	if (gtk_widget_get_direction (GTK_WIDGET (priv->play_button)) == GTK_TEXT_DIR_RTL)
+	    priv->play_icon_name = "media-playback-start-rtl";
+	else
+	    priv->play_icon_name = "media-playback-start";
+	priv->play_button_image = gtk_image_new_from_icon_name (priv->play_icon_name, GTK_ICON_SIZE_BUTTON);
 	gtk_container_add (GTK_CONTAINER (priv->play_button), priv->play_button_image);
 	align = gtk_alignment_new (0.5, 0.5, 1.0, 0.0);
 	gtk_container_add (GTK_CONTAINER (align), priv->play_button);
@@ -751,9 +757,9 @@ _play (EggPlayPreview *play_preview)
 
 	gst_element_set_state (priv->playbin, GST_STATE_PLAYING);
 
-	gtk_image_set_from_stock (GTK_IMAGE (priv->play_button_image),
-							  GTK_STOCK_MEDIA_PAUSE,
-							  GTK_ICON_SIZE_BUTTON);
+	gtk_image_set_from_icon_name (GTK_IMAGE (priv->play_button_image),
+	                              "media-playback-pause",
+	                              GTK_ICON_SIZE_BUTTON);
 }
 
 static void
@@ -765,9 +771,9 @@ _pause (EggPlayPreview *play_preview)
 
 	gst_element_set_state (priv->playbin, GST_STATE_PAUSED);
 
-	gtk_image_set_from_stock (GTK_IMAGE (priv->play_button_image),
-							  GTK_STOCK_MEDIA_PLAY,
-							  GTK_ICON_SIZE_BUTTON);
+	gtk_image_set_from_icon_name (GTK_IMAGE (priv->play_button_image),
+	                              priv->play_icon_name,
+	                              GTK_ICON_SIZE_BUTTON);
 }
 
 static void
@@ -779,9 +785,9 @@ _stop (EggPlayPreview *play_preview)
 
 	gst_element_set_state (priv->playbin, GST_STATE_READY);
 
-	gtk_image_set_from_stock (GTK_IMAGE (priv->play_button_image),
-							  GTK_STOCK_MEDIA_PLAY,
-							  GTK_ICON_SIZE_BUTTON);
+	gtk_image_set_from_icon_name (GTK_IMAGE (priv->play_button_image),
+	                              priv->play_icon_name,
+	                              GTK_ICON_SIZE_BUTTON);
 }
 
 GtkWidget *
