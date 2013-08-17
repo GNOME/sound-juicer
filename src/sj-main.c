@@ -2162,6 +2162,30 @@ startup_cb (GApplication *app, gpointer user_data)
     g_object_unref (G_OBJECT (size_group));
   }
 
+  { /* ensure that the extract/play button's size is constant */
+    GtkWidget *fake_button1, *fake_button2;
+    GtkSizeGroup *size_group;
+
+    size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
+
+    fake_button1 = gtk_button_new_with_label (_("E_xtract"));
+    gtk_button_set_use_underline (GTK_BUTTON (fake_button1), TRUE);
+    gtk_size_group_add_widget (size_group, fake_button1);
+    g_signal_connect_swapped (extract_button, "destroy",
+                              G_CALLBACK (gtk_widget_destroy),
+                              fake_button1);
+
+    fake_button2 = gtk_button_new_with_label (_("_Stop"));
+    gtk_button_set_use_underline (GTK_BUTTON (fake_button2), TRUE);
+    gtk_size_group_add_widget (size_group, fake_button2);
+    g_signal_connect_swapped (extract_button, "destroy",
+                              G_CALLBACK (gtk_widget_destroy),
+                              fake_button2);
+
+    gtk_size_group_add_widget (size_group, extract_button);
+    g_object_unref (G_OBJECT (size_group));
+  }
+
   { /* ensure that the select/unselect button's size is constant */
     GtkWidget *fake_button1, *fake_button2;
     GtkSizeGroup *size_group;
