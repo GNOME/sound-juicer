@@ -271,17 +271,25 @@ build_encoder (SjExtractor *extractor)
 {
   SjExtractorPrivate *priv;
   GstElement *encodebin;
+  const char *profile_name;
+  static const char * mp3_pipeline = "lamemp3enc ! xingmux ! id3v2mux";
 
   g_return_val_if_fail (SJ_IS_EXTRACTOR (extractor), NULL);
   priv = (SjExtractorPrivate*)extractor->priv;
   g_return_val_if_fail (priv->profile != NULL, NULL);
 
-  encodebin = gst_element_factory_make ("encodebin", NULL);
-  if (encodebin == NULL)
-    return NULL;
-  g_object_set (encodebin, "profile", priv->profile, NULL);
-  /* Nice big buffers... */
-  g_object_set (encodebin, "queue-time-max", 120 * GST_SECOND, NULL);
+  /* encodebin does not use xingmux so do mp3 pipeline ourselves */
+  profile_name = gst_encoding_profile_get_name (priv->profile);
+  if (strcmp (profile_name, "mp3") == 0) {
+    encodebin = gst_parse_bin_from_description (mp3_pipeline, TRUE, NULL);
+  } else {
+    encodebin = gst_element_factory_make ("encodebin", NULL);
+    if (encodebin == NULL)
+      return NULL;
+    g_object_set (encodebin, "profile", priv->profile, NULL);
+    /* Nice big buffers... */
+    g_object_set (encodebin, "queue-time-max", 120 * GST_SECOND, NULL);
+  }
 
   return encodebin;
 }
@@ -697,5 +705,21 @@ gboolean
 sj_extractor_supports_profile (GstEncodingProfile *profile)
 {
   /* TODO: take a GError to return a message if the profile isn't supported */
+  const gchar *profile_name = gst_encoding_profile_get_name (profile);
+  if (strcmp (profile_name, "mp3") == 0) {
+    GstElementFactory *factory = gst_element_factory_find ("lamemp3enc");
+    if (factory == NULL)
+      return FALSE;
+    g_object_unref (factory);
+    factory = gst_element_factory_find ("xingmux");
+    if (factory == NULL)
+      return FALSE;
+    g_object_unref (factory);
+    factory = gst_element_factory_find ("id3v2mux");
+    if (factory == NULL)
+      return FALSE;
+    g_object_unref (factory);
+    return TRUE;
+  }
   return !rb_gst_check_missing_plugins(profile, NULL, NULL);
 }
