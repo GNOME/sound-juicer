@@ -101,6 +101,49 @@ sj_mb5_album_details_dump (AlbumDetails *details)
 #define sj_mb5_album_details_dump(...)
 #endif
 
+static void
+print_musicbrainz_query_error (SjMetadataMusicbrainz5 *self,
+                               const char             *entity,
+                               const char             *id)
+{
+  SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (self);
+  int len;
+  char *message;
+  int code =  mb5_query_get_lasthttpcode (priv->mb);
+  /* No error if the discid isn't found */
+  if (strcmp (entity, "discid") == 0 && code == 404)
+    return;
+  len =  mb5_query_get_lasterrormessage (priv->mb, NULL, 0) + 1;
+  message = g_malloc (len);
+  mb5_query_get_lasterrormessage (priv->mb, message, len);
+  g_warning ("No Musicbrainz metadata for %s %s, http code %d, %s",
+             entity, id, code, message);
+  g_free (message);
+}
+
+
+static Mb5Metadata
+query_musicbrainz (SjMetadataMusicbrainz5 *self,
+                   const char             *entity,
+                   const char             *id,
+                   char                   *includes)
+{
+  Mb5Metadata metadata;
+  char *inc[] = { "inc" };
+  SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (self);
+
+  if (includes == NULL)
+    metadata = mb5_query_query (priv->mb, entity, id, "",
+                                0, NULL, NULL);
+  else
+    metadata = mb5_query_query (priv->mb, entity, id, "",
+                                1, inc, &includes);
+  if (metadata == NULL)
+    print_musicbrainz_query_error (self, entity, id);
+
+  return metadata;
+}
+
 static GList *
 get_artist_list (SjMetadataMusicbrainz5 *self,
                  Mb5ArtistCredit         credit)
@@ -586,8 +629,10 @@ mb5_list_albums (SjMetadata *metadata, char **url, GError **error)
 
   releases = mb5_query_lookup_discid(priv->mb, discid);
 
-  if (releases == NULL)
+  if (releases == NULL) {
+    print_musicbrainz_query_error (self, "discid", discid);
     return NULL;
+  }
 
   if (mb5_release_list_size (releases) == 0)
     return NULL;
@@ -600,19 +645,16 @@ mb5_list_albums (SjMetadata *metadata, char **url, GError **error)
       char *releaseid = NULL;
       Mb5Release full_release = NULL;
       Mb5Metadata release_md = NULL;
-      const char *query_entity = "release";
-      char *params_names[] = { "inc" };
-      char *params_values[] = { "artists artist-credits labels recordings \
+      char *includes = "artists artist-credits labels recordings \
 release-groups url-rels discids recording-level-rels work-level-rels work-rels \
-artist-rels" };
+artist-rels";
 
       releaseid = NULL;
       GET(releaseid, mb5_release_get_id, release);
       /* Inorder to get metadata from work and composer relationships
        * we need to perform a custom query
        */
-      release_md = mb5_query_query (priv->mb, query_entity, releaseid, "", 1,
-                                    params_names, params_values);
+      release_md = query_musicbrainz (self, "release", releaseid, includes);
 
       if (release_md && mb5_metadata_get_release (release_md))
         full_release = mb5_metadata_get_release (release_md);
@@ -631,12 +673,10 @@ artist-rels" };
            * release-group, so run a separate query to get these urls
            */
           char *releasegroupid = NULL;
-          char *params_names[] = { "inc" };
-          char *params_values[] = { "artists url-rels" };
+          char *includes = "artists url-rels";
 
           GET (releasegroupid, mb5_releasegroup_get_id, group);
-          metadata = mb5_query_query (priv->mb, "release-group", releasegroupid, "",
-                                      1, params_names, params_values);
+          metadata = query_musicbrainz (self, "release-group", releasegroupid, includes);
           g_free (releasegroupid);
         }
 
