@@ -51,6 +51,7 @@
 #include "sj-prefs.h"
 #include "sj-play.h"
 #include "sj-genres.h"
+#include "sj-window-state.h"
 
 gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data);
 
@@ -2030,6 +2031,8 @@ startup_cb (GApplication *app, gpointer user_data)
   select_button         = GET_WIDGET ("select_button");
   status_bar            = GET_WIDGET ("status_bar");
   entry_table           = GET_WIDGET ("entry_table");
+
+  sj_main_window_init (GTK_WINDOW (main_window));
 
   g_action_map_add_action_entries (G_ACTION_MAP (main_window),
                                    win_entries, G_N_ELEMENTS (win_entries),

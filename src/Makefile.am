@@ -16,6 +16,8 @@ sound_juicer_SOURCES = \
 	sj-inhibit.c \
 	sj-genres.h \
 	sj-genres.c \
+	sj-window-state.c \
+	sj-window-state.h \
 	egg-play-preview.c \
 	egg-play-preview.h
 
