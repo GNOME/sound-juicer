@@ -53,6 +53,7 @@ typedef struct {
   Mb5Query mb;
   DiscId  *disc;
   char    *cdrom;
+  GHashTable *artist_cache;
   /* Proxy */
   char    *proxy_host;
   char    *proxy_username;
@@ -100,6 +101,30 @@ sj_mb5_album_details_dump (AlbumDetails *details)
 #else
 #define sj_mb5_album_details_dump(...)
 #endif
+
+
+static ArtistDetails*
+make_artist_details (SjMetadataMusicbrainz5 *self,
+                     Mb5Artist               artist)
+{
+  char buffer[512]; /* For the GET macro */
+  ArtistDetails *details;
+  SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (self);
+
+  mb5_artist_get_id (artist, buffer, sizeof(buffer));
+  details = g_hash_table_lookup (priv->artist_cache, buffer);
+  if (details == NULL) {
+    details = g_new0 (ArtistDetails, 1);
+    details->id = g_strdup (buffer);
+    GET (details->name, mb5_artist_get_name, artist);
+    GET (details->sortname, mb5_artist_get_sortname, artist);
+    GET (details->disambiguation, mb5_artist_get_disambiguation, artist);
+    GET (details->gender, mb5_artist_get_gender, artist);
+    GET (details->country, mb5_artist_get_country, artist);
+    g_hash_table_insert (priv->artist_cache, details->id, details);
+  }
+  return details;
+}
 
 static void
 print_musicbrainz_query_error (SjMetadataMusicbrainz5 *self,
@@ -165,25 +190,19 @@ get_artist_list (SjMetadataMusicbrainz5 *self,
   for (i = 0; i < mb5_namecredit_list_size (name_list); i++) {
     Mb5NameCredit name_credit;
     Mb5Artist artist;
-    ArtistDetails *details;
+    ArtistCredit *artist_credit = g_slice_new0 (ArtistCredit);
 
     name_credit = mb5_namecredit_list_item (name_list, i);
-    details = g_new0 (ArtistDetails, 1);
-    GET (details->joinphrase, mb5_namecredit_get_joinphrase, name_credit);
-    artists = g_list_prepend (artists, details);
     artist = mb5_namecredit_get_artist (name_credit);
-    if (!artist) {
+    if (artist != NULL) {
+      artist_credit->details = make_artist_details (self, artist);
+    } else {
       g_warning ("no Mb5Artist associated with Mb5NameCredit, falling back to Mb5NameCredit::name");
-      GET (details->name, mb5_namecredit_get_name, name_credit);
-      continue;
+      artist_credit->details = g_new0 (ArtistDetails, 1);
+      GET (artist_credit->details->name, mb5_namecredit_get_name, name_credit);
     }
-
-    GET (details->id, mb5_artist_get_id, artist);
-    GET (details->name, mb5_artist_get_name, artist);
-    GET (details->sortname, mb5_artist_get_sortname, artist);
-    GET (details->disambiguation, mb5_artist_get_disambiguation, artist);
-    GET (details->gender, mb5_artist_get_gender, artist);
-    GET (details->country, mb5_artist_get_country, artist);
+    GET (artist_credit->joinphrase, mb5_namecredit_get_joinphrase, name_credit);
+    artists = g_list_prepend (artists, artist_credit);
   }
 
   return g_list_reverse(artists);
@@ -199,11 +218,11 @@ get_artist_info (GList *artists, char **name, char **sortname, char **id)
   artist_name = g_string_new (NULL);
   artist_count = 0;
   for (it = artists; it != NULL; it = it->next) {
-    ArtistDetails *details = (ArtistDetails *)it->data;
+    ArtistCredit *artist_credit = (ArtistCredit *)it->data;
     artist_count++;
-    g_string_append (artist_name, details->name);
-    if (details->joinphrase != NULL)
-      g_string_append (artist_name, details->joinphrase);
+    g_string_append (artist_name, artist_credit->details->name);
+    if (artist_credit->joinphrase != NULL)
+      g_string_append (artist_name, artist_credit->joinphrase);
   }
 
   if (artist_count != 1) {
@@ -213,7 +232,7 @@ get_artist_info (GList *artists, char **name, char **sortname, char **id)
       if (id != NULL)
         *id = NULL;
   } else {
-      ArtistDetails *details = (ArtistDetails *)artists->data;
+      ArtistDetails *details = ((ArtistCredit *)artists->data)->details;
       if (sortname != NULL)
         *sortname = g_strdup (details->sortname);
       if (id != NULL)
@@ -386,6 +405,23 @@ fill_recording_relations (SjMetadataMusicbrainz5 *self,
 }
 
 static void
+parse_artist_credit (SjMetadataMusicbrainz5  *self,
+                     Mb5ArtistCredit          credit,
+                     char                   **name,
+                     char                   **sortname,
+                     char                   **id)
+{
+  if (credit) {
+    GList *artists;
+    artists = get_artist_list (self, credit);
+    if (artists) {
+      get_artist_info (artists, name, sortname, id);
+      g_list_free_full (artists, artist_credit_destroy);
+    }
+  }
+}
+
+static void
 fill_tracks_from_medium (SjMetadataMusicbrainz5 *self,
                          Mb5Medium               medium,
                          AlbumDetails           *album)
@@ -439,16 +475,10 @@ fill_tracks_from_medium (SjMetadataMusicbrainz5 *self,
           credit = mb5_recording_get_artistcredit (recording);
     }
 
-    if (credit) {
-      GList *artists;
-      artists = get_artist_list (self, credit);
-      if (artists) {
-        get_artist_info (artists, &track->artist,
-                         &track->artist_sortname,
-                         &track->artist_id);
-      }
-      track->artists = artists;
-    }
+      parse_artist_credit(self, credit,
+                          &track->artist,
+                          &track->artist_sortname,
+                          &track->artist_id);
     if (track->artist == NULL)
       track->artist = g_strdup (album->artist);
     if (track->artist_sortname == NULL)
@@ -532,7 +562,6 @@ make_album_from_release (SjMetadataMusicbrainz5 *self,
   Mb5ArtistCredit credit;
   Mb5RelationListList relationlists;
   Mb5MediumList media;
-  GList *artists;
   char *date = NULL;
   char buffer[512]; /* for the GET macro */
 
@@ -552,13 +581,10 @@ make_album_from_release (SjMetadataMusicbrainz5 *self,
 
   credit = mb5_release_get_artistcredit (release);
 
-  artists = get_artist_list (self, credit);
-  if (artists) {
-    get_artist_info (artists, &album->artist,
-                     &album->artist_sortname,
-                     &album->artist_id);
-  }
-  album->artists = artists;
+  parse_artist_credit (self, credit,
+                       &album->artist,
+                       &album->artist_sortname,
+                       &album->artist_id);
 
   GET (date, mb5_release_get_date, release);
   album->release_date = sj_metadata_helper_scan_date (date);
@@ -744,6 +770,9 @@ sj_metadata_musicbrainz5_init (SjMetadataMusicbrainz5 *self)
 
   priv = GET_PRIVATE (self);
   priv->mb = mb5_query_new (SJ_MUSICBRAINZ_USER_AGENT, NULL, 0);
+
+  priv->artist_cache = g_hash_table_new_full (g_str_hash, g_str_equal,
+                                              NULL, artist_details_destroy);
 }
 
 static void
@@ -837,6 +866,7 @@ sj_metadata_musicbrainz5_finalize (GObject *object)
   g_free (priv->proxy_host);
   g_free (priv->proxy_username);
   g_free (priv->proxy_password);
+  g_hash_table_unref (priv->artist_cache);
 
   G_OBJECT_CLASS (sj_metadata_musicbrainz5_parent_class)->finalize (object);
 }

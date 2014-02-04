@@ -35,8 +35,6 @@ void track_details_free(TrackDetails *track)
   g_free (track->track_id);
   g_free (track->artist_id);
   g_free (track->artist_sortname);
-  g_list_foreach (track->artists, (GFunc)artist_details_free, NULL);
-  g_list_free (track->artists);
   g_free (track);
 }
 
@@ -64,8 +62,6 @@ void album_details_free(AlbumDetails *album)
   g_free (album->country);
   g_free (album->type);
   g_list_foreach (album->labels, (GFunc)label_details_free, NULL);
-  g_list_foreach (album->artists, (GFunc)artist_details_free, NULL);
-  g_list_free (album->artists);
   g_free (album);
 }
 
@@ -80,8 +76,34 @@ void artist_details_free (ArtistDetails *artist)
   g_free (artist->disambiguation);
   g_free (artist->gender);
   g_free (artist->country);
-  g_free (artist->joinphrase);
   g_free (artist);
+}
+
+/*
+ * GDestroyNotify callback to free a ArtistDetails*
+ */
+void artist_details_destroy (gpointer artist)
+{
+  artist_details_free (artist);
+}
+
+/*
+ * Free an ArtistCredit*
+ */
+void artist_credit_free (ArtistCredit *credit, gboolean free_details)
+{
+  if (free_details)
+    artist_details_free (credit->details);
+  g_free (credit->joinphrase);
+  g_slice_free (ArtistCredit, credit);
+}
+
+/*
+ * GDestroyNotify callback to free a ArtistCredit*
+ */
+void artist_credit_destroy (gpointer artist)
+{
+  artist_credit_free (artist, FALSE);
 }
 
 /*

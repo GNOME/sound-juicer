@@ -27,6 +27,7 @@
 typedef enum _MetadataSource MetadataSource;
 
 typedef struct _AlbumDetails AlbumDetails;
+typedef struct _ArtistCredit ArtistCredit;
 typedef struct _ArtistDetails ArtistDetails;
 typedef struct _LabelDetails LabelDetails;
 typedef struct _TrackDetails TrackDetails;
@@ -50,7 +51,6 @@ struct _TrackDetails {
   int duration; /* seconds */
   char* track_id;
   char* artist_id;
-  GList *artists;
 };
 
 struct _AlbumDetails {
@@ -80,7 +80,6 @@ struct _AlbumDetails {
   char *type;
   char *lyrics_url;
   char *country;
-  GList *artists;
 };
 
 struct _ArtistDetails {
@@ -90,9 +89,11 @@ struct _ArtistDetails {
   char *disambiguation;
   char *gender;
   char *country;
+};
 
-  /* doesn't belong in here, prevent sharing the artist structure between
-   * distinct ReleaseGroups - more convenient for now */
+struct _ArtistCredit
+{
+  ArtistDetails *details;
   char *joinphrase;
 };
 
@@ -102,7 +103,11 @@ struct _LabelDetails {
 };
 
 void album_details_free(AlbumDetails *album);
+ArtistDetails* artist_details_copy (const ArtistDetails *artist);
+void artist_credit_free (ArtistCredit *credit, gboolean free_details);
+void artist_credit_destroy (gpointer credit);
 void artist_details_free(ArtistDetails *artist);
+void artist_details_destroy (gpointer artist);
 void label_details_free (LabelDetails *label);
 void track_details_free(TrackDetails *track);
 #endif
