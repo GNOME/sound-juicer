@@ -102,7 +102,8 @@ sj_mb5_album_details_dump (AlbumDetails *details)
 #endif
 
 static GList *
-get_artist_list (Mb5ArtistCredit credit)
+get_artist_list (SjMetadataMusicbrainz5 *self,
+                 Mb5ArtistCredit         credit)
 {
   Mb5NameCreditList name_list;
   GList *artists;
@@ -253,13 +254,14 @@ fill_album_composer (AlbumDetails *album)
   }
 }
 
-typedef void (*RelationForeachFunc)(Mb5Relation relation, gpointer user_data);
+typedef void (*RelationForeachFunc)(SjMetadataMusicbrainz5 *self, Mb5Relation relation, gpointer user_data);
 
-static void relationlist_list_foreach_relation(Mb5RelationListList relation_lists,
-                                               const char *targettype,
-                                               const char *relation_type,
-                                               RelationForeachFunc callback,
-                                               gpointer user_data)
+static void relationlist_list_foreach_relation(SjMetadataMusicbrainz5 *self,
+                                               Mb5RelationListList     relation_lists,
+                                               const char             *targettype,
+                                               const char             *relation_type,
+                                               RelationForeachFunc     callback,
+                                               gpointer                user_data)
 {
   unsigned int j;
 
@@ -290,12 +292,14 @@ static void relationlist_list_foreach_relation(Mb5RelationListList relation_list
       if (!g_str_equal (type, relation_type))
         continue;
 
-      callback(relation, user_data);
+      callback(self, relation, user_data);
     }
   }
 }
 
-static void composer_cb (Mb5Relation relation, gpointer user_data)
+static void composer_cb (SjMetadataMusicbrainz5 *self,
+                         Mb5Relation             relation,
+                         gpointer                user_data)
 {
       Mb5Artist composer;
       TrackDetails *track = (TrackDetails *)user_data;
@@ -309,7 +313,9 @@ static void composer_cb (Mb5Relation relation, gpointer user_data)
       GET (track->composer_sortname, mb5_artist_get_sortname, composer);
 }
 
-static void work_cb (Mb5Relation relation, gpointer user_data)
+static void work_cb (SjMetadataMusicbrainz5 *self,
+                     Mb5Relation             relation,
+                     gpointer                user_data)
 {
     Mb5RelationListList relation_lists;
     Mb5Work work;
@@ -318,22 +324,28 @@ static void work_cb (Mb5Relation relation, gpointer user_data)
     if (work == NULL)
         return;
     relation_lists = mb5_work_get_relationlistlist (work);
-    relationlist_list_foreach_relation (relation_lists, "artist", "composer",
+    relationlist_list_foreach_relation (self, relation_lists,
+                                        "artist", "composer",
                                         composer_cb, user_data);
 }
 
 static void
-fill_recording_relations (Mb5Recording recording, TrackDetails *track)
+fill_recording_relations (SjMetadataMusicbrainz5 *self,
+                          Mb5Recording            recording,
+                          TrackDetails           *track)
 {
   Mb5RelationListList relation_lists;
 
   relation_lists = mb5_recording_get_relationlistlist (recording);
-  relationlist_list_foreach_relation(relation_lists, "work", "performance",
+  relationlist_list_foreach_relation(self, relation_lists,
+                                     "work", "performance",
                                      work_cb, track);
 }
 
 static void
-fill_tracks_from_medium (Mb5Medium medium, AlbumDetails *album)
+fill_tracks_from_medium (SjMetadataMusicbrainz5 *self,
+                         Mb5Medium               medium,
+                         AlbumDetails           *album)
 {
   Mb5TrackList track_list;
   GList *tracks;
@@ -374,7 +386,7 @@ fill_tracks_from_medium (Mb5Medium medium, AlbumDetails *album)
     recording = mb5_track_get_recording (mbt);
     if (recording != NULL) {
       GET (track->track_id, mb5_recording_get_id, recording);
-      fill_recording_relations (recording, track);
+      fill_recording_relations (self, recording, track);
 
       if (track->duration == 0)
         track->duration = mb5_recording_get_length (recording) / 1000;
@@ -386,7 +398,7 @@ fill_tracks_from_medium (Mb5Medium medium, AlbumDetails *album)
 
     if (credit) {
       GList *artists;
-      artists = get_artist_list (credit);
+      artists = get_artist_list (self, credit);
       if (artists) {
         get_artist_info (artists, &track->artist,
                          &track->artist_sortname,
@@ -406,7 +418,9 @@ fill_tracks_from_medium (Mb5Medium medium, AlbumDetails *album)
   album->tracks = g_list_reverse (tracks);
 }
 
-static void wikipedia_cb (Mb5Relation relation, gpointer user_data)
+static void wikipedia_cb (SjMetadataMusicbrainz5 *self,
+                          Mb5Relation             relation,
+                          gpointer                user_data)
 {
   AlbumDetails *album = (AlbumDetails *)user_data;
   char buffer[512]; /* for the GET() macro */
@@ -419,7 +433,9 @@ static void wikipedia_cb (Mb5Relation relation, gpointer user_data)
   }
 }
 
-static void discogs_cb (Mb5Relation relation, gpointer user_data)
+static void discogs_cb (SjMetadataMusicbrainz5 *self,
+                        Mb5Relation             relation,
+                        gpointer                user_data)
 {
   AlbumDetails *album = (AlbumDetails *)user_data;
   char buffer[512]; /* for the GET() macro */
@@ -432,7 +448,9 @@ static void discogs_cb (Mb5Relation relation, gpointer user_data)
   }
 }
 
-static void lyrics_cb (Mb5Relation relation, gpointer user_data)
+static void lyrics_cb (SjMetadataMusicbrainz5 *self,
+                       Mb5Relation             relation,
+                       gpointer                user_data)
 {
   AlbumDetails *album = (AlbumDetails *)user_data;
   char buffer[512]; /* for the GET() macro */
@@ -446,20 +464,26 @@ static void lyrics_cb (Mb5Relation relation, gpointer user_data)
 }
 
 static void
-fill_relations (Mb5RelationListList relation_lists, AlbumDetails *album)
+fill_relations (SjMetadataMusicbrainz5 *self,
+                Mb5RelationListList     relation_lists,
+                AlbumDetails           *album)
 {
-  relationlist_list_foreach_relation (relation_lists, "url", "wikipedia",
+  relationlist_list_foreach_relation (self, relation_lists,
+                                      "url", "wikipedia",
                                       wikipedia_cb, album);
-  relationlist_list_foreach_relation (relation_lists, "url", "discogs",
+  relationlist_list_foreach_relation (self, relation_lists,
+                                      "url", "discogs",
                                       discogs_cb, album);
-  relationlist_list_foreach_relation (relation_lists, "url", "lyrics",
+  relationlist_list_foreach_relation (self, relation_lists,
+                                      "url", "lyrics",
                                       lyrics_cb, album);
 }
 
 static AlbumDetails *
-make_album_from_release (Mb5ReleaseGroup group,
-                         Mb5Release release,
-                         Mb5Medium medium)
+make_album_from_release (SjMetadataMusicbrainz5 *self,
+                         Mb5ReleaseGroup         group,
+                         Mb5Release              release,
+                         Mb5Medium               medium)
 {
   AlbumDetails *album;
   Mb5ArtistCredit credit;
@@ -485,7 +509,7 @@ make_album_from_release (Mb5ReleaseGroup group,
 
   credit = mb5_release_get_artistcredit (release);
 
-  artists = get_artist_list (credit);
+  artists = get_artist_list (self, credit);
   if (artists) {
     get_artist_info (artists, &album->artist,
                      &album->artist_sortname,
@@ -508,14 +532,14 @@ make_album_from_release (Mb5ReleaseGroup group,
       album->is_spoken_word = TRUE;
     }
     relationlists = mb5_releasegroup_get_relationlistlist (group);
-    fill_relations (relationlists, album);
+    fill_relations (self, relationlists, album);
   }
 
   album->disc_number = mb5_medium_get_position (medium);
-  fill_tracks_from_medium (medium, album);
+  fill_tracks_from_medium (self, medium, album);
   fill_album_composer (album);
   relationlists = mb5_release_get_relationlistlist (release);
-  fill_relations (relationlists, album);
+  fill_relations (self, relationlists, album);
   album->labels = get_release_labels (release);
 
   sj_mb5_album_details_dump (album);
@@ -528,6 +552,7 @@ make_album_from_release (Mb5ReleaseGroup group,
 static GList *
 mb5_list_albums (SjMetadata *metadata, char **url, GError **error)
 {
+  SjMetadataMusicbrainz5 *self;
   SjMetadataMusicbrainz5Private *priv;
   GList *albums = NULL;
   Mb5ReleaseList releases;
@@ -537,7 +562,8 @@ mb5_list_albums (SjMetadata *metadata, char **url, GError **error)
   int i;
   g_return_val_if_fail (SJ_IS_METADATA_MUSICBRAINZ5 (metadata), NULL);
 
-  priv = GET_PRIVATE (metadata);
+  self = SJ_METADATA_MUSICBRAINZ5 (metadata);
+  priv = GET_PRIVATE (SJ_METADATA_MUSICBRAINZ5 (self));
 
   if (sj_metadata_helper_check_media (priv->cdrom, error) == FALSE) {
     return NULL;
@@ -622,7 +648,7 @@ artist-rels" };
           Mb5Medium medium;
           medium = mb5_medium_list_item (media, j);
           if (medium) {
-            album = make_album_from_release (group, full_release, medium);
+            album = make_album_from_release (self, group, full_release, medium);
             album->metadata_source = SOURCE_MUSICBRAINZ;
             albums = g_list_append (albums, album);
           }
