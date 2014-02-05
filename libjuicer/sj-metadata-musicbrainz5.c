@@ -169,6 +169,26 @@ query_musicbrainz (SjMetadataMusicbrainz5 *self,
   return metadata;
 }
 
+static ArtistDetails*
+query_artist (SjMetadataMusicbrainz5 *self,
+              const gchar            *id)
+{
+  SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (self);
+  ArtistDetails *details = g_hash_table_lookup (priv->artist_cache, id);
+
+  if (details == NULL) {
+    Mb5Artist artist;
+    Mb5Metadata metadata = query_musicbrainz (self, "artist", id, "aliases");
+    if (metadata == NULL)
+      return NULL;
+    artist = mb5_metadata_get_artist (metadata);
+    if (artist != NULL)
+      details = make_artist_details (self, artist);
+    mb5_metadata_delete (metadata);
+  }
+  return details;
+}
+
 static GList *
 get_artist_list (SjMetadataMusicbrainz5 *self,
                  Mb5ArtistCredit         credit)
@@ -363,16 +383,26 @@ static void composer_cb (SjMetadataMusicbrainz5 *self,
                          Mb5Relation             relation,
                          gpointer                user_data)
 {
-      Mb5Artist composer;
-      TrackDetails *track = (TrackDetails *)user_data;
-      char buffer[512]; /* for the GET() macro */
+  Mb5Artist composer;
+  TrackDetails *track = (TrackDetails *)user_data;
+  char buffer[512]; /* For the GET macro */
+  ArtistDetails *details;
 
-      composer = mb5_relation_get_artist (relation);
-      if (composer == NULL)
-        return;
-
-      GET (track->composer, mb5_artist_get_name, composer);
-      GET (track->composer_sortname, mb5_artist_get_sortname, composer);
+  composer = mb5_relation_get_artist (relation);
+  if (composer == NULL)
+    return;
+  /* NB work-level-rels only returns artist name, sortname & id so
+     we need to perform another query if we want the alias list
+     therefore use query_artist rather than make_artist_details. */
+  mb5_artist_get_id (composer, buffer, sizeof (buffer));
+  details = query_artist (self, buffer);
+  if (details != NULL) {
+    track->composer = g_strdup (details->name);
+    track->composer_sortname = g_strdup (details->sortname);
+  } else {
+    GET (track->composer, mb5_artist_get_name, composer);
+    GET (track->composer_sortname, mb5_artist_get_sortname, composer);
+  }
 }
 
 static void work_cb (SjMetadataMusicbrainz5 *self,
