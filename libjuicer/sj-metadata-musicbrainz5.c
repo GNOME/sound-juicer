@@ -33,6 +33,8 @@
 #include "sj-structures.h"
 #include "sj-error.h"
 
+static char language[3];
+
 #define GET(field, function, obj) {						\
 	function (obj, buffer, sizeof (buffer));				\
 	if (field)								\
@@ -103,6 +105,42 @@ sj_mb5_album_details_dump (AlbumDetails *details)
 #endif
 
 
+static void
+parse_artist_aliases (Mb5Artist   artist,
+                      char      **name,
+                      char      **sortname)
+{
+  Mb5AliasList alias_list;
+  int i;
+  char buffer[512]; /* for the GET macro */
+  char locale[512];
+
+  GET (*name, mb5_artist_get_name, artist);
+  GET (*sortname, mb5_artist_get_sortname, artist);
+
+  if (*language == 0)
+    return;
+
+  alias_list = mb5_artist_get_aliaslist (artist);
+  if (alias_list == NULL)
+    return;
+
+  for (i = 0; i < mb5_alias_list_size (alias_list); i++) {
+    Mb5Alias alias = mb5_alias_list_item (alias_list, i);
+
+    if (alias == NULL)
+      continue;
+
+    if (mb5_alias_get_locale (alias, locale, sizeof(locale)) > 0 &&
+        strcmp (locale, language) == 0 &&
+        mb5_alias_get_primary (alias, buffer, sizeof(buffer)) > 0 &&
+        strcmp (buffer, "primary") == 0) {
+      GET (*name, mb5_alias_get_text, alias);
+      GET (*sortname, mb5_alias_get_sortname, alias);
+    }
+  }
+}
+
 static ArtistDetails*
 make_artist_details (SjMetadataMusicbrainz5 *self,
                      Mb5Artist               artist)
@@ -116,8 +154,7 @@ make_artist_details (SjMetadataMusicbrainz5 *self,
   if (details == NULL) {
     details = g_new0 (ArtistDetails, 1);
     details->id = g_strdup (buffer);
-    GET (details->name, mb5_artist_get_name, artist);
-    GET (details->sortname, mb5_artist_get_sortname, artist);
+    parse_artist_aliases (artist, &details->name, &details->sortname);
     GET (details->disambiguation, mb5_artist_get_disambiguation, artist);
     GET (details->gender, mb5_artist_get_gender, artist);
     GET (details->country, mb5_artist_get_country, artist);
@@ -701,14 +738,14 @@ mb5_list_albums (SjMetadata *metadata, char **url, GError **error)
       char *releaseid = NULL;
       Mb5Release full_release = NULL;
       Mb5Metadata release_md = NULL;
-      char *includes = "artists artist-credits labels recordings \
+      char *includes = "aliases artists artist-credits labels recordings \
 release-groups url-rels discids recording-level-rels work-level-rels work-rels \
 artist-rels";
 
       releaseid = NULL;
       GET(releaseid, mb5_release_get_id, release);
-      /* Inorder to get metadata from work and composer relationships
-       * we need to perform a custom query
+      /* Inorder to get metadata for artist aliases & work / composer
+       * relationships we need to perform a custom query
        */
       release_md = query_musicbrainz (self, "release", releaseid, includes);
 
@@ -904,6 +941,7 @@ sj_metadata_musicbrainz5_finalize (GObject *object)
 static void
 sj_metadata_musicbrainz5_class_init (SjMetadataMusicbrainz5Class *class)
 {
+  const gchar * const * l;
   GObjectClass *object_class = (GObjectClass*)class;
 
   g_type_class_add_private (class, sizeof (SjMetadataMusicbrainz5Private));
@@ -924,8 +962,21 @@ sj_metadata_musicbrainz5_class_init (SjMetadataMusicbrainz5Class *class)
                                     PROP_PROXY_USERNAME, "proxy-username");
   g_object_class_override_property (object_class,
                                     PROP_PROXY_PASSWORD, "proxy-password");
-}
 
+  /* Although GLib supports fallback locales we do not use them as
+     MusicBrainz does not provide locale information for the canonical
+     artist name, only it's aliases. This means that it is not
+     possible to fallback to other locales as the canonical name may
+     actually be in a higher priority locale than the alias that
+     matches one of the fallback locales. */
+  l = g_get_language_names ();
+  if (strcmp (l[0], "C") == 0) { /* "C" locale should be "en" for MusicBrainz */
+    memcpy (language, "en", 3);
+  } else if (strlen (l[0]) > 1) {
+    memcpy (language, l[0], 2);
+    language[2] = '\0';
+  }
+}
 
 /*
  * Public methods.
