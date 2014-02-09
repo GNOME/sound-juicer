@@ -578,7 +578,7 @@ static void composer_cb (SjMetadataMusicbrainz5 *self,
                          gpointer                user_data)
 {
   Mb5Artist composer;
-  TrackDetails *track = (TrackDetails *)user_data;
+  GSList **composers = user_data;
   char buffer[512]; /* For the GET macro */
   ArtistDetails *details;
 
@@ -590,29 +590,45 @@ static void composer_cb (SjMetadataMusicbrainz5 *self,
      therefore use query_artist rather than make_artist_details. */
   mb5_artist_get_id (composer, buffer, sizeof (buffer));
   details = query_artist (self, buffer);
-  if (details != NULL) {
-    track->composer = g_strdup (details->name);
-    track->composer_sortname = g_strdup (details->sortname);
-  } else {
-    GET (track->composer, mb5_artist_get_name, composer);
-    GET (track->composer_sortname, mb5_artist_get_sortname, composer);
-  }
+  if (details != NULL)
+    *composers = g_slist_append (*composers, details);
 }
 
 static void work_cb (SjMetadataMusicbrainz5 *self,
                      Mb5Relation             relation,
                      gpointer                user_data)
 {
-    Mb5RelationListList relation_lists;
-    Mb5Work work;
+  TrackDetails *track = user_data;
+  GSList *composers = NULL, *arrangers = NULL;
+  GSList *orchestrators = NULL, *transcribers = NULL;
+  Mb5RelationListList relation_lists;
+  Mb5Work work;
 
-    work = mb5_relation_get_work (relation);
-    if (work == NULL)
-        return;
-    relation_lists = mb5_work_get_relationlistlist (work);
-    relationlist_list_foreach_relation (self, relation_lists,
-                                        "artist", "composer",
-                                        composer_cb, user_data);
+  work = mb5_relation_get_work (relation);
+  if (work == NULL)
+    return;
+
+  relation_lists = mb5_work_get_relationlistlist (work);
+  relationlist_list_foreach_relation (self, relation_lists,
+                                      "artist", "composer",
+                                      composer_cb, &composers);
+  relationlist_list_foreach_relation (self, relation_lists,
+                                      "artist", "arranger",
+                                      composer_cb, &arrangers);
+  relationlist_list_foreach_relation (self, relation_lists,
+                                      "artist", "orchestrator",
+                                      composer_cb, &orchestrators);
+  relationlist_list_foreach_relation (self, relation_lists,
+                                      "artist", "instrument arranger",
+                                      composer_cb, &transcribers);
+
+  build_composer_text (composers, arrangers, orchestrators, transcribers,
+                       &track->composer, &track->composer_sortname);
+
+  g_slist_free (arrangers);
+  g_slist_free (composers);
+  g_slist_free (orchestrators);
+  g_slist_free (transcribers);
 }
 
 static void
