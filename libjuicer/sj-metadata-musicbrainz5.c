@@ -25,6 +25,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <glib.h>
+#include <glib/gi18n.h>
 #include <glib-object.h>
 #include <gdesktop-enums.h>
 #include <discid/discid.h>
@@ -425,6 +426,151 @@ static void relationlist_list_foreach_relation(SjMetadataMusicbrainz5 *self,
       callback(self, relation, user_data);
     }
   }
+}
+
+static char*
+get_sortname (GSList *artists)
+{
+  if (artists == NULL || artists->data == NULL || artists->next != NULL)
+    return NULL;
+
+  return g_strdup (((ArtistDetails*) artists->data)->sortname);
+}
+
+static char*
+concatenate_composers (GSList *composers)
+{
+  GString *text;
+  GSList *it;
+
+  if (composers == NULL)
+    return NULL;
+
+  text = g_string_new (((ArtistDetails*) composers->data)->name);
+  for (it = composers->next; it != NULL; it = it->next) {
+    g_string_append_printf (text, ", %s", ((ArtistDetails*) it->data)->name);
+  }
+
+  return g_string_free (text, FALSE);
+}
+
+static void
+build_composer_text (GSList  *composers,
+                     GSList  *arrangers,
+                     GSList  *orchestrators,
+                     GSList  *transcribers,
+                     char   **name,
+                     char   **sortname)
+{
+  gsize i = 0;
+  gsize j = 0;
+  gsize index = 0; /* Which format string to use */
+  GSList *sort = NULL;
+  gchar  *comp = NULL;
+  gchar  *arr  = NULL;
+  gchar  *arr_v[4];
+  gchar  *formats[16] = {
+    NULL,
+    NULL,
+    /* Tranlators: This string is used to build the composer tag when
+       a track has a mixture of arrangers, orchestrators and
+       transcribers but no composers */
+    N_("arr. %s"),
+    /* Tranlators: This string is used to build the composer tag when a
+       track has composers and arrangers, or a composer and a mixture
+       of arrangers, orchestrators and transcribers */
+    N_("%s arr. %s"),
+    /* Tranlators: This string is used to build the composer tag
+       when a track has orchestrators but no composer */
+    N_("orch. %s"),
+    /* Tranlators: This string is used to build the composer tag
+       when a track has composers and orchestrators */
+    N_("%s orch. %s"),
+    /* arrangers and orchestrators but no composers */
+    "arr. %s",
+    /* composers, arrangers and orchestrators */
+    "%s arr. %s",
+    /* Tranlators: This string is used to build the composer tag
+       when a track has a transcribers but no composer */
+    N_("trans. %s"),
+    /* Tranlators: This string is used to build the composer tag
+       when a track has composers and transcribers */
+    N_("%s trans. %s"),
+    /* arrangers and transcribers but no composers */
+    "arr. %s",
+    /* composers, arrangers and transcribers */
+    "%s arr. %s",
+    /* orchestrators and transcribers but no composer */
+    "arr. %s",
+    /* composers, orchestrators and transcribers */
+    "%s arr. %s",
+    /* arrangers, orchestrators and transcribers but no composers */
+    "arr. %s",
+    /* composers, arrangers, orchestrators and transcribers */
+    "%s arr. %s"
+  };
+
+  enum {
+    HAVE_COMPOSERS     = 1 << 0,
+    HAVE_ARRANGERS     = 1 << 1,
+    HAVE_ORCHESTRATORS = 1 << 2,
+    HAVE_TRANSCRIBERS  = 1 << 3
+  };
+
+  g_free (*sortname);
+  g_free (*name);
+  *sortname = NULL;
+  *name = NULL;
+
+  if (composers != NULL) {
+    index |= HAVE_COMPOSERS;
+    comp = concatenate_composers (composers);
+    sort = composers;
+  }
+  if (arrangers != NULL) {
+    index |= HAVE_ARRANGERS;
+    arr_v[i++] = concatenate_composers (arrangers);
+    sort = arrangers;
+  }
+  if (orchestrators != NULL) {
+    index |= HAVE_ORCHESTRATORS;
+    arr_v[i++] = concatenate_composers (orchestrators);
+    sort = orchestrators;
+  }
+  if (transcribers != NULL) {
+    index |= HAVE_TRANSCRIBERS;
+    arr_v[i++] = concatenate_composers (transcribers);
+    sort = transcribers;
+  }
+
+  arr_v[i] = NULL;
+  if (i > 0)
+    arr = g_strjoinv (", ", arr_v);
+
+  if (index & HAVE_COMPOSERS) {
+    if (index & ~HAVE_COMPOSERS) {
+      *name = g_strdup_printf (gettext (formats[index]), comp, arr);
+    } else {
+      *name = g_strdup (comp);
+    }
+  } else {
+    if (index & ~HAVE_COMPOSERS) {
+      *name = g_strdup_printf (gettext (formats[index]), arr);
+    }
+  }
+
+  switch (index) {
+  case HAVE_COMPOSERS:
+  case HAVE_ARRANGERS:
+  case HAVE_ORCHESTRATORS:
+  case HAVE_TRANSCRIBERS:
+    *sortname = get_sortname (sort);
+  }
+
+  while (j < i)
+    g_free (arr_v[j++]);
+  g_free (arr);
+  g_free (comp);
 }
 
 static void composer_cb (SjMetadataMusicbrainz5 *self,
