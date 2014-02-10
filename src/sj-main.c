@@ -58,6 +58,8 @@ gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data
 
 static void reread_cd (gboolean ignore_no_media);
 static void update_ui_for_album (AlbumDetails *album);
+static gboolean get_action_state_bool (const char *name);
+static void set_action_state (const char *detailed_name);
 
 /* Prototypes for the signal blocking/unblocking in update_ui_for_album */
 G_MODULE_EXPORT void on_title_edit_changed(GtkEditable *widget, gpointer user_data);
@@ -2360,15 +2362,67 @@ activate_cb (GApplication *app, gpointer user_data)
   gtk_window_present (GTK_WINDOW (main_window));
 }
 
-void set_action_enabled (const char *name, gboolean enabled)
+static GAction*
+lookup_action (const gchar* name)
 {
-  GActionMap *map = G_ACTION_MAP (g_application_get_default ());
-  GAction *action = g_action_map_lookup_action (map, name);
+  GActionMap *map;
+  GAction *action;
 
+  map = G_ACTION_MAP (g_application_get_default ());
+  action = g_action_map_lookup_action (map, name);
   if (action == NULL)
     action = g_action_map_lookup_action (G_ACTION_MAP (main_window), name);
+  if (action == NULL)
+    g_warning ("Action '%s' not found", name);
 
-  g_simple_action_set_enabled (G_SIMPLE_ACTION (action), enabled);
+  return action;
+}
+
+static gboolean
+get_action_state_bool (const gchar* name)
+{
+  gboolean state = FALSE;
+  GAction *action;
+
+  action = lookup_action (name);
+  if (action != NULL) {
+    GVariant *value = g_action_get_state (action);
+    state = g_variant_get_boolean (value);
+    g_variant_unref (value);
+  }
+
+  return state;
+}
+
+static void
+set_action_state (const gchar *detailed_name)
+{
+  gchar *name;
+  GVariant *value;
+  GError *error = NULL;
+
+  if (g_action_parse_detailed_name (detailed_name, &name, &value, &error)) {
+    GSimpleAction *action;
+
+    action = G_SIMPLE_ACTION (lookup_action (name));
+    if (action != NULL)
+      g_simple_action_set_state (action, value);
+
+    g_variant_unref (value);
+  } else {
+    g_warning ("Error parsing detailed action name '%s' - %s",
+               detailed_name, error->message);
+    g_error_free (error);
+  }
+}
+
+void set_action_enabled (const char *name, gboolean enabled)
+{
+  GAction *action;
+
+  action = lookup_action (name);
+  if (action != NULL)
+    g_simple_action_set_enabled (G_SIMPLE_ACTION (action), enabled);
 }
 
 int main (int argc, char **argv)
