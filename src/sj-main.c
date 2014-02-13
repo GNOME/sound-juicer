@@ -1117,18 +1117,12 @@ static void audio_volume_changed_cb (GSettings *settings, gchar *key, gpointer u
 static void
 metadata_cb (SjMetadataGetter *m, GList *albums, GError *error)
 {
-  gboolean realized = gtk_widget_get_realized (main_window);
-
   set_action_state ("re-read(false)");
-
-  if (realized)
-    gdk_window_set_cursor (gtk_widget_get_window (main_window), NULL);
-    /* Clear the statusbar message */
-    gtk_statusbar_pop(GTK_STATUSBAR(status_bar), 0);
-
   if (error && !(error->code == SJ_ERROR_CD_NO_MEDIA)) {
+    gboolean realized;
     GtkWidget *dialog;
 
+    realized = gtk_widget_get_realized (main_window);
     dialog = gtk_message_dialog_new_with_markup (realized ? GTK_WINDOW (main_window) : NULL, 0,
                                                  GTK_MESSAGE_ERROR,
                                                  GTK_BUTTONS_CLOSE,
@@ -1208,28 +1202,12 @@ static void reread_cd (gboolean ignore_no_media)
 {
   /* TODO: remove ignore_no_media? */
   GError *error = NULL;
-  GdkCursor *cursor;
-  GdkWindow *window;
-  gboolean realized = gtk_widget_get_realized (main_window);
-
-  window = gtk_widget_get_window (main_window);
 
   set_action_state ("re-read(true)");
   set_action_enabled ("re-read", FALSE);
 
   /* Make sure nothing is playing */
   stop_playback ();
-
-  /* Set watch cursor */
-  if (realized) {
-    cursor = gdk_cursor_new_for_display (gtk_widget_get_display (GTK_WIDGET (main_window)), GDK_WATCH);
-    gdk_window_set_cursor (window, cursor);
-    g_object_unref (cursor);
-    gdk_display_sync (gtk_widget_get_display (GTK_WIDGET (main_window)));
-  }
-
-  /* Set statusbar message */
-  gtk_statusbar_push(GTK_STATUSBAR(status_bar), 0, _("Retrieving track listing...please wait."));
 
   if (!drive)
     sj_debug (DEBUG_CD, "Attempting to re-read NULL drive\n");
@@ -1242,17 +1220,16 @@ static void reread_cd (gboolean ignore_no_media)
     sj_debug (DEBUG_CD, "Media is not an audio CD\n");
     set_action_state ("re-read(false)");
     update_ui_for_album (NULL);
-    gtk_statusbar_pop(GTK_STATUSBAR(status_bar), 0);
-    if (realized)
-      gdk_window_set_cursor (window, NULL);
     return;
   }
 
   sj_metadata_getter_list_albums (metadata, &error);
 
   if (error && !(error->code == SJ_ERROR_CD_NO_MEDIA && ignore_no_media)) {
+    gboolean realized;
     GtkWidget *dialog;
 
+    realized = gtk_widget_get_realized (main_window);
     dialog = gtk_message_dialog_new (realized ? GTK_WINDOW (main_window) : NULL, 0,
                                      GTK_MESSAGE_ERROR,
                                      GTK_BUTTONS_CLOSE,
@@ -2030,6 +2007,62 @@ is_cd_duplication_available(void)
   return FALSE;
 }
 
+static void
+ui_set_retrieving_metadata (gboolean state)
+{
+  GdkWindow *window;
+
+  window = gtk_widget_get_window (main_window);
+  if (state) {
+    GdkCursor *cursor;
+
+    gtk_statusbar_push(GTK_STATUSBAR(status_bar), 0,
+                       _("Retrieving track listing...please wait."));
+    cursor = gdk_cursor_new_for_display (gtk_widget_get_display (main_window),
+                                         GDK_WATCH);
+    gdk_window_set_cursor (window, cursor);
+    g_object_unref (cursor);
+    gdk_display_sync (gtk_widget_get_display (GTK_WIDGET (main_window)));
+  } else {
+    gtk_statusbar_pop(GTK_STATUSBAR(status_bar), 0);
+    gdk_window_set_cursor (window, NULL);
+  }
+}
+
+static void
+reread_main_window_realize_cb (GtkWidget *widget,
+                               gpointer   user_data)
+{
+  ui_set_retrieving_metadata (TRUE);
+}
+
+static void
+reread_state_changed_cb (gchar    *group_name,
+                         gchar    *action_name,
+                         GVariant *value,
+                         gpointer  user_data)
+{
+  static gboolean state = FALSE;
+  static gulong id = 0;
+
+  if (g_variant_get_boolean (value) == state)
+    return;
+
+  state = !state;
+  if (id != 0) {
+    g_signal_handler_disconnect (main_window, id);
+    id = 0;
+  }
+  if (gtk_widget_get_realized (main_window)) {
+    ui_set_retrieving_metadata (state);
+  } else if (state) {
+    id = g_signal_connect (main_window,
+                           "realize",
+                           G_CALLBACK (reread_main_window_realize_cb),
+                           NULL);
+  }
+}
+
 GActionEntry app_entries[] = {
   { "re-read", on_reread_activate, NULL, "false", NULL },
   { "duplicate", on_duplicate_activate, NULL, NULL, NULL },
@@ -2108,6 +2141,10 @@ startup_cb (GApplication *app, gpointer user_data)
   g_action_map_add_action_entries (G_ACTION_MAP (app),
                                    app_entries, G_N_ELEMENTS (app_entries),
                                    NULL);
+  g_signal_connect (app,
+                    "action-state-changed::re-read",
+                    G_CALLBACK (reread_state_changed_cb),
+                    NULL);
 
   builder = gtk_builder_new ();
   if (g_file_test (SOURCE_BUILDER, G_FILE_TEST_EXISTS) != FALSE) {
