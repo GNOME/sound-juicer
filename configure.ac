@@ -2,7 +2,7 @@ AC_INIT([Sound Juicer],[3.5.0],[http://bugzilla.gnome.org/enter_bug.cgi?product=
 
 AC_PREREQ(2.52)
 
-AM_INIT_AUTOMAKE([1.9 no-dist-gzip dist-bzip2 check-news])
+AM_INIT_AUTOMAKE([1.9 no-dist-gzip dist-xz check-news])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR([libjuicer/sj-extractor.c])
 AC_CONFIG_HEADERS([config.h])
