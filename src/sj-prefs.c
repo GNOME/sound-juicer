@@ -38,7 +38,7 @@
 extern GtkBuilder *builder;
 extern GtkWidget *main_window;
 
-static GtkWidget *audio_profile;
+static GtkWidget *profile_option;
 static GtkWidget *cd_option, *path_option, *file_option, *basepath_fcb, *check_strip, *check_eject, *check_open;
 static GtkWidget *path_example_label;
 
@@ -182,7 +182,7 @@ G_MODULE_EXPORT void prefs_file_option_changed (GtkComboBox *combo, gpointer use
 }
 
 static void
-sj_audio_profile_chooser_set_active (GtkWidget *chooser, const char *profile)
+sj_profile_option_set_active (GtkWidget *chooser, const char *profile)
 {
   GtkTreeIter iter;
   GtkTreeModel *model;
@@ -213,7 +213,7 @@ static void audio_profile_changed_cb (GSettings *settings, gchar *key, gpointer 
   char *value;
   g_return_if_fail (strcmp (key, SJ_SETTINGS_AUDIO_PROFILE) == 0);
   value = g_settings_get_string (settings, key);
-  sj_audio_profile_chooser_set_active (audio_profile, value);
+  sj_profile_option_set_active (profile_option, value);
   g_free (value);
 }
 
@@ -429,12 +429,10 @@ on_response (GtkDialog *dialog, gint response, gpointer user_data)
   }
 }
 
-static GtkWidget *sj_audio_profile_chooser_new(void)
+static void populate_profile_combo (GtkComboBox *combo)
 {
   GstEncodingTarget *target;
   const GList *p;
-  GtkWidget *combo_box;
-  GtkCellRenderer *renderer;
   GtkTreeModel *model;
 
   model = GTK_TREE_MODEL (gtk_tree_store_new (3, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER));
@@ -456,12 +454,7 @@ static GtkWidget *sj_audio_profile_chooser_new(void)
     g_free (media_type);
   }
 
-  combo_box = gtk_combo_box_new_with_model (model);
-  renderer = gtk_cell_renderer_text_new ();
-  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (combo_box), renderer, TRUE);
-  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (combo_box), renderer, "text", 1, NULL);
-
-  return GTK_WIDGET (combo_box);
+  gtk_combo_box_set_model (GTK_COMBO_BOX (combo), model);
 }
 
 /**
@@ -477,10 +470,8 @@ void show_preferences_dialog ()
     const char *labels[] = { "cd_label", "path_label", "folder_label", "file_label", "profile_label" };
     guint i;
     GtkSizeGroup *group;
-    GtkWidget    *box;
 
     prefs_dialog = GET_WIDGET ("prefs_dialog");
-    box          = GET_WIDGET ("hack_hbox");
     g_assert (prefs_dialog != NULL);
     g_object_add_weak_pointer (G_OBJECT (prefs_dialog), (gpointer)&prefs_dialog);
 
@@ -502,19 +493,7 @@ void show_preferences_dialog ()
     basepath_fcb       = GET_WIDGET ("path_chooser");
     path_option        = GET_WIDGET ("path_option");
     file_option        = GET_WIDGET ("file_option");
-#if 0
-    /* FIXME: This cannot be currently used, because aufio profile selector
-     * 	      from gnome-media-profiles package is not fully qualified widget.
-     * 	      Once gnome-media package is updated, this widget can be created
-     * 	      using GtkBuilder. */
-    audio_profile      = GET_WIDGET ("audio_profile");
-#else
-    audio_profile = sj_audio_profile_chooser_new();
-    g_signal_connect (G_OBJECT (audio_profile), "changed",
-                      G_CALLBACK (prefs_profile_changed), NULL);
-    gtk_box_pack_start (GTK_BOX (box), audio_profile, TRUE, TRUE, 0);
-    gtk_widget_show (audio_profile);
-#endif
+    profile_option     = GET_WIDGET ("profile_option");
     check_strip        = GET_WIDGET ("check_strip");
     check_eject        = GET_WIDGET ("check_eject");
     check_open         = GET_WIDGET ("check_open");
@@ -525,6 +504,8 @@ void show_preferences_dialog ()
     g_signal_connect (path_option, "changed", G_CALLBACK (prefs_path_option_changed), NULL);
     populate_pattern_combo (GTK_COMBO_BOX (file_option), file_patterns);
     g_signal_connect (file_option, "changed", G_CALLBACK (prefs_file_option_changed), NULL);
+    populate_profile_combo (GTK_COMBO_BOX (profile_option));
+    g_signal_connect (profile_option, "changed", G_CALLBACK (prefs_profile_changed), NULL);
 
     g_signal_connect (cd_option, "drive-changed", G_CALLBACK (prefs_drive_changed), NULL);
 

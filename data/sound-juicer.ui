@@ -619,6 +619,7 @@ audio-volume-medium</property>
                             <property name="xalign">0</property>
                             <property name="label" translatable="yes">CD _drive:</property>
                             <property name="use_underline">True</property>
+                            <property name="mnemonic_widget">cd_option</property>
                           </object>
                           <packing>
                             <property name="x_options">GTK_FILL</property>
@@ -633,8 +634,6 @@ audio-volume-medium</property>
                           <packing>
                             <property name="left_attach">1</property>
                             <property name="right_attach">2</property>
-                            <property name="x_options">GTK_FILL</property>
-                            <property name="y_options"></property>
                           </packing>
                         </child>
                         <child>
@@ -943,6 +942,7 @@ audio-volume-medium</property>
                             <property name="xalign">0</property>
                             <property name="label" translatable="yes">O_utput Format:</property>
                             <property name="use_underline">True</property>
+                            <property name="mnemonic_widget">profile_option</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -951,11 +951,13 @@ audio-volume-medium</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkHBox" id="hack_hbox">
+                          <object class="GtkComboBox" id="profile_option">
                             <property name="visible">True</property>
-                            <property name="spacing">6</property>
                             <child>
-                              <placeholder/>
+                              <object class="GtkCellRendererText" id="cellrenderertext3"/>
+                              <attributes>
+                                <attribute name="text">1</attribute>
+                              </attributes>
                             </child>
                           </object>
                           <packing>
