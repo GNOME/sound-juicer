@@ -149,22 +149,6 @@ sj_metadata_helper_scan_disc_number (const char *album_title, int *disc_number)
   return new_title;
 }
 
-GDate *
-sj_metadata_helper_scan_date (const char *date)
-{
-  int matched, year=1, month=1, day=1;
-
-  if (date == NULL)
-    return NULL;
-
-  matched = sscanf (date, "%u-%u-%u", &year, &month, &day);
-  if (matched >= 1) {
-    return g_date_new_dmy ((day == 0) ? 1 : day, (month == 0) ? 1 : month, year);
-  }
-
-  return NULL;
-}
-
 gboolean
 sj_metadata_helper_check_media (const char *cdrom, GError **error)
 {
