@@ -599,12 +599,24 @@ sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, G
         }
         g_strfreev (values);
       }
+
       if (track->album->release_date) {
+        GstDateTime *date;
+        date = gst_date_time_new_ymd (g_date_get_year (track->album->release_date),
+                                      g_date_get_month (track->album->release_date),
+                                      g_date_get_day (track->album->release_date));
+        /* We set both GST_TAG_DATE_TIME and GST_TAG_DATE as most taggers
+         * use GST_TAG__DATE_TIME, but a few (id3v2mux/apemux) are still using
+         * GST_TAG_DATE
+         */
         gst_tag_setter_add_tags (tagger,
                                  GST_TAG_MERGE_APPEND,
+                                 GST_TAG_DATE_TIME, date,
                                  GST_TAG_DATE, track->album->release_date,
                                  NULL);
+        gst_date_time_unref (date);
       }
+
       if (track->album->disc_number > 0) {
         gst_tag_setter_add_tags (tagger,
                                  GST_TAG_MERGE_APPEND,
