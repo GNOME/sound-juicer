@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
 "juicer&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-02-20 11:34+0000\n"
-"PO-Revision-Date: 2014-02-20 23:37+0100\n"
+"POT-Creation-Date: 2014-04-09 12:17+0000\n"
+"PO-Revision-Date: 2014-04-09 14:32+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -148,7 +148,7 @@ msgid "Audio volume"
 msgstr "Hlasitost zvuku"
 
 #: ../data/sound-juicer.desktop.in.in.h:1 ../data/sound-juicer.ui.h:1
-#: ../src/sj-main.c:116 ../src/sj-main.c:118 ../src/sj-main.c:2299
+#: ../src/sj-main.c:117 ../src/sj-main.c:119 ../src/sj-main.c:2302
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -200,13 +200,13 @@ msgstr "Délka:"
 msgid "Tracks"
 msgstr "Stopy"
 
-#: ../data/sound-juicer.ui.h:10 ../src/sj-main.c:2059 ../src/sj-play.c:121
+#: ../data/sound-juicer.ui.h:10 ../src/sj-main.c:2062 ../src/sj-play.c:121
 #: ../src/sj-play.c:259 ../src/sj-play.c:605
 msgid "_Play"
 msgstr "_Přehrát"
 
 #: ../data/sound-juicer.ui.h:11 ../src/sj-extracting.c:233
-#: ../src/sj-main.c:2083
+#: ../src/sj-main.c:2086
 msgid "E_xtract"
 msgstr "_Extrahovat"
 
@@ -226,7 +226,7 @@ msgstr ""
 "Toto hudební CD může být více než jedno album. Vyberte níže správné album a "
 "stiskněte <i>Pokračovat</i>."
 
-#: ../data/sound-juicer.ui.h:15 ../src/sj-main.c:200
+#: ../data/sound-juicer.ui.h:15 ../src/sj-main.c:201
 msgid "_Continue"
 msgstr "_Pokračovat"
 
@@ -350,31 +350,31 @@ msgstr "zařízení"
 msgid "The device"
 msgstr "Zařízení"
 
-#: ../libjuicer/sj-extractor.c:347
+#: ../libjuicer/sj-extractor.c:355
 #, c-format
 msgid "Could not create GStreamer CD reader"
 msgstr "Nelze vytvořit GStreamer čteč CD"
 
-#: ../libjuicer/sj-extractor.c:365
+#: ../libjuicer/sj-extractor.c:373
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Nelze vytvořit enkodéry GStreamer pro %s"
 
-#: ../libjuicer/sj-extractor.c:377
+#: ../libjuicer/sj-extractor.c:385
 #, c-format
 msgid "Could not create GStreamer file output"
 msgstr "Nelze vytvořit soubor výstupu pro GStreamer"
 
-#: ../libjuicer/sj-extractor.c:391
+#: ../libjuicer/sj-extractor.c:399
 #, c-format
 msgid "Could not link pipeline"
 msgstr "Nelze propojit rouru"
 
-#: ../libjuicer/sj-extractor.c:414
+#: ../libjuicer/sj-extractor.c:422
 msgid "Could not get current track position"
 msgstr "Nelze získat aktuální pozici stopy"
 
-#: ../libjuicer/sj-extractor.c:443
+#: ../libjuicer/sj-extractor.c:451
 #, c-format
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
@@ -382,12 +382,12 @@ msgstr ""
 "Objekt extraktoru není platný. To je špatné, přečtěte si chyby ve své "
 "konzoli."
 
-#: ../libjuicer/sj-extractor.c:680
+#: ../libjuicer/sj-extractor.c:688
 #, c-format
 msgid "The plugin necessary for CD access was not found"
 msgstr "Nebyl nalezen zásuvný modul potřebný pro přístup k CD"
 
-#: ../libjuicer/sj-extractor.c:688
+#: ../libjuicer/sj-extractor.c:696
 #, c-format
 msgid "The plugin necessary for file access was not found"
 msgstr "Nebyl nalezen zásuvný modul potřebný pro přístup k souborům"
@@ -416,6 +416,34 @@ msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr ""
 "Nelze otevřít zařízení „%s“. Zkontrolujte oprávnění k přístupu k zařízení."
+
+#: ../libjuicer/sj-metadata.c:345
+msgid "Czechoslovakia"
+msgstr "Československo"
+
+#: ../libjuicer/sj-metadata.c:346
+msgid "East Germany"
+msgstr "Východní Německo"
+
+#: ../libjuicer/sj-metadata.c:347
+msgid "Europe"
+msgstr "Evropa"
+
+#: ../libjuicer/sj-metadata.c:348
+msgid "Serbia and Montenegro"
+msgstr "Srbsko a Černá Hora"
+
+#: ../libjuicer/sj-metadata.c:349
+msgid "Soviet Union"
+msgstr "Sovětský svaz"
+
+#: ../libjuicer/sj-metadata.c:350
+msgid "Worldwide"
+msgstr "Celý svět"
+
+#: ../libjuicer/sj-metadata.c:351
+msgid "Yugoslavia"
+msgstr "Jugoslávie"
 
 #: ../libjuicer/sj-metadata-gvfs.c:91
 #, c-format
@@ -449,7 +477,7 @@ msgstr "URI"
 msgid "The URI of the audio file"
 msgstr "Adresa URI zvukového souboru"
 
-#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2159
+#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2162
 msgid "Title"
 msgstr "Název"
 
@@ -457,7 +485,7 @@ msgstr "Název"
 msgid "The title of the current stream."
 msgstr "Název aktuální skladby."
 
-#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2168
+#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2171
 msgid "Artist"
 msgstr "Umělec"
 
@@ -481,7 +509,7 @@ msgstr "Pozice"
 msgid "The position in the current stream in seconds."
 msgstr "Pozice v aktuální skladbě uvedená ve vteřinách."
 
-#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2192
+#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2195
 msgid "Duration"
 msgstr "Délka"
 
@@ -605,14 +633,14 @@ msgstr "Kopírování CD dokončeno"
 msgid "Sound Juicer could not extract this CD."
 msgstr "Sound Juicer nemohl extrahovat toto CD."
 
-#: ../src/sj-extracting.c:703 ../src/sj-main.c:162 ../src/sj-main.c:449
-#: ../src/sj-main.c:487 ../src/sj-main.c:1198 ../src/sj-main.c:1321
-#: ../src/sj-main.c:1420
+#: ../src/sj-extracting.c:703 ../src/sj-main.c:163 ../src/sj-main.c:450
+#: ../src/sj-main.c:488 ../src/sj-main.c:1199 ../src/sj-main.c:1322
+#: ../src/sj-main.c:1421
 msgid "Reason"
 msgstr "Důvod"
 
 #. Change the label to Stop while extracting
-#: ../src/sj-extracting.c:793 ../src/sj-main.c:2090
+#: ../src/sj-extracting.c:793 ../src/sj-main.c:2093
 msgid "_Stop"
 msgstr "Za_stavit"
 
@@ -636,7 +664,7 @@ msgstr "Ambient"
 msgid "Blues"
 msgstr "Blues"
 
-#: ../src/sj-genres.c:35 ../src/sj-main.c:548
+#: ../src/sj-genres.c:35 ../src/sj-main.c:549
 msgid "Classical"
 msgstr "Klasická hudba"
 
@@ -697,84 +725,84 @@ msgstr "Mluvené slovo"
 msgid "Error while saving custom genre: %s"
 msgstr "Chyba při ukládání vlastního žánru: %s"
 
-#: ../src/sj-main.c:161
+#: ../src/sj-main.c:162
 msgid "Could not start Sound Juicer"
 msgstr "Nelze spustit Sound Juicer"
 
-#: ../src/sj-main.c:164
+#: ../src/sj-main.c:165
 msgid "Please consult the documentation for assistance."
 msgstr "Potřebujete-li pomoc, přečtěte si dokumentaci."
 
-#: ../src/sj-main.c:198
+#: ../src/sj-main.c:199
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Momentálně extrahujete CD. Chcete hned skončit nebo pokračovat?"
 
-#: ../src/sj-main.c:246 ../src/sj-main.c:2037 ../src/sj-main.c:2113
+#: ../src/sj-main.c:247 ../src/sj-main.c:2040 ../src/sj-main.c:2116
 msgid "Select None"
 msgstr "Zrušit výběr"
 
-#: ../src/sj-main.c:260 ../src/sj-main.c:2107
+#: ../src/sj-main.c:261 ../src/sj-main.c:2110
 msgid "Select All"
 msgstr "Vybrat vše"
 
-#: ../src/sj-main.c:281 ../src/sj-main.c:709
+#: ../src/sj-main.c:282 ../src/sj-main.c:710
 msgid "(unknown)"
 msgstr "(neznámé)"
 
-#: ../src/sj-main.c:413
+#: ../src/sj-main.c:414
 msgid "S_ubmit Album"
 msgstr "_Přidat album"
 
-#: ../src/sj-main.c:415
+#: ../src/sj-main.c:416
 msgid "Ca_ncel"
 msgstr "_Zrušit"
 
 #. Translators: title, artist
-#: ../src/sj-main.c:418
+#: ../src/sj-main.c:419
 #, c-format
 msgid "Could not find %s by %s on MusicBrainz."
 msgstr "%s od %s se na serveru MusicBrainz nepodařilo nalézt."
 
-#: ../src/sj-main.c:423
+#: ../src/sj-main.c:424
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr "Přidáním tohoto alba můžete vylepšit databázi MusicBrainz."
 
-#: ../src/sj-main.c:447
+#: ../src/sj-main.c:448
 msgid "Could not open URL"
 msgstr "Nelze otevřít URL"
 
-#: ../src/sj-main.c:448
+#: ../src/sj-main.c:449
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer nemohl otevřít URL pro odesílání"
 
-#: ../src/sj-main.c:485
+#: ../src/sj-main.c:486
 msgid "Could not duplicate disc"
 msgstr "Nelze duplikovat disk"
 
-#: ../src/sj-main.c:486
+#: ../src/sj-main.c:487
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Sound Juicer nemohl duplikovat tento disk"
 
-#: ../src/sj-main.c:548
+#: ../src/sj-main.c:549
 msgid "Lieder"
 msgstr "Vokální"
 
-#: ../src/sj-main.c:548
+#: ../src/sj-main.c:549
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/sj-main.c:548
+#: ../src/sj-main.c:549
 msgid "Chamber"
 msgstr "Komorní"
 
-#: ../src/sj-main.c:548
+#: ../src/sj-main.c:549
 msgid "Musical"
 msgstr "Muzikál"
 
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released: <country> in <year> on <label>"
-#: ../src/sj-main.c:894
+#: ../src/sj-main.c:895
 #, c-format
 msgid "Released: %s in %d on %s"
 msgstr "Vydáno: %s v roce %d, %s"
@@ -782,7 +810,7 @@ msgstr "Vydáno: %s v roce %d, %s"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released: <country> on <label>"
-#: ../src/sj-main.c:902
+#: ../src/sj-main.c:903
 #, c-format
 msgid "Released: %s on %s"
 msgstr "Vydáno: %s, %s"
@@ -790,7 +818,7 @@ msgstr "Vydáno: %s, %s"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released: <country> in <year>"
-#: ../src/sj-main.c:908
+#: ../src/sj-main.c:909
 #, c-format
 msgid "Released: %s in %d"
 msgstr "Vydáno: %s v roce %d"
@@ -798,7 +826,7 @@ msgstr "Vydáno: %s v roce %d"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released: <country>"
-#: ../src/sj-main.c:914
+#: ../src/sj-main.c:915
 #, c-format
 msgid "Released: %s"
 msgstr "Vydáno: %s"
@@ -806,7 +834,7 @@ msgstr "Vydáno: %s"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released in <year> on <label>"
-#: ../src/sj-main.c:921
+#: ../src/sj-main.c:922
 #, c-format
 msgid "Released in %d on %s"
 msgstr "Vydal v roce %d %s"
@@ -814,7 +842,7 @@ msgstr "Vydal v roce %d %s"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released in <year>"
-#: ../src/sj-main.c:928
+#: ../src/sj-main.c:929
 #, c-format
 msgid "Released in %d"
 msgstr "Vydáno v roce %d"
@@ -822,78 +850,78 @@ msgstr "Vydáno v roce %d"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released on <label>"
-#: ../src/sj-main.c:935
+#: ../src/sj-main.c:936
 #, c-format
 msgid "Released on %s"
 msgstr "Vydal: %s"
 
-#: ../src/sj-main.c:937
+#: ../src/sj-main.c:938
 msgid "Release label, year & country unknown"
 msgstr "Neznámý vydavatel a rok a místo vydání"
 
-#: ../src/sj-main.c:984
+#: ../src/sj-main.c:985
 msgid "Albums"
 msgstr "Alba"
 
-#: ../src/sj-main.c:1027
+#: ../src/sj-main.c:1028
 #, c-format
 msgid " (Disc %d/%d)"
 msgstr " (disk %d/%d)"
 
-#: ../src/sj-main.c:1196 ../src/sj-main.c:1317 ../src/sj-main.c:1418
+#: ../src/sj-main.c:1197 ../src/sj-main.c:1318 ../src/sj-main.c:1419
 msgid "Could not read the CD"
 msgstr "Nelze číst CD"
 
-#: ../src/sj-main.c:1197 ../src/sj-main.c:1320
+#: ../src/sj-main.c:1198 ../src/sj-main.c:1321
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer nemohl přečíst seznam stop tohoto CD."
 
 #. Set statusbar message
-#: ../src/sj-main.c:1291
+#: ../src/sj-main.c:1292
 msgid "Retrieving track listing...please wait."
 msgstr "Získává se seznam stop… čekejte prosím."
 
-#: ../src/sj-main.c:1380
+#: ../src/sj-main.c:1381
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Sound Juicer nemůže použít zařízení CD-ROM „%s“"
 
-#: ../src/sj-main.c:1387
+#: ../src/sj-main.c:1388
 msgid "HAL daemon may not be running."
 msgstr "Možná neběží démon HAL."
 
-#: ../src/sj-main.c:1411
+#: ../src/sj-main.c:1412
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer nemohl přistupovat k zařízení CD-ROM „%s“"
 
-#: ../src/sj-main.c:1511
+#: ../src/sj-main.c:1512
 msgid "No CD-ROM drives found"
 msgstr "Nenalezena mechanika CD-ROM"
 
-#: ../src/sj-main.c:1512
+#: ../src/sj-main.c:1513
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer nemohl najít mechaniku CD-ROM, ze které je možno číst."
 
-#: ../src/sj-main.c:1545
+#: ../src/sj-main.c:1546
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Aktuálně vybraný profil zvuku není ve vaší instalaci k dispozici."
 
-#: ../src/sj-main.c:1547
+#: ../src/sj-main.c:1548
 msgid "_Change Profile"
 msgstr "_Změnit profil"
 
-#: ../src/sj-main.c:1679
+#: ../src/sj-main.c:1680
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Byl upraven neznámý sloupec %d"
 
-#: ../src/sj-main.c:1779
+#: ../src/sj-main.c:1780
 msgid "Unknown widget calling on_person_edit_changed."
 msgstr "Neznámý widget při volání on_person_edit_changed."
 
-#: ../src/sj-main.c:1880 ../src/sj-prefs.c:127
+#: ../src/sj-main.c:1881 ../src/sj-prefs.c:127
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -902,39 +930,39 @@ msgstr ""
 "Nápovědu pro Sound Juicer nelze zobrazit\n"
 "%s"
 
-#: ../src/sj-main.c:2066 ../src/sj-play.c:301
+#: ../src/sj-main.c:2069 ../src/sj-play.c:301
 msgid "_Pause"
 msgstr "_Pozastavit"
 
-#: ../src/sj-main.c:2144
+#: ../src/sj-main.c:2147
 msgid "Track"
 msgstr "Stopa"
 
-#: ../src/sj-main.c:2179
+#: ../src/sj-main.c:2182
 msgid "Composer"
 msgstr "Skladatel"
 
-#: ../src/sj-main.c:2287
+#: ../src/sj-main.c:2290
 msgid "Start extracting immediately"
 msgstr "Začít extrahovat okamžitě"
 
-#: ../src/sj-main.c:2288
+#: ../src/sj-main.c:2291
 msgid "Start playing immediately"
 msgstr "Začít přehrávat okamžitě"
 
-#: ../src/sj-main.c:2289
+#: ../src/sj-main.c:2292
 msgid "What CD device to read"
 msgstr "Které zařízení CD číst"
 
-#: ../src/sj-main.c:2289
+#: ../src/sj-main.c:2292
 msgid "DEVICE"
 msgstr "ZAŘÍZENÍ"
 
-#: ../src/sj-main.c:2290
+#: ../src/sj-main.c:2293
 msgid "URI to the CD device to read"
 msgstr "URI CD mechaniky pro čtení"
 
-#: ../src/sj-main.c:2302
+#: ../src/sj-main.c:2305
 msgid "- Extract music from your CDs"
 msgstr "- Extrahovat hudbu z vašich CD"
 
