@@ -334,7 +334,22 @@ char *
 sj_metadata_helper_lookup_country_code (const char *code)
 {
   const char *country_name;
-  int len;
+  int len, i;
+  /* Musicbrainz uses some additional codes on top of ISO-3166 so
+     treat those as a special case if we don't get a match from the
+     iso-codes data */
+  const static struct {
+    char *code;
+    char *name;
+  } mb_countries[]  = {
+    {"XC", N_("Czechoslovakia")},
+    {"XG", N_("East Germany")},
+    {"XE", N_("Europe")},
+    {"CS", N_("Serbia and Montenegro")},
+    {"SU", N_("Soviet Union")},
+    {"XW", N_("Worldwide")},
+    {"YU", N_("Yugoslavia")}
+  };
 
   g_return_val_if_fail (code != NULL, NULL);
 
@@ -349,6 +364,14 @@ sj_metadata_helper_lookup_country_code (const char *code)
   if (country_name)
     return g_strdup (dgettext ("iso_3166", country_name));
 
-  g_warning ("Unknown country code: %s", code);
+  for (i = 0; i < G_N_ELEMENTS (mb_countries); i++) {
+    if (strcmp (code, mb_countries[i].code) == 0)
+      return g_strdup (gettext (mb_countries[i].name));
+  }
+
+  /* Musicbrainz uses XU for unknown so don't print an error, just
+     treat it as if a country wasn't provided */
+  if (strcmp (code, "XU") != 0)
+    g_warning ("Unknown country code: %s", code);
   return NULL;
 }
