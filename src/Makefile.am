@@ -2,6 +2,8 @@ bin_PROGRAMS = sound-juicer
 
 sound_juicer_SOURCES = \
 	sound-juicer.h \
+	sj-cell-renderer-text.h \
+	sj-cell-renderer-text.c \
 	sj-main.h \
 	sj-main.c \
 	sj-prefs.h \
