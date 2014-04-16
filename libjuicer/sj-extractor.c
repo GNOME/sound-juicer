@@ -601,20 +601,30 @@ sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, G
       }
 
       if (track->album->release_date) {
-        GstDateTime *date;
-        date = gst_date_time_new_ymd (g_date_get_year (track->album->release_date),
-                                      g_date_get_month (track->album->release_date),
-                                      g_date_get_day (track->album->release_date));
+        GDate *date;
+        guint year = 1;
+        guint month = 1;
+        guint day = 1;
+        if (gst_date_time_has_year (track->album->release_date)) {
+            year = gst_date_time_get_year (track->album->release_date);
+        }
+        if (gst_date_time_has_month (track->album->release_date)) {
+            month = gst_date_time_get_month (track->album->release_date);
+        }
+        if (gst_date_time_has_day (track->album->release_date)) {
+            day = gst_date_time_get_day (track->album->release_date);
+        }
+        date = g_date_new_dmy (day, month, year);
         /* We set both GST_TAG_DATE_TIME and GST_TAG_DATE as most taggers
          * use GST_TAG__DATE_TIME, but a few (id3v2mux/apemux) are still using
          * GST_TAG_DATE
          */
         gst_tag_setter_add_tags (tagger,
                                  GST_TAG_MERGE_APPEND,
-                                 GST_TAG_DATE_TIME, date,
-                                 GST_TAG_DATE, track->album->release_date,
+                                 GST_TAG_DATE_TIME, track->album->release_date,
+                                 GST_TAG_DATE, date,
                                  NULL);
-        gst_date_time_unref (date);
+        g_date_free (date);
       }
 
       if (track->album->disc_number > 0) {

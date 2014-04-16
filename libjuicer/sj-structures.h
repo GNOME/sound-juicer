@@ -23,6 +23,7 @@
 #define SJ_STRUCTURES_H
 
 #include <glib.h>
+#include <gst/gst.h>
 
 typedef enum _MetadataSource MetadataSource;
 
@@ -64,7 +65,7 @@ struct _AlbumDetails {
   int   disc_number;
   int   disc_count; /* number of discs in the album */
   GList* tracks;
-  GDate *release_date; /* MusicBrainz support multiple releases per album */
+  GstDateTime *release_date; /* MusicBrainz support multiple releases per album */
   char* album_id;
   char* artist_id;
   GList* labels;

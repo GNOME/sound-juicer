@@ -652,8 +652,8 @@ static void update_ui_for_album (AlbumDetails *album)
       gtk_entry_set_text (GTK_ENTRY (disc_number_entry), disc_number);
       g_free (disc_number);
     }
-    if (album->release_date && g_date_valid (album->release_date)) {
-      gchar *release_date =  g_strdup_printf ("%d", g_date_get_year (album->release_date));
+    if (album->release_date && gst_date_time_has_year (album->release_date)) {
+      gchar *release_date =  g_strdup_printf ("%d", gst_date_time_get_year (album->release_date));
       gtk_entry_set_text (GTK_ENTRY (year_entry), release_date);
       g_free (release_date);
     }
@@ -779,6 +779,51 @@ static gint collate (const char *a, const char *b)
   return ret_val;
 }
 
+static gint sj_gst_date_time_compare_field (GstDateTime *lhs, GstDateTime *rhs,
+                                            gboolean (*has_field) (const GstDateTime *datetime),
+                                            gint (*get_field) (const GstDateTime *datetime))
+{
+  gint field_lhs = -1;
+  gint field_rhs = -1;
+
+  if (has_field (lhs)) {
+    field_lhs = get_field (lhs);
+  }
+  if (has_field (rhs)) {
+    field_rhs = get_field (rhs);
+  }
+
+  return (field_lhs - field_rhs);
+}
+
+static gint sj_gst_date_time_compare (gpointer lhs, gpointer rhs)
+{
+  GstDateTime *date_lhs = (GstDateTime *)lhs;
+  GstDateTime *date_rhs = (GstDateTime *)rhs;
+
+  int comparison;
+
+  comparison = sj_gst_date_time_compare_field (date_lhs, date_rhs,
+                                               gst_date_time_has_year,
+                                               gst_date_time_get_year);
+  if (comparison != 0) {
+      return comparison;
+  }
+
+  comparison = sj_gst_date_time_compare_field (date_lhs, date_rhs,
+                                               gst_date_time_has_month,
+                                               gst_date_time_get_month);
+  if (comparison != 0) {
+      return comparison;
+  }
+
+  comparison = sj_gst_date_time_compare_field (date_lhs, date_rhs,
+                                               gst_date_time_has_day,
+                                               gst_date_time_get_day);
+
+  return comparison;
+}
+
 /**
  * Utility function to sort albums in multiple_album_dialog
  */
@@ -807,7 +852,7 @@ static gint sort_release_info (GtkTreeModel *model, GtkTreeIter *a,
 
   if (album_a->release_date) {
     if (album_b->release_date) {
-      ret_val = g_date_compare (album_a->release_date, album_b->release_date);
+      ret_val = sj_gst_date_time_compare (album_a->release_date, album_b->release_date);
       if (ret_val)
         return ret_val;
     } else {
@@ -888,13 +933,13 @@ static char *format_release_details (AlbumDetails *album)
 
   if (!sj_str_is_empty (album->country)) {
     if (album->labels) {
-      if (album->release_date) {
+      if (album->release_date && gst_date_time_has_year (album->release_date)) {
         /* Translators: this string appears when multiple CDs were
          * found in musicbrainz online database, it corresponds to
          * "Released: <country> in <year> on <label>" */
         details = g_strdup_printf (_("Released: %s in %d on %s"),
                                    album->country,
-                                   g_date_get_year(album->release_date),
+                                   gst_date_time_get_year (album->release_date),
                                    label_text->str);
       } else {
         /* Translators: this string appears when multiple CDs were
@@ -902,32 +947,32 @@ static char *format_release_details (AlbumDetails *album)
          * "Released: <country> on <label>" */
         details = g_strdup_printf (_("Released: %s on %s"), album->country, label_text->str);
       }
-    } else if (album->release_date) {
+    } else if (album->release_date && gst_date_time_has_year (album->release_date)) {
       /* Translators: this string appears when multiple CDs were
        * found in musicbrainz online database, it corresponds to
        * "Released: <country> in <year>" */
       details = g_strdup_printf (_("Released: %s in %d"), album->country,
-                                 g_date_get_year (album->release_date));
+                                 gst_date_time_get_year (album->release_date));
     } else {
       /* Translators: this string appears when multiple CDs were
        * found in musicbrainz online database, it corresponds to
        * "Released: <country>" */
       details = g_strdup_printf (_("Released: %s"), album->country);
     }
-  } else if (album->release_date) {
+  } else if (album->release_date && gst_date_time_has_year (album->release_date)) {
     if (album->labels) {
         /* Translators: this string appears when multiple CDs were
          * found in musicbrainz online database, it corresponds to
          * "Released in <year> on <label>" */
         details = g_strdup_printf (_("Released in %d on %s"),
-                                   g_date_get_year(album->release_date),
+                                   gst_date_time_get_year (album->release_date),
                                    label_text->str);
     } else {
         /* Translators: this string appears when multiple CDs were
          * found in musicbrainz online database, it corresponds to
          * "Released in <year>" */
         details = g_strdup_printf(_("Released in %d"),
-                                  g_date_get_year(album->release_date));
+                                  gst_date_time_get_year (album->release_date));
     }
   } else if (album->labels) {
     /* Translators: this string appears when multiple CDs were
@@ -1850,10 +1895,9 @@ G_MODULE_EXPORT void on_year_edit_changed(GtkEditable *widget, gpointer user_dat
   year = atoi (yearstr);
   if (year > 0) {
     if (current_album->release_date) {
-      g_date_set_dmy (current_album->release_date, 1, 1, year);
-    } else {
-      current_album->release_date = g_date_new_dmy (1, 1, year);
+      gst_date_time_unref (current_album->release_date);
     }
+    current_album->release_date = gst_date_time_new_y (year);
   }
 }
 

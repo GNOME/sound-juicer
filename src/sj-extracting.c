@@ -1030,8 +1030,8 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
                                 filesystem_type);
         break;
       case 'y':
-        if (track->album->release_date && g_date_valid(track->album->release_date)) {
-          tmp = g_strdup_printf ("%d", g_date_get_year (track->album->release_date));
+        if (track->album->release_date && gst_date_time_has_year (track->album->release_date)) {
+          tmp = g_strdup_printf ("%d", gst_date_time_get_year (track->album->release_date));
           string = sanitize_path (tmp, filesystem_type);
           g_free (tmp);
         }

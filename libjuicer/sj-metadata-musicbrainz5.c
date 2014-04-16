@@ -654,8 +654,10 @@ make_album_from_release (SjMetadataMusicbrainz5 *self,
                        &album->artist_id);
 
   GET (date, mb5_release_get_date, release);
-  album->release_date = sj_metadata_helper_scan_date (date);
-  g_free (date);
+  if (date) {
+    album->release_date = gst_date_time_new_from_iso8601_string (date);
+    g_free (date);
+  }
 
   GET (album->asin, mb5_release_get_asin, release);
   mb5_release_get_country (release, buffer, sizeof(buffer));

@@ -50,7 +50,7 @@ void album_details_free(AlbumDetails *album)
   g_free (album->composer_sortname);
   g_free (album->genre);
   g_free (album->album_id);
-  if (album->release_date) g_date_free (album->release_date);
+  if (album->release_date) gst_date_time_unref (album->release_date);
   g_list_foreach (album->tracks, (GFunc)track_details_free, NULL);
   g_list_free (album->tracks);
   g_free (album->artist_sortname);
