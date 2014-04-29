@@ -39,6 +39,7 @@
 #include <gst/gst.h>
 #include <gst/pbutils/encoding-profile.h>
 
+#include "sj-cell-renderer-text.h"
 #include "rb-gst-media-types.h"
 #include "sj-about.h"
 #include "sj-metadata.h"
@@ -2038,7 +2039,7 @@ add_editable_listview_column (const char       *title,
   GtkCellRenderer *renderer;
   GtkTreeViewColumn *column;
 
-  renderer = gtk_cell_renderer_text_new ();
+  renderer = sj_cell_renderer_text_new ();
   g_signal_connect (renderer,
                     "editing-started",
                     G_CALLBACK (on_cell_editing_started),
