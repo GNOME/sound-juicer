@@ -10,7 +10,6 @@ AC_CONFIG_HEADERS([config.h])
 # Enable silent build when available (Automake 1.11)
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 
-GNOME_COMMON_INIT
 AM_MAINTAINER_MODE
 
 # Do the gettext/i18n stuff

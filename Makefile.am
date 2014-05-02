@@ -1,6 +1,6 @@
 SUBDIRS = po data libjuicer src tests help
 
-ACLOCAL_AMFLAGS = -I m4
+ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
 EXTRA_DIST = \
 	autogen.sh \
