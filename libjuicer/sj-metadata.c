@@ -21,6 +21,7 @@
 #include <glib/gi18n.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <gdesktop-enums.h>
 
 #ifndef USE_TOTEM_PL_PARSER
 #include <unistd.h>
@@ -37,6 +38,22 @@ enum {
   METADATA,
   LAST_SIGNAL
 };
+
+static GType
+g_desktop_proxy_mode_get_type (void)
+{
+  static GType etype = 0;
+  if (etype == 0) {
+    static const GEnumValue values[] = {
+      { G_DESKTOP_PROXY_MODE_NONE, "G_DESKTOP_PROXY_MODE_NONE", "none" },
+      { G_DESKTOP_PROXY_MODE_MANUAL, "G_DESKTOP_PROXY_MODE_MANUAL", "manual" },
+      { G_DESKTOP_PROXY_MODE_AUTO, "G_DESKTOP_PROXY_MODE_AUTO", "auto" },
+      { 0, NULL, NULL }
+    };
+    etype = g_enum_register_static ("GDesktopProxyMode", values);
+  }
+  return etype;
+}
 
 static void
 sj_metadata_base_init (gpointer g_iface)
@@ -75,6 +92,11 @@ sj_metadata_base_init (gpointer g_iface)
                                          g_param_spec_string ("proxy-password", "proxy-password", NULL, NULL,
                                                               G_PARAM_READABLE|G_PARAM_WRITABLE|
                                                               G_PARAM_STATIC_NAME|G_PARAM_STATIC_NICK|G_PARAM_STATIC_BLURB));
+    g_object_interface_install_property (g_iface,
+                                         g_param_spec_enum ("proxy-mode", "proxy-mode", NULL,
+                                                            g_desktop_proxy_mode_get_type(), G_DESKTOP_PROXY_MODE_NONE,
+                                                            G_PARAM_READABLE|G_PARAM_WRITABLE|
+                                                            G_PARAM_STATIC_NAME|G_PARAM_STATIC_NICK|G_PARAM_STATIC_BLURB));
 
     initialized = TRUE;
   }

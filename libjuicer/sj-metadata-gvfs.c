@@ -25,6 +25,7 @@
 #include <glib/gi18n.h>
 #include <glib.h>
 #include <gio/gio.h>
+#include <gdesktop-enums.h>
 
 #include "sj-metadata-gvfs.h"
 #include "sj-structures.h"
@@ -45,7 +46,8 @@ enum {
   PROP_PROXY_HOST,
   PROP_PROXY_PORT,
   PROP_PROXY_USERNAME,
-  PROP_PROXY_PASSWORD
+  PROP_PROXY_PASSWORD,
+  PROP_PROXY_MODE
 };
 
 static void metadata_iface_init (gpointer g_iface, gpointer iface_data);
@@ -193,6 +195,10 @@ sj_metadata_gvfs_get_property (GObject *object, guint property_id,
     /* Do nothing */
     g_value_set_int (value, 0);
     break;
+  case PROP_PROXY_MODE:
+    /* Do nothing */
+    g_value_set_enum (value, G_DESKTOP_PROXY_MODE_NONE);
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
   }
@@ -217,6 +223,7 @@ sj_metadata_gvfs_set_property (GObject *object, guint property_id,
   case PROP_PROXY_PORT:
   case PROP_PROXY_USERNAME:
   case PROP_PROXY_PASSWORD:
+  case PROP_PROXY_MODE:
     /* Do nothing */
     break;
   default:

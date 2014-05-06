@@ -31,6 +31,7 @@
 #include "sj-metadata-gvfs.h"
 #include "sj-error.h"
 
+#define SJ_SETTINGS_PROXY_MODE "mode"
 #define SJ_SETTINGS_PROXY_HOST "host"
 #define SJ_SETTINGS_PROXY_PORT "port"
 #define SJ_SETTINGS_PROXY_USE_AUTHENTICATION "use-authentication"
@@ -130,7 +131,9 @@ sj_metadata_getter_set_cdrom (SjMetadataGetter *mdg, const char* device)
 static void
 bind_http_proxy_settings (SjMetadata *metadata)
 {
-  GSettings *settings = g_settings_new ("org.gnome.system.proxy.http");
+  GSettings *settings;
+
+  settings = g_settings_new ("org.gnome.system.proxy.http");
   /* bind with G_SETTINGS_BIND_GET_NO_CHANGES to avoid occasional
      segfaults in g_object_set_property called with an invalid pointer
      which I think were caused by the update being scheduled before
@@ -161,6 +164,12 @@ bind_http_proxy_settings (SjMetadata *metadata)
                    metadata, "proxy-use-authentication",
                    G_SETTINGS_BIND_GET_NO_CHANGES);
 
+  g_object_unref (settings);
+
+  settings = g_settings_new ("org.gnome.system.proxy");
+  g_settings_bind (settings, SJ_SETTINGS_PROXY_MODE,
+                   metadata, "proxy-mode",
+                   G_SETTINGS_BIND_GET_NO_CHANGES);
   g_object_unref (settings);
 }
 

@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <glib.h>
 #include <glib-object.h>
+#include <gdesktop-enums.h>
 #include <discid/discid.h>
 #include <musicbrainz5/mb5_c.h>
 
@@ -57,6 +58,7 @@ typedef struct {
   char    *cdrom;
   GHashTable *artist_cache;
   /* Proxy */
+  GDesktopProxyMode proxy_mode;
   char    *proxy_host;
   char    *proxy_username;
   char    *proxy_password;
@@ -74,7 +76,8 @@ enum {
   PROP_PROXY_HOST,
   PROP_PROXY_PORT,
   PROP_PROXY_USERNAME,
-  PROP_PROXY_PASSWORD
+  PROP_PROXY_PASSWORD,
+  PROP_PROXY_MODE
 };
 
 static void metadata_interface_init (gpointer g_iface, gpointer iface_data);
@@ -801,12 +804,16 @@ artist-rels";
 static void
 setup_http_proxy (SjMetadataMusicbrainz5Private *priv)
 {
-  if (priv->proxy_host == NULL || priv->proxy_port == 0) {
+  if (priv->proxy_mode == G_DESKTOP_PROXY_MODE_NONE ||
+      priv->proxy_mode == G_DESKTOP_PROXY_MODE_AUTOMATIC ||
+      priv->proxy_host == NULL || priv->proxy_port == 0) {
     mb5_query_set_proxyhost (priv->mb, NULL);
     mb5_query_set_proxyport (priv->mb, 0);
     mb5_query_set_proxyusername (priv->mb, NULL);
     mb5_query_set_proxypassword (priv->mb, NULL);
-  } else {
+    if (priv->proxy_mode == G_DESKTOP_PROXY_MODE_AUTOMATIC)
+      g_warning ("Automatic proxy mode not supported yet, disabling proxy usage");
+  } else if (priv->proxy_mode == G_DESKTOP_PROXY_MODE_MANUAL) {
     mb5_query_set_proxyhost (priv->mb, priv->proxy_host);
     mb5_query_set_proxyport (priv->mb, priv->proxy_port);
     if (priv->proxy_use_authentication &&
@@ -870,6 +877,9 @@ sj_metadata_musicbrainz5_get_property (GObject *object, guint property_id,
   case PROP_PROXY_PASSWORD:
     g_value_set_string (value, priv->proxy_password);
     break;
+  case PROP_PROXY_MODE:
+    g_value_set_enum (value, priv->proxy_mode);
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
   }
@@ -909,6 +919,10 @@ sj_metadata_musicbrainz5_set_property (GObject *object, guint property_id,
   case PROP_PROXY_PASSWORD:
     g_free (priv->proxy_password);
     priv->proxy_password = g_value_dup_string (value);
+    setup_http_proxy (priv);
+    break;
+  case PROP_PROXY_MODE:
+    priv->proxy_mode = g_value_get_enum (value);
     setup_http_proxy (priv);
     break;
   default:
@@ -964,6 +978,8 @@ sj_metadata_musicbrainz5_class_init (SjMetadataMusicbrainz5Class *class)
                                     PROP_PROXY_USERNAME, "proxy-username");
   g_object_class_override_property (object_class,
                                     PROP_PROXY_PASSWORD, "proxy-password");
+  g_object_class_override_property (object_class,
+                                    PROP_PROXY_MODE, "proxy-mode");
 
   /* Although GLib supports fallback locales we do not use them as
      MusicBrainz does not provide locale information for the canonical

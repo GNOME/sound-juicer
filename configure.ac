@@ -57,7 +57,7 @@ LIBS="$LIBS $BURN_LIBS"
 # LIBS="$oldlibs"
 
 # Find the UI libraries
-PKG_CHECK_MODULES(UI, gtk+-3.0 >= $GTK_REQUIRED gio-2.0 gmodule-export-2.0 libcanberra-gtk3)
+PKG_CHECK_MODULES(UI, gtk+-3.0 >= $GTK_REQUIRED gio-2.0 gmodule-export-2.0 libcanberra-gtk3 gsettings-desktop-schemas)
 AC_SUBST(UI_CFLAGS)
 AC_SUBST(UI_LIBS)
 
