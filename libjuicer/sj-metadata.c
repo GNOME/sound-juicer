@@ -31,7 +31,6 @@
 #endif /* USE_TOTEM_PL_PARSER */
 
 #include "sj-metadata.h"
-#include "sj-metadata-marshal.h"
 #include "sj-error.h"
 
 enum {

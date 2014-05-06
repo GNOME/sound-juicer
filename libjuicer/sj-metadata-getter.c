@@ -23,7 +23,6 @@
 #include <glib/gi18n.h>
 #include "sj-structures.h"
 #include "sj-metadata-getter.h"
-#include "sj-metadata-marshal.h"
 #include "sj-metadata.h"
 #ifdef HAVE_MUSICBRAINZ5
 #include "sj-metadata-musicbrainz5.h"
@@ -84,7 +83,7 @@ sj_metadata_getter_class_init (SjMetadataGetterClass *klass)
 				    G_SIGNAL_RUN_LAST,
 				    G_STRUCT_OFFSET (SjMetadataGetterClass, metadata),
 				    NULL, NULL,
-				    metadata_marshal_VOID__POINTER_POINTER,
+				    g_cclosure_marshal_generic,
 				    G_TYPE_NONE, 2, G_TYPE_POINTER, G_TYPE_POINTER);
 }
 
