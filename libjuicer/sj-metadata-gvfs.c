@@ -276,6 +276,8 @@ sj_metadata_gvfs_class_init (SjMetadataGvfsClass *class)
                                     PROP_PROXY_USERNAME, "proxy-username");
   g_object_class_override_property (object_class,
                                     PROP_PROXY_PASSWORD, "proxy-password");
+  g_object_class_override_property (object_class,
+                                    PROP_PROXY_MODE, "proxy-mode");
 }
 
 
