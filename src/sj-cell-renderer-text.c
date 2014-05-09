@@ -37,6 +37,106 @@ struct _SjCellRendererTextPrivate
 
 G_DEFINE_TYPE_WITH_PRIVATE (SjCellRendererText, sj_cell_renderer_text, GTK_TYPE_CELL_RENDERER_TEXT);
 
+static gboolean
+move_focus (GtkWidget        *entry,
+            GtkWidget        *tree_view,
+            GtkDirectionType  dir)
+{
+  gboolean ret_val;
+
+  gtk_cell_editable_editing_done (GTK_CELL_EDITABLE (entry));
+  gtk_cell_editable_remove_widget (GTK_CELL_EDITABLE (entry));
+  g_signal_emit_by_name (tree_view, "move-focus", dir, &ret_val);
+  return ret_val;
+}
+
+static gboolean
+sj_cell_renderer_text_key_press (GtkWidget   *entry,
+                                 GdkEventKey *event,
+                                 gpointer     tree_view)
+{
+  guint modifier = event->state & gtk_accelerator_get_default_mod_mask ();
+  guint key = event->keyval;
+  gboolean ret_val = FALSE;
+
+  if (gtk_entry_im_context_filter_keypress (GTK_ENTRY (entry), event))
+    return TRUE;
+
+  if (modifier == 0 || modifier == GDK_SHIFT_MASK) {
+    switch(key) {
+    case GDK_KEY_Down:
+    case GDK_KEY_KP_Down:
+    case GDK_KEY_Up:
+    case GDK_KEY_KP_Up:
+    case GDK_KEY_Page_Down:
+    case GDK_KEY_KP_Page_Down:
+    case GDK_KEY_Page_Up:
+    case  GDK_KEY_KP_Page_Up:
+      g_signal_emit_by_name (tree_view, "key-press-event", event, &ret_val);
+      return TRUE;
+    case GDK_KEY_Tab:
+    case GDK_KEY_KP_Tab:
+    case GDK_KEY_ISO_Left_Tab:
+    case GDK_KEY_3270_BackTab:
+      g_signal_emit_by_name (tree_view, "key-press-event", event, &ret_val);
+      if (!ret_val) {
+        GtkDirectionType direction;
+        if (modifier == 0 && (key == GDK_KEY_Tab ||
+                              key == GDK_KEY_KP_Tab))
+          direction = GTK_DIR_TAB_FORWARD;
+        else
+          direction = GTK_DIR_TAB_BACKWARD;
+
+        move_focus (entry, tree_view, direction);
+      }
+      return TRUE;
+    }
+  }
+
+  if (modifier == GDK_CONTROL_MASK ||
+      modifier == (GDK_CONTROL_MASK | GDK_SHIFT_MASK)) {
+    gint count = 1;
+    switch (key) {
+    case GDK_KEY_Home:
+    case GDK_KEY_KP_Home:
+      count = -1;
+      /* Fall through */
+    case GDK_KEY_End:
+    case GDK_KEY_KP_End:
+      event->state ^= GDK_CONTROL_MASK;
+      g_signal_emit_by_name (tree_view, "move-cursor",
+                             GTK_MOVEMENT_BUFFER_ENDS, count, &ret_val);
+      event->state ^= GDK_CONTROL_MASK;
+      return TRUE;
+    }
+  }
+
+  if (modifier == GDK_CONTROL_MASK) {
+    switch (key) {
+    case GDK_KEY_Tab:
+    case GDK_KEY_KP_Tab:
+      move_focus (entry, tree_view, GTK_DIR_TAB_FORWARD);
+      return TRUE;
+    case GDK_KEY_ISO_Left_Tab:
+    case GDK_KEY_3270_BackTab:
+      move_focus (entry, tree_view, GTK_DIR_TAB_BACKWARD);
+      return TRUE;
+    }
+  }
+
+  if (modifier == (GDK_CONTROL_MASK | GDK_SHIFT_MASK)) {
+    switch (key) {
+    case GDK_KEY_Tab:
+    case GDK_KEY_KP_Tab:
+    case GDK_KEY_ISO_Left_Tab:
+    case GDK_KEY_3270_BackTab:
+      move_focus (entry, tree_view, GTK_DIR_TAB_BACKWARD);
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
 static void
 sj_cell_renderer_text_editing_done (GtkCellEditable *entry,
                                     gpointer         data)
@@ -129,8 +229,10 @@ sj_cell_renderer_text_populate_popup (GtkEntry *entry,
 
   priv->in_entry_menu = TRUE;
 
-  g_signal_connect (menu, "unmap",
-                    G_CALLBACK (sj_cell_renderer_text_popup_unmap), data);
+  g_signal_connect (menu,
+                    "unmap",
+                    G_CALLBACK (sj_cell_renderer_text_popup_unmap),
+                    data);
 }
 
 static gboolean
@@ -148,7 +250,6 @@ sj_cell_renderer_text_focus_out_event (GtkWidget *entry,
   gtk_cell_editable_editing_done (GTK_CELL_EDITABLE (entry));
   gtk_cell_editable_remove_widget (GTK_CELL_EDITABLE (entry));
 
-  /* entry needs focus-out-event */
   return FALSE;
 }
 
@@ -199,13 +300,19 @@ sj_cell_renderer_text_start_editing (GtkCellRenderer      *cell,
   }
 
   g_signal_connect (priv->entry,
+                    "key-press-event",
+                    G_CALLBACK (sj_cell_renderer_text_key_press),
+                    widget);
+  g_signal_connect (priv->entry,
                     "editing-done",
                     G_CALLBACK (sj_cell_renderer_text_editing_done),
                     celltext);
-  priv->focus_out_id = g_signal_connect_after (priv->entry, "focus-out-event",
+  priv->focus_out_id = g_signal_connect_after (priv->entry,
+                                               "focus-out-event",
                                                G_CALLBACK (sj_cell_renderer_text_focus_out_event),
                                                celltext);
-  priv->populate_popup_id = g_signal_connect (priv->entry, "populate-popup",
+  priv->populate_popup_id = g_signal_connect (priv->entry,
+                                              "populate-popup",
                                               G_CALLBACK (sj_cell_renderer_text_populate_popup),
                                               celltext);
 
