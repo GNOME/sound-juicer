@@ -101,6 +101,49 @@ sj_tree_view_start_editing (GtkTreeView *self)
     g_signal_emit_by_name (self, "select-cursor-row", TRUE, &ret);
 }
 
+
+/**
+ * Stop editing, move cursor up/down.
+ */
+static gboolean
+move_vertical (GtkTreeView     *self,
+               GtkMovementStep  step,
+               int              count)
+{
+  GtkTreeIter iter;
+  GtkTreePath *path;
+  GtkTreeModel *model;
+
+  g_return_val_if_fail (count != 0, FALSE);
+  g_return_val_if_fail (step == GTK_MOVEMENT_DISPLAY_LINES ||
+                        step == GTK_MOVEMENT_PAGES ||
+                        step == GTK_MOVEMENT_BUFFER_ENDS, FALSE);
+
+  model = gtk_tree_view_get_model (self);
+  gtk_tree_view_get_cursor (self, &path, NULL);
+  if (path == NULL || !gtk_tree_model_get_iter (model, &iter, path)) {
+    gtk_tree_path_free (path);
+    return FALSE;
+  }
+  gtk_tree_path_free (path);
+
+  if (count < 0) {
+    if (!gtk_tree_model_iter_previous (model, &iter)) {
+      return FALSE; /* Do nothing if we are already at the top */
+    }
+  } else {
+    if (!gtk_tree_model_iter_next (model, &iter)) {
+      return FALSE; /* Do nothing if we are already at the bottom */
+    }
+  }
+
+  /* We have to explicitly stop editing to ensure that self has the
+     keyboard focus before calling parent_class->move_cursor */
+  sj_tree_view_stop_editing (self);
+  parent_class->move_cursor (self, step, count);
+  return TRUE;
+}
+
 /**
  * Find the next activatable column in the given direction and return
  * the column index and row offset. Wrap up/down. Assume activatable
@@ -241,7 +284,10 @@ sj_tree_view_move_cursor (GtkTreeView     *self,
 
   g_return_val_if_fail (GTK_IS_TREE_VIEW (self), FALSE);
   g_return_val_if_fail (step == GTK_MOVEMENT_LOGICAL_POSITIONS ||
-                        step == GTK_MOVEMENT_VISUAL_POSITIONS, FALSE);
+			step == GTK_MOVEMENT_VISUAL_POSITIONS ||
+			step == GTK_MOVEMENT_DISPLAY_LINES ||
+			step == GTK_MOVEMENT_PAGES ||
+			step == GTK_MOVEMENT_BUFFER_ENDS, FALSE);
 
   start_editing = sj_tree_view_is_editing (self);
 
@@ -266,6 +312,11 @@ sj_tree_view_move_cursor (GtkTreeView     *self,
     default:
       g_return_val_if_reached (FALSE);
     }
+    break;
+  case GTK_MOVEMENT_DISPLAY_LINES:
+  case GTK_MOVEMENT_PAGES:
+  case GTK_MOVEMENT_BUFFER_ENDS:
+    moved = move_vertical (self, step, count);
     break;
   default:
     g_return_val_if_reached (FALSE);
