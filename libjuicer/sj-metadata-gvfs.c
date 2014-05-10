@@ -29,6 +29,7 @@
 
 #include "sj-metadata-gvfs.h"
 #include "sj-structures.h"
+#include "sj-util.h"
 #include "sj-error.h"
 
 struct SjMetadataGvfsPrivate {
@@ -84,6 +85,7 @@ gvfs_list_albums (SjMetadata *metadata, char **url, GError **error)
   GFileInfo *info;
   GFileEnumerator *e;
   guint i = 1;
+  const char *str;
 
   g_return_val_if_fail (SJ_IS_METADATA_GVFS (metadata), NULL);
 
@@ -104,15 +106,18 @@ gvfs_list_albums (SjMetadata *metadata, char **url, GError **error)
   album = g_new0(AlbumDetails, 1);
 
   /* Get the album metadata */
-  if (g_file_info_get_attribute_string (info, "xattr::org.gnome.audio.title") != NULL) {
+  str = g_file_info_get_attribute_string (info, "xattr::org.gnome.audio.title");
+  if (!sj_str_is_empty (str)) {
     album->metadata_source = SOURCE_CDTEXT;
-    album->title = g_strdup (g_file_info_get_attribute_string (info, "xattr::org.gnome.audio.title"));
+    album->title = g_strdup (str);
   } else {
     album->metadata_source = SOURCE_FALLBACK;
     album->title = g_strdup (_("Unknown Title"));
   }
-  album->artist = g_strdup (g_file_info_get_attribute_string (info, "xattr::org.gnome.audio.artist"));
-  if (album->artist == NULL)
+  str = g_file_info_get_attribute_string (info, "xattr::org.gnome.audio.artist");
+  if (!sj_str_is_empty (str))
+    album->artist = g_strdup (str);
+  else
     album->artist = g_strdup (_("Unknown Artist"));
   album->genre = g_strdup (g_file_info_get_attribute_string (info, "xattr::org.gnome.audio.genre"));
 
@@ -133,11 +138,15 @@ gvfs_list_albums (SjMetadata *metadata, char **url, GError **error)
     track = g_new0 (TrackDetails, 1);
     track->number = i;
     track->album = album;
-    track->title = g_strdup (g_file_info_get_attribute_string (info, "xattr::org.gnome.audio.title"));
-    if (track->title == NULL)
+    str = g_file_info_get_attribute_string (info, "xattr::org.gnome.audio.title");
+    if (!sj_str_is_empty (str))
+      track->title = g_strdup (str);
+    else
       track->title = g_strdup_printf (_("Track %d"), i);
-    track->artist = g_strdup (g_file_info_get_attribute_string (info, "xattr::org.gnome.audio.artist"));
-    if (track->artist == NULL || track->artist[0] == '\0') {
+    str = g_file_info_get_attribute_string (info, "xattr::org.gnome.audio.artist");
+    if (!sj_str_is_empty (str)) {
+      track->artist = g_strdup (str);
+    } else {
       if (album->artist == NULL)
         track->artist = g_strdup (_("Unknown Artist"));
       else
