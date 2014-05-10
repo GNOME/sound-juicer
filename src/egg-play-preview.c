@@ -850,6 +850,7 @@ egg_play_preview_set_uri (EggPlayPreview *play_preview, const gchar *uri)
 		_ui_update_duration (play_preview);
 		_ui_update_tags (play_preview);
 		priv->timeout_id = g_timeout_add_seconds (1, (GSourceFunc) _timeout_cb, play_preview);
+		g_source_set_name_by_id (priv->timeout_id, "[sound-juicer] _timeout_cb");
 	}
 
 	g_object_notify (G_OBJECT (play_preview), "uri");

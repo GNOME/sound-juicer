@@ -211,6 +211,7 @@ lookup_cd (SjMetadataGetter *mdg)
   for (i = 0; i < G_N_ELEMENTS (types); i++) {
     SjMetadata *metadata;
     GList *albums;
+    guint id;
 
     metadata = g_object_new (types[i],
                              "device", priv->cdrom,
@@ -228,7 +229,8 @@ lookup_cd (SjMetadataGetter *mdg)
       signal->albums = albums;
       signal->mdg = g_object_ref (mdg);
       signal->metadata = metadata;
-      g_idle_add ((GSourceFunc)fire_signal_idle, signal);
+      id = g_idle_add ((GSourceFunc)fire_signal_idle, signal);
+      g_source_set_name_by_id (id, "[sound-juicer] fire_signal_idle (success)");
       break;
     }
 
@@ -242,7 +244,8 @@ lookup_cd (SjMetadataGetter *mdg)
       signal = g_new0 (SjMetadataGetterSignal, 1);
       signal->error = error;
       signal->mdg = g_object_ref (mdg);
-      g_idle_add ((GSourceFunc)fire_signal_idle, signal);
+      id = g_idle_add ((GSourceFunc)fire_signal_idle, signal);
+      g_source_set_name_by_id (id, "[sound-juicer] fire_signal_idle (error)");
       break;
     }
   }

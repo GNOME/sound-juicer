@@ -302,6 +302,7 @@ cb_state (GstBus *bus, GstMessage *message, gpointer user_data)
     if (id)
       g_source_remove (id);
     id = g_timeout_add (100, (GSourceFunc) cb_set_time, NULL);
+    g_source_set_name_by_id (id, "[sound-juicer] cb_set_time");
     if (button_change_id) {
       g_source_remove (button_change_id);
       button_change_id = 0;
@@ -316,6 +317,7 @@ cb_state (GstBus *bus, GstMessage *message, gpointer user_data)
       g_source_remove (button_change_id);
     button_change_id =
         g_timeout_add (500, (GSourceFunc) cb_change_button, play_button);
+    g_source_set_name_by_id (button_change_id, "[sound-juicer] cb_change_button");
   }
 }
 

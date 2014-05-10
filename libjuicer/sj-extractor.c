@@ -681,6 +681,7 @@ sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, G
   }
 
   priv->tick_id = g_timeout_add (250, (GSourceFunc)tick_timeout_cb, extractor);
+  g_source_set_name_by_id (priv->tick_id, "[sound-juicer] tick_timeout_cb");
 }
 
 void
