@@ -2,27 +2,143 @@
 # Copyright (C) 2005 THE sound-juicer.gnome-2-12'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the sound-juicer.gnome-2-12 package.
 # Eyal Mamo <emamo91@gmail.com>, 2005.
-#
+# Yosef Or Boczko <yoseforb@gnome.org>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer.gnome-2-12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-28 13:55+0200\n"
-"PO-Revision-Date: 2012-12-28 14:01+0200\n"
-"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
-"Language-Team: Hebrew\n"
-"Language: \n"
+"POT-Creation-Date: 2014-05-15 16:53+0300\n"
+"PO-Revision-Date: 2014-05-15 22:25+0300\n"
+"Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
+"Language-Team: עברית <>\n"
+"Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
-#: ../data/sound-juicer.desktop.in.in.h:1
-#: ../data/sound-juicer.ui.h:1
-#: ../src/sj-main.c:143
-#: ../src/sj-main.c:145
-#: ../src/sj-main.c:2194
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:1
+msgid "The CD to extract from"
+msgstr "The CD to extract from"
+
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:2
+msgid ""
+"Please note: Sound Juicer currently only handles real device names, no "
+"symlinks like e.g. /dev/cdrom. An empty key implicates that the system's "
+"default CD-ROM drive will be used."
+msgstr ""
+"Please note: Sound Juicer currently only handles real device names, no "
+"symlinks like e.g. /dev/cdrom. An empty key implicates that the system's "
+"default CD-ROM drive will be used."
+
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:3
+msgid "Whether to eject the CD when finished extracting"
+msgstr "Whether to eject the CD when finished extracting"
+
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:4
+msgid "Whether to open the target directory when finished extracting"
+msgstr "Whether to open the target directory when finished extracting"
+
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:5
+msgid "The URI to save the extracted music to"
+msgstr "The URI to save the extracted music to"
+
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:6
+msgid "The directory structure for the files"
+msgstr "The directory structure for the files"
+
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:8
+#, no-c-format
+msgid ""
+"Format specifiers: %at - album title; %aT - album title (lowercase); %aa - "
+"album artist; %aA - album artist (lowercase); %as - album artist (sortable); "
+"%aS - album artist (sortable lowercase); %ac - album composer; %aC - album "
+"composer (lowercase); %ap - album composer (sortable); %aP - album composer "
+"(sortable lowercase); %ay - album year; %tt - track title; %tT - track title "
+"(lowercase); %ta - track artist; %tA - track artist (lowercase); %ts - track "
+"artist (sortable); %tS - track artist (sortable lowercase); %tc - track "
+"composer; %tC - track composer (lowercase); %tp - track composer (sortable); "
+"%tP - track composer (sortable lowercase)."
+msgstr ""
+"Format specifiers: %at - album title; %aT - album title (lowercase); %aa - "
+"album artist; %aA - album artist (lowercase); %as - album artist (sortable); "
+"%aS - album artist (sortable lowercase); %ac - album composer; %aC - album "
+"composer (lowercase); %ap - album composer (sortable); %aP - album composer "
+"(sortable lowercase); %ay - album year; %tt - track title; %tT - track title "
+"(lowercase); %ta - track artist; %tA - track artist (lowercase); %ts - track "
+"artist (sortable); %tS - track artist (sortable lowercase); %tc - track "
+"composer; %tC - track composer (lowercase); %tp - track composer (sortable); "
+"%tP - track composer (sortable lowercase)."
+
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:9
+msgid "The name pattern for files"
+msgstr "The name pattern for files"
+
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:11
+#, no-c-format
+msgid ""
+"Do not specify an extension. Format specifiers: %at - album title; %aT - "
+"album title (lowercase); %aa - album artist; %aA - album artist (lowercase); "
+"%as - album artist (sortable); %aS - album artist (sortable lowercase); %ac "
+"- album composer; %aC - album composer (lowercase); %ap - album composer "
+"(sortable); %aP - album composer (sortable lowercase); %tn - track number (i."
+"e 8); %tN - track number, zero padded (i.e 08); %tt - track title; %tT - "
+"track title (lowercase); %ta - track artist; %tA - track artist (lowercase); "
+"%ts - track artist (sortable); %tS - track artist (sortable lowercase); %tc "
+"- track composer; %tC - track composer (lowercase); %tp - track composer "
+"(sortable); %tP - track composer (sortable lowercase); %dn - disc and track "
+"number (i.e Disk 2 - 6, or 6); %dN - disc number, zero padded (i.e d02t06, "
+"or 06)."
+msgstr ""
+"Do not specify an extension. Format specifiers: %at - album title; %aT - "
+"album title (lowercase); %aa - album artist; %aA - album artist (lowercase); "
+"%as - album artist (sortable); %aS - album artist (sortable lowercase); %ac "
+"- album composer; %aC - album composer (lowercase); %ap - album composer "
+"(sortable); %aP - album composer (sortable lowercase); %tn - track number (i."
+"e 8); %tN - track number, zero padded (i.e 08); %tt - track title; %tT - "
+"track title (lowercase); %ta - track artist; %tA - track artist (lowercase); "
+"%ts - track artist (sortable); %tS - track artist (sortable lowercase); %tc "
+"- track composer; %tC - track composer (lowercase); %tp - track composer "
+"(sortable); %tP - track composer (sortable lowercase); %dn - disc and track "
+"number (i.e Disk 2 - 6, or 6); %dN - disc number, zero padded (i.e d02t06, "
+"or 06)."
+
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:12
+msgid "The paranoia mode to use"
+msgstr "The paranoia mode to use"
+
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:13
+msgid "Paranoia flags: disable; fragment; overlap; scratch; repair."
+msgstr "Paranoia flags: disable; fragment; overlap; scratch; repair."
+
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:14
+msgid "Whether to strip special characters from filenames"
+msgstr "Whether to strip special characters from filenames"
+
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:15
+msgid ""
+"If enabled, special characters such as space, wildcards and backslashes will "
+"be removed from the output filename."
+msgstr ""
+"If enabled, special characters such as space, wildcards and backslashes will "
+"be removed from the output filename."
+
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:16
+msgid "Media type to encode to"
+msgstr "Media type to encode to"
+
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:17
+msgid "The GStreamer media type to encode to."
+msgstr "The GStreamer media type to encode to."
+
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:18
+msgid "Audio volume"
+msgstr "Audio volume"
+
+#: ../data/sound-juicer.desktop.in.in.h:1 ../data/sound-juicer.ui.h:1
+#: ../src/sj-main.c:117 ../src/sj-main.c:119 ../src/sj-main.c:2346
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -38,83 +154,17 @@ msgstr "Sound Juicer מחלץ תקליטורי שמע"
 msgid "Copy music from your CDs"
 msgstr "העתק מוזיקה מהתקליטורים שלך"
 
-#: ../data/sound-juicer.schemas.in.h:1
-msgid "Whether to eject the CD when finished extracting."
-msgstr "Whether to eject the CD when finished extracting."
-
-#: ../data/sound-juicer.schemas.in.h:2
-msgid "Whether to open the target directory when finished extracting."
-msgstr "Whether to open the target directory when finished extracting."
-
-#: ../data/sound-juicer.schemas.in.h:3
-msgid "The directory structure for the files"
-msgstr "The directory structure for the files"
-
-#: ../data/sound-juicer.schemas.in.h:5
-#, no-c-format
-msgid "%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album artist (sortable) %aS -- album artist (sortable lowercase) %ac -- album composer %aC -- album composer (lowercase) %ap -- album composer (sortable) %aP -- album composer (sortable lowercase) %ay -- album year %tt -- track title %tT -- track title (lowercase) %ta -- track artist %tA -- track artist (lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable lowercase) %tc -- track composer %tC -- track composer (lowercase) %tp -- track composer (sortable) %tP -- track composer (sortable lowercase)"
-msgstr "%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album artist (sortable) %aS -- album artist (sortable lowercase) %ac -- album composer %aC -- album composer (lowercase) %ap -- album composer (sortable) %aP -- album composer (sortable lowercase) %ay -- album year %tt -- track title %tT -- track title (lowercase) %ta -- track artist %tA -- track artist (lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable lowercase) %tc -- track composer %tC -- track composer (lowercase) %tp -- track composer (sortable) %tP -- track composer (sortable lowercase)"
-
-#: ../data/sound-juicer.schemas.in.h:6
-msgid "The name pattern for files"
-msgstr "The name pattern for files"
-
-#: ../data/sound-juicer.schemas.in.h:8
-#, no-c-format
-msgid "Do not specify an extension. %at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album artist (sortable) %aS -- album artist (sortable lowercase) %ac -- album composer %aC -- album composer (lowercase) %ap -- album composer (sortable) %aP -- album composer (sortable lowercase) %tn -- track number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %tT -- track title (lowercase) %ta -- track artist %tA -- track artist (lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable lowercase) %tc -- track composer %tC -- track composer (lowercase) %tp -- track composer (sortable) %tP -- track composer (sortable lowercase) %dn -- disc and track number, track zero padded (i.e Disk 2 - 06, or 06) %dN -- condensed disc and track number, zero padded (i.e d02t06, or 06)"
-msgstr "Do not specify an extension. %at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album artist (sortable) %aS -- album artist (sortable lowercase) %ac -- album composer %aC -- album composer (lowercase) %ap -- album composer (sortable) %aP -- album composer (sortable lowercase) %tn -- track number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %tT -- track title (lowercase) %ta -- track artist %tA -- track artist (lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable lowercase) %tc -- track composer %tC -- track composer (lowercase) %tp -- track composer (sortable) %tP -- track composer (sortable lowercase) %dn -- disc and track number, track zero padded (i.e Disk 2 - 06, or 06) %dN -- condensed disc and track number, zero padded (i.e d02t06, or 06)"
-
-#: ../data/sound-juicer.schemas.in.h:9
-msgid "The paranoia mode to use"
-msgstr "The paranoia mode to use"
-
-#: ../data/sound-juicer.schemas.in.h:10
-msgid "Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) full"
-msgstr "Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) full"
-
-#: ../data/sound-juicer.schemas.in.h:11
-msgid "If to strip special characters from filenames"
-msgstr "If to strip special characters from filenames"
-
-#: ../data/sound-juicer.schemas.in.h:12
-msgid "If enabled, special characters such as space, wildcards and backslashes will be removed from the output filename."
-msgstr "If enabled, special characters such as space, wildcards and backslashes will be removed from the output filename."
-
-#: ../data/sound-juicer.schemas.in.h:13
-msgid "The MusicBrainz server to use"
-msgstr "The MusicBrainz server to use"
-
-#: ../data/sound-juicer.schemas.in.h:14
-msgid "If specified, this value will override the default MusicBrainz server."
-msgstr "If specified, this value will override the default MusicBrainz server."
-
-#: ../data/sound-juicer.schemas.in.h:15
-msgid "(obsolete) Audio Profile with which to encode"
-msgstr "(מיושן) פרופיל שמע שאתו יש להצפין"
-
-#: ../data/sound-juicer.schemas.in.h:16
-msgid "This key used to store the GNOME Audio Profile with which to encode. This has been superseded by GStreamer encoding profiles, which are configured using the audio_profile_media_type key."
-msgstr "This key used to store the GNOME Audio Profile with which to encode. This has been superseded by GStreamer encoding profiles, which are configured using the audio_profile_media_type key."
-
-#: ../data/sound-juicer.schemas.in.h:17
-msgid "Media type to encode to"
-msgstr "Media type to encode to"
-
-#: ../data/sound-juicer.schemas.in.h:18
-msgid "The GStreamer media type to encode to."
-msgstr "The GStreamer media type to encode to."
-
-#: ../data/sound-juicer.schemas.in.h:19
-msgid "Audio volume"
-msgstr "Audio volume"
+#: ../data/sound-juicer.desktop.in.in.h:5
+msgid "Ripper;"
+msgstr ""
 
 #: ../data/sound-juicer.ui.h:2
 msgid "_Year:"
 msgstr "_שנה:"
 
 #: ../data/sound-juicer.ui.h:3
-msgid "Disc:"
-msgstr "תקליטור:"
+msgid "_Disc:"
+msgstr "_תקליטור:"
 
 #: ../data/sound-juicer.ui.h:4
 msgid "_Title:"
@@ -140,79 +190,99 @@ msgstr "משך:"
 msgid "Tracks"
 msgstr "רצועות"
 
-#: ../data/sound-juicer.ui.h:10
+#: ../data/sound-juicer.ui.h:10 ../src/sj-main.c:2106 ../src/sj-play.c:121
+#: ../src/sj-play.c:259 ../src/sj-play.c:607
+msgid "_Play"
+msgstr "_ניגון"
+
+#: ../data/sound-juicer.ui.h:11 ../src/sj-extracting.c:233
+#: ../src/sj-main.c:2130
+msgid "E_xtract"
+msgstr "_חילוץ"
+
+#: ../data/sound-juicer.ui.h:12
 msgid "Track Progress"
 msgstr "התקדמות רצועה"
 
-#: ../data/sound-juicer.ui.h:11
+#: ../data/sound-juicer.ui.h:13
 msgid "Multiple Albums Found"
 msgstr "נמצאו מספר אלבומים"
 
-#: ../data/sound-juicer.ui.h:12
-msgid "This CD could be more than one album. Please select which album it is below and press <i>Continue</i>."
-msgstr "ישנה אפשרות שבתקליטור זה יש יותר מאלבום אחד. אנא בחר אלבום ולחץ <i>המשך</i>."
+#: ../data/sound-juicer.ui.h:14
+msgid ""
+"This CD could be more than one album. Please select which album it is below "
+"and press <i>Continue</i>."
+msgstr ""
+"ישנה אפשרות שבתקליטור זה יש יותר מאלבום אחד. יש לבחור אלבום וללחוץ <i>המשך</"
+"i>."
 
-#: ../data/sound-juicer.ui.h:13
-#: ../src/sj-main.c:227
+#: ../data/sound-juicer.ui.h:15 ../src/sj-main.c:201
 msgid "_Continue"
 msgstr "_המשך"
 
-#: ../data/sound-juicer.ui.h:14
-#: ../data/sound-juicer-menu.ui.h:6
+#: ../data/sound-juicer.ui.h:16 ../data/sound-juicer-menu.ui.h:6
 msgid "Preferences"
 msgstr "העדפות"
 
-#: ../data/sound-juicer.ui.h:15
+#: ../data/sound-juicer.ui.h:17
 msgid "Device"
 msgstr "התקן"
 
-#: ../data/sound-juicer.ui.h:16
-msgid "CD _drive:"
-msgstr "כונן _תקליטורים:"
-
-#: ../data/sound-juicer.ui.h:17
-msgid "_Eject after extracting tracks"
-msgstr "_הוצא לאחר חילוץ הרצועות"
-
 #: ../data/sound-juicer.ui.h:18
-msgid "_Open music folder when finished"
-msgstr "_פתח את תיקיית המוזיקה בסיום"
+msgid "CD _drive:"
+msgstr "_כונן תקליטורים:"
 
 #: ../data/sound-juicer.ui.h:19
+msgid "_Eject after extracting tracks"
+msgstr "_שליפה לאחר חילוץ הרצועות"
+
+#: ../data/sound-juicer.ui.h:20
+msgid "_Open music folder when finished"
+msgstr "_פתיחת תיקיית המוזיקה בסיום"
+
+#: ../data/sound-juicer.ui.h:21
 msgid "Music Folder"
 msgstr "תיקיית מוזיקה"
 
-#: ../data/sound-juicer.ui.h:20
+#: ../data/sound-juicer.ui.h:22
 msgid "_Folder:"
 msgstr "_תיקייה:"
 
-#: ../data/sound-juicer.ui.h:21
+#: ../data/sound-juicer.ui.h:23
 msgid "Select A Folder"
-msgstr "בחר תיקייה"
+msgstr "בחירת תיקייה"
 
-#: ../data/sound-juicer.ui.h:22
+#: ../data/sound-juicer.ui.h:24
 msgid "Track Names"
 msgstr "שמות הרצועות"
 
-#: ../data/sound-juicer.ui.h:23
+#: ../data/sound-juicer.ui.h:25
 msgid "Folder hie_rarchy:"
-msgstr "סד_ר התיקייה"
+msgstr "סד_ר התיקייה:"
 
-#: ../data/sound-juicer.ui.h:24
+#: ../data/sound-juicer.ui.h:26
 msgid "File _name:"
 msgstr "שם_ קובץ:"
 
-#: ../data/sound-juicer.ui.h:25
+#: ../data/sound-juicer.ui.h:27
 msgid "_Strip special characters"
 msgstr "_הפשטת תווים מיוחדים"
 
-#: ../data/sound-juicer.ui.h:26
+#: ../data/sound-juicer.ui.h:28
 msgid "Format"
 msgstr "תצורה"
 
-#: ../data/sound-juicer.ui.h:27
+#: ../data/sound-juicer.ui.h:29
 msgid "O_utput Format:"
 msgstr "תצורת פ_לט:"
+
+#: ../data/sound-juicer.ui.h:30
+msgid "_Help"
+msgstr "_עזרה"
+
+#: ../data/sound-juicer.ui.h:31
+msgid "_Close"
+msgstr "_סגירה"
 
 #: ../data/sound-juicer-menu.ui.h:1
 msgid "Disc"
@@ -232,79 +302,80 @@ msgstr "שליפה"
 
 #: ../data/sound-juicer-menu.ui.h:5
 msgid "Submit Track Names"
-msgstr "מסירת שמות הרצועות"
+msgstr "הגשת שמות הרצועות"
 
 #: ../data/sound-juicer-menu.ui.h:7
-msgid "About Sound Juicer"
-msgstr "על אודות Sound Juicer"
-
-#: ../data/sound-juicer-menu.ui.h:8
 msgid "Help"
 msgstr "עזרה"
+
+#: ../data/sound-juicer-menu.ui.h:8
+msgid "About"
+msgstr "על אודות"
 
 #: ../data/sound-juicer-menu.ui.h:9
 msgid "Quit"
 msgstr "יציאה"
 
-#: ../libjuicer/sj-extractor.c:193
+#: ../libjuicer/sj-extractor.c:192
 msgid "Audio Profile"
 msgstr "פרופיל שמע"
 
-#: ../libjuicer/sj-extractor.c:194
+#: ../libjuicer/sj-extractor.c:193
 msgid "The GStreamer Encoding Profile used for encoding audio"
-msgstr "פרופיל ההצפנה של GStreamer שמשמש להצפנת השמע"
+msgstr "פרופיל ההצפנה של GStreamer משמש להצפנת שמע"
 
-#: ../libjuicer/sj-extractor.c:199
+#: ../libjuicer/sj-extractor.c:198
 msgid "Paranoia Level"
 msgstr "Paranoia Level"
 
-#: ../libjuicer/sj-extractor.c:200
+#: ../libjuicer/sj-extractor.c:199
 msgid "The paranoia level"
 msgstr "The paranoia level"
 
-#: ../libjuicer/sj-extractor.c:205
+#: ../libjuicer/sj-extractor.c:204
 msgid "device"
 msgstr "התקן"
 
-#: ../libjuicer/sj-extractor.c:206
+#: ../libjuicer/sj-extractor.c:205
 msgid "The device"
 msgstr "ההתקן"
 
-#: ../libjuicer/sj-extractor.c:348
+#: ../libjuicer/sj-extractor.c:355
 #, c-format
 msgid "Could not create GStreamer CD reader"
-msgstr "לא הייתה אפשרות ליצור קורא תקליטורים GStreamer"
+msgstr "לא ניתן ליצור קורא תקליטורים GStreamer"
 
-#: ../libjuicer/sj-extractor.c:366
+#: ../libjuicer/sj-extractor.c:373
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
-msgstr "אין אפשרות ליצור מקודד GStreamer ל %s"
+msgstr "לא ניתן ליצור מקודד GStreamer עבור %s"
 
-#: ../libjuicer/sj-extractor.c:378
+#: ../libjuicer/sj-extractor.c:385
 #, c-format
 msgid "Could not create GStreamer file output"
-msgstr "אין אפשרות לייצר קובץ פלט ל GStreamer"
+msgstr "לא ניתן לייצר קובץ פלט ל־GStreamer"
 
-#: ../libjuicer/sj-extractor.c:392
+#: ../libjuicer/sj-extractor.c:399
 #, c-format
 msgid "Could not link pipeline"
 msgstr "לא ניתן לקשר את קו הצינורות"
 
-#: ../libjuicer/sj-extractor.c:415
+#: ../libjuicer/sj-extractor.c:422
 msgid "Could not get current track position"
-msgstr "לא הייתה אפשרות לאתר את מיקום הרצועה הנוכחית"
+msgstr "לא ניתן לאתר את מיקום הרצועה הנוכחית"
 
-#: ../libjuicer/sj-extractor.c:444
+#: ../libjuicer/sj-extractor.c:451
 #, c-format
-msgid "Extractor object is not valid. This is bad, check your console for errors."
-msgstr "המחלץ אינו תקין. זה לא טוב, אנא בדוק את השגיאות במסוף."
+msgid ""
+"Extractor object is not valid. This is bad, check your console for errors."
+msgstr "המחלץ אינו תקין. זה לא טוב, יש לבדוק את השגיאות במסוף."
 
-#: ../libjuicer/sj-extractor.c:681
+#: ../libjuicer/sj-extractor.c:711
 #, c-format
 msgid "The plugin necessary for CD access was not found"
 msgstr "התוסף הדרוש לגישה לתקליטור לא נמצא"
 
-#: ../libjuicer/sj-extractor.c:689
+#: ../libjuicer/sj-extractor.c:719
 #, c-format
 msgid "The plugin necessary for file access was not found"
 msgstr "התוסף הדרוש לגישה לקבצים לא נמצא"
@@ -312,449 +383,532 @@ msgstr "התוסף הדרוש לגישה לקבצים לא נמצא"
 #. FIXME: would be nicer to only check if "cdrom" is being probed,
 #. * but libbrasero doesn't seem to have an API for that
 #.
-#: ../libjuicer/sj-metadata.c:182
-#: ../libjuicer/sj-metadata.c:205
-#: ../libjuicer/sj-metadata.c:216
+#: ../libjuicer/sj-metadata.c:188 ../libjuicer/sj-metadata.c:211
+#: ../libjuicer/sj-metadata.c:222
 #, c-format
 msgid "Cannot read CD: %s"
-msgstr "אין אפשרות לקרוא את התקליטור: %s"
+msgstr "לא ניתן לקרוא את התקליטור: %s"
 
-#: ../libjuicer/sj-metadata.c:183
+#: ../libjuicer/sj-metadata.c:189
 msgid "Devices haven't been all probed yet"
-msgstr "לא כל ההתקנים נבדקו עדיין"
+msgstr "עוד לא נבדוק כל ההתקנים"
 
-#: ../libjuicer/sj-metadata.c:199
+#: ../libjuicer/sj-metadata.c:205
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "כונן '%s' אינו מכיל תקליטור"
 
-#: ../libjuicer/sj-metadata.c:202
+#: ../libjuicer/sj-metadata.c:208
 #, c-format
-msgid "Device '%s' could not be opened. Check the access permissions on the device."
-msgstr "לא ניתן לפתוח את הכונן '%s'. אנא בדוק את הרשאות הגישה לכונן."
+msgid ""
+"Device '%s' could not be opened. Check the access permissions on the device."
+msgstr "לא ניתן לפתוח את הכונן '%s'. יש לבדוק את הרשאות הגישה לכונן."
 
-#: ../libjuicer/sj-metadata-gvfs.c:90
+#: ../libjuicer/sj-metadata.c:350
+msgid "Czechoslovakia"
+msgstr "צ'כוסלובקיה"
+
+#: ../libjuicer/sj-metadata.c:351
+msgid "East Germany"
+msgstr "מזרח גרמניה"
+
+#: ../libjuicer/sj-metadata.c:352
+msgid "Europe"
+msgstr "אירופה"
+
+#: ../libjuicer/sj-metadata.c:353
+msgid "Serbia and Montenegro"
+msgstr "סרביה ומונטנגרו"
+
+#: ../libjuicer/sj-metadata.c:354
+msgid "Soviet Union"
+msgstr "ברית המועצות"
+
+#: ../libjuicer/sj-metadata.c:355
+msgid "Worldwide"
+msgstr "עולמי"
+
+#: ../libjuicer/sj-metadata.c:356
+msgid "Yugoslavia"
+msgstr "יוגוסלביה"
+
+#: ../libjuicer/sj-metadata-gvfs.c:95
 #, c-format
 msgid "Cannot access CD"
 msgstr "לא ניתן לגשת לתקליטור"
 
-#: ../libjuicer/sj-metadata-gvfs.c:109
-#: ../src/egg-play-preview.c:463
+#: ../libjuicer/sj-metadata-gvfs.c:115 ../src/egg-play-preview.c:469
 msgid "Unknown Title"
-msgstr "שם לא ידוע"
+msgstr "כותרת לא ידועה"
 
-#: ../libjuicer/sj-metadata-gvfs.c:113
-#: ../libjuicer/sj-metadata-gvfs.c:139
-#: ../src/egg-play-preview.c:468
-#: ../src/sj-extracting.c:986
+#: ../libjuicer/sj-metadata-gvfs.c:121 ../libjuicer/sj-metadata-gvfs.c:151
+#: ../src/egg-play-preview.c:474 ../src/sj-extracting.c:982
 msgid "Unknown Artist"
 msgstr "אמן לא ידוע"
 
-#: ../libjuicer/sj-metadata-gvfs.c:135
+#: ../libjuicer/sj-metadata-gvfs.c:145
 #, c-format
 msgid "Track %d"
 msgstr "רצועה %d"
 
-#: ../libjuicer/sj-metadata-gvfs.c:160
+#: ../libjuicer/sj-metadata-gvfs.c:172
 #, c-format
 msgid "Cannot access CD: %s"
 msgstr "לא ניתן לגשת לתקליטור: %s"
 
-#: ../src/egg-play-preview.c:169
+#: ../src/egg-play-preview.c:171
 msgid "URI"
 msgstr "כתובת"
 
-#: ../src/egg-play-preview.c:170
+#: ../src/egg-play-preview.c:172
 msgid "The URI of the audio file"
 msgstr "הכתובת של קובץ השמע"
 
-#: ../src/egg-play-preview.c:179
-#: ../src/sj-main.c:810
-#: ../src/sj-main.c:2011
+#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2206
 msgid "Title"
-msgstr "שם"
+msgstr "כותרת"
 
-#: ../src/egg-play-preview.c:180
+#: ../src/egg-play-preview.c:182
 msgid "The title of the current stream."
-msgstr "השם של הזרימה הנוכחית"
+msgstr "השם של הזרימה הנוכחית."
 
-#: ../src/egg-play-preview.c:189
-#: ../src/sj-main.c:816
-#: ../src/sj-main.c:2020
+#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2215
 msgid "Artist"
 msgstr "אמן"
 
-#: ../src/egg-play-preview.c:190
+#: ../src/egg-play-preview.c:192
 msgid "The artist of the current stream."
 msgstr "האמן של הזרימה הנוכחית."
 
-#: ../src/egg-play-preview.c:199
+#: ../src/egg-play-preview.c:201
 msgid "Album"
 msgstr "אלבום"
 
-#: ../src/egg-play-preview.c:200
+#: ../src/egg-play-preview.c:202
 msgid "The album of the current stream."
 msgstr "האלבום של הזרימה הנוכחית."
 
-#: ../src/egg-play-preview.c:209
+#: ../src/egg-play-preview.c:211
 msgid "Position"
 msgstr "מיקום"
 
-#: ../src/egg-play-preview.c:210
+#: ../src/egg-play-preview.c:212
 msgid "The position in the current stream in seconds."
 msgstr "המיקום של הזרימה הנוכחית."
 
-#: ../src/egg-play-preview.c:219
-#: ../src/sj-main.c:2044
+#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2239
 msgid "Duration"
 msgstr "משך"
 
-#: ../src/egg-play-preview.c:220
+#: ../src/egg-play-preview.c:222
 msgid "The duration of the current stream in seconds."
 msgstr "המשך של הזרימה הנוכחית."
 
-#: ../src/egg-play-preview.c:469
-#: ../src/sj-extracting.c:985
+#: ../src/egg-play-preview.c:475 ../src/sj-extracting.c:981
 msgid "Unknown Album"
 msgstr "אלבום לא ידוע"
 
-#: ../src/gconf-bridge.c:1220
-#, c-format
-msgid "GConf error: %s"
-msgstr "שגיאת GConf: %s"
+#: ../src/sj-about.c:51
+msgid ""
+"Sound Juicer is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version."
+msgstr ""
+"Sound Juicer is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version."
 
-#: ../src/gconf-bridge.c:1225
-msgid "All further errors shown only on terminal."
-msgstr "כל השגיאות הנוספות מוצגות במסוף בלבד."
+#: ../src/sj-about.c:55
+msgid ""
+"Sound Juicer is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details."
+msgstr ""
+"Sound Juicer is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details."
 
-#: ../src/sj-about.c:52
-msgid "Sound Juicer is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
-msgstr "Sound Juicer is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
+#: ../src/sj-about.c:59
+msgid ""
+"You should have received a copy of the GNU General Public License along with "
+"Sound Juicer; if not, write to the Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
+msgstr ""
+"You should have received a copy of the GNU General Public License along with "
+"Sound Juicer; if not, write to the Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
 
-#: ../src/sj-about.c:56
-msgid "Sound Juicer is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details."
-msgstr "Sound Juicer is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details."
-
-#: ../src/sj-about.c:60
-msgid "You should have received a copy of the GNU General Public License along with Sound Juicer; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
-msgstr "You should have received a copy of the GNU General Public License along with Sound Juicer; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
-
-#: ../src/sj-about.c:71
+#: ../src/sj-about.c:70
 msgid "An Audio CD Extractor"
-msgstr "מחלץ תקליטורי מוסיקה"
+msgstr "מחלץ תקליטורי מוזיקה"
 
 #.
 #. * Note to translators: put here your name and email so it will show
 #. * up in the "about" box
 #.
-#: ../src/sj-about.c:81
+#: ../src/sj-about.c:80
 msgid "translator-credits"
 msgstr ""
 "אייל ממו <emamo91@gmail.com>\n"
 "Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"יוסף אור בוצ׳קו <yoseforb@gnome.org>\n"
 "\n"
 "פרוייקט תרגום GNOME לעברית:\n"
 "‏http://gnome-il.berlios.de"
 
-#: ../src/sj-extracting.c:150
+#: ../src/sj-extracting.c:149
 #, c-format
 msgid "Failed to get output format"
 msgstr "שגיאה בקבלת תצורת פלט"
 
-#: ../src/sj-extracting.c:175
+#: ../src/sj-extracting.c:174
 msgid "Name too long"
 msgstr "השם ארוך מדי"
 
-#. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:234
-msgid "Extract"
-msgstr "חלץ"
-
-#: ../src/sj-extracting.c:315
+#: ../src/sj-extracting.c:313
 msgid "A file with the same name exists"
 msgstr "קיים קובץ בשם זהה"
 
-#: ../src/sj-extracting.c:317
+#: ../src/sj-extracting.c:315
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
 "Do you want to skip this track or overwrite it?"
 msgstr ""
 "קובץ בשם '%s' קיים, גודל %s.\n"
-"האם אתה רוצה לדלג על רצועה זו, או להחליף אותה?"
+"האם ברצונך לדלג על רצועה זו או לדרוס אותה?"
+
+#: ../src/sj-extracting.c:325
+msgid "_Skip"
+msgstr "_דילוג"
+
+#: ../src/sj-extracting.c:326
+msgid "S_kip All"
+msgstr "_דילוג על הכול"
 
 #: ../src/sj-extracting.c:327
-msgid "_Skip"
-msgstr "_דלג"
+msgid "_Overwrite"
+msgstr "_דריסה"
 
 #: ../src/sj-extracting.c:328
-msgid "S_kip All"
-msgstr "ד_לג על הכל"
-
-#: ../src/sj-extracting.c:329
-msgid "_Overwrite"
-msgstr "_החלף"
-
-#: ../src/sj-extracting.c:330
 msgid "Overwrite _All"
-msgstr "החלף ה_כל"
+msgstr "דריסת _הכול"
 
-#: ../src/sj-extracting.c:379
+#: ../src/sj-extracting.c:377
 #, c-format
 msgid "Failed to create output directory: %s"
-msgstr "נכשל ביצירת ספריית פלט: %s"
+msgstr "ארע כשל ביצירת ספריית פלט: %s"
 
-#: ../src/sj-extracting.c:519
+#: ../src/sj-extracting.c:517
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "הערכת הזמן הנותר: %d:%02d (ב·%0.1f×)"
 
-#: ../src/sj-extracting.c:521
+#: ../src/sj-extracting.c:519
 msgid "Estimated time left: unknown"
 msgstr "הערכת הזמן הנותר: לא ידוע"
 
-#: ../src/sj-extracting.c:611
+#: ../src/sj-extracting.c:609
 msgid "CD rip complete"
 msgstr "העתקת התקליטור הושלמה"
 
-#: ../src/sj-extracting.c:703
+#: ../src/sj-extracting.c:701
 msgid "Sound Juicer could not extract this CD."
-msgstr "ל־Sound Juicer אין אפשרות לחלץ מתקליטור זה."
+msgstr "‏Sound Juicer לא יכול לחלץ תקליטור זה."
 
-#: ../src/sj-extracting.c:705
-#: ../src/sj-main.c:189
-#: ../src/sj-main.c:472
-#: ../src/sj-main.c:510
-#: ../src/sj-main.c:1006
-#: ../src/sj-main.c:1129
-#: ../src/sj-main.c:1228
+#: ../src/sj-extracting.c:703 ../src/sj-main.c:163 ../src/sj-main.c:450
+#: ../src/sj-main.c:488 ../src/sj-main.c:1244 ../src/sj-main.c:1367
+#: ../src/sj-main.c:1466
 msgid "Reason"
 msgstr "סיבה"
 
 #. Change the label to Stop while extracting
-#. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:796
-msgid "Stop"
-msgstr "עצור"
+#: ../src/sj-extracting.c:793 ../src/sj-main.c:2137
+msgid "_Stop"
+msgstr "_השהיה"
 
-#: ../src/sj-extracting.c:825
-#: ../src/sj-extracting.c:831
+#: ../src/sj-extracting.c:821 ../src/sj-extracting.c:827
 msgid "Extracting audio from CD"
-msgstr "מחלץ מוסיקה מהתקליטור "
+msgstr "מחלץ שמע מהתקליטור "
 
-#: ../src/sj-extracting.c:987
+#: ../src/sj-extracting.c:983
 msgid "Unknown Composer"
 msgstr "מלחין לא ידוע"
 
-#: ../src/sj-extracting.c:988
+#: ../src/sj-extracting.c:984
 msgid "Unknown Track"
 msgstr "רצועה לא ידועה"
 
-#: ../src/sj-genres.c:34
+#: ../src/sj-genres.c:33
 msgid "Ambient"
 msgstr "אמביאנט"
 
-#: ../src/sj-genres.c:35
+#: ../src/sj-genres.c:34
 msgid "Blues"
 msgstr "בלוז"
 
-#: ../src/sj-genres.c:36
-#: ../src/sj-main.c:571
+#: ../src/sj-genres.c:35 ../src/sj-main.c:549
 msgid "Classical"
 msgstr "קלאסי"
 
-#: ../src/sj-genres.c:37
+#: ../src/sj-genres.c:36
 msgid "Country"
 msgstr "קאנטרי"
 
-#: ../src/sj-genres.c:38
+#: ../src/sj-genres.c:37
 msgid "Dance"
 msgstr "דאנס"
 
-#: ../src/sj-genres.c:39
+#: ../src/sj-genres.c:38
 msgid "Electronica"
 msgstr "אלקטרוני"
 
-#: ../src/sj-genres.c:40
+#: ../src/sj-genres.c:39
 msgid "Folk"
 msgstr "פולק"
 
-#: ../src/sj-genres.c:41
+#: ../src/sj-genres.c:40
 msgid "Funk"
 msgstr "פאנק"
 
-#: ../src/sj-genres.c:42
+#: ../src/sj-genres.c:41
 msgid "Jazz"
 msgstr "ג'ז"
 
-#: ../src/sj-genres.c:43
+#: ../src/sj-genres.c:42
 msgid "Latin"
 msgstr "לטיני"
 
-#: ../src/sj-genres.c:44
+#: ../src/sj-genres.c:43
 msgid "Pop"
 msgstr "פופ"
 
-#: ../src/sj-genres.c:45
+#: ../src/sj-genres.c:44
 msgid "Rap"
 msgstr "ראפ"
 
-#: ../src/sj-genres.c:46
+#: ../src/sj-genres.c:45
 msgid "Reggae"
 msgstr "ראגיי"
 
-#: ../src/sj-genres.c:47
+#: ../src/sj-genres.c:46
 msgid "Rock"
 msgstr "רוק"
 
-#: ../src/sj-genres.c:48
+#: ../src/sj-genres.c:47
 msgid "Soul"
 msgstr "נשמה"
 
-#: ../src/sj-genres.c:49
+#: ../src/sj-genres.c:48
 msgid "Spoken Word"
 msgstr "דיבור"
 
-#: ../src/sj-genres.c:189
+#: ../src/sj-genres.c:188
 #, c-format
 msgid "Error while saving custom genre: %s"
-msgstr "שגיאה בשמירת סגנון מותאם אישית: %s"
+msgstr "שגיאה בשמירת סוגה מותאמת אישית: %s"
 
-#: ../src/sj-main.c:122
-msgid "E_xtract"
-msgstr "ח_לץ"
-
-#: ../src/sj-main.c:188
+#: ../src/sj-main.c:162
 msgid "Could not start Sound Juicer"
-msgstr "שגיאה בעליית Sound Juicer"
+msgstr "לא ניתן להתחיל את Sound Juicer"
 
-#: ../src/sj-main.c:191
+#: ../src/sj-main.c:165
 msgid "Please consult the documentation for assistance."
-msgstr "אנא בדוק את התיעוד בשביל עזרה."
+msgstr "יש לבדוק את התיעוד לעזרה."
 
-#: ../src/sj-main.c:225
+#: ../src/sj-main.c:199
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
-msgstr "אתה כרגע באמצע חילוץ תקליטור מוסיקה. האם ברצונך לצאת עכשיו או להמשיך?"
+msgstr "הנך כרגע בחילוץ תקליטור. האם ברצונך לצאת עכשיו או להמשיך?"
 
-#: ../src/sj-main.c:273
-#: ../src/sj-main.c:1915
-#: ../src/sj-main.c:1965
+#: ../src/sj-main.c:247 ../src/sj-main.c:2084 ../src/sj-main.c:2160
 msgid "Select None"
 msgstr "ביטול הבחירה"
 
-#: ../src/sj-main.c:287
-#: ../src/sj-main.c:1959
+#: ../src/sj-main.c:261 ../src/sj-main.c:2154
 msgid "Select All"
 msgstr "בחירת הכול"
 
-#: ../src/sj-main.c:308
-#: ../src/sj-main.c:732
+#: ../src/sj-main.c:282 ../src/sj-main.c:710
 msgid "(unknown)"
 msgstr "(לא ידוע)"
 
-#: ../src/sj-main.c:436
+#: ../src/sj-main.c:414
 msgid "S_ubmit Album"
-msgstr "_שלח אלבום"
+msgstr "_שליחת אלבום"
+
+#: ../src/sj-main.c:416
+msgid "Ca_ncel"
+msgstr "_ביטול"
 
 #. Translators: title, artist
-#: ../src/sj-main.c:441
+#: ../src/sj-main.c:419
 #, c-format
 msgid "Could not find %s by %s on MusicBrainz."
-msgstr "‏%s מאת %s לא נימצא ב־MusicBrainz."
+msgstr "‏%s מאת %s לא נמצא ב־MusicBrainz."
 
-#: ../src/sj-main.c:446
+#: ../src/sj-main.c:424
 msgid "You can improve the MusicBrainz database by adding this album."
 msgstr "באפשרותך לשפר את בסיס הנתונים של MusicBrainz על ידי הוספת אלבום זה."
 
-#: ../src/sj-main.c:470
+#: ../src/sj-main.c:448
 msgid "Could not open URL"
-msgstr "נכשל בפתיחת הכתובת"
+msgstr "לא ניתן לפתוח את הכתובת"
 
-#: ../src/sj-main.c:471
+#: ../src/sj-main.c:449
 msgid "Sound Juicer could not open the submission URL"
-msgstr "‏Sound Juicer נכשל בפתיחת כתובת המסירה"
+msgstr "‏Sound Juicer לא יכול לפתוח את כתובת המסירה"
 
-#: ../src/sj-main.c:508
+#: ../src/sj-main.c:486
 msgid "Could not duplicate disc"
-msgstr "לא ניתן לשכפל את הדיסק"
+msgstr "לא ניתן לשכפל את התקליטור"
 
-#: ../src/sj-main.c:509
+#: ../src/sj-main.c:487
 msgid "Sound Juicer could not duplicate the disc"
-msgstr "‏Sound Juicer נכשל בשכפול הדיסק"
+msgstr "‏Sound Juicer לא יכול לשכפל את התקליטור"
 
-#: ../src/sj-main.c:571
+#: ../src/sj-main.c:549
 msgid "Lieder"
 msgstr "ליד"
 
-#: ../src/sj-main.c:571
+#: ../src/sj-main.c:549
 msgid "Opera"
 msgstr "אופרה"
 
-#: ../src/sj-main.c:571
+#: ../src/sj-main.c:549
 msgid "Chamber"
 msgstr "קאמרית"
 
-#: ../src/sj-main.c:571
+#: ../src/sj-main.c:549
 msgid "Musical"
 msgstr "מוזיקלית"
 
-#: ../src/sj-main.c:1004
-#: ../src/sj-main.c:1125
-#: ../src/sj-main.c:1226
-msgid "Could not read the CD"
-msgstr "אין אפשרות לקרוא את התקליטור"
+#. Translators: this string appears when multiple CDs were
+#. * found in musicbrainz online database, it corresponds to
+#. * "Released: <country> in <year> on <label>"
+#: ../src/sj-main.c:940
+#, c-format
+msgid "Released: %s in %d on %s"
+msgstr "יצא לאור: %s בשנת %d ב־%s"
 
-#: ../src/sj-main.c:1005
-#: ../src/sj-main.c:1128
+#. Translators: this string appears when multiple CDs were
+#. * found in musicbrainz online database, it corresponds to
+#. * "Released: <country> on <label>"
+#: ../src/sj-main.c:948
+#, c-format
+msgid "Released: %s on %s"
+msgstr "יצא לאור: %s ב־%s"
+
+#. Translators: this string appears when multiple CDs were
+#. * found in musicbrainz online database, it corresponds to
+#. * "Released: <country> in <year>"
+#: ../src/sj-main.c:954
+#, c-format
+msgid "Released: %s in %d"
+msgstr "יצא לאור: %s בשנת %d"
+
+#. Translators: this string appears when multiple CDs were
+#. * found in musicbrainz online database, it corresponds to
+#. * "Released: <country>"
+#: ../src/sj-main.c:960
+#, c-format
+msgid "Released: %s"
+msgstr "יצא לאור: %s"
+
+#. Translators: this string appears when multiple CDs were
+#. * found in musicbrainz online database, it corresponds to
+#. * "Released in <year> on <label>"
+#: ../src/sj-main.c:967
+#, c-format
+msgid "Released in %d on %s"
+msgstr "יצא לאור בשנת %d ב־%s"
+
+#. Translators: this string appears when multiple CDs were
+#. * found in musicbrainz online database, it corresponds to
+#. * "Released in <year>"
+#: ../src/sj-main.c:974
+#, c-format
+msgid "Released in %d"
+msgstr "יצא לאור בשנת %d"
+
+#. Translators: this string appears when multiple CDs were
+#. * found in musicbrainz online database, it corresponds to
+#. * "Released on <label>"
+#: ../src/sj-main.c:981
+#, c-format
+msgid "Released on %s"
+msgstr "יצא לאור ב־%s"
+
+#: ../src/sj-main.c:983
+msgid "Release label, year & country unknown"
+msgstr "תווית יציאה לאור, שנה ומדינה לא ידועים"
+
+#: ../src/sj-main.c:1030
+msgid "Albums"
+msgstr "אלבומים"
+
+#: ../src/sj-main.c:1073
+#, c-format
+msgid " (Disc %d/%d)"
+msgstr " (תקליטור %d/%d)"
+
+#: ../src/sj-main.c:1242 ../src/sj-main.c:1363 ../src/sj-main.c:1464
+msgid "Could not read the CD"
+msgstr "לא ניתן לקרוא את התקליטור"
+
+#: ../src/sj-main.c:1243 ../src/sj-main.c:1366
 msgid "Sound Juicer could not read the track listing on this CD."
-msgstr "ל־Sound Juicer אין אפשרות לקרוא את רשימת הרצועות שבתקליטור."
+msgstr "‏Sound Juicer לא יכול לקרוא את רשימת הרצועות שבתקליטור זה."
 
 #. Set statusbar message
-#: ../src/sj-main.c:1099
+#: ../src/sj-main.c:1337
 msgid "Retrieving track listing...please wait."
-msgstr "מאחזר את רשימת הרצועות...אנא המתן"
+msgstr "מאחזר את רשימת הרצועות...נא להמתין."
 
-#: ../src/sj-main.c:1188
+#: ../src/sj-main.c:1426
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
-msgstr "ל־Sound Juicer אין גישה לכונן התקליטורים־'%s'"
+msgstr "‏Sound Juicer לא יכול להשתמש בכונן התקליטורים ‏'%s'"
 
-#: ../src/sj-main.c:1195
+#: ../src/sj-main.c:1433
 msgid "HAL daemon may not be running."
-msgstr "כנראה ששירות ה־HAL אינו פעיל"
+msgstr "כנראה ששירות ה־HAL אינו פעיל."
 
-#: ../src/sj-main.c:1219
+#: ../src/sj-main.c:1457
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
-msgstr "ל־Sound Juicer אין גישה לכונן התקליטורים־'%s'"
+msgstr "‏Sound Juicer לא יכול לגשת לכונן התקליטורים '%s'"
 
-#: ../src/sj-main.c:1317
+#: ../src/sj-main.c:1557
 msgid "No CD-ROM drives found"
-msgstr "לא נמצא כונן תקליטורים"
+msgstr "לא נמצאו כונני תקליטורים"
 
-#: ../src/sj-main.c:1318
+#: ../src/sj-main.c:1558
 msgid "Sound Juicer could not find any CD-ROM drives to read."
-msgstr "Sound Juicer לא מצא כוננים לקריאה"
+msgstr "‏Sound Juicer לא מצא אף כונן תקליטורים לקריאה."
 
-#: ../src/sj-main.c:1350
-msgid "The currently selected audio profile is not available on your installation."
-msgstr "פרופיל הצליל הנוכחי אינו זמין על ההתקנה שלך"
+#: ../src/sj-main.c:1591
+msgid ""
+"The currently selected audio profile is not available on your installation."
+msgstr "פרופיל הצליל הנוכחי אינו זמין על ההתקנה שלך."
 
-#: ../src/sj-main.c:1352
+#: ../src/sj-main.c:1593
 msgid "_Change Profile"
-msgstr "_החלף פרופיל"
+msgstr "_שינוי פרופיל"
 
-#: ../src/sj-main.c:1534
+#: ../src/sj-main.c:1725
 #, c-format
 msgid "Unknown column %d was edited"
-msgstr "עמודה לא ידועה %d נערכה"
+msgstr "Unknown column %d was edited"
 
-#: ../src/sj-main.c:1634
+#: ../src/sj-main.c:1825
 msgid "Unknown widget calling on_person_edit_changed."
 msgstr "Unknown widget calling on_person_edit_changed."
 
-#: ../src/sj-main.c:1735
-#: ../src/sj-prefs.c:119
+#: ../src/sj-main.c:1925 ../src/sj-prefs.c:127
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -763,45 +917,43 @@ msgstr ""
 "לא ניתן להציג עזרה עבור Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1845
-msgid "Could not create GConf client.\n"
-msgstr "אין אפשרות ליצור לקוח GConf.\n"
+#: ../src/sj-main.c:2113 ../src/sj-play.c:301
+msgid "_Pause"
+msgstr "_השהיה"
 
-#: ../src/sj-main.c:1996
+#: ../src/sj-main.c:2191
 msgid "Track"
 msgstr "רצועה"
 
-#: ../src/sj-main.c:2031
+#: ../src/sj-main.c:2226
 msgid "Composer"
 msgstr "מלחין"
 
-#: ../src/sj-main.c:2182
+#: ../src/sj-main.c:2334
 msgid "Start extracting immediately"
 msgstr "Start extracting immediately"
 
-#: ../src/sj-main.c:2183
+#: ../src/sj-main.c:2335
 msgid "Start playing immediately"
 msgstr "Start playing immediately"
 
-#: ../src/sj-main.c:2184
+#: ../src/sj-main.c:2336
 msgid "What CD device to read"
 msgstr "What CD device to read"
 
-#: ../src/sj-main.c:2184
+#: ../src/sj-main.c:2336
 msgid "DEVICE"
 msgstr "DEVICE"
 
-#: ../src/sj-main.c:2185
+#: ../src/sj-main.c:2337
 msgid "URI to the CD device to read"
 msgstr "URI to the CD device to read"
 
-#: ../src/sj-main.c:2197
+#: ../src/sj-main.c:2349
 msgid "- Extract music from your CDs"
 msgstr "- Extract music from your CDs"
 
-#: ../src/sj-play.c:194
-#: ../src/sj-play.c:420
-#: ../src/sj-play.c:449
+#: ../src/sj-play.c:193 ../src/sj-play.c:417 ../src/sj-play.c:446
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -812,127 +964,152 @@ msgstr ""
 "\n"
 "סיבה: %s"
 
-#. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:261
-msgid "Play"
-msgstr "נגן"
-
-#. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:305
-msgid "Pause"
-msgstr "הפסק"
-
-#: ../src/sj-play.c:358
+#: ../src/sj-play.c:355
 #, c-format
 msgid "Failed to create CD source element"
-msgstr "שגיאה בהכנת מקורות התקליטור"
+msgstr "נכשלה יצירת רכיב מקור התקליטור"
 
-#: ../src/sj-play.c:564
+#: ../src/sj-play.c:578
 #, c-format
 msgid "Seeking to %s"
-msgstr "עובר אל %s"
+msgstr "מדלג אל %s"
+
+#: ../src/sj-prefs.c:51
+msgid "Album Artist, Album Title"
+msgstr "אמן האלבום, כותרת האלבום"
+
+#: ../src/sj-prefs.c:52
+msgid "Album Artist (sortable), Album Title"
+msgstr "אמן האלבום (ממוין), שם האלבום"
+
+#: ../src/sj-prefs.c:53
+msgid "Track Artist, Album Title"
+msgstr "אמן הרצועה, כותרת האלבום"
 
 #: ../src/sj-prefs.c:54
-msgid "Album Artist, Album Title"
-msgstr "אמן האלבום, שם האלבום"
+msgid "Track Artist (sortable), Album Title"
+msgstr "אמן הרצועה (ממוין), כותרת האלבום"
 
 #: ../src/sj-prefs.c:55
-msgid "Album Artist (sortable), Album Title"
-msgstr "אמן האלבום, שם האלבום"
+msgid "Album Title"
+msgstr "כותרת האלבום"
 
 #: ../src/sj-prefs.c:56
-msgid "Track Artist, Album Title"
-msgstr "אמן הרצועה, שם האלבום"
-
-#: ../src/sj-prefs.c:57
-msgid "Track Artist (sortable), Album Title"
-msgstr "אמן הרצועה, שם האלבום"
-
-#: ../src/sj-prefs.c:58
-msgid "Album Title"
-msgstr "שם האלבום"
-
-#: ../src/sj-prefs.c:59
 msgid "Album Artist"
 msgstr "אמן האלבום"
 
-#: ../src/sj-prefs.c:60
+#: ../src/sj-prefs.c:57
 msgid "Album Artist (sortable)"
-msgstr "אמן האלבום"
+msgstr "אמן האלבום (ממוין)"
+
+#: ../src/sj-prefs.c:58
+msgid "Album Artist - Album Title"
+msgstr "אמן האלבום - כותרת האלבום"
+
+#: ../src/sj-prefs.c:59
+msgid "Album Artist (sortable) - Album Title"
+msgstr "אמן האלבום (ממוין) - כותרת האלבום"
+
+#: ../src/sj-prefs.c:60
+msgid "Album Composer, Album Title"
+msgstr "מלחין האלבום, כותרת האלבום"
 
 #: ../src/sj-prefs.c:61
-msgid "Album Artist - Album Title"
-msgstr "אמן האלבום - שם האלבום"
+msgid "Album Composer (sortable), Album Title"
+msgstr "מלחין האלבום (ממוין), כותרת האלבום"
 
 #: ../src/sj-prefs.c:62
-msgid "Album Artist (sortable) - Album Title"
-msgstr "אמן האלבום - שם האלבום"
+msgid "Track Composer, Album Title"
+msgstr "מלחין הרצועה, כותרת האלבום"
 
 #: ../src/sj-prefs.c:63
-msgid "Album Composer, Album Title"
-msgstr "מלחין האלבום, שם האלבום"
+msgid "Track Composer (sortable), Album Title"
+msgstr "מלחין הרצועה (ממוין), כותרת האלבום"
 
 #: ../src/sj-prefs.c:64
-msgid "Album Composer (sortable), Album Title"
-msgstr "מלחין האלבום (ניתן לסדר), שם האלבום"
-
-#: ../src/sj-prefs.c:65
-msgid "Track Composer, Album Title"
-msgstr "מלחין הרצועה, שם האלבום"
-
-#: ../src/sj-prefs.c:66
-msgid "Track Composer (sortable), Album Title"
-msgstr "מלחין הרצועה (ניתן לסדר), שם האלבום"
-
-#: ../src/sj-prefs.c:67
 msgid "[none]"
 msgstr "[ללא]"
 
-#: ../src/sj-prefs.c:72
+#: ../src/sj-prefs.c:69
 msgid "Number - Title"
-msgstr "מספר - שם"
+msgstr "מספר - כותרת"
+
+#: ../src/sj-prefs.c:70
+msgid "Track Title"
+msgstr "כותרת הרצועה"
+
+#: ../src/sj-prefs.c:71
+msgid "Track Artist - Track Title"
+msgstr "אמן הרצועה - כותרת הרצועה"
+
+#: ../src/sj-prefs.c:72
+msgid "Track Artist (sortable) - Track Title"
+msgstr "אמן הרצועה (ממוין) - כותרת הרצועה"
 
 #: ../src/sj-prefs.c:73
-msgid "Track Title"
-msgstr "שם הרצועה"
-
-#: ../src/sj-prefs.c:74
-msgid "Track Artist - Track Title"
-msgstr "אמן הרצועה - שם הרצועה"
-
-#: ../src/sj-prefs.c:75
-msgid "Track Artist (sortable) - Track Title"
-msgstr "אמן הרצועה - שם הרצועה"
-
-#: ../src/sj-prefs.c:76
 msgid "Number. Track Artist - Track Title"
-msgstr "מספר. אמן הרצועה - שם הרצועה"
+msgstr "מספר. אמן הרצועה - כותרת הרצועה"
 
 #. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
-#: ../src/sj-prefs.c:78
+#: ../src/sj-prefs.c:75
 msgid "Number-Track Artist-Track Title (lowercase)"
-msgstr "מספר־אמן הרצועה־שם הרצועה"
+msgstr "מספר־רצועה אמן־רצועה כותרת (אותיות קטנות)"
 
 #. {N_("Number-Track Artist (sortable)-Track Title (lowercase)"), "%tN-%tS-%tT"},
-#: ../src/sj-prefs.c:80
+#: ../src/sj-prefs.c:77
 msgid "Track Composer - Track Artist - Track Title"
-msgstr "מלחין הרצועה - אמן הרצועה - שם הרצועה"
+msgstr "מלחין הרצועה - אמן הרצועה - כותרת הרצועה"
 
-#: ../src/sj-prefs.c:81
+#: ../src/sj-prefs.c:78
 msgid "Track Composer (sortable) - Track Artist (sortable) - Track Title"
-msgstr "מלחין הרצועה (ניתן לסדר) - אמן הרצועה (ניתן לסדר) - שם הרצועה"
+msgstr "מלחין הרצועה (ממוין) - אמן הרצועה (ממוין) - כותרת הרצועה"
 
-#: ../src/sj-prefs.c:82
+#: ../src/sj-prefs.c:79
 msgid "Number. Track Composer - Track Artist - Track Title"
-msgstr "מספר. מלחין הרצועה - אמן הרצועה - שם הרצועה"
+msgstr "מספר. מלחין הרצועה - אמן הרצועה - כותרת הרצועה"
 
-#: ../src/sj-prefs.c:83
+#: ../src/sj-prefs.c:80
 msgid "Number-Track Composer-Track Artist-Track Title (lowercase)"
-msgstr "מספר-מלחין הרצועה-אמן הרצועה-שם הרצועה (באותיות קטנות)"
+msgstr "מספר־רצועה מלחין־רצועה אמן־רצועה כותרת (אותיות קטנות)"
 
-#: ../src/sj-prefs.c:307
+#: ../src/sj-prefs.c:311
 msgid "Example Path"
 msgstr "נתיב לדוגמה"
+
+#~ msgid "The MusicBrainz server to use"
+#~ msgstr "The MusicBrainz server to use"
+
+#~ msgid ""
+#~ "If specified, this value will override the default MusicBrainz server."
+#~ msgstr ""
+#~ "If specified, this value will override the default MusicBrainz server."
+
+#~ msgid "(obsolete) Audio Profile with which to encode"
+#~ msgstr "(מיושן) פרופיל שמע שאתו יש להצפין"
+
+#~ msgid ""
+#~ "This key used to store the GNOME Audio Profile with which to encode. This "
+#~ "has been superseded by GStreamer encoding profiles, which are configured "
+#~ "using the audio_profile_media_type key."
+#~ msgstr ""
+#~ "This key used to store the GNOME Audio Profile with which to encode. This "
+#~ "has been superseded by GStreamer encoding profiles, which are configured "
+#~ "using the audio_profile_media_type key."
+
+#~ msgid "About Sound Juicer"
+#~ msgstr "על אודות Sound Juicer"
+
+#~ msgid "GConf error: %s"
+#~ msgstr "שגיאת GConf: %s"
+
+#~ msgid "All further errors shown only on terminal."
+#~ msgstr "כל השגיאות הנוספות מוצגות במסוף בלבד."
+
+#~ msgid "Extract"
+#~ msgstr "חלץ"
+
+#~ msgid "Could not create GConf client.\n"
+#~ msgstr "אין אפשרות ליצור לקוח GConf.\n"
 
 #~ msgid "E_ject"
 #~ msgstr "ה_וצא"
