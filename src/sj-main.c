@@ -912,6 +912,7 @@ static GString* format_label_text (GList* labels)
   if (count > 1) {
     g_string_append (label_text, ((LabelDetails*)labels->data)->name);
     g_string_append (label_text, " & ");
+    labels = labels->next;
   }
 
   g_string_append (label_text, ((LabelDetails*)labels->data)->name);
