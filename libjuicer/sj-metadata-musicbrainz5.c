@@ -312,6 +312,7 @@ get_release_labels (Mb5Release *release)
   int i;
   char buffer[512]; /* for the GET() macro */
   GList *label_list = NULL;
+  GList *it = NULL;
 
   list = mb5_release_get_labelinfolist (release);
   if (list == NULL)
@@ -330,10 +331,17 @@ get_release_labels (Mb5Release *release)
     if (label == NULL)
       continue;
 
+    mb5_label_get_name (label, buffer, sizeof (buffer));
+    for (it = label_list; it != NULL; it = it->next) {
+      if (strcmp (((LabelDetails*) it->data)->name, buffer) == 0)
+        goto skip;
+    }
     label_data = g_new0 (LabelDetails, 1);
-    GET (label_data->name,     mb5_label_get_name,     label);
+    label_data->name = g_strdup (buffer);
     GET (label_data->sortname, mb5_label_get_sortname, label);
     label_list = g_list_prepend (label_list, label_data);
+  skip:
+    ;
   }
   label_list = g_list_reverse (label_list);
   return label_list;
