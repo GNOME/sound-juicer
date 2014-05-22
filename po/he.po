@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer.gnome-2-12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-15 16:53+0300\n"
-"PO-Revision-Date: 2014-05-15 22:25+0300\n"
+"POT-Creation-Date: 2014-05-22 22:14+0300\n"
+"PO-Revision-Date: 2014-05-22 22:14+0300\n"
 "Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
 "Language-Team: עברית <>\n"
 "Language: he\n"
@@ -138,7 +138,7 @@ msgid "Audio volume"
 msgstr "Audio volume"
 
 #: ../data/sound-juicer.desktop.in.in.h:1 ../data/sound-juicer.ui.h:1
-#: ../src/sj-main.c:117 ../src/sj-main.c:119 ../src/sj-main.c:2346
+#: ../src/sj-main.c:117 ../src/sj-main.c:119 ../src/sj-main.c:2331
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -156,7 +156,7 @@ msgstr "העתק מוזיקה מהתקליטורים שלך"
 
 #: ../data/sound-juicer.desktop.in.in.h:5
 msgid "Ripper;"
-msgstr ""
+msgstr "העתקה;"
 
 #: ../data/sound-juicer.ui.h:2
 msgid "_Year:"
@@ -190,13 +190,13 @@ msgstr "משך:"
 msgid "Tracks"
 msgstr "רצועות"
 
-#: ../data/sound-juicer.ui.h:10 ../src/sj-main.c:2106 ../src/sj-play.c:121
+#: ../data/sound-juicer.ui.h:10 ../src/sj-main.c:2091 ../src/sj-play.c:121
 #: ../src/sj-play.c:259 ../src/sj-play.c:607
 msgid "_Play"
 msgstr "_ניגון"
 
 #: ../data/sound-juicer.ui.h:11 ../src/sj-extracting.c:233
-#: ../src/sj-main.c:2130
+#: ../src/sj-main.c:2115
 msgid "E_xtract"
 msgstr "_חילוץ"
 
@@ -464,7 +464,7 @@ msgstr "כתובת"
 msgid "The URI of the audio file"
 msgstr "הכתובת של קובץ השמע"
 
-#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2206
+#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2191
 msgid "Title"
 msgstr "כותרת"
 
@@ -472,7 +472,7 @@ msgstr "כותרת"
 msgid "The title of the current stream."
 msgstr "השם של הזרימה הנוכחית."
 
-#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2215
+#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2200
 msgid "Artist"
 msgstr "אמן"
 
@@ -496,7 +496,7 @@ msgstr "מיקום"
 msgid "The position in the current stream in seconds."
 msgstr "המיקום של הזרימה הנוכחית."
 
-#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2239
+#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2224
 msgid "Duration"
 msgstr "משך"
 
@@ -621,13 +621,13 @@ msgid "Sound Juicer could not extract this CD."
 msgstr "‏Sound Juicer לא יכול לחלץ תקליטור זה."
 
 #: ../src/sj-extracting.c:703 ../src/sj-main.c:163 ../src/sj-main.c:450
-#: ../src/sj-main.c:488 ../src/sj-main.c:1244 ../src/sj-main.c:1367
-#: ../src/sj-main.c:1466
+#: ../src/sj-main.c:488 ../src/sj-main.c:1229 ../src/sj-main.c:1352
+#: ../src/sj-main.c:1451
 msgid "Reason"
 msgstr "סיבה"
 
 #. Change the label to Stop while extracting
-#: ../src/sj-extracting.c:793 ../src/sj-main.c:2137
+#: ../src/sj-extracting.c:793 ../src/sj-main.c:2122
 msgid "_Stop"
 msgstr "_השהיה"
 
@@ -724,11 +724,11 @@ msgstr "יש לבדוק את התיעוד לעזרה."
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "הנך כרגע בחילוץ תקליטור. האם ברצונך לצאת עכשיו או להמשיך?"
 
-#: ../src/sj-main.c:247 ../src/sj-main.c:2084 ../src/sj-main.c:2160
+#: ../src/sj-main.c:247 ../src/sj-main.c:2069 ../src/sj-main.c:2145
 msgid "Select None"
 msgstr "ביטול הבחירה"
 
-#: ../src/sj-main.c:261 ../src/sj-main.c:2154
+#: ../src/sj-main.c:261 ../src/sj-main.c:2139
 msgid "Select All"
 msgstr "בחירת הכול"
 
@@ -789,7 +789,7 @@ msgstr "מוזיקלית"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released: <country> in <year> on <label>"
-#: ../src/sj-main.c:940
+#: ../src/sj-main.c:941
 #, c-format
 msgid "Released: %s in %d on %s"
 msgstr "יצא לאור: %s בשנת %d ב־%s"
@@ -797,7 +797,7 @@ msgstr "יצא לאור: %s בשנת %d ב־%s"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released: <country> on <label>"
-#: ../src/sj-main.c:948
+#: ../src/sj-main.c:949
 #, c-format
 msgid "Released: %s on %s"
 msgstr "יצא לאור: %s ב־%s"
@@ -805,7 +805,7 @@ msgstr "יצא לאור: %s ב־%s"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released: <country> in <year>"
-#: ../src/sj-main.c:954
+#: ../src/sj-main.c:955
 #, c-format
 msgid "Released: %s in %d"
 msgstr "יצא לאור: %s בשנת %d"
@@ -813,7 +813,7 @@ msgstr "יצא לאור: %s בשנת %d"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released: <country>"
-#: ../src/sj-main.c:960
+#: ../src/sj-main.c:961
 #, c-format
 msgid "Released: %s"
 msgstr "יצא לאור: %s"
@@ -821,7 +821,7 @@ msgstr "יצא לאור: %s"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released in <year> on <label>"
-#: ../src/sj-main.c:967
+#: ../src/sj-main.c:968
 #, c-format
 msgid "Released in %d on %s"
 msgstr "יצא לאור בשנת %d ב־%s"
@@ -829,7 +829,7 @@ msgstr "יצא לאור בשנת %d ב־%s"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released in <year>"
-#: ../src/sj-main.c:974
+#: ../src/sj-main.c:975
 #, c-format
 msgid "Released in %d"
 msgstr "יצא לאור בשנת %d"
@@ -837,78 +837,78 @@ msgstr "יצא לאור בשנת %d"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released on <label>"
-#: ../src/sj-main.c:981
+#: ../src/sj-main.c:982
 #, c-format
 msgid "Released on %s"
 msgstr "יצא לאור ב־%s"
 
-#: ../src/sj-main.c:983
+#: ../src/sj-main.c:984
 msgid "Release label, year & country unknown"
 msgstr "תווית יציאה לאור, שנה ומדינה לא ידועים"
 
-#: ../src/sj-main.c:1030
+#: ../src/sj-main.c:1022
 msgid "Albums"
 msgstr "אלבומים"
 
-#: ../src/sj-main.c:1073
+#: ../src/sj-main.c:1056
 #, c-format
 msgid " (Disc %d/%d)"
 msgstr " (תקליטור %d/%d)"
 
-#: ../src/sj-main.c:1242 ../src/sj-main.c:1363 ../src/sj-main.c:1464
+#: ../src/sj-main.c:1227 ../src/sj-main.c:1348 ../src/sj-main.c:1449
 msgid "Could not read the CD"
 msgstr "לא ניתן לקרוא את התקליטור"
 
-#: ../src/sj-main.c:1243 ../src/sj-main.c:1366
+#: ../src/sj-main.c:1228 ../src/sj-main.c:1351
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "‏Sound Juicer לא יכול לקרוא את רשימת הרצועות שבתקליטור זה."
 
 #. Set statusbar message
-#: ../src/sj-main.c:1337
+#: ../src/sj-main.c:1322
 msgid "Retrieving track listing...please wait."
 msgstr "מאחזר את רשימת הרצועות...נא להמתין."
 
-#: ../src/sj-main.c:1426
+#: ../src/sj-main.c:1411
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "‏Sound Juicer לא יכול להשתמש בכונן התקליטורים ‏'%s'"
 
-#: ../src/sj-main.c:1433
+#: ../src/sj-main.c:1418
 msgid "HAL daemon may not be running."
 msgstr "כנראה ששירות ה־HAL אינו פעיל."
 
-#: ../src/sj-main.c:1457
+#: ../src/sj-main.c:1442
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "‏Sound Juicer לא יכול לגשת לכונן התקליטורים '%s'"
 
-#: ../src/sj-main.c:1557
+#: ../src/sj-main.c:1542
 msgid "No CD-ROM drives found"
 msgstr "לא נמצאו כונני תקליטורים"
 
-#: ../src/sj-main.c:1558
+#: ../src/sj-main.c:1543
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "‏Sound Juicer לא מצא אף כונן תקליטורים לקריאה."
 
-#: ../src/sj-main.c:1591
+#: ../src/sj-main.c:1576
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "פרופיל הצליל הנוכחי אינו זמין על ההתקנה שלך."
 
-#: ../src/sj-main.c:1593
+#: ../src/sj-main.c:1578
 msgid "_Change Profile"
 msgstr "_שינוי פרופיל"
 
-#: ../src/sj-main.c:1725
+#: ../src/sj-main.c:1710
 #, c-format
 msgid "Unknown column %d was edited"
 msgstr "Unknown column %d was edited"
 
-#: ../src/sj-main.c:1825
+#: ../src/sj-main.c:1810
 msgid "Unknown widget calling on_person_edit_changed."
 msgstr "Unknown widget calling on_person_edit_changed."
 
-#: ../src/sj-main.c:1925 ../src/sj-prefs.c:127
+#: ../src/sj-main.c:1910 ../src/sj-prefs.c:127
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -917,39 +917,39 @@ msgstr ""
 "לא ניתן להציג עזרה עבור Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:2113 ../src/sj-play.c:301
+#: ../src/sj-main.c:2098 ../src/sj-play.c:301
 msgid "_Pause"
 msgstr "_השהיה"
 
-#: ../src/sj-main.c:2191
+#: ../src/sj-main.c:2176
 msgid "Track"
 msgstr "רצועה"
 
-#: ../src/sj-main.c:2226
+#: ../src/sj-main.c:2211
 msgid "Composer"
 msgstr "מלחין"
 
-#: ../src/sj-main.c:2334
+#: ../src/sj-main.c:2319
 msgid "Start extracting immediately"
 msgstr "Start extracting immediately"
 
-#: ../src/sj-main.c:2335
+#: ../src/sj-main.c:2320
 msgid "Start playing immediately"
 msgstr "Start playing immediately"
 
-#: ../src/sj-main.c:2336
+#: ../src/sj-main.c:2321
 msgid "What CD device to read"
 msgstr "What CD device to read"
 
-#: ../src/sj-main.c:2336
+#: ../src/sj-main.c:2321
 msgid "DEVICE"
 msgstr "DEVICE"
 
-#: ../src/sj-main.c:2337
+#: ../src/sj-main.c:2322
 msgid "URI to the CD device to read"
 msgstr "URI to the CD device to read"
 
-#: ../src/sj-main.c:2349
+#: ../src/sj-main.c:2334
 msgid "- Extract music from your CDs"
 msgstr "- Extract music from your CDs"
 
