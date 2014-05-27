@@ -101,6 +101,17 @@ static char *device = NULL, **uris = NULL;
 
 static guint debug_flags = 0;
 
+/**
+ * Shared state for cell editing callbacks
+ */
+typedef struct {
+  GtkTreePath* editable_path;
+  char* text;
+  ViewColumn column;
+} CellCbContext;
+
+static CellCbContext cell_editing_context;
+
 #define DEFAULT_PARANOIA 15
 #define RAISE_WINDOW "raise-window"
 #define SOURCE_BUILDER "../data/sound-juicer.ui"
@@ -1589,33 +1600,60 @@ on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
   }
 }
 
-/**
- * Callback when the title, artist or composer cells are edited in the list.
- * column_data contains the column number in the model which was modified.
- */
-static void on_cell_edited (GtkCellRendererText *renderer,
-                 gchar *path, gchar *string,
-                 gpointer column_data)
+static void
+on_cell_changed_foreach (GtkTreeModel *model,
+                         GtkTreePath  *path,
+                         GtkTreeIter  *iter,
+                         gpointer      user_data)
 {
-  ViewColumn column = GPOINTER_TO_INT (column_data);
-  GtkTreeIter iter;
+  CellCbContext *context = user_data;
+
+  /* Updating the model for the cell being edited aborts the edit so
+     avoid it and set it in on_cell_editing_done instead */
+  if (gtk_tree_path_compare (path, context->editable_path) != 0)
+    gtk_list_store_set (GTK_LIST_STORE (model), iter,
+                        context->column, context->text,
+                        -1);
+}
+
+/**
+ * Update the selected rows as the user types
+ */
+static void
+on_cell_changed (GtkEditable *editable,
+                 gpointer     user_data)
+{
+  CellCbContext *context = user_data;
+
+  context->text = gtk_editable_get_chars (editable, 0, -1);
+  tree_path_or_selection_foreach (GTK_TREE_VIEW (track_listview),
+                                  context->editable_path,
+                                  on_cell_changed_foreach,
+                                  context);
+  g_free (context->text);
+}
+
+static void
+on_cell_editing_done_foreach (GtkTreeModel *model,
+                              GtkTreePath  *path,
+                              GtkTreeIter  *iter,
+                              gpointer      user_data)
+{
+  CellCbContext *context = user_data;
   TrackDetails *track;
 
-  if (!gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (track_store), &iter, path))
-    return;
-  gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter,
+  /* COLUMN_DETAILS isn't updated during editing so update it now */
+  gtk_tree_model_get (GTK_TREE_MODEL (track_store), iter,
                       COLUMN_DETAILS, &track,
                       -1);
-  switch (column) {
+  switch (context->column) {
   case COLUMN_TITLE:
     g_free (track->title);
-    track->title = g_strdup (string);
-    gtk_list_store_set (track_store, &iter, COLUMN_TITLE, track->title, -1);
+    track->title = g_strdup (context->text);
     break;
   case COLUMN_ARTIST:
     g_free (track->artist);
-    track->artist = g_strdup (string);
-    gtk_list_store_set (track_store, &iter, COLUMN_ARTIST, track->artist, -1);
+    track->artist = g_strdup (context->text);
     if (track->artist_sortname) {
       g_free (track->artist_sortname);
       track->artist_sortname = NULL;
@@ -1627,18 +1665,101 @@ static void on_cell_edited (GtkCellRendererText *renderer,
     break;
   case COLUMN_COMPOSER:
     g_free (track->composer);
-    track->composer = g_strdup (string);
-    gtk_list_store_set (track_store, &iter, COLUMN_COMPOSER, track->composer, -1);
+    track->composer = g_strdup (context->text);
     if (track->composer_sortname) {
       g_free (track->composer_sortname);
       track->composer_sortname = NULL;
     }
     break;
   default:
-    g_warning (_("Unknown column %d was edited"), column);
+    g_warning ("Unknown column %d in on_cell_editing_done_foreach",
+               context->column);
   }
+}
 
-  return;
+static void
+on_cell_editing_canceled_foreach (GtkTreeModel *model,
+                                  GtkTreePath  *path,
+                                  GtkTreeIter  *iter,
+                                  gpointer      user_data)
+{
+  CellCbContext *context = user_data;
+  TrackDetails *track;
+  char *text;
+
+  /* COLUMN_DETAILS isn't updated during editing so get original
+     values back from it. */
+  gtk_tree_model_get (model, iter, COLUMN_DETAILS, &track, -1);
+  switch (context->column) {
+  case COLUMN_TITLE:
+    text = track->title;
+    break;
+  case COLUMN_ARTIST:
+    text = track->artist;
+    break;
+  case COLUMN_COMPOSER:
+    text = track->composer;
+    break;
+  default:
+    g_warning ("Unknown column %d in on_cell_editing_canceled_foreach",
+               context->column);
+    return;
+  }
+  gtk_list_store_set (track_store, iter, context->column, text, -1);
+}
+
+/**
+ *  Called when the user finishes or cancels editing a track. Store
+ *  changes/restore original values & disconnect callbacks on the
+ *  GtkCellEditable.
+ */
+static void
+on_cell_editing_done (GtkCellEditable *cell_editable,
+                      gpointer         user_data)
+{
+  gboolean canceled;
+  CellCbContext *context = user_data;
+
+  g_signal_handlers_disconnect_by_data (cell_editable, context);
+  g_object_get (G_OBJECT (cell_editable), "editing-canceled", &canceled, NULL);
+  if (canceled) {
+    tree_path_or_selection_foreach (GTK_TREE_VIEW (track_listview),
+                                    context->editable_path,
+                                    on_cell_editing_canceled_foreach,
+                                    context);
+  } else { /* We need to update the track details in COLUMN_DETAILS */
+    GtkTreeIter iter;
+    context->text = gtk_editable_get_chars (GTK_EDITABLE (cell_editable), 0, -1);
+    /* Update the model for the cell that has been edited */
+    gtk_tree_model_get_iter (GTK_TREE_MODEL (track_store),
+                             &iter, context->editable_path);
+    gtk_list_store_set (track_store, &iter, context->column, context->text, -1);
+    /* Update COLUMN_DETAILS */
+    tree_path_or_selection_foreach (GTK_TREE_VIEW (track_listview),
+                                    context->editable_path,
+                                    on_cell_editing_done_foreach,
+                                    context);
+    g_free (context->text);
+  }
+  gtk_tree_path_free (context->editable_path);
+}
+
+/**
+ * Called when the user starts editing a track. Setup callbacks on the
+ * GtkCellEditable to support editing multiple rows at once.
+ */
+static void
+on_cell_editing_started (GtkCellRenderer *renderer,
+                         GtkCellEditable *cell_editable,
+                         gchar           *path,
+                         gpointer         user_data)
+{
+  cell_editing_context.editable_path = gtk_tree_path_new_from_string (path);
+  cell_editing_context.column = GPOINTER_TO_UINT (user_data);
+  g_signal_connect (cell_editable, "changed",
+                    G_CALLBACK (on_cell_changed), &cell_editing_context);
+  g_signal_connect (cell_editable, "editing-done",
+                    G_CALLBACK (on_cell_editing_done), &cell_editing_context);
 }
 
 /*
@@ -1919,8 +2040,8 @@ add_editable_listview_column (const char       *title,
 
   renderer = gtk_cell_renderer_text_new ();
   g_signal_connect (renderer,
-                    "edited",
-                    G_CALLBACK (on_cell_edited),
+                    "editing-started",
+                    G_CALLBACK (on_cell_editing_started),
                     GUINT_TO_POINTER (model_column));
   g_object_set (G_OBJECT (renderer), "editable", TRUE, NULL);
   column = gtk_tree_view_column_new_with_attributes (title, renderer,
@@ -2168,7 +2289,7 @@ startup_cb (GApplication *app, gpointer user_data)
   sj_play_init ();
 
   selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (track_listview));
-  gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
+  gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
 
   baseuri_changed_cb (sj_settings, SJ_SETTINGS_BASEURI, NULL);
   path_pattern_changed_cb (sj_settings, SJ_SETTINGS_PATH_PATTERN, NULL);
