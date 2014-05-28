@@ -6,6 +6,11 @@ desktop_in_files = sound-juicer.desktop.in.in
 desktop_DATA = $(desktop_in_files:.desktop.in.in=.desktop)
 @INTLTOOL_DESKTOP_RULE@
 
+@INTLTOOL_XML_RULE@
+@APPSTREAM_XML_RULES@
+appstream_XML = $(appstream_in_files:.xml.in=.xml)
+appstream_in_files = appdata/sound-juicer.appdata.xml.in
+
 gsettings_SCHEMAS = org.gnome.sound-juicer.gschema.xml
 
 @GSETTINGS_RULES@
@@ -69,7 +74,8 @@ uninstall-local: uninstall-icons
 uninstall-hook: update-icon-cache
 
 CLEANFILES = \
-	$(desktop_DATA)
+	$(desktop_DATA) \
+	$(appstream_XML)
 
 DISTCLEANFILES = \
 	$(desktop_DATA)
@@ -78,7 +84,8 @@ EXTRA_DIST = \
 	$(gsettings_SCHEMAS) \
 	sound-juicer.convert \
 	$(man1_MANS) \
-	$(icons)
+	$(icons) \
+	$(appstream_in_files)
 
 MAINTAINERCLEANFILES = $(gsettings_SCHEMAS:.xml=.valid)
 
