@@ -308,8 +308,8 @@ static void pattern_label_update (void)
   g_free (path_pattern);
 
   format = g_strconcat ("<small><i><b>",
-                        _("Example Path"),
-                        ":</b> ",
+                        _("Example Path: "),
+                        "</b>",
                         example,
                         ".",
                         rb_gst_media_type_to_extension (media_type),
