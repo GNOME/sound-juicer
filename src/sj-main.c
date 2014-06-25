@@ -65,6 +65,7 @@ G_MODULE_EXPORT void on_person_edit_changed(GtkEditable *widget, gpointer user_d
 G_MODULE_EXPORT void on_year_edit_changed(GtkEditable *widget, gpointer user_data);
 G_MODULE_EXPORT void on_disc_number_edit_changed(GtkEditable *widget, gpointer user_data);
 G_MODULE_EXPORT void submit_bar_response_cb (GtkInfoBar *infobar, int response_id, gpointer user_data);
+G_MODULE_EXPORT void on_activate_move_focus (GtkWidget *widget, gpointer data);
 
 GtkBuilder *builder;
 
@@ -1502,6 +1503,17 @@ static void profile_changed_cb (GSettings *settings, gchar *key, gpointer user_d
 static void on_reread_activate (GSimpleAction *action, GVariant *parameter, gpointer data)
 {
   reread_cd (FALSE);
+}
+
+/**
+ * Move focus to next widget when GtkEntry is activated
+ */
+G_MODULE_EXPORT void on_activate_move_focus (GtkWidget *widget,
+                                             gpointer   data)
+{
+  gboolean ret_val;
+
+  g_signal_emit_by_name (widget, "move-focus", GTK_DIR_TAB_FORWARD, &ret_val);
 }
 
 /**

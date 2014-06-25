@@ -160,6 +160,7 @@
                       <object class="GtkEntry" id="genre_entry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <signal name="activate" handler="on_activate_move_focus"/>
                         <signal name="changed" handler="on_genre_edit_changed"/>
                       </object>
                       <packing>
@@ -192,6 +193,7 @@
                         <property name="can_focus">True</property>
                         <property name="width_chars">4</property>
                         <property name="max_width_chars">4</property>
+                        <signal name="activate" handler="on_activate_move_focus"/>
                         <accessibility>
                           <relation type="labelled-by" target="label4"/>
                         </accessibility>
@@ -228,6 +230,7 @@
                         <property name="can_focus">True</property>
                         <property name="width_chars">2</property>
                         <property name="max_width_chars">2</property>
+                        <signal name="activate" handler="on_activate_move_focus"/>
                         <accessibility>
                           <relation type="labelled-by" target="label6"/>
                         </accessibility>
@@ -268,6 +271,7 @@
                   <object class="GtkEntry" id="title_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <signal name="activate" handler="on_activate_move_focus"/>
                     <signal name="changed" handler="on_title_edit_changed" after="yes"/>
                   </object>
                   <packing>
@@ -298,6 +302,7 @@
                   <object class="GtkEntry" id="artist_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <signal name="activate" handler="on_activate_move_focus"/>
                     <signal name="changed" handler="on_person_edit_changed" after="yes"/>
                   </object>
                   <packing>
@@ -330,6 +335,7 @@
                   <object class="GtkEntry" id="composer_entry">
                     <property name="visible">False</property>
                     <property name="can_focus">True</property>
+                    <signal name="activate" handler="on_activate_move_focus"/>
                     <signal name="changed" handler="on_person_edit_changed" after="yes"/>
                   </object>
                   <packing>
