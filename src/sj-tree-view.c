@@ -101,6 +101,48 @@ sj_tree_view_start_editing (GtkTreeView *self)
     g_signal_emit_by_name (self, "select-cursor-row", TRUE, &ret);
 }
 
+/**
+ * Focus the default cell if no cell has the focus
+ */
+static void
+sj_tree_view_focus_default_cell (GtkTreeView *self)
+{
+  GtkTreePath *path;
+  GtkTreeViewColumn *column;
+  GtkCellRenderer *renderer;
+  GtkTreeIter iter;
+  GtkTreeModel *model;
+
+  gtk_tree_view_get_cursor (self, &path, &column);
+  model = gtk_tree_view_get_model (self);
+
+  if (path == NULL) {
+    if (model != NULL && gtk_tree_model_get_iter_first (model, &iter))
+      path = gtk_tree_model_get_path (model, &iter);
+    else
+      return;
+  }
+  if (column == NULL) {
+    GList *list = gtk_tree_view_get_columns (self);
+    column = list->data;
+    g_list_free (list);
+    list = gtk_cell_layout_get_cells (GTK_CELL_LAYOUT (column));
+    renderer = list->data;
+    g_list_free (list);
+  } else {
+    GtkCellArea *area;
+    area = gtk_cell_layout_get_area (GTK_CELL_LAYOUT (column));
+    renderer = gtk_cell_area_get_focus_cell (area);
+    if (renderer == NULL) {
+      GList *list = gtk_cell_layout_get_cells (GTK_CELL_LAYOUT (column));
+      renderer = list->data;
+      g_list_free (list);
+    }
+  }
+
+  gtk_tree_view_set_cursor_on_cell (self, path, column, renderer, FALSE);
+  gtk_tree_path_free (path);
+}
 
 /**
  * Stop editing, move cursor up/down.
@@ -288,6 +330,14 @@ sj_tree_view_move_cursor (GtkTreeView     *self,
 			step == GTK_MOVEMENT_DISPLAY_LINES ||
 			step == GTK_MOVEMENT_PAGES ||
 			step == GTK_MOVEMENT_BUFFER_ENDS, FALSE);
+
+  gtk_tree_view_get_cursor (self, &path, &column);
+  if (path == NULL || column == NULL) {
+    sj_tree_view_focus_default_cell (self);
+    gtk_tree_path_free (path);
+    return TRUE;
+  }
+  gtk_tree_path_free (path);
 
   start_editing = sj_tree_view_is_editing (self);
 
