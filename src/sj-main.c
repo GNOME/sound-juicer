@@ -1493,23 +1493,57 @@ static void on_reread_activate (GSimpleAction *action, GVariant *parameter, gpoi
 }
 
 /**
- * Called in on_extract_toggled to see if there are selected tracks or not.
- * extracting points to the boolean to set to if there are tracks to extract,
- * and starts as false.
+ * If path is selected call func on all selected rows, if not call
+ * func only on path.
  */
-static gboolean extract_available_foreach (GtkTreeModel *model,
-                                           GtkTreePath *path,
-                                           GtkTreeIter *iter,
-                                           gboolean *extracting)
+static void
+tree_path_or_selection_foreach (GtkTreeView                 *tree_view,
+                                GtkTreePath                 *path,
+                                GtkTreeSelectionForeachFunc  func,
+                                gpointer                     data)
 {
-  gboolean selected;
-  gtk_tree_model_get (GTK_TREE_MODEL (track_store), iter, COLUMN_EXTRACT, &selected, -1);
-  if (selected) {
-    *extracting = TRUE;
-    /* Don't bother walking the list more, we've found a track to be extracted. */
-    return TRUE;
+  GtkTreeSelection *selection;
+
+  selection = gtk_tree_view_get_selection (tree_view);
+  if (gtk_tree_selection_path_is_selected (selection, path)) {
+    gtk_tree_selection_selected_foreach (selection,
+                                         func,
+                                         data);
   } else {
-    return FALSE;
+    GtkTreeModel *model;
+    GtkTreeIter iter;
+    model = gtk_tree_view_get_model (tree_view);
+    if (gtk_tree_model_get_iter (model, &iter, path))
+      func (model, path, &iter, data);
+  }
+}
+
+/**
+ * Called by on_extract_toggled to update the Extract column for all
+ * the selected rows
+ */
+static void
+on_extract_toggled_foreach (GtkTreeModel *model,
+                            GtkTreePath  *path,
+                            GtkTreeIter  *iter,
+                            gpointer      data)
+{
+  gboolean extract = GPOINTER_TO_INT (data);
+  gboolean old_extract;
+
+  gtk_tree_model_get (model, iter,
+                      COLUMN_EXTRACT, &old_extract,
+                      -1);
+  if (extract != old_extract) {
+    gtk_list_store_set (GTK_LIST_STORE (model), iter,
+                        COLUMN_EXTRACT, extract,
+                        -1);
+    /* Update number of selected tracks */
+    if (extract) {
+      no_of_tracks_selected++;
+    } else {
+      no_of_tracks_selected--;
+    }
   }
 }
 
@@ -1518,37 +1552,30 @@ static gboolean extract_available_foreach (GtkTreeModel *model,
  */
 static void
 on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
-                    gchar                 *path,
+                    gchar                 *path_str,
                     gpointer               user_data)
 {
   gboolean extract;
+  GtkTreePath *path;
   GtkTreeIter iter;
 
   if (!gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (track_store),
                                             &iter,
-                                            path))
+                                            path_str))
       return;
   gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter,
                       COLUMN_EXTRACT, &extract,
                       -1);
   /* extract is the old state here, so toggle */
   extract = !extract;
-  gtk_list_store_set (track_store, &iter, COLUMN_EXTRACT, extract, -1);
-
-  /* Update the Extract buttons */
-  if (extract) {
-    /* If true, then we can extract */
-    gtk_widget_set_sensitive (extract_button, TRUE);
-    no_of_tracks_selected++;
-  } else {
-    /* Reuse the boolean extract */
-    extract = FALSE;
-    gtk_tree_model_foreach (GTK_TREE_MODEL (track_store),
-                            (GtkTreeModelForeachFunc)extract_available_foreach,
-                            &extract);
-    gtk_widget_set_sensitive (extract_button, extract);
-    no_of_tracks_selected--;
-  }
+  path = gtk_tree_path_new_from_string (path_str);
+  tree_path_or_selection_foreach (GTK_TREE_VIEW (track_listview),
+                                  path,
+                                  on_extract_toggled_foreach,
+                                  GINT_TO_POINTER (extract));
+  gtk_tree_path_free (path);
+  /* Update the Extract button */
+  gtk_widget_set_sensitive (extract_button, no_of_tracks_selected > 0);
   /* Enable and disable the Select/Deselect All buttons */
   if (no_of_tracks_selected == total_no_of_tracks) {
     set_action_enabled ("deselect-all", TRUE);
