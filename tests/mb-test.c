@@ -104,7 +104,7 @@ int main (int argc, char** argv)
       g_usleep (G_USEC_PER_SEC/10);
   g_object_unref (G_OBJECT (monitor));
 
-  
+
   metadata = sj_metadata_getter_new ();
 
   if (argc == 2) {

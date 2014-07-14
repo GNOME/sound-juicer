@@ -1516,16 +1516,21 @@ static gboolean extract_available_foreach (GtkTreeModel *model,
 /**
  * Called when the user clicked on the Extract column check boxes
  */
-static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
-                                gchar *path,
-                                gpointer user_data)
+static void
+on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
+                    gchar                 *path,
+                    gpointer               user_data)
 {
   gboolean extract;
   GtkTreeIter iter;
 
-  if (!gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (track_store), &iter, path))
+  if (!gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (track_store),
+                                            &iter,
+                                            path))
       return;
-  gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter, COLUMN_EXTRACT, &extract, -1);
+  gtk_tree_model_get (GTK_TREE_MODEL (track_store), &iter,
+                      COLUMN_EXTRACT, &extract,
+                      -1);
   /* extract is the old state here, so toggle */
   extract = !extract;
   gtk_list_store_set (track_store, &iter, COLUMN_EXTRACT, extract, -1);
@@ -1538,7 +1543,9 @@ static void on_extract_toggled (GtkCellRendererToggle *cellrenderertoggle,
   } else {
     /* Reuse the boolean extract */
     extract = FALSE;
-    gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), (GtkTreeModelForeachFunc)extract_available_foreach, &extract);
+    gtk_tree_model_foreach (GTK_TREE_MODEL (track_store),
+                            (GtkTreeModelForeachFunc)extract_available_foreach,
+                            &extract);
     gtk_widget_set_sensitive (extract_button, extract);
     no_of_tracks_selected--;
   }
