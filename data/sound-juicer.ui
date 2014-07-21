@@ -743,7 +743,7 @@ audio-volume-medium</property>
                             <property name="local_only">False</property>
                             <property name="action">select-folder</property>
                             <property name="title" translatable="yes">Select A Folder</property>
-                            <signal name="current_folder_changed" handler="prefs_base_folder_changed"/>
+                            <signal name="file-set" handler="prefs_base_folder_changed"/>
                           </object>
                           <packing>
                             <property name="position">1</property>
