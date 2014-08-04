@@ -21,7 +21,26 @@
 
 static GtkTreeViewClass *parent_class;
 
+enum {
+  PLAY_ROW,
+  PLAY_CURSOR_ROW,
+  SIGNAL_LAST
+};
+
+static guint signals[SIGNAL_LAST];
+
 G_DEFINE_TYPE (SjTreeView, sj_tree_view, GTK_TYPE_TREE_VIEW);
+
+static void
+sj_tree_view_play_curent_row (SjTreeView *self)
+{
+  GtkTreePath *path;
+
+  gtk_tree_view_get_cursor (GTK_TREE_VIEW (self), &path, NULL);
+  if (path != NULL)
+    g_signal_emit (self, signals[PLAY_ROW], 0, path);
+  gtk_tree_path_free (path);
+}
 
 /**
  * Find out if the focused cell is being edited
@@ -434,8 +453,28 @@ sj_tree_view_class_init (SjTreeViewClass *class)
 
   widget_class->key_press_event = sj_tree_view_key_press;
   tree_class->move_cursor = sj_tree_view_move_cursor;
+  class->play_cursor_row = sj_tree_view_play_curent_row;
 
-  /* Keybindings - Ctrl-Tab moves focus */
+  signals[PLAY_ROW] =
+    g_signal_new ("play-row",
+                  G_TYPE_FROM_CLASS (class),
+                  G_SIGNAL_RUN_LAST,
+                  G_STRUCT_OFFSET (SjTreeViewClass, play_row),
+                  NULL, NULL,
+                  g_cclosure_marshal_generic,
+                  G_TYPE_NONE, 1,
+                  GTK_TYPE_TREE_PATH);
+
+  signals[PLAY_CURSOR_ROW] =
+    g_signal_new ("play-cursor-row",
+                  G_TYPE_FROM_CLASS (class),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+                  G_STRUCT_OFFSET (SjTreeViewClass, play_cursor_row),
+                  NULL, NULL,
+                  g_cclosure_marshal_generic,
+                  G_TYPE_NONE, 0);
+
+  /* Keybindings - Ctrl-Tab moves focus, Ctrl-Spaces plays current row */
 
   gtk_binding_entry_add_signal (binding_set, GDK_KEY_Tab, GDK_CONTROL_MASK,
                                 "move-focus", 1,
@@ -460,6 +499,12 @@ sj_tree_view_class_init (SjTreeViewClass *class)
   gtk_binding_entry_add_signal (binding_set, GDK_KEY_ISO_Left_Tab, GDK_CONTROL_MASK,
                                 "move-focus", 1,
                                 GTK_TYPE_DIRECTION_TYPE, GTK_DIR_TAB_BACKWARD);
+
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_space, GDK_CONTROL_MASK,
+                                "play-cursor-row", 0);
+
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_KP_Space, GDK_CONTROL_MASK,
+                                "play-cursor-row", 0);
 }
 
 GtkWidget*

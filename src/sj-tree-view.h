@@ -38,6 +38,8 @@ typedef struct _SjTreeView SjTreeView;
 struct _SjTreeViewClass
 {
   GtkTreeViewClass parent_class;
+  void             (*play_row)(SjTreeView*, GtkTreePath*);
+  void             (*play_cursor_row)(SjTreeView*);
 };
 
 struct _SjTreeView
