@@ -435,6 +435,13 @@ on_tracklist_row_activate (GtkTreeView * treeview, GtkTreePath * path,
   if (!gtk_tree_model_get_iter (model, &iter, path))
     return;
   gtk_tree_model_get (model, &iter, COLUMN_NUMBER, &track, -1);
+  if (track == current_track + 1) {
+    if (is_playing () || is_paused ()) {
+      toggle_play ();
+      return;
+    }
+  }
+
   if (setup (&err)) {
     seek_to_track = track - 1;
     set_gst_ui_and_play ();
