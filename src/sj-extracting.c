@@ -233,7 +233,7 @@ cleanup (void)
   gtk_button_set_label (GTK_BUTTON (extract_button), _("E_xtract"));
 
   /* Clear the Status bar */
-  gtk_statusbar_push (GTK_STATUSBAR (status_bar), 0, "");
+  gtk_statusbar_remove_all (GTK_STATUSBAR (status_bar), 2);
   /* Clear the progress bar */
   gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (progress_bar), 0);
   gtk_widget_hide (progress_bar);
@@ -515,7 +515,7 @@ update_speed_progress (SjExtractor *extractor, float speed, int eta)
     eta_str = g_strdup (_("Estimated time left: unknown"));
   }
 
-  gtk_statusbar_push (GTK_STATUSBAR (status_bar), 0, eta_str);
+  gtk_statusbar_push (GTK_STATUSBAR (status_bar), 2, eta_str);
   g_free (eta_str);
 }
 

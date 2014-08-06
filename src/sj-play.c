@@ -117,7 +117,7 @@ _stop (void)
   gtk_widget_hide (seek_scale);
   gtk_widget_hide (volume_button);
   sj_main_set_title (NULL);
-  gtk_statusbar_push (GTK_STATUSBAR (statusbar), 0, "");
+  gtk_statusbar_remove_all (GTK_STATUSBAR (statusbar), 0);
   gtk_button_set_label (GTK_BUTTON (play_button), _("_Play"));
   slen = GST_CLOCK_TIME_NONE;
 
@@ -295,7 +295,7 @@ cb_state (GstBus *bus, GstMessage *message, gpointer user_data)
     gtk_list_store_set (track_store, &current_iter,
         COLUMN_STATE, STATE_IDLE, -1);
     sj_main_set_title (NULL);
-    gtk_statusbar_push (GTK_STATUSBAR (statusbar), 0, "");
+    gtk_statusbar_remove_all (GTK_STATUSBAR (statusbar), 0);
     current_track = -1;
   } else if (transition == GST_STATE_CHANGE_PAUSED_TO_PLAYING) {
     gtk_button_set_label (GTK_BUTTON (play_button), _("_Pause"));
@@ -627,7 +627,7 @@ stop_ui_hack (void)
   if (gtk_list_store_iter_is_valid (track_store, &current_iter))
     gtk_list_store_set (track_store, &current_iter, COLUMN_STATE, STATE_IDLE, -1);
   sj_main_set_title (NULL);
-  gtk_statusbar_push (GTK_STATUSBAR (statusbar), 0, "");
+  gtk_statusbar_remove_all (GTK_STATUSBAR (statusbar), 0);
   current_track = -1;
 }
 

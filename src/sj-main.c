@@ -2011,11 +2011,11 @@ static void
 ui_set_retrieving_metadata (gboolean state)
 {
   if (state) {
-    gtk_statusbar_push(GTK_STATUSBAR(status_bar), 0,
+    gtk_statusbar_push(GTK_STATUSBAR(status_bar), 1,
                        _("Retrieving track listing...please wait."));
     g_application_mark_busy (g_application_get_default ());
   } else {
-    gtk_statusbar_pop(GTK_STATUSBAR(status_bar), 0);
+    gtk_statusbar_pop(GTK_STATUSBAR(status_bar), 1);
     g_application_unmark_busy (g_application_get_default ());
   }
 }
