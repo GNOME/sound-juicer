@@ -197,7 +197,7 @@ static void on_eject_activate (GSimpleAction *action, GVariant *parameter, gpoin
 {
   /* first make sure we're not playing */
   stop_playback ();
-
+  set_action_state ("re-read(false)");
   brasero_drive_eject (drive, FALSE, NULL);
 }
 
@@ -1119,6 +1119,8 @@ metadata_cb (SjMetadataGetter *m, GList *albums, GError *error)
 {
   gboolean realized = gtk_widget_get_realized (main_window);
 
+  set_action_state ("re-read(false)");
+
   if (realized)
     gdk_window_set_cursor (gtk_widget_get_window (main_window), NULL);
     /* Clear the statusbar message */
@@ -1212,6 +1214,7 @@ static void reread_cd (gboolean ignore_no_media)
 
   window = gtk_widget_get_window (main_window);
 
+  set_action_state ("re-read(true)");
   set_action_enabled ("re-read", FALSE);
 
   /* Make sure nothing is playing */
@@ -1237,6 +1240,7 @@ static void reread_cd (gboolean ignore_no_media)
 
   if (!is_audio_cd (drive)) {
     sj_debug (DEBUG_CD, "Media is not an audio CD\n");
+    set_action_state ("re-read(false)");
     update_ui_for_album (NULL);
     gtk_statusbar_pop(GTK_STATUSBAR(status_bar), 0);
     if (realized)
@@ -2028,7 +2032,7 @@ is_cd_duplication_available(void)
 }
 
 GActionEntry app_entries[] = {
-  { "re-read", on_reread_activate, NULL, NULL, NULL },
+  { "re-read", on_reread_activate, NULL, "false", NULL },
   { "duplicate", on_duplicate_activate, NULL, NULL, NULL },
   { "eject", on_eject_activate, NULL, NULL, NULL },
   { "submit-tracks", on_submit_activate, NULL, NULL, NULL },
