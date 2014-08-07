@@ -1281,7 +1281,9 @@ media_added_cb (BraseroMediumMonitor	*drive,
   }
 
   sj_debug (DEBUG_CD, "Media added to device %s\n", brasero_drive_get_device (brasero_medium_get_drive (medium)));
-  reread_cd (TRUE);
+  /* Don't call re-read if metadata is already being retreived */
+  if (!get_action_state_bool ("re-read"))
+    reread_cd (TRUE);
 }
 
 static void
