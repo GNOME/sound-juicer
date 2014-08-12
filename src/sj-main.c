@@ -1471,7 +1471,7 @@ static void profile_changed_cb (GSettings *settings, gchar *key, gpointer user_d
     gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Change Profile"), GTK_RESPONSE_ACCEPT);
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_ACCEPT);
     response = gtk_dialog_run (GTK_DIALOG (dialog));
-    if (response == GTK_RESPONSE_ACCEPT) {
+    if (response != GTK_RESPONSE_REJECT) {
       gtk_widget_destroy (dialog);
       show_preferences_dialog ();
     } else {
