@@ -198,6 +198,7 @@ G_MODULE_EXPORT gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gp
                                      _("You are currently extracting a CD. Do you want to quit now or continue?"));
     gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Quit"), GTK_RESPONSE_ACCEPT);
     gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Continue"), GTK_RESPONSE_REJECT);
+    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_REJECT);
     response = gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
 
@@ -1468,6 +1469,7 @@ static void profile_changed_cb (GSettings *settings, gchar *key, gpointer user_d
                                      _("The currently selected audio profile is not available on your installation."));
     gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Quit"), GTK_RESPONSE_REJECT);
     gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Change Profile"), GTK_RESPONSE_ACCEPT);
+    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_ACCEPT);
     response = gtk_dialog_run (GTK_DIALOG (dialog));
     if (response == GTK_RESPONSE_ACCEPT) {
       gtk_widget_destroy (dialog);
