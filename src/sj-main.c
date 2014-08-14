@@ -63,6 +63,7 @@ G_MODULE_EXPORT void on_title_edit_changed(GtkEditable *widget, gpointer user_da
 G_MODULE_EXPORT void on_person_edit_changed(GtkEditable *widget, gpointer user_data);
 G_MODULE_EXPORT void on_year_edit_changed(GtkEditable *widget, gpointer user_data);
 G_MODULE_EXPORT void on_disc_number_edit_changed(GtkEditable *widget, gpointer user_data);
+G_MODULE_EXPORT void submit_bar_response_cb (GtkInfoBar *infobar, int response_id, gpointer user_data);
 
 GtkBuilder *builder;
 
@@ -72,7 +73,7 @@ SjExtractor *extractor;
 GSettings *sj_settings;
 
 GtkWidget *main_window;
-static GtkWidget *message_area_eventbox;
+static GtkWidget *submit_bar, *submit_label;
 static GtkWidget *title_entry, *artist_entry, *composer_label, *composer_entry, *duration_label, *genre_entry, *year_entry, *disc_number_entry;
 static GtkWidget *entry_table; /* GtkTable containing composer_entry */
 static GtkTreeViewColumn *composer_column; /* Treeview column containing composers */
@@ -80,8 +81,6 @@ static GtkWidget *track_listview, *extract_button, *play_button, *select_button;
 static GtkWidget *status_bar;
 GtkListStore *track_store;
 GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer, *composer_renderer;
-
-GtkWidget *current_message_area;
 
 char *path_pattern, *file_pattern;
 GFile *base_uri;
@@ -315,118 +314,37 @@ static void number_cell_icon_data_cb (GtkTreeViewColumn *tree_column,
   }
 }
 
-/* Taken from gedit */
 static void
-set_info_bar_text_and_icon (GtkInfoBar  *infobar,
-                            const gchar *icon_name,
-                            const gchar *primary_text,
-                            const gchar *secondary_text,
-                            GtkWidget   *button)
+set_submit_text (const AlbumDetails *album)
 {
-  GtkWidget *content_area;
-  GtkWidget *hbox_content;
-  GtkWidget *image;
-  GtkWidget *vbox;
-  gchar *primary_markup;
-  gchar *secondary_markup;
-  GtkWidget *primary_label;
-  GtkWidget *secondary_label;
-  AtkObject *ally_target;
+  gchar *text;
 
-  ally_target = gtk_widget_get_accessible (button);
-
-  hbox_content = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 8); 
-  gtk_widget_show (hbox_content);
-
-  image = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_DIALOG);
-  gtk_widget_show (image);
-  gtk_box_pack_start (GTK_BOX (hbox_content), image, FALSE, FALSE, 0);
-  gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0);
-
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6); 
-  gtk_widget_show (vbox);
-  gtk_box_pack_start (GTK_BOX (hbox_content), vbox, TRUE, TRUE, 0);
-
-  primary_markup = g_markup_printf_escaped ("<b>%s</b>", primary_text);
-  primary_label = gtk_label_new (primary_markup);
-  g_free (primary_markup);
-  gtk_widget_show (primary_label);
-  gtk_box_pack_start (GTK_BOX (vbox), primary_label, TRUE, TRUE, 0);
-  gtk_label_set_use_markup (GTK_LABEL (primary_label), TRUE);
-  gtk_label_set_line_wrap (GTK_LABEL (primary_label), TRUE);
-  gtk_misc_set_alignment (GTK_MISC (primary_label), 0, 0.5);
-  atk_object_add_relationship (ally_target,
-                               ATK_RELATION_LABELLED_BY,
-                               gtk_widget_get_accessible (primary_label));
-
-  if (secondary_text != NULL) {
-    secondary_markup = g_markup_printf_escaped ("<small>%s</small>",
-                                                secondary_text);
-    secondary_label = gtk_label_new (secondary_markup);
-    g_free (secondary_markup);
-    gtk_widget_show (secondary_label);
-    gtk_box_pack_start (GTK_BOX (vbox), secondary_label, TRUE, TRUE, 0);
-    gtk_label_set_use_markup (GTK_LABEL (secondary_label), TRUE);
-    gtk_label_set_line_wrap (GTK_LABEL (secondary_label), TRUE);
-    gtk_misc_set_alignment (GTK_MISC (secondary_label), 0, 0.5);
-    atk_object_add_relationship (ally_target,
-                                 ATK_RELATION_LABELLED_BY,
-                                 gtk_widget_get_accessible (secondary_label));
+  if (g_str_equal (album->title, _("Unknown Title"))) {
+    text = g_strdup (_("This album is not in the Musicbrainz database."));
+  } else {
+    text = g_strdup_printf (_("Could not find %s by %s on MusicBrainz."),
+                                    album->title, album->artist);
   }
-
-  content_area = gtk_info_bar_get_content_area (GTK_INFO_BAR (infobar));
-  gtk_container_add (GTK_CONTAINER (content_area), hbox_content);
+  gtk_label_set_text (GTK_LABEL (submit_label), text);
+  g_free (text);
 }
 
-/* Taken from gedit */
 static void
-set_message_area (GtkWidget *container,
-                  GtkWidget *message_area)
+submit_tracks_enabled_changed_cb (GActionGroup *action_group,
+                                  gchar        *action_name,
+                                  gboolean      enabled,
+                                  gpointer      user_data)
 {
-  if (current_message_area == message_area)
-    return;
-
-  if (current_message_area != NULL)
-    gtk_widget_destroy (current_message_area);
-
-  current_message_area = message_area;
-
-  if (message_area == NULL)
-    return;
-
-  gtk_container_add (GTK_CONTAINER (container), message_area);
-
-  g_object_add_weak_pointer (G_OBJECT (current_message_area),
-                             (gpointer)&current_message_area);
+  if (!enabled)
+    gtk_widget_hide (submit_bar);
 }
 
-static GtkWidget*
-musicbrainz_submit_info_bar_new (char *title, char *artist)
+G_MODULE_EXPORT void
+submit_bar_response_cb (GtkInfoBar *infobar,
+                        int         response_id,
+                        gpointer    user_data)
 {
-  GtkWidget *infobar, *button;
-  char *primary_text;
-
-  g_return_val_if_fail (title != NULL, NULL);
-  g_return_val_if_fail (artist != NULL, NULL);
-
-  infobar = gtk_info_bar_new ();
-  button = gtk_info_bar_add_button (GTK_INFO_BAR (infobar),
-                                    _("S_ubmit Album"), GTK_RESPONSE_OK);
-  gtk_info_bar_add_button (GTK_INFO_BAR (infobar),
-                           _("Ca_ncel"), GTK_RESPONSE_CANCEL);
-
-  /* Translators: title, artist */
-  primary_text = g_strdup_printf (_("Could not find %s by %s on MusicBrainz."), title, artist);
-
-  set_info_bar_text_and_icon (GTK_INFO_BAR (infobar),
-                              "dialog-information",
-                              primary_text,
-                              _("You can improve the MusicBrainz database by adding this album."),
-                              button);
-
-  g_free (primary_text);
-
-  return infobar;
+  gtk_widget_hide (GTK_WIDGET (infobar));
 }
 
 /**
@@ -454,6 +372,7 @@ static void on_submit_activate (GSimpleAction *action, GVariant *parameter, gpoi
       g_error_free (error);
     }
   }
+  gtk_widget_hide (GTK_WIDGET (submit_bar));
 }
 
 static void on_preferences_activate (GSimpleAction *action, GVariant *parameter, gpointer data)
@@ -491,18 +410,6 @@ static void on_duplicate_activate (GSimpleAction *action, GVariant *parameter, g
       gtk_widget_destroy (dialog);
       g_error_free (error);
   }
-}
-
-static void
-musicbrainz_submit_info_bar_response (GtkInfoBar *infobar,
-                                      int         response_id,
-                                      gpointer    user_data)
-{
-  if (response_id == GTK_RESPONSE_OK) {
-    on_submit_activate (NULL, NULL, NULL);
-  }
-
-  set_message_area (message_area_eventbox, NULL);
 }
 
 #define TABLE_ROW_SPACING 6 /* spacing of rows in entry_table */
@@ -629,8 +536,6 @@ static void update_ui_for_album (AlbumDetails *album)
     set_action_enabled ("previous-track", FALSE);
     set_action_enabled ("next-track", FALSE);
     set_action_enabled ("duplicate", FALSE);
-
-    set_message_area (message_area_eventbox, NULL);
   } else {
     gtk_list_store_clear (track_store);
 
@@ -709,24 +614,10 @@ static void update_ui_for_album (AlbumDetails *album)
     } else {
       gtk_label_set_text (GTK_LABEL (duration_label), _("(unknown)"));
     }
-
     /* If album details don't come from MusicBrainz ask user to add them */
     if (album->metadata_source != SOURCE_MUSICBRAINZ) {
-      GtkWidget *infobar;
-
-      infobar = musicbrainz_submit_info_bar_new (album->title, album->artist);
-
-      set_message_area (message_area_eventbox, infobar);
-
-      g_signal_connect (infobar,
-                        "response",
-                        G_CALLBACK (musicbrainz_submit_info_bar_response),
-                        NULL);
-
-      gtk_info_bar_set_default_response (GTK_INFO_BAR (infobar),
-                                         GTK_RESPONSE_CANCEL);
-
-      gtk_widget_show (infobar);
+      set_submit_text (album);
+      gtk_widget_show (submit_bar);
     }
   }
 }
@@ -2046,7 +1937,8 @@ startup_cb (GApplication *app, gpointer user_data)
   gtk_builder_connect_signals (builder, NULL);
 
   main_window           = GET_WIDGET ("main_window");
-  message_area_eventbox = GET_WIDGET ("message_area_eventbox");
+  submit_bar            = GET_WIDGET ("submit_bar");
+  submit_label          = GET_WIDGET ("submit_label");
   title_entry           = GET_WIDGET ("title_entry");
   artist_entry          = GET_WIDGET ("artist_entry");
   composer_label        = GET_WIDGET ("composer_label");
@@ -2067,6 +1959,10 @@ startup_cb (GApplication *app, gpointer user_data)
   g_action_map_add_action_entries (G_ACTION_MAP (main_window),
                                    win_entries, G_N_ELEMENTS (win_entries),
                                    NULL);
+
+  g_signal_connect (app, "action-enabled-changed::submit-tracks",
+                    G_CALLBACK (submit_tracks_enabled_changed_cb), NULL);
+
   gtk_button_set_label(GTK_BUTTON(select_button), _("Select None"));
   gtk_actionable_set_action_name(GTK_ACTIONABLE(select_button), "win.deselect-all");
   gtk_actionable_set_action_name(GTK_ACTIONABLE(play_button), "win.play");
