@@ -1388,6 +1388,7 @@ media_removed_cb (BraseroMediumMonitor	*drive,
   sj_debug (DEBUG_CD, "Media removed from device %s\n", brasero_drive_get_device (brasero_medium_get_drive (medium)));
   stop_ui_hack ();
   update_ui_for_album (NULL);
+  set_action_enabled ("submit-tracks", FALSE);
 }
 
 static void
