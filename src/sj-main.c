@@ -336,7 +336,7 @@ set_submit_text (const AlbumDetails *album)
   gchar *text;
 
   if (g_str_equal (album->title, _("Unknown Title"))) {
-    text = g_strdup (_("This album is not in the Musicbrainz database."));
+    text = g_strdup (_("This album is not in the MusicBrainz database."));
   } else {
     text = g_strdup_printf (_("Could not find %s by %s on MusicBrainz."),
                                     album->title, album->artist);
