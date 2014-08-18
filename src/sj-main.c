@@ -2414,6 +2414,7 @@ set_action_state (const gchar *detailed_name)
     if (action != NULL)
       g_simple_action_set_state (action, value);
 
+    g_free (name);
     g_variant_unref (value);
   } else {
     g_warning ("Error parsing detailed action name '%s' - %s",
