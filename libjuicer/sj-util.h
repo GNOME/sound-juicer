@@ -26,8 +26,6 @@
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 
-gboolean make_directory_with_parents (GFile *uri, GCancellable  *cancellable, GError **error);
-
 void g_list_deep_free (GList *l, GFunc free_func);
 
 void sj_add_default_dirs (GtkFileChooser *dialog);

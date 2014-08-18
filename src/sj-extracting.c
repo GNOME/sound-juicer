@@ -370,7 +370,7 @@ create_directory_for (GFile *uri, GError **error)
 
   parent = g_file_get_parent (uri);
 
-  res = make_directory_with_parents (parent, NULL, &io_error);
+  res = g_file_make_directory_with_parents (parent, NULL, &io_error);
   if (!res) {
     if (io_error->code != G_IO_ERROR_EXISTS) {
       g_set_error (error, SJ_ERROR, SJ_ERROR_CD_PERMISSION_ERROR,
