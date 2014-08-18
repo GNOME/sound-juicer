@@ -62,6 +62,7 @@ void album_details_free(AlbumDetails *album)
   g_free (album->country);
   g_free (album->type);
   g_list_foreach (album->labels, (GFunc)label_details_free, NULL);
+  g_list_free (album->labels);
   g_free (album);
 }
 
