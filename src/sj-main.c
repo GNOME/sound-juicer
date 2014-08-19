@@ -1163,7 +1163,7 @@ metadata_cb (SjMetadataGetter *m, GList *albums, GError *error)
     /* Concentrate here. We remove the album we want from the list, and then
        deep-free the list. */
     albums = g_list_remove (albums, current_album);
-    g_list_deep_free (albums, (GFunc)album_details_free);
+    g_list_free_full (albums, (GDestroyNotify)album_details_free);
     albums = NULL;
   } else {
     current_album = albums->data;

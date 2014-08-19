@@ -24,16 +24,6 @@
 #endif /* HAVE_CONFIG_H */
 #include "sj-util.h"
 
-/* Pass NULL to use g_free */
-void
-g_list_deep_free (GList *l, GFunc free_func)
-{
-  g_return_if_fail (l != NULL);
-  if (free_func == NULL) free_func = (GFunc)g_free;
-  g_list_foreach (l, free_func, NULL);
-  g_list_free (l);
-}
-
 GFile *
 sj_get_default_music_directory (void)
 {

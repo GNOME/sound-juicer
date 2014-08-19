@@ -51,8 +51,7 @@ void album_details_free(AlbumDetails *album)
   g_free (album->genre);
   g_free (album->album_id);
   if (album->release_date) gst_date_time_unref (album->release_date);
-  g_list_foreach (album->tracks, (GFunc)track_details_free, NULL);
-  g_list_free (album->tracks);
+  g_list_free_full (album->tracks, (GDestroyNotify)track_details_free);
   g_free (album->artist_sortname);
   g_free (album->artist_id);
   g_free (album->asin);
@@ -61,8 +60,7 @@ void album_details_free(AlbumDetails *album)
   g_free (album->lyrics_url);
   g_free (album->country);
   g_free (album->type);
-  g_list_foreach (album->labels, (GFunc)label_details_free, NULL);
-  g_list_free (album->labels);
+  g_list_free_full (album->labels, (GDestroyNotify)label_details_free);
   g_free (album);
 }
 

@@ -224,7 +224,7 @@ cleanup (void)
 
   /* Free the used data */
   if (paths) {
-    g_list_deep_free (paths, NULL);
+    g_list_free_full (paths, g_free);
     paths = NULL;
   }
   /* Forcibly invalidate the iterator */

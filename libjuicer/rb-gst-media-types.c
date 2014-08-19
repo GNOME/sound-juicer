@@ -325,8 +325,7 @@ rb_gst_check_missing_plugins (GstEncodingProfile *profile,
 			}
 
 			ret = TRUE;
-			g_list_foreach (messages, (GFunc)gst_message_unref, NULL);
-			g_list_free (messages);
+			g_list_free_full (messages, (GDestroyNotify)gst_message_unref);
 		}
 
 	} else {
