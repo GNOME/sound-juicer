@@ -1426,8 +1426,7 @@ prefs_get_default_device (void)
     drive = drives->data;
     default_device = brasero_drive_get_device (drive);
 
-    g_slist_foreach (drives, (GFunc) g_object_unref, NULL);
-    g_slist_free (drives);
+    g_slist_free_full (drives, g_object_unref);
   }
   return default_device;
 }
@@ -2022,14 +2021,12 @@ is_cd_duplication_available(void)
 
     drive = iter->data;
     if (brasero_drive_can_write (drive)) {
-      g_slist_foreach (drives, (GFunc) g_object_unref, NULL);
-      g_slist_free (drives);
+      g_slist_free_full (drives, g_object_unref);
       return TRUE;
     }
   }
 
-  g_slist_foreach (drives, (GFunc) g_object_unref, NULL);
-  g_slist_free (drives);
+  g_slist_free_full (drives, g_object_unref);
   return FALSE;
 }
 
