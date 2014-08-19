@@ -14,8 +14,6 @@ sound_juicer_SOURCES = \
 	sj-about.c \
 	sj-extracting.h \
 	sj-extracting.c \
-	sj-inhibit.h \
-	sj-inhibit.c \
 	sj-genres.h \
 	sj-genres.c \
 	sj-tree-view.h \

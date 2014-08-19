@@ -43,7 +43,6 @@
 #include "sj-main.h"
 #include "sj-util.h"
 #include "sj-play.h"
-#include "sj-inhibit.h"
 #include "sj-genres.h"
 #include "egg-play-preview.h"
 
@@ -213,7 +212,8 @@ cleanup (void)
 
   brasero_drive_unlock (drive);
 
-  sj_uninhibit (cookie);
+  gtk_application_uninhibit (GTK_APPLICATION (g_application_get_default ()),
+                             cookie);
 
   /* Remove any state icons from the model */
   if (current.stamp) {
@@ -823,9 +823,11 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
     g_free (reason);
   }
 
-  cookie = sj_inhibit (g_get_application_name (),
-                       _("Extracting audio from CD"),
-                       GDK_WINDOW_XID(gtk_widget_get_window (main_window)));
+  cookie = gtk_application_inhibit (GTK_APPLICATION (g_application_get_default ()),
+                                    GTK_WINDOW (main_window),
+                                    GTK_APPLICATION_INHIBIT_SUSPEND | GTK_APPLICATION_INHIBIT_IDLE,
+                                    _("Extracting audio from CD"));
+
 
   /* Save the genre */
   save_genre (genre_entry);
