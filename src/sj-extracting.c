@@ -825,7 +825,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
 
   cookie = gtk_application_inhibit (GTK_APPLICATION (g_application_get_default ()),
                                     GTK_WINDOW (main_window),
-                                    GTK_APPLICATION_INHIBIT_SUSPEND | GTK_APPLICATION_INHIBIT_IDLE,
+                                    GTK_APPLICATION_INHIBIT_SUSPEND | GTK_APPLICATION_INHIBIT_SWITCH,
                                     _("Extracting audio from CD"));
 
 
