@@ -2010,30 +2010,14 @@ is_cd_duplication_available(void)
 static void
 ui_set_retrieving_metadata (gboolean state)
 {
-  GdkWindow *window;
-
-  window = gtk_widget_get_window (main_window);
   if (state) {
-    GdkCursor *cursor;
-
     gtk_statusbar_push(GTK_STATUSBAR(status_bar), 0,
                        _("Retrieving track listing...please wait."));
-    cursor = gdk_cursor_new_for_display (gtk_widget_get_display (main_window),
-                                         GDK_WATCH);
-    gdk_window_set_cursor (window, cursor);
-    g_object_unref (cursor);
-    gdk_display_sync (gtk_widget_get_display (GTK_WIDGET (main_window)));
+    g_application_mark_busy (g_application_get_default ());
   } else {
     gtk_statusbar_pop(GTK_STATUSBAR(status_bar), 0);
-    gdk_window_set_cursor (window, NULL);
+    g_application_unmark_busy (g_application_get_default ());
   }
-}
-
-static void
-reread_main_window_realize_cb (GtkWidget *widget,
-                               gpointer   user_data)
-{
-  ui_set_retrieving_metadata (TRUE);
 }
 
 static void
@@ -2043,24 +2027,12 @@ reread_state_changed_cb (gchar    *group_name,
                          gpointer  user_data)
 {
   static gboolean state = FALSE;
-  static gulong id = 0;
 
   if (g_variant_get_boolean (value) == state)
     return;
 
   state = !state;
-  if (id != 0) {
-    g_signal_handler_disconnect (main_window, id);
-    id = 0;
-  }
-  if (gtk_widget_get_realized (main_window)) {
-    ui_set_retrieving_metadata (state);
-  } else if (state) {
-    id = g_signal_connect (main_window,
-                           "realize",
-                           G_CALLBACK (reread_main_window_realize_cb),
-                           NULL);
-  }
+  ui_set_retrieving_metadata (state);
 }
 
 GActionEntry app_entries[] = {
