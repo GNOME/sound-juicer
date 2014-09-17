@@ -10,9 +10,9 @@ msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
 "juicer&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-20 14:36+0000\n"
-"PO-Revision-Date: 2013-07-20 14:45+0200\n"
-"Last-Translator: Ján Kyselica <kyselica.jan@gmail.com>\n"
+"POT-Creation-Date: 2014-09-17 10:32+0000\n"
+"PO-Revision-Date: 2014-09-17 20:32+0100\n"
+"Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -20,11 +20,177 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:1
+msgid "The CD to extract from"
+msgstr "CD, z ktorého sa má extrahovať"
+
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:2
+msgid ""
+"Please note: Sound Juicer currently only handles real device names, no "
+"symlinks like e.g. /dev/cdrom. An empty key implicates that the system's "
+"default CD-ROM drive will be used."
+msgstr ""
+"Poznámka: Sound Juicer momentálne pracuje so skutočnými názvami zariadení a "
+"nie so symbolickými odkazmi ako napr. /dev/cdrom. Prázdny kľúč značí, že "
+"bude použitá systémom predvolená jednotka CD-ROM."
+
+# short description
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:3
+#| msgid "Whether to eject the CD when finished extracting."
+msgid "Whether to eject the CD when finished extracting"
+msgstr "Určuje, či sa má vysunúť CD po skončení extrahovania."
+
+# short description
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:4
+#| msgid "Whether to open the target directory when finished extracting."
+msgid "Whether to open the target directory when finished extracting"
+msgstr "Určuje, či sa má otvoriť cieľový priečinok po skončení extrahovania."
+
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:5
+msgid "The URI to save the extracted music to"
+msgstr "Identifikátor URI, kam sa má uložiť extrahovaná hudba"
+
+# short description
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:6
+msgid "The directory structure for the files"
+msgstr "Štruktúra adresárov pre extrahované súbory"
+
+# long description
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:8
+#, no-c-format
+#| msgid ""
+#| "%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA "
+#| "-- album artist (lowercase) %as -- album artist (sortable) %aS -- album "
+#| "artist (sortable lowercase) %ac -- album composer %aC -- album composer "
+#| "(lowercase) %ap -- album composer (sortable) %aP -- album composer "
+#| "(sortable lowercase) %ay -- album year %tt -- track title %tT -- track "
+#| "title (lowercase) %ta -- track artist %tA -- track artist (lowercase) %ts "
+#| "-- track artist (sortable) %tS -- track artist (sortable lowercase) %tc "
+#| "-- track composer %tC -- track composer (lowercase) %tp -- track composer "
+#| "(sortable) %tP -- track composer (sortable lowercase)"
+msgid ""
+"Format specifiers: %at - album title; %aT - album title (lowercase); %aa - "
+"album artist; %aA - album artist (lowercase); %as - album artist (sortable); "
+"%aS - album artist (sortable lowercase); %ac - album composer; %aC - album "
+"composer (lowercase); %ap - album composer (sortable); %aP - album composer "
+"(sortable lowercase); %ay - album year; %tt - track title; %tT - track title "
+"(lowercase); %ta - track artist; %tA - track artist (lowercase); %ts - track "
+"artist (sortable); %tS - track artist (sortable lowercase); %tc - track "
+"composer; %tC - track composer (lowercase); %tp - track composer (sortable); "
+"%tP - track composer (sortable lowercase)."
+msgstr ""
+"Formát špecifikátorov: %at -- názov albumu %aT -- názov albumu (malými "
+"písmenami) %aa -- umelec albumu %aA -- umelec albumu (malými písmenami) %as "
+"-- umelec albumu (zoraditeľné) %aS -- umelec albumu (zoraditeľné, malými "
+"písmenami) %ac -- skladateľ albumu %aC -- skladateľ albumu (malými "
+"písmenami) %ap -- skladateľ albumu (zoraditeľné) %aP -- skladateľ albumu "
+"(zoraditeľné, malymi písmenami)%tn -- %ay -- rok vydania albumu %tt -- názov "
+"stopy %tT -- názov stopy (malými písmenami) %ta -- umelec stopy %tA -- "
+"umelec stopy (malými písmenami) %ts -- umelec stopy (zoraditeľné) %tS -- "
+"umelec stopy (zoraditeľné, malými písmenami) %tc -- skladateľ stopy %tC -- "
+"skladateľ stopy (malými písmenami) %tp -- skladateľ stopy (zoraditeľné) %tP "
+"-- skladateľ stopy (zoraditeľné, malými písmenami)"
+
+# short description
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:9
+msgid "The name pattern for files"
+msgstr "Vzor názvu súborov"
+
+# long description
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:11
+#, no-c-format
+#| msgid ""
+#| "Do not specify an extension. %at -- album title %aT -- album title "
+#| "(lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- "
+#| "album artist (sortable) %aS -- album artist (sortable lowercase) %ac -- "
+#| "album composer %aC -- album composer (lowercase) %ap -- album composer "
+#| "(sortable) %aP -- album composer (sortable lowercase) %tn -- track number "
+#| "(i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title %tT "
+#| "-- track title (lowercase) %ta -- track artist %tA -- track artist "
+#| "(lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable "
+#| "lowercase) %tc -- track composer %tC -- track composer (lowercase) %tp -- "
+#| "track composer (sortable) %tP -- track composer (sortable lowercase) %dn "
+#| "-- disc and track number, track zero padded (i.e Disk 2 - 06, or 06) %dN "
+#| "-- condensed disc and track number, zero padded (i.e d02t06, or 06)"
+msgid ""
+"Do not specify an extension. Format specifiers: %at - album title; %aT - "
+"album title (lowercase); %aa - album artist; %aA - album artist (lowercase); "
+"%as - album artist (sortable); %aS - album artist (sortable lowercase); %ac "
+"- album composer; %aC - album composer (lowercase); %ap - album composer "
+"(sortable); %aP - album composer (sortable lowercase); %tn - track number (i."
+"e 8); %tN - track number, zero padded (i.e 08); %tt - track title; %tT - "
+"track title (lowercase); %ta - track artist; %tA - track artist (lowercase); "
+"%ts - track artist (sortable); %tS - track artist (sortable lowercase); %tc "
+"- track composer; %tC - track composer (lowercase); %tp - track composer "
+"(sortable); %tP - track composer (sortable lowercase); %dn - disc and track "
+"number (i.e Disk 2 - 6, or 6); %dN - disc number, zero padded (i.e d02t06, "
+"or 06)."
+msgstr ""
+"Nezadávajte príponu súborov. Formát špecifikátorov: %at -- názov albumu %aT "
+"-- názov albumu (malými písmenami) %aa -- umelec albumu %aA -- umelec albumu "
+"(malými písmenami) %as -- umelec albumu (zoraditeľné) %aS -- umelec albumu "
+"(zoraditeľné, malými písmenami) %ac -- skladateľ albumu %aC -- skladateľ "
+"albumu (malými písmenami) %ap -- skladateľ albumu (zoraditeľné) %aP -- "
+"skladateľ albumu (zoraditeľné, malymi písmenami) %tn -- číslo stopy (napr. "
+"8) %tN -- číslo stopy, doplnené nulami (napr. 08) %tt -- názov stopy %tT -- "
+"názov stopy (malými písmenami) %ta -- autor stopy %tA -- autor stopy (malými "
+"písmenami) %ts -- autor stopy (zoraditeľné) %tS -- autor stopy (zoraditeľné, "
+"malými písmenami) %tc -- skladateľ stopy %tC -- skladateľ stopy (malými "
+"písmenami) %tp -- skladateľ stopy (zoraditeľné) %tP -- skladateľ stopy "
+"(zoraditeľné, malými písmenami %dn -- číslo disku a stopy, doplnené nulami "
+"(napr. Disk 2 - 6, alebo 6) %dN -- zhustené číslo disku a stopy, doplnené "
+"nulami (napr. d02t06, alebo 06)"
+
+# short description
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:12
+msgid "The paranoia mode to use"
+msgstr "Režim knižnice paranoia, ktorý sa má používať"
+
+# long description
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:13
+#| msgid ""
+#| "Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair "
+#| "255) full"
+msgid "Paranoia flags: disable; fragment; overlap; scratch; repair."
+msgstr ""
+"Režim knižnice paranoia: disable(zakázať); fragment; overlap(prekryv); "
+"scratch(poškrabané); repair(opraviť)."
+
+# short description
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:14
+#| msgid "If to strip special characters from filenames"
+msgid "Whether to strip special characters from filenames"
+msgstr "Určuje, či sa majú odstrániť špeciálne znaky z názvov súborov."
+
+# long description
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:15
+msgid ""
+"If enabled, special characters such as space, wildcards and backslashes will "
+"be removed from the output filename."
+msgstr ""
+"Ak je povolené, budú špeciálne znaky ako medzera, náhradné znaky a spätné "
+"lomky odstránené z názvu výstupného súboru."
+
+# short description
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:16
+msgid "Media type to encode to"
+msgstr "Typ média, do ktorého sa má kódovať"
+
+# long description
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:17
+msgid "The GStreamer media type to encode to."
+msgstr "Typ GStreamer média, do ktorého sa má kódovať"
+
+# short description
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:18
+msgid "Audio volume"
+msgstr "Hlasitosť zvuku"
+
 # PM: rozmýšľam či nezvoliť slovenský názov niečo ako Pasírovač zvuku alebo niečo v tom štýle; ak súhlasíš zmeň všade
 # JK: Nezdá sa mi to rozumné, pretože ak sa v programe vyskytne problém a používateľ sa pokúsi vyhľadať nejaké informácie tak po zadaní preloženého názvu sa mu zobrazia nerelevantné výsledky.
 # desktop entry name
 #: ../data/sound-juicer.desktop.in.in.h:1 ../data/sound-juicer.ui.h:1
-#: ../src/sj-main.c:119 ../src/sj-main.c:121 ../src/sj-main.c:2430
+#: ../src/sj-main.c:131 ../src/sj-main.c:133 ../src/sj-main.c:2450
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -47,221 +213,81 @@ msgstr "Kopíruje hudbu z vašich CD"
 msgid "Ripper;"
 msgstr "Ripovanie;Ripovať;Ripovací nástroj;"
 
-# short description
-#: ../data/sound-juicer.schemas.in.h:1
-msgid "Whether to eject the CD when finished extracting."
-msgstr "Určuje, či sa má vysunúť CD po skončení extrahovania."
+# PM: toto sa mi nevidí; skor to zašle údaje o albume do MusicBrainz kvôli získaniu názvu albumu a pesniciek
+# button
+#: ../data/sound-juicer.ui.h:2
+msgid "S_ubmit Album"
+msgstr "_Odoslať album"
 
-# short description
-#: ../data/sound-juicer.schemas.in.h:2
-msgid "Whether to open the target directory when finished extracting."
-msgstr "Určuje, či sa má otvoriť cieľový priečinok po skončení extrahovania."
-
-# short description
-#: ../data/sound-juicer.schemas.in.h:3
-msgid "The directory structure for the files"
-msgstr "Štruktúra adresárov pre extrahované súbory"
-
-# long description
-#: ../data/sound-juicer.schemas.in.h:5
-#, no-c-format
-msgid ""
-"%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
-"album artist (lowercase) %as -- album artist (sortable) %aS -- album artist "
-"(sortable lowercase) %ac -- album composer %aC -- album composer (lowercase) "
-"%ap -- album composer (sortable) %aP -- album composer (sortable lowercase) "
-"%ay -- album year %tt -- track title %tT -- track title (lowercase) %ta -- "
-"track artist %tA -- track artist (lowercase) %ts -- track artist (sortable) "
-"%tS -- track artist (sortable lowercase) %tc -- track composer %tC -- track "
-"composer (lowercase) %tp -- track composer (sortable) %tP -- track composer "
-"(sortable lowercase)"
-msgstr ""
-"%at -- názov albumu %aT -- názov albumu (malými písmenami) %aa -- umelec "
-"albumu %aA -- umelec albumu (malými písmenami) %as -- umelec albumu "
-"(zoraditeľné) %aS -- umelec albumu (zoraditeľné, malými písmenami) %ac -- "
-"skladateľ albumu %aC -- skladateľ albumu (malými písmenami) %ap -- skladateľ "
-"albumu (zoraditeľné) %aP -- skladateľ albumu (zoraditeľné, malymi "
-"písmenami)%tn -- %ay -- rok vydania albumu %tt -- názov stopy %tT -- názov "
-"stopy (malými písmenami) %ta -- umelec stopy %tA -- umelec stopy (malými "
-"písmenami) %ts -- umelec stopy (zoraditeľné) %tS -- umelec stopy "
-"(zoraditeľné, malými písmenami) %tc -- skladateľ stopy %tC -- skladateľ "
-"stopy (malými písmenami) %tp -- skladateľ stopy (zoraditeľné) %tP -- "
-"skladateľ stopy (zoraditeľné, malými písmenami)"
-
-# short description
-#: ../data/sound-juicer.schemas.in.h:6
-msgid "The name pattern for files"
-msgstr "Vzor názvu súborov"
-
-# long description
-#: ../data/sound-juicer.schemas.in.h:8
-#, no-c-format
-msgid ""
-"Do not specify an extension. %at -- album title %aT -- album title "
-"(lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album "
-"artist (sortable) %aS -- album artist (sortable lowercase) %ac -- album "
-"composer %aC -- album composer (lowercase) %ap -- album composer (sortable) "
-"%aP -- album composer (sortable lowercase) %tn -- track number (i.e 8) %tN "
-"-- track number, zero padded (i.e 08) %tt -- track title %tT -- track title "
-"(lowercase) %ta -- track artist %tA -- track artist (lowercase) %ts -- track "
-"artist (sortable) %tS -- track artist (sortable lowercase) %tc -- track "
-"composer %tC -- track composer (lowercase) %tp -- track composer (sortable) "
-"%tP -- track composer (sortable lowercase) %dn -- disc and track number, "
-"track zero padded (i.e Disk 2 - 06, or 06) %dN -- condensed disc and track "
-"number, zero padded (i.e d02t06, or 06)"
-msgstr ""
-"Nezadávajte príponu súborov. %at -- názov albumu %aT -- názov albumu (malými "
-"písmenami) %aa -- umelec albumu %aA -- umelec albumu (malými písmenami) %as "
-"-- umelec albumu (zoraditeľné) %aS -- umelec albumu (zoraditeľné, malými "
-"písmenami) %ac -- skladateľ albumu %aC -- skladateľ albumu (malými "
-"písmenami) %ap -- skladateľ albumu (zoraditeľné) %aP -- skladateľ albumu "
-"(zoraditeľné, malymi písmenami) %tn -- číslo stopy (napr. 8) %tN -- číslo "
-"stopy, doplnené nulami (napr. 08) %tt -- názov stopy %tT -- názov stopy "
-"(malými písmenami) %ta -- autor stopy %tA -- autor stopy (malými písmenami) "
-"%ts -- autor stopy (zoraditeľné) %tS -- autor stopy (zoraditeľné, malými "
-"písmenami) %tc -- skladateľ stopy %tC -- skladateľ stopy (malými písmenami) "
-"%tp -- skladateľ stopy (zoraditeľné) %tP -- skladateľ stopy (zoraditeľné, "
-"malými písmenami %dn -- číslo disku a stopy, doplnené nulami (napr. Disk 2 - "
-"6, alebo 6) %dN -- zhustené číslo disku a stopy, doplnené nulami (napr. "
-"d02t06, alebo 06)"
-
-# short description
-#: ../data/sound-juicer.schemas.in.h:9
-msgid "The paranoia mode to use"
-msgstr "Režim knižnice paranoia, ktorý sa má používať"
-
-# long description
-#: ../data/sound-juicer.schemas.in.h:10
-msgid ""
-"Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) "
-"full"
-msgstr ""
-"Režim knižnice paranoia: 0) zakázať 2) fragment 4) prekryv 8) poškrabané 16) "
-"opraviť 255) plný"
-
-# short description
-#: ../data/sound-juicer.schemas.in.h:11
-msgid "If to strip special characters from filenames"
-msgstr "Či odstraňovať špeciálne znaky z názvov súborov"
-
-# long description
-#: ../data/sound-juicer.schemas.in.h:12
-msgid ""
-"If enabled, special characters such as space, wildcards and backslashes will "
-"be removed from the output filename."
-msgstr ""
-"Ak je povolené, budú špeciálne znaky ako medzera, náhradné znaky a spätné "
-"lomky odstránené z názvu výstupného súboru."
-
-# short description
-#: ../data/sound-juicer.schemas.in.h:13
-msgid "The MusicBrainz server to use"
-msgstr "Server služby MusicBrainz, ktorý sa má používať"
-
-# long description
-#: ../data/sound-juicer.schemas.in.h:14
-msgid "If specified, this value will override the default MusicBrainz server."
-msgstr ""
-"Ak je zadané, táto hodnota nahradí predvolený server služby MusicBrainz."
-
-# short description
-#: ../data/sound-juicer.schemas.in.h:15
-msgid "(obsolete) Audio Profile with which to encode"
-msgstr "(zastaralé) Profil zvuku, ktorým sa má kódovať"
-
-# long description
-#: ../data/sound-juicer.schemas.in.h:16
-msgid ""
-"This key used to store the GNOME Audio Profile with which to encode. This "
-"has been superseded by GStreamer encoding profiles, which are configured "
-"using the audio_profile_media_type key."
-msgstr ""
-"Tento kľúč slúži na ukladanie audio profilu GNOME určeného na kódovanie. Bol "
-"nahradený profilmi kódovania GStreamer, ktoré sú nakonfigurované pomocou "
-"kľúča audio_profile_media_type."
-
-# short description
-#: ../data/sound-juicer.schemas.in.h:17
-msgid "Media type to encode to"
-msgstr "Typ média, do ktorého sa má kódovať"
-
-# long description
-#: ../data/sound-juicer.schemas.in.h:18
-msgid "The GStreamer media type to encode to."
-msgstr "Typ GStreamer média, do ktorého sa má kódovať"
-
-# short description
-#: ../data/sound-juicer.schemas.in.h:19
-msgid "Audio volume"
-msgstr "Hlasitosť zvuku"
+#: ../data/sound-juicer.ui.h:3
+msgid "You can improve the MusicBrainz database by adding this album."
+msgstr "Databázu služby MusicBrainz môžete zlepšiť pridaním tohoto albumu."
 
 # GtkLabel label
-#: ../data/sound-juicer.ui.h:2
+#: ../data/sound-juicer.ui.h:4
 msgid "_Year:"
 msgstr "_Rok:"
 
 # GtkLabel label
-#: ../data/sound-juicer.ui.h:3
-#| msgid "Disc:"
+#: ../data/sound-juicer.ui.h:5
 msgid "_Disc:"
 msgstr "_Disk:"
 
 # GtkLabel label
-#: ../data/sound-juicer.ui.h:4
+#: ../data/sound-juicer.ui.h:6
 msgid "_Title:"
 msgstr "_Názov:"
 
 # GtkLabel label
-#: ../data/sound-juicer.ui.h:5
+#: ../data/sound-juicer.ui.h:7
 msgid "_Artist:"
 msgstr "U_melec:"
 
 # GtkLabel label
-#: ../data/sound-juicer.ui.h:6
+#: ../data/sound-juicer.ui.h:8
 msgid "_Composer:"
 msgstr "_Skladateľ:"
 
 # GtkLabel label
-#: ../data/sound-juicer.ui.h:7
+#: ../data/sound-juicer.ui.h:9
 msgid "_Genre:"
 msgstr "Žá_ner:"
 
 # GtkLabel label
-#: ../data/sound-juicer.ui.h:8
+#: ../data/sound-juicer.ui.h:10
 msgid "Duration:"
 msgstr "Trvanie:"
 
 # AtkObject
-#: ../data/sound-juicer.ui.h:9
+#: ../data/sound-juicer.ui.h:11
 msgid "Tracks"
 msgstr "Stopy"
 
 # button
-#: ../data/sound-juicer.ui.h:10 ../src/sj-main.c:2147 ../src/sj-play.c:122
-#: ../src/sj-play.c:260 ../src/sj-play.c:606
-#| msgid "Play"
+#: ../data/sound-juicer.ui.h:12 ../src/sj-main.c:2185 ../src/sj-play.c:121
+#: ../src/sj-play.c:259 ../src/sj-play.c:622
 msgid "_Play"
 msgstr "_Prehrať"
 
 # GtkStockItem
-#: ../data/sound-juicer.ui.h:11 ../src/sj-extracting.c:234
-#: ../src/sj-main.c:2171
+#: ../data/sound-juicer.ui.h:13 ../src/sj-extracting.c:233
+#: ../src/sj-main.c:2209
 msgid "E_xtract"
 msgstr "E_xtrahovať"
 
 # AtkObject
-#: ../data/sound-juicer.ui.h:12
+#: ../data/sound-juicer.ui.h:14
 msgid "Track Progress"
 msgstr "Priebeh stopy"
 
 # GtkDialog title
-#: ../data/sound-juicer.ui.h:13
+#: ../data/sound-juicer.ui.h:15
 msgid "Multiple Albums Found"
 msgstr "Najdených viacero albumov"
 
 # * https://bugzilla.gnome.org/show_bug.cgi?id=626511
 # GtkLabel label
-#: ../data/sound-juicer.ui.h:14
+#: ../data/sound-juicer.ui.h:16
 msgid ""
 "This CD could be more than one album. Please select which album it is below "
 "and press <i>Continue</i>."
@@ -270,87 +296,86 @@ msgstr ""
 "nasledujúcich albumov to je a stlačte <i>Pokračovať</i>."
 
 # Gtkbutton label
-#: ../data/sound-juicer.ui.h:15 ../src/sj-main.c:203
+#: ../data/sound-juicer.ui.h:17 ../src/sj-main.c:215
 msgid "_Continue"
 msgstr "_Pokračovať"
 
 # GtkDialog title
-#: ../data/sound-juicer.ui.h:16 ../data/sound-juicer-menu.ui.h:6
+#: ../data/sound-juicer.ui.h:18 ../data/sound-juicer-menu.ui.h:6
 msgid "Preferences"
 msgstr "Nastavenia"
 
 # GtkLabel label
-#: ../data/sound-juicer.ui.h:17
+#: ../data/sound-juicer.ui.h:19
 msgid "Device"
 msgstr "Zariadenie"
 
 # GtkLabel label
-#: ../data/sound-juicer.ui.h:18
+#: ../data/sound-juicer.ui.h:20
 msgid "CD _drive:"
 msgstr "_CD mechanika:"
 
 # GtkCheckButton label
-#: ../data/sound-juicer.ui.h:19
+#: ../data/sound-juicer.ui.h:21
 msgid "_Eject after extracting tracks"
 msgstr "Vysunúť po _extrahovaní stôp"
 
 # GtkCheckButton label
-#: ../data/sound-juicer.ui.h:20
+#: ../data/sound-juicer.ui.h:22
 msgid "_Open music folder when finished"
 msgstr "P_o dokončení otvoriť priečinok s hudbou"
 
 # GtkLabel label
-#: ../data/sound-juicer.ui.h:21
+#: ../data/sound-juicer.ui.h:23
 msgid "Music Folder"
 msgstr "Priečinok s hudbou"
 
 # GtkLabel label
-#: ../data/sound-juicer.ui.h:22
+#: ../data/sound-juicer.ui.h:24
 msgid "_Folder:"
 msgstr "P_riečinok:"
 
 # GtkFileChooserButton title
-#: ../data/sound-juicer.ui.h:23
+#: ../data/sound-juicer.ui.h:25
 msgid "Select A Folder"
 msgstr "Výber priečinka"
 
 # GtkLabel label
-#: ../data/sound-juicer.ui.h:24
+#: ../data/sound-juicer.ui.h:26
 msgid "Track Names"
 msgstr "Názvy stôp"
 
 # GtkLabel label
-#: ../data/sound-juicer.ui.h:25
+#: ../data/sound-juicer.ui.h:27
 msgid "Folder hie_rarchy:"
 msgstr "_Hierarchia priečinkov:"
 
 # GtkLabel label
-#: ../data/sound-juicer.ui.h:26
+#: ../data/sound-juicer.ui.h:28
 msgid "File _name:"
 msgstr "_Názov súboru:"
 
 # GtkCheckButton label
-#: ../data/sound-juicer.ui.h:27
+#: ../data/sound-juicer.ui.h:29
 msgid "_Strip special characters"
 msgstr "Od_strániť špeciálne znaky"
 
 # GtkLabel label
-#: ../data/sound-juicer.ui.h:28
+#: ../data/sound-juicer.ui.h:30
 msgid "Format"
 msgstr "Formát"
 
 # GtkLabel label
-#: ../data/sound-juicer.ui.h:29
+#: ../data/sound-juicer.ui.h:31
 msgid "O_utput Format:"
 msgstr "Výstupný _formát:"
 
 # menu item
-#: ../data/sound-juicer.ui.h:30
-#| msgid "Help"
+#: ../data/sound-juicer.ui.h:32
 msgid "_Help"
 msgstr "_Pomocník"
 
-#: ../data/sound-juicer.ui.h:31
+#: ../data/sound-juicer.ui.h:33
 msgid "_Close"
 msgstr "_Zavrieť"
 
@@ -381,13 +406,12 @@ msgstr "Odoslať názvy stôp"
 
 # menu item
 #: ../data/sound-juicer-menu.ui.h:7
-msgid "About Sound Juicer"
-msgstr "O aplikácií Sound Juicer"
-
-# menu item
-#: ../data/sound-juicer-menu.ui.h:8
 msgid "Help"
 msgstr "Pomocník"
+
+#: ../data/sound-juicer-menu.ui.h:8
+msgid "About"
+msgstr "O programe"
 
 # menu item
 #: ../data/sound-juicer-menu.ui.h:9
@@ -395,60 +419,60 @@ msgid "Quit"
 msgstr "Ukončiť"
 
 # property nick
-#: ../libjuicer/sj-extractor.c:193
+#: ../libjuicer/sj-extractor.c:192
 msgid "Audio Profile"
 msgstr "Profil zvuku"
 
 # property blurb
-#: ../libjuicer/sj-extractor.c:194
+#: ../libjuicer/sj-extractor.c:193
 msgid "The GStreamer Encoding Profile used for encoding audio"
 msgstr "Kódovací profil GStreamer používaný pre kódovanie zvuku"
 
 # property nick
-#: ../libjuicer/sj-extractor.c:199
+#: ../libjuicer/sj-extractor.c:198
 msgid "Paranoia Level"
 msgstr "Režim knižnice paranoia"
 
 # property blurb
-#: ../libjuicer/sj-extractor.c:200
+#: ../libjuicer/sj-extractor.c:199
 msgid "The paranoia level"
 msgstr "Režim knižnice paranoia"
 
 # property nick
-#: ../libjuicer/sj-extractor.c:205
+#: ../libjuicer/sj-extractor.c:204
 msgid "device"
 msgstr "zariadenie"
 
 # property blurb
-#: ../libjuicer/sj-extractor.c:206
+#: ../libjuicer/sj-extractor.c:205
 msgid "The device"
 msgstr "Zariadenie"
 
-#: ../libjuicer/sj-extractor.c:348
+#: ../libjuicer/sj-extractor.c:355
 #, c-format
 msgid "Could not create GStreamer CD reader"
 msgstr "Nepodarilo sa vytvoriť GStreamer čítač CD"
 
-#: ../libjuicer/sj-extractor.c:366
+#: ../libjuicer/sj-extractor.c:373
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Nepodarilo sa vytvoriť GStreamer kódovače pre %s"
 
-#: ../libjuicer/sj-extractor.c:378
+#: ../libjuicer/sj-extractor.c:385
 #, c-format
 msgid "Could not create GStreamer file output"
 msgstr "Nepodarilo sa vytvoriť súborový výstup pre GStreamer"
 
-#: ../libjuicer/sj-extractor.c:392
+#: ../libjuicer/sj-extractor.c:399
 #, c-format
 msgid "Could not link pipeline"
 msgstr "Nepodarilo sa prepojiť zreťazenie"
 
-#: ../libjuicer/sj-extractor.c:415
+#: ../libjuicer/sj-extractor.c:422
 msgid "Could not get current track position"
 msgstr "Nepodarilo sa získať aktuálnu pozíciu stopy"
 
-#: ../libjuicer/sj-extractor.c:444
+#: ../libjuicer/sj-extractor.c:451
 #, c-format
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
@@ -456,12 +480,12 @@ msgstr ""
 "Objekt extraktora nie je platný. To je zlé, pozrite si chyby na svojej "
 "konzole."
 
-#: ../libjuicer/sj-extractor.c:681
+#: ../libjuicer/sj-extractor.c:711
 #, c-format
 msgid "The plugin necessary for CD access was not found"
 msgstr "Nenašiel sa zásuvný modul potrebný na prístup k CD"
 
-#: ../libjuicer/sj-extractor.c:689
+#: ../libjuicer/sj-extractor.c:719
 #, c-format
 msgid "The plugin necessary for file access was not found"
 msgstr "Nenašiel sa zásuvný modul potrebný na prístup k súborom"
@@ -469,24 +493,24 @@ msgstr "Nenašiel sa zásuvný modul potrebný na prístup k súborom"
 #. FIXME: would be nicer to only check if "cdrom" is being probed,
 #. * but libbrasero doesn't seem to have an API for that
 #.
-#: ../libjuicer/sj-metadata.c:182 ../libjuicer/sj-metadata.c:205
-#: ../libjuicer/sj-metadata.c:216
+#: ../libjuicer/sj-metadata.c:188 ../libjuicer/sj-metadata.c:211
+#: ../libjuicer/sj-metadata.c:222
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Nedá sa čítať CD: %s"
 
 # PM: skôr vyskúšané
 # JK: Zariadeniami sa myslia CD-romky a hľadá sa v nich audio obsah, sloveso vyskúšať sa mi tam nehodí.
-#: ../libjuicer/sj-metadata.c:183
+#: ../libjuicer/sj-metadata.c:189
 msgid "Devices haven't been all probed yet"
 msgstr "Zariadenia zatiaľ neboli preskúmané"
 
-#: ../libjuicer/sj-metadata.c:199
+#: ../libjuicer/sj-metadata.c:205
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Zariadenie „%s” neobsahuje žiadne médium"
 
-#: ../libjuicer/sj-metadata.c:202
+#: ../libjuicer/sj-metadata.c:208
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
@@ -494,30 +518,103 @@ msgstr ""
 "Nepodarilo sa otvoriť zariadenie „%s”. Preverte prístupové práva k "
 "zariadeniu."
 
-#: ../libjuicer/sj-metadata-gvfs.c:90
+#: ../libjuicer/sj-metadata.c:350
+msgid "Czechoslovakia"
+msgstr "Československo"
+
+#: ../libjuicer/sj-metadata.c:351
+msgid "East Germany"
+msgstr "Východné Nemecko"
+
+#: ../libjuicer/sj-metadata.c:352
+msgid "Europe"
+msgstr "Európa"
+
+#: ../libjuicer/sj-metadata.c:353
+msgid "Serbia and Montenegro"
+msgstr "Srbsko a Čierna Hora"
+
+#: ../libjuicer/sj-metadata.c:354
+msgid "Soviet Union"
+msgstr "Sovietsky zväz"
+
+#: ../libjuicer/sj-metadata.c:355
+msgid "Worldwide"
+msgstr "Celosvetovo"
+
+#: ../libjuicer/sj-metadata.c:356
+msgid "Yugoslavia"
+msgstr "Juhoslávia"
+
+#: ../libjuicer/sj-metadata-gvfs.c:95
 #, c-format
 msgid "Cannot access CD"
 msgstr "Nedá sa získať prístup k CD"
 
-#: ../libjuicer/sj-metadata-gvfs.c:109 ../src/egg-play-preview.c:469
+#: ../libjuicer/sj-metadata-gvfs.c:115 ../src/egg-play-preview.c:469
+#: ../src/sj-main.c:338
 msgid "Unknown Title"
 msgstr "Neznámy názov"
 
-#: ../libjuicer/sj-metadata-gvfs.c:113 ../libjuicer/sj-metadata-gvfs.c:139
-#: ../src/egg-play-preview.c:474 ../src/sj-extracting.c:983
+#: ../libjuicer/sj-metadata-gvfs.c:121 ../libjuicer/sj-metadata-gvfs.c:151
+#: ../src/egg-play-preview.c:474 ../src/sj-extracting.c:980
 msgid "Unknown Artist"
 msgstr "Neznámy umelec"
 
 # PM: nebude lepšie "%d. stopa"?
-#: ../libjuicer/sj-metadata-gvfs.c:135
+#: ../libjuicer/sj-metadata-gvfs.c:145
 #, c-format
 msgid "Track %d"
 msgstr "%d. stopa"
 
-#: ../libjuicer/sj-metadata-gvfs.c:160
+#: ../libjuicer/sj-metadata-gvfs.c:172
 #, c-format
 msgid "Cannot access CD: %s"
 msgstr "Nedá sa pristúpiť k CD: %s"
+
+#. Tranlators: This string is used to build the composer tag when
+#. a track has a mixture of arrangers, orchestrators and
+#. transcribers but no composers
+#: ../libjuicer/sj-metadata-musicbrainz5.c:478
+#, c-format
+msgid "arr. %s"
+msgstr "aran. %s"
+
+#. Tranlators: This string is used to build the composer tag when a
+#. track has composers and arrangers, or a composer and a mixture
+#. of arrangers, orchestrators and transcribers
+#: ../libjuicer/sj-metadata-musicbrainz5.c:482
+#, c-format
+msgid "%s arr. %s"
+msgstr "%s aran. %s"
+
+#. Tranlators: This string is used to build the composer tag
+#. when a track has orchestrators but no composer
+#: ../libjuicer/sj-metadata-musicbrainz5.c:485
+#, c-format
+msgid "orch. %s"
+msgstr "orch. %s"
+
+#. Tranlators: This string is used to build the composer tag
+#. when a track has composers and orchestrators
+#: ../libjuicer/sj-metadata-musicbrainz5.c:488
+#, c-format
+msgid "%s orch. %s"
+msgstr "%s orch. %s"
+
+#. Tranlators: This string is used to build the composer tag
+#. when a track has a transcribers but no composer
+#: ../libjuicer/sj-metadata-musicbrainz5.c:495
+#, c-format
+msgid "trans. %s"
+msgstr ""
+
+#. Tranlators: This string is used to build the composer tag
+#. when a track has composers and transcribers
+#: ../libjuicer/sj-metadata-musicbrainz5.c:498
+#, c-format
+msgid "%s trans. %s"
+msgstr ""
 
 # property nick
 #: ../src/egg-play-preview.c:171
@@ -530,7 +627,7 @@ msgid "The URI of the audio file"
 msgstr "URI zvukového súboru"
 
 # property nick
-#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2247
+#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2282
 msgid "Title"
 msgstr "Názov"
 
@@ -543,7 +640,7 @@ msgid "The title of the current stream."
 msgstr "Názov aktuálnej skladby."
 
 # property nick
-#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2256
+#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2283
 msgid "Artist"
 msgstr "Umelec"
 
@@ -573,7 +670,7 @@ msgid "The position in the current stream in seconds."
 msgstr "Pozícia aktuálnej skladby v sekundách."
 
 # property nick
-#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2280
+#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2290
 msgid "Duration"
 msgstr "Trvanie"
 
@@ -582,20 +679,11 @@ msgstr "Trvanie"
 msgid "The duration of the current stream in seconds."
 msgstr "Trvanie aktuálnej skladby v sekundách."
 
-#: ../src/egg-play-preview.c:475 ../src/sj-extracting.c:982
+#: ../src/egg-play-preview.c:475 ../src/sj-extracting.c:979
 msgid "Unknown Album"
 msgstr "Neznámy album"
 
-#: ../src/gconf-bridge.c:1220
-#, c-format
-msgid "GConf error: %s"
-msgstr "Chyba GConf: %s"
-
-#: ../src/gconf-bridge.c:1225
-msgid "All further errors shown only on terminal."
-msgstr "Všetky ďalšie chyby sa zobrazia iba v termináli."
-
-#: ../src/sj-about.c:52
+#: ../src/sj-about.c:51
 msgid ""
 "Sound Juicer is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -608,7 +696,7 @@ msgstr ""
 "2. verzie tejto licencie, alebo (podľa vášho uváženia) ktorejkoľvek "
 "neskoršej verzie."
 
-#: ../src/sj-about.c:56
+#: ../src/sj-about.c:55
 msgid ""
 "Sound Juicer is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -620,7 +708,7 @@ msgstr ""
 "URČITÝ ÚČEL. Ďalšie podrobnosti hľadajte v licencii GNU General Public "
 "License."
 
-#: ../src/sj-about.c:60
+#: ../src/sj-about.c:59
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "Sound Juicer; if not, write to the Free Software Foundation, Inc., 51 "
@@ -631,7 +719,7 @@ msgstr ""
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, "
 "USA."
 
-#: ../src/sj-about.c:71
+#: ../src/sj-about.c:70
 msgid "An Audio CD Extractor"
 msgstr "Extraktor zvukových CD"
 
@@ -639,27 +727,28 @@ msgstr "Extraktor zvukových CD"
 #. * Note to translators: put here your name and email so it will show
 #. * up in the "about" box
 #.
-#: ../src/sj-about.c:81
+#: ../src/sj-about.c:80
 msgid "translator-credits"
 msgstr ""
 "Tomáš Virgl <tomas@virgl.net>\n"
 "Mário Vrablanský <vrablansky@gmail.com>\n"
-"Ján Kyselica <kyselica.jan@gmail.com>"
+"Ján Kyselica <kyselica.jan@gmail.com>\n"
+"Dušan Kazik <prescott66@gmail.com>"
 
-#: ../src/sj-extracting.c:150
+#: ../src/sj-extracting.c:148
 #, c-format
 msgid "Failed to get output format"
 msgstr "Zlyhalo získanie výstupného formátu"
 
-#: ../src/sj-extracting.c:175
+#: ../src/sj-extracting.c:173
 msgid "Name too long"
 msgstr "Názov je príliš dlhý"
 
-#: ../src/sj-extracting.c:314
+#: ../src/sj-extracting.c:309
 msgid "A file with the same name exists"
 msgstr "Súbor s týmto názvom už existuje"
 
-#: ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:311
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -669,222 +758,216 @@ msgstr ""
 "Chcete preskočiť túto stopu, alebo ju prepísať?"
 
 # button
-#: ../src/sj-extracting.c:326
+#: ../src/sj-extracting.c:321
 msgid "_Skip"
 msgstr "Pre_skočiť"
 
 # button
-#: ../src/sj-extracting.c:327
+#: ../src/sj-extracting.c:322
 msgid "S_kip All"
 msgstr "Pres_kočiť všetky"
 
 # button
-#: ../src/sj-extracting.c:328
+#: ../src/sj-extracting.c:323
 msgid "_Overwrite"
 msgstr "_Prepísať"
 
 # button
-#: ../src/sj-extracting.c:329
+#: ../src/sj-extracting.c:324
 msgid "Overwrite _All"
 msgstr "Prepís_ať všetky"
 
-#: ../src/sj-extracting.c:378
+#: ../src/sj-extracting.c:373
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Nepodarilo sa vytvoriť výstupný priečinok: %s"
 
-#: ../src/sj-extracting.c:518
+#: ../src/sj-extracting.c:513
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Odhadovaný zostávajúci čas: %d:%02d (na %0.1f×)"
 
-#: ../src/sj-extracting.c:520
+#: ../src/sj-extracting.c:515
 msgid "Estimated time left: unknown"
 msgstr "Odhadovaný zostávajúci čas: neznámy"
 
-#: ../src/sj-extracting.c:610
+#: ../src/sj-extracting.c:605
 msgid "CD rip complete"
 msgstr "Extrahovanie CD dokončené"
 
-#: ../src/sj-extracting.c:702
+#: ../src/sj-extracting.c:697
 msgid "Sound Juicer could not extract this CD."
 msgstr "Programu Sound Juicer sa nepodarilo extrahovať toto CD."
 
-#: ../src/sj-extracting.c:704 ../src/sj-main.c:165 ../src/sj-main.c:452
-#: ../src/sj-main.c:490 ../src/sj-main.c:1216 ../src/sj-main.c:1339
-#: ../src/sj-main.c:1438
+#: ../src/sj-extracting.c:699 ../src/sj-main.c:177 ../src/sj-main.c:384
+#: ../src/sj-main.c:423 ../src/sj-main.c:1138 ../src/sj-main.c:1263
+#: ../src/sj-main.c:1365
 msgid "Reason"
 msgstr "Dôvod"
 
 # button
 #. Change the label to Stop while extracting
-#: ../src/sj-extracting.c:794 ../src/sj-main.c:2178
-#| msgid "Stop"
+#: ../src/sj-extracting.c:789 ../src/sj-main.c:2216
 msgid "_Stop"
 msgstr "_Zastaviť"
 
-#: ../src/sj-extracting.c:822 ../src/sj-extracting.c:828
+#: ../src/sj-extracting.c:817 ../src/sj-extracting.c:825
 msgid "Extracting audio from CD"
 msgstr "Extrahovanie audia z CD"
 
-#: ../src/sj-extracting.c:984
+#: ../src/sj-extracting.c:981
 msgid "Unknown Composer"
 msgstr "Neznámy skladateľ"
 
-#: ../src/sj-extracting.c:985
+#: ../src/sj-extracting.c:982
 msgid "Unknown Track"
 msgstr "Neznáma stopa"
 
-#: ../src/sj-genres.c:34
+#: ../src/sj-genres.c:33
 msgid "Ambient"
 msgstr "Ambient"
 
-#: ../src/sj-genres.c:35
+#: ../src/sj-genres.c:34
 msgid "Blues"
 msgstr "Blues"
 
-#: ../src/sj-genres.c:36 ../src/sj-main.c:551
+#: ../src/sj-genres.c:35 ../src/sj-main.c:472
 msgid "Classical"
 msgstr "Klasická"
 
-#: ../src/sj-genres.c:37
+#: ../src/sj-genres.c:36
 msgid "Country"
 msgstr "Country"
 
 # PM: nebude lepšie Tanečná?
-#: ../src/sj-genres.c:38
+#: ../src/sj-genres.c:37
 msgid "Dance"
 msgstr "Tanečná"
 
-#: ../src/sj-genres.c:39
+#: ../src/sj-genres.c:38
 msgid "Electronica"
 msgstr "Electronická"
 
-#: ../src/sj-genres.c:40
+#: ../src/sj-genres.c:39
 msgid "Folk"
 msgstr "Folk"
 
-#: ../src/sj-genres.c:41
+#: ../src/sj-genres.c:40
 msgid "Funk"
 msgstr "Funk"
 
-#: ../src/sj-genres.c:42
+#: ../src/sj-genres.c:41
 msgid "Jazz"
 msgstr "Jazz"
 
 # PM: toto sa skor hovorí latinsko španielska hudba nie?
 # JK: Je to odvodené od regiónu Latinská Amerika a bežne sa používa tento názov.
-#: ../src/sj-genres.c:43
+#: ../src/sj-genres.c:42
 msgid "Latin"
 msgstr "Latinsko-americká"
 
-#: ../src/sj-genres.c:44
+#: ../src/sj-genres.c:43
 msgid "Pop"
 msgstr "Pop"
 
-#: ../src/sj-genres.c:45
+#: ../src/sj-genres.c:44
 msgid "Rap"
 msgstr "Rap"
 
-#: ../src/sj-genres.c:46
+#: ../src/sj-genres.c:45
 msgid "Reggae"
 msgstr "Reggae"
 
-#: ../src/sj-genres.c:47
+#: ../src/sj-genres.c:46
 msgid "Rock"
 msgstr "Rock"
 
-#: ../src/sj-genres.c:48
+#: ../src/sj-genres.c:47
 msgid "Soul"
 msgstr "Soul"
 
-#: ../src/sj-genres.c:49
+#: ../src/sj-genres.c:48
 msgid "Spoken Word"
 msgstr "Hovorené slovo"
 
-#: ../src/sj-genres.c:189
+#: ../src/sj-genres.c:188
 #, c-format
 msgid "Error while saving custom genre: %s"
 msgstr "Chyba počas ukladania vlastného žánru: %s"
 
-#: ../src/sj-main.c:164
+#: ../src/sj-main.c:176
 msgid "Could not start Sound Juicer"
 msgstr "Nepodarilo sa spustiť program Sound Juicer"
 
 # PM: znie to neprirodzene, Viac informácii záskate v dokumentácii - alebo niečo v tom štýle
-#: ../src/sj-main.c:167
+#: ../src/sj-main.c:179
 msgid "Please consult the documentation for assistance."
 msgstr "Viac informácií získate v dokumentácií."
 
-#: ../src/sj-main.c:201
+#: ../src/sj-main.c:213
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Práve extrahujete CD. Chcete skončiť alebo pokračovať v extrahovaní?"
 
+# menu item
+#: ../src/sj-main.c:214 ../src/sj-main.c:1490
+#| msgid "Quit"
+msgid "_Quit"
+msgstr "_Ukončiť"
+
 # button
-#: ../src/sj-main.c:249 ../src/sj-main.c:2125 ../src/sj-main.c:2201
+#: ../src/sj-main.c:262 ../src/sj-main.c:2163 ../src/sj-main.c:2239
 msgid "Select None"
 msgstr "Zrušiť výber"
 
 # button
-#: ../src/sj-main.c:263 ../src/sj-main.c:2195
+#: ../src/sj-main.c:276 ../src/sj-main.c:2233
 msgid "Select All"
 msgstr "Označiť všetko"
 
 # JK: neznámy čas prehrávania albumu
-#: ../src/sj-main.c:284 ../src/sj-main.c:712
+#: ../src/sj-main.c:297 ../src/sj-main.c:631
 msgid "(unknown)"
 msgstr "(neznámy)"
 
-# PM: toto sa mi nevidí; skor to zašle údaje o albume do MusicBrainz kvôli získaniu názvu albumu a pesniciek
-# button
-#: ../src/sj-main.c:416
-msgid "S_ubmit Album"
-msgstr "_Odoslať album"
+#: ../src/sj-main.c:339
+msgid "This album is not in the MusicBrainz database."
+msgstr "Tento album sa nenachádza v databáze MusicBrainz."
 
-#: ../src/sj-main.c:418
-msgid "Ca_ncel"
-msgstr "_Zrušiť"
-
-#. Translators: title, artist
-#: ../src/sj-main.c:421
+#: ../src/sj-main.c:341
 #, c-format
 msgid "Could not find %s by %s on MusicBrainz."
 msgstr "Nepodarilo sa nájsť %s od %s na MusicBrainz."
 
-#: ../src/sj-main.c:426
-msgid "You can improve the MusicBrainz database by adding this album."
-msgstr "Databázu služby MusicBrainz môžete zlepšiť pridaním tohoto albumu."
-
-#: ../src/sj-main.c:450
+#: ../src/sj-main.c:382
 msgid "Could not open URL"
 msgstr "Nepodarilo sa otvoriť URL"
 
-#: ../src/sj-main.c:451
+#: ../src/sj-main.c:383
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Programu Sound Juicer sa nepodarilo otvoriť URL pre odosielanie"
 
-#: ../src/sj-main.c:488
+#: ../src/sj-main.c:421
 msgid "Could not duplicate disc"
 msgstr "Nepodarilo sa vytvoriť kópiu disku"
 
-#: ../src/sj-main.c:489
+#: ../src/sj-main.c:422
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Programu Sound Juicer sa nepodarilo vytvoriť kópiu disku"
 
 # composer_genres
-#: ../src/sj-main.c:551
+#: ../src/sj-main.c:472
 msgid "Lieder"
 msgstr "Vokálna"
 
-#: ../src/sj-main.c:551
+#: ../src/sj-main.c:472
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/sj-main.c:551
+#: ../src/sj-main.c:472
 msgid "Chamber"
 msgstr "Komorná"
 
-#: ../src/sj-main.c:551
+#: ../src/sj-main.c:472
 msgid "Musical"
 msgstr "Muzikál"
 
@@ -892,7 +975,7 @@ msgstr "Muzikál"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released: <country> in <year> on <label>"
-#: ../src/sj-main.c:897
+#: ../src/sj-main.c:848
 #, c-format
 msgid "Released: %s in %d on %s"
 msgstr "Vydané v krajine %s v roku %d vydavateľom %s"
@@ -900,7 +983,7 @@ msgstr "Vydané v krajine %s v roku %d vydavateľom %s"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released: <country> on <label>"
-#: ../src/sj-main.c:905
+#: ../src/sj-main.c:856
 #, c-format
 msgid "Released: %s on %s"
 msgstr "Vydané v krajine %s vydavateľom %s"
@@ -908,7 +991,7 @@ msgstr "Vydané v krajine %s vydavateľom %s"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released: <country> in <year>"
-#: ../src/sj-main.c:911
+#: ../src/sj-main.c:862
 #, c-format
 msgid "Released: %s in %d"
 msgstr "Vydané v krajine %s v roku %d"
@@ -916,7 +999,7 @@ msgstr "Vydané v krajine %s v roku %d"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released: <country>"
-#: ../src/sj-main.c:917
+#: ../src/sj-main.c:868
 #, c-format
 msgid "Released: %s"
 msgstr "Vydané v krajine %s"
@@ -924,7 +1007,7 @@ msgstr "Vydané v krajine %s"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released in <year> on <label>"
-#: ../src/sj-main.c:924
+#: ../src/sj-main.c:875
 #, c-format
 msgid "Released in %d on %s"
 msgstr "Vydané v roku %d vydavateľom %s"
@@ -932,7 +1015,7 @@ msgstr "Vydané v roku %d vydavateľom %s"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released in <year>"
-#: ../src/sj-main.c:931
+#: ../src/sj-main.c:882
 #, c-format
 msgid "Released in %d"
 msgstr "Vydané v roku %d"
@@ -940,81 +1023,76 @@ msgstr "Vydané v roku %d"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released on <label>"
-#: ../src/sj-main.c:938
+#: ../src/sj-main.c:889
 #, c-format
 msgid "Released on %s"
 msgstr "Vydalo %s"
 
-#: ../src/sj-main.c:940
+#: ../src/sj-main.c:891
 msgid "Release label, year & country unknown"
 msgstr "Neznámy vydavateľ, rok a miesto vydania"
 
 # property nick
-#: ../src/sj-main.c:987
+#: ../src/sj-main.c:929
 msgid "Albums"
 msgstr "Albumy"
 
-#: ../src/sj-main.c:1030
+#: ../src/sj-main.c:963
 #, c-format
 msgid " (Disc %d/%d)"
 msgstr " (Disk %d/%d)"
 
-#: ../src/sj-main.c:1214 ../src/sj-main.c:1335 ../src/sj-main.c:1436
+#: ../src/sj-main.c:1136 ../src/sj-main.c:1259 ../src/sj-main.c:1363
 msgid "Could not read the CD"
 msgstr "Nepodarilo sa prečítať CD"
 
-#: ../src/sj-main.c:1215 ../src/sj-main.c:1338
+#: ../src/sj-main.c:1137 ../src/sj-main.c:1262
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Programu Sound Juicer sa nepodarilo prečítať zoznam stôp z tohoto CD."
 
 #. Set statusbar message
-#: ../src/sj-main.c:1309
+#: ../src/sj-main.c:1232
 msgid "Retrieving track listing...please wait."
 msgstr "Získava sa zoznam stôp…Prosím, čakajte."
 
-#: ../src/sj-main.c:1398
+#: ../src/sj-main.c:1325
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Programu Sound Juicer sa nepodarilo použiť zariadenie CD-ROM „%s”"
 
-#: ../src/sj-main.c:1405
+#: ../src/sj-main.c:1332
 msgid "HAL daemon may not be running."
 msgstr "Démon HAL možno nebeží."
 
-#: ../src/sj-main.c:1429
+#: ../src/sj-main.c:1356
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Programu Sound Juicer sa nepodarilo pristupovať k mechanike CD „%s“"
 
-#: ../src/sj-main.c:1527
+#: ../src/sj-main.c:1455
 msgid "No CD-ROM drives found"
 msgstr "Nenašla sa žiadna mechanika CD"
 
-#: ../src/sj-main.c:1528
+#: ../src/sj-main.c:1456
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr ""
 "Programu Sound Juicer sa nepodarilo nájsť žiadnu mechaniku CD na čítanie."
 
-#: ../src/sj-main.c:1560
+#: ../src/sj-main.c:1489
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Aktuálne zvolený profil zvuku nie je vo vašej inštalácii k dispozícii."
 
 # button
-#: ../src/sj-main.c:1562
+#: ../src/sj-main.c:1491
 msgid "_Change Profile"
 msgstr "_Zmeniť profil"
 
-#: ../src/sj-main.c:1744
-#, c-format
-msgid "Unknown column %d was edited"
-msgstr "Bol upravený neznámy stĺpec %d"
-
-#: ../src/sj-main.c:1844
+#: ../src/sj-main.c:1879
 msgid "Unknown widget calling on_person_edit_changed."
 msgstr "Neznámy widget pri volaní on_person_edit_changed."
 
-#: ../src/sj-main.c:1945 ../src/sj-prefs.c:119
+#: ../src/sj-main.c:1979 ../src/sj-prefs.c:127
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -1023,55 +1101,50 @@ msgstr ""
 "Nepodarilo sa zobraziť pomocníka pre program Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:2055
-msgid "Could not create GConf client.\n"
-msgstr "Nepodarilo sa vytvoriť klienta GConf.\n"
-
 # button
-#: ../src/sj-main.c:2154 ../src/sj-play.c:302
-#| msgid "Pause"
+#: ../src/sj-main.c:2192 ../src/sj-play.c:301
 msgid "_Pause"
 msgstr "_Pozastaviť"
 
 # treeviewcolumn
-#: ../src/sj-main.c:2232
+#: ../src/sj-main.c:2270
 msgid "Track"
 msgstr "Stopa"
 
 # treeviewcolumn
-#: ../src/sj-main.c:2267
+#: ../src/sj-main.c:2284
 msgid "Composer"
 msgstr "Skladateľ"
 
 # cmd desc
-#: ../src/sj-main.c:2418
+#: ../src/sj-main.c:2438
 msgid "Start extracting immediately"
 msgstr "Začne extrahovanie ihneď"
 
 # cmd desc
-#: ../src/sj-main.c:2419
+#: ../src/sj-main.c:2439
 msgid "Start playing immediately"
 msgstr "Začne prehrávanie ihneď"
 
 # cmd desc
-#: ../src/sj-main.c:2420
+#: ../src/sj-main.c:2440
 msgid "What CD device to read"
 msgstr "Určuje mechaniku CD, z ktorej sa má čítať"
 
-#: ../src/sj-main.c:2420
+#: ../src/sj-main.c:2440
 msgid "DEVICE"
 msgstr "ZARIADENIE"
 
 # cmd desc
-#: ../src/sj-main.c:2421
+#: ../src/sj-main.c:2441
 msgid "URI to the CD device to read"
 msgstr "URI medhaniky CD, z ktorej sa má čítať"
 
-#: ../src/sj-main.c:2433
+#: ../src/sj-main.c:2453
 msgid "- Extract music from your CDs"
 msgstr "- Extrahuje hudbu z vašich CD"
 
-#: ../src/sj-play.c:194 ../src/sj-play.c:416 ../src/sj-play.c:445
+#: ../src/sj-play.c:193 ../src/sj-play.c:417 ../src/sj-play.c:453
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -1082,202 +1155,121 @@ msgstr ""
 "\n"
 "Dôvod: %s"
 
-#: ../src/sj-play.c:354
+#: ../src/sj-play.c:355
 #, c-format
 msgid "Failed to create CD source element"
 msgstr "Nepodarilo sa vytvoriť prvok zdroja CD"
 
-#: ../src/sj-play.c:577
+#: ../src/sj-play.c:593
 #, c-format
 msgid "Seeking to %s"
 msgstr "Posun na %s"
 
 # path paterns
-#: ../src/sj-prefs.c:54
+#: ../src/sj-prefs.c:51
 msgid "Album Artist, Album Title"
 msgstr "Umelec albumu, názov albumu"
 
-#: ../src/sj-prefs.c:55
+#: ../src/sj-prefs.c:52
 msgid "Album Artist (sortable), Album Title"
 msgstr "Umelec albumu (zoraditeľný), názov albumu"
 
-#: ../src/sj-prefs.c:56
+#: ../src/sj-prefs.c:53
 msgid "Track Artist, Album Title"
 msgstr "Umelec stopy, názov albumu"
 
-#: ../src/sj-prefs.c:57
+#: ../src/sj-prefs.c:54
 msgid "Track Artist (sortable), Album Title"
 msgstr "Umelec stopy (zoraditeľný), názov albumu"
 
-#: ../src/sj-prefs.c:58
+#: ../src/sj-prefs.c:55
 msgid "Album Title"
 msgstr "Názov albumu"
 
-#: ../src/sj-prefs.c:59
+#: ../src/sj-prefs.c:56
 msgid "Album Artist"
 msgstr "Umelec albumu"
 
-#: ../src/sj-prefs.c:60
+#: ../src/sj-prefs.c:57
 msgid "Album Artist (sortable)"
 msgstr "Umelec albumu (zoraditeľný)"
 
-#: ../src/sj-prefs.c:61
+#: ../src/sj-prefs.c:58
 msgid "Album Artist - Album Title"
 msgstr "Umelec albumu - názov albumu"
 
-#: ../src/sj-prefs.c:62
+#: ../src/sj-prefs.c:59
 msgid "Album Artist (sortable) - Album Title"
 msgstr "Umelec albumu (zoraditeľný) - názov albumu"
 
-#: ../src/sj-prefs.c:63
+#: ../src/sj-prefs.c:60
 msgid "Album Composer, Album Title"
 msgstr "Skladateľ albumu, názov albumu"
 
-#: ../src/sj-prefs.c:64
+#: ../src/sj-prefs.c:61
 msgid "Album Composer (sortable), Album Title"
 msgstr "Skladateľ albumu (zoraditeľný), názov albumu"
 
-#: ../src/sj-prefs.c:65
+#: ../src/sj-prefs.c:62
 msgid "Track Composer, Album Title"
 msgstr "Skladateľ stopy, názov albumu"
 
-#: ../src/sj-prefs.c:66
+#: ../src/sj-prefs.c:63
 msgid "Track Composer (sortable), Album Title"
 msgstr "Skladateľ stopy (zoraditeľný), názov albumu"
 
 # Hierarchia priečinkov:
 # JK: čo je nesprávne?
 # path paterns
-#: ../src/sj-prefs.c:67
+#: ../src/sj-prefs.c:64
 msgid "[none]"
 msgstr "[žiadna]"
 
 # file paterns
-#: ../src/sj-prefs.c:72
+#: ../src/sj-prefs.c:69
 msgid "Number - Title"
 msgstr "Číslo - názov"
 
-#: ../src/sj-prefs.c:73
+#: ../src/sj-prefs.c:70
 msgid "Track Title"
 msgstr "Názov stopy"
 
-#: ../src/sj-prefs.c:74
+#: ../src/sj-prefs.c:71
 msgid "Track Artist - Track Title"
 msgstr "Umelec albumu - Názov stopy"
 
-#: ../src/sj-prefs.c:75
+#: ../src/sj-prefs.c:72
 msgid "Track Artist (sortable) - Track Title"
 msgstr "Umelec albumu (zoraditeľný) - Názov stopy"
 
-#: ../src/sj-prefs.c:76
+#: ../src/sj-prefs.c:73
 msgid "Number. Track Artist - Track Title"
 msgstr "Číslo. Umelec albumu - Názov stopy"
 
 #. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
-#: ../src/sj-prefs.c:78
+#: ../src/sj-prefs.c:75
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Číslo-Umelec stopy-Názov stopy (malými písmenami)"
 
 #. {N_("Number-Track Artist (sortable)-Track Title (lowercase)"), "%tN-%tS-%tT"},
-#: ../src/sj-prefs.c:80
+#: ../src/sj-prefs.c:77
 msgid "Track Composer - Track Artist - Track Title"
 msgstr "Skladateľ stopy - Umelec stopy - Názov stopy"
 
-#: ../src/sj-prefs.c:81
+#: ../src/sj-prefs.c:78
 msgid "Track Composer (sortable) - Track Artist (sortable) - Track Title"
 msgstr ""
 "Skladateľ albumu (zoraditeľný) - Umelec stopy (zoraditeľný) - Názov stopy"
 
-#: ../src/sj-prefs.c:82
+#: ../src/sj-prefs.c:79
 msgid "Number. Track Composer - Track Artist - Track Title"
 msgstr "Číslo. Skladateľ stopy - Umelec stopy - Názov stopy"
 
-#: ../src/sj-prefs.c:83
+#: ../src/sj-prefs.c:80
 msgid "Number-Track Composer-Track Artist-Track Title (lowercase)"
 msgstr "Číslo-Skladateľ stopy-Umelec stopy-Názov stopy (malými písmenami)"
 
-#: ../src/sj-prefs.c:307
-msgid "Example Path"
-msgstr "Príklad cesty"
-
-# button
-#~ msgid "Extract"
-#~ msgstr "Extrahovať"
-
-#~ msgid "Edit _Profiles..."
-#~ msgstr "_Upraviť profily..."
-
-#~ msgid "Skip to the next track"
-#~ msgstr "Preskočiť na nasledujúcu stopu"
-
-#~ msgid "Skip to the previous track"
-#~ msgstr "Preskočiť na predchádzajúcu stopu"
-
-#~ msgid "_Deselect All"
-#~ msgstr "O_dznačiť všetko"
-
-#~ msgid "_Disc"
-#~ msgstr "_Disk"
-
-#~ msgid "_Edit"
-#~ msgstr "_Upraviť"
-
-#~ msgid ""
-#~ "%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA "
-#~ "-- album artist (lowercase) %as -- album artist (sortable) %aS -- album "
-#~ "artist (sortable lowercase) %ay -- album year %tt -- track title %tT -- "
-#~ "track title (lowercase) %ta -- track artist %tA -- track artist "
-#~ "(lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable "
-#~ "lowercase)"
-#~ msgstr ""
-#~ "%at -- názov albumu %aT -- názov albumu (malými písmenami) %aa -- umelec "
-#~ "albumu %aA -- umelec albumu (malými písmenami) %as -- umelec albumu"
-#~ "(zoraditeľné) %aS -- umelec albumu (zoraditeľné, malými písmenami) %ay -- "
-#~ "rok albumu %tt -- názov skladby %tT -- názov skladby (malými písmenami) "
-#~ "%ta -- autor skladby %tA -- autor skladby (malými písmenami) %ts -- autor "
-#~ "skladby (zoraditeľné) %tS -- autor skladby (zoraditeľné, malými písmenami)"
-
-#~ msgid "The GNOME Audio Profile with which to encode."
-#~ msgstr "Profil zvuku GNOME, ktorým sa má kódovať."
-
-#~ msgid "Could not create CD lookup thread"
-#~ msgstr "Nebolo možné vytvoriť vlákno prehľadávania CD"
-
-#~ msgid "Failed to link pipeline"
-#~ msgstr "Nepodarilo sa prepojiť rúru"
-
-#~ msgid "Failed to create audio output"
-#~ msgstr "Nepodarilo sa vytvoriť zvukový výstup"
-
-#~ msgid "&lt;b&gt;Device&lt;/b&gt;"
-#~ msgstr "&lt;b&gt;Zariadenie&lt;/b&gt;"
-
-#~ msgid "&lt;b&gt;Disc:&lt;/b&gt;"
-#~ msgstr "&lt;b&gt;Disk:&lt;/b&gt;"
-
-#~ msgid "&lt;b&gt;Duration:&lt;/b&gt;"
-#~ msgstr "&lt;b&gt;Trvanie:&lt;/b&gt;"
-
-#~ msgid "&lt;b&gt;_Artist:&lt;/b&gt;"
-#~ msgstr "&lt;b&gt;_Umelec:&lt;/b&gt;"
-
-#~ msgid "&lt;b&gt;_Title:&lt;/b&gt;"
-#~ msgstr "&lt;b&gt;_Názov:&lt;/b&gt;"
-
-#~ msgid "Pre_vious Track"
-#~ msgstr "Pre_dchodzia stopa"
-
-#~ msgid "_Contents"
-#~ msgstr "_Obsah"
-
-#~ msgid "_Next Track"
-#~ msgstr "Ď_alšia stopa"
-
-#~ msgid "_Play / Pause"
-#~ msgstr "_Prehrať / Pozastaviť"
-
-#~ msgid "Cannot read CD"
-#~ msgstr "Nedá sa čítať CD"
-
-#~ msgid "This CD could not be queried: %s\n"
-#~ msgstr "Toto CD nemohlo byť zaradené: %s\n"
+#: ../src/sj-prefs.c:311
+#| msgid "Example Path"
+msgid "Example Path: "
+msgstr "Príklad cesty:"
