@@ -1,50 +1,25 @@
-noinst_LTLIBRARIES = libjuicer.la
+libjuicer_SOURCES += \
+	libjuicer/rb-gst-media-types.c \
+	libjuicer/rb-gst-media-types.h \
+	libjuicer/sj-error.c \
+	libjuicer/sj-error.h \
+	libjuicer/sj-extractor.c \
+	libjuicer/sj-extractor.h \
+	libjuicer/sj-metadata.c \
+	libjuicer/sj-metadata.h \
+	libjuicer/sj-metadata-getter.c \
+	libjuicer/sj-metadata-getter.h \
+	libjuicer/sj-metadata-gvfs.c \
+	libjuicer/sj-metadata-gvfs.h \
+	libjuicer/sj-metadata-musicbrainz5.c \
+	libjuicer/sj-metadata-musicbrainz5.h \
+	libjuicer/sj-structures.c \
+	libjuicer/sj-structures.h \
+	libjuicer/sj-util.c \
+	libjuicer/sj-util.h
 
-libjuicer_la_SOURCES = \
-	$(MARSHALFILES) \
-	rb-gst-media-types.h \
-	rb-gst-media-types.c \
-	sj-structures.h \
-	sj-structures.c \
-	sj-error.h sj-error.c \
-	sj-extractor.h \
-	sj-extractor.c \
-	sj-metadata.h \
-	sj-metadata.c \
-	sj-metadata-gvfs.h \
-	sj-metadata-gvfs.c \
-	sj-metadata-getter.c \
-	sj-metadata-getter.h \
-	sj-util.h sj-util.c
-
-libjuicer_la_CPPFLAGS = \
-	-DDATADIR=\""$(datadir)"\" \
-	$(DISABLE_DEPRECATED_CFLAGS) \
-	$(AM_CPPFLAGS)
-
-libjuicer_la_CFLAGS = \
-	$(WARN_CFLAGS)	\
-	$(GSTREAMER_CFLAGS) \
-	$(BURN_CFLAGS) \
-	$(UI_CFLAGS) \
-	$(CDIO_CFLAGS) \
-	$(AM_CFLAGS)
-
-libjuicer_la_LIBADD = \
-	$(GSTREAMER_LIBS) \
-	$(BURN_LIBS) \
-	$(UI_LIBS) \
-	$(CDIO_LIBS)
-
-libjuicer_la_LDFLAGS = \
-	-export-dynamic \
-	$(AM_LDFLAGS)
-
-libjuicer_la_SOURCES += \
-	sj-metadata-musicbrainz5.h \
-	sj-metadata-musicbrainz5.c
-libjuicer_la_LIBADD += $(MUSICBRAINZ5_LIBS)
-libjuicer_la_CFLAGS += $(MUSICBRAINZ5_CFLAGS)
-
-
--include $(top_srcdir)/build-aux/git.mk
+sound_juicer_SOURCES += $(libjuicer_SOURCES)
+sound_juicer_CFLAGS += $(CDIO_CFLAGS)
+sound_juicer_LDADD += $(CDIO_LIBS)
+sound_juicer_LDADD += $(MUSICBRAINZ5_LIBS)
+sound_juicer_CFLAGS += $(MUSICBRAINZ5_CFLAGS)

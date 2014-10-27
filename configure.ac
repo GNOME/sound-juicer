@@ -4,7 +4,7 @@ AC_PREREQ(2.52)
 
 AC_CONFIG_AUX_DIR([build-aux])
 
-AM_INIT_AUTOMAKE([1.9 no-dist-gzip dist-xz check-news])
+AM_INIT_AUTOMAKE([1.9 subdir-objects no-dist-gzip dist-xz check-news])
 
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR([libjuicer/sj-extractor.c])
@@ -23,12 +23,10 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [The name of the gettext
 AC_SUBST(GETTEXT_PACKAGE)
 AM_GLIB_GNU_GETTEXT
 
-
 # Standard C and C++ compiler mojo
 AC_ISC_POSIX
 AM_PROG_CC_C_O
 AC_HEADER_STDC
-AC_PROG_LIBTOOL
 AC_PROG_INSTALL
 IT_PROG_INTLTOOL([0.50.0])
 
@@ -121,13 +119,9 @@ AC_SUBST([AM_LDFLAGS])
 AC_CONFIG_FILES([
 sound-juicer.spec
 Makefile
-data/Makefile
 data/sound-juicer.desktop.in
 help/Makefile
-libjuicer/Makefile
 po/Makefile.in
-src/Makefile
-tests/Makefile
 ])
 
 AC_OUTPUT
