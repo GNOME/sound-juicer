@@ -1,37 +1,37 @@
 privatedatadir = $(pkgdatadir)
-dist_privatedata_DATA = sound-juicer.ui sound-juicer-menu.ui
+dist_privatedata_DATA = data/sound-juicer.ui data/sound-juicer-menu.ui
 
 desktopdir = $(datadir)/applications
-desktop_in_files = sound-juicer.desktop.in.in
+desktop_in_files = data/sound-juicer.desktop.in.in
 desktop_DATA = $(desktop_in_files:.desktop.in.in=.desktop)
 @INTLTOOL_DESKTOP_RULE@
 
 @INTLTOOL_XML_RULE@
 @APPSTREAM_XML_RULES@
 appstream_XML = $(appstream_in_files:.xml.in=.xml)
-appstream_in_files = appdata/sound-juicer.appdata.xml.in
+appstream_in_files = data/appdata/sound-juicer.appdata.xml.in
 
-gsettings_SCHEMAS = org.gnome.sound-juicer.gschema.xml
+gsettings_SCHEMAS = data/org.gnome.sound-juicer.gschema.xml
 
 @GSETTINGS_RULES@
 
 convertdir = $(datadir)/GConf/gsettings
-convert_DATA = sound-juicer.convert
+convert_DATA = data/sound-juicer.convert
 
 profilesdir = $(datadir)/sound-juicer
-dist_profiles_DATA = rhythmbox.gep
+dist_profiles_DATA = data/rhythmbox.gep
 
-man1_MANS = sound-juicer.1
+man1_MANS = data/sound-juicer.1
 
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(datadir)/icons/hicolor
 
 icons = \
-	sound-juicer-16.png \
-	sound-juicer-22.png \
-	sound-juicer-24.png \
-	sound-juicer-32.png \
-	sound-juicer-48.png \
-	sound-juicer-256.png
+	data/sound-juicer-16.png \
+	data/sound-juicer-22.png \
+	data/sound-juicer-24.png \
+	data/sound-juicer-32.png \
+	data/sound-juicer-48.png \
+	data/sound-juicer-256.png
 
 install-icons:
 	for icon in $(icons); do \
@@ -73,20 +73,18 @@ install-data-hook: update-icon-cache
 uninstall-local: uninstall-icons
 uninstall-hook: update-icon-cache
 
-CLEANFILES = \
+CLEANFILES += \
 	$(desktop_DATA) \
 	$(appstream_XML)
 
-DISTCLEANFILES = \
+DISTCLEANFILES += \
 	$(desktop_DATA)
 
-EXTRA_DIST = \
+EXTRA_DIST += \
 	$(gsettings_SCHEMAS) \
-	sound-juicer.convert \
+	data/sound-juicer.convert \
 	$(man1_MANS) \
 	$(icons) \
 	$(appstream_in_files)
 
-MAINTAINERCLEANFILES = $(gsettings_SCHEMAS:.xml=.valid)
-
--include $(top_srcdir)/build-aux/git.mk
+MAINTAINERCLEANFILES += $(gsettings_SCHEMAS:.xml=.valid)

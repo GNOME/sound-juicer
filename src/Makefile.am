@@ -1,54 +1,24 @@
-bin_PROGRAMS = sound-juicer
+bin_PROGRAMS += sound-juicer
 
-sound_juicer_SOURCES = \
-	sound-juicer.h \
-	sj-cell-renderer-text.h \
-	sj-cell-renderer-text.c \
-	sj-main.h \
-	sj-main.c \
-	sj-prefs.h \
-	sj-prefs.c \
-	sj-play.c \
-	sj-play.h \
-	sj-about.h \
-	sj-about.c \
-	sj-extracting.h \
-	sj-extracting.c \
-	sj-genres.h \
-	sj-genres.c \
-	sj-tree-view.h \
-	sj-tree-view.c \
-	sj-window-state.c \
-	sj-window-state.h \
-	egg-play-preview.c \
-	egg-play-preview.h
-
-sound_juicer_CPPFLAGS = \
-	-I$(top_srcdir)/libjuicer \
-	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"  \
-	-DDATADIR=\""$(datadir)"\" \
-	-DPREFIX=\""$(prefix)"\" \
-	-DLIBDIR=\""$(libdir)"\" \
-	-DSYSCONFDIR=\""$(sysconfdir)"\" \
-	-DPIXMAPDIR=\""$(datadir)/pixmaps"\" \
-	-DPKGDATADIR=\""$(datadir)/sound-juicer"\" \
-	$(DISABLE_DEPRECATED) \
-	$(AM_CPPFLAGS)
-
-sound_juicer_CFLAGS = \
-	$(GSTREAMER_CFLAGS) \
-	$(BURN_CFLAGS) \
-	$(UI_CFLAGS) \
-	$(WARN_CFLAGS) \
-	$(AM_CFLAGS)
-
-sound_juicer_LDADD = \
-	$(top_builddir)/libjuicer/libjuicer.la \
-	$(GSTREAMER_LIBS) \
-	$(BURN_LIBS) \
-	$(UI_LIBS)
-
-sound_juicer_LDFLAGS = \
-	$(AM_LDFLAGS)
-
--include $(top_srcdir)/build-aux/git.mk
+sound_juicer_SOURCES += \
+	src/egg-play-preview.c \
+	src/egg-play-preview.h \
+	src/sj-about.c \
+	src/sj-about.h \
+	src/sj-cell-renderer-text.c \
+	src/sj-cell-renderer-text.h \
+	src/sj-extracting.c \
+	src/sj-extracting.h \
+	src/sj-genres.c \
+	src/sj-genres.h \
+	src/sj-main.c \
+	src/sj-main.h \
+	src/sj-play.c \
+	src/sj-play.h \
+	src/sj-prefs.c \
+	src/sj-prefs.h \
+	src/sj-tree-view.c \
+	src/sj-tree-view.h \
+	src/sj-window-state.c \
+	src/sj-window-state.h \
+	src/sound-juicer.h

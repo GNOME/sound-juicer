@@ -1,29 +1,20 @@
-noinst_PROGRAMS = mb-test
+noinst_PROGRAMS += tests/mb-test
 
-mb_test_SOURCES = \
-	mb-test.c
+tests_mb_test_SOURCES = \
+	tests/mb-test.c
 
-mb_test_CPPFLAGS = \
-	-I$(top_srcdir)/libjuicer \
+tests_mb_test_CPPFLAGS = \
 	-I$(top_srcdir)/src \
-	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" \
-	$(DISABLE_DEPRECATED) \
-	$(AM_CPPFLAGS)
+	$(sound_juicer_CPPFLAGS)
 
-mb_test_CFLAGS = \
-	$(WARN_CFLAGS) \
-	$(GSTREAMER_CFLAGS) \
-	$(BURN_CFLAGS) \
-	$(UI_CFLAGS) \
-	$(AM_CPPFLAGS)
+tests_mb_test_CFLAGS = $(sound_juicer_CFLAGS)
 
-mb_test_LDADD = \
-	$(BURN_LIBS) \
-	$(UI_LIBS) \
-	$(top_builddir)/libjuicer/libjuicer.la
-
-mb_test_LDFLAGS = \
-	-export-dynamic \
-	$(AM_LDFLAGS)
-
--include $(top_srcdir)/build-aux/git.mk
+tests_mb_test_LDADD = \
+	$(sound_juicer_LDADD) \
+	libjuicer/sound_juicer-sj-error.o \
+	libjuicer/sound_juicer-sj-metadata.o \
+	libjuicer/sound_juicer-sj-metadata-getter.o \
+	libjuicer/sound_juicer-sj-metadata-gvfs.o \
+	libjuicer/sound_juicer-sj-metadata-musicbrainz5.o \
+	libjuicer/sound_juicer-sj-structures.o \
+	libjuicer/sound_juicer-sj-util.o
