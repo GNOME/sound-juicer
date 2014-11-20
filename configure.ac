@@ -10,6 +10,8 @@ AC_CONFIG_HEADERS([config.h])
 # Enable silent build when available (Automake 1.11)
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 
+GNOME_DEBUG_CHECK
+
 AM_MAINTAINER_MODE([enable])
 
 # Do the gettext/i18n stuff
@@ -28,7 +30,6 @@ AC_PROG_INSTALL
 IT_PROG_INTLTOOL([0.50.0])
 
 GNOME_COMPILE_WARNINGS([maximum])
-GNOME_DEBUG_CHECK
 
 GTK_REQUIRED=3.4.0
 GLIB_GSETTINGS
