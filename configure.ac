@@ -10,7 +10,7 @@ AC_CONFIG_HEADERS([config.h])
 # Enable silent build when available (Automake 1.11)
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 
-AM_MAINTAINER_MODE
+AM_MAINTAINER_MODE([enable])
 
 # Do the gettext/i18n stuff
 GETTEXT_PACKAGE=sound-juicer
