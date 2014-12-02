@@ -65,7 +65,7 @@ git-mk-install:
 			echo "Updating $$x"; \
 			{ cat $$x; \
 			  echo ''; \
-			  echo '-include $$(top_srcdir)/git.mk'; \
+			  echo '-include $$(top_srcdir)/build-aux/git.mk'; \
 			} > $$x.tmp || failed=1; \
 			if test x$$failed = x; then \
 				mv $$x.tmp $$x || failed=1; \
@@ -81,7 +81,7 @@ git-mk-install:
 
 ### .gitignore generation
 
-$(srcdir)/.gitignore: Makefile.am $(top_srcdir)/git.mk
+$(srcdir)/.gitignore: Makefile.am $(top_srcdir)/build-aux/git.mk
 	$(AM_V_GEN) \
 	{ \
 		if test "x$(DOC_MODULE)" = x -o "x$(DOC_MAIN_SGML_FILE)" = x; then :; else \

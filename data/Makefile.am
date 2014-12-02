@@ -89,4 +89,4 @@ EXTRA_DIST = \
 
 MAINTAINERCLEANFILES = $(gsettings_SCHEMAS:.xml=.valid)
 
--include $(top_srcdir)/git.mk
+-include $(top_srcdir)/build-aux/git.mk

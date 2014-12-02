@@ -47,4 +47,4 @@ libjuicer_la_LIBADD += $(MUSICBRAINZ5_LIBS)
 libjuicer_la_CFLAGS += $(MUSICBRAINZ5_CFLAGS)
 
 
--include $(top_srcdir)/git.mk
+-include $(top_srcdir)/build-aux/git.mk

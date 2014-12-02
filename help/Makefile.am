@@ -12,4 +12,4 @@ HELP_MEDIA = \
 
 HELP_LINGUAS = ar ca cs de el en_GB es eu fr ja nl oc pl pt_BR ru sl sv uk zh_CN
 
--include $(top_srcdir)/git.mk
+-include $(top_srcdir)/build-aux/git.mk
