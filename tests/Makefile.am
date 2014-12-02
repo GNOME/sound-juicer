@@ -26,4 +26,4 @@ mb_test_LDFLAGS = \
 	-export-dynamic \
 	$(AM_LDFLAGS)
 
--include $(top_srcdir)/git.mk
+-include $(top_srcdir)/build-aux/git.mk

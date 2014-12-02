@@ -51,4 +51,4 @@ sound_juicer_LDADD = \
 sound_juicer_LDFLAGS = \
 	$(AM_LDFLAGS)
 
--include $(top_srcdir)/git.mk
+-include $(top_srcdir)/build-aux/git.mk

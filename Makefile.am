@@ -8,15 +8,15 @@ EXTRA_DIST = \
 
 MAINTAINERCLEANFILES = \
 	$(srcdir)/aclocal.m4 \
-	$(srcdir)/compile \
-	$(srcdir)/config.guess \
+	$(srcdir)/build-aux/compile \
+	$(srcdir)/build-aux/config.guess \
 	$(srcdir)/config.h.in \
-	$(srcdir)/config.sub \
-	$(srcdir)/depcomp \
-	$(srcdir)/install-sh \
-	$(srcdir)/ltmain.sh \
-	$(srcdir)/missing \
-	$(srcdir)/mkinstalldirs
+	$(srcdir)/build-aux/config.sub \
+	$(srcdir)/build-aux/depcomp \
+	$(srcdir)/build-aux/install-sh \
+	$(srcdir)/build-aux/ltmain.sh \
+	$(srcdir)/build-aux/missing \
+	$(srcdir)/build-aux/mkinstalldirs
 
 DISTCLEANFILES = po/.intltool-merge-cache
 
@@ -36,4 +36,4 @@ dev-release: distcheck tag upload
 release: dev-release
 	gcq $(WEBROOT)/blosxom/computers/sound-juicer/body.txt
 
--include $(top_srcdir)/git.mk
+-include $(top_srcdir)/build-aux/git.mk
