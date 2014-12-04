@@ -7,16 +7,9 @@ EXTRA_DIST = \
 	sound-juicer.spec
 
 MAINTAINERCLEANFILES = \
-	$(srcdir)/aclocal.m4 \
-	$(srcdir)/build-aux/compile \
-	$(srcdir)/build-aux/config.guess \
-	$(srcdir)/config.h.in \
-	$(srcdir)/build-aux/config.sub \
-	$(srcdir)/build-aux/depcomp \
-	$(srcdir)/build-aux/install-sh \
-	$(srcdir)/build-aux/ltmain.sh \
-	$(srcdir)/build-aux/missing \
-	$(srcdir)/build-aux/mkinstalldirs
+	$(GITIGNORE_MAINTAINERCLEANFILES_TOPLEVEL) \
+	$(GITIGNORE_MAINTAINERCLEANFILES_MAKEFILE_IN) \
+	$(GITIGNORE_MAINTAINERCLEANFILES_M4_LIBTOOL)
 
 DISTCLEANFILES = po/.intltool-merge-cache
 
