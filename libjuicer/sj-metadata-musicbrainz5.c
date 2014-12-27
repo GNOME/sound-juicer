@@ -977,10 +977,14 @@ setup_http_proxy (SjMetadataMusicbrainz5Private *priv)
   if (priv->proxy_mode == G_DESKTOP_PROXY_MODE_NONE ||
       priv->proxy_mode == G_DESKTOP_PROXY_MODE_AUTO ||
       priv->proxy_host == NULL || priv->proxy_port == 0) {
-    mb5_query_set_proxyhost (priv->mb, NULL);
+    /* NB passing a NULL string to mb5_query_set_proxyhost,
+       mb5_query_set_proxyusername or mb5_query_set_proxypassword
+       causes a crash on FreeBSD
+       https://bugzilla.gnome.org/show_bug.cgi?id=742019 */
+    mb5_query_set_proxyhost (priv->mb, "");
     mb5_query_set_proxyport (priv->mb, 0);
-    mb5_query_set_proxyusername (priv->mb, NULL);
-    mb5_query_set_proxypassword (priv->mb, NULL);
+    mb5_query_set_proxyusername (priv->mb, "");
+    mb5_query_set_proxypassword (priv->mb, "");
     if (priv->proxy_mode == G_DESKTOP_PROXY_MODE_AUTO)
       g_warning ("Automatic proxy mode not supported yet, disabling proxy usage");
   } else if (priv->proxy_mode == G_DESKTOP_PROXY_MODE_MANUAL) {
