@@ -336,6 +336,7 @@ static void populate_pattern_combo (GtkComboBox *combo, const FilePattern *patte
     gtk_list_store_set (store, &iter, 0, _(patterns[i].name), 1, patterns[i].pattern, -1);
   }
   gtk_combo_box_set_model (combo, GTK_TREE_MODEL (store));
+  g_object_unref (store);
 }
 
 static void
@@ -374,6 +375,7 @@ static void populate_profile_combo (GtkComboBox *combo)
   }
 
   gtk_combo_box_set_model (GTK_COMBO_BOX (combo), model);
+  g_object_unref (model);
 }
 
 /**
