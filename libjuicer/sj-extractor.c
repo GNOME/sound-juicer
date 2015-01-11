@@ -270,28 +270,79 @@ static GstElement*
 build_encoder (SjExtractor *extractor)
 {
   SjExtractorPrivate *priv;
-  GstElement *encodebin;
+  GstEncodingProfile *profile;
+  GstElement *encodebin, *bin, *xingmux, *id3v2mux;
+  GstPad *pad;
+  gboolean mp3;
   const char *profile_name;
-  static const char * mp3_pipeline = "lamemp3enc ! xingmux ! id3v2mux";
 
   g_return_val_if_fail (SJ_IS_EXTRACTOR (extractor), NULL);
-  priv = (SjExtractorPrivate*)extractor->priv;
+  priv = extractor->priv;
   g_return_val_if_fail (priv->profile != NULL, NULL);
 
-  /* encodebin does not use xingmux so do mp3 pipeline ourselves */
+  /* encodebin does not use xingmux so use the container profile's
+     audio encoding profile but add xingmux and id3v2mux ourselves
+     later.*/
   profile_name = gst_encoding_profile_get_name (priv->profile);
-  if (strcmp (profile_name, "mp3") == 0) {
-    encodebin = gst_parse_bin_from_description (mp3_pipeline, TRUE, NULL);
-  } else {
-    encodebin = gst_element_factory_make ("encodebin", NULL);
-    if (encodebin == NULL)
-      return NULL;
-    g_object_set (encodebin, "profile", priv->profile, NULL);
-    /* Nice big buffers... */
-    g_object_set (encodebin, "queue-time-max", 120 * GST_SECOND, NULL);
-  }
+  mp3 = strcmp (profile_name, "mp3") == 0;
+  if (mp3)
+    profile = rb_gst_get_audio_encoding_profile (priv->profile);
+  else
+    profile = priv->profile;
 
-  return encodebin;
+  encodebin = gst_element_factory_make ("encodebin", NULL);
+  if (encodebin == NULL)
+    return NULL;
+
+  g_object_set (encodebin, "profile", profile, NULL);
+  /* Nice big buffers... */
+  g_object_set (encodebin, "queue-time-max", 120 * GST_SECOND, NULL);
+
+  if (!mp3)
+    return encodebin;
+
+  xingmux = gst_element_factory_make ("xingmux", NULL);
+  if (xingmux == NULL)
+    goto free_encodbin;
+
+  id3v2mux = gst_element_factory_make ("id3v2mux", NULL);
+  if (id3v2mux == NULL)
+    goto free_xingmux;
+
+  bin = gst_bin_new (NULL);
+  gst_bin_add_many (GST_BIN (bin), encodebin, xingmux, id3v2mux, NULL);
+  if (!gst_element_link_many (encodebin, xingmux, id3v2mux, NULL))
+    goto free_bin;
+
+  pad = gst_element_get_static_pad (encodebin, "audio_0");
+  if (pad == NULL)
+    goto free_bin;
+
+  if (!gst_element_add_pad (bin, gst_ghost_pad_new ("sink", pad)))
+    goto free_pad;
+
+  gst_object_unref (pad);
+  pad = gst_element_get_static_pad (id3v2mux, "src");
+  if (pad == NULL)
+    goto free_bin;
+
+  if (!gst_element_add_pad (bin, gst_ghost_pad_new ("src", pad)))
+    goto free_pad;
+
+  gst_object_unref (pad);
+  return bin;
+
+ free_xingmux:
+  g_object_unref (xingmux);
+ free_encodbin:
+  g_object_unref (encodebin);
+  return NULL;
+
+ free_pad:
+  g_object_unref (pad);
+ free_bin:
+  g_object_unref (bin);
+  return NULL;
 }
 
 static void
@@ -728,21 +779,24 @@ gboolean
 sj_extractor_supports_profile (GstEncodingProfile *profile)
 {
   /* TODO: take a GError to return a message if the profile isn't supported */
+  GstEncodingProfile *p = profile;
   const gchar *profile_name = gst_encoding_profile_get_name (profile);
+
   if (strcmp (profile_name, "mp3") == 0) {
-    GstElementFactory *factory = gst_element_factory_find ("lamemp3enc");
-    if (factory == NULL)
-      return FALSE;
-    g_object_unref (factory);
+    GstElementFactory *factory;
+
     factory = gst_element_factory_find ("xingmux");
     if (factory == NULL)
       return FALSE;
+
     g_object_unref (factory);
     factory = gst_element_factory_find ("id3v2mux");
     if (factory == NULL)
       return FALSE;
+
     g_object_unref (factory);
-    return TRUE;
+    p = rb_gst_get_audio_encoding_profile (profile);
   }
-  return !rb_gst_check_missing_plugins(profile, NULL, NULL);
+
+  return !rb_gst_check_missing_plugins(p, NULL, NULL);
 }
