@@ -467,27 +467,11 @@ void show_preferences_dialog ()
   if (prefs_dialog) {
     gtk_window_present (GTK_WINDOW (prefs_dialog));
   } else {
-    const char *labels[] = { "cd_label", "path_label", "folder_label", "file_label", "profile_label" };
-    guint i;
-    GtkSizeGroup *group;
-
     prefs_dialog = GET_WIDGET ("prefs_dialog");
     g_assert (prefs_dialog != NULL);
     g_object_add_weak_pointer (G_OBJECT (prefs_dialog), (gpointer)&prefs_dialog);
 
     gtk_window_set_transient_for (GTK_WINDOW (prefs_dialog), GTK_WINDOW (main_window));
-
-    group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
-    for (i = 0; i < G_N_ELEMENTS (labels); i++) {
-      GtkWidget *widget;
-      widget = GET_WIDGET (labels[i]);
-      if (widget) {
-        gtk_size_group_add_widget (group, widget);
-      } else {
-        g_warning ("Widget %s not found", labels[i]);
-      }
-    }
-    g_object_unref (group);
 
     cd_option          = GET_WIDGET ("cd_option");
     basepath_fcb       = GET_WIDGET ("path_chooser");

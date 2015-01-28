@@ -693,453 +693,313 @@ audio-volume-medium</property>
       <object class="GtkVBox" id="dialog-vbox4">
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
         <child>
-          <object class="GtkVBox" id="vbox11">
+          <object class="GtkGrid" id="prefs_grid">
             <property name="visible">True</property>
-            <property name="border_width">5</property>
-            <property name="orientation">vertical</property>
-            <property name="spacing">18</property>
+            <property name="border-width">7</property>
+            <property name="row-spacing">6</property>
+            <property name="column-spacing">12</property>
             <child>
-              <object class="GtkVBox" id="frame_device">
+              <object class="GtkLabel" id="label32">
                 <property name="visible">True</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">6</property>
-                <child>
-                  <object class="GtkLabel" id="label32">
-                    <property name="visible">True</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes">Device</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkAlignment" id="alignment5">
-                    <property name="visible">True</property>
-                    <property name="left_padding">12</property>
-                    <child>
-                      <object class="GtkTable" id="table7">
-                        <property name="visible">True</property>
-                        <property name="n_rows">3</property>
-                        <property name="n_columns">2</property>
-                        <property name="column_spacing">12</property>
-                        <property name="row_spacing">6</property>
-                        <child>
-                          <object class="GtkLabel" id="cd_label">
-                            <property name="visible">True</property>
-                            <property name="xalign">0</property>
-                            <property name="label" translatable="yes">CD _drive:</property>
-                            <property name="use_underline">True</property>
-                            <property name="mnemonic_widget">cd_option</property>
-                          </object>
-                          <packing>
-                            <property name="x_options">GTK_FILL</property>
-                            <property name="y_options"></property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="BraseroDriveSelection" id="cd_option">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkCheckButton" id="check_eject">
-                            <property name="label" translatable="yes">_Eject after extracting tracks</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">False</property>
-                            <property name="use_underline">True</property>
-                            <property name="draw_indicator">True</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
-                            <property name="top_attach">1</property>
-                            <property name="bottom_attach">2</property>
-                            <property name="x_options">GTK_FILL</property>
-                            <property name="y_options"></property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkCheckButton" id="check_open">
-                            <property name="label" translatable="yes">_Open music folder when finished</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">False</property>
-                            <property name="use_underline">True</property>
-                            <property name="draw_indicator">True</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
-                            <property name="top_attach">2</property>
-                            <property name="bottom_attach">3</property>
-                            <property name="x_options">GTK_FILL</property>
-                            <property name="y_options"></property>
-                          </packing>
-                        </child>
-                        <child>
-                          <placeholder/>
-                        </child>
-                        <child>
-                          <placeholder/>
-                        </child>
-                        <child>
-                          <placeholder/>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Device</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
               <packing>
-                <property name="expand">False</property>
-                <property name="position">0</property>
+                <property name="top_attach">0</property>
+                <property name="left_attach">0</property>
+                <property name="width">2</property>
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="frame_folder">
+              <object class="GtkLabel" id="cd_label">
                 <property name="visible">True</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">6</property>
-                <child>
-                  <object class="GtkLabel" id="label33">
-                    <property name="visible">True</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes">Music Folder</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkAlignment" id="alignment10">
-                    <property name="visible">True</property>
-                    <property name="left_padding">12</property>
-                    <child>
-                      <object class="GtkHBox" id="hbox9">
-                        <property name="visible">True</property>
-                        <property name="spacing">12</property>
-                        <child>
-                          <object class="GtkLabel" id="path_label">
-                            <property name="visible">True</property>
-                            <property name="xalign">0</property>
-                            <property name="label" translatable="yes">_Folder:</property>
-                            <property name="use_underline">True</property>
-                            <property name="wrap">True</property>
-                            <property name="mnemonic_widget">path_chooser</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkFileChooserButton" id="path_chooser">
-                            <property name="visible">True</property>
-                            <property name="local_only">False</property>
-                            <property name="action">select-folder</property>
-                            <property name="title" translatable="yes">Select A Folder</property>
-                            <signal name="file-set" handler="prefs_base_folder_changed"/>
-                          </object>
-                          <packing>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
+                <property name="halign">start</property>
+                <property name="margin-left">12</property>
+                <property name="label" translatable="yes">CD _drive:</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">cd_option</property>
               </object>
               <packing>
-                <property name="expand">False</property>
-                <property name="position">1</property>
+                <property name="top-attach">1</property>
+                <property name="left-attach">0</property>
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="frame_names">
+              <object class="BraseroDriveSelection" id="cd_option">
                 <property name="visible">True</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">6</property>
-                <child>
-                  <object class="GtkLabel" id="label34">
-                    <property name="visible">True</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes">Track Names</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkAlignment" id="alignment11">
-                    <property name="visible">True</property>
-                    <property name="left_padding">12</property>
-                    <child>
-                      <object class="GtkTable" id="table6">
-                        <property name="visible">True</property>
-                        <property name="n_rows">4</property>
-                        <property name="n_columns">2</property>
-                        <property name="column_spacing">12</property>
-                        <property name="row_spacing">6</property>
-                        <child>
-                          <object class="GtkLabel" id="folder_label">
-                            <property name="visible">True</property>
-                            <property name="xalign">0</property>
-                            <property name="label" translatable="yes">Folder hie_rarchy:</property>
-                            <property name="use_underline">True</property>
-                            <property name="mnemonic_widget">path_option</property>
-                          </object>
-                          <packing>
-                            <property name="x_options">GTK_FILL</property>
-                            <property name="y_options"></property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel" id="file_label">
-                            <property name="visible">True</property>
-                            <property name="xalign">0</property>
-                            <property name="label" translatable="yes">File _name:</property>
-                            <property name="use_underline">True</property>
-                            <property name="mnemonic_widget">file_option</property>
-                          </object>
-                          <packing>
-                            <property name="top_attach">1</property>
-                            <property name="bottom_attach">2</property>
-                            <property name="x_options">GTK_FILL</property>
-                            <property name="y_options"></property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkComboBox" id="path_option">
-                            <property name="visible">True</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="cellrenderertext2"/>
-                              <attributes>
-                                <attribute name="text">0</attribute>
-                              </attributes>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
-                            <property name="y_options">GTK_FILL</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkComboBox" id="file_option">
-                            <property name="visible">True</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="cellrenderertext1"/>
-                              <attributes>
-                                <attribute name="text">0</attribute>
-                              </attributes>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
-                            <property name="top_attach">1</property>
-                            <property name="bottom_attach">2</property>
-                            <property name="y_options">GTK_FILL</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel" id="path_example_label">
-                            <property name="visible">True</property>
-                            <property name="xalign">0</property>
-                            <property name="use_markup">True</property>
-                            <property name="ellipsize">end</property>
-                            <property name="single_line_mode">True</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
-                            <property name="top_attach">3</property>
-                            <property name="bottom_attach">4</property>
-                            <property name="x_options">GTK_FILL</property>
-                            <property name="y_options"></property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkCheckButton" id="check_strip">
-                            <property name="label" translatable="yes">_Strip special characters</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">False</property>
-                            <property name="use_underline">True</property>
-                            <property name="draw_indicator">True</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="right_attach">2</property>
-                            <property name="top_attach">2</property>
-                            <property name="bottom_attach">3</property>
-                            <property name="x_options">GTK_FILL</property>
-                            <property name="y_options"></property>
-                          </packing>
-                        </child>
-                        <child>
-                          <placeholder/>
-                        </child>
-                        <child>
-                          <placeholder/>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
+                <property name="hexpand">True</property>
+                <property name="can_focus">True</property>
               </object>
               <packing>
-                <property name="expand">False</property>
-                <property name="position">2</property>
+                <property name="left-attach">1</property>
+                <property name="top-attach">1</property>
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="frame_format">
+              <object class="GtkCheckButton" id="check_eject">
+                <property name="label" translatable="yes">_Eject after extracting tracks</property>
                 <property name="visible">True</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">6</property>
+                <property name="halign">start</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_underline">True</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="check_open">
+                <property name="label" translatable="yes">_Open music folder when finished</property>
+                <property name="visible">True</property>
+                <property name="halign">start</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_underline">True</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label33">
+                <property name="visible">True</property>
+                <property name="halign">start</property>
+                <property name="margin-top">12</property>
+                <property name="label" translatable="yes">Music Folder</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">10</property>
+                <property name="width">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="path_label">
+                <property name="visible">True</property>
+                <property name="halign">start</property>
+                <property name="margin-left">12</property>
+                <property name="label" translatable="yes">_Folder:</property>
+                <property name="use_underline">True</property>
+                <property name="wrap">True</property>
+                <property name="mnemonic_widget">path_chooser</property>
+              </object>
+              <packing>
+                <property name="top-attach">11</property>
+                <property name="left-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFileChooserButton" id="path_chooser">
+                <property name="visible">True</property>
+                <property name="local_only">False</property>
+                <property name="hexpand">True</property>
+                <property name="action">select-folder</property>
+                <property name="title" translatable="yes">Select A Folder</property>
+                <signal name="file-set" handler="prefs_base_folder_changed"/>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">11</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label34">
+                <property name="visible">True</property>
+                <property name="halign">start</property>
+                <property name="margin-top">12</property>
+                <property name="label" translatable="yes">Track Names</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="top-attach">20</property>
+                <property name="left-attach">0</property>
+                <property name="width">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="folder_label">
+                <property name="visible">True</property>
+                <property name="halign">start</property>
+                <property name="margin-left">12</property>
+                <property name="label" translatable="yes">Folder hie_rarchy:</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">path_option</property>
+              </object>
+              <packing>
+                <property name="top-attach">21</property>
+                <property name="left-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="path_option">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
                 <child>
-                  <object class="GtkLabel" id="label35">
-                    <property name="visible">True</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes">Format</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkAlignment" id="alignment8">
-                    <property name="visible">True</property>
-                    <property name="left_padding">12</property>
-                    <child>
-                      <object class="GtkHBox" id="hbox8">
-                        <property name="visible">True</property>
-                        <property name="spacing">12</property>
-                        <child>
-                          <object class="GtkLabel" id="profile_label">
-                            <property name="visible">True</property>
-                            <property name="xalign">0</property>
-                            <property name="label" translatable="yes">O_utput Format:</property>
-                            <property name="use_underline">True</property>
-                            <property name="mnemonic_widget">profile_option</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkComboBox" id="profile_option">
-                            <property name="visible">True</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="cellrenderertext3"/>
-                              <attributes>
-                                <attribute name="text">1</attribute>
-                              </attributes>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="position">1</property>
-                  </packing>
+                  <object class="GtkCellRendererText" id="cellrenderertext2"/>
+                  <attributes>
+                    <attribute name="text">0</attribute>
+                  </attributes>
                 </child>
               </object>
               <packing>
-                <property name="expand">False</property>
-                <property name="position">3</property>
+                <property name="left-attach">1</property>
+                <property name="top-attach">21</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="file_label">
+                <property name="visible">True</property>
+                <property name="halign">start</property>
+                <property name="margin-left">12</property>
+                <property name="label" translatable="yes">File _name:</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">file_option</property>
+              </object>
+              <packing>
+                <property name="top-attach">22</property>
+                <property name="left-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="file_option">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
+                <child>
+                  <object class="GtkCellRendererText" id="cellrenderertext1"/>
+                  <attributes>
+                    <attribute name="text">0</attribute>
+                  </attributes>
+                </child>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">22</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="check_strip">
+                <property name="label" translatable="yes">_Strip special characters</property>
+                <property name="visible">True</property>
+                <property name="halign">start</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_underline">True</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">23</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="path_example_label">
+                <property name="visible">True</property>
+                <property name="halign">start</property>
+                <property name="use_markup">True</property>
+                <property name="ellipsize">end</property>
+                <property name="single_line_mode">True</property>
+              </object>
+              <packing>
+                <property name="top-attach">24</property>
+                <property name="left-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label35">
+                <property name="visible">True</property>
+                <property name="halign">start</property>
+                <property name="margin-top">12</property>
+                <property name="label" translatable="yes">Format</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="top-attach">30</property>
+                <property name="left-attach">0</property>
+                <property name="width">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="profile_label">
+                <property name="visible">True</property>
+                <property name="halign">start</property>
+                <property name="margin-left">12</property>
+                <property name="label" translatable="yes">O_utput Format:</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">profile_option</property>
+              </object>
+              <packing>
+                <property name="top-attach">31</property>
+                <property name="left-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="profile_option">
+                <property name="visible">True</property>
+                <property name="hexpand">True</property>
+                <child>
+                  <object class="GtkCellRendererText" id="cellrenderertext3"/>
+                  <attributes>
+                    <attribute name="text">1</attribute>
+                  </attributes>
+                </child>
+              </object>
+              <packing>
+                <property name="top-attach">31</property>
+                <property name="left-attach">1</property>
               </packing>
             </child>
           </object>
+        </child>
+      </object>
+    </child>
+    <child internal-child="action_area">
+      <object class="GtkHButtonBox" id="dialog-action_area4">
+        <property name="visible">True</property>
+        <property name="layout_style">end</property>
+        <child>
+          <object class="GtkButton" id="prefs_help">
+            <property name="label" translatable="yes">_Help</property>
+            <property name="use_underline">True</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="can_default">True</property>
+            <property name="receives_default">False</property>
+          </object>
           <packing>
             <property name="expand">False</property>
-            <property name="position">1</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
           </packing>
         </child>
-        <child internal-child="action_area">
-          <object class="GtkHButtonBox" id="dialog-action_area4">
+        <child>
+          <object class="GtkButton" id="prefs_close">
+            <property name="label" translatable="yes">_Close</property>
+            <property name="use_underline">True</property>
             <property name="visible">True</property>
-            <property name="layout_style">end</property>
-            <child>
-              <object class="GtkButton" id="prefs_help">
-                <property name="label" translatable="yes">_Help</property>
-                <property name="use_underline">True</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="receives_default">False</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="prefs_close">
-                <property name="label" translatable="yes">_Close</property>
-                <property name="use_underline">True</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="receives_default">False</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
+            <property name="can_focus">True</property>
+            <property name="can_default">True</property>
+            <property name="receives_default">False</property>
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="pack_type">end</property>
-            <property name="position">0</property>
+            <property name="fill">False</property>
+            <property name="position">1</property>
           </packing>
         </child>
       </object>
