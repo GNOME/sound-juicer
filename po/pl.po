@@ -8,14 +8,14 @@
 # Marek Stępień <marcoos@aviary.pl>, 2006.
 # Tomasz Dominikowski <dominikowski@gmail.com>, 2007-2009.
 # Piotr Zaryk <pzaryk@aviary.pl>, 2008.
-# Piotr Drąg <piotrdrag@gmail.com>, 2010-2014.
-# Aviary.pl <gnomepl@aviary.pl>, 2006-2014.
+# Piotr Drąg <piotrdrag@gmail.com>, 2010-2015.
+# Aviary.pl <gnomepl@aviary.pl>, 2006-2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-17 19:44+0200\n"
-"PO-Revision-Date: 2014-08-17 19:45+0200\n"
+"POT-Creation-Date: 2015-02-01 15:08+0100\n"
+"PO-Revision-Date: 2015-02-01 15:09+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -153,7 +153,7 @@ msgid "Audio volume"
 msgstr "Głośność dźwięku"
 
 #: ../data/sound-juicer.desktop.in.in.h:1 ../data/sound-juicer.ui.h:1
-#: ../src/sj-main.c:131 ../src/sj-main.c:133 ../src/sj-main.c:2452
+#: ../src/sj-main.c:131 ../src/sj-main.c:133 ../src/sj-main.c:2450
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -172,6 +172,31 @@ msgstr "Kopiowanie muzyki z płyt CD"
 #: ../data/sound-juicer.desktop.in.in.h:5
 msgid "Ripper;"
 msgstr "Ripper;"
+
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:1
+msgid ""
+"Sound Juicer is a simple and clean CD ripping tool. It allows you to extract "
+"the audio from audio compact discs and convert them into audio files that "
+"your computer can understand and play. Sound Juicer can also play the audio "
+"tracks directly from the CD, allowing you to preview the CD before ripping "
+"it."
+msgstr ""
+"Sound Juicer jest prostym i łatwym w użyciu programem do zgrywania płyt CD. "
+"Umożliwia on zgrywanie ścieżek dźwiękowych z płyt kompaktowych i "
+"konwertowanie ich na pliki dźwiękowe, które można odtwarzać na komputerze. "
+"Sound Juicer może także odtwarzać muzykę prosto z płyty CD, umożliwiając jej "
+"przejrzenie przed zgraniem."
+
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:2
+msgid ""
+"Sound Juicer is designed to be easy to use, and to work with little user "
+"intervention. When you start Sound Juicer, it will examine the CD in the "
+"drive and try to locate information about the audio tracks using the freely-"
+"available MusicBrainz service."
+msgstr ""
+"Program Sound Juicer został zaprojektowany tak, aby był łatwy w użyciu i nie "
+"potrzebował za dużej uwagi użytkownika. Po jego uruchomieniu, zbada on płytę "
+"w napędzie i spróbuje znaleźć o niej informacje w bazie danych MusicBrainz."
 
 #: ../data/sound-juicer.ui.h:2
 msgid "S_ubmit Album"
@@ -213,13 +238,13 @@ msgstr "Czas trwania:"
 msgid "Tracks"
 msgstr "Ścieżki"
 
-#: ../data/sound-juicer.ui.h:12 ../src/sj-main.c:2188 ../src/sj-play.c:121
+#: ../data/sound-juicer.ui.h:12 ../src/sj-main.c:2185 ../src/sj-play.c:121
 #: ../src/sj-play.c:259 ../src/sj-play.c:622
 msgid "_Play"
 msgstr "_Odtwarzaj"
 
 #: ../data/sound-juicer.ui.h:13 ../src/sj-extracting.c:233
-#: ../src/sj-main.c:2212
+#: ../src/sj-main.c:2209
 msgid "E_xtract"
 msgstr "_Zgraj"
 
@@ -470,7 +495,7 @@ msgid "Unknown Title"
 msgstr "Nieznany tytuł"
 
 #: ../libjuicer/sj-metadata-gvfs.c:121 ../libjuicer/sj-metadata-gvfs.c:151
-#: ../src/egg-play-preview.c:474 ../src/sj-extracting.c:982
+#: ../src/egg-play-preview.c:474 ../src/sj-extracting.c:980
 msgid "Unknown Artist"
 msgstr "Nieznany wykonawca"
 
@@ -536,7 +561,7 @@ msgstr "Adres URI"
 msgid "The URI of the audio file"
 msgstr "Adres URI pliku dźwiękowego"
 
-#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2285
+#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2282
 msgid "Title"
 msgstr "Tytuł"
 
@@ -544,7 +569,7 @@ msgstr "Tytuł"
 msgid "The title of the current stream."
 msgstr "Tytuł bieżącego strumienia."
 
-#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2286
+#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2283
 msgid "Artist"
 msgstr "Wykonawca"
 
@@ -568,7 +593,7 @@ msgstr "Położenie"
 msgid "The position in the current stream in seconds."
 msgstr "Położenie w bieżącym strumieniu w sekundach."
 
-#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2293
+#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2290
 msgid "Duration"
 msgstr "Czas trwania"
 
@@ -576,7 +601,7 @@ msgstr "Czas trwania"
 msgid "The duration of the current stream in seconds."
 msgstr "Czas trwania bieżącego strumienia w sekundach."
 
-#: ../src/egg-play-preview.c:475 ../src/sj-extracting.c:981
+#: ../src/egg-play-preview.c:475 ../src/sj-extracting.c:979
 msgid "Unknown Album"
 msgstr "Nieznany album"
 
@@ -631,23 +656,23 @@ msgstr ""
 "Marek Stępień <marcoos@aviary.pl>, 2006\n"
 "Tomasz Dominikowski <dominikowski@gmail.com>, 2007-2009\n"
 "Piotr Zaryk <pzaryk@aviary.pl>, 2008\n"
-"Piotr Drąg <piotrdrag@gmail.com>, 2010-2014\n"
-"Aviary.pl <gnomepl@aviary.pl>, 2006-2014"
+"Piotr Drąg <piotrdrag@gmail.com>, 2010-2015\n"
+"Aviary.pl <gnomepl@aviary.pl>, 2006-2015"
 
-#: ../src/sj-extracting.c:149
+#: ../src/sj-extracting.c:148
 #, c-format
 msgid "Failed to get output format"
 msgstr "Pobranie formatu wyjściowego się nie powiodło"
 
-#: ../src/sj-extracting.c:174
+#: ../src/sj-extracting.c:173
 msgid "Name too long"
 msgstr "Nazwa jest za długa"
 
-#: ../src/sj-extracting.c:313
+#: ../src/sj-extracting.c:309
 msgid "A file with the same name exists"
 msgstr "Istnieje plik o tej samej nazwie"
 
-#: ../src/sj-extracting.c:315
+#: ../src/sj-extracting.c:311
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -656,64 +681,64 @@ msgstr ""
 "Plik o nazwie \"%s\" istnieje, rozmiar %s.\n"
 "Pominąć tę ścieżkę, czy ją zastąpić?"
 
-#: ../src/sj-extracting.c:325
+#: ../src/sj-extracting.c:321
 msgid "_Skip"
 msgstr "_Pomiń"
 
-#: ../src/sj-extracting.c:326
+#: ../src/sj-extracting.c:322
 msgid "S_kip All"
 msgstr "Pomiń _wszystkie"
 
-#: ../src/sj-extracting.c:327
+#: ../src/sj-extracting.c:323
 msgid "_Overwrite"
 msgstr "_Zastąp"
 
-#: ../src/sj-extracting.c:328
+#: ../src/sj-extracting.c:324
 msgid "Overwrite _All"
 msgstr "Z_astąp wszystkie"
 
-#: ../src/sj-extracting.c:377
+#: ../src/sj-extracting.c:373
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Utworzenie katalogu wyjściowego się nie powiodło: %s"
 
-#: ../src/sj-extracting.c:517
+#: ../src/sj-extracting.c:513
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Przewidywany pozostały czas: %d∶%02d (prędkość %0.1f×)"
 
-#: ../src/sj-extracting.c:519
+#: ../src/sj-extracting.c:515
 msgid "Estimated time left: unknown"
 msgstr "Przewidywany pozostały czas: nieznany"
 
-#: ../src/sj-extracting.c:609
+#: ../src/sj-extracting.c:605
 msgid "CD rip complete"
 msgstr "Zgranie płyty CD się powiodło"
 
-#: ../src/sj-extracting.c:701
+#: ../src/sj-extracting.c:697
 msgid "Sound Juicer could not extract this CD."
 msgstr "Program Sound Juicer nie mógł zgrać danych z tej płyty CD."
 
-#: ../src/sj-extracting.c:703 ../src/sj-main.c:177 ../src/sj-main.c:384
+#: ../src/sj-extracting.c:699 ../src/sj-main.c:177 ../src/sj-main.c:384
 #: ../src/sj-main.c:423 ../src/sj-main.c:1138 ../src/sj-main.c:1263
 #: ../src/sj-main.c:1365
 msgid "Reason"
 msgstr "Powód"
 
 #. Change the label to Stop while extracting
-#: ../src/sj-extracting.c:793 ../src/sj-main.c:2219
+#: ../src/sj-extracting.c:789 ../src/sj-main.c:2216
 msgid "_Stop"
 msgstr "_Zatrzymaj"
 
-#: ../src/sj-extracting.c:821 ../src/sj-extracting.c:827
+#: ../src/sj-extracting.c:817 ../src/sj-extracting.c:825
 msgid "Extracting audio from CD"
 msgstr "Zgrywanie dźwięku z płyt CD"
 
-#: ../src/sj-extracting.c:983
+#: ../src/sj-extracting.c:981
 msgid "Unknown Composer"
 msgstr "Nieznany kompozytor"
 
-#: ../src/sj-extracting.c:984
+#: ../src/sj-extracting.c:982
 msgid "Unknown Track"
 msgstr "Nieznana ścieżka"
 
@@ -798,15 +823,15 @@ msgstr "Proszę zapoznać się z dokumentacją, aby uzyskać więcej informacji.
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Aktualnie zgrywane są dane z płyty CD. Przerwać czy kontynuować?"
 
-#: ../src/sj-main.c:214 ../src/sj-main.c:1491
+#: ../src/sj-main.c:214 ../src/sj-main.c:1490
 msgid "_Quit"
 msgstr "Za_kończ"
 
-#: ../src/sj-main.c:262 ../src/sj-main.c:2166 ../src/sj-main.c:2242
+#: ../src/sj-main.c:262 ../src/sj-main.c:2163 ../src/sj-main.c:2239
 msgid "Select None"
 msgstr "Odznacz wszystko"
 
-#: ../src/sj-main.c:276 ../src/sj-main.c:2236
+#: ../src/sj-main.c:276 ../src/sj-main.c:2233
 msgid "Select All"
 msgstr "Zaznacz wszystko"
 
@@ -936,7 +961,7 @@ msgstr ""
 #. Set statusbar message
 #: ../src/sj-main.c:1232
 msgid "Retrieving track listing...please wait."
-msgstr "Pobieranie listy ścieżek... proszę czekać."
+msgstr "Pobieranie listy ścieżek... Proszę czekać."
 
 #: ../src/sj-main.c:1325
 #, c-format
@@ -945,78 +970,78 @@ msgstr "Program Sound Juicer nie może uzyskać dostępu do napędu CD-ROM \"%s\
 
 #: ../src/sj-main.c:1332
 msgid "HAL daemon may not be running."
-msgstr "Usługa HAL może nie zostać uruchomiona."
+msgstr "Usługa HAL może nie być uruchomiona."
 
 #: ../src/sj-main.c:1356
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Program Sound Juicer nie może uzyskać dostępu do napędu CD-ROM \"%s\""
 
-#: ../src/sj-main.c:1456
+#: ../src/sj-main.c:1455
 msgid "No CD-ROM drives found"
 msgstr "Nie odnaleziono żadnego napędu CD-ROM"
 
-#: ../src/sj-main.c:1457
+#: ../src/sj-main.c:1456
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr ""
 "Program Sound Juicer nie może odnaleźć żadnego napędu CD-ROM do odczytu."
 
-#: ../src/sj-main.c:1490
+#: ../src/sj-main.c:1489
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr ""
 "Aktualnie wybrany profil dźwiękowy jest niedostępny w bieżącej instalacji."
 
-#: ../src/sj-main.c:1492
+#: ../src/sj-main.c:1491
 msgid "_Change Profile"
 msgstr "_Zmień profil"
 
-#: ../src/sj-main.c:1880
+#: ../src/sj-main.c:1879
 msgid "Unknown widget calling on_person_edit_changed."
 msgstr "Nieznany widżet wywołujący on_person_edit_changed."
 
-#: ../src/sj-main.c:1980 ../src/sj-prefs.c:127
+#: ../src/sj-main.c:1979 ../src/sj-prefs.c:127
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
 "%s"
 msgstr ""
-"Nie można wyświetlić pomocy dla programu Sound Juicer\n"
+"Nie można wyświetlić pomocy programu Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:2195 ../src/sj-play.c:301
+#: ../src/sj-main.c:2192 ../src/sj-play.c:301
 msgid "_Pause"
 msgstr "_Wstrzymaj"
 
-#: ../src/sj-main.c:2273
+#: ../src/sj-main.c:2270
 msgid "Track"
 msgstr "Ścieżka"
 
-#: ../src/sj-main.c:2287
+#: ../src/sj-main.c:2284
 msgid "Composer"
 msgstr "Kompozytor"
 
-#: ../src/sj-main.c:2440
+#: ../src/sj-main.c:2438
 msgid "Start extracting immediately"
 msgstr "Rozpoczyna natychmiastowe zgrywanie"
 
-#: ../src/sj-main.c:2441
+#: ../src/sj-main.c:2439
 msgid "Start playing immediately"
 msgstr "Rozpoczyna natychmiastowe odtwarzanie"
 
-#: ../src/sj-main.c:2442
+#: ../src/sj-main.c:2440
 msgid "What CD device to read"
 msgstr "Określa urządzenie CD do odczytu"
 
-#: ../src/sj-main.c:2442
+#: ../src/sj-main.c:2440
 msgid "DEVICE"
 msgstr "URZĄDZENIE"
 
-#: ../src/sj-main.c:2443
+#: ../src/sj-main.c:2441
 msgid "URI to the CD device to read"
 msgstr "Adresu URI urządzenia CD do odczytu"
 
-#: ../src/sj-main.c:2455
+#: ../src/sj-main.c:2453
 msgid "- Extract music from your CDs"
 msgstr "- zgrywanie muzyki z płyt CD"
 
