@@ -38,7 +38,7 @@
 extern GtkBuilder *builder;
 extern GtkWidget *main_window;
 
-static GtkWidget *profile_option;
+static GtkWidget *profile_option, *preset_option;
 static GtkWidget *cd_option, *path_option, *file_option, *basepath_fcb, *check_strip, *check_eject, *check_open;
 static GtkWidget *path_example_label;
 
@@ -93,6 +93,134 @@ sj_get_default_path_pattern (void)
   return path_patterns[0].pattern;
 }
 
+static void
+populate_preset_combo (GtkComboBox        *combo,
+                       GstEncodingProfile *profile)
+{
+  guint i;
+  gsize j;
+  const gchar *preset_name;
+  GtkListStore *store;
+  GtkTreeIter iter;
+  GArray *presets;
+  gboolean found = FALSE;
+  static const gchar *descriptions[] = {
+    N_("Low bitrate"), N_("Normal bitrate"), N_("High bitrate"),
+    N_("Low compression"), N_("Normal compression"), N_("High compression"),
+    N_("Low quality"), N_("Normal quality"), N_("High quality")
+  };
+  static const gchar* lower_descriptions[G_N_ELEMENTS (descriptions)] = { NULL };
+
+  if (lower_descriptions[0] == NULL) {
+    for (j = 0; j < G_N_ELEMENTS (descriptions); j++)
+      lower_descriptions[j] = g_ascii_strdown (descriptions[j], -1);
+  }
+
+  store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
+  presets = rb_gst_encoding_profile_get_presets (profile);
+  preset_name = rb_gst_encoding_profile_get_preset (profile);
+  for (i = 0; i < presets->len; i++) {
+    const gchar *description;
+    SjPresetInfo *preset_info;
+
+    preset_info = (SjPresetInfo*) presets->data;
+    /* Only show presets that have descriptions, special-case
+       Rhythmbox's presets so they get shown */
+    if (preset_info[i].description == NULL) {
+      if (strcmp (preset_info[i].name, "rhythmbox-custom-settings-cbr") == 0)
+        description = _("Rhythmbox (Bitrate)");
+      else if (strcmp (preset_info[i].name, "rhythmbox-custom-settings") == 0)
+        description = _("Rhythmbox (Quality)");
+      else
+        continue;
+    } else {
+      gchar *lower;
+
+      description = preset_info[i].description;
+      /* GStreamer does not localize preset descriptions so try to
+         translate it */
+      lower = g_ascii_strdown (description, -1);
+      for (j = 0; j < G_N_ELEMENTS (descriptions); j++) {
+        if (strcmp (lower_descriptions[j], lower) == 0) {
+          description = gettext (descriptions[j]);
+          break;
+        }
+      }
+      g_free (lower);
+    }
+
+    gtk_list_store_append (store, &iter);
+    gtk_list_store_set (store, &iter,
+                        0, preset_info[i].name,
+                        1, description,
+                        -1);
+    found = TRUE;
+  }
+
+  /* If the encoder has no presets with descriptions or the profile
+   * has no encoding preset then add default settings */
+  if (!found || sj_str_is_empty (preset_name)) {
+    gtk_list_store_prepend (store, &iter);
+    gtk_list_store_set (store, &iter,
+                        0, "",
+                        1, _("Default"),
+                        -1);
+  }
+  g_array_unref (presets);
+  gtk_combo_box_set_model (combo, GTK_TREE_MODEL (store));
+  g_object_unref (store);
+}
+
+static void
+update_preset_combo (const gchar *media_type)
+{
+  GstEncodingProfile *profile;
+  const gchar *preset_name;
+  GtkComboBox *combo;
+  gboolean found;
+  gsize i;
+  static const gchar *fallbacks[] = {
+    "normal-quality", "normal-bitrate", "normal-compression", ""
+  };
+
+  combo = GTK_COMBO_BOX (preset_option);
+  media_type = gtk_combo_box_get_active_id (GTK_COMBO_BOX (profile_option));
+  if (media_type == NULL) {
+    gtk_combo_box_set_active_id (combo, NULL);
+    gtk_widget_set_sensitive (preset_option, FALSE);
+  } else {
+    gtk_widget_set_sensitive (preset_option, TRUE);
+    profile = rb_gst_get_encoding_profile (media_type);
+    preset_name = rb_gst_encoding_profile_get_preset (profile);
+    populate_preset_combo (combo, profile);
+    found = gtk_combo_box_set_active_id (combo, preset_name);
+    for (i = 0; !found && i < G_N_ELEMENTS (fallbacks); i++)
+      found = gtk_combo_box_set_active_id (combo, fallbacks[i]);
+    /* If non of the fallbacks exist just use the first entry */
+    if (!found)
+      gtk_combo_box_set_active (combo, 0);
+  }
+}
+
+static void
+prefs_preset_changed (GtkComboBox *combo,
+                      gpointer     user_data)
+{
+  const gchar *preset;
+  const gchar *media_type;
+  GstEncodingProfile *profile;
+
+  preset = gtk_combo_box_get_active_id (combo);
+  media_type = gtk_combo_box_get_active_id (GTK_COMBO_BOX (profile_option));
+  if (media_type != NULL && preset != NULL) {
+    profile = rb_gst_get_encoding_profile (media_type);
+    if (strcmp (rb_gst_encoding_profile_get_preset (profile), preset) != 0) {
+      rb_gst_encoding_profile_set_preset (profile, preset);
+      rb_gst_encoding_profile_save_profiles ();
+    }
+  }
+}
+
 static void prefs_profile_changed (GtkComboBox *combo, gpointer user_data)
 {
   const char *media_type;
@@ -100,6 +228,8 @@ static void prefs_profile_changed (GtkComboBox *combo, gpointer user_data)
   media_type = gtk_combo_box_get_active_id (combo);
   if (media_type)
     g_settings_set_string (sj_settings, SJ_SETTINGS_AUDIO_PROFILE, media_type);
+
+  update_preset_combo (media_type);
 }
 
 /**
@@ -402,6 +532,7 @@ void show_preferences_dialog ()
     path_option        = GET_WIDGET ("path_option");
     file_option        = GET_WIDGET ("file_option");
     profile_option     = GET_WIDGET ("profile_option");
+    preset_option      = GET_WIDGET ("preset_option");
     check_strip        = GET_WIDGET ("check_strip");
     check_eject        = GET_WIDGET ("check_eject");
     check_open         = GET_WIDGET ("check_open");
@@ -414,6 +545,7 @@ void show_preferences_dialog ()
     g_signal_connect (file_option, "changed", G_CALLBACK (prefs_pattern_option_changed), file_key);
     populate_profile_combo (GTK_COMBO_BOX (profile_option));
     g_signal_connect (profile_option, "changed", G_CALLBACK (prefs_profile_changed), NULL);
+    g_signal_connect (preset_option, "changed", G_CALLBACK (prefs_preset_changed), NULL);
 
     g_signal_connect (cd_option, "drive-changed", G_CALLBACK (prefs_drive_changed), NULL);
 
