@@ -153,31 +153,13 @@ G_MODULE_EXPORT void prefs_base_folder_changed (GtkWidget *chooser, gpointer use
   g_free (current_uri);
 }
 
-void prefs_path_option_changed (GtkComboBox *combo, gpointer user_data)
+static void prefs_pattern_option_changed (GtkComboBox *combo, gpointer key)
 {
-  gint active;
   const char* pattern;
-  active = gtk_combo_box_get_active (combo);
-  if (active == -1)
-    return;
 
-  pattern = path_patterns[active].pattern;
+  pattern = gtk_combo_box_get_active_id (combo);
   if (pattern) {
-    g_settings_set_string (sj_settings, SJ_SETTINGS_PATH_PATTERN, pattern);
-  }
-}
-
-G_MODULE_EXPORT void prefs_file_option_changed (GtkComboBox *combo, gpointer user_data)
-{
-  gint active;
-  const char* pattern;
-  active = gtk_combo_box_get_active (combo);
-  if (active == -1)
-    return;
-
-  pattern = file_patterns[active].pattern;
-  if (pattern) {
-    g_settings_set_string (sj_settings, SJ_SETTINGS_FILE_PATTERN, pattern);
+    g_settings_set_string (sj_settings, key, pattern);
   }
 }
 
@@ -321,35 +303,15 @@ static void pattern_label_update (void)
   g_free (format);
 }
 
-static void path_pattern_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
+static void settings_changed_cb (GSettings *settings, gchar *key, gpointer combo)
 {
   char *value;
-  int i = 0;
-  g_return_if_fail (strcmp (key, SJ_SETTINGS_PATH_PATTERN) == 0);
 
   value = g_settings_get_string (settings, key);
-  while (path_patterns[i].pattern && strcmp(path_patterns[i].pattern, value) != 0) {
-    i++;
-  }
+  if (!gtk_combo_box_set_active_id (combo, value))
+    gtk_combo_box_set_active_id (combo, NULL);
+
   g_free (value);
-  gtk_combo_box_set_active (GTK_COMBO_BOX (path_option), i);
-  pattern_label_update ();
-}
-
-static void file_pattern_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
-{
-  char *value;
-  int i = 0;
-
-  g_return_if_fail (strcmp (key, SJ_SETTINGS_FILE_PATTERN) == 0);
-
-  value = g_settings_get_string (settings, key);
-
-  while (file_patterns[i].pattern && strcmp(file_patterns[i].pattern, value) != 0) {
-    i++;
-  }
-  g_free (value);
-  gtk_combo_box_set_active (GTK_COMBO_BOX (file_option), i);
   pattern_label_update ();
 }
 
@@ -467,6 +429,9 @@ void show_preferences_dialog ()
   if (prefs_dialog) {
     gtk_window_present (GTK_WINDOW (prefs_dialog));
   } else {
+    static gchar *path_key = SJ_SETTINGS_PATH_PATTERN;
+    static gchar *file_key = SJ_SETTINGS_FILE_PATTERN;
+
     prefs_dialog = GET_WIDGET ("prefs_dialog");
     g_assert (prefs_dialog != NULL);
     g_object_add_weak_pointer (G_OBJECT (prefs_dialog), (gpointer)&prefs_dialog);
@@ -485,9 +450,9 @@ void show_preferences_dialog ()
 
     sj_add_default_dirs (GTK_FILE_CHOOSER (basepath_fcb));
     populate_pattern_combo (GTK_COMBO_BOX (path_option), path_patterns);
-    g_signal_connect (path_option, "changed", G_CALLBACK (prefs_path_option_changed), NULL);
+    g_signal_connect (path_option, "changed", G_CALLBACK (prefs_pattern_option_changed), path_key);
     populate_pattern_combo (GTK_COMBO_BOX (file_option), file_patterns);
-    g_signal_connect (file_option, "changed", G_CALLBACK (prefs_file_option_changed), NULL);
+    g_signal_connect (file_option, "changed", G_CALLBACK (prefs_pattern_option_changed), file_key);
     populate_profile_combo (GTK_COMBO_BOX (profile_option));
     g_signal_connect (profile_option, "changed", G_CALLBACK (prefs_profile_changed), NULL);
 
@@ -504,9 +469,9 @@ void show_preferences_dialog ()
     g_signal_connect (G_OBJECT (sj_settings), "changed::"SJ_SETTINGS_AUDIO_PROFILE,
                       (GCallback)audio_profile_changed_cb, NULL);
     g_signal_connect (G_OBJECT (sj_settings), "changed::"SJ_SETTINGS_PATH_PATTERN,
-                      (GCallback)path_pattern_changed_cb, NULL);
+                      (GCallback)settings_changed_cb, path_option);
     g_signal_connect (G_OBJECT (sj_settings), "changed::"SJ_SETTINGS_FILE_PATTERN,
-                      (GCallback)file_pattern_changed_cb, NULL);
+                      (GCallback)settings_changed_cb, file_option);
     g_signal_connect (G_OBJECT (sj_settings), "changed::"SJ_SETTINGS_STRIP,
                       (GCallback)strip_changed_cb, NULL);
 
@@ -514,8 +479,8 @@ void show_preferences_dialog ()
 
     baseuri_changed_cb (sj_settings, SJ_SETTINGS_BASEURI, NULL);
     audio_profile_changed_cb (sj_settings, SJ_SETTINGS_AUDIO_PROFILE, NULL);
-    file_pattern_changed_cb (sj_settings, SJ_SETTINGS_FILE_PATTERN, NULL);
-    path_pattern_changed_cb (sj_settings, SJ_SETTINGS_PATH_PATTERN, NULL);
+    settings_changed_cb (sj_settings, SJ_SETTINGS_FILE_PATTERN, file_option);
+    settings_changed_cb (sj_settings, SJ_SETTINGS_PATH_PATTERN, path_option);
     device_changed_cb (sj_settings, SJ_SETTINGS_DEVICE, NULL);
 
     g_signal_connect (GTK_DIALOG (prefs_dialog), "response", G_CALLBACK (on_response), NULL);
