@@ -93,20 +93,13 @@ sj_get_default_path_pattern (void)
   return path_patterns[0].pattern;
 }
 
-void prefs_profile_changed (GtkWidget *widget, gpointer user_data)
+static void prefs_profile_changed (GtkComboBox *combo, gpointer user_data)
 {
-  GtkTreeIter iter;
-  GtkTreeModel *model;
+  const char *media_type;
 
-  model = gtk_combo_box_get_model (GTK_COMBO_BOX (widget));
-  /* Handle the change being to unselect a profile */
-  if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (widget), &iter)) {
-    char *media_type;
-    gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
-                        0, &media_type, -1);
+  media_type = gtk_combo_box_get_active_id (combo);
+  if (media_type)
     g_settings_set_string (sj_settings, SJ_SETTINGS_AUDIO_PROFILE, media_type);
-    g_free (media_type);
-  }
 }
 
 /**
@@ -161,42 +154,6 @@ static void prefs_pattern_option_changed (GtkComboBox *combo, gpointer key)
   if (pattern) {
     g_settings_set_string (sj_settings, key, pattern);
   }
-}
-
-static void
-sj_profile_option_set_active (GtkWidget *chooser, const char *profile)
-{
-  GtkTreeIter iter;
-  GtkTreeModel *model;
-  gboolean done;
-
-  done = FALSE;
-  model = gtk_combo_box_get_model(GTK_COMBO_BOX(chooser));
-  if (gtk_tree_model_get_iter_first (model, &iter)) {
-    do {
-      char *media_type;
-
-      gtk_tree_model_get (model, &iter, 0, &media_type, -1);
-      if (g_strcmp0 (media_type, profile) == 0) {
-        gtk_combo_box_set_active_iter (GTK_COMBO_BOX (chooser), &iter);
-        done = TRUE;
-      }
-      g_free (media_type);
-    } while (done == FALSE && gtk_tree_model_iter_next (model, &iter));
-  }
-
-  if (done == FALSE) {
-    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (chooser), NULL);
-  }
-}
-
-static void audio_profile_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
-{
-  char *value;
-  g_return_if_fail (strcmp (key, SJ_SETTINGS_AUDIO_PROFILE) == 0);
-  value = g_settings_get_string (settings, key);
-  sj_profile_option_set_active (profile_option, value);
-  g_free (value);
 }
 
 static void baseuri_changed_cb  (GSettings *settings, gchar *key, gpointer user_data)
@@ -397,7 +354,7 @@ static void populate_profile_combo (GtkComboBox *combo)
   const GList *p;
   GtkTreeModel *model;
 
-  model = GTK_TREE_MODEL (gtk_tree_store_new (3, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER));
+  model = GTK_TREE_MODEL (gtk_tree_store_new (2, G_TYPE_STRING, G_TYPE_STRING));
 
   target = rb_gst_get_default_encoding_target ();
   for (p = gst_encoding_target_get_profiles (target); p != NULL; p = p->next) {
@@ -412,7 +369,7 @@ static void populate_profile_combo (GtkComboBox *combo)
                                        NULL, NULL, -1,
                                        0, media_type,
                                        1, gst_encoding_profile_get_description (profile),
-                                       2, profile, -1);
+                                       -1);
     g_free (media_type);
   }
 
@@ -467,7 +424,7 @@ void show_preferences_dialog ()
     g_signal_connect (G_OBJECT (sj_settings), "changed::"SJ_SETTINGS_BASEURI,
                       (GCallback)baseuri_changed_cb, NULL);
     g_signal_connect (G_OBJECT (sj_settings), "changed::"SJ_SETTINGS_AUDIO_PROFILE,
-                      (GCallback)audio_profile_changed_cb, NULL);
+                      (GCallback)settings_changed_cb, profile_option);
     g_signal_connect (G_OBJECT (sj_settings), "changed::"SJ_SETTINGS_PATH_PATTERN,
                       (GCallback)settings_changed_cb, path_option);
     g_signal_connect (G_OBJECT (sj_settings), "changed::"SJ_SETTINGS_FILE_PATTERN,
@@ -478,7 +435,7 @@ void show_preferences_dialog ()
     g_signal_connect (extractor, "notify::profile", pattern_label_update, NULL);
 
     baseuri_changed_cb (sj_settings, SJ_SETTINGS_BASEURI, NULL);
-    audio_profile_changed_cb (sj_settings, SJ_SETTINGS_AUDIO_PROFILE, NULL);
+    settings_changed_cb (sj_settings, SJ_SETTINGS_AUDIO_PROFILE, profile_option);
     settings_changed_cb (sj_settings, SJ_SETTINGS_FILE_PATTERN, file_option);
     settings_changed_cb (sj_settings, SJ_SETTINGS_PATH_PATTERN, path_option);
     device_changed_cb (sj_settings, SJ_SETTINGS_DEVICE, NULL);
