@@ -40,6 +40,11 @@ G_BEGIN_DECLS
 #define RB_GST_MEDIA_TYPE_FLAC 		"audio/x-flac"
 #define RB_GST_MEDIA_TYPE_AAC 		"audio/x-aac"
 
+typedef struct {
+  gchar *name;
+  gchar *description;
+} SjPresetInfo;
+
 /* media type categories */
 typedef enum {
 	MEDIA_TYPE_NONE = 0,
@@ -68,9 +73,13 @@ char *		rb_gst_encoding_profile_get_media_type (GstEncodingProfile *profile);
 
 GstEncodingProfile *rb_gst_get_audio_encoding_profile (GstEncodingProfile *profile);
 
+GArray *	rb_gst_encoding_profile_get_presets (GstEncodingProfile *profile);
+
 void		rb_gst_encoding_profile_set_preset (GstEncodingProfile *profile, const char *preset);
 
 const char *	rb_gst_encoding_profile_get_preset (GstEncodingProfile *profile);
+
+GstElement *	rb_gst_encoding_profile_get_encoder (GstEncodingProfile *profile);
 
 gboolean	rb_gst_media_type_is_lossless (const char *media_type);
 gboolean	rb_gst_check_missing_plugins (GstEncodingProfile *profile,

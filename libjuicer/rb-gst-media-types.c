@@ -295,6 +295,44 @@ rb_gst_get_audio_encoding_profile (GstEncodingProfile *profile)
 	return NULL;
 }
 
+static GstElementFactory *
+get_audio_encoder_factory (GstEncodingProfile *profile)
+{
+	GstEncodingProfile *p = rb_gst_get_audio_encoding_profile (profile);
+	GstElementFactory *f;
+	GList *l;
+	GList *fl;
+
+	if (p == NULL)
+		return NULL;
+
+	l = gst_element_factory_list_get_elements (GST_ELEMENT_FACTORY_TYPE_ENCODER, GST_RANK_MARGINAL);
+	fl = gst_element_factory_list_filter (l, gst_encoding_profile_get_format (p), GST_PAD_SRC, FALSE);
+
+	if (fl != NULL) {
+		f = gst_object_ref (fl->data);
+	} else {
+		g_warning ("no encoder factory for profile %s", gst_encoding_profile_get_name (profile));
+		f = NULL;
+	}
+	gst_plugin_feature_list_free (l);
+	gst_plugin_feature_list_free (fl);
+	return f;
+}
+
+GstElement *
+rb_gst_encoding_profile_get_encoder (GstEncodingProfile *profile)
+{
+	GstElementFactory *factory;
+
+	factory = get_audio_encoder_factory (profile);
+	if (factory == NULL) {
+		return NULL;
+	}
+
+	return gst_element_factory_create (factory, NULL);
+}
+
 void
 rb_gst_encoding_profile_set_preset (GstEncodingProfile *profile, const char *preset)
 {
@@ -319,6 +357,44 @@ rb_gst_encoding_profile_get_preset (GstEncodingProfile *profile)
 		preset = gst_encoding_profile_get_preset (p);
 	}
 	return (preset == NULL) ? "" : preset;
+}
+
+static void
+clear_preset_info (gpointer data)
+{
+	SjPresetInfo *info = data;
+
+	g_free (info->name);
+	g_free (info->description);
+}
+
+GArray *
+rb_gst_encoding_profile_get_presets (GstEncodingProfile *profile)
+{
+	GArray *array;
+	GstElement *encoder;
+
+	array = g_array_new (FALSE, FALSE, sizeof(SjPresetInfo));
+	g_array_set_clear_func (array, clear_preset_info);
+	encoder = rb_gst_encoding_profile_get_encoder (profile);
+	if (encoder != NULL && GST_IS_PRESET (encoder)) {
+		gchar **presets;
+		int i;
+
+		presets = gst_preset_get_preset_names (GST_PRESET (encoder));
+		for (i = 0; presets != NULL && presets[i] != NULL; i++) {
+			SjPresetInfo info;
+
+			info.description = NULL;
+			info.name = g_strdup (presets[i]);
+			gst_preset_get_meta (GST_PRESET (encoder), presets[i], "comment", &info.description);
+			g_array_append_val (array, info);
+		}
+		g_strfreev (presets);
+	}
+	if (encoder != NULL)
+		g_object_unref (encoder);
+	return array;
 }
 
 gboolean
