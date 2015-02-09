@@ -79,6 +79,8 @@ void		rb_gst_encoding_profile_set_preset (GstEncodingProfile *profile, const cha
 
 const char *	rb_gst_encoding_profile_get_preset (GstEncodingProfile *profile);
 
+void		rb_gst_encoding_profile_save_profiles (void);
+
 GstElement *	rb_gst_encoding_profile_get_encoder (GstEncodingProfile *profile);
 
 gboolean	rb_gst_media_type_is_lossless (const char *media_type);

@@ -359,6 +359,46 @@ rb_gst_encoding_profile_get_preset (GstEncodingProfile *profile)
 	return (preset == NULL) ? "" : preset;
 }
 
+void
+rb_gst_encoding_profile_save_profiles (void)
+{
+	GstEncodingTarget *target;
+	gchar *file_name, *directory, *display_name;
+	gboolean retrying = FALSE;
+	GError *error = NULL;
+
+	target = rb_gst_get_default_encoding_target ();
+	file_name = get_encoding_target_name ();
+ retry_save:
+	if (!gst_encoding_target_save_to_file (target, file_name, &error)) {
+		if (!retrying &&
+		    g_error_matches (error, g_file_error_quark (), G_FILE_ERROR_NOENT)) {
+			g_error_free (error);
+			error = NULL;
+			retrying = TRUE;
+			directory = g_path_get_dirname (file_name);
+			if (g_mkdir_with_parents (directory, 0755) == 0) {
+				g_free (directory);
+				goto retry_save;
+			} else {
+				display_name = g_filename_display_name (directory);
+				g_warning ("Error saving encoding target file, unable to create directory '%s'",
+					   display_name);
+				g_free (display_name);
+				g_free (directory);
+			}
+		} else {
+			display_name = g_filename_display_name (file_name);
+			g_warning ("Error saving encoding target file '%s' - '%s'",
+				   display_name,
+				   error->message);
+			g_free (display_name);
+			g_error_free (error);
+		}
+	}
+	g_free (file_name);
+}
+
 static void
 clear_preset_info (gpointer data)
 {
