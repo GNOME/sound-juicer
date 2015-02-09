@@ -34,6 +34,7 @@
 
 #include "rb-gst-media-types.h"
 
+#define USER_ENCODING_TARGET_FILE_NAME "encoding-profiles"
 #define SOURCE_ENCODING_TARGET_FILE TOPSRCDIR"/data/encoding-profiles"
 #define INSTALLED_ENCODING_TARGET_FILE DATADIR"/sound-juicer/encoding-profiles"
 
@@ -202,6 +203,12 @@ rb_gst_encoding_profile_get_media_type (GstEncodingProfile *profile)
 	}
 }
 
+static gchar *
+get_encoding_target_name (void)
+{
+	return g_build_filename (g_get_user_data_dir (), PACKAGE, USER_ENCODING_TARGET_FILE_NAME, NULL);
+}
+
 GstEncodingTarget *
 rb_gst_get_default_encoding_target (void)
 {
@@ -209,11 +216,15 @@ rb_gst_get_default_encoding_target (void)
 		char *target_file;
 		GError *error = NULL;
 
-		if (g_file_test (SOURCE_ENCODING_TARGET_FILE,
-			         G_FILE_TEST_EXISTS) != FALSE) {
-			target_file = SOURCE_ENCODING_TARGET_FILE;
-		} else {
-			target_file = INSTALLED_ENCODING_TARGET_FILE;
+		target_file = get_encoding_target_name ();
+		if (!g_file_test (target_file, G_FILE_TEST_EXISTS)) {
+			g_free (target_file);
+			if (g_file_test (SOURCE_ENCODING_TARGET_FILE,
+					 G_FILE_TEST_EXISTS) != FALSE) {
+				target_file = SOURCE_ENCODING_TARGET_FILE;
+			} else {
+				target_file = INSTALLED_ENCODING_TARGET_FILE;
+			}
 		}
 
 		default_target = gst_encoding_target_load_from_file (target_file, &error);
