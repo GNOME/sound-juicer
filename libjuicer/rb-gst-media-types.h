@@ -66,6 +66,12 @@ gboolean	rb_gst_media_type_matches_profile (GstEncodingProfile *profile, const c
 
 char *		rb_gst_encoding_profile_get_media_type (GstEncodingProfile *profile);
 
+GstEncodingProfile *rb_gst_get_audio_encoding_profile (GstEncodingProfile *profile);
+
+void		rb_gst_encoding_profile_set_preset (GstEncodingProfile *profile, const char *preset);
+
+const char *	rb_gst_encoding_profile_get_preset (GstEncodingProfile *profile);
+
 gboolean	rb_gst_media_type_is_lossless (const char *media_type);
 gboolean	rb_gst_check_missing_plugins (GstEncodingProfile *profile,
 					      char ***details,

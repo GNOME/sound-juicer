@@ -26,6 +26,7 @@
  */
 
 #include "config.h"
+#include "sj-util.h"
 
 #include <memory.h>
 
@@ -273,6 +274,51 @@ rb_gst_media_type_is_lossless (const char *media_type)
 		}
 	}
 	return FALSE;
+}
+
+GstEncodingProfile *
+rb_gst_get_audio_encoding_profile (GstEncodingProfile *profile)
+{
+	if (GST_IS_ENCODING_AUDIO_PROFILE (profile)) {
+		return profile;
+	} else if (GST_IS_ENCODING_CONTAINER_PROFILE (profile)) {
+		const GList *l = gst_encoding_container_profile_get_profiles (GST_ENCODING_CONTAINER_PROFILE (profile));
+		for (; l != NULL; l = l->next) {
+			GstEncodingProfile *p = rb_gst_get_audio_encoding_profile (l->data);
+			if (p != NULL) {
+				return p;
+			}
+		}
+	}
+
+	g_warning ("no audio encoding profile in profile %s", gst_encoding_profile_get_name (profile));
+	return NULL;
+}
+
+void
+rb_gst_encoding_profile_set_preset (GstEncodingProfile *profile, const char *preset)
+{
+	GstEncodingProfile *p;
+	const gchar *pre;
+
+	pre = sj_str_is_empty (preset) ? NULL : preset;
+	p = rb_gst_get_audio_encoding_profile (profile);
+	if (p != NULL) {
+		gst_encoding_profile_set_preset (p, pre);
+	}
+}
+
+const gchar*
+rb_gst_encoding_profile_get_preset (GstEncodingProfile *profile)
+{
+	GstEncodingProfile *p;
+	const gchar *preset = NULL;
+
+	p = rb_gst_get_audio_encoding_profile (profile);
+	if (p != NULL) {
+		preset = gst_encoding_profile_get_preset (p);
+	}
+	return (preset == NULL) ? "" : preset;
 }
 
 gboolean
