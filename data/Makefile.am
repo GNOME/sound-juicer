@@ -19,7 +19,7 @@ convertdir = $(datadir)/GConf/gsettings
 convert_DATA = data/sound-juicer.convert
 
 profilesdir = $(datadir)/sound-juicer
-dist_profiles_DATA = data/rhythmbox.gep
+dist_profiles_DATA = data/encoding-profiles
 
 man1_MANS = data/sound-juicer.1
 

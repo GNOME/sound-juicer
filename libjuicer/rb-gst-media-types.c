@@ -34,8 +34,9 @@
 
 #include "rb-gst-media-types.h"
 
-#define SOURCE_ENCODING_TARGET_FILE TOPSRCDIR"/data/rhythmbox.gep"
-#define INSTALLED_ENCODING_TARGET_FILE DATADIR"/sound-juicer/rhythmbox.gep"
+#define SOURCE_ENCODING_TARGET_FILE TOPSRCDIR"/data/encoding-profiles"
+#define INSTALLED_ENCODING_TARGET_FILE DATADIR"/sound-juicer/encoding-profiles"
+
 static GstEncodingTarget *default_target = NULL;
 
 char *
