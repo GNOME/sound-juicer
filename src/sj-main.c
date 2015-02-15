@@ -56,7 +56,7 @@
 
 gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data);
 
-static void reread_cd (gboolean ignore_no_media);
+static void reread_cd (void);
 static void update_ui_for_album (AlbumDetails *album);
 static gboolean get_action_state_bool (const char *name);
 static void set_action_state (const char *detailed_name);
@@ -1135,7 +1135,7 @@ static void
 metadata_cb (SjMetadataGetter *m, GList *albums, GError *error)
 {
   set_action_state ("re-read(false)");
-  if (error && !(error->code == SJ_ERROR_CD_NO_MEDIA)) {
+  if (error) {
     gboolean realized;
     GtkWidget *dialog;
 
@@ -1215,9 +1215,8 @@ is_audio_cd (BraseroDrive *drive)
 /**
  * Utility function to reread a CD
  */
-static void reread_cd (gboolean ignore_no_media)
+static void reread_cd (void)
 {
-  /* TODO: remove ignore_no_media? */
   GError *error = NULL;
 
   set_action_state ("re-read(true)");
@@ -1242,7 +1241,7 @@ static void reread_cd (gboolean ignore_no_media)
 
   sj_metadata_getter_list_albums (metadata, &error);
 
-  if (error && !(error->code == SJ_ERROR_CD_NO_MEDIA && ignore_no_media)) {
+  if (error) {
     gboolean realized;
     GtkWidget *dialog;
 
@@ -1277,7 +1276,7 @@ media_added_cb (BraseroMediumMonitor	*drive,
   sj_debug (DEBUG_CD, "Media added to device %s\n", brasero_drive_get_device (brasero_medium_get_drive (medium)));
   /* Don't call re-read if metadata is already being retreived */
   if (!get_action_state_bool ("re-read"))
-    reread_cd (TRUE);
+    reread_cd ();
 }
 
 static void
@@ -1335,7 +1334,7 @@ set_drive_from_device (const char *device)
 }
 
 static void
-set_device (const char* device, gboolean ignore_no_media)
+set_device (const char* device)
 {
   gboolean tray_opened;
 
@@ -1375,7 +1374,7 @@ set_device (const char* device, gboolean ignore_no_media)
   if (drive != NULL) {
     tray_opened = brasero_drive_is_door_open (drive);
     if (tray_opened == FALSE) {
-      reread_cd (ignore_no_media);
+      reread_cd ();
     }
 
     /* Enable/disable the eject options based on wether the drive supports ejection */
@@ -1432,7 +1431,6 @@ static void device_changed_cb (GSettings *settings, gchar *key, gpointer user_da
 {
   const char *device;
   char *value;
-  gboolean ignore_no_media = GPOINTER_TO_INT (user_data);
   g_assert (strcmp (key, SJ_SETTINGS_DEVICE) == 0);
 
   value = g_settings_get_string (settings, key);
@@ -1456,7 +1454,7 @@ static void device_changed_cb (GSettings *settings, gchar *key, gpointer user_da
   } else {
     device = value;
   }
-  set_device (device, ignore_no_media);
+  set_device (device);
   g_free (value);
 }
 
@@ -1504,7 +1502,7 @@ static void profile_changed_cb (GSettings *settings, gchar *key, gpointer user_d
 static void on_reread_activate (GSimpleAction *action, GVariant *parameter, gpointer data)
 {
   gtk_info_bar_response (GTK_INFO_BAR (submit_bar), SJ_RESPONSE_REREAD);
-  reread_cd (FALSE);
+  reread_cd ();
 }
 
 /**
@@ -2355,7 +2353,7 @@ startup_cb (GApplication *app, gpointer user_data)
     device_changed_cb (sj_settings, SJ_SETTINGS_DEVICE, NULL);
   } else {
     if (device)
-      set_device (device, TRUE);
+      set_device (device);
     else {
       char *d;
 
@@ -2367,7 +2365,7 @@ startup_cb (GApplication *app, gpointer user_data)
       len = strlen (d);
       if (d[len - 1] == '/')
           d [len - 1] = '\0';
-      set_device (d, TRUE);
+      set_device (d);
       g_free (d);
       } else {
         device_changed_cb (sj_settings, SJ_SETTINGS_DEVICE, NULL);
