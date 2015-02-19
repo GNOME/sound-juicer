@@ -10,6 +10,7 @@ MAINTAINERCLEANFILES =
 sound_juicer_CPPFLAGS = \
 	-I$(top_srcdir)/libjuicer \
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"  \
+	-DTOPSRCDIR=\""$(top_srcdir)"\" \
 	-DDATADIR=\""$(datadir)"\" \
 	-DPREFIX=\""$(prefix)"\" \
 	-DLIBDIR=\""$(libdir)"\" \

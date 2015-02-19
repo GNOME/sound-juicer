@@ -118,9 +118,9 @@ static CellCbContext cell_editing_context;
 
 #define DEFAULT_PARANOIA 15
 #define RAISE_WINDOW "raise-window"
-#define SOURCE_BUILDER "data/sound-juicer.ui"
+#define SOURCE_BUILDER TOPSRCDIR"/data/sound-juicer.ui"
 #define INSTALLED_BUILDER DATADIR"/sound-juicer/sound-juicer.ui"
-#define SOURCE_MENU_BUILDER "data/sound-juicer-menu.ui"
+#define SOURCE_MENU_BUILDER TOPSRCDIR"/data/sound-juicer-menu.ui"
 #define INSTALLED_MENU_BUILDER DATADIR"/sound-juicer/sound-juicer-menu.ui"
 #define COMPOSER_ROW 2 /* Row of entry_table containing composer_entry */
 
