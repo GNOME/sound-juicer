@@ -86,7 +86,11 @@ metadata_cb (SjMetadataGetter *metadata, GList *albums, const GError *error)
     g_free (disc_number);
     while (album->tracks) {
       TrackDetails *track = (TrackDetails*)album->tracks->data;
-      g_print (" Track %d; Title: %s; Artist: %s Duration: %d sec\n", track->number, track->title, track->artist, track->duration);
+      gchar *composer;
+      composer = track->composer ? g_strdup_printf (" Composer: %s;", track->composer) : g_strdup ("");
+      g_print (" Track %d; Title: %s; Artist: %s;%s Duration: %d sec\n",
+               track->number, track->title, track->artist, composer, track->duration);
+      g_free (composer);
       album->tracks = g_list_next (album->tracks);
     }
     albums = g_list_next (albums);
