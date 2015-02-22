@@ -234,9 +234,7 @@ egg_play_preview_init (EggPlayPreview *play_preview)
 	EggPlayPreviewPrivate *priv;
 	PangoAttribute *bold;
 	PangoAttrList *attrs;
-	GtkWidget *vbox;
-	GtkWidget *hbox;
-	GtkWidget *align;
+	GtkGrid *grid;
 
 	play_preview->priv = priv = GET_PRIVATE (play_preview);
 
@@ -253,15 +251,19 @@ egg_play_preview_init (EggPlayPreview *play_preview)
 
 	priv->uri = NULL;
 
-	gtk_box_set_homogeneous (GTK_BOX (play_preview), FALSE);
-	gtk_box_set_spacing (GTK_BOX (play_preview), 6);
+	grid = (GtkGrid*) gtk_grid_new ();
+	g_object_set (grid,
+				  "column-spacing", 12,
+				  "border-width", 12,
+				  NULL);
 
 	/* track info */
-	vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-
 	priv->title_label = gtk_label_new (NULL);
-	gtk_label_set_justify (GTK_LABEL (priv->title_label), GTK_JUSTIFY_LEFT);
-	gtk_misc_set_alignment (GTK_MISC (priv->title_label), 0.0, 0.5);
+	g_object_set (priv->title_label,
+				  "justify", GTK_JUSTIFY_LEFT,
+				  "valign", GTK_ALIGN_CENTER,
+				  "xalign", 0.0,
+				  NULL);
 	bold = pango_attr_weight_new (PANGO_WEIGHT_BOLD);
 	attrs = pango_attr_list_new ();
 	bold->start_index = 0;
@@ -269,14 +271,15 @@ egg_play_preview_init (EggPlayPreview *play_preview)
 	pango_attr_list_insert (attrs, bold);
 	gtk_label_set_attributes (GTK_LABEL (priv->title_label), attrs);
 	pango_attr_list_unref(attrs);
-	gtk_box_pack_start (GTK_BOX (vbox), priv->title_label, TRUE, TRUE, 0);
+	gtk_grid_attach (grid, priv->title_label, 0, 0, 1, 1);
 
 	priv->artist_album_label = gtk_label_new (NULL);
-	gtk_label_set_justify (GTK_LABEL (priv->artist_album_label), GTK_JUSTIFY_LEFT);
-	gtk_misc_set_alignment (GTK_MISC (priv->artist_album_label), 0.0, 0.5);
-	gtk_box_pack_start (GTK_BOX (vbox), priv->artist_album_label, TRUE, TRUE, 0);
-
-	hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
+	g_object_set (priv->artist_album_label,
+				  "justify", GTK_JUSTIFY_LEFT,
+				  "valign", GTK_ALIGN_CENTER,
+				  "xalign", 0.0,
+				  NULL);
+	gtk_grid_attach (grid, priv->artist_album_label, 0, 1, 1, 1);
 
 	/* play button */
 	priv->play_button = gtk_button_new ();
@@ -286,27 +289,32 @@ egg_play_preview_init (EggPlayPreview *play_preview)
 	    priv->play_icon_name = "media-playback-start";
 	priv->play_button_image = gtk_image_new_from_icon_name (priv->play_icon_name, GTK_ICON_SIZE_BUTTON);
 	gtk_container_add (GTK_CONTAINER (priv->play_button), priv->play_button_image);
-	align = gtk_alignment_new (0.5, 0.5, 1.0, 0.0);
-	gtk_container_add (GTK_CONTAINER (align), priv->play_button);
+	g_object_set (priv->play_button,
+				  "valign", GTK_ALIGN_CENTER,
+				  NULL);
+	gtk_grid_attach (grid, priv->play_button, 1, 0, 1, 2);
 
 	/* time scale */
 	priv->time_scale = gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0.0, 100.0, 1.0);
 	gtk_scale_set_draw_value (GTK_SCALE (priv->time_scale), FALSE);
 	gtk_widget_set_size_request (priv->time_scale, EGG_PLAYER_PREVIEW_WIDTH, -1);
+	g_object_set (priv->time_scale,
+				  "valign", GTK_ALIGN_CENTER,
+				  "hexpand", TRUE,
+				  NULL);
+	gtk_grid_attach (grid, priv->time_scale, 2, 0, 1, 2);
 	priv->time_label = gtk_label_new ("0:00");
-	gtk_misc_set_alignment (GTK_MISC (priv->time_label), 0.0, 0.5);
-
-	gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (hbox), priv->time_scale, TRUE, TRUE, 0);
-	gtk_box_pack_start (GTK_BOX (hbox), priv->time_label, FALSE, FALSE, 0);
+	g_object_set (priv->time_label,
+				  "valign", GTK_ALIGN_CENTER,
+				  NULL);
+	gtk_grid_attach (grid, priv->time_label, 3, 0, 1, 2);
 
 	g_signal_connect (G_OBJECT (priv->play_button), "clicked",
 					  G_CALLBACK (_clicked_cb), play_preview);
 	g_signal_connect (G_OBJECT (priv->time_scale), "change-value",
 					  G_CALLBACK (_change_value_cb), play_preview);
 
-	gtk_box_pack_start (GTK_BOX (play_preview), vbox, FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (play_preview), hbox, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (play_preview), GTK_WIDGET (grid), FALSE, FALSE, 0);
 
 	_ui_set_sensitive (play_preview, FALSE);
 
