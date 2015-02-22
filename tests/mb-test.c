@@ -96,8 +96,6 @@ int main (int argc, char** argv)
   GError *error = NULL;
   BraseroMediumMonitor *monitor;
 
-  g_type_init ();
-
   /* Make sure probing of the various media have settled before going on */
   monitor = brasero_medium_monitor_get_default ();
   while (brasero_medium_monitor_is_probing (monitor))
