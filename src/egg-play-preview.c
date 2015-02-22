@@ -582,7 +582,6 @@ static gboolean
 _process_bus_messages (GstBus *bus, GstMessage *msg, EggPlayPreview *play_preview)
 {
 	EggPlayPreviewPrivate *priv;
-	GstFormat format = GST_FORMAT_TIME;
 	GstTagList *tag_list;
 	gint64 duration;
 	GstState state;
@@ -591,16 +590,16 @@ _process_bus_messages (GstBus *bus, GstMessage *msg, EggPlayPreview *play_previe
 	priv = GET_PRIVATE (play_preview);
 
 	switch (GST_MESSAGE_TYPE (msg)) {
-	case GST_MESSAGE_DURATION:
-		gst_message_parse_duration (msg, &format, (gint64*) &duration);
-
-		if (format != GST_FORMAT_TIME)
+	case GST_MESSAGE_DURATION_CHANGED:
+		if (!gst_element_query_duration (priv->playbin, GST_FORMAT_TIME, &duration))
 			break;
 
-		priv->duration = duration / GST_SECOND;
+		duration /= GST_SECOND;
+		if (priv->duration == duration)
+			break;
 
+		priv->duration = duration;
 		g_object_notify (G_OBJECT (play_preview), "duration");
-
 		_ui_update_duration (play_preview);
 		break;
 
