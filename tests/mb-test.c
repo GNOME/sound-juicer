@@ -1,4 +1,5 @@
 #include "config.h"
+#include <locale.h>
 #include <brasero-medium-monitor.h>
 #include <glib.h>
 #include <stdlib.h>
@@ -95,6 +96,8 @@ int main (int argc, char** argv)
   GMainLoop *loop;
   GError *error = NULL;
   BraseroMediumMonitor *monitor;
+
+  setlocale (LC_ALL, "");
 
   /* Make sure probing of the various media have settled before going on */
   monitor = brasero_medium_monitor_get_default ();
