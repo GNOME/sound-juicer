@@ -98,6 +98,7 @@ int main (int argc, char** argv)
   BraseroMediumMonitor *monitor;
 
   setlocale (LC_ALL, "");
+  gst_init (&argc, &argv);
 
   /* Make sure probing of the various media have settled before going on */
   monitor = brasero_medium_monitor_get_default ();
