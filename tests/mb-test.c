@@ -60,7 +60,7 @@ metadata_cb (SjMetadataGetter *metadata, GList *albums, const GError *error)
     AlbumDetails *album;
     album = (AlbumDetails*)albums->data;
     char *disc_number;
-    char *release_date;
+    char *release_date = NULL;
     g_print ("Source: %s\n", source_to_str(album->metadata_source));
     if (album->metadata_source == SOURCE_MUSICBRAINZ)
       g_print ("Album ID: %s\n", album->album_id);
@@ -73,9 +73,15 @@ metadata_cb (SjMetadataGetter *metadata, GList *albums, const GError *error)
     if (album->is_spoken_word)
       g_print ("Is spoken word\n");
     disc_number = g_strdup_printf (" (Disc %d)", album->disc_number);
-    release_date = gst_date_time_to_iso8601_string (album->release_date);
-    g_print ("'%s', by %s%s, released %s\n", album->title, album->artist, album->disc_number ? disc_number : "",
-             release_date);
+    if (album->release_date) {
+      gchar *date;
+      date = gst_date_time_to_iso8601_string (album->release_date);
+      release_date = g_strdup_printf (", released %s\n", date);
+      g_free (date);
+    }
+    g_print ("'%s', by %s%s%s\n", album->title, album->artist,
+             album->disc_number ? disc_number : "",
+             release_date ? release_date : "");
     g_free (release_date);
     g_free (disc_number);
     while (album->tracks) {
