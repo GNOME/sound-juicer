@@ -2,16 +2,16 @@
 # This file is distributed under the same license as the sound-juicer package.
 #
 # Young-Ho Cha <ganadist@gmail.com>, 2005, 2006, 2008
-# Changwoo Ryu <cwryu@debian.org>, 2008, 2009, 2010.
+# Changwoo Ryu <cwryu@debian.org>, 2008, 2009, 2010, 2015.
 #
 # 새로 번역하시는 분은 아래 "translator-credits"에 추가하세요.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: soundjuicer\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-juicer&component=general\n"
-"POT-Creation-Date: 2010-10-09 08:04+0900\n"
-"PO-Revision-Date: 2010-10-09 08:05+0900\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-juicer&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-03-02 13:58+0000\n"
+"PO-Revision-Date: 2015-03-09 02:54+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr@googlegroups.com>\n"
 "Language: Korean\n"
@@ -19,211 +19,81 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../data/sound-juicer.desktop.in.in.h:1
-msgid "Audio CD Extractor"
-msgstr "음악 CD 곡 뽑아내기"
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:1
+msgid "The CD to extract from"
+msgstr "음악을 가져올 CD"
 
-#: ../data/sound-juicer.desktop.in.in.h:2
-msgid "Copy music from your CDs"
-msgstr "CD에서 음악을 복사합니다"
-
-#: ../data/sound-juicer.ui.h:1
-msgid "CD _drive:"
-msgstr "CD 드라이브(_D):"
-
-#: ../data/sound-juicer.ui.h:2
-msgid "Device"
-msgstr "장치"
-
-#: ../data/sound-juicer.ui.h:3
-msgid "Disc:"
-msgstr "디스크:"
-
-#: ../data/sound-juicer.ui.h:4
-msgid "Duration:"
-msgstr "재생 시간:"
-
-#: ../data/sound-juicer.ui.h:5
-msgid "E_ject"
-msgstr "꺼내기(_J)"
-
-#: ../data/sound-juicer.ui.h:6
-msgid "Edit _Profiles..."
-msgstr "프로파일 편집(_P)..."
-
-#: ../data/sound-juicer.ui.h:7
-msgid "File _name:"
-msgstr "파일 이름(_N):"
-
-#: ../data/sound-juicer.ui.h:8
-msgid "Folder hie_rarchy:"
-msgstr "디렉토리 구조(_R):"
-
-#: ../data/sound-juicer.ui.h:9
-msgid "Format"
-msgstr "형식"
-
-#: ../data/sound-juicer.ui.h:10
-msgid "Multiple Albums Found"
-msgstr "여러 앨범을 찾았습니다"
-
-#: ../data/sound-juicer.ui.h:11
-msgid "Music Folder"
-msgstr "음악 폴더"
-
-#: ../data/sound-juicer.ui.h:12
-msgid "O_utput Format:"
-msgstr "출력 형식(_U):"
-
-#: ../data/sound-juicer.ui.h:13
-msgid "Preferences"
-msgstr "기본 설정"
-
-#: ../data/sound-juicer.ui.h:14
-msgid "Select A Folder"
-msgstr "폴더 선택"
-
-#: ../data/sound-juicer.ui.h:15
-msgid "Skip to the next track"
-msgstr "다음 트랙으로 넘어갑니다"
-
-#: ../data/sound-juicer.ui.h:16
-msgid "Skip to the previous track"
-msgstr "이전 트랙으로 넘어갑니다"
-
-#: ../data/sound-juicer.ui.h:17 ../src/sj-main.c:137 ../src/sj-main.c:139
-#: ../src/sj-main.c:1629
-msgid "Sound Juicer"
-msgstr "Sound Juicer"
-
-#: ../data/sound-juicer.ui.h:18
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:2
 msgid ""
-"This CD could be more than one album. Please select which album it is below "
-"and press <i>Continue</i>."
-msgstr ""
-"이 CD에 해당하는 앨범이 여러개가 있습니다. 아래에서 올바른 앨범을 선택하고 "
-"<i>계속</i>를 눌러주십시오."
+"Please note: Sound Juicer currently only handles real device names, no "
+"symlinks like e.g. /dev/cdrom. An empty key implicates that the system's "
+"default CD-ROM drive will be used."
+msgstr "사운드 쥬서는 현재 실제 장치 이름만 처리할 수 있고, 심볼릭 링크는 처리할 수 없습니다. (예: /dev/cdrom) 값이 비어 있으면 시스템의 기본 CD-ROM 드라이브를 사용합니다."
 
-#: ../data/sound-juicer.ui.h:19
-msgid "Track Names"
-msgstr "트랙 이름"
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:3
+msgid "Whether to eject the CD when finished extracting"
+msgstr "음악을 모두 가져오면 CD를 꺼낼지 여부"
 
-#: ../data/sound-juicer.ui.h:20
-msgid "Track Progress"
-msgstr "트랙 진행"
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:4
+msgid "Whether to open the target directory when finished extracting"
+msgstr "음악을 모두 가져오면 대상 디렉터리를 열 지 여부"
 
-#: ../data/sound-juicer.ui.h:21
-msgid "Tracks"
-msgstr "트랙"
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:5
+msgid "The URI to save the extracted music to"
+msgstr "가져온 음악을 저장할 URI"
 
-#: ../data/sound-juicer.ui.h:22
-msgid "_Artist:"
-msgstr "아티스트(_A):"
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:6
+msgid "The directory structure for the files"
+msgstr "파일에 대한 디렉터리 구조"
 
-#: ../data/sound-juicer.ui.h:23 ../src/sj-main.c:229
-msgid "_Continue"
-msgstr "계속(_C)"
-
-#: ../data/sound-juicer.ui.h:24
-msgid "_Deselect All"
-msgstr "모두 선택하지 않기(_D)"
-
-#: ../data/sound-juicer.ui.h:25
-msgid "_Disc"
-msgstr "디스크(_D)"
-
-#: ../data/sound-juicer.ui.h:26
-msgid "_Duplicate Disc"
-msgstr "디스크 복사(_D)"
-
-#: ../data/sound-juicer.ui.h:27
-msgid "_Edit"
-msgstr "편집(_E)"
-
-#: ../data/sound-juicer.ui.h:28
-msgid "_Eject after extracting tracks"
-msgstr "트랙을 가져오고 나면 꺼내기(_E)"
-
-#: ../data/sound-juicer.ui.h:29
-msgid "_Folder:"
-msgstr "폴더(_F):"
-
-#: ../data/sound-juicer.ui.h:30
-msgid "_Genre:"
-msgstr "장르(_G):"
-
-#: ../data/sound-juicer.ui.h:31
-msgid "_Help"
-msgstr "도움말(_H)"
-
-#: ../data/sound-juicer.ui.h:32
-msgid "_Open music folder when finished"
-msgstr "끝나면 음악 폴더 열기(_O)"
-
-#: ../data/sound-juicer.ui.h:33
-msgid "_Select All"
-msgstr "모두 선택(_S)"
-
-#: ../data/sound-juicer.ui.h:34
-msgid "_Strip special characters"
-msgstr "특수문자 지우기(_S)"
-
-#: ../data/sound-juicer.ui.h:35
-msgid "_Submit Track Names..."
-msgstr "트랙 이름 제출(_S)..."
-
-#: ../data/sound-juicer.ui.h:36
-msgid "_Title:"
-msgstr "제목(_T):"
-
-#: ../data/sound-juicer.ui.h:37
-msgid "_Year:"
-msgstr "연도(_Y):"
-
-#: ../data/sound-juicer.schemas.in.h:2
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:8
 #, no-c-format
 msgid ""
-"%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA -- "
-"album artist (lowercase) %as -- album artist (sortable) %aS -- album artist "
-"(sortable lowercase) %ay -- album year %tt -- track title %tT -- track title "
-"(lowercase) %ta -- track artist %tA -- track artist (lowercase) %ts -- track "
-"artist (sortable) %tS -- track artist (sortable lowercase)"
-msgstr ""
-"%at -- 앨범 제목 %aT -- 앨범 제목 (소문자) %aa -- 앨범 아티스트 %aA -- 앨범 "
-"아티스트 (소문자) %as -- 앨범 아티스트 (분류 가능) %aS - 앨범 아티스트 (분류 "
-"가능 소문자) %ay -- 앨범 제작 년도 %tt -- 트랙 제목 %tT -- 트랙 제목 (소문"
-"자) %ta -- 트랙 아티스트 %tA -- 트랙 아티스트 (소문자) %ts -- 트랙 아티스트 "
-"(분류 가능) %tS - 트랙 아티스트 (분류 가능 소문자)"
+"Format specifiers: %at - album title; %aT - album title (lowercase); %aa - "
+"album artist; %aA - album artist (lowercase); %as - album artist (sortable); "
+"%aS - album artist (sortable lowercase); %ac - album composer; %aC - album "
+"composer (lowercase); %ap - album composer (sortable); %aP - album composer "
+"(sortable lowercase); %ay - album year; %tt - track title; %tT - track title "
+"(lowercase); %ta - track artist; %tA - track artist (lowercase); %ts - track "
+"artist (sortable); %tS - track artist (sortable lowercase); %tc - track "
+"composer; %tC - track composer (lowercase); %tp - track composer (sortable); "
+"%tP - track composer (sortable lowercase)."
+msgstr "포맷 지정: %at - 앨범 제목, %aT - 앨범 제목 (소문자), %aa - 앨범 아티스트, %aA - 앨범 아티스트 (소문자), %as - 앨범 아티스트 (분류 가능), %aS - 앨범 아티스트 (분류 가능), %ac - 앨범 작사/작곡, %aC - 앨범 작사/작곡 (소문자), %ap - 앨범 작사/작곡 (분류 가능), %aP - 앨범 작사/작곡 (분류 가능 소문자), %ay - 앨범 연도, %tt - 트랙 제목, %tT - 트랙 제목 (소문자), %ta - 트랙 아티스트, %tA - 트랙 아티스트 (소문자), %ts - 트랙 아티스트 (분류 가능), %tS - 트랙 아티스트 (분류 가능 소문자), %tc - 트랙 작사/작곡, %tC - 트랙 작사/작곡 (소문자), %tp - 트랙 작사/작곡 (분류 가능), %tP - 트랙 작사/작곡 (분류 가능 소문자)."
 
-#: ../data/sound-juicer.schemas.in.h:3
-msgid "Audio Profile with which to encode"
-msgstr "인코드할 때 쓰일 오디오 프로파일"
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:9
+msgid "The name pattern for files"
+msgstr "파일이름 패턴"
 
-#: ../data/sound-juicer.schemas.in.h:4
-msgid "Audio volume"
-msgstr "오디오 볼륨"
-
-#: ../data/sound-juicer.schemas.in.h:6
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:11
 #, no-c-format
 msgid ""
-"Do not specify an extension. %at -- album title %aT -- album title "
-"(lowercase) %aa -- album artist %aA -- album artist (lowercase) %as -- album "
-"artist (sortable) %aS -- album artist (sortable lowercase) %tn -- track "
-"number (i.e 8) %tN -- track number, zero padded (i.e 08) %tt -- track title "
-"%tT -- track title (lowercase) %ta -- track artist %tA -- track artist "
-"(lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable "
-"lowercase) %dn -- disc and track number (i.e Disk 2 - 6, or 6) %dN -- disc "
-"number, zero padded (i.e d02t06, or 06)"
-msgstr ""
-"확장자를 지정하지 마십시오. %at -- 앨범 제목 %aT -- 앨범 제목 (소문자) %aa "
-"-- 앨범 아티스트 %aA -- 앨범 아티스트 (소문자) %as -- 앨범 아티스트 (분류 가"
-"능) %aS -- 앨범 아티스트 (분류 가능) %tn -- 트랙 번호 (예: 8) %tN -- 0으로 채"
-"운 트랙 번호 (예: 08) %tt -- 트랙 제목 %tT -- 트랙 제목 (소문자) %ta -- 트랙 "
-"아티스트 %tA --  트랙 아티스트 (소문자) %ts -- 트랙 아티스트 (분류 가능) %tS "
-"-- 트랙 아티스트 (분류 가능 소문자) %dn -- 디스크 및 트랙 번호 (예: 디스크 2 "
-"- 6, 혹은 6) %dN -- 디스크 번호, 0으로 채움 (예: d02t06, 혹은 06)"
+"Do not specify an extension. Format specifiers: %at - album title; %aT - "
+"album title (lowercase); %aa - album artist; %aA - album artist (lowercase); "
+"%as - album artist (sortable); %aS - album artist (sortable lowercase); %ac "
+"- album composer; %aC - album composer (lowercase); %ap - album composer "
+"(sortable); %aP - album composer (sortable lowercase); %tn - track number (i."
+"e 8); %tN - track number, zero padded (i.e 08); %tt - track title; %tT - "
+"track title (lowercase); %ta - track artist; %tA - track artist (lowercase); "
+"%ts - track artist (sortable); %tS - track artist (sortable lowercase); %tc "
+"- track composer; %tC - track composer (lowercase); %tp - track composer "
+"(sortable); %tP - track composer (sortable lowercase); %dn - disc and track "
+"number (i.e Disk 2 - 6, or 6); %dN - disc number, zero padded (i.e d02t06, "
+"or 06)."
+msgstr "확장자를 지정하지 마십시오. 포맷 지정: %at - 앨범 제목, %aT - 앨범 제목 (소문자), %aa - 앨범 아티스트, %aA - 앨범 아티스트 (소문자), %as - 앨범 아티스트 (분류 가능), %aS - 앨범 아티스트 (분류 가능), %ac - 앨범 작사/작곡, %aC - 앨범 작사/작곡 (소문자), %ap - 앨범 작사/작곡 (분류 가능), %aP - 앨범 작사/작곡 (분류 가능 소문자), %tn - 트랙 번호 (예: 8), %tN - 0으로 채운 트랙 번호 (예: 08), %tt - 트랙 제목, %tT - 트랙 제목 (소문자), %ta - 트랙 아티스트, %tA - 트랙 아티스트 (소문자), %ts - 트랙 아티스트 (분류 가능), %tS - 트랙 아티스트 (분류 가능 소문자), %tc - 트랙 작사/작곡, %tC - 트랙 작사/작곡 (소문자), %tp - 트랙 작사/작곡 (분류 가능), %tP - 트랙 작사/작곡 (분류 가능 소문자), %dn - 디스크 및 트랙 번호 (예: 디스크 2 - 6, 혹은 6), %dN - 0으로 채운 디스크 번호 (예: d02t06, 혹은 06)."
 
-#: ../data/sound-juicer.schemas.in.h:7
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:12
+msgid "The paranoia mode to use"
+msgstr "사용할 결벽증 모드"
+
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:13
+msgid "Paranoia flags: disable; fragment; overlap; scratch; repair."
+msgstr "결벽증 플래그: disable, fragment, overlap, scratch, repair."
+
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:14
+msgid "Whether to strip special characters from filenames"
+msgstr "파일이름에서 특수문자를 지울지 여부"
+
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:15
 msgid ""
 "If enabled, special characters such as space, wildcards and backslashes will "
 "be removed from the output filename."
@@ -231,220 +101,467 @@ msgstr ""
 "이 기능을 켜면, 출력파일 이름에서 공백문자, 와일드카드 및 백슬래시같은 특수 "
 "문자가 지워지게 됩니다."
 
-#: ../data/sound-juicer.schemas.in.h:8
-msgid "If specified, this value will override the default MusicBrainz server."
-msgstr "지정되면 이 값을 기본 MusicBrainz 서버로 씁니다."
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:16
+msgid "Media type to encode to"
+msgstr "인코딩할 대상 미디어 형식"
 
-#: ../data/sound-juicer.schemas.in.h:9
-msgid "If to strip special characters from filenames"
-msgstr "파일 이름에서 특수문자를 지웁니다"
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:17
+msgid "The GStreamer media type to encode to."
+msgstr "인코딩할 대상의 GStreamer 미디어 형식."
 
-#: ../data/sound-juicer.schemas.in.h:10
+#: ../data/org.gnome.sound-juicer.gschema.xml.h:18
+msgid "Audio volume"
+msgstr "오디오 볼륨"
+
+#: ../data/sound-juicer.desktop.in.in.h:1 ../data/sound-juicer.ui.h:1
+#: ../src/sj-main.c:131 ../src/sj-main.c:133 ../src/sj-main.c:2459
+msgid "Sound Juicer"
+msgstr "Sound Juicer"
+
+#: ../data/sound-juicer.desktop.in.in.h:2
+msgid "Audio CD Extractor"
+msgstr "음악 CD 곡 뽑아내기"
+
+#: ../data/sound-juicer.desktop.in.in.h:3
+msgid "Sound Juicer Audio CD Extractor"
+msgstr "사운드 쥬서 CD 리핑 프로그램"
+
+#: ../data/sound-juicer.desktop.in.in.h:4
+msgid "Copy music from your CDs"
+msgstr "CD에서 음악을 복사합니다"
+
+#: ../data/sound-juicer.desktop.in.in.h:5
+msgid "Ripper;"
+msgstr "Ripper;리퍼;리핑;음원;"
+
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:1
+msgid "CD ripper with a clean interface and simple preferences"
+msgstr "깔끔한 인터페이스와 간단한 설정의 CD 리핑 프로그램"
+
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:2
 msgid ""
-"Paranoia mode: 0) disable 2) fragment 4) overlap 8) scratch 16) repair 255) "
-"full"
-msgstr "Paranoia 모드: 0) 쓰지 않음 2) 약간 4) 겹침 8) 긁힘 16) 고침 255) 전체"
+"Sound Juicer is a simple and clean CD ripping tool. It allows you to extract "
+"the audio from audio compact discs and convert them into audio files that "
+"your computer can understand and play. Sound Juicer can also play the audio "
+"tracks directly from the CD, allowing you to preview the CD before ripping "
+"it."
+msgstr "사운드 쥬서는 간략하고 깔끔한 CD 리핑 프로그램입니다. 오디오 CD에서 음원을 추출해서 컴퓨터에서 인식하고 재생할 수 있는 오디오 파일로 변환합니다. 리핑하기 전에 미리 확인해 보는 용도로 CD에서 직접 오디오 트랙을 재생할 수도 있습니다."
 
-#: ../data/sound-juicer.schemas.in.h:11
-msgid "The GNOME Audio Profile with which to encode."
-msgstr "인코드 할 때 쓸 그놈 오디오 프로파일."
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:3
+msgid ""
+"Sound Juicer is designed to be easy to use, and to work with little user "
+"intervention. When you start Sound Juicer, it will examine the CD in the "
+"drive and try to locate information about the audio tracks using the freely-"
+"available MusicBrainz service."
+msgstr "사운드 쥬서는 최소한의 사용자 조작만으로 간편하게 사용할 수 있게 설계되었습니다. 사운드 쥬서를 시작하면 드라이브에 들어 있는 CD를 검사해 무료 MusicBrainz 서비스를 이용해 오디오 트랙 정보를 찾아냅니다."
 
-#: ../data/sound-juicer.schemas.in.h:12
-msgid "The MusicBrainz server to use"
-msgstr "사용할 MusicBrainz 서버"
+#: ../data/sound-juicer.ui.h:2
+msgid "S_ubmit Album"
+msgstr "앨범 제출(_U)"
 
-#: ../data/sound-juicer.schemas.in.h:13
-msgid "The directory structure for the files"
-msgstr "파일에 대한 디렉터리 구조"
+#: ../data/sound-juicer.ui.h:3
+msgid "You can improve the MusicBrainz database by adding this album."
+msgstr "이 앨범을 추가해서 MusicBrainz 데이터베이스에 기여할 수 있습니다."
 
-#: ../data/sound-juicer.schemas.in.h:14
-msgid "The name pattern for files"
-msgstr "파일이름 패턴"
+#: ../data/sound-juicer.ui.h:4
+msgid "_Year:"
+msgstr "연도(_Y):"
 
-#: ../data/sound-juicer.schemas.in.h:15
-msgid "The paranoia mode to use"
-msgstr "사용할 paranoia 모드"
+#: ../data/sound-juicer.ui.h:5
+msgid "_Disc:"
+msgstr "디스크(_D):"
 
-#: ../data/sound-juicer.schemas.in.h:16
-msgid "Whether to eject the CD when finished extracting."
-msgstr "음악을 모두 가져오면 CD를 꺼낼지 여부."
+#: ../data/sound-juicer.ui.h:6
+msgid "_Title:"
+msgstr "제목(_T):"
 
-#: ../data/sound-juicer.schemas.in.h:17
-msgid "Whether to open the target directory when finished extracting."
-msgstr "음악을 모두 가져오면 대상 디렉터리를 열 지 여부."
+#: ../data/sound-juicer.ui.h:7
+msgid "_Artist:"
+msgstr "아티스트(_A):"
+
+#: ../data/sound-juicer.ui.h:8
+msgid "_Composer:"
+msgstr "작사/작곡(_C):"
+
+#: ../data/sound-juicer.ui.h:9
+msgid "_Genre:"
+msgstr "장르(_G):"
+
+#: ../data/sound-juicer.ui.h:10
+msgid "Duration:"
+msgstr "재생 시간:"
+
+#: ../data/sound-juicer.ui.h:11
+msgid "Tracks"
+msgstr "트랙"
+
+#: ../data/sound-juicer.ui.h:12 ../src/sj-main.c:2194 ../src/sj-play.c:121
+#: ../src/sj-play.c:259 ../src/sj-play.c:622
+msgid "_Play"
+msgstr "재생(_P)"
+
+#: ../data/sound-juicer.ui.h:13 ../src/sj-extracting.c:233
+#: ../src/sj-main.c:2218
+msgid "E_xtract"
+msgstr "뽑아내기(_X)"
+
+#: ../data/sound-juicer.ui.h:14
+msgid "Track Progress"
+msgstr "트랙 진행"
+
+#: ../data/sound-juicer.ui.h:15
+msgid "Multiple Albums Found"
+msgstr "여러 앨범을 찾았습니다"
+
+#: ../data/sound-juicer.ui.h:16
+msgid ""
+"This CD could be more than one album. Please select which album it is below "
+"and press <i>Continue</i>."
+msgstr ""
+"이 CD에 해당하는 앨범이 여러개가 있습니다. 아래에서 올바른 앨범을 선택하고 "
+"<i>계속</i>를 눌러주십시오."
+
+#: ../data/sound-juicer.ui.h:17 ../src/sj-main.c:215
+msgid "_Continue"
+msgstr "계속(_C)"
+
+#: ../data/sound-juicer.ui.h:18 ../data/sound-juicer-menu.ui.h:6
+msgid "Preferences"
+msgstr "기본 설정"
+
+#: ../data/sound-juicer.ui.h:19
+msgid "Device"
+msgstr "장치"
+
+#: ../data/sound-juicer.ui.h:20
+msgid "CD _drive:"
+msgstr "CD 드라이브(_D):"
+
+#: ../data/sound-juicer.ui.h:21
+msgid "_Eject after extracting tracks"
+msgstr "트랙을 가져오고 나면 꺼내기(_E)"
+
+#: ../data/sound-juicer.ui.h:22
+msgid "_Open music folder when finished"
+msgstr "끝나면 음악 폴더 열기(_O)"
+
+#: ../data/sound-juicer.ui.h:23
+msgid "Music Folder"
+msgstr "음악 폴더"
+
+#: ../data/sound-juicer.ui.h:24
+msgid "_Folder:"
+msgstr "폴더(_F):"
+
+#: ../data/sound-juicer.ui.h:25
+msgid "Select A Folder"
+msgstr "폴더 선택"
+
+#: ../data/sound-juicer.ui.h:26
+msgid "Track Names"
+msgstr "트랙 이름"
+
+#: ../data/sound-juicer.ui.h:27
+msgid "Folder hie_rarchy:"
+msgstr "디렉토리 구조(_R):"
+
+#: ../data/sound-juicer.ui.h:28
+msgid "File _name:"
+msgstr "파일 이름(_N):"
+
+#: ../data/sound-juicer.ui.h:29
+msgid "_Strip special characters"
+msgstr "특수문자 지우기(_S)"
+
+#: ../data/sound-juicer.ui.h:30
+msgid "Format"
+msgstr "형식"
+
+#: ../data/sound-juicer.ui.h:31
+msgid "O_utput Format:"
+msgstr "출력 형식(_U):"
+
+#: ../data/sound-juicer.ui.h:32
+msgid "_Help"
+msgstr "도움말(_H)"
+
+#: ../data/sound-juicer.ui.h:33
+msgid "_Close"
+msgstr "닫기(_C)"
+
+#: ../data/sound-juicer-menu.ui.h:1
+msgid "Disc"
+msgstr "디스크"
+
+#: ../data/sound-juicer-menu.ui.h:2
+msgid "Re-read"
+msgstr "다시 읽기"
+
+#: ../data/sound-juicer-menu.ui.h:3
+msgid "Duplicate"
+msgstr "복제"
+
+#: ../data/sound-juicer-menu.ui.h:4
+msgid "Eject"
+msgstr "꺼내기"
+
+#: ../data/sound-juicer-menu.ui.h:5
+msgid "Submit Track Names"
+msgstr "트랙 이름 제출"
+
+#: ../data/sound-juicer-menu.ui.h:7
+msgid "Help"
+msgstr "도움말"
+
+#: ../data/sound-juicer-menu.ui.h:8
+msgid "About"
+msgstr "정보"
+
+#: ../data/sound-juicer-menu.ui.h:9
+msgid "Quit"
+msgstr "끝내기"
 
 #: ../libjuicer/sj-extractor.c:192
 msgid "Audio Profile"
 msgstr "오디오 프로파일"
 
 #: ../libjuicer/sj-extractor.c:193
-msgid "The GNOME Audio Profile used for encoding audio"
-msgstr "인코딩할 오디오에 사용할 그놈 오디오 프로파일"
+msgid "The GStreamer Encoding Profile used for encoding audio"
+msgstr "오디오 인코딩에 사용할 GStreamer 인코딩 프로파일"
+
+#: ../libjuicer/sj-extractor.c:198
+msgid "Paranoia Level"
+msgstr "결벽증 수준"
 
 #: ../libjuicer/sj-extractor.c:199
-msgid "Paranoia Level"
-msgstr "Paranoia 수준"
-
-#: ../libjuicer/sj-extractor.c:200
 msgid "The paranoia level"
-msgstr "paranoia 수준"
+msgstr "결벽증 수준"
 
-#: ../libjuicer/sj-extractor.c:205
+#: ../libjuicer/sj-extractor.c:204
 msgid "device"
 msgstr "장치"
 
-#: ../libjuicer/sj-extractor.c:206
+#: ../libjuicer/sj-extractor.c:205
 msgid "The device"
 msgstr "장치"
 
-#: ../libjuicer/sj-extractor.c:347
+#: ../libjuicer/sj-extractor.c:355
 #, c-format
 msgid "Could not create GStreamer CD reader"
 msgstr "GStreamer CD 읽기를 만들 수 없습니다"
 
-#: ../libjuicer/sj-extractor.c:369
+#: ../libjuicer/sj-extractor.c:373
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "GStreamer 인코더 (%s)를 만들 수 없습니다"
 
-#: ../libjuicer/sj-extractor.c:380
+#: ../libjuicer/sj-extractor.c:385
 #, c-format
 msgid "Could not create GStreamer file output"
 msgstr "GStreamer 파일 출력을 만들 수 없습니다"
 
-#: ../libjuicer/sj-extractor.c:394
+#: ../libjuicer/sj-extractor.c:399
 #, c-format
 msgid "Could not link pipeline"
 msgstr "파이프라인에 연결할 수 없습니다"
 
-#: ../libjuicer/sj-extractor.c:418
+#: ../libjuicer/sj-extractor.c:422
 msgid "Could not get current track position"
 msgstr "현재 트랙 위치를 가져올 수 없습니다"
 
-#: ../libjuicer/sj-extractor.c:447
+#: ../libjuicer/sj-extractor.c:451
 #, c-format
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr "가져오기 개체가 올바르지 않습니다. 콘솔에서 오류를 확인하십시오."
 
-#: ../libjuicer/sj-extractor.c:655
+#: ../libjuicer/sj-extractor.c:711
 #, c-format
 msgid "The plugin necessary for CD access was not found"
 msgstr "CD 접근에 적당한 플러그 인을 찾을 수 없습니다"
 
-#: ../libjuicer/sj-extractor.c:663
+#: ../libjuicer/sj-extractor.c:719
 #, c-format
 msgid "The plugin necessary for file access was not found"
 msgstr "파일 접근에 적당한 플러그 인을 찾을 수 없습니다"
 
-#: ../libjuicer/sj-metadata.c:190
+#. FIXME: would be nicer to only check if "cdrom" is being probed,
+#. * but libbrasero doesn't seem to have an API for that
+#.
+#: ../libjuicer/sj-metadata.c:188 ../libjuicer/sj-metadata.c:211
+#: ../libjuicer/sj-metadata.c:222
+#, c-format
+msgid "Cannot read CD: %s"
+msgstr "CD를 읽을 수 없음: %s"
+
+#: ../libjuicer/sj-metadata.c:189
+msgid "Devices haven't been all probed yet"
+msgstr "장치를 아직 찾지 못했습니다"
+
+#: ../libjuicer/sj-metadata.c:205
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "장치 '%s'에 미디어가 들어있지 않습니다"
 
-#: ../libjuicer/sj-metadata.c:193
+#: ../libjuicer/sj-metadata.c:208
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr ""
 "장치 '%s'(을)를 열 수 없습니다. 장치의 접근 허가권이 있는지 확인하십시오."
 
-#: ../libjuicer/sj-metadata.c:196 ../libjuicer/sj-metadata.c:208
-#, c-format
-msgid "Cannot read CD: %s"
-msgstr "CD를 읽을 수 없음: %s"
+#: ../libjuicer/sj-metadata.c:350
+msgid "Czechoslovakia"
+msgstr "체코슬로바키아"
 
-#: ../libjuicer/sj-metadata-getter.c:247
-#, c-format
-msgid "Could not create CD lookup thread"
-msgstr "CD 찾기 스레드를 만들 수 없습니다"
+#: ../libjuicer/sj-metadata.c:351
+msgid "East Germany"
+msgstr "동독"
 
-#: ../libjuicer/sj-metadata-gvfs.c:86
+#: ../libjuicer/sj-metadata.c:352
+msgid "Europe"
+msgstr "유럽"
+
+#: ../libjuicer/sj-metadata.c:353
+msgid "Serbia and Montenegro"
+msgstr "세르비아 몬테네그로"
+
+#: ../libjuicer/sj-metadata.c:354
+msgid "Soviet Union"
+msgstr "소련"
+
+#: ../libjuicer/sj-metadata.c:355
+msgid "Worldwide"
+msgstr "세계"
+
+#: ../libjuicer/sj-metadata.c:356
+msgid "Yugoslavia"
+msgstr "유고슬라비아"
+
+#: ../libjuicer/sj-metadata-gvfs.c:95
 #, c-format
 msgid "Cannot access CD"
 msgstr "CD를 읽을 수 없습니다"
 
-#: ../libjuicer/sj-metadata-gvfs.c:105 ../src/egg-play-preview.c:461
+#: ../libjuicer/sj-metadata-gvfs.c:115 ../src/egg-play-preview.c:469
+#: ../src/sj-main.c:338
 msgid "Unknown Title"
 msgstr "알 수 없는 제목"
 
-#: ../libjuicer/sj-metadata-gvfs.c:109 ../libjuicer/sj-metadata-gvfs.c:135
-#: ../src/egg-play-preview.c:466
+#: ../libjuicer/sj-metadata-gvfs.c:121 ../libjuicer/sj-metadata-gvfs.c:151
+#: ../src/egg-play-preview.c:474 ../src/sj-extracting.c:980
 msgid "Unknown Artist"
 msgstr "알 수 없는 아티스트"
 
-#: ../libjuicer/sj-metadata-gvfs.c:131
+#: ../libjuicer/sj-metadata-gvfs.c:145
 #, c-format
 msgid "Track %d"
 msgstr "%d번 트랙"
 
-#: ../libjuicer/sj-metadata-gvfs.c:156
+#: ../libjuicer/sj-metadata-gvfs.c:172
 #, c-format
 msgid "Cannot access CD: %s"
 msgstr "CD를 읽을 수 없습니다: %s"
 
-#: ../src/egg-play-preview.c:165
+#. Tranlators: This string is used to build the composer tag when
+#. a track has a mixture of arrangers, orchestrators and
+#. transcribers but no composers
+#: ../libjuicer/sj-metadata-musicbrainz5.c:478
+#, c-format
+msgid "arr. %s"
+msgstr "편곡 %s"
+
+#. Tranlators: This string is used to build the composer tag when a
+#. track has composers and arrangers, or a composer and a mixture
+#. of arrangers, orchestrators and transcribers
+#: ../libjuicer/sj-metadata-musicbrainz5.c:482
+#, c-format
+msgid "%s arr. %s"
+msgstr "%s 편곡 %s"
+
+# 우리말은 오케스트라 편곡을 구분해서 부르지 않는다.
+#. Tranlators: This string is used to build the composer tag
+#. when a track has orchestrators but no composer
+#: ../libjuicer/sj-metadata-musicbrainz5.c:485
+#, c-format
+msgid "orch. %s"
+msgstr "오케스트레이터 %s"
+
+# 우리말은 오케스트라 편곡을 구분해서 부르지 않는다.
+#. Tranlators: This string is used to build the composer tag
+#. when a track has composers and orchestrators
+#: ../libjuicer/sj-metadata-musicbrainz5.c:488
+#, c-format
+msgid "%s orch. %s"
+msgstr "%s 오케스트레이터 %s"
+
+#. Tranlators: This string is used to build the composer tag
+#. when a track has a transcribers but no composer
+#: ../libjuicer/sj-metadata-musicbrainz5.c:495
+#, c-format
+msgid "trans. %s"
+msgstr "기록 %s"
+
+#. Tranlators: This string is used to build the composer tag
+#. when a track has composers and transcribers
+#: ../libjuicer/sj-metadata-musicbrainz5.c:498
+#, c-format
+msgid "%s trans. %s"
+msgstr "%s 기록 %s"
+
+#: ../src/egg-play-preview.c:171
 msgid "URI"
 msgstr "URI"
 
-#: ../src/egg-play-preview.c:166
+#: ../src/egg-play-preview.c:172
 msgid "The URI of the audio file"
 msgstr "오디오 파일의 URI"
 
-#: ../src/egg-play-preview.c:175 ../src/sj-main.c:619 ../src/sj-main.c:1785
+#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2291
 msgid "Title"
 msgstr "제목"
 
-#: ../src/egg-play-preview.c:176
+#: ../src/egg-play-preview.c:182
 msgid "The title of the current stream."
 msgstr "현재 스트림의 제목."
 
-#: ../src/egg-play-preview.c:185 ../src/sj-main.c:625 ../src/sj-main.c:1794
+#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2292
 msgid "Artist"
 msgstr "아티스트"
 
-#: ../src/egg-play-preview.c:186
+#: ../src/egg-play-preview.c:192
 msgid "The artist of the current stream."
 msgstr "현재 스트림의 아티스트."
 
-#: ../src/egg-play-preview.c:195
+#: ../src/egg-play-preview.c:201
 msgid "Album"
 msgstr "앨범"
 
-#: ../src/egg-play-preview.c:196
+#: ../src/egg-play-preview.c:202
 msgid "The album of the current stream."
 msgstr "현재 스트림의 앨범."
 
-#: ../src/egg-play-preview.c:205
+#: ../src/egg-play-preview.c:211
 msgid "Position"
 msgstr "위치"
 
-#: ../src/egg-play-preview.c:206
+#: ../src/egg-play-preview.c:212
 msgid "The position in the current stream in seconds."
 msgstr "현재 스트림의 위치(단위: 초)."
 
-#: ../src/egg-play-preview.c:215 ../src/sj-main.c:1805
+#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2299
 msgid "Duration"
 msgstr "시간"
 
-#: ../src/egg-play-preview.c:216
+#: ../src/egg-play-preview.c:222
 msgid "The duration of the current stream in seconds."
 msgstr "현재 스트림의 전체 시간(단위: 초)."
 
-#: ../src/egg-play-preview.c:467
+#: ../src/egg-play-preview.c:475 ../src/sj-extracting.c:979
 msgid "Unknown Album"
 msgstr "알 수 없는 앨범"
 
-#: ../src/gconf-bridge.c:1220
-#, c-format
-msgid "GConf error: %s"
-msgstr "GConf 오류: %s"
-
-#: ../src/gconf-bridge.c:1225
-msgid "All further errors shown only on terminal."
-msgstr "터미널에서만 모든 모든 오류를 보입니다."
-
-#: ../src/sj-about.c:48
+#: ../src/sj-about.c:51
 msgid ""
 "Sound Juicer is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -456,7 +573,7 @@ msgstr ""
 "Software Foundation; either version 2 of the License, or (at your option) "
 "any later version."
 
-#: ../src/sj-about.c:52
+#: ../src/sj-about.c:55
 msgid ""
 "Sound Juicer is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -468,7 +585,7 @@ msgstr ""
 "FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
 "more details."
 
-#: ../src/sj-about.c:56
+#: ../src/sj-about.c:59
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "Sound Juicer; if not, write to the Free Software Foundation, Inc., 51 "
@@ -478,7 +595,7 @@ msgstr ""
 "Sound Juicer; if not, write to the Free Software Foundation, Inc., 51 "
 "Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
 
-#: ../src/sj-about.c:67
+#: ../src/sj-about.c:70
 msgid "An Audio CD Extractor"
 msgstr "음악 CD 가져오기"
 
@@ -486,31 +603,26 @@ msgstr "음악 CD 가져오기"
 #. * Note to translators: put here your name and email so it will show
 #. * up in the "about" box
 #.
-#: ../src/sj-about.c:77
+#: ../src/sj-about.c:80
 msgid "translator-credits"
 msgstr ""
 "차영호 <ganadist@gmail.com>\n"
 "류창우 <cwryu@debian.org>"
 
-#: ../src/sj-extracting.c:147
+#: ../src/sj-extracting.c:148
 #, c-format
 msgid "Failed to get output format"
 msgstr "출력 형식을 얻을 수 없습니다"
 
-#: ../src/sj-extracting.c:168
+#: ../src/sj-extracting.c:173
 msgid "Name too long"
 msgstr "이름이 너무 깁니다"
 
-#. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:227
-msgid "Extract"
-msgstr "뽑아내기"
-
-#: ../src/sj-extracting.c:304
+#: ../src/sj-extracting.c:309
 msgid "A file with the same name exists"
 msgstr "같은 이름의 파일이 있습니다"
 
-#: ../src/sj-extracting.c:306
+#: ../src/sj-extracting.c:311
 #, c-format
 msgid ""
 "A file called '%s' exists, size %s.\n"
@@ -519,222 +631,319 @@ msgstr ""
 "크기가 %2$skB인 파일 '%1$s'(이)가 있습니다.\n"
 "이 트랙을 건너 뛰시겠습니까? 아니면 덮어 쓰시겠습니까?"
 
-#: ../src/sj-extracting.c:316
+#: ../src/sj-extracting.c:321
 msgid "_Skip"
 msgstr "건너 뛰기(_S)"
 
-#: ../src/sj-extracting.c:317
+#: ../src/sj-extracting.c:322
 msgid "S_kip All"
 msgstr "모두 건너 뛰기(_K)"
 
-#: ../src/sj-extracting.c:318
+#: ../src/sj-extracting.c:323
 msgid "_Overwrite"
 msgstr "덮어 쓰기(_O)"
 
-#: ../src/sj-extracting.c:319
+#: ../src/sj-extracting.c:324
 msgid "Overwrite _All"
 msgstr "모두 덮어 쓰기(_A)"
 
-#: ../src/sj-extracting.c:368
+#: ../src/sj-extracting.c:373
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "출력 디렉터리를 만들 수 없습니다: %s"
 
-#: ../src/sj-extracting.c:508
+#: ../src/sj-extracting.c:513
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "남은 시간: %d:%02d (%0.1fx)"
 
-#: ../src/sj-extracting.c:510
+#: ../src/sj-extracting.c:515
 msgid "Estimated time left: unknown"
 msgstr "남은 시간: 알 수 없음"
 
-#: ../src/sj-extracting.c:600
+#: ../src/sj-extracting.c:605
 msgid "CD rip complete"
 msgstr "CD 리핑 완료"
 
-#: ../src/sj-extracting.c:692
+#: ../src/sj-extracting.c:697
 msgid "Sound Juicer could not extract this CD."
 msgstr "사운드 쥬서가 이 CD를 읽을 수 없습니다."
 
-#: ../src/sj-extracting.c:694 ../src/sj-main.c:183 ../src/sj-main.c:807
-#: ../src/sj-main.c:926 ../src/sj-main.c:1025 ../src/sj-main.c:1235
-#: ../src/sj-main.c:1590
+#: ../src/sj-extracting.c:699 ../src/sj-main.c:177 ../src/sj-main.c:384
+#: ../src/sj-main.c:423 ../src/sj-main.c:1132 ../src/sj-main.c:1240
+#: ../src/sj-main.c:1342
 msgid "Reason"
 msgstr "이유"
 
 #. Change the label to Stop while extracting
-#. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-extracting.c:790
-msgid "Stop"
-msgstr "중지"
+#: ../src/sj-extracting.c:789 ../src/sj-main.c:2225
+msgid "_Stop"
+msgstr "중지(_S)"
 
-#: ../src/sj-extracting.c:819 ../src/sj-extracting.c:825
+#: ../src/sj-extracting.c:817 ../src/sj-extracting.c:825
 msgid "Extracting audio from CD"
 msgstr "CD에서 음악을 뽑아냅니다"
 
-#: ../src/sj-genres.c:30
+#: ../src/sj-extracting.c:981
+msgid "Unknown Composer"
+msgstr "알 수 없는 작사/작곡"
+
+#: ../src/sj-extracting.c:982
+msgid "Unknown Track"
+msgstr "알 수 없는 트랙"
+
+#: ../src/sj-genres.c:33
 msgid "Ambient"
 msgstr "앰비언트"
 
-#: ../src/sj-genres.c:31
+#: ../src/sj-genres.c:34
 msgid "Blues"
 msgstr "블루스"
 
-#: ../src/sj-genres.c:32
+#: ../src/sj-genres.c:35 ../src/sj-main.c:472
 msgid "Classical"
 msgstr "클래식"
 
-#: ../src/sj-genres.c:33
+#: ../src/sj-genres.c:36
 msgid "Country"
 msgstr "컨츄리"
 
-#: ../src/sj-genres.c:34
+#: ../src/sj-genres.c:37
 msgid "Dance"
 msgstr "댄스"
 
-#: ../src/sj-genres.c:35
+#: ../src/sj-genres.c:38
 msgid "Electronica"
 msgstr "일렉트릭"
 
-#: ../src/sj-genres.c:36
+#: ../src/sj-genres.c:39
 msgid "Folk"
 msgstr "포크 (Folk)"
 
 # punk와 funk를 구별하기 위해 funk의 올바른 이름 funky(펑키)로 번역한다. -cwryu
-#: ../src/sj-genres.c:37
+#: ../src/sj-genres.c:40
 msgid "Funk"
 msgstr "펑키"
 
-#: ../src/sj-genres.c:38
+#: ../src/sj-genres.c:41
 msgid "Jazz"
 msgstr "재즈"
 
-#: ../src/sj-genres.c:39
+#: ../src/sj-genres.c:42
 msgid "Latin"
 msgstr "라틴"
 
-#: ../src/sj-genres.c:40
+#: ../src/sj-genres.c:43
 msgid "Pop"
 msgstr "팝"
 
-#: ../src/sj-genres.c:41
+#: ../src/sj-genres.c:44
 msgid "Rap"
 msgstr "랩"
 
-#: ../src/sj-genres.c:42
+#: ../src/sj-genres.c:45
 msgid "Reggae"
 msgstr "레게"
 
-#: ../src/sj-genres.c:43
+#: ../src/sj-genres.c:46
 msgid "Rock"
 msgstr "락"
 
-#: ../src/sj-genres.c:44
+#: ../src/sj-genres.c:47
 msgid "Soul"
 msgstr "소울"
 
-#: ../src/sj-genres.c:45
+#: ../src/sj-genres.c:48
 msgid "Spoken Word"
 msgstr "음성"
 
-#: ../src/sj-genres.c:185
+#: ../src/sj-genres.c:188
 #, c-format
 msgid "Error while saving custom genre: %s"
 msgstr "사용자 지정 장르 저장에 오류: %s"
 
-#: ../src/sj-main.c:116
-msgid "E_xtract"
-msgstr "뽑아내기(_X)"
-
-#: ../src/sj-main.c:182
+#: ../src/sj-main.c:176
 msgid "Could not start Sound Juicer"
 msgstr "사운드 쥬서를 시작할 수 없습니다"
 
-#: ../src/sj-main.c:185
+#: ../src/sj-main.c:179
 msgid "Please consult the documentation for assistance."
-msgstr "도움말을 읽어보시기 바랍니다."
+msgstr "도움말 문서를 읽어보십시오."
 
-#: ../src/sj-main.c:227
+#: ../src/sj-main.c:213
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "CD에서 음악을 가져오고 있습니다. 지금 멈추겠습니까?"
 
-#: ../src/sj-main.c:287 ../src/sj-main.c:541
+#: ../src/sj-main.c:214 ../src/sj-main.c:1467
+msgid "_Quit"
+msgstr "끝내기(_Q)"
+
+#: ../src/sj-main.c:262 ../src/sj-main.c:2172 ../src/sj-main.c:2248
+msgid "Select None"
+msgstr "모두 선택 해제"
+
+#: ../src/sj-main.c:276 ../src/sj-main.c:2242
+msgid "Select All"
+msgstr "모두 선택"
+
+#: ../src/sj-main.c:297 ../src/sj-main.c:631
 msgid "(unknown)"
 msgstr "(알 수 없음)"
 
-#: ../src/sj-main.c:413
-msgid "S_ubmit Album"
-msgstr "앨범 제출(_U)"
+#: ../src/sj-main.c:339
+msgid "This album is not in the MusicBrainz database."
+msgstr "이 앨범은 MusicBrainz 데이터베이스에 들어 있지 않습니다."
 
-#. Translators: title, artist
-#: ../src/sj-main.c:418
+#: ../src/sj-main.c:341
 #, c-format
 msgid "Could not find %s by %s on MusicBrainz."
 msgstr "MusicBrainz에서 %s (%s) 타이틀을 찾을 수 없습니다."
 
-#: ../src/sj-main.c:423
-msgid "You can improve the MusicBrainz database by adding this album."
-msgstr "이 앨범을 추가해서 MusicBrainz 데이터베이스에 기여할 수 있습니다."
+#: ../src/sj-main.c:382
+msgid "Could not open URL"
+msgstr "URL을 열 수 없습니다"
 
-#: ../src/sj-main.c:805 ../src/sj-main.c:922 ../src/sj-main.c:1023
+#: ../src/sj-main.c:383
+msgid "Sound Juicer could not open the submission URL"
+msgstr "사운드 쥬서가 URL을 열 수 없습니다"
+
+#: ../src/sj-main.c:421
+msgid "Could not duplicate disc"
+msgstr "디스크를 복사할 수 없습니다"
+
+#: ../src/sj-main.c:422
+msgid "Sound Juicer could not duplicate the disc"
+msgstr "사운드 쥬서가 디스크를 복사할 수 없습니다"
+
+#: ../src/sj-main.c:472
+msgid "Lieder"
+msgstr "가곡"
+
+#: ../src/sj-main.c:472
+msgid "Opera"
+msgstr "오페라"
+
+#: ../src/sj-main.c:472
+msgid "Chamber"
+msgstr "챔버"
+
+#: ../src/sj-main.c:472
+msgid "Musical"
+msgstr "연주곡"
+
+#. Translators: this string appears when multiple CDs were
+#. * found in musicbrainz online database, it corresponds to
+#. * "Released: <country> in <year> on <label>"
+#: ../src/sj-main.c:848
+#, c-format
+msgid "Released: %s in %d on %s"
+msgstr "발표: %s, %d, 레이블 %s"
+
+#. Translators: this string appears when multiple CDs were
+#. * found in musicbrainz online database, it corresponds to
+#. * "Released: <country> on <label>"
+#: ../src/sj-main.c:856
+#, c-format
+msgid "Released: %s on %s"
+msgstr "발표: %s, 레이블 %s"
+
+#. Translators: this string appears when multiple CDs were
+#. * found in musicbrainz online database, it corresponds to
+#. * "Released: <country> in <year>"
+#: ../src/sj-main.c:862
+#, c-format
+msgid "Released: %s in %d"
+msgstr "발표: %s, %d"
+
+#. Translators: this string appears when multiple CDs were
+#. * found in musicbrainz online database, it corresponds to
+#. * "Released: <country>"
+#: ../src/sj-main.c:868
+#, c-format
+msgid "Released: %s"
+msgstr "발표: %s"
+
+#. Translators: this string appears when multiple CDs were
+#. * found in musicbrainz online database, it corresponds to
+#. * "Released in <year> on <label>"
+#: ../src/sj-main.c:875
+#, c-format
+msgid "Released in %d on %s"
+msgstr "발표: %d, 레이블 %s"
+
+#. Translators: this string appears when multiple CDs were
+#. * found in musicbrainz online database, it corresponds to
+#. * "Released in <year>"
+#: ../src/sj-main.c:882
+#, c-format
+msgid "Released in %d"
+msgstr "발표: %d"
+
+#. Translators: this string appears when multiple CDs were
+#. * found in musicbrainz online database, it corresponds to
+#. * "Released on <label>"
+#: ../src/sj-main.c:889
+#, c-format
+msgid "Released on %s"
+msgstr "발표: 레이블 %s"
+
+#: ../src/sj-main.c:891
+msgid "Release label, year & country unknown"
+msgstr "발표 레이블, 연도, 국가 알 수 없음"
+
+#: ../src/sj-main.c:929
+msgid "Albums"
+msgstr "앨범"
+
+#: ../src/sj-main.c:963
+#, c-format
+msgid " (Disc %d/%d)"
+msgstr " (디스크 %d/%d)"
+
+#: ../src/sj-main.c:1130 ../src/sj-main.c:1236 ../src/sj-main.c:1340
 msgid "Could not read the CD"
 msgstr "CD를 읽을 수 없음"
 
-#: ../src/sj-main.c:806 ../src/sj-main.c:925
+#: ../src/sj-main.c:1131 ../src/sj-main.c:1239
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "사운드 쥬서가 이 CD의 트랙 목록을 읽을 수 없습니다."
 
-#. Set statusbar message
-#: ../src/sj-main.c:896
-msgid "Retrieving track listing...please wait."
-msgstr "트랙 목록을 가져오고 있습니다... 잠시만 기다리십시오."
-
-#: ../src/sj-main.c:985
+#: ../src/sj-main.c:1302
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "사운드 쥬서가 CD-ROM 장치 '%s'(을)를 사용할 수 없습니다"
 
-#: ../src/sj-main.c:992
+#: ../src/sj-main.c:1309
 msgid "HAL daemon may not be running."
 msgstr "HAL데몬이 실행중이지 않습니다."
 
-#: ../src/sj-main.c:1016
+#: ../src/sj-main.c:1333
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "사운드 쥬서가 CD-ROM 장치 '%s'에 접근할 수 없습니다"
 
-#: ../src/sj-main.c:1114
+#: ../src/sj-main.c:1432
 msgid "No CD-ROM drives found"
 msgstr "CD-ROM 드라이브 없음"
 
-#: ../src/sj-main.c:1115
+#: ../src/sj-main.c:1433
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "사운드 쥬서가 읽을 수 있는 CD-ROM장치를 찾지 못했습니다."
 
-#: ../src/sj-main.c:1145
+#: ../src/sj-main.c:1466
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "현재 선택한 오디오 프로파일은 설치되지 않았습니다."
 
-#: ../src/sj-main.c:1147
+#: ../src/sj-main.c:1468
 msgid "_Change Profile"
 msgstr "프로파일 바꾸기(_C)"
 
-#: ../src/sj-main.c:1233
-msgid "Could not open URL"
-msgstr "URL을 열 수 없습니다"
+#: ../src/sj-main.c:1856
+msgid "Unknown widget calling on_person_edit_changed."
+msgstr "알 수 없는 위젯, on_person_edit_changed 호출."
 
-#: ../src/sj-main.c:1234
-msgid "Sound Juicer could not open the submission URL"
-msgstr "사운드 쥬서가 URL을 열 수 없습니다"
-
-#: ../src/sj-main.c:1342
-#, c-format
-msgid "Unknown column %d was edited"
-msgstr "알 수 없는 %d 번째 칸이 고쳐졌습니다"
-
-#: ../src/sj-main.c:1483 ../src/sj-prefs.c:102
+#: ../src/sj-main.c:1956 ../src/sj-prefs.c:120
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -743,82 +952,63 @@ msgstr ""
 "사운드 쥬서의 도움말을 보여줄 수 없습니다\n"
 "%s"
 
-#: ../src/sj-main.c:1588
-msgid "Could not duplicate disc"
-msgstr "디스크를 복사할 수 없습니다"
+#: ../src/sj-main.c:2015
+msgid "Retrieving track listing...please wait."
+msgstr "트랙 목록을 가져오고 있습니다... 잠시만 기다리십시오."
 
-#: ../src/sj-main.c:1589
-msgid "Sound Juicer could not duplicate the disc"
-msgstr "사운드 쥬서가 디스크를 복사할 수 없습니다"
+#: ../src/sj-main.c:2201 ../src/sj-play.c:301
+msgid "_Pause"
+msgstr "일시 중지(_P)"
 
-#: ../src/sj-main.c:1616
-msgid "Start extracting immediately"
-msgstr "즉시 뽑기 시작합니다"
-
-#: ../src/sj-main.c:1617
-msgid "Start playing immediately"
-msgstr "즉시 연주를 시작합니다"
-
-#: ../src/sj-main.c:1618
-msgid "What CD device to read"
-msgstr "읽어들일 CD 장치"
-
-#: ../src/sj-main.c:1618
-msgid "DEVICE"
-msgstr "장치"
-
-#: ../src/sj-main.c:1619
-msgid "URI to the CD device to read"
-msgstr "읽어들일 CD 장치의 URI"
-
-#: ../src/sj-main.c:1632
-msgid "- Extract music from your CDs"
-msgstr "- CD에서 음악을 뽑아냅니다"
-
-#: ../src/sj-main.c:1669
-msgid "Could not create GConf client.\n"
-msgstr "GConf 클라이언트를 만들 수 없습니다.\n"
-
-#: ../src/sj-main.c:1770
+#: ../src/sj-main.c:2279
 msgid "Track"
 msgstr "트랙"
 
-#: ../src/sj-play.c:193 ../src/sj-play.c:465 ../src/sj-play.c:494
+#: ../src/sj-main.c:2293
+msgid "Composer"
+msgstr "작사/작곡"
+
+#: ../src/sj-main.c:2447
+msgid "Start extracting immediately"
+msgstr "즉시 뽑기 시작합니다"
+
+#: ../src/sj-main.c:2448
+msgid "Start playing immediately"
+msgstr "즉시 재생을 시작합니다"
+
+#: ../src/sj-main.c:2449
+msgid "What CD device to read"
+msgstr "읽어들일 CD 장치"
+
+#: ../src/sj-main.c:2449
+msgid "DEVICE"
+msgstr "장치"
+
+#: ../src/sj-main.c:2450
+msgid "URI to the CD device to read"
+msgstr "읽어들일 CD 장치의 URI"
+
+#: ../src/sj-main.c:2462
+msgid "- Extract music from your CDs"
+msgstr "- CD에서 음악을 뽑아냅니다"
+
+#: ../src/sj-play.c:193 ../src/sj-play.c:417 ../src/sj-play.c:453
 #, c-format
 msgid ""
 "Error playing CD.\n"
 "\n"
 "Reason: %s"
 msgstr ""
-"CD 연주 중 오류.\n"
+"CD 재생 중 오류.\n"
 "\n"
 "이유: %s"
 
-#. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:264
-msgid "Play"
-msgstr "연주"
-
-#. TODO: find out why GTK+ needs this to work (see #364371)
-#: ../src/sj-play.c:308
-msgid "Pause"
-msgstr "일시 중지"
-
-#: ../src/sj-play.c:365
+#: ../src/sj-play.c:355
 #, c-format
 msgid "Failed to create CD source element"
 msgstr "CD 소스 구성요소를 만들 수 없습니다"
 
-#: ../src/sj-play.c:406
-msgid "Failed to link pipeline"
-msgstr "파이프라인 연결 실패"
-
-#: ../src/sj-play.c:412
-#, c-format
-msgid "Failed to create audio output"
-msgstr "오디오 출력을 만들 수 없습니다"
-
-#: ../src/sj-play.c:616
+#: ../src/sj-play.c:593
 #, c-format
 msgid "Seeking to %s"
 msgstr "%s(을)를 찾습니다"
@@ -860,34 +1050,67 @@ msgid "Album Artist (sortable) - Album Title"
 msgstr "앨범 아티스트 (분류 가능) - 앨범 제목"
 
 #: ../src/sj-prefs.c:60
+msgid "Album Composer, Album Title"
+msgstr "앨범 작사/작곡, 앨범 제목"
+
+#: ../src/sj-prefs.c:61
+msgid "Album Composer (sortable), Album Title"
+msgstr "앨범 작사/작곡 (분류 가능), 앨범 제목"
+
+#: ../src/sj-prefs.c:62
+msgid "Track Composer, Album Title"
+msgstr "트랙 작사/작곡, 앨범 제목"
+
+#: ../src/sj-prefs.c:63
+msgid "Track Composer (sortable), Album Title"
+msgstr "트랙 작사/작곡 (분류 가능), 앨범 제목"
+
+#: ../src/sj-prefs.c:64
 msgid "[none]"
 msgstr "[없음]"
 
-#: ../src/sj-prefs.c:65
+#: ../src/sj-prefs.c:69
 msgid "Number - Title"
 msgstr "숫자 - 제목"
 
-#: ../src/sj-prefs.c:66
+#: ../src/sj-prefs.c:70
 msgid "Track Title"
 msgstr "트랙 제목"
 
-#: ../src/sj-prefs.c:67
+#: ../src/sj-prefs.c:71
 msgid "Track Artist - Track Title"
 msgstr "트랙 아티스트 - 트랙 제목"
 
-#: ../src/sj-prefs.c:68
+#: ../src/sj-prefs.c:72
 msgid "Track Artist (sortable) - Track Title"
 msgstr "트랙 아티스트 (분류 가능) - 트랙 제목"
 
-#: ../src/sj-prefs.c:69
+#: ../src/sj-prefs.c:73
 msgid "Number. Track Artist - Track Title"
 msgstr "숫자. 트랙 아티스트 - 트랙 제목"
 
 #. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
-#: ../src/sj-prefs.c:71
+#: ../src/sj-prefs.c:75
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "숫자-트랙 아티스트-트랙 제목 (소문자)"
 
-#: ../src/sj-prefs.c:274
-msgid "Example Path"
-msgstr "예제 경로"
+#. {N_("Number-Track Artist (sortable)-Track Title (lowercase)"), "%tN-%tS-%tT"},
+#: ../src/sj-prefs.c:77
+msgid "Track Composer - Track Artist - Track Title"
+msgstr "트랙 작사/작곡 - 트랙 아티스트 - 트랙 제목"
+
+#: ../src/sj-prefs.c:78
+msgid "Track Composer (sortable) - Track Artist (sortable) - Track Title"
+msgstr "트랙 작사/작곡 (분류 가능) - 트랙 아티스트 (분류 가능) - 트랙 제목"
+
+#: ../src/sj-prefs.c:79
+msgid "Number. Track Composer - Track Artist - Track Title"
+msgstr "숫자. 트랙 작사/작곡 - 트랙 아티스트 - 트랙 제목"
+
+#: ../src/sj-prefs.c:80
+msgid "Number-Track Composer-Track Artist-Track Title (lowercase)"
+msgstr "숫자-트랙 작사/작곡-트랙 아티스트-트랙 제목 (소문자)"
+
+#: ../src/sj-prefs.c:250
+msgid "Example Path: "
+msgstr "예제 경로:"
