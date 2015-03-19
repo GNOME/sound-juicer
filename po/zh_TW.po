@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: sound-juicer 2.31.90\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
 "juicer&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-01-27 11:16+0000\n"
-"PO-Revision-Date: 2015-02-24 23:22+0800\n"
+"POT-Creation-Date: 2015-03-19 11:56+0000\n"
+"PO-Revision-Date: 2015-03-19 23:06+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinesei (Taiwan) <zh-l10n@lists.linux.org.tw>\n"
 "Language: zh_TW\n"
@@ -134,8 +134,9 @@ msgstr "要解碼成的 GStreamer 媒體類型。"
 msgid "Audio volume"
 msgstr "音量"
 
-#: ../data/sound-juicer.desktop.in.in.h:1 ../data/sound-juicer.ui.h:1
-#: ../src/sj-main.c:131 ../src/sj-main.c:133 ../src/sj-main.c:2450
+#: ../data/sound-juicer.desktop.in.in.h:1
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:1 ../data/sound-juicer.ui.h:1
+#: ../src/sj-main.c:131 ../src/sj-main.c:133 ../src/sj-main.c:2459
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -155,7 +156,11 @@ msgstr "從光碟中擷取音樂"
 msgid "Ripper;"
 msgstr "Ripper;擷取器;抽出;"
 
-#: ../data/appdata/sound-juicer.appdata.xml.in.h:1
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:2
+msgid "CD ripper with a clean interface and simple preferences"
+msgstr "介面乾淨、設定簡單的音樂 CD 擷取器"
+
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:3
 msgid ""
 "Sound Juicer is a simple and clean CD ripping tool. It allows you to extract "
 "the audio from audio compact discs and convert them into audio files that "
@@ -167,7 +172,7 @@ msgstr ""
 "成您電腦能讀取並播放的音訊檔。Sound Juicer 也可以直接從 CD 播放音訊曲目，讓您"
 "在擷取之前先預聽過。"
 
-#: ../data/appdata/sound-juicer.appdata.xml.in.h:2
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:4
 msgid ""
 "Sound Juicer is designed to be easy to use, and to work with little user "
 "intervention. When you start Sound Juicer, it will examine the CD in the "
@@ -218,13 +223,13 @@ msgstr "長度："
 msgid "Tracks"
 msgstr "曲目"
 
-#: ../data/sound-juicer.ui.h:12 ../src/sj-main.c:2185 ../src/sj-play.c:121
+#: ../data/sound-juicer.ui.h:12 ../src/sj-main.c:2194 ../src/sj-play.c:121
 #: ../src/sj-play.c:259 ../src/sj-play.c:622
 msgid "_Play"
 msgstr "播放(_P)"
 
 #: ../data/sound-juicer.ui.h:13 ../src/sj-extracting.c:233
-#: ../src/sj-main.c:2209
+#: ../src/sj-main.c:2218
 msgid "E_xtract"
 msgstr "擷取(_X)"
 
@@ -536,7 +541,7 @@ msgstr "URI"
 msgid "The URI of the audio file"
 msgstr "此音樂檔案的 URI"
 
-#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2282
+#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2291
 msgid "Title"
 msgstr "標題"
 
@@ -544,7 +549,7 @@ msgstr "標題"
 msgid "The title of the current stream."
 msgstr "目前串流的標題。"
 
-#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2283
+#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2292
 msgid "Artist"
 msgstr "演出者"
 
@@ -568,7 +573,7 @@ msgstr "位置"
 msgid "The position in the current stream in seconds."
 msgstr "目前在串流中的位置 (以秒計)。"
 
-#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2290
+#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2299
 msgid "Duration"
 msgstr "長度"
 
@@ -690,13 +695,13 @@ msgid "Sound Juicer could not extract this CD."
 msgstr "Sound Juicer 無法擷取這光碟。"
 
 #: ../src/sj-extracting.c:699 ../src/sj-main.c:177 ../src/sj-main.c:384
-#: ../src/sj-main.c:423 ../src/sj-main.c:1138 ../src/sj-main.c:1263
-#: ../src/sj-main.c:1365
+#: ../src/sj-main.c:423 ../src/sj-main.c:1132 ../src/sj-main.c:1240
+#: ../src/sj-main.c:1342
 msgid "Reason"
 msgstr "原因"
 
 #. Change the label to Stop while extracting
-#: ../src/sj-extracting.c:789 ../src/sj-main.c:2216
+#: ../src/sj-extracting.c:789 ../src/sj-main.c:2225
 msgid "_Stop"
 msgstr "停止(_S)"
 
@@ -793,15 +798,15 @@ msgstr "請參閱說明文件以取得協助。"
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "您正在擷取光碟。您現在想離開，或是要繼續？"
 
-#: ../src/sj-main.c:214 ../src/sj-main.c:1490
+#: ../src/sj-main.c:214 ../src/sj-main.c:1467
 msgid "_Quit"
 msgstr "退出(_Q)"
 
-#: ../src/sj-main.c:262 ../src/sj-main.c:2163 ../src/sj-main.c:2239
+#: ../src/sj-main.c:262 ../src/sj-main.c:2172 ../src/sj-main.c:2248
 msgid "Select None"
 msgstr "全不選"
 
-#: ../src/sj-main.c:276 ../src/sj-main.c:2233
+#: ../src/sj-main.c:276 ../src/sj-main.c:2242
 msgid "Select All"
 msgstr "全選"
 
@@ -919,55 +924,50 @@ msgstr "專輯"
 msgid " (Disc %d/%d)"
 msgstr " (碟片 %d/%d)"
 
-#: ../src/sj-main.c:1136 ../src/sj-main.c:1259 ../src/sj-main.c:1363
+#: ../src/sj-main.c:1130 ../src/sj-main.c:1236 ../src/sj-main.c:1340
 msgid "Could not read the CD"
 msgstr "無法讀取光碟"
 
-#: ../src/sj-main.c:1137 ../src/sj-main.c:1262
+#: ../src/sj-main.c:1131 ../src/sj-main.c:1239
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer 無法讀取在本光碟上的曲目清單。"
 
-#. Set statusbar message
-#: ../src/sj-main.c:1232
-msgid "Retrieving track listing...please wait."
-msgstr "正在取得曲目清單....請稍候。"
-
-#: ../src/sj-main.c:1325
+#: ../src/sj-main.c:1302
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Sound Juicer 無法使用 CD-ROM 裝置「%s」"
 
-#: ../src/sj-main.c:1332
+#: ../src/sj-main.c:1309
 msgid "HAL daemon may not be running."
 msgstr "HAL 伺服程式可能尚未執行。"
 
-#: ../src/sj-main.c:1356
+#: ../src/sj-main.c:1333
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer 無法存取光碟裝置「%s」"
 
-#: ../src/sj-main.c:1455
+#: ../src/sj-main.c:1432
 msgid "No CD-ROM drives found"
 msgstr "找不到光碟機"
 
-#: ../src/sj-main.c:1456
+#: ../src/sj-main.c:1433
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer 找不到任何可以讀取資料的光碟機。"
 
-#: ../src/sj-main.c:1489
+#: ../src/sj-main.c:1466
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "在系統裡找不到您所指定的音效編碼設定組合。"
 
-#: ../src/sj-main.c:1491
+#: ../src/sj-main.c:1468
 msgid "_Change Profile"
 msgstr "更改設定組合(_C)"
 
-#: ../src/sj-main.c:1879
+#: ../src/sj-main.c:1856
 msgid "Unknown widget calling on_person_edit_changed."
 msgstr "未知的 widget 呼叫 on_person_edit_changed。"
 
-#: ../src/sj-main.c:1979 ../src/sj-prefs.c:127
+#: ../src/sj-main.c:1956 ../src/sj-prefs.c:120
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -976,39 +976,43 @@ msgstr ""
 "無法顯示 Sound Juicer 的說明文件\n"
 "%s"
 
-#: ../src/sj-main.c:2192 ../src/sj-play.c:301
+#: ../src/sj-main.c:2015
+msgid "Retrieving track listing...please wait."
+msgstr "正在取得曲目清單....請稍候。"
+
+#: ../src/sj-main.c:2201 ../src/sj-play.c:301
 msgid "_Pause"
 msgstr "暫停(_P)"
 
-#: ../src/sj-main.c:2270
+#: ../src/sj-main.c:2279
 msgid "Track"
 msgstr "曲目"
 
-#: ../src/sj-main.c:2284
+#: ../src/sj-main.c:2293
 msgid "Composer"
 msgstr "作曲者"
 
-#: ../src/sj-main.c:2438
+#: ../src/sj-main.c:2447
 msgid "Start extracting immediately"
 msgstr "立即開始擷取"
 
-#: ../src/sj-main.c:2439
+#: ../src/sj-main.c:2448
 msgid "Start playing immediately"
 msgstr "立即開始播放"
 
-#: ../src/sj-main.c:2440
+#: ../src/sj-main.c:2449
 msgid "What CD device to read"
 msgstr "讀取那個 CD 裝置"
 
-#: ../src/sj-main.c:2440
+#: ../src/sj-main.c:2449
 msgid "DEVICE"
 msgstr "裝置"
 
-#: ../src/sj-main.c:2441
+#: ../src/sj-main.c:2450
 msgid "URI to the CD device to read"
 msgstr "要讀取 CD 裝置的 URI"
 
-#: ../src/sj-main.c:2453
+#: ../src/sj-main.c:2462
 msgid "- Extract music from your CDs"
 msgstr "- 從光碟中擷取音樂"
 
@@ -1131,7 +1135,7 @@ msgstr "數字. 曲目作曲者 - 曲目演出者 - 曲目標題"
 msgid "Number-Track Composer-Track Artist-Track Title (lowercase)"
 msgstr "數字-曲目作曲者-曲目眼車者-曲目標題 (小寫)"
 
-#: ../src/sj-prefs.c:311
+#: ../src/sj-prefs.c:250
 msgid "Example Path: "
 msgstr "範例路徑："
 
