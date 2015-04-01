@@ -888,7 +888,7 @@ static char *format_release_details (AlbumDetails *album)
      * "Released on <label>" */
     details = g_strdup_printf (_("Released on %s"), label_text->str);
   } else {
-    details = _("Release label, year & country unknown");
+    details = g_strdup (_("Release label, year & country unknown"));
   }
 
   if (label_text)
