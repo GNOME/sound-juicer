@@ -218,9 +218,9 @@ lookup_cd (SjMetadataGetter *mdg)
                              NULL);
     bind_http_proxy_settings (metadata);
     if (priv->url == NULL)
-      albums = sj_metadata_list_albums (metadata, &priv->url, &error);
+      albums = sj_metadata_list_albums (metadata, &priv->url, NULL, &error);
     else
-      albums = sj_metadata_list_albums (metadata, NULL, &error);
+      albums = sj_metadata_list_albums (metadata, NULL, NULL, &error);
 
     if (albums != NULL) {
       SjMetadataGetterSignal *signal;

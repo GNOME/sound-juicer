@@ -75,7 +75,7 @@ device_to_cdda_uri (const char *device)
 }
 
 static GList *
-gvfs_list_albums (SjMetadata *metadata, char **url, GError **error)
+gvfs_list_albums (SjMetadata *metadata, char **url, GCancellable *cancellable, GError **error)
 {
   SjMetadataGvfsPrivate *priv;
   GList *albums = NULL;

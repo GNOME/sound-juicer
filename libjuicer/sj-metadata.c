@@ -32,6 +32,7 @@
 
 #include "sj-metadata.h"
 #include "sj-error.h"
+#include "sj-structures.h"
 
 enum {
   METADATA,
@@ -132,9 +133,31 @@ sj_metadata_set_cdrom (SjMetadata *metadata, const char* device)
 }
 
 GList *
-sj_metadata_list_albums (SjMetadata *metadata, char **url, GError **error)
+sj_metadata_list_albums (SjMetadata *metadata, char **url, GCancellable *cancellable, GError **error)
 {
-  return SJ_METADATA_GET_CLASS (metadata)->list_albums (metadata, url, error);
+  GError *err = NULL;
+  GCancellable *cancel;
+  GList *albums = NULL;
+
+  if (cancellable != NULL) {
+    if (g_cancellable_set_error_if_cancelled (cancellable, &err))
+      goto out;
+    cancel = cancellable;
+  } else {
+    cancel = g_cancellable_new ();
+  }
+  albums = SJ_METADATA_GET_CLASS (metadata)->list_albums (metadata, url, cancel, &err);
+  if (cancellable == NULL) {
+    g_object_unref (cancel);
+  } else if (err == NULL &&
+             g_cancellable_set_error_if_cancelled (cancellable, &err)) {
+    g_list_free_full (albums, (GDestroyNotify) album_details_free);
+    albums = NULL;
+  }
+ out:
+  if (err != NULL)
+    g_propagate_error (error, err);
+  return albums;
 }
 
 char *

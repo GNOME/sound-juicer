@@ -19,7 +19,7 @@
 #ifndef SJ_METADATA_H
 #define SJ_METADATA_H
 
-#include <glib-object.h>
+#include <gio/gio.h>
 #include <glib.h>
 
 G_BEGIN_DECLS
@@ -39,12 +39,12 @@ struct _SjMetadataClass
   GTypeInterface g_iface;
 
   /* Virtual Table */
-  GList * (*list_albums) (SjMetadata *metadata, char **url, GError **error);
+  GList * (*list_albums) (SjMetadata *metadata, char **url, GCancellable *cancellable, GError **error);
 };
 
 GType sj_metadata_get_type (void);
 void sj_metadata_set_cdrom (SjMetadata *metadata, const char* device);
-GList * sj_metadata_list_albums (SjMetadata *metadata, char **url, GError **error);
+GList * sj_metadata_list_albums (SjMetadata *metadata, char **url, GCancellable *cancellable, GError **error);
 
 char * sj_metadata_helper_scan_disc_number (const char *album_title, int *disc_number);
 gboolean sj_metadata_helper_check_media (const char *cdrom, GError **error);

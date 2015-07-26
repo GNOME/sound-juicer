@@ -860,7 +860,10 @@ make_album_from_release (SjMetadataMusicbrainz5 *self,
  * Virtual methods
  */
 static GList *
-mb5_list_albums (SjMetadata *metadata, char **url, GError **error)
+mb5_list_albums (SjMetadata    *metadata,
+                 char         **url,
+                 GCancellable  *cancellable,
+                 GError       **error)
 {
   SjMetadataMusicbrainz5 *self;
   SjMetadataMusicbrainz5Private *priv;
