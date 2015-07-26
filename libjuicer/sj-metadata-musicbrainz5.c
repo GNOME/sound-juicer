@@ -55,7 +55,6 @@ static char language[3];
 
 typedef struct {
   Mb5Query mb;
-  DiscId  *disc;
   char    *cdrom;
   GHashTable *artist_cache;
   /* Proxy */
@@ -871,6 +870,8 @@ mb5_list_albums (SjMetadata *metadata, char **url, GError **error)
   const char *discid = NULL;
   char buffer[1024];
   int i;
+  DiscId disc = NULL;
+
   g_return_val_if_fail (SJ_IS_METADATA_MUSICBRAINZ5 (metadata), NULL);
 
   self = SJ_METADATA_MUSICBRAINZ5 (metadata);
@@ -880,26 +881,26 @@ mb5_list_albums (SjMetadata *metadata, char **url, GError **error)
     return NULL;
   }
 
-  priv->disc = discid_new ();
-  if (priv->disc == NULL)
+  disc = discid_new ();
+  if (disc == NULL)
     return NULL;
-  if (discid_read_sparse (priv->disc, priv->cdrom, 0) == 0)
-    return NULL;
+  if (discid_read_sparse (disc, priv->cdrom, 0) == 0)
+    goto free_discid;
 
   if (url != NULL)
-    *url = g_strdup (discid_get_submission_url (priv->disc));
+    *url = g_strdup (discid_get_submission_url (disc));
 
   if (g_getenv("MUSICBRAINZ_FORCE_DISC_ID")) {
     discid = g_getenv("MUSICBRAINZ_FORCE_DISC_ID");
   } else {
-    discid = discid_get_id (priv->disc);
+    discid = discid_get_id (disc);
   }
 
   releases = mb5_query_lookup_discid(priv->mb, discid);
 
   if (releases == NULL) {
     print_musicbrainz_query_error (self, "discid", discid);
-    return NULL;
+    goto free_discid;
   }
 
   if (mb5_release_list_size (releases) == 0)
@@ -968,6 +969,8 @@ artist-rels";
     }
   }
   mb5_release_list_delete (releases);
+ free_discid:
+  discid_free (disc);
   return albums;
 }
 
@@ -1114,10 +1117,6 @@ sj_metadata_musicbrainz5_finalize (GObject *object)
   if (priv->mb != NULL) {
     mb5_query_delete (priv->mb);
     priv->mb = NULL;
-  }
-  if (priv->disc != NULL) {
-    discid_free (priv->disc);
-    priv->disc = NULL;
   }
   g_free (priv->cdrom);
   g_free (priv->proxy_host);
