@@ -188,14 +188,19 @@ print_musicbrainz_query_error (SjMetadataMusicbrainz5 *self,
 
 
 static Mb5Metadata
-query_musicbrainz (SjMetadataMusicbrainz5 *self,
-                   const char             *entity,
-                   const char             *id,
-                   char                   *includes)
+query_musicbrainz (SjMetadataMusicbrainz5  *self,
+                   const char              *entity,
+                   const char              *id,
+                   char                    *includes,
+                   GCancellable            *cancellable,
+                   GError                 **error)
 {
   Mb5Metadata metadata;
   char *inc[] = { "inc" };
   SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (self);
+
+  if (g_cancellable_set_error_if_cancelled (cancellable, error))
+    return NULL;
 
   if (includes == NULL)
     metadata = mb5_query_query (priv->mb, entity, id, "",
@@ -210,15 +215,19 @@ query_musicbrainz (SjMetadataMusicbrainz5 *self,
 }
 
 static ArtistDetails*
-query_artist (SjMetadataMusicbrainz5 *self,
-              const gchar            *id)
+query_artist (SjMetadataMusicbrainz5  *self,
+              const gchar             *id,
+              GCancellable            *cancellable,
+              GError                 **error)
 {
   SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (self);
   ArtistDetails *details = g_hash_table_lookup (priv->artist_cache, id);
 
   if (details == NULL) {
     Mb5Artist artist;
-    Mb5Metadata metadata = query_musicbrainz (self, "artist", id, "aliases");
+    Mb5Metadata metadata;
+
+    metadata = query_musicbrainz (self, "artist", id, "aliases", cancellable, error);
     if (metadata == NULL)
       return NULL;
     artist = mb5_metadata_get_artist (metadata);
@@ -572,12 +581,18 @@ build_composer_text (GSList  *composers,
   g_free (comp);
 }
 
+typedef struct {
+  GSList *composers;
+  GCancellable *cancellable;
+  GError **error;
+} ComposerCbContext;
+
 static void composer_cb (SjMetadataMusicbrainz5 *self,
                          Mb5Relation             relation,
                          gpointer                user_data)
 {
   Mb5Artist composer;
-  GSList **composers = user_data;
+  ComposerCbContext *context = user_data;
   char buffer[512]; /* For the GET macro */
   ArtistDetails *details;
 
@@ -588,16 +603,23 @@ static void composer_cb (SjMetadataMusicbrainz5 *self,
      we need to perform another query if we want the alias list
      therefore use query_artist rather than make_artist_details. */
   mb5_artist_get_id (composer, buffer, sizeof (buffer));
-  details = query_artist (self, buffer);
+  details = query_artist (self, buffer, context->cancellable, context->error);
   if (details != NULL)
-    *composers = g_slist_append (*composers, details);
+    context->composers = g_slist_append (context->composers, details);
 }
+
+typedef struct {
+  TrackDetails *track;
+  GCancellable *cancellable;
+  GError       **error;
+} WorkCbContext;
 
 static void work_cb (SjMetadataMusicbrainz5 *self,
                      Mb5Relation             relation,
                      gpointer                user_data)
 {
-  TrackDetails *track = user_data;
+  WorkCbContext *context = user_data;
+  ComposerCbContext composer_context;
   GSList *composers = NULL, *arrangers = NULL;
   GSList *orchestrators = NULL, *transcribers = NULL;
   Mb5RelationListList relation_lists;
@@ -605,25 +627,44 @@ static void work_cb (SjMetadataMusicbrainz5 *self,
 
   work = mb5_relation_get_work (relation);
   if (work == NULL)
-    return;
+    goto cleanup;
 
   relation_lists = mb5_work_get_relationlistlist (work);
+  composer_context.cancellable = context->cancellable;
+  composer_context.error = context->error;
+  composer_context.composers = NULL;
   relationlist_list_foreach_relation (self, relation_lists,
                                       "artist", "composer",
-                                      composer_cb, &composers);
+                                      composer_cb, &composer_context);
+  composers = composer_context.composers;
+  if (*context->error != NULL)
+    goto cleanup;
+  composer_context.composers = NULL;
   relationlist_list_foreach_relation (self, relation_lists,
                                       "artist", "arranger",
-                                      composer_cb, &arrangers);
+                                      composer_cb, &composer_context);
+  arrangers = composer_context.composers;
+  if (*context->error != NULL)
+    goto cleanup;
+  composer_context.composers = NULL;
   relationlist_list_foreach_relation (self, relation_lists,
                                       "artist", "orchestrator",
-                                      composer_cb, &orchestrators);
+                                      composer_cb, &composer_context);
+  orchestrators = composer_context.composers;
+  if (*context->error != NULL)
+    goto cleanup;
+  composer_context.composers = NULL;
   relationlist_list_foreach_relation (self, relation_lists,
                                       "artist", "instrument arranger",
-                                      composer_cb, &transcribers);
+                                      composer_cb, &composer_context);
+  transcribers = composer_context.composers;
+  if (*context->error != NULL)
+    goto cleanup;
 
   build_composer_text (composers, arrangers, orchestrators, transcribers,
-                       &track->composer, &track->composer_sortname);
+                       &context->track->composer, &context->track->composer_sortname);
 
+ cleanup:
   g_slist_free (arrangers);
   g_slist_free (composers);
   g_slist_free (orchestrators);
@@ -631,16 +672,22 @@ static void work_cb (SjMetadataMusicbrainz5 *self,
 }
 
 static void
-fill_recording_relations (SjMetadataMusicbrainz5 *self,
-                          Mb5Recording            recording,
-                          TrackDetails           *track)
+fill_recording_relations (SjMetadataMusicbrainz5  *self,
+                          Mb5Recording             recording,
+                          TrackDetails            *track,
+                          GCancellable            *cancellable,
+                          GError                 **error)
 {
   Mb5RelationListList relation_lists;
+  WorkCbContext context;
 
+  context.track = track;
+  context.cancellable = cancellable;
+  context.error = error;
   relation_lists = mb5_recording_get_relationlistlist (recording);
   relationlist_list_foreach_relation(self, relation_lists,
                                      "work", "performance",
-                                     work_cb, track);
+                                     work_cb, &context);
 }
 
 static void
@@ -661,9 +708,11 @@ parse_artist_credit (SjMetadataMusicbrainz5  *self,
 }
 
 static void
-fill_tracks_from_medium (SjMetadataMusicbrainz5 *self,
-                         Mb5Medium               medium,
-                         AlbumDetails           *album)
+fill_tracks_from_medium (SjMetadataMusicbrainz5  *self,
+                         Mb5Medium                medium,
+                         AlbumDetails            *album,
+                         GCancellable            *cancellable,
+                         GError                 **error)
 {
   Mb5TrackList track_list;
   GList *tracks;
@@ -704,7 +753,12 @@ fill_tracks_from_medium (SjMetadataMusicbrainz5 *self,
     recording = mb5_track_get_recording (mbt);
     if (recording != NULL) {
       GET (track->track_id, mb5_recording_get_id, recording);
-      fill_recording_relations (self, recording, track);
+      fill_recording_relations (self, recording, track, cancellable, error);
+      if (*error != NULL) {
+        track_details_free (track);
+        g_list_free_full (tracks, (GDestroyNotify) track_details_free);
+        return NULL;
+      }
 
       if (track->duration == 0)
         track->duration = mb5_recording_get_length (recording) / 1000;
@@ -792,10 +846,12 @@ fill_relations (SjMetadataMusicbrainz5 *self,
 }
 
 static AlbumDetails *
-make_album_from_release (SjMetadataMusicbrainz5 *self,
-                         Mb5ReleaseGroup         group,
-                         Mb5Release              release,
-                         Mb5Medium               medium)
+make_album_from_release (SjMetadataMusicbrainz5  *self,
+                         Mb5ReleaseGroup          group,
+                         Mb5Release               release,
+                         Mb5Medium                medium,
+                         GCancellable            *cancellable,
+                         GError                 **error)
 {
   AlbumDetails *album;
   Mb5ArtistCredit credit;
@@ -846,7 +902,10 @@ make_album_from_release (SjMetadataMusicbrainz5 *self,
   }
 
   album->disc_number = mb5_medium_get_position (medium);
-  fill_tracks_from_medium (self, medium, album);
+  fill_tracks_from_medium (self, medium, album, cancellable, error);
+  if (*error != NULL)
+    return NULL;
+
   fill_album_composer (album);
   relationlists = mb5_release_get_relationlistlist (release);
   fill_relations (self, relationlists, album);
@@ -871,6 +930,7 @@ mb5_list_albums (SjMetadata    *metadata,
   Mb5ReleaseList releases;
   Mb5Release release;
   const char *discid = NULL;
+  char *tmp_url = NULL;
   char buffer[1024];
   int i;
   DiscId disc = NULL;
@@ -891,18 +951,22 @@ mb5_list_albums (SjMetadata    *metadata,
     goto free_discid;
 
   if (url != NULL)
-    *url = g_strdup (discid_get_submission_url (disc));
+    tmp_url = g_strdup (discid_get_submission_url (disc));
 
   if (g_getenv("MUSICBRAINZ_FORCE_DISC_ID")) {
     discid = g_getenv("MUSICBRAINZ_FORCE_DISC_ID");
   } else {
     discid = discid_get_id (disc);
   }
+  if (g_cancellable_set_error_if_cancelled (cancellable, error))
+    goto free_url;
 
   releases = mb5_query_lookup_discid(priv->mb, discid);
 
   if (releases == NULL) {
     print_musicbrainz_query_error (self, "discid", discid);
+    if (url != NULL)
+      *url = tmp_url;
     goto free_discid;
   }
 
@@ -926,12 +990,13 @@ artist-rels";
       /* Inorder to get metadata for artist aliases & work / composer
        * relationships we need to perform a custom query
        */
-      release_md = query_musicbrainz (self, "release", releaseid, includes);
+      release_md = query_musicbrainz (self, "release", releaseid, includes, cancellable, error);
+      g_free (releaseid);
+      if (*error != NULL)
+        goto free_releases;
 
       if (release_md && mb5_metadata_get_release (release_md))
         full_release = mb5_metadata_get_release (release_md);
-      g_free (releaseid);
-
       if (full_release) {
         Mb5MediumList media;
         Mb5Metadata metadata = NULL;
@@ -948,8 +1013,12 @@ artist-rels";
           char *includes = "artists url-rels";
 
           GET (releasegroupid, mb5_releasegroup_get_id, group);
-          metadata = query_musicbrainz (self, "release-group", releasegroupid, includes);
+          metadata = query_musicbrainz (self, "release-group", releasegroupid, includes, cancellable, error);
           g_free (releasegroupid);
+          if (*error != NULL) {
+            mb5_metadata_delete (release_md);
+            goto free_releases;
+          }
         }
 
         if (metadata && mb5_metadata_get_releasegroup (metadata))
@@ -960,7 +1029,14 @@ artist-rels";
           Mb5Medium medium;
           medium = mb5_medium_list_item (media, j);
           if (medium) {
-            album = make_album_from_release (self, group, full_release, medium);
+            album = make_album_from_release (self, group, full_release, medium, cancellable, error);
+            if (*error != NULL) {
+              mb5_metadata_delete (metadata);
+              mb5_medium_list_delete (media);
+              mb5_metadata_delete (release_md);
+              goto free_releases;
+            }
+
             album->metadata_source = SOURCE_MUSICBRAINZ;
             albums = g_list_append (albums, album);
           }
@@ -971,10 +1047,21 @@ artist-rels";
       mb5_metadata_delete (release_md);
     }
   }
+  if (url != NULL)
+    *url = tmp_url;
   mb5_release_list_delete (releases);
- free_discid:
   discid_free (disc);
   return albums;
+
+
+ free_releases:
+  g_list_free_full (albums, (GDestroyNotify) album_details_free);
+  mb5_release_list_delete (releases);
+ free_url:
+  g_free (tmp_url);
+ free_discid:
+  discid_free (disc);
+  return NULL;
 }
 
 static void
