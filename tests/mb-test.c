@@ -42,9 +42,14 @@ release_type_to_id (const char *type)
 }
 
 static void
-metadata_cb (SjMetadataGetter *metadata, GList *albums, const GError *error)
+metadata_cb (GObject *object, GAsyncResult *result, gpointer user_data)
 {
+  SjMetadataGetter* metadata = SJ_METADATA_GETTER (object);
+  GError *error = NULL;
   char *url;
+  GList *albums, *album_list;
+
+  albums = sj_metadata_getter_list_albums_finish (metadata, result, &url, &error);
 
   if (error != NULL) {
     g_print ("Error: %s\n", error->message);
@@ -52,10 +57,10 @@ metadata_cb (SjMetadataGetter *metadata, GList *albums, const GError *error)
     exit (1);
   }
 
-  url = sj_metadata_getter_get_submit_url (metadata);
   g_print ("Submit URL: %s\n", url);
   g_free (url);
 
+  album_list = albums;
   while (albums) {
     AlbumDetails *album;
     album = (AlbumDetails*)albums->data;
@@ -96,6 +101,7 @@ metadata_cb (SjMetadataGetter *metadata, GList *albums, const GError *error)
     albums = g_list_next (albums);
   }
 
+  g_list_free_full (album_list, (GDestroyNotify) album_details_free);
   g_object_unref (metadata);
   exit (0);
 }
@@ -104,7 +110,6 @@ int main (int argc, char** argv)
 {
   SjMetadataGetter *metadata;
   GMainLoop *loop;
-  GError *error = NULL;
   BraseroMediumMonitor *monitor;
 
   setlocale (LC_ALL, "");
@@ -136,14 +141,7 @@ int main (int argc, char** argv)
     exit (1);
   }
 
-  g_signal_connect (G_OBJECT (metadata), "metadata",
-		    G_CALLBACK (metadata_cb), NULL);
-  if (sj_metadata_getter_list_albums (metadata, &error) == FALSE) {
-    g_warning ("Couldn't list tracks on album: %s", error->message);
-    g_error_free (error);
-    return 1;
-  }
-
+  sj_metadata_getter_list_albums_async (metadata, NULL, metadata_cb, NULL);
   loop = g_main_loop_new (NULL, FALSE);
   g_main_loop_run (loop);
 
