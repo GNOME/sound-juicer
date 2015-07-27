@@ -100,6 +100,7 @@ static gint total_no_of_tracks;
 static gint no_of_tracks_selected;
 static AlbumDetails *current_album;
 static char *current_submit_url = NULL;
+static GCancellable *reread_cancellable; /* weak reference */
 
 gboolean autostart = FALSE, autoplay = FALSE;
 static char *device = NULL, **uris = NULL;
@@ -206,6 +207,10 @@ disc_ejected_cb (void)
       gtk_widget_get_mapped (multiple_album_dialog))
     gtk_dialog_response (GTK_DIALOG (multiple_album_dialog),
                          SJ_RESPONSE_EJECTED);
+  if (reread_cancellable != NULL) {
+    g_cancellable_cancel (reread_cancellable);
+    reread_cancellable = NULL;
+  }
   set_action_state ("re-read(false)");
   set_action_enabled ("re-read", FALSE);
   set_action_enabled ("submit-tracks", FALSE);
@@ -1155,10 +1160,30 @@ static void audio_volume_changed_cb (GSettings *settings, gchar *key, gpointer u
 }
 
 static void
-metadata_cb (SjMetadataGetter *m, GList *albums, GError *error)
+metadata_cb (GObject      *source,
+             GAsyncResult *result,
+             gpointer      user_data)
 {
+  SjMetadataGetter *mdg = SJ_METADATA_GETTER (source);
+  GError *error = NULL;
+  GList *albums;
+  gchar *url;
+
+  albums = sj_metadata_getter_list_albums_finish (mdg,
+                                                  result,
+                                                  &url,
+                                                  &error);
+  /* Check if this request was cancelled */
+  if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+    g_error_free (error);
+    return;
+  }
+
+  reread_cancellable = NULL;
+  set_action_enabled ("re-read", TRUE);
   set_action_state ("re-read(false)");
-  if (error) {
+
+  if (error != NULL) {
     gboolean realized;
     GtkWidget *dialog;
 
@@ -1174,16 +1199,15 @@ metadata_cb (SjMetadataGetter *m, GList *albums, GError *error)
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
     update_ui_for_album (NULL);
+    g_error_free (error);
     return;
   }
 
   g_free (current_submit_url);
-  current_submit_url = sj_metadata_getter_get_submit_url (metadata);
+  current_submit_url = url;
   if (current_submit_url) {
     set_action_enabled ("submit-tracks", TRUE);
   }
-  set_action_enabled ("re-read", TRUE);
-
   /* Free old album details */
   g_clear_pointer (&current_album, (GDestroyNotify) album_details_free);
   /* Set the new current album pointer */
@@ -1236,8 +1260,6 @@ is_audio_cd (BraseroDrive *drive)
  */
 static void reread_cd (void)
 {
-  GError *error = NULL;
-
   set_action_state ("re-read(true)");
   set_action_enabled ("re-read", FALSE);
 
@@ -1258,29 +1280,16 @@ static void reread_cd (void)
     return;
   }
 
-  sj_metadata_getter_list_albums (metadata, &error);
+  if (reread_cancellable != NULL)
+    g_cancellable_cancel (reread_cancellable);
 
-  if (error) {
-    gboolean realized;
-    GtkWidget *dialog;
-
-    realized = gtk_widget_get_realized (main_window);
-    dialog = gtk_message_dialog_new (realized ? GTK_WINDOW (main_window) : NULL, 0,
-                                     GTK_MESSAGE_ERROR,
-                                     GTK_BUTTONS_CLOSE,
-                                     "%s", _("Could not read the CD"));
-    gtk_message_dialog_format_secondary_markup (GTK_MESSAGE_DIALOG (dialog),
-                                                "%s\n%s: %s",
-                                                _("Sound Juicer could not read the track listing on this CD."),
-                                                _("Reason"),
-                                                error->message);
-
-    gtk_dialog_run (GTK_DIALOG (dialog));
-    gtk_widget_destroy (dialog);
-    g_error_free (error);
-    update_ui_for_album (NULL);
-    return;
-  }
+  reread_cancellable = g_cancellable_new ();
+  sj_metadata_getter_list_albums_async (metadata,
+                                        reread_cancellable,
+                                        metadata_cb,
+                                        NULL);
+  /* reread_cancellable holds a weak reference */
+  g_object_unref (reread_cancellable);
 }
 
 static void
@@ -2119,7 +2128,6 @@ startup_cb (GApplication *app, gpointer user_data)
   brasero_media_library_start ();
 
   metadata = sj_metadata_getter_new ();
-  g_signal_connect (metadata, "metadata", G_CALLBACK (metadata_cb), NULL);
 
   sj_settings = g_settings_new ("org.gnome.sound-juicer");
 
