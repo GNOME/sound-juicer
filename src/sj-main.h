@@ -27,8 +27,6 @@ void set_action_enabled (const char *name, gboolean enabled);
 
 G_MODULE_EXPORT void on_destroy_activate (GtkMenuItem *item, gpointer user_data);
 
-AlbumDetails* multiple_album_dialog (GList* albums);
-
 const char* prefs_get_default_device (void);
 
 G_MODULE_EXPORT void on_genre_edit_changed(GtkEditable *widget, gpointer user_data);

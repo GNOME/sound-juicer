@@ -82,7 +82,7 @@ static GtkWidget *title_entry, *artist_entry, *composer_label, *composer_entry, 
 static GtkWidget *entry_table; /* GtkTable containing composer_entry */
 static GtkTreeViewColumn *composer_column; /* Treeview column containing composers */
 static GtkWidget *track_listview, *extract_button, *play_button, *select_button;
-static GtkWidget *status_bar, *submit_button, *reload_button;
+static GtkWidget *multiple_album_dialog, *status_bar, *submit_button, *reload_button;
 GtkListStore *track_store;
 GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer, *composer_renderer;
 
@@ -191,6 +191,10 @@ static void on_quit_activate (GSimpleAction *action, GVariant *parameter, gpoint
   }
 }
 
+enum {
+  SJ_RESPONSE_EJECTED = 1
+};
+
 static void
 disc_ejected_cb (void)
 {
@@ -198,6 +202,10 @@ disc_ejected_cb (void)
   stop_playback ();
   stop_ui_hack ();
   update_ui_for_album (NULL);
+  if (multiple_album_dialog != NULL &&
+      gtk_widget_get_mapped (multiple_album_dialog))
+    gtk_dialog_response (GTK_DIALOG (multiple_album_dialog),
+                         SJ_RESPONSE_EJECTED);
   set_action_state ("re-read(false)");
   set_action_enabled ("re-read", FALSE);
   set_action_enabled ("submit-tracks", FALSE);
@@ -929,9 +937,10 @@ static char *format_release_details (AlbumDetails *album)
 /**
  * Utility function for when there are more than one albums available
  */
-AlbumDetails* multiple_album_dialog(GList *albums)
+static AlbumDetails*
+choose_album(GList *albums)
 {
-  static GtkWidget *dialog = NULL, *albums_listview;
+  static GtkWidget *albums_listview;
   static GtkListStore *albums_store;
   static GtkTreeSelection *selection;
   AlbumDetails *album;
@@ -945,13 +954,14 @@ AlbumDetails* multiple_album_dialog(GList *albums)
     COLUMN_COUNT
   };
 
-  if (dialog == NULL) {
+  if (multiple_album_dialog == NULL) {
     GtkTreeViewColumn *column = gtk_tree_view_column_new ();
     GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
 
-    dialog = GET_WIDGET ("multiple_dialog");
-    g_assert (dialog != NULL);
-    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (main_window));
+    multiple_album_dialog = GET_WIDGET ("multiple_dialog");
+    g_assert (multiple_album_dialog != NULL);
+    gtk_window_set_transient_for (GTK_WINDOW (multiple_album_dialog),
+                                  GTK_WINDOW (main_window));
     albums_listview = GET_WIDGET ("albums_listview");
     ok_button       = GET_WIDGET ("ok_button");
 
@@ -961,7 +971,7 @@ AlbumDetails* multiple_album_dialog(GList *albums)
                                         "markup", COLUMN_RELEASE);
 
     g_signal_connect (albums_listview, "row-activated",
-                      G_CALLBACK (album_row_activated), dialog);
+                      G_CALLBACK (album_row_activated), multiple_album_dialog);
 
     albums_store = gtk_list_store_new (COLUMN_COUNT,
                                        G_TYPE_STRING,
@@ -1016,11 +1026,12 @@ AlbumDetails* multiple_album_dialog(GList *albums)
     gtk_tree_selection_select_iter (selection, &iter);
   }
 
-  gtk_widget_show_all (dialog);
-  response = gtk_dialog_run (GTK_DIALOG (dialog));
-  gtk_widget_hide (dialog);
+  gtk_widget_show_all (multiple_album_dialog);
+  response = gtk_dialog_run (GTK_DIALOG (multiple_album_dialog));
+  gtk_widget_hide (multiple_album_dialog);
 
-  if (response == GTK_RESPONSE_DELETE_EVENT) {
+  if (response == GTK_RESPONSE_DELETE_EVENT ||
+      response == SJ_RESPONSE_EJECTED) {
     return NULL;
   }
 
@@ -1178,7 +1189,7 @@ metadata_cb (SjMetadataGetter *m, GList *albums, GError *error)
   /* Set the new current album pointer */
   if (albums != NULL) {
     if (albums->next != NULL) {
-      current_album = multiple_album_dialog (albums);
+      current_album = choose_album (albums);
       /* Concentrate here. We remove the album we want from the list, and then
          deep-free the list. */
       albums = g_list_remove (albums, current_album);
