@@ -95,6 +95,7 @@ gboolean open_finished;
 gboolean extracting = FALSE;
 static gboolean duplication_enabled;
 
+static gboolean eject_activated;
 static gint total_no_of_tracks;
 static gint no_of_tracks_selected;
 static AlbumDetails *current_album;
@@ -190,14 +191,25 @@ static void on_quit_activate (GSimpleAction *action, GVariant *parameter, gpoint
   }
 }
 
+static void
+disc_ejected_cb (void)
+{
+  /* first make sure we're not playing */
+  stop_playback ();
+  stop_ui_hack ();
+  update_ui_for_album (NULL);
+  set_action_state ("re-read(false)");
+  set_action_enabled ("re-read", FALSE);
+  set_action_enabled ("submit-tracks", FALSE);
+}
+
 /**
  * Clicked Eject
  */
 static void on_eject_activate (GSimpleAction *action, GVariant *parameter, gpointer data)
 {
-  /* first make sure we're not playing */
-  stop_playback ();
-  set_action_state ("re-read(false)");
+  disc_ejected_cb ();
+  eject_activated = TRUE;
   brasero_drive_eject (drive, FALSE, NULL);
 }
 
@@ -1284,13 +1296,12 @@ media_removed_cb (BraseroMediumMonitor	*drive,
     /* FIXME: recover? */
   }
 
-  /* first make sure we're not playing */
-  stop_playback ();
+  if (!eject_activated)
+    disc_ejected_cb ();
+  else
+    eject_activated = FALSE;
 
   sj_debug (DEBUG_CD, "Media removed from device %s\n", brasero_drive_get_device (brasero_medium_get_drive (medium)));
-  stop_ui_hack ();
-  update_ui_for_album (NULL);
-  set_action_enabled ("submit-tracks", FALSE);
 }
 
 static void
