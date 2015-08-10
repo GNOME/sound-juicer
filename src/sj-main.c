@@ -82,7 +82,7 @@ static GtkWidget *title_entry, *artist_entry, *composer_label, *composer_entry, 
 static GtkWidget *entry_table; /* GtkTable containing composer_entry */
 static GtkTreeViewColumn *composer_column; /* Treeview column containing composers */
 static GtkWidget *track_listview, *extract_button, *play_button, *select_button;
-static GtkWidget *status_bar;
+static GtkWidget *status_bar, *submit_button, *reload_button;
 GtkListStore *track_store;
 GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer, *composer_renderer;
 
@@ -336,13 +336,15 @@ set_submit_text (const AlbumDetails *album)
   gchar *text;
 
   if (g_str_equal (album->title, _("Unknown Title"))) {
-    text = g_strdup (_("This album is not in the MusicBrainz database."));
+    text = g_strdup (_("This album is not in the MusicBrainz database, please click ‘Edit Album’ to open your brower and edit it in MusicBrainz."));
   } else {
-    text = g_strdup_printf (_("Could not find %s by %s on MusicBrainz."),
+    text = g_strdup_printf (_("Could not find %s by %s on MusicBrainz, please click ‘Edit Album’ to open your brower and edit it in MusicBrainz."),
                                     album->title, album->artist);
   }
   gtk_label_set_text (GTK_LABEL (submit_label), text);
   g_free (text);
+  gtk_widget_show (submit_button);
+  gtk_widget_hide (reload_button);
 }
 
 static void
@@ -355,12 +357,27 @@ submit_tracks_enabled_changed_cb (GActionGroup *action_group,
     gtk_widget_hide (submit_bar);
 }
 
+enum {
+  SJ_RESPONSE_SUBMIT = 1,
+  SJ_RESPONSE_REREAD
+};
+
 G_MODULE_EXPORT void
 submit_bar_response_cb (GtkInfoBar *infobar,
                         int         response_id,
                         gpointer    user_data)
 {
-  gtk_widget_hide (GTK_WIDGET (infobar));
+  if (!gtk_widget_get_visible (submit_bar))
+    return;
+
+  if (response_id == SJ_RESPONSE_SUBMIT) {
+    gtk_widget_hide (submit_button);
+    gtk_widget_show (reload_button);
+    gtk_label_set_text (GTK_LABEL (submit_label),
+                        _("Click ‘Reload’ to load the edited album details from MusicBrainz"));
+  } else {
+    gtk_widget_hide (GTK_WIDGET (infobar));
+  }
 }
 
 /**
@@ -388,7 +405,7 @@ static void on_submit_activate (GSimpleAction *action, GVariant *parameter, gpoi
       g_error_free (error);
     }
   }
-  gtk_widget_hide (GTK_WIDGET (submit_bar));
+  gtk_info_bar_response (GTK_INFO_BAR (submit_bar), SJ_RESPONSE_SUBMIT);
 }
 
 static void on_preferences_activate (GSimpleAction *action, GVariant *parameter, gpointer data)
@@ -1486,6 +1503,7 @@ static void profile_changed_cb (GSettings *settings, gchar *key, gpointer user_d
  */
 static void on_reread_activate (GSimpleAction *action, GVariant *parameter, gpointer data)
 {
+  gtk_info_bar_response (GTK_INFO_BAR (submit_bar), SJ_RESPONSE_REREAD);
   reread_cd (FALSE);
 }
 
@@ -2145,6 +2163,8 @@ startup_cb (GApplication *app, gpointer user_data)
   main_window           = GET_WIDGET ("main_window");
   submit_bar            = GET_WIDGET ("submit_bar");
   submit_label          = GET_WIDGET ("submit_label");
+  reload_button         = GET_WIDGET ("submit_bar_reload_button");
+  submit_button         = GET_WIDGET ("submit_bar_submit_button");
   title_entry           = GET_WIDGET ("title_entry");
   artist_entry          = GET_WIDGET ("artist_entry");
   composer_label        = GET_WIDGET ("composer_label");
