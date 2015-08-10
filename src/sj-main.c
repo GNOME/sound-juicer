@@ -1162,25 +1162,21 @@ metadata_cb (SjMetadataGetter *m, GList *albums, GError *error)
   set_action_enabled ("re-read", TRUE);
 
   /* Free old album details */
-  if (current_album != NULL) {
-    album_details_free (current_album);
-    current_album = NULL;
-  }
+  g_clear_pointer (&current_album, (GDestroyNotify) album_details_free);
   /* Set the new current album pointer */
-  if (albums == NULL) {
-    current_album = NULL;
-  } else if (g_list_next (albums)) {
-    current_album = multiple_album_dialog (albums);
-    /* Concentrate here. We remove the album we want from the list, and then
-       deep-free the list. */
-    albums = g_list_remove (albums, current_album);
-    g_list_free_full (albums, (GDestroyNotify)album_details_free);
-    albums = NULL;
-  } else {
-    current_album = albums->data;
-    /* current_album now owns ->data, so just free the list */
-    g_list_free (albums);
-    albums = NULL;
+  if (albums != NULL) {
+    if (albums->next != NULL) {
+      current_album = multiple_album_dialog (albums);
+      /* Concentrate here. We remove the album we want from the list, and then
+         deep-free the list. */
+      albums = g_list_remove (albums, current_album);
+      g_list_free_full (albums, (GDestroyNotify)album_details_free);
+      albums = NULL;
+    } else {
+      current_album = albums->data;
+      /* current_album now owns ->data, so just free the list */
+      g_clear_pointer (&albums, (GDestroyNotify) g_list_free);
+    }
   }
   update_ui_for_album (current_album);
 
