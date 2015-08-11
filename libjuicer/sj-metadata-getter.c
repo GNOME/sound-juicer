@@ -274,3 +274,89 @@ sj_metadata_getter_get_submit_url (SjMetadataGetter *mdg)
     return g_strdup (priv->url);
   return NULL;
 }
+
+GList *
+sj_metadata_getter_list_albums_finish (SjMetadataGetter  *getter,
+                                       GAsyncResult      *result,
+                                       gchar            **url,
+                                       GError           **error)
+{
+  GList *albums;
+  GTask *task;
+
+  g_return_val_if_fail (g_task_is_valid (result, getter), NULL);
+  g_return_val_if_fail (error == NULL || *error == NULL, NULL);
+
+  task = (GTask*) result;
+  albums = g_task_propagate_pointer (task, error);
+  if (albums != NULL)
+    *url = g_strdup (g_task_get_task_data (task));
+
+  return albums;
+}
+
+static void
+free_album_list (gpointer albums)
+{
+  g_list_free_full (albums, (GDestroyNotify) album_details_free);
+}
+
+static void
+list_albums_thread_cb (GTask        *task,
+                       gpointer      source,
+                       gpointer      task_data,
+                       GCancellable *cancellable)
+{
+  guint i;
+  GError *error = NULL;
+  GList *albums = NULL;
+  gchar *url = NULL;
+  GType types[] = {
+#ifdef HAVE_MUSICBRAINZ5
+    SJ_TYPE_METADATA_MUSICBRAINZ5,
+#endif /* HAVE_MUSICBRAINZ5 */
+    SJ_TYPE_METADATA_GVFS
+  };
+
+  for (i = 0; albums == NULL && i < G_N_ELEMENTS (types); i++) {
+    SjMetadata *metadata;
+
+    metadata = g_object_new (types[i],
+                             "device", task_data,
+                             NULL);
+    bind_http_proxy_settings (metadata);
+    if (url == NULL)
+      albums = sj_metadata_list_albums (metadata, &url, cancellable, &error);
+    else
+      albums = sj_metadata_list_albums (metadata, NULL, cancellable, &error);
+
+    g_object_unref (metadata);
+
+    if (error != NULL) {
+      free_album_list (albums);
+      g_free (url);
+      g_task_return_error (task, error);
+      return;
+    }
+  }
+
+  g_task_set_task_data (task, url, g_free);
+  g_task_return_pointer (task, albums, free_album_list);
+}
+
+void
+sj_metadata_getter_list_albums_async (SjMetadataGetter    *mdg,
+                                      GCancellable        *cancellable,
+                                      GAsyncReadyCallback  callback,
+                                      gpointer             user_data)
+{
+  GTask *task;
+  SjMetadataGetterPrivate *priv;
+
+  priv = GETTER_PRIVATE (mdg);
+  task = g_task_new (mdg, cancellable, callback, user_data);
+  g_task_set_task_data (task, g_strdup (priv->cdrom), g_free);
+  g_task_set_return_on_cancel (task, TRUE);
+  g_task_run_in_thread (task, list_albums_thread_cb);
+  g_object_unref (task);
+}

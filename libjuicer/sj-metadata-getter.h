@@ -52,6 +52,8 @@ SjMetadataGetter *sj_metadata_getter_new (void);
 void sj_metadata_getter_set_cdrom (SjMetadataGetter *mdg, const char* device);
 gboolean sj_metadata_getter_list_albums (SjMetadataGetter *mdg, GError **error);
 char *sj_metadata_getter_get_submit_url (SjMetadataGetter *mdg);
+void sj_metadata_getter_list_albums_async (SjMetadataGetter *mdg, GCancellable *cancellable, GAsyncReadyCallback callback, gpointer user_data);
+GList *sj_metadata_getter_list_albums_finish (SjMetadataGetter *mdg, GAsyncResult *result, gchar **uri,  GError **error);
 
 G_END_DECLS
 
