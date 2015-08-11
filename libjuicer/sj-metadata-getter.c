@@ -37,27 +37,11 @@
 #define SJ_SETTINGS_PROXY_USERNAME "authentication-user"
 #define SJ_SETTINGS_PROXY_PASSWORD "authentication-password"
 
-enum {
-  METADATA,
-  LAST_SIGNAL
-};
-
 struct SjMetadataGetterPrivate {
-  char *url;
   char *cdrom;
 };
 
-struct SjMetadataGetterSignal {
-  SjMetadataGetter *mdg;
-  SjMetadata *metadata;
-  GList *albums;
-  GError *error;
-};
-
 typedef struct SjMetadataGetterPrivate SjMetadataGetterPrivate;
-typedef struct SjMetadataGetterSignal SjMetadataGetterSignal;
-
-static int signals[LAST_SIGNAL] = { 0 };
 
 static void sj_metadata_getter_finalize (GObject *object);
 static void sj_metadata_getter_init (SjMetadataGetter *mdg);
@@ -76,15 +60,6 @@ sj_metadata_getter_class_init (SjMetadataGetterClass *klass)
   g_type_class_add_private (klass, sizeof (SjMetadataGetterPrivate));
 
   object_class->finalize = sj_metadata_getter_finalize;
-
-  /* Properties */
-  signals[METADATA] = g_signal_new ("metadata",
-				    G_TYPE_FROM_CLASS (object_class),
-				    G_SIGNAL_RUN_LAST,
-				    G_STRUCT_OFFSET (SjMetadataGetterClass, metadata),
-				    NULL, NULL,
-				    g_cclosure_marshal_generic,
-				    G_TYPE_NONE, 2, G_TYPE_POINTER, G_TYPE_POINTER);
 }
 
 static void
@@ -92,7 +67,6 @@ sj_metadata_getter_finalize (GObject *object)
 {
   SjMetadataGetterPrivate *priv = GETTER_PRIVATE (object);
 
-  g_free (priv->url);
   g_free (priv->cdrom);
 
   G_OBJECT_CLASS (sj_metadata_getter_parent_class)->finalize (object);
@@ -170,109 +144,6 @@ bind_http_proxy_settings (SjMetadata *metadata)
                    metadata, "proxy-mode",
                    G_SETTINGS_BIND_GET_NO_CHANGES);
   g_object_unref (settings);
-}
-
-static gboolean
-fire_signal_idle (SjMetadataGetterSignal *signal)
-{
-  /* The callback is the sucker, and now owns the albums list */
-  g_signal_emit_by_name (G_OBJECT (signal->mdg), "metadata",
-  			 signal->albums, signal->error);
-
-  if (signal->metadata)
-    g_object_unref (signal->metadata);
-  if (signal->error != NULL)
-    g_error_free (signal->error);
-  g_object_unref (signal->mdg);
-  g_free (signal);
-
-  return FALSE;
-}
-
-static gpointer
-lookup_cd (SjMetadataGetter *mdg)
-{
-  guint i;
-  SjMetadataGetterPrivate *priv;
-  GError *error = NULL;
-  gboolean found = FALSE;
-  GType types[] = {
-#ifdef HAVE_MUSICBRAINZ5
-    SJ_TYPE_METADATA_MUSICBRAINZ5,
-#endif /* HAVE_MUSICBRAINZ5 */
-    SJ_TYPE_METADATA_GVFS
-  };
-
-  priv = GETTER_PRIVATE (mdg);
-
-  g_free (priv->url);
-  priv->url = NULL;
-
-  for (i = 0; i < G_N_ELEMENTS (types); i++) {
-    SjMetadata *metadata;
-    GList *albums;
-    guint id;
-
-    metadata = g_object_new (types[i],
-                             "device", priv->cdrom,
-                             NULL);
-    bind_http_proxy_settings (metadata);
-    if (priv->url == NULL)
-      albums = sj_metadata_list_albums (metadata, &priv->url, NULL, &error);
-    else
-      albums = sj_metadata_list_albums (metadata, NULL, NULL, &error);
-
-    if (albums != NULL) {
-      SjMetadataGetterSignal *signal;
-
-      signal = g_new0 (SjMetadataGetterSignal, 1);
-      signal->albums = albums;
-      signal->mdg = g_object_ref (mdg);
-      signal->metadata = metadata;
-      id = g_idle_add ((GSourceFunc)fire_signal_idle, signal);
-      g_source_set_name_by_id (id, "[sound-juicer] fire_signal_idle (success)");
-      break;
-    }
-
-    g_object_unref (metadata);
-
-    if (error != NULL) {
-      SjMetadataGetterSignal *signal;
-
-      g_assert (found == FALSE);
-
-      signal = g_new0 (SjMetadataGetterSignal, 1);
-      signal->error = error;
-      signal->mdg = g_object_ref (mdg);
-      id = g_idle_add ((GSourceFunc)fire_signal_idle, signal);
-      g_source_set_name_by_id (id, "[sound-juicer] fire_signal_idle (error)");
-      break;
-    }
-  }
-
-  g_object_unref (mdg);
-
-  return NULL;
-}
-
-gboolean
-sj_metadata_getter_list_albums (SjMetadataGetter *mdg, GError **error)
-{
-  g_object_ref (mdg);
-  g_thread_new ("sj-list-albums", (GThreadFunc)lookup_cd, mdg);
-  return TRUE;
-}
-
-char *
-sj_metadata_getter_get_submit_url (SjMetadataGetter *mdg)
-{
-  SjMetadataGetterPrivate *priv;
-
-  priv = GETTER_PRIVATE (mdg);
-
-  if (priv->url)
-    return g_strdup (priv->url);
-  return NULL;
 }
 
 GList *
