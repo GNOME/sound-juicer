@@ -361,9 +361,9 @@ set_submit_text (const AlbumDetails *album)
   gchar *text;
 
   if (g_str_equal (album->title, _("Unknown Title"))) {
-    text = g_strdup (_("This album is not in the MusicBrainz database, please click ‘Edit Album’ to open your brower and edit it in MusicBrainz."));
+    text = g_strdup (_("This album is not in the MusicBrainz database, please click ‘Edit Album’ to open your browser and edit it in MusicBrainz."));
   } else {
-    text = g_strdup_printf (_("Could not find %s by %s on MusicBrainz, please click ‘Edit Album’ to open your brower and edit it in MusicBrainz."),
+    text = g_strdup_printf (_("Could not find %s by %s on MusicBrainz, please click ‘Edit Album’ to open your browser and edit it in MusicBrainz."),
                                     album->title, album->artist);
   }
   gtk_label_set_text (GTK_LABEL (submit_label), text);
