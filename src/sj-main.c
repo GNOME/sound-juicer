@@ -871,15 +871,63 @@ static GString* format_label_text (GList* labels)
 
 /**
  * Utility function for multiple_album_dialog to format the
+ * catalog number and barcode of a release.
+ */
+static gchar* format_catalog_number_text (GList* labels)
+{
+   int count;
+   GString *catalog_text;
+   GList *l;
+
+   if (labels == NULL)
+     return NULL;
+
+   /* Count how may label entries actually have a catalog number entry */
+   count = 0;
+   for (l = labels; l != NULL; l = l->next) {
+     if (((LabelDetails*)l->data)->catalog_number != NULL)
+         count++;
+   }
+
+   if (count == 0)
+      return NULL;
+
+   /* Translators: this string is a list of catalog number(s) used by
+      the label(s) to identify the release */
+   catalog_text = g_string_new (ngettext("Catalog No.: ",
+                                         "Catalog Nos.: ",
+                                         count));
+   for(l = labels; l != NULL; l = l->next) {
+     char *catalog_number = ((LabelDetails*)l->data)->catalog_number;
+     if (catalog_number != NULL) {
+       if (count > 1) {
+           g_string_append_printf (catalog_text, "%s, ", catalog_number);
+       } else {
+           g_string_append (catalog_text, catalog_number);
+       }
+       count--;
+     }
+   }
+
+   return g_string_free (catalog_text, FALSE);
+}
+
+/**
+ * Utility function for multiple_album_dialog to format the
  * release label, date and country.
  */
 static char *format_release_details (AlbumDetails *album)
 {
-  gchar *details;
+  GString *details;
   GString *label_text = NULL;
+  gchar *catalog_number_text = NULL;
 
-  if (album->labels)
+  details = g_string_new(NULL);
+
+  if (album->labels != NULL) {
     label_text = format_label_text (album->labels);
+    catalog_number_text = format_catalog_number_text (album->labels);
+  }
 
   if (!sj_str_is_empty (album->country)) {
     if (album->labels) {
@@ -887,56 +935,86 @@ static char *format_release_details (AlbumDetails *album)
         /* Translators: this string appears when multiple CDs were
          * found in musicbrainz online database, it corresponds to
          * "Released: <country> in <year> on <label>" */
-        details = g_strdup_printf (_("Released: %s in %d on %s"),
-                                   album->country,
-                                   gst_date_time_get_year (album->release_date),
-                                   label_text->str);
+        g_string_append_printf (details,
+                                _("Released: %s in %d on %s"),
+                                album->country,
+                                gst_date_time_get_year (album->release_date),
+                                label_text->str);
       } else {
         /* Translators: this string appears when multiple CDs were
          * found in musicbrainz online database, it corresponds to
          * "Released: <country> on <label>" */
-        details = g_strdup_printf (_("Released: %s on %s"), album->country, label_text->str);
+        g_string_append_printf (details,
+                                _("Released: %s on %s"),
+                                album->country, label_text->str);
       }
     } else if (album->release_date && gst_date_time_has_year (album->release_date)) {
       /* Translators: this string appears when multiple CDs were
        * found in musicbrainz online database, it corresponds to
        * "Released: <country> in <year>" */
-      details = g_strdup_printf (_("Released: %s in %d"), album->country,
-                                 gst_date_time_get_year (album->release_date));
+      g_string_append_printf (details,
+                              _("Released: %s in %d"),
+                              album->country,
+                              gst_date_time_get_year (album->release_date));
     } else {
       /* Translators: this string appears when multiple CDs were
        * found in musicbrainz online database, it corresponds to
        * "Released: <country>" */
-      details = g_strdup_printf (_("Released: %s"), album->country);
+      g_string_append_printf (details, _("Released: %s"), album->country);
     }
   } else if (album->release_date && gst_date_time_has_year (album->release_date)) {
     if (album->labels) {
         /* Translators: this string appears when multiple CDs were
          * found in musicbrainz online database, it corresponds to
          * "Released in <year> on <label>" */
-        details = g_strdup_printf (_("Released in %d on %s"),
-                                   gst_date_time_get_year (album->release_date),
-                                   label_text->str);
+       g_string_append_printf (details,
+                               _("Released in %d on %s"),
+                               gst_date_time_get_year (album->release_date),
+                               label_text->str);
     } else {
         /* Translators: this string appears when multiple CDs were
          * found in musicbrainz online database, it corresponds to
          * "Released in <year>" */
-        details = g_strdup_printf(_("Released in %d"),
-                                  gst_date_time_get_year (album->release_date));
+        g_string_append_printf (details, _("Released in %d"),
+                                gst_date_time_get_year (album->release_date));
     }
   } else if (album->labels) {
     /* Translators: this string appears when multiple CDs were
      * found in musicbrainz online database, it corresponds to
      * "Released on <label>" */
-    details = g_strdup_printf (_("Released on %s"), label_text->str);
+    g_string_append_printf (details, _("Released on %s"), label_text->str);
   } else {
-    details = g_strdup (_("Release label, year & country unknown"));
+    g_string_append_printf (details,
+                            _("Release label, year & country unknown"));
+  }
+
+  if (catalog_number_text != NULL) {
+    if (album->barcode != NULL) {
+      /* Translators: the "Barcode" string identifies the number of the barcode
+       * printed on the release */
+      g_string_append_printf (details,
+                              "\n%s, %s %s",
+                              catalog_number_text,
+                              _("Barcode:"),
+                              album->barcode);
+    } else {
+      g_string_append_printf (details, "\n%s", catalog_number_text);
+    }
+  } else {
+    if (album->barcode != NULL) {
+      g_string_append_printf (details,
+                              "\n%s %s",
+                              _("Barcode:"),
+                              album->barcode);
+    }
   }
 
   if (label_text)
     g_string_free (label_text, TRUE);
 
-  return details;
+  g_free (catalog_number_text);
+
+  return g_string_free (details, FALSE);
 }
 
 /**
@@ -1007,7 +1085,7 @@ choose_album(GList *albums)
       g_string_append_printf (album_title,_(" (Disc %d/%d)"),
                               album->disc_number, album->disc_count);
 
-    markup = g_markup_printf_escaped ("<b>%s</b>\n<i>%s</i>\n%s", album_title->str,
+    markup = g_markup_printf_escaped ("<b>%s</b>\n<b><i>%s</i></b>\n%s", album_title->str,
                                                                   album->artist,
                                                                   release_details);
 

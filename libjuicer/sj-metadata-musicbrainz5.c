@@ -348,6 +348,7 @@ get_release_labels (Mb5Release *release)
     label_data = g_new0 (LabelDetails, 1);
     label_data->name = g_strdup (buffer);
     GET (label_data->sortname, mb5_label_get_sortname, label);
+    GET (label_data->catalog_number, mb5_labelinfo_get_catalognumber, info);
     label_list = g_list_prepend (label_list, label_data);
   skip:
     ;
@@ -902,6 +903,8 @@ make_album_from_release (SjMetadataMusicbrainz5  *self,
   }
 
   album->disc_number = mb5_medium_get_position (medium);
+
+  GET(album->barcode, mb5_release_get_barcode, release);
   fill_tracks_from_medium (self, medium, album, cancellable, error);
   if (*error != NULL)
     return NULL;
