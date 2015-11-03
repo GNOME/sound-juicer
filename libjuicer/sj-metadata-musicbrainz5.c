@@ -917,6 +917,30 @@ make_album_from_release (SjMetadataMusicbrainz5  *self,
   return album;
 }
 
+static gboolean
+album_barcode_matches_discid_mcn (const char *barcode,
+                                  DiscId     *disc)
+{
+  const char *mcn;
+
+  if (barcode == NULL || !discid_has_feature(DISCID_FEATURE_MCN))
+    return FALSE;
+
+  mcn = discid_get_mcn (disc);
+  if (mcn == NULL)
+    return FALSE;
+  /* The MCN should match an EAN barcode (13 digits)
+   * or an UPC barcode (12 digits) with a leading '0'.
+   */
+  gsize len = strlen (barcode);
+  if (len == 12) /* UPC barcode - skip leading '0' */
+    return *mcn == '0' && strcmp (mcn + 1, barcode) == 0;
+  else if (len == 13) /* EAN barcode */
+    return strcmp (mcn, barcode) == 0;
+  else /* Unknown/invalid barcode */
+    return FALSE;
+}
+
 /*
  * Virtual methods
  */
@@ -936,6 +960,7 @@ mb5_list_albums (SjMetadata    *metadata,
   char buffer[1024];
   int i;
   DiscId disc = NULL;
+  gboolean mcn_matches = FALSE;
 
   g_return_val_if_fail (SJ_IS_METADATA_MUSICBRAINZ5 (metadata), NULL);
 
@@ -949,7 +974,7 @@ mb5_list_albums (SjMetadata    *metadata,
   disc = discid_new ();
   if (disc == NULL)
     return NULL;
-  if (discid_read_sparse (disc, priv->cdrom, 0) == 0)
+  if (discid_read_sparse (disc, priv->cdrom, DISCID_FEATURE_MCN) == 0)
     goto free_discid;
 
   if (url != NULL)
@@ -975,7 +1000,7 @@ mb5_list_albums (SjMetadata    *metadata,
   if (mb5_release_list_size (releases) == 0)
     return NULL;
 
-  for (i = 0; i < mb5_release_list_size (releases); i++) {
+  for (i = 0; i < mb5_release_list_size (releases) && !mcn_matches; i++) {
     AlbumDetails *album;
 
     release = mb5_release_list_item (releases, i);
@@ -1040,6 +1065,12 @@ artist-rels";
             }
 
             album->metadata_source = SOURCE_MUSICBRAINZ;
+            mcn_matches = album_barcode_matches_discid_mcn (album->barcode, disc);
+            if (mcn_matches) {
+              g_list_free_full (albums, (GDestroyNotify) album_details_free);
+              albums = g_list_append (NULL, album);
+              break;
+            }
             albums = g_list_append (albums, album);
           }
         }
