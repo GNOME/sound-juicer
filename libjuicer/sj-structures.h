@@ -81,6 +81,7 @@ struct _AlbumDetails {
   char *type;
   char *lyrics_url;
   char *country;
+  char *barcode;
 };
 
 struct _ArtistDetails {
@@ -101,6 +102,7 @@ struct _ArtistCredit
 struct _LabelDetails {
   char *name;
   char *sortname;
+  char *catalog_number;
 };
 
 void album_details_free(AlbumDetails *album);

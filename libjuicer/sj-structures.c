@@ -59,6 +59,7 @@ void album_details_free(AlbumDetails *album)
   g_free (album->wikipedia);
   g_free (album->lyrics_url);
   g_free (album->country);
+  g_free (album->barcode);
   g_free (album->type);
   g_list_free_full (album->labels, (GDestroyNotify)label_details_free);
   g_free (album);
@@ -112,5 +113,6 @@ void label_details_free (LabelDetails *label)
 {
   g_free (label->name);
   g_free (label->sortname);
+  g_free (label->catalog_number);
   g_free (label);
 }
