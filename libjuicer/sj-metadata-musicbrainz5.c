@@ -892,9 +892,9 @@ make_album_from_release (SjMetadataMusicbrainz5  *self,
   album->country = sj_metadata_helper_lookup_country_code (buffer);
   if (group) {
     GET (album->type, mb5_releasegroup_get_primarytype, group);
-    if (g_str_has_suffix (album->type, "Spokenword")
-        || g_str_has_suffix (album->type, "Interview")
-        || g_str_has_suffix (album->type, "Audiobook")) {
+    if (album->type != NULL && (g_str_has_suffix (album->type, "Spokenword")
+                                || g_str_has_suffix (album->type, "Interview")
+                                || g_str_has_suffix (album->type, "Audiobook"))) {
       album->is_spoken_word = TRUE;
     }
     relationlists = mb5_releasegroup_get_relationlistlist (group);
