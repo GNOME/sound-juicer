@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
 "juicer&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-10-12 12:46+0000\n"
-"PO-Revision-Date: 2015-10-12 16:09+0200\n"
+"POT-Creation-Date: 2015-11-09 02:29+0000\n"
+"PO-Revision-Date: 2015-11-09 12:22+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -149,7 +149,7 @@ msgstr "Hlasitost zvuku"
 
 #: ../data/sound-juicer.desktop.in.in.h:1
 #: ../data/appdata/sound-juicer.appdata.xml.in.h:1 ../data/sound-juicer.ui.h:1
-#: ../src/sj-main.c:133 ../src/sj-main.c:135 ../src/sj-main.c:2503
+#: ../src/sj-main.c:133 ../src/sj-main.c:135 ../src/sj-main.c:2581
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -201,7 +201,6 @@ msgstr ""
 "stopách na něm."
 
 #: ../data/sound-juicer.ui.h:2
-#| msgid "S_ubmit Album"
 msgid "_Edit Album"
 msgstr "_Upravit album"
 
@@ -241,13 +240,13 @@ msgstr "Délka:"
 msgid "Tracks"
 msgstr "Stopy"
 
-#: ../data/sound-juicer.ui.h:12 ../src/sj-main.c:2238 ../src/sj-play.c:121
+#: ../data/sound-juicer.ui.h:12 ../src/sj-main.c:2316 ../src/sj-play.c:121
 #: ../src/sj-play.c:259 ../src/sj-play.c:622
 msgid "_Play"
 msgstr "_Přehrát"
 
 #: ../data/sound-juicer.ui.h:13 ../src/sj-extracting.c:233
-#: ../src/sj-main.c:2262
+#: ../src/sj-main.c:2340
 msgid "E_xtract"
 msgstr "_Extrahovat"
 
@@ -514,7 +513,7 @@ msgstr "Nelze přístupovat k CD: %s"
 #. Tranlators: This string is used to build the composer tag when
 #. a track has a mixture of arrangers, orchestrators and
 #. transcribers but no composers
-#: ../libjuicer/sj-metadata-musicbrainz5.c:486
+#: ../libjuicer/sj-metadata-musicbrainz5.c:487
 #, c-format
 msgid "arr. %s"
 msgstr "aran. %s"
@@ -522,35 +521,35 @@ msgstr "aran. %s"
 #. Tranlators: This string is used to build the composer tag when a
 #. track has composers and arrangers, or a composer and a mixture
 #. of arrangers, orchestrators and transcribers
-#: ../libjuicer/sj-metadata-musicbrainz5.c:490
+#: ../libjuicer/sj-metadata-musicbrainz5.c:491
 #, c-format
 msgid "%s arr. %s"
 msgstr "%s aran. %s"
 
 #. Tranlators: This string is used to build the composer tag
 #. when a track has orchestrators but no composer
-#: ../libjuicer/sj-metadata-musicbrainz5.c:493
+#: ../libjuicer/sj-metadata-musicbrainz5.c:494
 #, c-format
 msgid "orch. %s"
 msgstr "orch. %s"
 
 #. Tranlators: This string is used to build the composer tag
 #. when a track has composers and orchestrators
-#: ../libjuicer/sj-metadata-musicbrainz5.c:496
+#: ../libjuicer/sj-metadata-musicbrainz5.c:497
 #, c-format
 msgid "%s orch. %s"
 msgstr "%s orch. %s"
 
 #. Tranlators: This string is used to build the composer tag
 #. when a track has a transcribers but no composer
-#: ../libjuicer/sj-metadata-musicbrainz5.c:503
+#: ../libjuicer/sj-metadata-musicbrainz5.c:504
 #, c-format
 msgid "trans. %s"
 msgstr "trans. %s"
 
 #. Tranlators: This string is used to build the composer tag
 #. when a track has composers and transcribers
-#: ../libjuicer/sj-metadata-musicbrainz5.c:506
+#: ../libjuicer/sj-metadata-musicbrainz5.c:507
 #, c-format
 msgid "%s trans. %s"
 msgstr "%s trans. %s"
@@ -563,7 +562,7 @@ msgstr "URI"
 msgid "The URI of the audio file"
 msgstr "Adresa URI zvukového souboru"
 
-#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2335
+#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2413
 msgid "Title"
 msgstr "Název"
 
@@ -571,7 +570,7 @@ msgstr "Název"
 msgid "The title of the current stream."
 msgstr "Název aktuální skladby."
 
-#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2336
+#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2414
 msgid "Artist"
 msgstr "Umělec"
 
@@ -595,7 +594,7 @@ msgstr "Pozice"
 msgid "The position in the current stream in seconds."
 msgstr "Pozice v aktuální skladbě uvedená ve vteřinách."
 
-#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2343
+#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2421
 msgid "Duration"
 msgstr "Délka"
 
@@ -720,12 +719,12 @@ msgid "Sound Juicer could not extract this CD."
 msgstr "Sound Juicer nemohl extrahovat toto CD."
 
 #: ../src/sj-extracting.c:699 ../src/sj-main.c:179 ../src/sj-main.c:426
-#: ../src/sj-main.c:465 ../src/sj-main.c:1197 ../src/sj-main.c:1385
+#: ../src/sj-main.c:465 ../src/sj-main.c:1275 ../src/sj-main.c:1463
 msgid "Reason"
 msgstr "Důvod"
 
 #. Change the label to Stop while extracting
-#: ../src/sj-extracting.c:789 ../src/sj-main.c:2269
+#: ../src/sj-extracting.c:789 ../src/sj-main.c:2347
 msgid "_Stop"
 msgstr "Za_stavit"
 
@@ -822,15 +821,15 @@ msgstr "Potřebujete-li pomoc, přečtěte si dokumentaci."
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Momentálně extrahujete CD. Chcete hned skončit nebo pokračovat?"
 
-#: ../src/sj-main.c:239 ../src/sj-main.c:1509
+#: ../src/sj-main.c:239 ../src/sj-main.c:1587
 msgid "_Quit"
 msgstr "U_končit"
 
-#: ../src/sj-main.c:287 ../src/sj-main.c:2216 ../src/sj-main.c:2292
+#: ../src/sj-main.c:287 ../src/sj-main.c:2294 ../src/sj-main.c:2370
 msgid "Select None"
 msgstr "Zrušit výběr"
 
-#: ../src/sj-main.c:301 ../src/sj-main.c:2286
+#: ../src/sj-main.c:301 ../src/sj-main.c:2364
 msgid "Select All"
 msgstr "Vybrat vše"
 
@@ -893,26 +892,26 @@ msgstr "Komorní"
 msgid "Musical"
 msgstr "Muzikál"
 
-#. Translators: this string appears when multiple CDs were
-#. * found in musicbrainz online database, it corresponds to
-#. * "Released: <country> in <year> on <label>"
-#: ../src/sj-main.c:890
+#. Translators: this string is a list of catalog number(s) used by
+#. the label(s) to identify the release
+#: ../src/sj-main.c:897
+msgid "Catalog No.: "
+msgid_plural "Catalog Nos.: "
+msgstr[0] "Katalog č.:"
+msgstr[1] "Katalogy č.:"
+msgstr[2] "Katalogy č.:"
+
+#: ../src/sj-main.c:939
 #, c-format
 msgid "Released: %s in %d on %s"
 msgstr "Vydáno: %s v roce %d, %s"
 
-#. Translators: this string appears when multiple CDs were
-#. * found in musicbrainz online database, it corresponds to
-#. * "Released: <country> on <label>"
-#: ../src/sj-main.c:898
+#: ../src/sj-main.c:948
 #, c-format
 msgid "Released: %s on %s"
 msgstr "Vydáno: %s, %s"
 
-#. Translators: this string appears when multiple CDs were
-#. * found in musicbrainz online database, it corresponds to
-#. * "Released: <country> in <year>"
-#: ../src/sj-main.c:904
+#: ../src/sj-main.c:956
 #, c-format
 msgid "Released: %s in %d"
 msgstr "Vydáno: %s v roce %d"
@@ -920,15 +919,12 @@ msgstr "Vydáno: %s v roce %d"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released: <country>"
-#: ../src/sj-main.c:910
+#: ../src/sj-main.c:963
 #, c-format
 msgid "Released: %s"
 msgstr "Vydáno: %s"
 
-#. Translators: this string appears when multiple CDs were
-#. * found in musicbrainz online database, it corresponds to
-#. * "Released in <year> on <label>"
-#: ../src/sj-main.c:917
+#: ../src/sj-main.c:971
 #, c-format
 msgid "Released in %d on %s"
 msgstr "Vydal v roce %d %s"
@@ -936,7 +932,7 @@ msgstr "Vydal v roce %d %s"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released in <year>"
-#: ../src/sj-main.c:924
+#: ../src/sj-main.c:978
 #, c-format
 msgid "Released in %d"
 msgstr "Vydáno v roce %d"
@@ -944,68 +940,73 @@ msgstr "Vydáno v roce %d"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released on <label>"
-#: ../src/sj-main.c:931
+#: ../src/sj-main.c:985
 #, c-format
 msgid "Released on %s"
 msgstr "Vydal: %s"
 
-#: ../src/sj-main.c:933
+#: ../src/sj-main.c:988
+#, c-format
 msgid "Release label, year & country unknown"
 msgstr "Neznámý vydavatel a rok a místo vydání"
 
-#: ../src/sj-main.c:973
+#: ../src/sj-main.c:998 ../src/sj-main.c:1007
+msgid "Barcode:"
+msgstr "Čárový kód:"
+
+#: ../src/sj-main.c:1051
 msgid "Albums"
 msgstr "Alba"
 
-#: ../src/sj-main.c:1007
+#: ../src/sj-main.c:1085
 #, c-format
 msgid " (Disc %d/%d)"
 msgstr " (disk %d/%d)"
 
-#: ../src/sj-main.c:1195 ../src/sj-main.c:1383
+#: ../src/sj-main.c:1273 ../src/sj-main.c:1461
 msgid "Could not read the CD"
 msgstr "Nelze číst CD"
 
-#: ../src/sj-main.c:1196
+#: ../src/sj-main.c:1274
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer nemohl přečíst seznam stop tohoto CD."
 
-#: ../src/sj-main.c:1345
+#: ../src/sj-main.c:1423
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Sound Juicer nemůže použít zařízení CD-ROM „%s“"
 
-#: ../src/sj-main.c:1352
+#: ../src/sj-main.c:1430
 msgid "HAL daemon may not be running."
 msgstr "Možná neběží démon HAL."
 
-#: ../src/sj-main.c:1376
+#: ../src/sj-main.c:1454
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer nemohl přistupovat k zařízení CD-ROM „%s“"
 
-#: ../src/sj-main.c:1474
+#: ../src/sj-main.c:1552
 msgid "No CD-ROM drives found"
 msgstr "Nenalezena mechanika CD-ROM"
 
-#: ../src/sj-main.c:1475
+#: ../src/sj-main.c:1553
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer nemohl najít mechaniku CD-ROM, ze které je možno číst."
 
-#: ../src/sj-main.c:1508
+#: ../src/sj-main.c:1586
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Aktuálně vybraný profil zvuku není ve vaší instalaci k dispozici."
 
-#: ../src/sj-main.c:1510
+#: ../src/sj-main.c:1588
 msgid "_Change Profile"
 msgstr "_Změnit profil"
 
-#: ../src/sj-main.c:1899
+#: ../src/sj-main.c:1977
 msgid "Unknown widget calling on_person_edit_changed."
 msgstr "Neznámý widget při volání on_person_edit_changed."
 
-#: ../src/sj-main.c:1999 ../src/sj-prefs.c:120
+#: ../src/sj-main.c:2077 ../src/sj-prefs.c:120
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -1014,43 +1015,43 @@ msgstr ""
 "Nápovědu pro Sound Juicer nelze zobrazit\n"
 "%s"
 
-#: ../src/sj-main.c:2058
+#: ../src/sj-main.c:2136
 msgid "Retrieving track listing...please wait."
 msgstr "Získává se seznam stop… čekejte prosím."
 
-#: ../src/sj-main.c:2245 ../src/sj-play.c:301
+#: ../src/sj-main.c:2323 ../src/sj-play.c:301
 msgid "_Pause"
 msgstr "_Pozastavit"
 
-#: ../src/sj-main.c:2323
+#: ../src/sj-main.c:2401
 msgid "Track"
 msgstr "Stopa"
 
-#: ../src/sj-main.c:2337
+#: ../src/sj-main.c:2415
 msgid "Composer"
 msgstr "Skladatel"
 
-#: ../src/sj-main.c:2491
+#: ../src/sj-main.c:2569
 msgid "Start extracting immediately"
 msgstr "Začít extrahovat okamžitě"
 
-#: ../src/sj-main.c:2492
+#: ../src/sj-main.c:2570
 msgid "Start playing immediately"
 msgstr "Začít přehrávat okamžitě"
 
-#: ../src/sj-main.c:2493
+#: ../src/sj-main.c:2571
 msgid "What CD device to read"
 msgstr "Které zařízení CD číst"
 
-#: ../src/sj-main.c:2493
+#: ../src/sj-main.c:2571
 msgid "DEVICE"
 msgstr "ZAŘÍZENÍ"
 
-#: ../src/sj-main.c:2494
+#: ../src/sj-main.c:2572
 msgid "URI to the CD device to read"
 msgstr "URI CD mechaniky pro čtení"
 
-#: ../src/sj-main.c:2506
+#: ../src/sj-main.c:2584
 msgid "- Extract music from your CDs"
 msgstr "- Extrahovat hudbu z vašich CD"
 
@@ -1177,15 +1178,3 @@ msgstr "Číslo-skladatel stopy-umělec stopy-název stopy (malými písmeny)"
 #: ../src/sj-prefs.c:250
 msgid "Example Path: "
 msgstr "Příklad umístění: "
-
-#~ msgid "You can improve the MusicBrainz database by adding this album."
-#~ msgstr "Přidáním tohoto alba můžete vylepšit databázi MusicBrainz."
-
-#~ msgid "Submit Track Names"
-#~ msgstr "Odeslat názvy skladeb"
-
-#~ msgid "This album is not in the MusicBrainz database."
-#~ msgstr "Toto album se nenachází v databázi MusicBrainz."
-
-#~ msgid "Could not find %s by %s on MusicBrainz."
-#~ msgstr "%s od %s se na serveru MusicBrainz nepodařilo nalézt."
