@@ -45,9 +45,18 @@ static const char* const known_genres[] = {
   N_("Reggae"),
   N_("Rock"),
   N_("Soul"),
-  N_("Spoken Word"),
-  NULL
+  N_("Spoken Word")
 };
+
+static gboolean is_known_genre (const char *str) {
+  guint i;
+
+  for (i = 0; i < G_N_ELEMENTS(known_genres); i++) {
+    if (strcasecmp (str, known_genres[i]) == 0)
+      return TRUE;
+  }
+  return FALSE;
+}
 
 static gboolean in_array (const char *str, const char** array) {
   const char **list = array;
@@ -99,25 +108,23 @@ static char** saved_genres (void) {
 
 static GtkTreeModel* create_genre_list (void) {
   GtkListStore *store;
-  const char * const *g = known_genres;
+  guint i;
   char **genres;
 
   store = gtk_list_store_new (1, G_TYPE_STRING);
 
-  while (*g != NULL) {
-    GtkTreeIter iter;
-    gtk_list_store_append (store, &iter);
-    gtk_list_store_set (store, &iter, 0, _(*g++), -1);
+  for (i = 0; i < G_N_ELEMENTS(known_genres); i++) {
+    gtk_list_store_insert_with_values (store, NULL, -1,
+                                       0, _(known_genres[i]),
+                                       -1);
   }
 
   genres = saved_genres ();
   if (genres) {
-    char **list = genres;
-
-    while (*list != NULL) {
-      GtkTreeIter iter;
-      gtk_list_store_append (store, &iter);
-      gtk_list_store_set (store, &iter, 0, *list++, -1);
+    for (i = 0; genres[i] != NULL; i++) {
+      gtk_list_store_insert_with_values (store, NULL, -1,
+                                         0, genres[i],
+                                         -1);
     }
 
     g_strfreev (genres);
@@ -153,7 +160,7 @@ void save_genre (GtkWidget *entry) {
 
   genre = gtk_entry_get_text (GTK_ENTRY (entry));
 
-  if (in_array ((const char *)genre, (const char **) known_genres))
+  if (is_known_genre (genre))
     return;
 
   len = 0;
