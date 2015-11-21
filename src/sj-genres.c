@@ -52,7 +52,7 @@ static gboolean is_known_genre (const char *str) {
   guint i;
 
   for (i = 0; i < G_N_ELEMENTS(known_genres); i++) {
-    if (strcasecmp (str, known_genres[i]) == 0)
+    if (strcasecmp (str, _(known_genres[i])) == 0)
       return TRUE;
   }
   return FALSE;
