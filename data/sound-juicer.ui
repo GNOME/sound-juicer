@@ -899,7 +899,7 @@ audio-volume-medium</property>
               </object>
               <packing>
                 <property name="left-attach">1</property>
-                <property name="top-attach">23</property>
+                <property name="top-attach">24</property>
               </packing>
             </child>
             <child>
@@ -911,7 +911,7 @@ audio-volume-medium</property>
                 <property name="single_line_mode">True</property>
               </object>
               <packing>
-                <property name="top-attach">24</property>
+                <property name="top-attach">25</property>
                 <property name="left-attach">1</property>
               </packing>
             </child>
@@ -960,6 +960,69 @@ audio-volume-medium</property>
               <packing>
                 <property name="top-attach">31</property>
                 <property name="left-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="custom_pattern_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="margin_left">12</property>
+                <property name="label" translatable="yes">Custom pattern:</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">file_option</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">23</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="box2">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkEntry" id="path_entry">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="hexpand">False</property>
+                    <property name="has_frame">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label5">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">/</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="file_entry">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="hexpand">False</property>
+                    <property name="has_frame">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">23</property>
               </packing>
             </child>
           </object>
