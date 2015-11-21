@@ -84,9 +84,11 @@ static char** saved_genres (void) {
   if (success) {
     genres_from_file = g_strsplit (file_contents, "\n", 0);
     len = g_strv_length (genres_from_file);
-    if (strlen (genres_from_file[len-1]) == 0) {
-      g_free (genres_from_file[len-1]);
-      genres_from_file[len-1] = NULL;
+    if (len >= 1) {
+      if (strlen (genres_from_file[len-1]) == 0) {
+        g_free (genres_from_file[len-1]);
+        genres_from_file[len-1] = NULL;
+      }
     }
 
     g_free (file_contents);
