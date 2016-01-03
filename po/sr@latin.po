@@ -1,17 +1,17 @@
 # Serbian translation of sound-juicer
-# Courtesy of Prevod.org team (http://prevod.org/) -- 2003—2014.
+# Courtesy of Prevod.org team (http://prevod.org/) -- 2003—2016.
 # This file is distributed under the same license as the sound-juicer package.
-# Maintainer: Dejan Matijević <dejan@ns.sympatico.ca>
-# Reviewed on 2005-09-03 by Andrija Zarić <andrija@gmail.com>
+# Dejan Matijević <dejan@ns.sympatico.ca>
+# Andrija Zarić <andrija@gmail.com>, 2005
 # Miloš Popović <gpopac@gmail.com>, 2010.
-# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2012—2014.
+# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2012—2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
 "juicer&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-10-28 11:30+0000\n"
-"PO-Revision-Date: 2014-10-28 21:00+0200\n"
+"POT-Creation-Date: 2016-01-03 14:41+0000\n"
+"PO-Revision-Date: 2016-01-03 21:57+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -146,8 +146,9 @@ msgid "Audio volume"
 msgstr "Jačina zvuka"
 
 # Sokovnik za zvuk = Zvukovnik
-#: ../data/sound-juicer.desktop.in.in.h:1 ../data/sound-juicer.ui.h:1
-#: ../src/sj-main.c:131 ../src/sj-main.c:133 ../src/sj-main.c:2450
+#: ../data/sound-juicer.desktop.in.in.h:1
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:1 ../data/sound-juicer.ui.h:1
+#: ../src/sj-main.c:133 ../src/sj-main.c:135 ../src/sj-main.c:2581
 msgid "Sound Juicer"
 msgstr "Zvukovnik"
 
@@ -166,15 +167,46 @@ msgstr "Umnožite muziku sa vaših CD-a"
 # data/sound-juicer.desktop.in.h:1
 #: ../data/sound-juicer.desktop.in.in.h:5
 msgid "Ripper;"
-msgstr "Izvlačivač;"
+msgstr "izvlačivač;"
+
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:2
+msgid "CD ripper with a clean interface and simple preferences"
+msgstr "CD izvlačivač sa čistim sučeljem i jednostavnim postavkama"
+
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:3
+msgid ""
+"Sound Juicer is a simple and clean CD ripping tool. It allows you to extract "
+"the audio from audio compact discs and convert them into audio files that "
+"your computer can understand and play. Sound Juicer can also play the audio "
+"tracks directly from the CD, allowing you to preview the CD before ripping "
+"it."
+msgstr ""
+"Zvukovnik je jednostavan i čist alat za izvlačenje CD-a. Omogućava vam da "
+"izvučete zvuk sa zvučnih diskova i da ih pretvorite u zvučne datoteke koje "
+"vaš računar može da razume i da pušta. Zvukovnik takođe može da pušta zvučne "
+"numere neposredno sa CD-a, omogućavajući vam da pregledate CD pre nego što "
+"izvučete njegov sadržaj."
+
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:4
+msgid ""
+"Sound Juicer is designed to be easy to use, and to work with little user "
+"intervention. When you start Sound Juicer, it will examine the CD in the "
+"drive and try to locate information about the audio tracks using the freely-"
+"available MusicBrainz service."
+msgstr ""
+"Zvukovnik je osmišljen da bude lak za upotrebu, i da radi sa neznatnim "
+"mešanjem korisnika. Kada pokrenete Zvukovnika, ispitaće CD u uređaju i "
+"pokušaće da pronađe podatke o zvučnim numerama koristeći besplatno dostupnu "
+"uslugu Mozgića muzike."
 
 #: ../data/sound-juicer.ui.h:2
-msgid "S_ubmit Album"
-msgstr "Po_šalji album"
+#| msgid "S_ubmit Album"
+msgid "_Edit Album"
+msgstr "_Uredi album"
 
 #: ../data/sound-juicer.ui.h:3
-msgid "You can improve the MusicBrainz database by adding this album."
-msgstr "Možete unaprediti bazu Mozgića muzike dodavanjem ovog albuma."
+msgid "_Reload Album"
+msgstr "_Osveži album"
 
 #: ../data/sound-juicer.ui.h:4
 msgid "_Year:"
@@ -209,13 +241,13 @@ msgstr "Trajanje:"
 msgid "Tracks"
 msgstr "Numere"
 
-#: ../data/sound-juicer.ui.h:12 ../src/sj-main.c:2185 ../src/sj-play.c:121
+#: ../data/sound-juicer.ui.h:12 ../src/sj-main.c:2316 ../src/sj-play.c:121
 #: ../src/sj-play.c:259 ../src/sj-play.c:622
 msgid "_Play"
 msgstr "_Pusti"
 
 #: ../data/sound-juicer.ui.h:13 ../src/sj-extracting.c:233
-#: ../src/sj-main.c:2209
+#: ../src/sj-main.c:2340
 msgid "E_xtract"
 msgstr "Iz_vuci"
 
@@ -235,7 +267,7 @@ msgstr ""
 "Ovaj CD može biti jedan od više albuma. Ispod izaberite koji je album i "
 "pritisnite <i>Nastavi</i>."
 
-#: ../data/sound-juicer.ui.h:17 ../src/sj-main.c:215
+#: ../data/sound-juicer.ui.h:17 ../src/sj-main.c:240
 msgid "_Continue"
 msgstr "_Nastavi"
 
@@ -321,8 +353,8 @@ msgid "Eject"
 msgstr "Izbaci"
 
 #: ../data/sound-juicer-menu.ui.h:5
-msgid "Submit Track Names"
-msgstr "Predaj nazive pesama"
+msgid "Open MusicBrainz"
+msgstr "Otvori Mozgić muzike"
 
 #: ../data/sound-juicer-menu.ui.h:7
 msgid "Help"
@@ -405,53 +437,53 @@ msgstr "Priključak neophodan za pristup datoteci nije nađen"
 #. FIXME: would be nicer to only check if "cdrom" is being probed,
 #. * but libbrasero doesn't seem to have an API for that
 #.
-#: ../libjuicer/sj-metadata.c:188 ../libjuicer/sj-metadata.c:211
-#: ../libjuicer/sj-metadata.c:222
+#: ../libjuicer/sj-metadata.c:211 ../libjuicer/sj-metadata.c:234
+#: ../libjuicer/sj-metadata.c:245
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Ne mogu da čitam CD: %s"
 
-#: ../libjuicer/sj-metadata.c:189
+#: ../libjuicer/sj-metadata.c:212
 msgid "Devices haven't been all probed yet"
 msgstr "Još nisu isprobani svi uređaji"
 
-#: ../libjuicer/sj-metadata.c:205
+#: ../libjuicer/sj-metadata.c:228
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Uređaj „%s“ ne sadrži nijedan medij"
 
-#: ../libjuicer/sj-metadata.c:208
+#: ../libjuicer/sj-metadata.c:231
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr ""
 "Ne mogu da otvorim uređaj „%s“. Proverite ovlašćenja pristupa za uređaj."
 
-#: ../libjuicer/sj-metadata.c:350
+#: ../libjuicer/sj-metadata.c:373
 msgid "Czechoslovakia"
 msgstr "Čehoslovačka"
 
-#: ../libjuicer/sj-metadata.c:351
+#: ../libjuicer/sj-metadata.c:374
 msgid "East Germany"
 msgstr "Istočna Nemačka"
 
-#: ../libjuicer/sj-metadata.c:352
+#: ../libjuicer/sj-metadata.c:375
 msgid "Europe"
 msgstr "Evropa"
 
-#: ../libjuicer/sj-metadata.c:353
+#: ../libjuicer/sj-metadata.c:376
 msgid "Serbia and Montenegro"
 msgstr "Srbija i Crna Gora"
 
-#: ../libjuicer/sj-metadata.c:354
+#: ../libjuicer/sj-metadata.c:377
 msgid "Soviet Union"
 msgstr "Sovjetski Savez"
 
-#: ../libjuicer/sj-metadata.c:355
+#: ../libjuicer/sj-metadata.c:378
 msgid "Worldwide"
 msgstr "Čitav svet"
 
-#: ../libjuicer/sj-metadata.c:356
+#: ../libjuicer/sj-metadata.c:379
 msgid "Yugoslavia"
 msgstr "Jugoslavija"
 
@@ -461,7 +493,7 @@ msgid "Cannot access CD"
 msgstr "Ne mogu da pristupim disku"
 
 #: ../libjuicer/sj-metadata-gvfs.c:115 ../src/egg-play-preview.c:469
-#: ../src/sj-main.c:338
+#: ../src/sj-main.c:363
 msgid "Unknown Title"
 msgstr "Nepoznat naslov"
 
@@ -484,7 +516,7 @@ msgstr "Ne mogu da pristupim disku: %s"
 #. Tranlators: This string is used to build the composer tag when
 #. a track has a mixture of arrangers, orchestrators and
 #. transcribers but no composers
-#: ../libjuicer/sj-metadata-musicbrainz5.c:478
+#: ../libjuicer/sj-metadata-musicbrainz5.c:487
 #, c-format
 msgid "arr. %s"
 msgstr "prir. %s"
@@ -492,35 +524,35 @@ msgstr "prir. %s"
 #. Tranlators: This string is used to build the composer tag when a
 #. track has composers and arrangers, or a composer and a mixture
 #. of arrangers, orchestrators and transcribers
-#: ../libjuicer/sj-metadata-musicbrainz5.c:482
+#: ../libjuicer/sj-metadata-musicbrainz5.c:491
 #, c-format
 msgid "%s arr. %s"
 msgstr "%s prir. %s"
 
 #. Tranlators: This string is used to build the composer tag
 #. when a track has orchestrators but no composer
-#: ../libjuicer/sj-metadata-musicbrainz5.c:485
+#: ../libjuicer/sj-metadata-musicbrainz5.c:494
 #, c-format
 msgid "orch. %s"
 msgstr "orh. %s"
 
 #. Tranlators: This string is used to build the composer tag
 #. when a track has composers and orchestrators
-#: ../libjuicer/sj-metadata-musicbrainz5.c:488
+#: ../libjuicer/sj-metadata-musicbrainz5.c:497
 #, c-format
 msgid "%s orch. %s"
 msgstr "%s orh. %s"
 
 #. Tranlators: This string is used to build the composer tag
 #. when a track has a transcribers but no composer
-#: ../libjuicer/sj-metadata-musicbrainz5.c:495
+#: ../libjuicer/sj-metadata-musicbrainz5.c:504
 #, c-format
 msgid "trans. %s"
 msgstr "prep. %s"
 
 #. Tranlators: This string is used to build the composer tag
 #. when a track has composers and transcribers
-#: ../libjuicer/sj-metadata-musicbrainz5.c:498
+#: ../libjuicer/sj-metadata-musicbrainz5.c:507
 #, c-format
 msgid "%s trans. %s"
 msgstr "%s prep. %s"
@@ -533,7 +565,7 @@ msgstr "Adresa"
 msgid "The URI of the audio file"
 msgstr "Adresa zvučne datoteke"
 
-#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2282
+#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2413
 msgid "Title"
 msgstr "Naslov"
 
@@ -541,7 +573,7 @@ msgstr "Naslov"
 msgid "The title of the current stream."
 msgstr "Naslov trenutnog toka."
 
-#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2283
+#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2414
 msgid "Artist"
 msgstr "Izvođač"
 
@@ -565,7 +597,7 @@ msgstr "Položaj"
 msgid "The position in the current stream in seconds."
 msgstr "Položaj u trenutnom toku u sekundama."
 
-#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2290
+#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2421
 msgid "Duration"
 msgstr "Trajanje"
 
@@ -695,14 +727,13 @@ msgstr "Završeno je izvlačenje zvuka"
 msgid "Sound Juicer could not extract this CD."
 msgstr "Zvukovnik ne može da izvuče pesme sa ovog diska."
 
-#: ../src/sj-extracting.c:699 ../src/sj-main.c:177 ../src/sj-main.c:384
-#: ../src/sj-main.c:423 ../src/sj-main.c:1138 ../src/sj-main.c:1263
-#: ../src/sj-main.c:1365
+#: ../src/sj-extracting.c:699 ../src/sj-main.c:179 ../src/sj-main.c:426
+#: ../src/sj-main.c:465 ../src/sj-main.c:1275 ../src/sj-main.c:1463
 msgid "Reason"
 msgstr "Razlog"
 
 #. Change the label to Stop while extracting
-#: ../src/sj-extracting.c:789 ../src/sj-main.c:2216
+#: ../src/sj-extracting.c:789 ../src/sj-main.c:2347
 msgid "_Stop"
 msgstr "_Zaustavi"
 
@@ -726,7 +757,7 @@ msgstr "Ambijentalna"
 msgid "Blues"
 msgstr "Bluz"
 
-#: ../src/sj-genres.c:35 ../src/sj-main.c:472
+#: ../src/sj-genres.c:35 ../src/sj-main.c:514
 msgid "Classical"
 msgstr "Klasična"
 
@@ -782,103 +813,116 @@ msgstr "Soul"
 msgid "Spoken Word"
 msgstr "Izgovorena reč"
 
-#: ../src/sj-genres.c:188
+#: ../src/sj-genres.c:197
 #, c-format
 msgid "Error while saving custom genre: %s"
 msgstr "Greška pri čuvanju proizvoljnog žanra: %s"
 
-#: ../src/sj-main.c:176
+#: ../src/sj-main.c:178
 msgid "Could not start Sound Juicer"
 msgstr "Ne mogu da pokrenem Zvukovnik"
 
-#: ../src/sj-main.c:179
+#: ../src/sj-main.c:181
 msgid "Please consult the documentation for assistance."
 msgstr "Pogledajte dokumentaciju za pomoć."
 
-#: ../src/sj-main.c:213
+#: ../src/sj-main.c:238
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr ""
 "Vi trenutno izvlačite sa CD-a.  Da li želite da prekinete sada ili da "
 "nastavite?"
 
-#: ../src/sj-main.c:214 ../src/sj-main.c:1490
-#| msgid "Quit"
+#: ../src/sj-main.c:239 ../src/sj-main.c:1587
 msgid "_Quit"
 msgstr "_Izađi"
 
-#: ../src/sj-main.c:262 ../src/sj-main.c:2163 ../src/sj-main.c:2239
+#: ../src/sj-main.c:287 ../src/sj-main.c:2294 ../src/sj-main.c:2370
 msgid "Select None"
 msgstr "Poništi izbor"
 
-#: ../src/sj-main.c:276 ../src/sj-main.c:2233
+#: ../src/sj-main.c:301 ../src/sj-main.c:2364
 msgid "Select All"
 msgstr "Izaberi sve"
 
-#: ../src/sj-main.c:297 ../src/sj-main.c:631
+#: ../src/sj-main.c:322 ../src/sj-main.c:673
 msgid "(unknown)"
 msgstr "(nepoznato)"
 
-#: ../src/sj-main.c:339
-msgid "This album is not in the MusicBrainz database."
-msgstr "Ovaj album nije u bazi podataka Mozgića muzike."
+#: ../src/sj-main.c:364
+msgid ""
+"This album is not in the MusicBrainz database, please click ‘Edit Album’ to "
+"open your browser and edit it in MusicBrainz."
+msgstr ""
+"Ovaj album nije u bazi podataka Mozgića muzike, pritisnite na „Uredi album“ "
+"da otvorite preglednika i da ga uredite u Mozgiću muzike."
 
-#: ../src/sj-main.c:341
+#: ../src/sj-main.c:366
 #, c-format
-msgid "Could not find %s by %s on MusicBrainz."
-msgstr "Ne mogu da nađem %s od %s na Mozgiću muzike."
+msgid ""
+"Could not find %s by %s on MusicBrainz, please click ‘Edit Album’ to open "
+"your browser and edit it in MusicBrainz."
+msgstr ""
+"Ne mogu da nađem „%s“ izvođača %s na Mozgiću muzike, pritisnite na „Uredi "
+"album“ da otvorite preglednika i da ga uredite u Mozgiću muzike."
 
-#: ../src/sj-main.c:382
+#: ../src/sj-main.c:402
+msgid "Click ‘Reload’ to load the edited album details from MusicBrainz"
+msgstr ""
+"Pritisnite „Osveži“ da učitate pojedinosti uređenog albuma sa Mozgića muzike"
+
+#: ../src/sj-main.c:424
 msgid "Could not open URL"
 msgstr "Ne mogu da otvorim adresu"
 
-#: ../src/sj-main.c:383
+#: ../src/sj-main.c:425
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Zvukovnik ne može da otvori priloženu adresu"
 
-#: ../src/sj-main.c:421
+#: ../src/sj-main.c:463
 msgid "Could not duplicate disc"
 msgstr "Ne mogu da umnožim disk"
 
-#: ../src/sj-main.c:422
+#: ../src/sj-main.c:464
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Zvukovnik ne može da umnoži traženi disk"
 
-#: ../src/sj-main.c:472
+#: ../src/sj-main.c:514
 msgid "Lieder"
 msgstr "Lieder"
 
-#: ../src/sj-main.c:472
+#: ../src/sj-main.c:514
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/sj-main.c:472
+#: ../src/sj-main.c:514
 msgid "Chamber"
 msgstr "Kamerna"
 
-#: ../src/sj-main.c:472
+#: ../src/sj-main.c:514
 msgid "Musical"
 msgstr "Mjuzikl"
 
-#. Translators: this string appears when multiple CDs were
-#. * found in musicbrainz online database, it corresponds to
-#. * "Released: <country> in <year> on <label>"
-#: ../src/sj-main.c:848
+#. Translators: this string is a list of catalog number(s) used by
+#. the label(s) to identify the release
+#: ../src/sj-main.c:897
+msgid "Catalog No.: "
+msgid_plural "Catalog Nos.: "
+msgstr[0] "Broj kataloga:"
+msgstr[1] "Brojevi kataloga:"
+msgstr[2] "Brojevi kataloga:"
+msgstr[3] "Broj kataloga"
+
+#: ../src/sj-main.c:939
 #, c-format
 msgid "Released: %s in %d on %s"
 msgstr "Izdat: %s, %d, %s"
 
-#. Translators: this string appears when multiple CDs were
-#. * found in musicbrainz online database, it corresponds to
-#. * "Released: <country> on <label>"
-#: ../src/sj-main.c:856
+#: ../src/sj-main.c:948
 #, c-format
 msgid "Released: %s on %s"
 msgstr "Izdat: %s, %s"
 
-#. Translators: this string appears when multiple CDs were
-#. * found in musicbrainz online database, it corresponds to
-#. * "Released: <country> in <year>"
-#: ../src/sj-main.c:862
+#: ../src/sj-main.c:956
 #, c-format
 msgid "Released: %s in %d"
 msgstr "Izdat: %s, %d"
@@ -886,15 +930,12 @@ msgstr "Izdat: %s, %d"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released: <country>"
-#: ../src/sj-main.c:868
+#: ../src/sj-main.c:963
 #, c-format
 msgid "Released: %s"
 msgstr "Izdat: %s"
 
-#. Translators: this string appears when multiple CDs were
-#. * found in musicbrainz online database, it corresponds to
-#. * "Released in <year> on <label>"
-#: ../src/sj-main.c:875
+#: ../src/sj-main.c:971
 #, c-format
 msgid "Released in %d on %s"
 msgstr "Izdat u %d, %s"
@@ -902,7 +943,7 @@ msgstr "Izdat u %d, %s"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released in <year>"
-#: ../src/sj-main.c:882
+#: ../src/sj-main.c:978
 #, c-format
 msgid "Released in %d"
 msgstr "Izdat %d."
@@ -910,73 +951,73 @@ msgstr "Izdat %d."
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released on <label>"
-#: ../src/sj-main.c:889
+#: ../src/sj-main.c:985
 #, c-format
 msgid "Released on %s"
 msgstr "Izdat %s"
 
-#: ../src/sj-main.c:891
+#: ../src/sj-main.c:988
+#, c-format
 msgid "Release label, year & country unknown"
 msgstr "Natpis, godina i država izdavanja su nepoznati"
 
-#: ../src/sj-main.c:929
+#: ../src/sj-main.c:998 ../src/sj-main.c:1007
+msgid "Barcode:"
+msgstr "Trakasti kod:"
+
+#: ../src/sj-main.c:1051
 msgid "Albums"
 msgstr "Albumi"
 
-#: ../src/sj-main.c:963
+#: ../src/sj-main.c:1085
 #, c-format
 msgid " (Disc %d/%d)"
 msgstr " (Disk %d/%d)"
 
-#: ../src/sj-main.c:1136 ../src/sj-main.c:1259 ../src/sj-main.c:1363
+#: ../src/sj-main.c:1273 ../src/sj-main.c:1461
 msgid "Could not read the CD"
 msgstr "Ne mogu da čitam CD"
 
-#: ../src/sj-main.c:1137 ../src/sj-main.c:1262
+#: ../src/sj-main.c:1274
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Zvukovnik ne može da čita spisak pesama sa ovog CD-a."
 
-#. Set statusbar message
-#: ../src/sj-main.c:1232
-msgid "Retrieving track listing...please wait."
-msgstr "Preuzimam spisak pesama... Molim pričekajte."
-
-#: ../src/sj-main.c:1325
+#: ../src/sj-main.c:1423
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Zvukovnik ne može da upotrebi CD uređaj „%s“"
 
-#: ../src/sj-main.c:1332
+#: ../src/sj-main.c:1430
 msgid "HAL daemon may not be running."
 msgstr "HAL usluga možda nije pokrenuta."
 
-#: ../src/sj-main.c:1356
+#: ../src/sj-main.c:1454
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Zvukovnik ne može da pristupi CD uređaju „%s“"
 
-#: ../src/sj-main.c:1455
+#: ../src/sj-main.c:1552
 msgid "No CD-ROM drives found"
 msgstr "Nije pronađen nijedan CD uređaj"
 
-#: ../src/sj-main.c:1456
+#: ../src/sj-main.c:1553
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Zvukovnik ne može da pronađe nijedan CD uređaj za čitanje."
 
-#: ../src/sj-main.c:1489
+#: ../src/sj-main.c:1586
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Trenutno izabrani zvučni profil nije dostupan na vašem sistemu."
 
-#: ../src/sj-main.c:1491
+#: ../src/sj-main.c:1588
 msgid "_Change Profile"
 msgstr "_Izmeni profil"
 
-#: ../src/sj-main.c:1879
+#: ../src/sj-main.c:1977
 msgid "Unknown widget calling on_person_edit_changed."
 msgstr "Nepoznat poziv elementa na izmenjenom uređivanju osobe."
 
-#: ../src/sj-main.c:1979 ../src/sj-prefs.c:127
+#: ../src/sj-main.c:2077 ../src/sj-prefs.c:120
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -985,40 +1026,44 @@ msgstr ""
 "Ne mogu da prikažem pomoć za Zvukovnik\n"
 "%s"
 
-#: ../src/sj-main.c:2192 ../src/sj-play.c:301
+#: ../src/sj-main.c:2136
+msgid "Retrieving track listing...please wait."
+msgstr "Preuzimam spisak pesama... Molim pričekajte."
+
+#: ../src/sj-main.c:2323 ../src/sj-play.c:301
 msgid "_Pause"
 msgstr "_Zastani"
 
 # andrija: Ovde je u pitanju *broj pesme*
-#: ../src/sj-main.c:2270
+#: ../src/sj-main.c:2401
 msgid "Track"
 msgstr "Numera"
 
-#: ../src/sj-main.c:2284
+#: ../src/sj-main.c:2415
 msgid "Composer"
 msgstr "Kompozitor"
 
-#: ../src/sj-main.c:2438
+#: ../src/sj-main.c:2569
 msgid "Start extracting immediately"
 msgstr "Odmah počinje sa izvlačenjem pesama"
 
-#: ../src/sj-main.c:2439
+#: ../src/sj-main.c:2570
 msgid "Start playing immediately"
 msgstr "Odmah pušta pesmu"
 
-#: ../src/sj-main.c:2440
+#: ../src/sj-main.c:2571
 msgid "What CD device to read"
 msgstr "Koji će CD uređaj da čita"
 
-#: ../src/sj-main.c:2440
+#: ../src/sj-main.c:2571
 msgid "DEVICE"
 msgstr "UREĐAJ"
 
-#: ../src/sj-main.c:2441
+#: ../src/sj-main.c:2572
 msgid "URI to the CD device to read"
 msgstr "Adresa do CD uređaja za čitanje"
 
-#: ../src/sj-main.c:2453
+#: ../src/sj-main.c:2584
 msgid "- Extract music from your CDs"
 msgstr "— izvucite muziku sa vaših nosača zvuka"
 
@@ -1141,10 +1186,21 @@ msgstr "Broj. Kompozitor — Izvođač pesme — Naslov pesme"
 msgid "Number-Track Composer-Track Artist-Track Title (lowercase)"
 msgstr "Broj—Kompozitor—Izvođač pesme—Naslov pesme (malim slovima)"
 
-#: ../src/sj-prefs.c:311
-#| msgid "Example Path"
+#: ../src/sj-prefs.c:250
 msgid "Example Path: "
 msgstr "Primer putanje: "
+
+#~ msgid "You can improve the MusicBrainz database by adding this album."
+#~ msgstr "Možete unaprediti bazu Mozgića muzike dodavanjem ovog albuma."
+
+#~ msgid "Submit Track Names"
+#~ msgstr "Predaj nazive pesama"
+
+#~ msgid "This album is not in the MusicBrainz database."
+#~ msgstr "Ovaj album nije u bazi podataka Mozgića muzike."
+
+#~ msgid "Could not find %s by %s on MusicBrainz."
+#~ msgstr "Ne mogu da nađem %s od %s na Mozgiću muzike."
 
 #~ msgid "Ca_ncel"
 #~ msgstr "_Otkaži"
