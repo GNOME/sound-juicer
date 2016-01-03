@@ -6,16 +6,17 @@
 # Hendrik Brandt <heb@gnome-de.org>, 2004-2005.
 # Philipp Kerling <k.philipp@gmail.com>, 2008.
 # Jochen Skulj <jochen@jochenskulj.de>, 2008.
-# Mario Blättermann <mariobl@freenet.de>, 2009, 2011.
+# Mario Blättermann <mariobl@freenet.de>, 2009, 2011, 2015.
 # Christian Kirbach <christian.kirbach@gmail.com>, 2009, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-07 15:29+0200\n"
-"PO-Revision-Date: 2015-10-07 15:35+0200\n"
-"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
+"juicer&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2016-01-03 14:41+0000\n"
+"PO-Revision-Date: 2015-12-24 18:20+0100\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +24,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Bookmarks: -1,-1,-1,-1,108,-1,-1,-1,-1,-1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.5\n"
 
 #: ../data/org.gnome.sound-juicer.gschema.xml.h:1
 msgid "The CD to extract from"
@@ -155,7 +156,7 @@ msgstr "Audio-Lautstärke"
 
 #: ../data/sound-juicer.desktop.in.in.h:1
 #: ../data/appdata/sound-juicer.appdata.xml.in.h:1 ../data/sound-juicer.ui.h:1
-#: ../src/sj-main.c:133 ../src/sj-main.c:135 ../src/sj-main.c:2503
+#: ../src/sj-main.c:133 ../src/sj-main.c:135 ../src/sj-main.c:2581
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -169,7 +170,7 @@ msgstr "Sound Juicer Audio-CD-Ausleser"
 
 #: ../data/sound-juicer.desktop.in.in.h:4
 msgid "Copy music from your CDs"
-msgstr "Ihre Musik-CDs auslesen"
+msgstr "Ihre Audio-CDs auslesen"
 
 #: ../data/sound-juicer.desktop.in.in.h:5
 msgid "Ripper;"
@@ -180,6 +181,7 @@ msgid "CD ripper with a clean interface and simple preferences"
 msgstr ""
 "CD-Ausleser mit einer übersichtlichen Oberfläche und einfachen Einstellungen"
 
+# Audio-CD ist allgemeiner als Musik-CD
 #: ../data/appdata/sound-juicer.appdata.xml.in.h:3
 msgid ""
 "Sound Juicer is a simple and clean CD ripping tool. It allows you to extract "
@@ -188,6 +190,11 @@ msgid ""
 "tracks directly from the CD, allowing you to preview the CD before ripping "
 "it."
 msgstr ""
+"Sound Juicer ist ein einfaches und übersichtliches Werkzeug zum Auslesen von "
+"Audio-CDs. Lesen Sie mit ihm die Tonspur von Audio-CDs aus und wandeln Sie "
+"diese in Audio-Dateien für Ihren Rechner um. Sound Juicer kann auch direkt "
+"die Tonspur von CDs wiedergeben, so dass sie eine Vorschau des Inhalts "
+"anhören können."
 
 #: ../data/appdata/sound-juicer.appdata.xml.in.h:4
 msgid ""
@@ -196,6 +203,9 @@ msgid ""
 "drive and try to locate information about the audio tracks using the freely-"
 "available MusicBrainz service."
 msgstr ""
+"Sound Juicer ist auf eine einfache Bedienung ausgelegt. Wenn Sie Sound "
+"Juicer starten, untersucht es die eingelegte CD und sucht nach Informationen "
+"über die enthaltenen Titel im frei verfügbaren Dienst MusicBrainz."
 
 #: ../data/sound-juicer.ui.h:2
 msgid "_Edit Album"
@@ -237,13 +247,13 @@ msgstr "Dauer:"
 msgid "Tracks"
 msgstr "Stücke"
 
-#: ../data/sound-juicer.ui.h:12 ../src/sj-main.c:2238 ../src/sj-play.c:121
+#: ../data/sound-juicer.ui.h:12 ../src/sj-main.c:2316 ../src/sj-play.c:121
 #: ../src/sj-play.c:259 ../src/sj-play.c:622
 msgid "_Play"
 msgstr "_Wiedergabe"
 
 #: ../data/sound-juicer.ui.h:13 ../src/sj-extracting.c:233
-#: ../src/sj-main.c:2262
+#: ../src/sj-main.c:2340
 msgid "E_xtract"
 msgstr "_Auslesen"
 
@@ -409,7 +419,7 @@ msgstr "GStreamer-Dateiausgabeelement konnte nicht angelegt werden"
 #: ../libjuicer/sj-extractor.c:399
 #, c-format
 msgid "Could not link pipeline"
-msgstr "Pipeline konnte nicht vergeknüpft werden"
+msgstr "Pipeline konnte nicht verknüpft werden"
 
 #: ../libjuicer/sj-extractor.c:422
 msgid "Could not get current track position"
@@ -432,8 +442,7 @@ msgstr ""
 #: ../libjuicer/sj-extractor.c:719
 #, c-format
 msgid "The plugin necessary for file access was not found"
-msgstr ""
-"Das zum Zugriff auf die CD notwendige Plugin konnte nicht gefunden werden"
+msgstr "Das zum Dateizugriff notwendige Plugin konnte nicht gefunden werden"
 
 #. FIXME: would be nicer to only check if "cdrom" is being probed,
 #. * but libbrasero doesn't seem to have an API for that
@@ -514,46 +523,47 @@ msgstr "Titelnummer %d"
 msgid "Cannot access CD: %s"
 msgstr "Auf CD kann nicht zugegriffen werden: %s"
 
+# arranger = Arrangeur
 #. Tranlators: This string is used to build the composer tag when
 #. a track has a mixture of arrangers, orchestrators and
 #. transcribers but no composers
-#: ../libjuicer/sj-metadata-musicbrainz5.c:486
+#: ../libjuicer/sj-metadata-musicbrainz5.c:487
 #, c-format
 msgid "arr. %s"
-msgstr ""
+msgstr "Arr. %s"
 
 #. Tranlators: This string is used to build the composer tag when a
 #. track has composers and arrangers, or a composer and a mixture
 #. of arrangers, orchestrators and transcribers
-#: ../libjuicer/sj-metadata-musicbrainz5.c:490
+#: ../libjuicer/sj-metadata-musicbrainz5.c:491
 #, c-format
 msgid "%s arr. %s"
-msgstr ""
+msgstr "%s Arr. %s"
 
 #. Tranlators: This string is used to build the composer tag
 #. when a track has orchestrators but no composer
-#: ../libjuicer/sj-metadata-musicbrainz5.c:493
-#, c-format
+#: ../libjuicer/sj-metadata-musicbrainz5.c:494
+#, fuzzy, c-format
 msgid "orch. %s"
-msgstr ""
+msgstr "Leiter %s"
 
 #. Tranlators: This string is used to build the composer tag
 #. when a track has composers and orchestrators
-#: ../libjuicer/sj-metadata-musicbrainz5.c:496
-#, c-format
+#: ../libjuicer/sj-metadata-musicbrainz5.c:497
+#, fuzzy, c-format
 msgid "%s orch. %s"
-msgstr ""
+msgstr "%s Leiter %s"
 
 #. Tranlators: This string is used to build the composer tag
 #. when a track has a transcribers but no composer
-#: ../libjuicer/sj-metadata-musicbrainz5.c:503
+#: ../libjuicer/sj-metadata-musicbrainz5.c:504
 #, c-format
 msgid "trans. %s"
 msgstr ""
 
 #. Tranlators: This string is used to build the composer tag
 #. when a track has composers and transcribers
-#: ../libjuicer/sj-metadata-musicbrainz5.c:506
+#: ../libjuicer/sj-metadata-musicbrainz5.c:507
 #, c-format
 msgid "%s trans. %s"
 msgstr ""
@@ -566,7 +576,7 @@ msgstr "Adresse"
 msgid "The URI of the audio file"
 msgstr "Die Adresse der Audio-Datei"
 
-#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2335
+#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2413
 msgid "Title"
 msgstr "Titel"
 
@@ -574,13 +584,13 @@ msgstr "Titel"
 msgid "The title of the current stream."
 msgstr "Der Titel des momentanen Audiodatenstroms."
 
-#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2336
+#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2414
 msgid "Artist"
-msgstr "Interpret"
+msgstr "Künstler"
 
 #: ../src/egg-play-preview.c:192
 msgid "The artist of the current stream."
-msgstr "Der Interpret des momentanen Audiodatenstroms."
+msgstr "Der Künstler des momentanen Audiodatenstroms."
 
 #: ../src/egg-play-preview.c:201
 msgid "Album"
@@ -598,7 +608,7 @@ msgstr "Position"
 msgid "The position in the current stream in seconds."
 msgstr "Die Position in Sekunden innerhalb des momentanen Audiodatenstroms."
 
-#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2343
+#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2421
 msgid "Duration"
 msgstr "Dauer"
 
@@ -659,7 +669,7 @@ msgstr ""
 "Hendrik Richter <hendrikr@gnome.org>\n"
 "Philipp Kerling <k.phlipp@gmail.com>\n"
 "Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
-"Mario Blättermann <mariobl@freenet.de>"
+"Mario Blättermann <mario.blaettermann@gmail.com>"
 
 #: ../src/sj-extracting.c:148
 #, c-format
@@ -680,7 +690,7 @@ msgid ""
 "A file called '%s' exists, size %s.\n"
 "Do you want to skip this track or overwrite it?"
 msgstr ""
-"Eine Datei namens »%s« der Größe %s KB existiert bereits.\n"
+"Eine Datei namens »%s« der Größe %s existiert bereits.\n"
 "Wollen Sie diesen Titel überspringen oder überschreiben?"
 
 #: ../src/sj-extracting.c:321
@@ -702,7 +712,7 @@ msgstr "Alle über_schreiben"
 #: ../src/sj-extracting.c:373
 #, c-format
 msgid "Failed to create output directory: %s"
-msgstr "Zielordner konnte nicht erzeugt werden: %s"
+msgstr "Zielordner konnte nicht angelegt werden: %s"
 
 #: ../src/sj-extracting.c:513
 #, c-format
@@ -722,18 +732,18 @@ msgid "Sound Juicer could not extract this CD."
 msgstr "Sound Juicer konnte diese CD nicht auslesen."
 
 #: ../src/sj-extracting.c:699 ../src/sj-main.c:179 ../src/sj-main.c:426
-#: ../src/sj-main.c:465 ../src/sj-main.c:1197 ../src/sj-main.c:1385
+#: ../src/sj-main.c:465 ../src/sj-main.c:1275 ../src/sj-main.c:1463
 msgid "Reason"
 msgstr "Grund"
 
 #. Change the label to Stop while extracting
-#: ../src/sj-extracting.c:789 ../src/sj-main.c:2269
+#: ../src/sj-extracting.c:789 ../src/sj-main.c:2347
 msgid "_Stop"
 msgstr "_Stopp"
 
 #: ../src/sj-extracting.c:817 ../src/sj-extracting.c:825
 msgid "Extracting audio from CD"
-msgstr "Musik-CD wird auslesen"
+msgstr "Audio-CD wird ausgelesen"
 
 #: ../src/sj-extracting.c:981
 msgid "Unknown Composer"
@@ -805,9 +815,9 @@ msgstr "Soul"
 
 #: ../src/sj-genres.c:48
 msgid "Spoken Word"
-msgstr "Gesprochen"
+msgstr "Sprache"
 
-#: ../src/sj-genres.c:188
+#: ../src/sj-genres.c:197
 #, c-format
 msgid "Error while saving custom genre: %s"
 msgstr "Benutzerdefiniertes Genre konnte nicht gespeichert werden: %s"
@@ -826,15 +836,15 @@ msgstr ""
 "Sie lesen momentan eine CD aus. Wollen Sie die Anwendung jetzt beenden oder "
 "fortfahren?"
 
-#: ../src/sj-main.c:239 ../src/sj-main.c:1509
+#: ../src/sj-main.c:239 ../src/sj-main.c:1587
 msgid "_Quit"
 msgstr "_Beenden"
 
-#: ../src/sj-main.c:287 ../src/sj-main.c:2216 ../src/sj-main.c:2292
+#: ../src/sj-main.c:287 ../src/sj-main.c:2294 ../src/sj-main.c:2370
 msgid "Select None"
 msgstr "Nichts auswählen"
 
-#: ../src/sj-main.c:301 ../src/sj-main.c:2286
+#: ../src/sj-main.c:301 ../src/sj-main.c:2364
 msgid "Select All"
 msgstr "Alle auswählen"
 
@@ -864,7 +874,7 @@ msgstr ""
 #: ../src/sj-main.c:402
 msgid "Click ‘Reload’ to load the edited album details from MusicBrainz"
 msgstr ""
-"Klicken Sie auf »neu laden«, um die bearbeiteten Albumdetails von "
+"Klicken Sie auf »Neu laden«, um die bearbeiteten Albumdetails von "
 "MusicBrainz zu laden"
 
 #: ../src/sj-main.c:424
@@ -881,7 +891,7 @@ msgstr "CD konnte nicht kopiert werden"
 
 #: ../src/sj-main.c:464
 msgid "Sound Juicer could not duplicate the disc"
-msgstr "Die CD konnte nicht von Sound-Juicer kopiert werden"
+msgstr "Die CD konnte nicht von Sound Juicer kopiert werden"
 
 #: ../src/sj-main.c:514
 msgid "Lieder"
@@ -894,32 +904,31 @@ msgstr "Oper"
 # oder: Raum?
 #: ../src/sj-main.c:514
 msgid "Chamber"
-msgstr "Kammer"
+msgstr "Kammermusik"
 
 #: ../src/sj-main.c:514
 msgid "Musical"
 msgstr "Musical"
 
-#. Translators: this string appears when multiple CDs were
-#. * found in musicbrainz online database, it corresponds to
-#. * "Released: <country> in <year> on <label>"
-#: ../src/sj-main.c:890
+#. Translators: this string is a list of catalog number(s) used by
+#. the label(s) to identify the release
+#: ../src/sj-main.c:897
+msgid "Catalog No.: "
+msgid_plural "Catalog Nos.: "
+msgstr[0] "Katalog Nr.:"
+msgstr[1] "Katalog Nr.:"
+
+#: ../src/sj-main.c:939
 #, c-format
 msgid "Released: %s in %d on %s"
 msgstr "Erschienen: %s in %d auf %s"
 
-#. Translators: this string appears when multiple CDs were
-#. * found in musicbrainz online database, it corresponds to
-#. * "Released: <country> on <label>"
-#: ../src/sj-main.c:898
+#: ../src/sj-main.c:948
 #, c-format
 msgid "Released: %s on %s"
 msgstr "Erschienen: %s auf %s"
 
-#. Translators: this string appears when multiple CDs were
-#. * found in musicbrainz online database, it corresponds to
-#. * "Released: <country> in <year>"
-#: ../src/sj-main.c:904
+#: ../src/sj-main.c:956
 #, c-format
 msgid "Released: %s in %d"
 msgstr "Erschienen: %s in %d"
@@ -927,15 +936,12 @@ msgstr "Erschienen: %s in %d"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released: <country>"
-#: ../src/sj-main.c:910
+#: ../src/sj-main.c:963
 #, c-format
 msgid "Released: %s"
 msgstr "Erschienen: %s"
 
-#. Translators: this string appears when multiple CDs were
-#. * found in musicbrainz online database, it corresponds to
-#. * "Released in <year> on <label>"
-#: ../src/sj-main.c:917
+#: ../src/sj-main.c:971
 #, c-format
 msgid "Released in %d on %s"
 msgstr "Erschienen in %d auf %s"
@@ -943,7 +949,7 @@ msgstr "Erschienen in %d auf %s"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released in <year>"
-#: ../src/sj-main.c:924
+#: ../src/sj-main.c:978
 #, c-format
 msgid "Released in %d"
 msgstr "Erschienen in %d"
@@ -951,70 +957,75 @@ msgstr "Erschienen in %d"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released on <label>"
-#: ../src/sj-main.c:931
+#: ../src/sj-main.c:985
 #, c-format
 msgid "Released on %s"
 msgstr "Erschienen auf %s"
 
-#: ../src/sj-main.c:933
+#: ../src/sj-main.c:988
+#, c-format
 msgid "Release label, year & country unknown"
 msgstr "Erscheinungstitel, Jahr und Land unbekannt"
 
-#: ../src/sj-main.c:973
+#: ../src/sj-main.c:998 ../src/sj-main.c:1007
+msgid "Barcode:"
+msgstr "Strichcode:"
+
+#: ../src/sj-main.c:1051
 msgid "Albums"
 msgstr "Alben"
 
-#: ../src/sj-main.c:1007
+#: ../src/sj-main.c:1085
 #, c-format
 msgid " (Disc %d/%d)"
 msgstr " (CD %d/%d)"
 
-#: ../src/sj-main.c:1195 ../src/sj-main.c:1383
+#: ../src/sj-main.c:1273 ../src/sj-main.c:1461
 msgid "Could not read the CD"
 msgstr "Die CD konnte nicht eingelesen werden."
 
-#: ../src/sj-main.c:1196
+#: ../src/sj-main.c:1274
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer konnte die Titelliste auf dieser CD nicht einlesen."
 
-#: ../src/sj-main.c:1345
+#: ../src/sj-main.c:1423
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Sound Juicer konnte nicht auf das CD-ROM-Laufwerk »%s« zugreifen"
 
-#: ../src/sj-main.c:1352
+#: ../src/sj-main.c:1430
 msgid "HAL daemon may not be running."
 msgstr "Möglicherweise läuft der HAL-Daemon nicht."
 
-#: ../src/sj-main.c:1376
+#: ../src/sj-main.c:1454
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer konnte nicht auf das CD-ROM-Laufwerk »%s« zugreifen"
 
-#: ../src/sj-main.c:1474
+#: ../src/sj-main.c:1552
 msgid "No CD-ROM drives found"
 msgstr "Keine CD-ROM-Laufwerke gefunden"
 
-#: ../src/sj-main.c:1475
+#: ../src/sj-main.c:1553
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer konnte keine CD-ROM-Laufwerke zum Einlesen finden."
 
-#: ../src/sj-main.c:1508
+#: ../src/sj-main.c:1586
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr ""
 "Das momentan ausgewählte Audioprofil ist auf Ihrer Installation nicht "
 "verfügbar."
 
-#: ../src/sj-main.c:1510
+#: ../src/sj-main.c:1588
 msgid "_Change Profile"
 msgstr "Profil _wechseln"
 
-#: ../src/sj-main.c:1899
+#: ../src/sj-main.c:1977
 msgid "Unknown widget calling on_person_edit_changed."
 msgstr "Unbekanntes Widget ruft on_person_edit_changed auf."
 
-#: ../src/sj-main.c:1999 ../src/sj-prefs.c:120
+#: ../src/sj-main.c:2077 ../src/sj-prefs.c:120
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -1023,45 +1034,45 @@ msgstr ""
 "Hilfe zu Sound Juicer konnte nicht angezeigt werden\n"
 "%s"
 
-#: ../src/sj-main.c:2058
+#: ../src/sj-main.c:2136
 msgid "Retrieving track listing...please wait."
 msgstr "Titelliste wird abgerufen, bitte warten."
 
-#: ../src/sj-main.c:2245 ../src/sj-play.c:301
+#: ../src/sj-main.c:2323 ../src/sj-play.c:301
 msgid "_Pause"
 msgstr "_Anhalten"
 
-#: ../src/sj-main.c:2323
+#: ../src/sj-main.c:2401
 msgid "Track"
 msgstr "Titelnr."
 
-#: ../src/sj-main.c:2337
+#: ../src/sj-main.c:2415
 msgid "Composer"
 msgstr "Komponist"
 
-#: ../src/sj-main.c:2491
+#: ../src/sj-main.c:2569
 msgid "Start extracting immediately"
 msgstr "Auslesen sofort starten"
 
-#: ../src/sj-main.c:2492
+#: ../src/sj-main.c:2570
 msgid "Start playing immediately"
 msgstr "Wiedergabe sofort starten"
 
-#: ../src/sj-main.c:2493
+#: ../src/sj-main.c:2571
 msgid "What CD device to read"
 msgstr "Das auszulesende CD-Laufwerk"
 
-#: ../src/sj-main.c:2493
+#: ../src/sj-main.c:2571
 msgid "DEVICE"
 msgstr "GERÄT"
 
-#: ../src/sj-main.c:2494
+#: ../src/sj-main.c:2572
 msgid "URI to the CD device to read"
 msgstr "URI des auszulesenden CD-Laufwerks"
 
-#: ../src/sj-main.c:2506
+#: ../src/sj-main.c:2584
 msgid "- Extract music from your CDs"
-msgstr "- Musik-CDs auslesen"
+msgstr "- Audio-CDs auslesen"
 
 #: ../src/sj-play.c:193 ../src/sj-play.c:417 ../src/sj-play.c:453
 #, c-format
