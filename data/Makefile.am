@@ -1,6 +1,3 @@
-privatedatadir = $(pkgdatadir)
-dist_privatedata_DATA = data/sound-juicer.ui data/sound-juicer-menu.ui
-
 desktopdir = $(datadir)/applications
 desktop_in_files = data/sound-juicer.desktop.in.in
 desktop_DATA = $(desktop_in_files:.desktop.in.in=.desktop)
@@ -85,6 +82,8 @@ EXTRA_DIST += \
 	data/sound-juicer.convert \
 	$(man1_MANS) \
 	$(icons) \
-	$(appstream_in_files)
+	$(appstream_in_files) \
+	$(gresource_xml) \
+	$(gresource_deps)
 
 MAINTAINERCLEANFILES += $(gsettings_SCHEMAS:.xml=.valid)

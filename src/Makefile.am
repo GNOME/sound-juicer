@@ -22,3 +22,16 @@ sound_juicer_SOURCES += \
 	src/sj-window-state.c \
 	src/sj-window-state.h \
 	src/sound-juicer.h
+
+nodist_sound_juicer_SOURCES += $(gresource_source)
+
+gresource_source = \
+       src/sj-resources.c
+
+gresource_xml = $(srcdir)/data/sound-juicer.gresource.xml
+gresource_deps = $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(srcdir)/data --generate-dependencies $(gresource_xml))
+$(gresource_source) : $(gresource_xml) $(gresource_deps)
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --generate-source --target=$@ --sourcedir=$(srcdir)/data $<
+
+CLEANFILES += \
+     $(gresource_source)

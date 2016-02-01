@@ -1,6 +1,7 @@
 bin_PROGRAMS =
 noinst_PROGRAMS =
 sound_juicer_SOURCES =
+nodist_sound_juicer_SOURCES =
 libjuicer_SOURCES =
 CLEANFILES =
 DISTCLEANFILES =

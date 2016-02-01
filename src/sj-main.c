@@ -120,10 +120,6 @@ static CellCbContext cell_editing_context;
 
 #define DEFAULT_PARANOIA 15
 #define RAISE_WINDOW "raise-window"
-#define SOURCE_BUILDER TOPSRCDIR"/data/sound-juicer.ui"
-#define INSTALLED_BUILDER DATADIR"/sound-juicer/sound-juicer.ui"
-#define SOURCE_MENU_BUILDER TOPSRCDIR"/data/sound-juicer-menu.ui"
-#define INSTALLED_MENU_BUILDER DATADIR"/sound-juicer/sound-juicer-menu.ui"
 #define COMPOSER_ROW 2 /* Row of entry_table containing composer_entry */
 
 void
@@ -2238,27 +2234,7 @@ startup_cb (GApplication *app, gpointer user_data)
                     G_CALLBACK (reread_state_changed_cb),
                     NULL);
 
-  builder = gtk_builder_new ();
-  if (g_file_test (SOURCE_BUILDER, G_FILE_TEST_EXISTS) != FALSE) {
-    gtk_builder_add_from_file (builder, SOURCE_BUILDER, &error);
-  } else {
-    gtk_builder_add_from_file (builder, INSTALLED_BUILDER, &error);
-  }
-
-  if (g_file_test (SOURCE_MENU_BUILDER, G_FILE_TEST_EXISTS) != FALSE) {
-    gtk_builder_add_from_file (builder, SOURCE_MENU_BUILDER, &error);
-  } else {
-    gtk_builder_add_from_file (builder, INSTALLED_MENU_BUILDER, &error);
-  }
-
-  gtk_application_set_app_menu (GTK_APPLICATION (app),
-                                G_MENU_MODEL (gtk_builder_get_object (builder, "app-menu")));
-
-  if (error != NULL) {
-    error_on_start (error);
-    g_error_free (error);
-    exit (1);
-  }
+  builder = gtk_builder_new_from_resource ("/org/gnome/sound-juicer/sound-juicer.ui");
 
   gtk_builder_connect_signals (builder, NULL);
 
