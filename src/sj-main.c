@@ -334,11 +334,7 @@ static void number_cell_icon_data_cb (GtkTreeViewColumn *tree_column,
     g_object_set (G_OBJECT (cell), "icon-name", NULL, NULL);
     break;
   case STATE_PLAYING:
-    {
-      gboolean rtl = gtk_widget_get_direction (track_listview) == GTK_TEXT_DIR_RTL;
-      gchar *name = rtl ? "media-playback-start-rtl" : "media-playback-start";
-      g_object_set (G_OBJECT (cell), "icon-name", name, NULL);
-    }
+    g_object_set (G_OBJECT (cell), "icon-name", "media-playback-start", NULL);
     break;
   case STATE_PAUSED:
     g_object_set (G_OBJECT (cell), "icon-name", "media-playback-pause", NULL);

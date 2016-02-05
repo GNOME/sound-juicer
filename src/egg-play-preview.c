@@ -68,8 +68,6 @@ struct _EggPlayPreviewPrivate {
 	GstQuery   *query;
 	GstState state;
 
-	gchar *play_icon_name;
-
 	gchar *title;
 	gchar *artist;
 	gchar *album;
@@ -289,13 +287,9 @@ egg_play_preview_init (EggPlayPreview *play_preview)
 	gtk_grid_attach (grid, priv->artist_album_label, 0, 1, 1, 1);
 
 	/* play button */
-	priv->play_button = gtk_button_new ();
-	if (gtk_widget_get_direction (GTK_WIDGET (priv->play_button)) == GTK_TEXT_DIR_RTL)
-	    priv->play_icon_name = "media-playback-start-rtl";
-	else
-	    priv->play_icon_name = "media-playback-start";
-	priv->play_button_image = gtk_image_new_from_icon_name (priv->play_icon_name, GTK_ICON_SIZE_BUTTON);
-	gtk_container_add (GTK_CONTAINER (priv->play_button), priv->play_button_image);
+	priv->play_button = gtk_button_new_from_icon_name ("media-playback-start",
+													   GTK_ICON_SIZE_BUTTON);
+	priv->play_button_image = gtk_button_get_image (GTK_BUTTON (priv->play_button));
 	g_object_set (priv->play_button,
 				  "valign", GTK_ALIGN_CENTER,
 				  NULL);
@@ -906,7 +900,7 @@ _pause (EggPlayPreview *play_preview)
 	gst_element_set_state (priv->playbin, GST_STATE_PAUSED);
 
 	gtk_image_set_from_icon_name (GTK_IMAGE (priv->play_button_image),
-	                              priv->play_icon_name,
+								  "media-playback-start",
 	                              GTK_ICON_SIZE_BUTTON);
 }
 
@@ -920,7 +914,7 @@ _stop (EggPlayPreview *play_preview)
 	gst_element_set_state (priv->playbin, GST_STATE_READY);
 
 	gtk_image_set_from_icon_name (GTK_IMAGE (priv->play_button_image),
-	                              priv->play_icon_name,
+								  "media-playback-start",
 	                              GTK_ICON_SIZE_BUTTON);
 }
 
