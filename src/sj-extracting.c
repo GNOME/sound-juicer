@@ -315,6 +315,10 @@ confirm_overwrite_existing_file (GFile *uri, int *overwrite_mode, goffset info_s
 
   filename = g_file_get_uri (uri);
   play_preview = egg_play_preview_new_with_uri (filename);
+  g_object_set (play_preview,
+                "halign", GTK_ALIGN_FILL,
+                "margin-start", 30,
+                "margin-end", 30, NULL);
   gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))), play_preview);
   g_free (filename);
 
