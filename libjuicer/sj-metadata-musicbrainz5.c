@@ -757,7 +757,6 @@ fill_tracks_from_medium (SjMetadataMusicbrainz5  *self,
       if (*error != NULL) {
         track_details_free (track);
         g_list_free_full (tracks, (GDestroyNotify) track_details_free);
-        return NULL;
       }
 
       if (track->duration == 0)
