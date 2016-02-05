@@ -303,7 +303,7 @@ egg_play_preview_init (EggPlayPreview *play_preview)
 				  "hexpand", TRUE,
 				  NULL);
 	gtk_grid_attach (grid, priv->time_scale, 2, 0, 1, 2);
-	priv->time_label = gtk_label_new ("0:00");
+	priv->time_label = gtk_label_new ("0:00/0:00");
 	g_object_set (priv->time_label,
 				  "valign", GTK_ALIGN_CENTER,
 				  NULL);
@@ -446,6 +446,7 @@ _timeout_cb (EggPlayPreview *play_preview)
 	g_object_notify (G_OBJECT (play_preview), "position");
 
 	gtk_range_set_value (GTK_RANGE (priv->time_scale), priv->position * (100.0 / priv->duration));
+	_ui_update_duration (play_preview);
 
 	return TRUE;
 }
@@ -458,9 +459,9 @@ _ui_update_duration (EggPlayPreview *play_preview)
 
 	priv = GET_PRIVATE (play_preview);
 
-	str = g_strdup_printf ("%u:%02u",
-						   priv->duration / 60,
-						   priv->duration % 60);
+	str = g_strdup_printf ("%u:%02u/%u:%02u",
+						   priv->position / 60, priv->position % 60,
+						   priv->duration / 60, priv->duration % 60);
 
 	gtk_label_set_text (GTK_LABEL (priv->time_label), str);
 	g_free (str);
@@ -503,8 +504,11 @@ _change_value_cb (GtkRange *range, GtkScrollType scroll, gdouble value, EggPlayP
 
 	priv = GET_PRIVATE (play_preview);
 
-	if (priv->is_seekable)
-		_seek (priv->playbin, (gint) ((value / 100.0) * priv->duration));
+	if (priv->is_seekable) {
+		priv->position = (int) (value / 100.0 * priv->duration);
+		_seek (priv->playbin, priv->position);
+		_ui_update_duration (play_preview);
+	}
 
 	return FALSE;
 }
