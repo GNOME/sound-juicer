@@ -107,6 +107,11 @@ static gboolean _change_value_cb             (GtkRange *range,
 											  EggPlayPreview *play_preview);
 static void _clicked_cb                      (GtkButton      *button,
 											  EggPlayPreview *play_preview);
+static void _duration_notify_cb              (EggPlayPreview *play_preview,
+											  GParamSpec     *pspec,
+											  gpointer        user_data);
+static void _style_updated_cb                (GtkWidget *widget,
+											  gpointer   user_data);
 static void _setup_pipeline                  (EggPlayPreview *play_preview);
 static void _clear_pipeline                  (EggPlayPreview *play_preview);
 static gboolean _process_bus_messages        (GstBus         *bus,
@@ -305,7 +310,10 @@ egg_play_preview_init (EggPlayPreview *play_preview)
 	gtk_grid_attach (grid, priv->time_scale, 2, 0, 1, 2);
 	priv->time_label = gtk_label_new ("0:00/0:00");
 	g_object_set (priv->time_label,
+				  "halign", GTK_ALIGN_END,
+				  "justify", GTK_JUSTIFY_RIGHT,
 				  "valign", GTK_ALIGN_CENTER,
+				  "xalign", 1.0, /* This is needed to right justify the label even though it is deprecated */
 				  NULL);
 	gtk_grid_attach (grid, priv->time_label, 3, 0, 1, 2);
 
@@ -313,6 +321,10 @@ egg_play_preview_init (EggPlayPreview *play_preview)
 					  G_CALLBACK (_clicked_cb), play_preview);
 	g_signal_connect (G_OBJECT (priv->time_scale), "change-value",
 					  G_CALLBACK (_change_value_cb), play_preview);
+	g_signal_connect (play_preview, "notify::duration",
+					  G_CALLBACK (_duration_notify_cb), NULL);
+	g_signal_connect (priv->time_label, "style-updated",
+					  G_CALLBACK (_style_updated_cb), play_preview);
 
 	gtk_box_pack_start (GTK_BOX (play_preview), GTK_WIDGET (grid), FALSE, FALSE, 0);
 
@@ -433,6 +445,97 @@ egg_play_preview_get_property (GObject     *object,
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
 	}
+}
+
+static void
+calculate_widths (GtkWidget *label, int *widths)
+{
+	int i = 0;
+	for (i = 0; i < 10; i++) {
+		gchar *s;
+		s = g_strdup_printf ("%d", i);
+		gtk_label_set_text (GTK_LABEL (label), s);
+		gtk_widget_get_preferred_width (label, NULL, &widths[i]);
+		g_free (s);
+	}
+}
+
+static int
+get_widest_digit (int *widths, int max)
+{
+	int max_width = 0;
+	int i_max = 0;
+	int i;
+
+	for (i = 0; i <= max; i++) {
+		if (widths[i] > max_width) {
+			max_width = widths[i];
+			i_max = i;
+		}
+	}
+
+	return i_max;
+}
+
+static gchar *
+get_widest_time (int *widths, int duration)
+{
+	int minutes;
+	int seconds;
+	int m, s1, s2;
+	const char *format = "%d:%d%d/%d:%02d";
+
+	minutes = duration / 60;
+	seconds = duration % 60;
+
+	s1 = get_widest_digit (widths, 9);
+	if (minutes == 0)
+		s2 = get_widest_digit (widths, seconds % 10);
+	else
+		s2 = get_widest_digit (widths, 5);
+	if (minutes > 9) {
+		m = get_widest_digit (widths, 9);
+		m += get_widest_digit (widths, minutes % 10) * 10;
+		format = "%02d:%d%d/%d:%02d";
+	} else {
+		m = get_widest_digit (widths, minutes);
+	}
+
+	return g_strdup_printf (format, m, s2, s1, minutes, seconds);
+}
+
+static void
+set_time_label_width (EggPlayPreview *play_preview)
+{
+	EggPlayPreviewPrivate *priv;
+	int widths[10];
+	int w;
+	gchar *s;
+
+	priv = GET_PRIVATE (play_preview);
+	g_object_set (priv->time_label, "width-request", -1, NULL);
+	calculate_widths (priv->time_label, widths);
+	s = get_widest_time (widths, priv->duration);
+	gtk_label_set_text (GTK_LABEL (priv->time_label), s);
+	gtk_widget_get_preferred_width (priv->time_label, NULL, &w);
+	g_object_set (priv->time_label, "width-request", w, NULL);
+	g_free (s);
+	_ui_update_duration (play_preview);
+}
+
+static void
+_duration_notify_cb (EggPlayPreview *play_preview,
+					 GParamSpec     *pspec,
+					 gpointer        user_data)
+{
+	set_time_label_width (play_preview);
+}
+
+static void
+_style_updated_cb (GtkWidget *widget,
+				   gpointer   user_data)
+{
+	set_time_label_width (user_data);
 }
 
 static gboolean
@@ -604,7 +707,6 @@ _process_bus_messages (GstBus *bus, GstMessage *msg, EggPlayPreview *play_previe
 
 		priv->duration = duration;
 		g_object_notify (G_OBJECT (play_preview), "duration");
-		_ui_update_duration (play_preview);
 		break;
 
 	case GST_MESSAGE_EOS:
