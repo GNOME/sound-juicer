@@ -65,6 +65,7 @@ struct _EggPlayPreviewPrivate {
 	GtkWidget *time_label;
 
 	GstElement *playbin;
+	GstQuery   *query;
 	GstState state;
 
 	gchar *play_icon_name;
@@ -73,11 +74,12 @@ struct _EggPlayPreviewPrivate {
 	gchar *artist;
 	gchar *album;
 
-	gint duration;
-	gint position;
+	gint64 duration;
+	gint64 position;
 
 	gint timeout_id;
 
+	gboolean seeking;
 	gboolean is_seekable;
 
 	gchar *uri;
@@ -118,10 +120,10 @@ static gboolean _process_bus_messages        (GstBus         *bus,
 											  GstMessage     *msg,
 											  EggPlayPreview *play_preview);
 static gboolean _query_seeking               (GstElement *element);
-static gint _query_duration                  (GstElement *element);
-static gint _query_position                  (GstElement *element);
-static void _seek                            (GstElement *element,
-											  gint position);
+static gint64 _query_duration                (GstElement *element);
+static void _seek                            (EggPlayPreview *play_preview,
+											  GstElement *element,
+											  gint64      position);
 static gboolean _is_playing                  (GstState state);
 static void _play                            (EggPlayPreview *play_preview);
 static void _pause                           (EggPlayPreview *play_preview);
@@ -212,23 +214,23 @@ egg_play_preview_class_init (EggPlayPreviewClass *klass)
 
 	g_object_class_install_property (gobject_class,
 									 PROP_POSITION,
-									 g_param_spec_int ("position",
-													   _("Position"),
-													   _("The position in the current stream in seconds."),
-													   0, G_MAXINT, 0,
-													   G_PARAM_READWRITE |
-													   G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK |
-													   G_PARAM_STATIC_BLURB));
+									 g_param_spec_int64 ("position",
+														 _("Position"),
+														 _("The position in the current stream in seconds."),
+														 0, G_MAXINT, 0,
+														 G_PARAM_READWRITE |
+														 G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK |
+														 G_PARAM_STATIC_BLURB));
 
 	g_object_class_install_property (gobject_class,
 									 PROP_DURATION,
-									 g_param_spec_int ("duration",
-													   _("Duration"),
-													   _("The duration of the current stream in seconds."),
-													   0, G_MAXINT, 0,
-													   G_PARAM_READABLE |
-													   G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK |
-													   G_PARAM_STATIC_BLURB));
+									 g_param_spec_int64 ("duration",
+														 _("Duration"),
+														 _("The duratio	n of the current stream in seconds."),
+														 0, G_MAXINT, 0,
+														 G_PARAM_READABLE |
+														 G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK |
+														 G_PARAM_STATIC_BLURB));
 
 	gst_init (NULL, NULL);
 }
@@ -515,7 +517,7 @@ set_time_label_width (EggPlayPreview *play_preview)
 	priv = GET_PRIVATE (play_preview);
 	g_object_set (priv->time_label, "width-request", -1, NULL);
 	calculate_widths (priv->time_label, widths);
-	s = get_widest_time (widths, priv->duration);
+	s = get_widest_time (widths, priv->duration / GST_SECOND);
 	gtk_label_set_text (GTK_LABEL (priv->time_label), s);
 	gtk_widget_get_preferred_width (priv->time_label, NULL, &w);
 	g_object_set (priv->time_label, "width-request", w, NULL);
@@ -545,7 +547,15 @@ _timeout_cb (EggPlayPreview *play_preview)
 
 	priv = GET_PRIVATE (play_preview);
 
-	priv->position = _query_position (priv->playbin);
+	if (priv->seeking)
+		return TRUE;
+
+	if (gst_element_query (priv->playbin, priv->query)) {
+		gst_query_parse_position (priv->query, NULL, &priv->position);
+	} else {
+		return TRUE;
+	}
+
 	g_object_notify (G_OBJECT (play_preview), "position");
 
 	gtk_range_set_value (GTK_RANGE (priv->time_scale), priv->position * (100.0 / priv->duration));
@@ -563,8 +573,8 @@ _ui_update_duration (EggPlayPreview *play_preview)
 	priv = GET_PRIVATE (play_preview);
 
 	str = g_strdup_printf ("%u:%02u/%u:%02u",
-						   priv->position / 60, priv->position % 60,
-						   priv->duration / 60, priv->duration % 60);
+						   (int) (priv->position / 60 / GST_SECOND), (int) (priv->position / GST_SECOND) % 60,
+						   (int) (priv->duration / 60 / GST_SECOND), (int) (priv->duration / GST_SECOND) % 60);
 
 	gtk_label_set_text (GTK_LABEL (priv->time_label), str);
 	g_free (str);
@@ -626,8 +636,8 @@ _change_value_cb (GtkRange *range, GtkScrollType scroll, gdouble value, EggPlayP
 		value = upper;
 
 	if (priv->is_seekable && value != gtk_adjustment_get_value (adjustment)) {
-		priv->position = (int) (value / 100.0 * priv->duration);
-		_seek (priv->playbin, priv->position);
+		priv->position = (gint64) (value / 100.0 * priv->duration);
+		_seek (play_preview, priv->playbin, priv->position);
 		_ui_update_duration (play_preview);
 	}
 
@@ -682,6 +692,7 @@ _setup_pipeline (EggPlayPreview *play_preview)
 	gst_object_unref (bus);
 
 	gst_element_set_state (priv->playbin, GST_STATE_NULL);
+	priv->query = gst_query_new_position (GST_FORMAT_TIME);
 }
 
 static void
@@ -700,6 +711,8 @@ _clear_pipeline (EggPlayPreview *play_preview)
 		gst_element_set_state (priv->playbin, GST_STATE_NULL);
                 gst_object_unref (GST_OBJECT (priv->playbin));
 		priv->playbin = NULL;
+		gst_query_unref (priv->query);
+		priv->query = NULL;
 	}
 }
 
@@ -719,7 +732,6 @@ _process_bus_messages (GstBus *bus, GstMessage *msg, EggPlayPreview *play_previe
 		if (!gst_element_query_duration (priv->playbin, GST_FORMAT_TIME, &duration))
 			break;
 
-		duration /= GST_SECOND;
 		if (priv->duration == duration)
 			break;
 
@@ -742,6 +754,11 @@ _process_bus_messages (GstBus *bus, GstMessage *msg, EggPlayPreview *play_previe
 		g_object_notify (G_OBJECT (play_preview), "album");
 
 		_ui_update_tags (play_preview);
+		break;
+
+	case GST_MESSAGE_ASYNC_DONE:
+		if (GST_OBJECT (priv->playbin) == GST_MESSAGE_SRC (msg))
+			priv->seeking = FALSE;
 		break;
 
 	case GST_MESSAGE_STATE_CHANGED:
@@ -807,7 +824,7 @@ _query_seeking (GstElement *element)
 	return seekable;
 }
 
-static gint
+static gint64
 _query_duration (GstElement *element)
 {
 	GstStateChangeReturn result;
@@ -834,43 +851,18 @@ _query_duration (GstElement *element)
 
 	gst_element_set_state (element, state);
 
-	return (gint) (duration / GST_SECOND);
-}
-
-static gint
-_query_position (GstElement *element)
-{
-	gint64 position;
-
-	position = 0;
-
-	gst_element_query_position (element, GST_FORMAT_TIME, &position);
-
-	return (gint) (position / GST_SECOND);
+	return duration;
 }
 
 static void
-_seek (GstElement *element, gint position)
+_seek (EggPlayPreview *play_preview, GstElement *element, gint64 position)
 {
-	GstStateChangeReturn result;
-	GstState state;
+	EggPlayPreviewPrivate *priv;
 
-	result = gst_element_get_state (element, &state, NULL, GST_CLOCK_TIME_NONE);
-
-	if (result == GST_STATE_CHANGE_FAILURE)
-		return;
-
-	result = gst_element_set_state (element, GST_STATE_PAUSED);
-
-	if (result == GST_STATE_CHANGE_ASYNC) {
-		gst_element_get_state (element, NULL, NULL, GST_CLOCK_TIME_NONE);
-	}
-
-	gst_element_seek (element, 1.0, GST_FORMAT_TIME, GST_SEEK_FLAG_FLUSH,
-					  GST_SEEK_TYPE_SET, position * GST_SECOND,
-					  GST_SEEK_TYPE_NONE, GST_CLOCK_TIME_NONE);
-
-	gst_element_set_state (element, state);
+	priv = GET_PRIVATE (play_preview);
+	if (gst_element_seek_simple (priv->playbin, GST_FORMAT_TIME,
+								 GST_SEEK_FLAG_FLUSH, position))
+		priv->seeking = TRUE;
 }
 
 static gboolean
@@ -980,7 +972,7 @@ egg_play_preview_set_uri (EggPlayPreview *play_preview, const gchar *uri)
 		_ui_set_sensitive (play_preview, TRUE);
 		_ui_update_duration (play_preview);
 		_ui_update_tags (play_preview);
-		priv->timeout_id = g_timeout_add_seconds (1, (GSourceFunc) _timeout_cb, play_preview);
+		priv->timeout_id = g_timeout_add (250, (GSourceFunc) _timeout_cb, play_preview);
 		g_source_set_name_by_id (priv->timeout_id, "[sound-juicer] _timeout_cb");
 	}
 
@@ -988,7 +980,7 @@ egg_play_preview_set_uri (EggPlayPreview *play_preview, const gchar *uri)
 }
 
 void
-egg_play_preview_set_position (EggPlayPreview *play_preview, gint position)
+egg_play_preview_set_position (EggPlayPreview *play_preview, gint64 position)
 {
 	EggPlayPreviewPrivate *priv;
 
@@ -998,7 +990,7 @@ egg_play_preview_set_position (EggPlayPreview *play_preview, gint position)
 
 	/* FIXME: write function content */
 	if (priv->is_seekable) {
-		_seek (priv->playbin, MIN (position, priv->duration));
+		_seek (play_preview, priv->playbin, MIN (position, priv->duration));
 
 		g_object_notify (G_OBJECT (play_preview), "position");
 	}
@@ -1052,7 +1044,7 @@ egg_play_preview_get_album (EggPlayPreview *play_preview)
 	return priv->album;
 }
 
-gint
+gint64
 egg_play_preview_get_position (EggPlayPreview *play_preview)
 {
 	EggPlayPreviewPrivate *priv;
@@ -1064,7 +1056,7 @@ egg_play_preview_get_position (EggPlayPreview *play_preview)
 	return priv->position;
 }
 
-gint
+gint64
 egg_play_preview_get_duration (EggPlayPreview *play_preview)
 {
 	EggPlayPreviewPrivate *priv;
