@@ -66,13 +66,13 @@ GtkWidget *egg_play_preview_new_with_uri (const gchar *uri);
 void       egg_play_preview_set_uri      (EggPlayPreview *play_preview,
 										  const gchar *uri);
 void       egg_play_preview_set_position (EggPlayPreview *play_preview,
-										  gint position);
+										  gint64 position);
 gchar     *egg_play_preview_get_uri      (EggPlayPreview *play_preview);
 gchar     *egg_play_preview_get_title    (EggPlayPreview *play_preview);
 gchar     *egg_play_preview_get_artist   (EggPlayPreview *play_preview);
 gchar     *egg_play_preview_get_album    (EggPlayPreview *play_preview);
-gint       egg_play_preview_get_position (EggPlayPreview *play_preview);
-gint       egg_play_preview_get_duration (EggPlayPreview *play_preview);
+gint64     egg_play_preview_get_position (EggPlayPreview *play_preview);
+gint64     egg_play_preview_get_duration (EggPlayPreview *play_preview);
 
 G_END_DECLS
 
