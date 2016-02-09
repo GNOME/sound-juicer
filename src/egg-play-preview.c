@@ -600,14 +600,32 @@ _ui_set_sensitive (EggPlayPreview *play_preview, gboolean sensitive)
 	gtk_widget_set_sensitive (priv->time_scale, sensitive && priv->is_seekable);
 }
 
+/*
+ * Note that handling ‘change-value’ is preferable to handling
+ * ‘value-changed’ as ‘change-value’ is only emitted in response to
+ * scroll events so it avoids a feedback loop which would exist
+ * between a ‘value-changed’ handler and timeout_cb() which calls
+ * gtk_range_set_value().
+ */
 static gboolean
 _change_value_cb (GtkRange *range, GtkScrollType scroll, gdouble value, EggPlayPreview *play_preview)
 {
 	EggPlayPreviewPrivate *priv;
+	GtkAdjustment *adjustment;
+	double lower, upper;
 
 	priv = GET_PRIVATE (play_preview);
+	adjustment = gtk_range_get_adjustment (range);
+	lower = gtk_adjustment_get_lower (adjustment);
+	upper = gtk_adjustment_get_upper (adjustment);
+	/* Clamp value to be within the adjustment range. */
+	if (value < lower)
+		value = lower;
 
-	if (priv->is_seekable) {
+	if (value > upper)
+		value = upper;
+
+	if (priv->is_seekable && value != gtk_adjustment_get_value (adjustment)) {
 		priv->position = (int) (value / 100.0 * priv->duration);
 		_seek (priv->playbin, priv->position);
 		_ui_update_duration (play_preview);
