@@ -354,20 +354,10 @@ egg_play_preview_dispose (GObject *object)
 
 	_clear_pipeline (play_preview);
 
-	if (priv->title) {
-		g_free (priv->title);
-		priv->title = NULL;
-	}
-
-	if (priv->album) {
-		g_free (priv->album);
-		priv->album = NULL;
-	}
-
-	if (priv->uri) {
-		g_free (priv->uri);
-		priv->uri = NULL;
-	}
+	g_clear_pointer (&priv->title, g_free);
+	g_clear_pointer (&priv->artist, g_free);
+	g_clear_pointer (&priv->album, g_free);
+	g_clear_pointer (&priv->uri, g_free);
 
 	if (priv->timeout_id != 0) {
 		g_source_remove (priv->timeout_id);
@@ -720,7 +710,8 @@ static gboolean
 _process_bus_messages (GstBus *bus, GstMessage *msg, EggPlayPreview *play_preview)
 {
 	EggPlayPreviewPrivate *priv;
-	GstTagList *tag_list;
+	GstTagList *tag_list = NULL;
+	gchar *title = NULL, *artist = NULL, *album = NULL;
 	gint64 duration;
 	GstState state;
 	GstStateChangeReturn result;
@@ -745,13 +736,33 @@ _process_bus_messages (GstBus *bus, GstMessage *msg, EggPlayPreview *play_previe
 
 	case GST_MESSAGE_TAG:
 		gst_message_parse_tag (msg, &tag_list);
-		gst_tag_list_get_string (tag_list, GST_TAG_TITLE, &priv->title);
-		gst_tag_list_get_string (tag_list, GST_TAG_ARTIST, &priv->artist);
-		gst_tag_list_get_string (tag_list, GST_TAG_ALBUM, &priv->album);
+		gst_tag_list_get_string (tag_list, GST_TAG_TITLE, &title);
+		gst_tag_list_get_string (tag_list, GST_TAG_ARTIST, &artist);
+		gst_tag_list_get_string (tag_list, GST_TAG_ALBUM, &album);
+		gst_tag_list_unref (tag_list);
 
-		g_object_notify (G_OBJECT (play_preview), "title");
-		g_object_notify (G_OBJECT (play_preview), "artist");
-		g_object_notify (G_OBJECT (play_preview), "album");
+		if (g_strcmp0 (title, priv->title) != 0) {
+			g_free (priv->title);
+			priv->title = title;
+			g_object_notify (G_OBJECT (play_preview), "title");
+		} else {
+			g_free (title);
+		}
+		if (g_strcmp0 (artist, priv->artist) != 0) {
+			g_free (priv->artist);
+			priv->artist = artist;
+			g_object_notify (G_OBJECT (play_preview), "artist");
+		} else {
+			g_free (artist);
+		}
+
+		if (g_strcmp0 (album, priv->album) != 0) {
+			g_free (priv->album);
+			priv->album = album;
+			g_object_notify (G_OBJECT (play_preview), "album");
+		} else {
+			g_free (album);
+		}
 
 		_ui_update_tags (play_preview);
 		break;
