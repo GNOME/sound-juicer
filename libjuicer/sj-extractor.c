@@ -189,20 +189,20 @@ sj_extractor_class_init (SjExtractorClass *klass)
   /* TODO: make these constructors */
   g_object_class_install_property (object_class, PROP_PROFILE,
                                    g_param_spec_pointer ("profile",
-                                                         _("Audio Profile"),
-                                                         _("The GStreamer Encoding Profile used for encoding audio"),
+                                                         "Audio Profile",
+                                                         "The GStreamer Encoding Profile used for encoding audio",
                                                          G_PARAM_READWRITE));
 
   g_object_class_install_property (object_class, PROP_PARANOIA,
                                    g_param_spec_int ("paranoia",
-                                                     _("Paranoia Level"),
-                                                     _("The paranoia level"),
+                                                     "Paranoia Level",
+                                                     "The paranoia level",
                                                       0, 255, 8, G_PARAM_READWRITE));
 
   g_object_class_install_property (object_class, PROP_DEVICE,
                                    g_param_spec_string ("device",
-                                                        _("device"),
-                                                        _("The device"),
+                                                        "device",
+                                                        "The device",
                                                         "",
                                                         G_PARAM_READWRITE));
 							

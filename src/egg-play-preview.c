@@ -173,8 +173,8 @@ egg_play_preview_class_init (EggPlayPreviewClass *klass)
 	g_object_class_install_property (gobject_class,
 									 PROP_URI,
 									 g_param_spec_string ("uri",
-														  _("URI"),
-														  _("The URI of the audio file"),
+														  "URI",
+														  "The URI of the audio file",
 														  NULL,
 														  G_PARAM_READWRITE |
 														  G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK |
@@ -183,8 +183,8 @@ egg_play_preview_class_init (EggPlayPreviewClass *klass)
 	g_object_class_install_property (gobject_class,
 									 PROP_TITLE,
 									 g_param_spec_string ("title",
-														  _("Title"),
-														  _("The title of the current stream."),
+														  "Title",
+														  "The title of the current stream.",
 														  NULL,
 														  G_PARAM_READABLE |
 														  G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK |
@@ -193,8 +193,8 @@ egg_play_preview_class_init (EggPlayPreviewClass *klass)
 	g_object_class_install_property (gobject_class,
 									 PROP_TITLE,
 									 g_param_spec_string ("artist",
-														  _("Artist"),
-														  _("The artist of the current stream."),
+														  "Artist",
+														  "The artist of the current stream.",
 														  NULL,
 														  G_PARAM_READABLE |
 														  G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK |
@@ -203,8 +203,8 @@ egg_play_preview_class_init (EggPlayPreviewClass *klass)
 	g_object_class_install_property (gobject_class,
 									 PROP_ALBUM,
 									 g_param_spec_string ("album",
-														  _("Album"),
-														  _("The album of the current stream."),
+														  "Album",
+														  "The album of the current stream.",
 														  NULL,
 														  G_PARAM_READABLE |
 														  G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK |
@@ -213,8 +213,8 @@ egg_play_preview_class_init (EggPlayPreviewClass *klass)
 	g_object_class_install_property (gobject_class,
 									 PROP_POSITION,
 									 g_param_spec_int64 ("position",
-														 _("Position"),
-														 _("The position in the current stream in seconds."),
+														 "Position",
+														 "The position in the current stream in seconds.",
 														 0, G_MAXINT, 0,
 														 G_PARAM_READWRITE |
 														 G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK |
@@ -223,8 +223,8 @@ egg_play_preview_class_init (EggPlayPreviewClass *klass)
 	g_object_class_install_property (gobject_class,
 									 PROP_DURATION,
 									 g_param_spec_int64 ("duration",
-														 _("Duration"),
-														 _("The duration of the current stream in seconds."),
+														 "Duration",
+														 "The duration of the current stream in seconds.",
 														 0, G_MAXINT, 0,
 														 G_PARAM_READABLE |
 														 G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK |
