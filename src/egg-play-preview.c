@@ -224,7 +224,7 @@ egg_play_preview_class_init (EggPlayPreviewClass *klass)
 									 PROP_DURATION,
 									 g_param_spec_int64 ("duration",
 														 _("Duration"),
-														 _("The duratio	n of the current stream in seconds."),
+														 _("The duration of the current stream in seconds."),
 														 0, G_MAXINT, 0,
 														 G_PARAM_READABLE |
 														 G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK |
