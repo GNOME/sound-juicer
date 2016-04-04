@@ -28,9 +28,9 @@
 #include <glib/gi18n.h>
 #include <glib-object.h>
 #include <gdesktop-enums.h>
-#include <discid/discid.h>
 #include <musicbrainz5/mb5_c.h>
 
+#include "sj-libdiscid.h"
 #include "sj-metadata-musicbrainz5.h"
 #include "sj-structures.h"
 #include "sj-error.h"
@@ -46,10 +46,6 @@ static char language[3];
 	else									\
 		field = g_strdup (buffer);					\
 }
-
-#ifndef DISCID_HAVE_SPARSE_READ
-#define discid_read_sparse(disc, dev, i) discid_read(disc, dev)
-#endif
 
 #define SJ_MUSICBRAINZ_USER_AGENT "libjuicer-"VERSION
 

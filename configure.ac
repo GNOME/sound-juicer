@@ -80,6 +80,15 @@ AC_SUBST(MUSICBRAINZ5_CFLAGS)
 AC_SUBST(MUSICBRAINZ5_LIBS)
 if test "$have_mb5" = "yes" ; then
         AC_DEFINE([HAVE_MUSICBRAINZ5], 1, [Whether libmusicbrainz5 is available])
+	# Whether libdiscid has discid_get_mcn() or discid_has_feature()
+	SAVE_LIBS=$LIBS
+	SAVE_CFLAGS=$CFLAGS
+	CFLAGS=$MUSICBRAINZ5_CFLAGS
+	LIBS=$MUSICBRAINZ5_LIBS
+	AC_CHECK_FUNC(discid_get_mcn, [AC_DEFINE([HAVE_DISCID_GET_MCN], 1, [Whether discid_get_mcn is available])], [])
+	AC_CHECK_FUNC(discid_has_feature, [AC_DEFINE([HAVE_DISCID_HAS_FEATURE], 1, [Whether discid_has_feature is available])], [])
+	LIBS=$SAVED_LIBS
+	CFLAGS=$SAVED_CFLAGS
 else
         AC_MSG_ERROR([libmusicbrainz5 needs to be available for sound-juicer to build])
 fi
