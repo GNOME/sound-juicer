@@ -13,9 +13,8 @@ Requirements:
 Do the usual configure/make/make install malarky, and run "sound-juicer" in
 $(prefix)/bin or "Sound Juicer CD Extractor" in Applications -> Sound & Video.
 
-If the CD lookup is returning weird data, export MUSICBRAINZ_DEBUG
-before running sound-juicer to turn debugging on in MusicBrainz. This
-will show the chat between Sound Juicer and the MusicBrainz servers.
+If the CD lookup is returning weird data, export G_MESSAGES_DEBUG=sj-metadata
+before running sound-juicer to turn metadata debugging messages.
 
 
 Common Problems

@@ -18,6 +18,8 @@
  * License along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
+#define G_LOG_DOMAIN "sj-metadata"
+
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif /* HAVE_CONFIG_H */
@@ -181,7 +183,7 @@ print_musicbrainz_query_error (SjMetadataMusicbrainz5 *self,
   len =  mb5_query_get_lasterrormessage (priv->mb, NULL, 0) + 1;
   message = g_malloc (len);
   mb5_query_get_lasterrormessage (priv->mb, message, len);
-  g_warning ("No Musicbrainz metadata for %s %s, http code %d, %s",
+  g_info ("No Musicbrainz metadata for %s %s, http code %d, %s",
              entity, id, code, message);
   g_free (message);
 }
@@ -203,6 +205,8 @@ query_musicbrainz (SjMetadataMusicbrainz5  *self,
   SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (self);
   gint64 t;
 
+  g_info ("Querying %s %s", entity, id);
+
   while (TRUE) {
     if (g_cancellable_set_error_if_cancelled (cancellable, error))
       return NULL;
@@ -223,6 +227,9 @@ query_musicbrainz (SjMetadataMusicbrainz5  *self,
     if (metadata != NULL || ++count == 5 ||
         mb5_query_get_lasthttpcode (priv->mb) != 503)
       break;
+    g_info ("Retrying %d sleeping for %.2g",
+            count,
+            (double)(delay)/(double)(G_USEC_PER_SEC));
 
     g_usleep (delay);
     if (delay < 30 * G_USEC_PER_SEC) {
@@ -290,7 +297,7 @@ get_artist_list (SjMetadataMusicbrainz5 *self,
     if (artist != NULL) {
       artist_credit->details = make_artist_details (self, artist);
     } else {
-      g_warning ("no Mb5Artist associated with Mb5NameCredit, falling back to Mb5NameCredit::name");
+      g_info ("no Mb5Artist associated with Mb5NameCredit, falling back to Mb5NameCredit::name");
       artist_credit->details = g_new0 (ArtistDetails, 1);
       GET (artist_credit->details->name, mb5_namecredit_get_name, name_credit);
     }
@@ -319,7 +326,7 @@ get_artist_info (GList *artists, char **name, char **sortname, char **id)
   }
 
   if (artist_count != 1) {
-      g_warning ("multiple artists");
+      g_info ("multiple artists");
       if (sortname != NULL)
         *sortname = NULL;
       if (id != NULL)

@@ -16,6 +16,8 @@
  * License along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
+#define G_LOG_DOMAIN "sj-metadata"
+
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif /* HAVE_CONFIG_H */
@@ -108,9 +110,11 @@ gvfs_list_albums (SjMetadata *metadata, char **url, GCancellable *cancellable, G
   /* Get the album metadata */
   str = g_file_info_get_attribute_string (info, "xattr::org.gnome.audio.title");
   if (!sj_str_is_empty (str)) {
+    g_info ("Have CD TEXT");
     album->metadata_source = SOURCE_CDTEXT;
     album->title = g_strdup (str);
   } else {
+    g_info ("No CD TEXT");
     album->metadata_source = SOURCE_FALLBACK;
     album->title = g_strdup (_("Unknown Title"));
   }
