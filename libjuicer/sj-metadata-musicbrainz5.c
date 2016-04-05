@@ -198,24 +198,39 @@ query_musicbrainz (SjMetadataMusicbrainz5  *self,
 {
   Mb5Metadata metadata;
   char *inc[] = { "inc" };
+  gint64 delay = 4 * G_USEC_PER_SEC;
+  int count = 0;
   SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (self);
   gint64 t;
 
-  if (g_cancellable_set_error_if_cancelled (cancellable, error))
-    return NULL;
+  while (TRUE) {
+    if (g_cancellable_set_error_if_cancelled (cancellable, error))
+      return NULL;
 
-  t = g_get_monotonic_time ();
-  while (t - last_query_time < G_USEC_PER_SEC) {
-    g_usleep (t - last_query_time + G_USEC_PER_SEC);
     t = g_get_monotonic_time ();
+    while (t - last_query_time < G_USEC_PER_SEC) {
+      g_usleep (t - last_query_time + G_USEC_PER_SEC);
+      t = g_get_monotonic_time ();
+    }
+
+    if (includes == NULL)
+      metadata = mb5_query_query (priv->mb, entity, id, "",
+                                  0, NULL, NULL);
+    else
+      metadata = mb5_query_query (priv->mb, entity, id, "",
+                                  1, inc, &includes);
+
+    if (metadata != NULL || ++count == 5 ||
+        mb5_query_get_lasthttpcode (priv->mb) != 503)
+      break;
+
+    g_usleep (delay);
+    if (delay < 30 * G_USEC_PER_SEC) {
+      delay *= 45; /* Increase delay by ~2√2 */
+      delay /= 16; /* Gives 4, 11, 30 */
+    }
   }
 
-  if (includes == NULL)
-    metadata = mb5_query_query (priv->mb, entity, id, "",
-                                0, NULL, NULL);
-  else
-    metadata = mb5_query_query (priv->mb, entity, id, "",
-                                1, inc, &includes);
   if (metadata == NULL)
     print_musicbrainz_query_error (self, entity, id);
 
@@ -963,6 +978,7 @@ mb5_list_albums (SjMetadata    *metadata,
   SjMetadataMusicbrainz5 *self;
   SjMetadataMusicbrainz5Private *priv;
   GList *albums = NULL;
+  Mb5Metadata disc_md;
   Mb5ReleaseList releases;
   Mb5Release release;
   const char *discid = NULL;
@@ -998,14 +1014,14 @@ mb5_list_albums (SjMetadata    *metadata,
   if (g_cancellable_set_error_if_cancelled (cancellable, error))
     goto free_url;
 
-  releases = mb5_query_lookup_discid(priv->mb, discid);
-
-  if (releases == NULL) {
-    print_musicbrainz_query_error (self, "discid", discid);
+  disc_md = query_musicbrainz (self, "discid", discid, NULL, cancellable, error);
+  if (disc_md == NULL) {
     if (url != NULL)
       *url = tmp_url;
     goto free_discid;
   }
+
+  releases = mb5_disc_get_releaselist (mb5_metadata_get_disc (disc_md));
 
   if (mb5_release_list_size (releases) == 0)
     return NULL;
@@ -1092,14 +1108,14 @@ artist-rels";
   }
   if (url != NULL)
     *url = tmp_url;
-  mb5_release_list_delete (releases);
+  mb5_metadata_delete (disc_md);
   discid_free (disc);
   return albums;
 
 
  free_releases:
   g_list_free_full (albums, (GDestroyNotify) album_details_free);
-  mb5_release_list_delete (releases);
+  mb5_metadata_delete (disc_md);
  free_url:
   g_free (tmp_url);
  free_discid:
