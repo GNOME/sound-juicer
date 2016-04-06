@@ -79,7 +79,7 @@ GST_ELEMENT_CHECK(wavenc,1.0,,AC_MSG_WARN([The 'wavenc' element was not found. T
 GST_ELEMENT_CHECK(giosink,1.0,,AC_MSG_WARN([The 'giosink' element was not found. This will cause Sound Juicer to fail at runtime.]))
 
 # MusicBrainz5
-PKG_CHECK_MODULES(MUSICBRAINZ5, libmusicbrainz5 >= 5.0.1 libdiscid, [have_mb5=yes], [have_mb5=no])
+PKG_CHECK_MODULES(MUSICBRAINZ5, libmusicbrainz5 >= 5.0.1 libdiscid >= 0.4.0, [have_mb5=yes], [have_mb5=no])
 AC_SUBST(MUSICBRAINZ5_CFLAGS)
 AC_SUBST(MUSICBRAINZ5_LIBS)
 if test "$have_mb5" = "yes" ; then
