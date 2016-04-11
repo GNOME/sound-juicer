@@ -37,6 +37,16 @@
 #include "sj-structures.h"
 #include "sj-error.h"
 
+typedef char Mbid[40];
+
+typedef struct {
+  gint count;
+  gchar *id;
+  gchar *mcn;
+  gchar *url;
+  Mbid  *release_ids;
+} DiscDetails;
+
 static char language[3];
 
 #define GET(field, function, obj) {						\
@@ -109,6 +119,15 @@ sj_mb5_album_details_dump (AlbumDetails *details)
 #define sj_mb5_album_details_dump(...)
 #endif
 
+static void
+disc_details_free (DiscDetails *disc)
+{
+  g_free (disc->id);
+  g_free (disc->mcn);
+  g_free (disc->url);
+  g_free (disc->release_ids);
+  g_free (disc);
+}
 
 static void
 parse_artist_aliases (Mb5Artist   artist,
@@ -243,6 +262,127 @@ query_musicbrainz (SjMetadataMusicbrainz5  *self,
 
   last_query_time = g_get_monotonic_time ();
   return metadata;
+}
+
+static Mb5Metadata
+get_disc_md (SjMetadataMusicbrainz5  *self,
+             DiscDetails             *disc_data,
+             GCancellable            *cancellable,
+             GError                 **error)
+{
+  const char *discid;
+  DiscId disc;
+  Mb5Metadata disc_md = NULL;
+  SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (self);
+
+  if (sj_metadata_helper_check_media (priv->cdrom, error) == FALSE) {
+    return NULL;
+  }
+
+  disc = discid_new ();
+  if (disc == NULL)
+    return NULL;
+  if (discid_read_sparse (disc, priv->cdrom, DISCID_FEATURE_MCN) == 0)
+    goto out;
+
+  if (g_getenv("MUSICBRAINZ_FORCE_DISC_ID")) {
+    discid = g_getenv("MUSICBRAINZ_FORCE_DISC_ID");
+  } else {
+    discid = discid_get_id (disc);
+  }
+  if (g_cancellable_set_error_if_cancelled (cancellable, error))
+    goto out;
+
+  disc_md = query_musicbrainz (self, "discid", discid, NULL, cancellable, error);
+  disc_data->url = g_strdup (discid_get_submission_url (disc));
+  disc_data->mcn = g_strdup (discid_get_mcn (disc));
+  disc_data->id = g_strdup (discid);
+  g_info ("Disc id %s\nSubmission URL %s\nDisc MCN %s",
+          disc_data->id,
+          disc_data->url,
+          disc_data->mcn);
+ out:
+  discid_free (disc);
+  return disc_md;
+}
+
+static gboolean
+mcn_matches_barcode (const char *mcn,
+                     const char *barcode)
+{
+  if (mcn == NULL || barcode == NULL)
+    return FALSE;
+
+  /* The MCN should match an EAN barcode (13 digits)
+   * or an UPC barcode (12 digits) with a leading '0'.
+   */
+  gsize len = strlen (barcode);
+  if (len == 12) /* UPC barcode - skip leading '0' */
+    return *mcn == '0' && strcmp (mcn + 1, barcode) == 0;
+  else if (len == 13) /* EAN barcode */
+    return strcmp (mcn, barcode) == 0;
+  else /* Unknown/invalid barcode */
+    return FALSE;
+}
+
+static void
+filter_releases (Mb5Metadata  disc_md,
+                 DiscDetails *disc)
+{
+  int i, j, count;
+  Mb5ReleaseList releases;
+
+  releases = mb5_disc_get_releaselist (mb5_metadata_get_disc (disc_md));
+  count = disc->count = mb5_release_list_size (releases);
+  if (disc->count == 0)
+    return;
+
+  disc->release_ids = g_new0 (Mbid, disc->count);
+  for (i = 0, j = 0; i < count; i++) {
+    Mb5Release release;
+    gchar barcode[16];
+
+    release = mb5_release_list_item (releases, i);
+    if (release == NULL) {
+      disc->count--;
+      continue;
+    }
+
+    mb5_release_get_id (release, disc->release_ids[j], sizeof(Mbid));
+    mb5_release_get_barcode (release, barcode, sizeof(barcode));
+    if (mcn_matches_barcode (disc->mcn, barcode)) {
+      disc->count = 1;
+      strcpy (disc->release_ids[0], disc->release_ids[j]);
+      break;
+    }
+    j++;
+  }
+}
+
+static DiscDetails*
+get_disc_details (SjMetadataMusicbrainz5  *self,
+                  GCancellable            *cancellable,
+                  GError                 **error)
+{
+  Mb5Metadata disc_md;
+  DiscDetails *disc;
+
+  disc = g_new0 (DiscDetails, 1);
+  disc_md = get_disc_md (self, disc, cancellable, error);
+
+  if (*error != NULL) {
+    disc_details_free (disc);
+    return NULL;
+  }
+
+  if (disc_md == NULL)
+    return disc;
+
+  filter_releases (disc_md, disc);
+
+  mb5_metadata_delete (disc_md);
+
+  return disc;
 }
 
 static ArtistDetails*
@@ -949,30 +1089,6 @@ make_album_from_release (SjMetadataMusicbrainz5  *self,
   return album;
 }
 
-static gboolean
-album_barcode_matches_discid_mcn (const char *barcode,
-                                  DiscId     *disc)
-{
-  const char *mcn;
-
-  if (barcode == NULL || !discid_has_feature(DISCID_FEATURE_MCN))
-    return FALSE;
-
-  mcn = discid_get_mcn (disc);
-  if (mcn == NULL)
-    return FALSE;
-  /* The MCN should match an EAN barcode (13 digits)
-   * or an UPC barcode (12 digits) with a leading '0'.
-   */
-  gsize len = strlen (barcode);
-  if (len == 12) /* UPC barcode - skip leading '0' */
-    return *mcn == '0' && strcmp (mcn + 1, barcode) == 0;
-  else if (len == 13) /* EAN barcode */
-    return strcmp (mcn, barcode) == 0;
-  else /* Unknown/invalid barcode */
-    return FALSE;
-}
-
 /*
  * Virtual methods
  */
@@ -983,110 +1099,69 @@ mb5_list_albums (SjMetadata    *metadata,
                  GError       **error)
 {
   SjMetadataMusicbrainz5 *self;
-  SjMetadataMusicbrainz5Private *priv;
   GList *albums = NULL;
-  Mb5Metadata disc_md;
-  Mb5ReleaseList releases;
-  Mb5Release release;
-  const char *discid = NULL;
-  char *tmp_url = NULL;
+  DiscDetails *disc;
   char buffer[1024];
   int i;
-  DiscId disc = NULL;
-  gboolean mcn_matches = FALSE;
 
   g_return_val_if_fail (SJ_IS_METADATA_MUSICBRAINZ5 (metadata), NULL);
 
   self = SJ_METADATA_MUSICBRAINZ5 (metadata);
-  priv = GET_PRIVATE (SJ_METADATA_MUSICBRAINZ5 (self));
 
-  if (sj_metadata_helper_check_media (priv->cdrom, error) == FALSE) {
-    return NULL;
-  }
-
-  disc = discid_new ();
+  disc = get_disc_details (self, cancellable, error);
+  /* if *error != NULL then disc == NULL */
   if (disc == NULL)
     return NULL;
-  if (discid_read_sparse (disc, priv->cdrom, DISCID_FEATURE_MCN) == 0)
-    goto free_discid;
 
-  if (url != NULL)
-    tmp_url = g_strdup (discid_get_submission_url (disc));
-
-  if (g_getenv("MUSICBRAINZ_FORCE_DISC_ID")) {
-    discid = g_getenv("MUSICBRAINZ_FORCE_DISC_ID");
-  } else {
-    discid = discid_get_id (disc);
-  }
-  if (g_cancellable_set_error_if_cancelled (cancellable, error))
-    goto free_url;
-
-  disc_md = query_musicbrainz (self, "discid", discid, NULL, cancellable, error);
-  if (disc_md == NULL) {
-    if (url != NULL)
-      *url = tmp_url;
-    goto free_discid;
-  }
-
-  releases = mb5_disc_get_releaselist (mb5_metadata_get_disc (disc_md));
-
-  if (mb5_release_list_size (releases) == 0)
-    return NULL;
-
-  for (i = 0; i < mb5_release_list_size (releases) && !mcn_matches; i++) {
+  for (i = 0; i < disc->count; i++) {
     AlbumDetails *album;
-
-    release = mb5_release_list_item (releases, i);
-    if (release) {
-      char *releaseid = NULL;
-      Mb5Release full_release = NULL;
-      Mb5Metadata release_md = NULL;
-      char *includes = "aliases artists artist-credits labels recordings \
+    Mb5Release full_release = NULL;
+    Mb5Metadata release_md = NULL;
+    char *includes = "aliases artists artist-credits labels recordings \
 release-groups url-rels discids recording-level-rels work-level-rels work-rels \
 artist-rels";
 
-      releaseid = NULL;
-      GET(releaseid, mb5_release_get_id, release);
-      /* Inorder to get metadata for artist aliases & work / composer
-       * relationships we need to perform a custom query
-       */
-      release_md = query_musicbrainz (self, "release", releaseid, includes, cancellable, error);
-      g_free (releaseid);
-      if (*error != NULL)
-        goto free_releases;
+    /*
+     * In order to get metadata for artist aliases & work / composer
+     * relationships we need to perform a custom query
+     */
+    release_md = query_musicbrainz (self, "release", disc->release_ids[i], includes, cancellable, error);
+    if (*error != NULL)
+      goto free_releases;
 
-      if (release_md && mb5_metadata_get_release (release_md))
-        full_release = mb5_metadata_get_release (release_md);
-      if (full_release) {
-        Mb5MediumList media;
-        Mb5Metadata metadata = NULL;
-        Mb5ReleaseGroup group;
-        unsigned int j;
+    if (release_md && mb5_metadata_get_release (release_md))
+      full_release = mb5_metadata_get_release (release_md);
+    if (full_release) {
+      Mb5MediumList media;
+      Mb5Metadata metadata = NULL;
+      Mb5ReleaseGroup group;
+      int j;
 
-        group = mb5_release_get_releasegroup (full_release);
-        if (group) {
-          /* The release-group information we can extract from the
-           * lookup_release query doesn't have the url relations for the
-           * release-group, so run a separate query to get these urls
-           */
-          char *releasegroupid = NULL;
-          char *includes = "artists url-rels";
+      group = mb5_release_get_releasegroup (full_release);
+      if (group) {
+        /*
+         * The release-group information we can extract from the
+         * lookup_release query doesn't have the url relations for the
+         * release-group, so run a separate query to get these urls
+         */
+        char *releasegroupid = NULL;
+        char *includes = "artists url-rels";
 
-          GET (releasegroupid, mb5_releasegroup_get_id, group);
-          metadata = query_musicbrainz (self, "release-group", releasegroupid, includes, cancellable, error);
-          g_free (releasegroupid);
-          if (*error != NULL) {
-            mb5_metadata_delete (release_md);
-            goto free_releases;
-          }
+        GET (releasegroupid, mb5_releasegroup_get_id, group);
+        metadata = query_musicbrainz (self, "release-group", releasegroupid, includes, cancellable, error);
+        g_free (releasegroupid);
+        if (*error != NULL) {
+          mb5_metadata_delete (release_md);
+          goto free_releases;
         }
 
         if (metadata && mb5_metadata_get_releasegroup (metadata))
           group = mb5_metadata_get_releasegroup (metadata);
 
-        media = mb5_release_media_matching_discid (full_release, discid);
+        media = mb5_release_media_matching_discid (full_release, disc->id);
         for (j = 0; j < mb5_medium_list_size (media); j++) {
           Mb5Medium medium;
+
           medium = mb5_medium_list_item (media, j);
           if (medium) {
             album = make_album_from_release (self, group, full_release, medium, cancellable, error);
@@ -1098,12 +1173,6 @@ artist-rels";
             }
 
             album->metadata_source = SOURCE_MUSICBRAINZ;
-            mcn_matches = album_barcode_matches_discid_mcn (album->barcode, disc);
-            if (mcn_matches) {
-              g_list_free_full (albums, (GDestroyNotify) album_details_free);
-              albums = g_list_append (NULL, album);
-              break;
-            }
             albums = g_list_append (albums, album);
           }
         }
@@ -1113,20 +1182,17 @@ artist-rels";
       mb5_metadata_delete (release_md);
     }
   }
+
   if (url != NULL)
-    *url = tmp_url;
-  mb5_metadata_delete (disc_md);
-  discid_free (disc);
+    *url = g_strdup (disc->url);
+
+  disc_details_free (disc);
   return albums;
 
 
  free_releases:
   g_list_free_full (albums, (GDestroyNotify) album_details_free);
-  mb5_metadata_delete (disc_md);
- free_url:
-  g_free (tmp_url);
- free_discid:
-  discid_free (disc);
+  disc_details_free (disc);
   return NULL;
 }
 
