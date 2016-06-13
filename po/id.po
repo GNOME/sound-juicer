@@ -8,18 +8,18 @@
 # Andika Triwidada <andika@gmail.com>, 2010, 2012, 2014.
 msgid ""
 msgstr ""
-"Project-Id-Version: sound-juicer master\n"
+"Project-Id-Version: sound-juicer gnome-3-18\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
 "juicer&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-09-05 10:32+0000\n"
-"PO-Revision-Date: 2014-09-05 19:34+0700\n"
-"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"POT-Creation-Date: 2016-05-05 14:42+0000\n"
+"PO-Revision-Date: 2016-06-13 17:03+0700\n"
+"Last-Translator: Andika Triwidada <atriwidada@gnome.org>\n"
 "Language-Team: GNOME Indonesian Translation Team <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.6.10\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../data/org.gnome.sound-juicer.gschema.xml.h:1
@@ -144,8 +144,9 @@ msgstr "Tipe media GStreamer tujuan enkode."
 msgid "Audio volume"
 msgstr "Volume audio"
 
-#: ../data/sound-juicer.desktop.in.in.h:1 ../data/sound-juicer.ui.h:1
-#: ../src/sj-main.c:131 ../src/sj-main.c:133 ../src/sj-main.c:2450
+#: ../data/sound-juicer.desktop.in.in.h:1
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:1 ../data/sound-juicer.ui.h:1
+#: ../src/sj-main.c:133 ../src/sj-main.c:135 ../src/sj-main.c:2503
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -165,15 +166,43 @@ msgstr "Salin musik dari CD Anda"
 msgid "Ripper;"
 msgstr "Ripper;"
 
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:2
+msgid "CD ripper with a clean interface and simple preferences"
+msgstr "Pencomot CD dengan antar muka yang bersih dan preferensi sederhana"
+
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:3
+msgid ""
+"Sound Juicer is a simple and clean CD ripping tool. It allows you to extract "
+"the audio from audio compact discs and convert them into audio files that "
+"your computer can understand and play. Sound Juicer can also play the audio "
+"tracks directly from the CD, allowing you to preview the CD before ripping "
+"it."
+msgstr ""
+"Sound Juicer adalah alat pencomot CD yang sederhana dan bersih. Itu "
+"memungkinkan Anda mengekstrak audio dari cakram kompak audio dan mengonversi "
+"mereka ke berkas audio yang dapat dipahami dan dimainkan oleh komputer Anda. "
+"Sound Juicer juga dapat memutar trek audio secara langsung dari CD, "
+"memungkinkan Anda mempratinjau CD sebelum mencomotnya."
+
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:4
+msgid ""
+"Sound Juicer is designed to be easy to use, and to work with little user "
+"intervention. When you start Sound Juicer, it will examine the CD in the "
+"drive and try to locate information about the audio tracks using the freely-"
+"available MusicBrainz service."
+msgstr ""
+"Sound Juicer dirancang agar mudah dipakai, dan bekerja dengan sedikit campur "
+"tangan pengguna. Ketika Anda memulai Sound Juice, itu akan memeriksa CD "
+"dalam kandar dan mencoba menemukan informasi tentang trek audio memakai "
+"layanan MusicBrainz yang tersedia bebas."
+
 #: ../data/sound-juicer.ui.h:2
-msgid "S_ubmit Album"
-msgstr "Kirim Alb_um"
+msgid "_Edit Album"
+msgstr "_Sunting Album"
 
 #: ../data/sound-juicer.ui.h:3
-msgid "You can improve the MusicBrainz database by adding this album."
-msgstr ""
-"Anda dapat berkontribusi pada basis data MusicBrainz dengan menambahkan "
-"album ini."
+msgid "_Reload Album"
+msgstr "Muat _Ulang Album"
 
 #: ../data/sound-juicer.ui.h:4
 msgid "_Year:"
@@ -207,13 +236,13 @@ msgstr "Durasi:"
 msgid "Tracks"
 msgstr "Trek"
 
-#: ../data/sound-juicer.ui.h:12 ../src/sj-main.c:2185 ../src/sj-play.c:121
+#: ../data/sound-juicer.ui.h:12 ../src/sj-main.c:2238 ../src/sj-play.c:121
 #: ../src/sj-play.c:259 ../src/sj-play.c:622
 msgid "_Play"
 msgstr "_Putar"
 
 #: ../data/sound-juicer.ui.h:13 ../src/sj-extracting.c:233
-#: ../src/sj-main.c:2209
+#: ../src/sj-main.c:2262
 msgid "E_xtract"
 msgstr "U_raikan"
 
@@ -233,7 +262,7 @@ msgstr ""
 "CD ini bisa jadi lebih dari satu album. Silahkan pilih album mana di bawah "
 "ini dan tekan <i>Lanjut</i>."
 
-#: ../data/sound-juicer.ui.h:17 ../src/sj-main.c:215
+#: ../data/sound-juicer.ui.h:17 ../src/sj-main.c:240
 msgid "_Continue"
 msgstr "_Lanjut"
 
@@ -318,8 +347,8 @@ msgid "Eject"
 msgstr "Keluarkan"
 
 #: ../data/sound-juicer-menu.ui.h:5
-msgid "Submit Track Names"
-msgstr "Berikan Nama Trek"
+msgid "Open MusicBrainz"
+msgstr "Buka MusicBrainz"
 
 #: ../data/sound-juicer-menu.ui.h:7
 msgid "Help"
@@ -402,52 +431,52 @@ msgstr "Plugin yang diperlukan untuk mengakses berkas tidak ditemukan"
 #. FIXME: would be nicer to only check if "cdrom" is being probed,
 #. * but libbrasero doesn't seem to have an API for that
 #.
-#: ../libjuicer/sj-metadata.c:188 ../libjuicer/sj-metadata.c:211
-#: ../libjuicer/sj-metadata.c:222
+#: ../libjuicer/sj-metadata.c:211 ../libjuicer/sj-metadata.c:234
+#: ../libjuicer/sj-metadata.c:245
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Tidak dapat membaca CD: %s"
 
-#: ../libjuicer/sj-metadata.c:189
+#: ../libjuicer/sj-metadata.c:212
 msgid "Devices haven't been all probed yet"
 msgstr "Belum semua perangkat di-probe"
 
-#: ../libjuicer/sj-metadata.c:205
+#: ../libjuicer/sj-metadata.c:228
 #, c-format
 msgid "Device '%s' does not contain any media"
 msgstr "Perangkat '%s' tidak berisi media"
 
-#: ../libjuicer/sj-metadata.c:208
+#: ../libjuicer/sj-metadata.c:231
 #, c-format
 msgid ""
 "Device '%s' could not be opened. Check the access permissions on the device."
 msgstr "Perangkat '%s' tidak dapat dibuka. Periksa hak akses pada perangkat."
 
-#: ../libjuicer/sj-metadata.c:350
+#: ../libjuicer/sj-metadata.c:373
 msgid "Czechoslovakia"
 msgstr "Cekoslowakia"
 
-#: ../libjuicer/sj-metadata.c:351
+#: ../libjuicer/sj-metadata.c:374
 msgid "East Germany"
 msgstr "Jerman Timur"
 
-#: ../libjuicer/sj-metadata.c:352
+#: ../libjuicer/sj-metadata.c:375
 msgid "Europe"
 msgstr "Eropa"
 
-#: ../libjuicer/sj-metadata.c:353
+#: ../libjuicer/sj-metadata.c:376
 msgid "Serbia and Montenegro"
 msgstr "Serbia dan Montenegro"
 
-#: ../libjuicer/sj-metadata.c:354
+#: ../libjuicer/sj-metadata.c:377
 msgid "Soviet Union"
 msgstr "Uni Soviet"
 
-#: ../libjuicer/sj-metadata.c:355
+#: ../libjuicer/sj-metadata.c:378
 msgid "Worldwide"
 msgstr "Seluruh Dunia"
 
-#: ../libjuicer/sj-metadata.c:356
+#: ../libjuicer/sj-metadata.c:379
 msgid "Yugoslavia"
 msgstr "Yugoslavia"
 
@@ -456,13 +485,13 @@ msgstr "Yugoslavia"
 msgid "Cannot access CD"
 msgstr "Tidak dapat mengakses CD"
 
-#: ../libjuicer/sj-metadata-gvfs.c:115 ../src/egg-play-preview.c:469
-#: ../src/sj-main.c:338
+#: ../libjuicer/sj-metadata-gvfs.c:115 ../src/egg-play-preview.c:581
+#: ../src/sj-main.c:363
 msgid "Unknown Title"
 msgstr "Judul tidak diketahui"
 
 #: ../libjuicer/sj-metadata-gvfs.c:121 ../libjuicer/sj-metadata-gvfs.c:151
-#: ../src/egg-play-preview.c:474 ../src/sj-extracting.c:980
+#: ../src/egg-play-preview.c:586 ../src/sj-extracting.c:984
 msgid "Unknown Artist"
 msgstr "Artis tidak diketahui"
 
@@ -479,7 +508,7 @@ msgstr "Tidak dapat mengakses CD: %s"
 #. Tranlators: This string is used to build the composer tag when
 #. a track has a mixture of arrangers, orchestrators and
 #. transcribers but no composers
-#: ../libjuicer/sj-metadata-musicbrainz5.c:478
+#: ../libjuicer/sj-metadata-musicbrainz5.c:483
 #, c-format
 msgid "arr. %s"
 msgstr "arr. %s"
@@ -487,88 +516,88 @@ msgstr "arr. %s"
 #. Tranlators: This string is used to build the composer tag when a
 #. track has composers and arrangers, or a composer and a mixture
 #. of arrangers, orchestrators and transcribers
-#: ../libjuicer/sj-metadata-musicbrainz5.c:482
+#: ../libjuicer/sj-metadata-musicbrainz5.c:487
 #, c-format
 msgid "%s arr. %s"
 msgstr "%s arr. %s"
 
 #. Tranlators: This string is used to build the composer tag
 #. when a track has orchestrators but no composer
-#: ../libjuicer/sj-metadata-musicbrainz5.c:485
+#: ../libjuicer/sj-metadata-musicbrainz5.c:490
 #, c-format
 msgid "orch. %s"
 msgstr "orch. %s"
 
 #. Tranlators: This string is used to build the composer tag
 #. when a track has composers and orchestrators
-#: ../libjuicer/sj-metadata-musicbrainz5.c:488
+#: ../libjuicer/sj-metadata-musicbrainz5.c:493
 #, c-format
 msgid "%s orch. %s"
 msgstr "%s orch. %s"
 
 #. Tranlators: This string is used to build the composer tag
 #. when a track has a transcribers but no composer
-#: ../libjuicer/sj-metadata-musicbrainz5.c:495
+#: ../libjuicer/sj-metadata-musicbrainz5.c:500
 #, c-format
 msgid "trans. %s"
 msgstr "trans. %s"
 
 #. Tranlators: This string is used to build the composer tag
 #. when a track has composers and transcribers
-#: ../libjuicer/sj-metadata-musicbrainz5.c:498
+#: ../libjuicer/sj-metadata-musicbrainz5.c:503
 #, c-format
 msgid "%s trans. %s"
 msgstr "%s trans. %s"
 
-#: ../src/egg-play-preview.c:171
+#: ../src/egg-play-preview.c:178
 msgid "URI"
 msgstr "URI"
 
-#: ../src/egg-play-preview.c:172
+#: ../src/egg-play-preview.c:179
 msgid "The URI of the audio file"
 msgstr "URI berkas audio"
 
-#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2282
+#: ../src/egg-play-preview.c:188 ../src/sj-main.c:2335
 msgid "Title"
 msgstr "Judul"
 
-#: ../src/egg-play-preview.c:182
+#: ../src/egg-play-preview.c:189
 msgid "The title of the current stream."
 msgstr "Judul lagu."
 
-#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2283
+#: ../src/egg-play-preview.c:198 ../src/sj-main.c:2336
 msgid "Artist"
 msgstr "Artis"
 
-#: ../src/egg-play-preview.c:192
+#: ../src/egg-play-preview.c:199
 msgid "The artist of the current stream."
 msgstr "Artis lagu."
 
-#: ../src/egg-play-preview.c:201
+#: ../src/egg-play-preview.c:208
 msgid "Album"
 msgstr "Album"
 
-#: ../src/egg-play-preview.c:202
+#: ../src/egg-play-preview.c:209
 msgid "The album of the current stream."
 msgstr "Album lagu."
 
-#: ../src/egg-play-preview.c:211
+#: ../src/egg-play-preview.c:218
 msgid "Position"
 msgstr "Posisi"
 
-#: ../src/egg-play-preview.c:212
+#: ../src/egg-play-preview.c:219
 msgid "The position in the current stream in seconds."
 msgstr "Posisi dalam lagu dalam detik."
 
-#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2290
+#: ../src/egg-play-preview.c:228 ../src/sj-main.c:2343
 msgid "Duration"
 msgstr "Durasi"
 
-#: ../src/egg-play-preview.c:222
+#: ../src/egg-play-preview.c:229
 msgid "The duration of the current stream in seconds."
 msgstr "Durasi lagu dalam detik."
 
-#: ../src/egg-play-preview.c:475 ../src/sj-extracting.c:979
+#: ../src/egg-play-preview.c:587 ../src/sj-extracting.c:983
 msgid "Unknown Album"
 msgstr "Album tidak diketahui"
 
@@ -618,7 +647,7 @@ msgid "translator-credits"
 msgstr ""
 "Ahmad Riza H Nst  <ari@160c.afraid.org>, 2005.\n"
 "Dirgita <dirgitadevina@yahoo.co.id>, 2010.\n"
-"Andika Triwidada <andika@gmail.com>, 2010, 2012, 2014"
+"Andika Triwidada <andika@gmail.com>, 2010, 2012, 2014, 2016"
 
 #: ../src/sj-extracting.c:148
 #, c-format
@@ -642,64 +671,63 @@ msgstr ""
 "Sebuah berkas '%s' ada, dengan ukuran %s.\n"
 "Anda ingin melewati trek ini atau menimpanya?"
 
-#: ../src/sj-extracting.c:321
+#: ../src/sj-extracting.c:325
 msgid "_Skip"
 msgstr "_Lewati"
 
-#: ../src/sj-extracting.c:322
+#: ../src/sj-extracting.c:326
 msgid "S_kip All"
 msgstr "L_ewati Semua"
 
-#: ../src/sj-extracting.c:323
+#: ../src/sj-extracting.c:327
 msgid "_Overwrite"
 msgstr "_Timpa"
 
-#: ../src/sj-extracting.c:324
+#: ../src/sj-extracting.c:328
 msgid "Overwrite _All"
 msgstr "Timp_a Semua"
 
-#: ../src/sj-extracting.c:373
+#: ../src/sj-extracting.c:377
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Direktori keluaran tidak dapat dibuat: %s"
 
-#: ../src/sj-extracting.c:513
+#: ../src/sj-extracting.c:517
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Perkiraan Waktu: %d:%02d·(pada·%0.1f×)"
 
-#: ../src/sj-extracting.c:515
+#: ../src/sj-extracting.c:519
 msgid "Estimated time left: unknown"
 msgstr "Waktu tersisa: tidak diketahui"
 
-#: ../src/sj-extracting.c:605
+#: ../src/sj-extracting.c:609
 msgid "CD rip complete"
 msgstr "Selesai mengekstrak CD"
 
-#: ../src/sj-extracting.c:697
+#: ../src/sj-extracting.c:701
 msgid "Sound Juicer could not extract this CD."
 msgstr "Sound Juicer tidak dapat mengekstrak CD ini."
 
-#: ../src/sj-extracting.c:699 ../src/sj-main.c:177 ../src/sj-main.c:384
-#: ../src/sj-main.c:423 ../src/sj-main.c:1138 ../src/sj-main.c:1263
-#: ../src/sj-main.c:1365
+#: ../src/sj-extracting.c:703 ../src/sj-main.c:179 ../src/sj-main.c:426
+#: ../src/sj-main.c:465 ../src/sj-main.c:1197 ../src/sj-main.c:1385
 msgid "Reason"
 msgstr "Alasan"
 
 #. Change the label to Stop while extracting
-#: ../src/sj-extracting.c:789 ../src/sj-main.c:2216
+#: ../src/sj-extracting.c:793 ../src/sj-main.c:2269
 msgid "_Stop"
 msgstr "_Hentikan"
 
-#: ../src/sj-extracting.c:817 ../src/sj-extracting.c:825
+#: ../src/sj-extracting.c:821 ../src/sj-extracting.c:829
 msgid "Extracting audio from CD"
 msgstr "Uraikan suara dari CD"
 
-#: ../src/sj-extracting.c:981
+#: ../src/sj-extracting.c:985
 msgid "Unknown Composer"
 msgstr "Penyusun Tak Dikenal"
 
-#: ../src/sj-extracting.c:982
+#: ../src/sj-extracting.c:986
 msgid "Unknown Track"
 msgstr "Trek Tak Dikenal"
 
@@ -711,7 +739,7 @@ msgstr "Ambient"
 msgid "Blues"
 msgstr "Blues"
 
-#: ../src/sj-genres.c:35 ../src/sj-main.c:472
+#: ../src/sj-genres.c:35 ../src/sj-main.c:514
 msgid "Classical"
 msgstr "Klasik"
 
@@ -767,84 +795,97 @@ msgstr "Soul"
 msgid "Spoken Word"
 msgstr "Spoken Word"
 
-#: ../src/sj-genres.c:188
+#: ../src/sj-genres.c:197
 #, c-format
 msgid "Error while saving custom genre: %s"
 msgstr "Galat ketika menyimpan genre ubahan: %s"
 
-#: ../src/sj-main.c:176
+#: ../src/sj-main.c:178
 msgid "Could not start Sound Juicer"
 msgstr "Tidak dapat memulai Sound Juicer"
 
-#: ../src/sj-main.c:179
+#: ../src/sj-main.c:181
 msgid "Please consult the documentation for assistance."
 msgstr "Silahkan melihat dokumentasi untuk bantuan."
 
-#: ../src/sj-main.c:213
+#: ../src/sj-main.c:238
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Anda sedang menguraikan CD. Anda ingin keluar atau lanjut?"
 
-#: ../src/sj-main.c:214 ../src/sj-main.c:1490
+#: ../src/sj-main.c:239 ../src/sj-main.c:1509
 msgid "_Quit"
 msgstr "_Keluar"
 
-#: ../src/sj-main.c:262 ../src/sj-main.c:2163 ../src/sj-main.c:2239
+#: ../src/sj-main.c:287 ../src/sj-main.c:2216 ../src/sj-main.c:2292
 msgid "Select None"
 msgstr "Pilih Nihil"
 
-#: ../src/sj-main.c:276 ../src/sj-main.c:2233
+#: ../src/sj-main.c:301 ../src/sj-main.c:2286
 msgid "Select All"
 msgstr "Pilih Semua"
 
-#: ../src/sj-main.c:297 ../src/sj-main.c:631
+#: ../src/sj-main.c:322 ../src/sj-main.c:673
 msgid "(unknown)"
 msgstr "(tidak diketahui)"
 
-#: ../src/sj-main.c:339
-msgid "This album is not in the MusicBrainz database."
-msgstr "Album ini tak ada dalam basis data MusicBrainz."
+#: ../src/sj-main.c:364
+msgid ""
+"This album is not in the MusicBrainz database, please click ‘Edit Album’ to "
+"open your browser and edit it in MusicBrainz."
+msgstr ""
+"Album ini tidak ada dalam basis data MusicBrainz, harap klik 'Sunting Album' "
+"untuk membuka peramban Anda dan menyuntingnya dalam MusicBrainz."
 
-#: ../src/sj-main.c:341
+#: ../src/sj-main.c:366
 #, c-format
-msgid "Could not find %s by %s on MusicBrainz."
-msgstr "Tidak menemukan %s oleh %s pada MusicBrainz."
+msgid ""
+"Could not find %s by %s on MusicBrainz, please click ‘Edit Album’ to open "
+"your browser and edit it in MusicBrainz."
+msgstr ""
+"Tidak bisa temukan %s oleh %s pada MusicBrainz, harap klik 'Sunting Album' "
+"untuk membuka peramban Anda dan menyuntingnya di MusicBrainz."
 
-#: ../src/sj-main.c:382
+#: ../src/sj-main.c:402
+msgid "Click ‘Reload’ to load the edited album details from MusicBrainz"
+msgstr ""
+"Klik 'Muat Ulang' untuk memuat rincian album yang disunting dari MusicBrainz"
+
+#: ../src/sj-main.c:424
 msgid "Could not open URL"
 msgstr "Tidak dapat membuka URL"
 
-#: ../src/sj-main.c:383
+#: ../src/sj-main.c:425
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer tidak dapat membuka URL yg diberikan"
 
-#: ../src/sj-main.c:421
+#: ../src/sj-main.c:463
 msgid "Could not duplicate disc"
 msgstr "Tidak dapat menggandakan disk"
 
-#: ../src/sj-main.c:422
+#: ../src/sj-main.c:464
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Sound Juicer tidak dapat menggandakan disk"
 
-#: ../src/sj-main.c:472
+#: ../src/sj-main.c:514
 msgid "Lieder"
 msgstr "Lieder"
 
-#: ../src/sj-main.c:472
+#: ../src/sj-main.c:514
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/sj-main.c:472
+#: ../src/sj-main.c:514
 msgid "Chamber"
 msgstr "Chamber"
 
-#: ../src/sj-main.c:472
+#: ../src/sj-main.c:514
 msgid "Musical"
 msgstr "Musikal"
 
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released: <country> in <year> on <label>"
-#: ../src/sj-main.c:848
+#: ../src/sj-main.c:890
 #, c-format
 msgid "Released: %s in %d on %s"
 msgstr "Dirilis: %s tahun %d pada %s"
@@ -852,7 +893,7 @@ msgstr "Dirilis: %s tahun %d pada %s"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released: <country> on <label>"
-#: ../src/sj-main.c:856
+#: ../src/sj-main.c:898
 #, c-format
 msgid "Released: %s on %s"
 msgstr "Dirilis: %s pada %s"
@@ -860,7 +901,7 @@ msgstr "Dirilis: %s pada %s"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released: <country> in <year>"
-#: ../src/sj-main.c:862
+#: ../src/sj-main.c:904
 #, c-format
 msgid "Released: %s in %d"
 msgstr "Dirilis: %s tahun %d"
@@ -868,7 +909,7 @@ msgstr "Dirilis: %s tahun %d"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released: <country>"
-#: ../src/sj-main.c:868
+#: ../src/sj-main.c:910
 #, c-format
 msgid "Released: %s"
 msgstr "Dirilis: %s"
@@ -876,7 +917,7 @@ msgstr "Dirilis: %s"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released in <year> on <label>"
-#: ../src/sj-main.c:875
+#: ../src/sj-main.c:917
 #, c-format
 msgid "Released in %d on %s"
 msgstr "Dirilis tahun %d pada %s"
@@ -884,7 +925,7 @@ msgstr "Dirilis tahun %d pada %s"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released in <year>"
-#: ../src/sj-main.c:882
+#: ../src/sj-main.c:924
 #, c-format
 msgid "Released in %d"
 msgstr "Dirilis tahun %d"
@@ -892,74 +933,69 @@ msgstr "Dirilis tahun %d"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released on <label>"
-#: ../src/sj-main.c:889
+#: ../src/sj-main.c:931
 #, c-format
 msgid "Released on %s"
 msgstr "Dirilis pada %s"
 
-#: ../src/sj-main.c:891
+#: ../src/sj-main.c:933
 msgid "Release label, year & country unknown"
 msgstr "Label, tahun, & negara rilis tak diketahui"
 
-#: ../src/sj-main.c:929
+#: ../src/sj-main.c:973
 msgid "Albums"
 msgstr "Album"
 
-#: ../src/sj-main.c:963
+#: ../src/sj-main.c:1007
 #, c-format
 msgid " (Disc %d/%d)"
 msgstr " (Diska %d/%d)"
 
-#: ../src/sj-main.c:1136 ../src/sj-main.c:1259 ../src/sj-main.c:1363
+#: ../src/sj-main.c:1195 ../src/sj-main.c:1383
 msgid "Could not read the CD"
 msgstr "Tidak dapat membaca CD"
 
-#: ../src/sj-main.c:1137 ../src/sj-main.c:1262
+#: ../src/sj-main.c:1196
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer tidak dapat membaca daftar trek pada CD ini."
 
-#. Set statusbar message
-#: ../src/sj-main.c:1232
-msgid "Retrieving track listing...please wait."
-msgstr "Menerima daftar trek...silahkan tunggu."
-
-#: ../src/sj-main.c:1325
+#: ../src/sj-main.c:1345
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Sound Juicer tidak dapat memakai perangkat CD-ROM '%s'"
 
-#: ../src/sj-main.c:1332
+#: ../src/sj-main.c:1352
 msgid "HAL daemon may not be running."
 msgstr "Daemon HAL mungkin tidak berjalan."
 
-#: ../src/sj-main.c:1356
+#: ../src/sj-main.c:1376
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer tidak dapat mengakses perangkat CD-ROM '%s'"
 
-#: ../src/sj-main.c:1455
+#: ../src/sj-main.c:1474
 msgid "No CD-ROM drives found"
 msgstr "Tidak menemukan kandar CD-ROM"
 
-#: ../src/sj-main.c:1456
+#: ../src/sj-main.c:1475
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer tidak menemukan kandar CD-ROM untuk dibaca."
 
-#: ../src/sj-main.c:1489
+#: ../src/sj-main.c:1508
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr ""
 "Profile suara yang sedang terpilih tidak tersedia pada pemasangan Anda."
 
-#: ../src/sj-main.c:1491
+#: ../src/sj-main.c:1510
 msgid "_Change Profile"
 msgstr "_Ganti Profile"
 
-#: ../src/sj-main.c:1879
+#: ../src/sj-main.c:1899
 msgid "Unknown widget calling on_person_edit_changed."
 msgstr "Widget tak dikenal memanggil on_person_edit_changed."
 
-#: ../src/sj-main.c:1979 ../src/sj-prefs.c:127
+#: ../src/sj-main.c:1999 ../src/sj-prefs.c:120
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -968,39 +1004,43 @@ msgstr ""
 "Tidak dapat menampilkan bantuan untuk Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:2192 ../src/sj-play.c:301
+#: ../src/sj-main.c:2058
+msgid "Retrieving track listing...please wait."
+msgstr "Menerima daftar trek...silahkan tunggu."
+
+#: ../src/sj-main.c:2245 ../src/sj-play.c:301
 msgid "_Pause"
 msgstr "_Jeda"
 
-#: ../src/sj-main.c:2270
+#: ../src/sj-main.c:2323
 msgid "Track"
 msgstr "Trek"
 
-#: ../src/sj-main.c:2284
+#: ../src/sj-main.c:2337
 msgid "Composer"
 msgstr "Komposer"
 
-#: ../src/sj-main.c:2438
+#: ../src/sj-main.c:2491
 msgid "Start extracting immediately"
 msgstr "Mulai menguraikan segera"
 
-#: ../src/sj-main.c:2439
+#: ../src/sj-main.c:2492
 msgid "Start playing immediately"
 msgstr "Mulai mainkan segera"
 
-#: ../src/sj-main.c:2440
+#: ../src/sj-main.c:2493
 msgid "What CD device to read"
 msgstr "Apa yang akan dibaca perangkat CD"
 
-#: ../src/sj-main.c:2440
+#: ../src/sj-main.c:2493
 msgid "DEVICE"
 msgstr "PERANGKAT"
 
-#: ../src/sj-main.c:2441
+#: ../src/sj-main.c:2494
 msgid "URI to the CD device to read"
 msgstr "URI ke perangkat CD untuk dibaca"
 
-#: ../src/sj-main.c:2453
+#: ../src/sj-main.c:2506
 msgid "- Extract music from your CDs"
 msgstr "-.Rekam musik dari CD Anda"
 
@@ -1123,6 +1163,6 @@ msgstr "Nomor. Komposer Trek - Artis Trek - Judul Trek"
 msgid "Number-Track Composer-Track Artist-Track Title (lowercase)"
 msgstr "Nomor-Komposer Trek-Artis Trek-Judul Trek (huruf kecil)"
 
-#: ../src/sj-prefs.c:311
+#: ../src/sj-prefs.c:250
 msgid "Example Path: "
 msgstr "Contoh Path:"
