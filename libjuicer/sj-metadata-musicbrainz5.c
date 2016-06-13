@@ -473,51 +473,11 @@ build_composer_text (GSList  *composers,
 {
   gsize i = 0;
   gsize j = 0;
-  gsize index = 0; /* Which format string to use */
+  guint flags = 0; /* Which components do we have? */
   GSList *sort = NULL;
   gchar  *comp = NULL;
   gchar  *arr  = NULL;
   gchar  *arr_v[4];
-  gchar  *formats[16] = {
-    NULL,
-    NULL,
-    /* Tranlators: This string is used to build the composer tag when
-       a track has a mixture of arrangers, orchestrators and
-       transcribers but no composers */
-    N_("arr. %s"),
-    /* Tranlators: This string is used to build the composer tag when a
-       track has composers and arrangers, or a composer and a mixture
-       of arrangers, orchestrators and transcribers */
-    N_("%s arr. %s"),
-    /* Tranlators: This string is used to build the composer tag
-       when a track has orchestrators but no composer */
-    N_("orch. %s"),
-    /* Tranlators: This string is used to build the composer tag
-       when a track has composers and orchestrators */
-    N_("%s orch. %s"),
-    /* arrangers and orchestrators but no composers */
-    "arr. %s",
-    /* composers, arrangers and orchestrators */
-    "%s arr. %s",
-    /* Tranlators: This string is used to build the composer tag
-       when a track has a transcribers but no composer */
-    N_("trans. %s"),
-    /* Tranlators: This string is used to build the composer tag
-       when a track has composers and transcribers */
-    N_("%s trans. %s"),
-    /* arrangers and transcribers but no composers */
-    "arr. %s",
-    /* composers, arrangers and transcribers */
-    "%s arr. %s",
-    /* orchestrators and transcribers but no composer */
-    "arr. %s",
-    /* composers, orchestrators and transcribers */
-    "%s arr. %s",
-    /* arrangers, orchestrators and transcribers but no composers */
-    "arr. %s",
-    /* composers, arrangers, orchestrators and transcribers */
-    "%s arr. %s"
-  };
 
   enum {
     HAVE_COMPOSERS     = 1 << 0,
@@ -532,22 +492,22 @@ build_composer_text (GSList  *composers,
   *name = NULL;
 
   if (composers != NULL) {
-    index |= HAVE_COMPOSERS;
+    flags |= HAVE_COMPOSERS;
     comp = concatenate_composers (composers);
     sort = composers;
   }
   if (arrangers != NULL) {
-    index |= HAVE_ARRANGERS;
+    flags |= HAVE_ARRANGERS;
     arr_v[i++] = concatenate_composers (arrangers);
     sort = arrangers;
   }
   if (orchestrators != NULL) {
-    index |= HAVE_ORCHESTRATORS;
+    flags |= HAVE_ORCHESTRATORS;
     arr_v[i++] = concatenate_composers (orchestrators);
     sort = orchestrators;
   }
   if (transcribers != NULL) {
-    index |= HAVE_TRANSCRIBERS;
+    flags |= HAVE_TRANSCRIBERS;
     arr_v[i++] = concatenate_composers (transcribers);
     sort = transcribers;
   }
@@ -556,25 +516,43 @@ build_composer_text (GSList  *composers,
   if (i > 0)
     arr = g_strjoinv (", ", arr_v);
 
-  if (index & HAVE_COMPOSERS) {
-    if (index & ~HAVE_COMPOSERS) {
-      *name = g_strdup_printf (gettext (formats[index]), comp, arr);
+  if (flags & HAVE_COMPOSERS) {
+    if (flags & HAVE_ARRANGERS) {
+      /* Tranlators: This string is used to build the composer tag when a
+         track has composers and arrangers, or a composer and a mixture
+         of arrangers, orchestrators and transcribers */
+      *name = g_strdup_printf (_("%s arr. %s"), comp, arr);
+    } else if (flags & HAVE_ORCHESTRATORS) {
+      /* Tranlators: This string is used to build the composer tag
+         when a track has composers and orchestrators */
+      *name = g_strdup_printf (_("%s orch. %s"), comp, arr);
+    } else if (flags & HAVE_TRANSCRIBERS) {
+      /* Tranlators: This string is used to build the composer tag
+         when a track has composers and transcribers */
+      *name = g_strdup_printf (_("%s trans. %s"), comp, arr);
     } else {
+      /* Only composers */
       *name = g_strdup (comp);
     }
   } else {
-    if (index & ~HAVE_COMPOSERS) {
-      *name = g_strdup_printf (gettext (formats[index]), arr);
+    if (flags & HAVE_ARRANGERS) {
+      /* Tranlators: This string is used to build the composer tag when
+         a track has a mixture of arrangers, orchestrators and
+         transcribers but no composers */
+      *name = g_strdup_printf (_("arr. %s"), arr);
+    } else if (flags & HAVE_ORCHESTRATORS) {
+      /* Tranlators: This string is used to build the composer tag
+         when a track has orchestrators but no composer */
+      *name = g_strdup_printf (_("orch. %s"), arr);
+    } else if (flags & HAVE_TRANSCRIBERS) {
+      /* Tranlators: This string is used to build the composer tag
+         when a track has a transcribers but no composer */
+      *name = g_strdup_printf (_("trans. %s"), arr);
     }
   }
 
-  switch (index) {
-  case HAVE_COMPOSERS:
-  case HAVE_ARRANGERS:
-  case HAVE_ORCHESTRATORS:
-  case HAVE_TRANSCRIBERS:
+  if (flags)
     *sortname = get_sortname (sort);
-  }
 
   while (j < i)
     g_free (arr_v[j++]);

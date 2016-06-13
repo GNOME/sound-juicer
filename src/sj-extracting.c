@@ -1168,14 +1168,15 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
       case 'N':
         /* Disc and track number, zero padded */
         if (track->album->disc_number > 0) {
-          const gchar *format;
+          int width;
+
           if (track->album->disc_count < 10)
-            format = "d%dt%02d";
+            width = 1;
           else if (track->album->disc_count < 100)
-            format = "d%02dt%02d";
+            width = 2;
           else
-            format = "d%03dt%02d";
-          string = g_strdup_printf (format, track->album->disc_number, track->number);
+            width = 3;
+          string = g_strdup_printf ("d%0*dt%02d", width, track->album->disc_number, track->number);
         } else {
           string = g_strdup_printf ("%02d", track->number);
         }

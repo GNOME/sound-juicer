@@ -469,7 +469,7 @@ get_widest_time (int *widths, int duration)
 	int minutes;
 	int seconds;
 	int m, s1, s2;
-	const char *format = "%d:%d%d/%d:%02d";
+	int width = 1;
 
 	minutes = duration / 60;
 	seconds = duration % 60;
@@ -482,12 +482,12 @@ get_widest_time (int *widths, int duration)
 	if (minutes > 9) {
 		m = get_widest_digit (widths, 9);
 		m += get_widest_digit (widths, minutes % 10) * 10;
-		format = "%02d:%d%d/%d:%02d";
+		width = 2;
 	} else {
 		m = get_widest_digit (widths, minutes);
 	}
 
-	return g_strdup_printf (format, m, s2, s1, minutes, seconds);
+	return g_strdup_printf ("%0*d:%d%d/%d:%02d", width, m, s2, s1, minutes, seconds);
 }
 
 static void
