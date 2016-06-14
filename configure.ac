@@ -1,6 +1,6 @@
 AC_INIT([Sound Juicer],[3.20.0],[http://bugzilla.gnome.org/enter_bug.cgi?product=sound-juicer],[sound-juicer])
 
-AC_PREREQ(2.52)
+AC_PREREQ(2.60)
 
 AC_CONFIG_AUX_DIR([build-aux])
 
@@ -17,18 +17,16 @@ GNOME_DEBUG_CHECK
 
 AM_MAINTAINER_MODE([enable])
 
-# Do the gettext/i18n stuff
-GETTEXT_PACKAGE=sound-juicer
-AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [The name of the gettext package.])
-AC_SUBST(GETTEXT_PACKAGE)
-AM_GLIB_GNU_GETTEXT
+# Use GNU Gettext
+AM_GNU_GETTEXT([external],[need-ngettext])
+AM_GNU_GETTEXT_VERSION([0.19.6])
 
 # Standard C and C++ compiler mojo
 AC_ISC_POSIX
 AM_PROG_CC_C_O
 AC_HEADER_STDC
 AC_PROG_INSTALL
-IT_PROG_INTLTOOL([0.50.0])
+AC_PROG_MKDIR_P
 
 GNOME_COMPILE_WARNINGS([maximum])
 
@@ -46,10 +44,6 @@ YELP_HELP_INIT
 
 # Appdata validation and installation
 APPSTREAM_XML
-
-# Ensure data/appdata exists under $(builddir)
-AC_PROG_MKDIR_P
-AC_CONFIG_COMMANDS([data/appdata], [$MKDIR_P data/appdata])
 
 # Find GLib and GObject
 PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.38 gthread-2.0 gobject-2.0 gio-2.0)

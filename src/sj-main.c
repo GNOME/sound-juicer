@@ -2546,16 +2546,16 @@ int main (int argc, char **argv)
   };
   guint status = 0;
 
-  bindtextdomain (GETTEXT_PACKAGE, GNOMELOCALEDIR);
-  bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-  textdomain (GETTEXT_PACKAGE);
+  bindtextdomain (PACKAGE, LOCALEDIR);
+  bind_textdomain_codeset (PACKAGE, "UTF-8");
+  textdomain (PACKAGE);
 
   g_set_application_name (_("Sound Juicer"));
   g_setenv ("PULSE_PROP_media.role", "music", TRUE);
 
   ctx = g_option_context_new (N_("- Extract music from your CDs"));
-  g_option_context_add_main_entries (ctx, entries, GETTEXT_PACKAGE);
-  g_option_context_set_translation_domain(ctx, GETTEXT_PACKAGE);
+  g_option_context_add_main_entries (ctx, entries, PACKAGE);
+  g_option_context_set_translation_domain(ctx, PACKAGE);
   g_option_context_add_group (ctx, gtk_get_option_group (TRUE));
   g_option_context_add_group (ctx, gst_init_get_option_group ());
   g_option_context_add_group (ctx, brasero_media_get_option_group ());
