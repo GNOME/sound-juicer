@@ -10,7 +10,7 @@ MAINTAINERCLEANFILES =
 
 sound_juicer_CPPFLAGS = \
 	-I$(top_srcdir)/libjuicer \
-	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"  \
+	-DLOCALEDIR=\""$(localedir)"\"  \
 	-DTOPSRCDIR=\""$(top_srcdir)"\" \
 	-DDATADIR=\""$(datadir)"\" \
 	-DPREFIX=\""$(prefix)"\" \
@@ -29,11 +29,12 @@ sound_juicer_CFLAGS = \
 	$(AM_CFLAGS)
 
 sound_juicer_LDADD = \
+	@LIBINTL@ \
 	$(GSTREAMER_LIBS) \
 	$(BURN_LIBS) \
 	$(UI_LIBS)
 
-SUBDIRS = po help
+SUBDIRS = . po help
 
 ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
@@ -53,9 +54,8 @@ MAINTAINERCLEANFILES += \
 	$(GITIGNORE_MAINTAINERCLEANFILES_TOPLEVEL) \
 	$(GITIGNORE_MAINTAINERCLEANFILES_MAKEFILE_IN) \
 	$(GITIGNORE_MAINTAINERCLEANFILES_M4_LIBTOOL) \
+	ABOUT-NLS \
 	INSTALL
-
-DISTCLEANFILES += po/.intltool-merge-cache
 
 -include $(top_srcdir)/build-aux/git.mk
 -include $(top_srcdir)/build-aux/release.mk

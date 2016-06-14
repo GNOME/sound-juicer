@@ -1,12 +1,17 @@
 desktopdir = $(datadir)/applications
 desktop_in_files = data/sound-juicer.desktop.in.in
 desktop_DATA = $(desktop_in_files:.desktop.in.in=.desktop)
-@INTLTOOL_DESKTOP_RULE@
 
-@INTLTOOL_XML_RULE@
+$(desktop_DATA): data/sound-juicer.desktop.in
+	$(AM_V_GEN)$(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
+
 @APPSTREAM_XML_RULES@
 appstream_XML = $(appstream_in_files:.xml.in=.xml)
 appstream_in_files = data/appdata/sound-juicer.appdata.xml.in
+
+$(appstream_XML): $(appstream_in_files)
+	$(MKDIR_P) data/appdata
+	$(AM_V_GEN)$(MSGFMT) --xml --template $< -d $(top_srcdir)/po -o $@
 
 gsettings_SCHEMAS = data/org.gnome.sound-juicer.gschema.xml
 
