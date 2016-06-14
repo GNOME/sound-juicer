@@ -8,6 +8,7 @@ $(desktop_DATA): data/sound-juicer.desktop.in
 		--keyword=GenericName --keyword=Comment --keyword=Keywords   \
 		--template $< -d $(top_srcdir)/po -o $@
 
+DISTCHECK_CONFIGURE_FLAGS += --enable-appstream-util
 @APPSTREAM_XML_RULES@
 appstream_XML = $(appstream_in_files:.xml.in=.xml)
 appstream_in_files = data/appdata/sound-juicer.appdata.xml.in
