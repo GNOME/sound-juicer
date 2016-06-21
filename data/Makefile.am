@@ -2,8 +2,11 @@ desktopdir = $(datadir)/applications
 desktop_in_files = data/sound-juicer.desktop.in.in
 desktop_DATA = $(desktop_in_files:.desktop.in.in=.desktop)
 
+# Use a custom set of keywords to prevent the icon name from being translated
 $(desktop_DATA): data/sound-juicer.desktop.in
-	$(AM_V_GEN)$(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
+	$(AM_V_GEN)$(MSGFMT) --desktop --keyword= --keyword=Name             \
+		--keyword=GenericName --keyword=Comment --keyword=Keywords   \
+		--template $< -d $(top_srcdir)/po -o $@
 
 @APPSTREAM_XML_RULES@
 appstream_XML = $(appstream_in_files:.xml.in=.xml)

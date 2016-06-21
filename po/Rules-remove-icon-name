@@ -1,0 +1,5 @@
+remove-icon-name.stamp : $(srcdir)/$(DOMAIN).pot
+	sed -f $(srcdir)/remove-icon-name.sed -i $(srcdir)/$(DOMAIN).pot
+	touch $@
+
+stamp-po : remove-icon-name.stamp
