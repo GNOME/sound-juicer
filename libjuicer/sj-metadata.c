@@ -225,10 +225,10 @@ sj_metadata_helper_check_media (const char *cdrom, GError **error)
     SjError err;
 
     if (access (cdrom, W_OK) == 0) {
-      msg = g_strdup_printf (_("Device '%s' does not contain any media"), cdrom);
+      msg = g_strdup_printf (_("Device ‘%s’ does not contain any media"), cdrom);
       err = SJ_ERROR_CD_NO_MEDIA;
     } else {
-      msg = g_strdup_printf (_("Device '%s' could not be opened. Check the access permissions on the device."), cdrom);
+      msg = g_strdup_printf (_("Device ‘%s’ could not be opened. Check the access permissions on the device."), cdrom);
       err = SJ_ERROR_CD_PERMISSION_ERROR;
     }
     g_set_error (error, SJ_ERROR, err, _("Cannot read CD: %s"), msg);
