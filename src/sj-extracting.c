@@ -308,7 +308,7 @@ confirm_overwrite_existing_file (GFile *uri, int *overwrite_mode, goffset info_s
                                    GTK_BUTTONS_NONE,
                                    _("A file with the same name exists"));
   gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
-                                            _("A file called '%s' exists, size %s.\nDo you want to skip this track or overwrite it?"),
+                                            _("A file called ‘%s’ exists, size %s.\nDo you want to skip this track or overwrite it?"),
                                             display_name, size);
   g_free (display_name);
   g_free (size);

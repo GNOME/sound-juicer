@@ -1409,7 +1409,7 @@ set_drive_from_device (const char *device)
   if (! drive) {
     GtkWidget *dialog;
     char *message;
-    message = g_strdup_printf (_("Sound Juicer could not use the CD-ROM device '%s'"), device);
+    message = g_strdup_printf (_("Sound Juicer could not use the CD-ROM device ‘%s’"), device);
     dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (main_window),
                                                  GTK_DIALOG_DESTROY_WITH_PARENT,
                                                  GTK_MESSAGE_ERROR,
@@ -1440,7 +1440,7 @@ set_device (const char* device)
     const char *error;
 
     error = g_strerror (errno);
-    message = g_strdup_printf (_("Sound Juicer could not access the CD-ROM device '%s'"), device);
+    message = g_strdup_printf (_("Sound Juicer could not access the CD-ROM device ‘%s’"), device);
 
     dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (main_window),
                                                  GTK_DIALOG_DESTROY_WITH_PARENT,
