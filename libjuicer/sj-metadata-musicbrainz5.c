@@ -518,16 +518,16 @@ build_composer_text (GSList  *composers,
 
   if (flags & HAVE_COMPOSERS) {
     if (flags & HAVE_ARRANGERS) {
-      /* Tranlators: This string is used to build the composer tag when a
-         track has composers and arrangers, or a composer and a mixture
-         of arrangers, orchestrators and transcribers */
+      /* Translators: This string is used to build the composer tag
+         when a track has composers and arrangers, or a composer and a
+         mixture of arrangers, orchestrators and transcribers */
       *name = g_strdup_printf (_("%s arr. %s"), comp, arr);
     } else if (flags & HAVE_ORCHESTRATORS) {
-      /* Tranlators: This string is used to build the composer tag
+      /* Translators: This string is used to build the composer tag
          when a track has composers and orchestrators */
       *name = g_strdup_printf (_("%s orch. %s"), comp, arr);
     } else if (flags & HAVE_TRANSCRIBERS) {
-      /* Tranlators: This string is used to build the composer tag
+      /* Translators: This string is used to build the composer tag
          when a track has composers and transcribers */
       *name = g_strdup_printf (_("%s trans. %s"), comp, arr);
     } else {
@@ -536,16 +536,16 @@ build_composer_text (GSList  *composers,
     }
   } else {
     if (flags & HAVE_ARRANGERS) {
-      /* Tranlators: This string is used to build the composer tag when
-         a track has a mixture of arrangers, orchestrators and
+      /* Translators: This string is used to build the composer tag
+         when a track has a mixture of arrangers, orchestrators and
          transcribers but no composers */
       *name = g_strdup_printf (_("arr. %s"), arr);
     } else if (flags & HAVE_ORCHESTRATORS) {
-      /* Tranlators: This string is used to build the composer tag
+      /* Translators: This string is used to build the composer tag
          when a track has orchestrators but no composer */
       *name = g_strdup_printf (_("orch. %s"), arr);
     } else if (flags & HAVE_TRANSCRIBERS) {
-      /* Tranlators: This string is used to build the composer tag
+      /* Translators: This string is used to build the composer tag
          when a track has a transcribers but no composer */
       *name = g_strdup_printf (_("trans. %s"), arr);
     }
