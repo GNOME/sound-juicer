@@ -1,0 +1,10 @@
+remove-icon-name.stamp : $(srcdir)/$(DOMAIN).pot $(srcdir)/remove-icon-name.sed
+	sed -f $(srcdir)/remove-icon-name.sed -i $(srcdir)/$(DOMAIN).pot
+	touch $@
+
+stamp-po : remove-icon-name.stamp
+
+Makefile : $(srcdir)/Rules-remove-icon-name
+
+DISTEXTRA += Rules-remove-icon-name \
+	     remove-icon-name.sed
