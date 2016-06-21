@@ -925,55 +925,51 @@ static char *format_release_details (AlbumDetails *album)
     if (album->labels) {
       if (album->release_date && gst_date_time_has_year (album->release_date)) {
         /* Translators: this string appears when multiple CDs were
-         * found in musicbrainz online database, it corresponds to
-         * "Released: <country> in <year> on <label>" */
-        g_string_append_printf (details,
-                                _("Released: %s in %d on %s"),
+           found in musicbrainz online database, it corresponds to
+           "Released: <country> in <year> on <label>" */
+        g_string_append_printf (details, _("Released: %s in %d on %s"),
                                 album->country,
                                 gst_date_time_get_year (album->release_date),
                                 label_text->str);
       } else {
         /* Translators: this string appears when multiple CDs were
-         * found in musicbrainz online database, it corresponds to
-         * "Released: <country> on <label>" */
-        g_string_append_printf (details,
-                                _("Released: %s on %s"),
+           found in musicbrainz online database, it corresponds to
+           "Released: <country> on <label>" */
+        g_string_append_printf (details, _("Released: %s on %s"),
                                 album->country, label_text->str);
       }
     } else if (album->release_date && gst_date_time_has_year (album->release_date)) {
       /* Translators: this string appears when multiple CDs were
-       * found in musicbrainz online database, it corresponds to
-       * "Released: <country> in <year>" */
-      g_string_append_printf (details,
-                              _("Released: %s in %d"),
+         found in musicbrainz online database, it corresponds to
+         "Released: <country> in <year>" */
+      g_string_append_printf (details, _("Released: %s in %d"),
                               album->country,
                               gst_date_time_get_year (album->release_date));
     } else {
       /* Translators: this string appears when multiple CDs were
-       * found in musicbrainz online database, it corresponds to
-       * "Released: <country>" */
+         found in musicbrainz online database, it corresponds to
+         "Released: <country>" */
       g_string_append_printf (details, _("Released: %s"), album->country);
     }
   } else if (album->release_date && gst_date_time_has_year (album->release_date)) {
     if (album->labels) {
         /* Translators: this string appears when multiple CDs were
-         * found in musicbrainz online database, it corresponds to
-         * "Released in <year> on <label>" */
-       g_string_append_printf (details,
-                               _("Released in %d on %s"),
+           found in musicbrainz online database, it corresponds to
+           "Released in <year> on <label>" */
+       g_string_append_printf (details, _("Released in %d on %s"),
                                gst_date_time_get_year (album->release_date),
                                label_text->str);
     } else {
         /* Translators: this string appears when multiple CDs were
-         * found in musicbrainz online database, it corresponds to
-         * "Released in <year>" */
+           found in musicbrainz online database, it corresponds to
+           "Released in <year>" */
         g_string_append_printf (details, _("Released in %d"),
                                 gst_date_time_get_year (album->release_date));
     }
   } else if (album->labels) {
     /* Translators: this string appears when multiple CDs were
-     * found in musicbrainz online database, it corresponds to
-     * "Released on <label>" */
+       found in musicbrainz online database, it corresponds to
+       "Released on <label>" */
     g_string_append_printf (details, _("Released on %s"), label_text->str);
   } else {
     g_string_append_printf (details,
@@ -982,11 +978,12 @@ static char *format_release_details (AlbumDetails *album)
 
   if (catalog_number_text != NULL) {
     if (album->barcode != NULL) {
-      /* Translators: the "Barcode" string identifies the number of the barcode
-       * printed on the release */
       g_string_append_printf (details,
                               "\n%s, %s %s",
                               catalog_number_text,
+                              /* Translators: this string identifies
+                                 the number of the barcode printed on
+                                 the release */
                               _("Barcode:"),
                               album->barcode);
     } else {

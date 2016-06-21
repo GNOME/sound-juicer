@@ -74,7 +74,7 @@ void show_about_dialog (void)
                          "documenters", documentors,
                          "artists", artists,
                          /*
-                          * Note to translators: put here your name and email so it will show
+                          * Translators: put here your name and email so it will show
                           * up in the "about" box
                           */
                          "translator-credits", _("translator-credits"),
