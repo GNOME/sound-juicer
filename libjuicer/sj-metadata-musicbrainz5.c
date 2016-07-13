@@ -696,6 +696,7 @@ fill_tracks_from_medium (SjMetadataMusicbrainz5  *self,
   Mb5TrackList track_list;
   GList *tracks;
   unsigned int i;
+  gboolean skip_data_tracks;
   char buffer[512]; /* for the GET() macro */
 
   track_list = mb5_medium_get_tracklist (medium);
@@ -705,31 +706,55 @@ fill_tracks_from_medium (SjMetadataMusicbrainz5  *self,
   album->number = mb5_track_list_size (track_list);
 
   tracks = NULL;
+  skip_data_tracks = TRUE;
 
   for (i = 0; i < mb5_track_list_size (track_list); i++) {
     Mb5Track mbt;
     Mb5ArtistCredit credit;
     Mb5Recording recording;
     TrackDetails *track;
+    gchar *title;
+    gint track_offset;
 
     mbt = mb5_track_list_item (track_list, i);
     if (!mbt)
       continue;
 
-    track = g_new0 (TrackDetails, 1);
+    recording = mb5_track_get_recording (mbt);
+    /*
+     * title points to a string on the stack so set it to NULL to
+     * prevent the GET macro from trying to free it
+     */
+    title = NULL;
+    GET (title, mb5_track_get_title, mbt);
+    if (title == NULL && recording != NULL)
+      GET (title, mb5_recording_get_title, recording);
 
+    /*
+     * Skip data tracks at the start of the disc
+     * https://musicbrainz.org/doc/Style/Unknown_and_untitled/Special_purpose_track_title
+     */
+    if (skip_data_tracks) {
+      if (g_strcmp0 (title, "[data track]") == 0) {
+        continue;
+      } else {
+        skip_data_tracks = FALSE;
+        track_offset = mb5_track_get_position (mbt) - 1;
+      }
+    }
+
+    track = g_new0 (TrackDetails, 1);
+    track->title = g_strdup (title);
     track->album = album;
 
-    track->number = mb5_track_get_position (mbt);
+    track->number = mb5_track_get_position (mbt) - track_offset;
 
     /* Prefer metadata from Mb5Track over metadata from Mb5Recording
      * https://bugzilla.gnome.org/show_bug.cgi?id=690903#c8
      */
     track->duration = mb5_track_get_length (mbt) / 1000;
-    GET (track->title, mb5_track_get_title, mbt);
     credit = mb5_track_get_artistcredit (mbt);
 
-    recording = mb5_track_get_recording (mbt);
     if (recording != NULL) {
       GET (track->track_id, mb5_recording_get_id, recording);
       fill_recording_relations (self, recording, track, cancellable, error);
@@ -740,8 +765,6 @@ fill_tracks_from_medium (SjMetadataMusicbrainz5  *self,
 
       if (track->duration == 0)
         track->duration = mb5_recording_get_length (recording) / 1000;
-      if (track->title == NULL)
-        GET (track->title, mb5_recording_get_title, recording);
       if (credit == NULL)
           credit = mb5_recording_get_artistcredit (recording);
     }
