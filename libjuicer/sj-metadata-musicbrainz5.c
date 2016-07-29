@@ -186,6 +186,7 @@ print_musicbrainz_query_error (SjMetadataMusicbrainz5 *self,
   g_free (message);
 }
 
+static gint64 last_query_time;
 
 static Mb5Metadata
 query_musicbrainz (SjMetadataMusicbrainz5  *self,
@@ -198,9 +199,16 @@ query_musicbrainz (SjMetadataMusicbrainz5  *self,
   Mb5Metadata metadata;
   char *inc[] = { "inc" };
   SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (self);
+  gint64 t;
 
   if (g_cancellable_set_error_if_cancelled (cancellable, error))
     return NULL;
+
+  t = g_get_monotonic_time ();
+  while (t - last_query_time < G_USEC_PER_SEC) {
+    g_usleep (t - last_query_time + G_USEC_PER_SEC);
+    t = g_get_monotonic_time ();
+  }
 
   if (includes == NULL)
     metadata = mb5_query_query (priv->mb, entity, id, "",
@@ -211,6 +219,7 @@ query_musicbrainz (SjMetadataMusicbrainz5  *self,
   if (metadata == NULL)
     print_musicbrainz_query_error (self, entity, id);
 
+  last_query_time = g_get_monotonic_time ();
   return metadata;
 }
 
