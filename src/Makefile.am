@@ -1,6 +1,8 @@
 bin_PROGRAMS += sound-juicer
 
 sound_juicer_SOURCES += \
+	src/sj-album-chooser-dialog.c \
+	src/sj-album-chooser-dialog.h \
 	src/egg-play-preview.c \
 	src/egg-play-preview.h \
 	src/sj-about.c \

@@ -1,0 +1,64 @@
+<interface>
+  <template class="SjAlbumChooserDialog" parent="GtkDialog">
+    <property name="deletable">False</property>
+    <property name="destroy-with-parent">True</property>
+    <property name="modal">True</property>
+    <property name="title" translatable="yes">Select Album</property>
+    <property name="type-hint">dialog</property>
+    <child type="action">
+      <object class="GtkButton" id="select_button">
+        <property name="can-default">True</property>
+        <property name="label" translatable="yes">_Select</property>
+        <property name="use-underline">True</property>
+        <property name="visible">True</property>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="accept" default="true">select_button</action-widget>
+    </action-widgets>
+    <child internal-child="vbox">
+      <object class="GtkVBox" id="vbox">
+        <property name="border_width">6</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">6</property>
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkLabel" id="label">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">This CD could be more than one album. Please select which album it is.</property>
+            <property name="margin-end">12</property>
+            <property name="margin-start">12</property>
+            <property name="wrap">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolledwindow">
+            <property name="expand">True</property>
+            <property name="hscrollbar_policy">automatic</property>
+            <property name="vscrollbar_policy">automatic</property>
+            <property name="max-content-height">600</property>
+            <property name="max-content-width">800</property>
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkListBox" id="list_box">
+                <property name="activate-on-single-click">False</property>
+                <property name="expand">True</property>
+                <property name="selection-mode">browse</property>
+                <property name="visible">True</property>
+                <signal name="row-activated" handler="row_activated_cb"/>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
