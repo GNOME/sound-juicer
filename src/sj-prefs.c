@@ -339,16 +339,6 @@ static void populate_pattern_combo (GtkComboBox *combo, const FilePattern *patte
   g_object_unref (store);
 }
 
-static void
-on_response (GtkDialog *dialog, gint response, gpointer user_data)
-{
-  if (response == GTK_RESPONSE_HELP) {
-    show_help (GTK_WINDOW (dialog));
-  } else {
-    gtk_widget_hide (GTK_WIDGET (dialog));
-  }
-}
-
 static void populate_profile_combo (GtkComboBox *combo)
 {
   GstEncodingTarget *target;
@@ -441,8 +431,6 @@ void show_preferences_dialog ()
     settings_changed_cb (sj_settings, SJ_SETTINGS_FILE_PATTERN, file_option);
     settings_changed_cb (sj_settings, SJ_SETTINGS_PATH_PATTERN, path_option);
     device_changed_cb (sj_settings, SJ_SETTINGS_DEVICE, NULL);
-
-    g_signal_connect (GTK_DIALOG (prefs_dialog), "response", G_CALLBACK (on_response), NULL);
 
     gtk_widget_show_all (prefs_dialog);
   }

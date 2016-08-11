@@ -595,6 +595,7 @@ audio-volume-medium</property>
     <property name="title" translatable="yes">Preferences</property>
     <property name="resizable">False</property>
     <property name="type_hint">dialog</property>
+    <property name="modal">True</property>
     <signal name="delete_event" handler="gtk_widget_hide_on_delete"/>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox4">
@@ -878,45 +879,5 @@ audio-volume-medium</property>
         </child>
       </object>
     </child>
-    <child internal-child="action_area">
-      <object class="GtkHButtonBox" id="dialog-action_area4">
-        <property name="visible">True</property>
-        <property name="layout_style">end</property>
-        <child>
-          <object class="GtkButton" id="prefs_help">
-            <property name="label" translatable="yes">_Help</property>
-            <property name="use_underline">True</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="can_default">True</property>
-            <property name="receives_default">False</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="prefs_close">
-            <property name="label" translatable="yes">_Close</property>
-            <property name="use_underline">True</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="can_default">True</property>
-            <property name="receives_default">False</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-    <action-widgets>
-      <action-widget response="-11">prefs_help</action-widget>
-      <action-widget response="-7">prefs_close</action-widget>
-    </action-widgets>
   </object>
 </interface>
