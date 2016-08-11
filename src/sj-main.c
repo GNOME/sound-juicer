@@ -826,7 +826,6 @@ metadata_cb (GObject      *source,
   }
 
   reread_cancellable = NULL;
-  set_action_enabled ("re-read", TRUE);
   set_action_state ("re-read(false)");
 
   if (error != NULL) {
@@ -846,14 +845,10 @@ metadata_cb (GObject      *source,
     gtk_widget_destroy (dialog);
     update_ui_for_album (NULL);
     g_error_free (error);
+    set_action_enabled ("re-read", TRUE);
     return;
   }
 
-  g_free (current_submit_url);
-  current_submit_url = url;
-  if (current_submit_url) {
-    set_action_enabled ("submit-tracks", TRUE);
-  }
   /* Free old album details */
   g_clear_pointer (&current_album, (GDestroyNotify) album_details_free);
   /* Set the new current album pointer */
@@ -872,6 +867,13 @@ metadata_cb (GObject      *source,
     }
   }
   update_ui_for_album (current_album);
+  set_action_enabled ("re-read", TRUE);
+
+  g_free (current_submit_url);
+  current_submit_url = url;
+  if (current_submit_url) {
+    set_action_enabled ("submit-tracks", TRUE);
+  }
 
   if (autostart) {
     g_signal_emit_by_name (extract_button, "activate", NULL);
