@@ -4,15 +4,15 @@
 # Žygimantas Beručka <zygis@gnome.org>, 2004-2006, 2010.
 # Justina Klingaitė <justina.klingaite@gmail.com>, 2005.
 # Gintautas Miliauskas <gintas@akl.lt>, 2007, 2008.
-# Aurimas Černius <aurisc4@gmail.com>, 2013, 2014, 2015.
+# Aurimas Černius <aurisc4@gmail.com>, 2013, 2014, 2015, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: lt\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
 "juicer&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-01-08 14:36+0000\n"
-"PO-Revision-Date: 2016-01-08 20:31+0200\n"
+"POT-Creation-Date: 2016-06-13 10:04+0000\n"
+"PO-Revision-Date: 2016-08-15 13:43+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
 #: ../data/org.gnome.sound-juicer.gschema.xml.h:1
 msgid "The CD to extract from"
@@ -150,7 +150,7 @@ msgstr "Garso garsumas"
 
 #: ../data/sound-juicer.desktop.in.in.h:1
 #: ../data/appdata/sound-juicer.appdata.xml.in.h:1 ../data/sound-juicer.ui.h:1
-#: ../src/sj-main.c:133 ../src/sj-main.c:135 ../src/sj-main.c:2581
+#: ../src/sj-main.c:129 ../src/sj-main.c:131 ../src/sj-main.c:2553
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -239,13 +239,13 @@ msgstr "Trukmė:"
 msgid "Tracks"
 msgstr "Takeliai"
 
-#: ../data/sound-juicer.ui.h:12 ../src/sj-main.c:2316 ../src/sj-play.c:121
+#: ../data/sound-juicer.ui.h:12 ../src/sj-main.c:2288 ../src/sj-play.c:121
 #: ../src/sj-play.c:259 ../src/sj-play.c:622
 msgid "_Play"
 msgstr "_Groti"
 
 #: ../data/sound-juicer.ui.h:13 ../src/sj-extracting.c:233
-#: ../src/sj-main.c:2340
+#: ../src/sj-main.c:2312
 msgid "E_xtract"
 msgstr "Raš_yti"
 
@@ -265,7 +265,7 @@ msgstr ""
 "Šis CD gali būti daugiau negu vienas albumas. Prašome žemiau pasirinkti, "
 "kuris tai albumas, ir spustelėti <i>Tęsti</i>."
 
-#: ../data/sound-juicer.ui.h:17 ../src/sj-main.c:240
+#: ../data/sound-juicer.ui.h:17 ../src/sj-main.c:236
 msgid "_Continue"
 msgstr "_Tęsti"
 
@@ -354,40 +354,86 @@ msgid "Open MusicBrainz"
 msgstr "Atverti MusicBrainz"
 
 #: ../data/sound-juicer-menu.ui.h:7
+msgid "Shortcuts"
+msgstr "Trumpiniai"
+
+#: ../data/sound-juicer-menu.ui.h:8
 msgid "Help"
 msgstr "Žinynas"
 
-#: ../data/sound-juicer-menu.ui.h:8
+#: ../data/sound-juicer-menu.ui.h:9
 msgid "About"
 msgstr "Apie"
 
-#: ../data/sound-juicer-menu.ui.h:9
+#: ../data/sound-juicer-menu.ui.h:10
 msgid "Quit"
 msgstr "Išeiti"
 
-#: ../libjuicer/sj-extractor.c:192
-msgid "Audio Profile"
-msgstr "Garso profilis"
+#: ../data/sound-juicer-shortcuts.ui.h:1
+#| msgid "Disc"
+msgctxt "shortcut window"
+msgid "Disc"
+msgstr "Diskas"
 
-#: ../libjuicer/sj-extractor.c:193
-msgid "The GStreamer Encoding Profile used for encoding audio"
-msgstr "Garso kodavimui naudojamas GStreamer garso profilis"
+#: ../data/sound-juicer-shortcuts.ui.h:2
+#| msgid "Track Names"
+msgctxt "shortcut window"
+msgid "Reread track names"
+msgstr "Iš naujo perskaityti takelių pavadinimus"
 
-#: ../libjuicer/sj-extractor.c:198
-msgid "Paranoia Level"
-msgstr "Paranojos lygmuo"
+#: ../data/sound-juicer-shortcuts.ui.h:3
+#| msgid "Eject"
+msgctxt "shortcut window"
+msgid "Eject disc"
+msgstr "Išstumti diską"
 
-#: ../libjuicer/sj-extractor.c:199
-msgid "The paranoia level"
-msgstr "Paranojos lygmuo"
+#: ../data/sound-juicer-shortcuts.ui.h:4
+msgctxt "shortcut window"
+msgid "Toggle playback"
+msgstr "Perjungti grojimą"
 
-#: ../libjuicer/sj-extractor.c:204
-msgid "device"
-msgstr "įrenginys "
+#: ../data/sound-juicer-shortcuts.ui.h:5
+msgctxt "shortcut window"
+msgid "Next track"
+msgstr "Kitas takelis"
 
-#: ../libjuicer/sj-extractor.c:205
-msgid "The device"
-msgstr "Įrenginys"
+#: ../data/sound-juicer-shortcuts.ui.h:6
+msgctxt "shortcut window"
+msgid "Previous track"
+msgstr "Ankstesnis takelis"
+
+#: ../data/sound-juicer-shortcuts.ui.h:7
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Bendra"
+
+#: ../data/sound-juicer-shortcuts.ui.h:8
+#| msgid "Help"
+msgctxt "shortcut window"
+msgid "Help"
+msgstr "Žinynas"
+
+#: ../data/sound-juicer-shortcuts.ui.h:9
+msgctxt "shortcut window"
+msgid "Shortcuts help"
+msgstr "Trumpinių pagalba"
+
+#: ../data/sound-juicer-shortcuts.ui.h:10
+#| msgid "Quit"
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Išeiti"
+
+#: ../data/sound-juicer-shortcuts.ui.h:11
+#| msgid "Select All"
+msgctxt "shortcut window"
+msgid "Select all tracks"
+msgstr "Pažymėti visus takelius"
+
+#: ../data/sound-juicer-shortcuts.ui.h:12
+msgctxt "shortcut window"
+msgid "Unselect all tracks"
+msgstr "Nežymėti nieko"
 
 #: ../libjuicer/sj-extractor.c:355
 #, c-format
@@ -489,13 +535,13 @@ msgstr "Jugoslavija"
 msgid "Cannot access CD"
 msgstr "Nepavyko pasiekti CD"
 
-#: ../libjuicer/sj-metadata-gvfs.c:115 ../src/egg-play-preview.c:469
-#: ../src/sj-main.c:363
+#: ../libjuicer/sj-metadata-gvfs.c:115 ../src/egg-play-preview.c:575
+#: ../src/sj-main.c:355
 msgid "Unknown Title"
 msgstr "Nežinomas pavadinimas"
 
 #: ../libjuicer/sj-metadata-gvfs.c:121 ../libjuicer/sj-metadata-gvfs.c:151
-#: ../src/egg-play-preview.c:474 ../src/sj-extracting.c:980
+#: ../src/egg-play-preview.c:580 ../src/sj-extracting.c:984
 msgid "Unknown Artist"
 msgstr "Nežinomas atlikėjas"
 
@@ -553,55 +599,7 @@ msgstr "trans. %s"
 msgid "%s trans. %s"
 msgstr "%s trans. %s"
 
-#: ../src/egg-play-preview.c:171
-msgid "URI"
-msgstr "URI"
-
-#: ../src/egg-play-preview.c:172
-msgid "The URI of the audio file"
-msgstr "Garso failo URI"
-
-#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2413
-msgid "Title"
-msgstr "Pavadinimas"
-
-#: ../src/egg-play-preview.c:182
-msgid "The title of the current stream."
-msgstr "Dabartinio srauto pavadinimas."
-
-#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2414
-msgid "Artist"
-msgstr "Atlikėjas"
-
-#: ../src/egg-play-preview.c:192
-msgid "The artist of the current stream."
-msgstr "Dabartinio srauto atlikėjas."
-
-#: ../src/egg-play-preview.c:201
-msgid "Album"
-msgstr "Albumas"
-
-#: ../src/egg-play-preview.c:202
-msgid "The album of the current stream."
-msgstr "Dabartinio srauto albumas."
-
-#: ../src/egg-play-preview.c:211
-msgid "Position"
-msgstr "Vieta"
-
-#: ../src/egg-play-preview.c:212
-msgid "The position in the current stream in seconds."
-msgstr "Padėtis dabartiniame sraute sekundėmis."
-
-#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2421
-msgid "Duration"
-msgstr "Trukmė"
-
-#: ../src/egg-play-preview.c:222
-msgid "The duration of the current stream in seconds."
-msgstr "Dabartinio srauto trukmė sekundėmis."
-
-#: ../src/egg-play-preview.c:475 ../src/sj-extracting.c:979
+#: ../src/egg-play-preview.c:581 ../src/sj-extracting.c:983
 msgid "Unknown Album"
 msgstr "Nežinomas albumas"
 
@@ -675,63 +673,63 @@ msgstr ""
 "Failas pavadinimu „%s“ jau egzistuoja, dydis %s.\n"
 "Ar norite praleisti šį takelį ar jį perrašyti?"
 
-#: ../src/sj-extracting.c:321
+#: ../src/sj-extracting.c:325
 msgid "_Skip"
 msgstr "_Praleisti"
 
-#: ../src/sj-extracting.c:322
+#: ../src/sj-extracting.c:326
 msgid "S_kip All"
 msgstr "Praleisti _visus"
 
-#: ../src/sj-extracting.c:323
+#: ../src/sj-extracting.c:327
 msgid "_Overwrite"
 msgstr "Pe_rrašyti"
 
-#: ../src/sj-extracting.c:324
+#: ../src/sj-extracting.c:328
 msgid "Overwrite _All"
 msgstr "Perrašyti vi_sus"
 
-#: ../src/sj-extracting.c:373
+#: ../src/sj-extracting.c:377
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Nepavyko sukurti paskirties aplanko: %s"
 
-#: ../src/sj-extracting.c:513
+#: ../src/sj-extracting.c:517
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Apytiksliai liko laiko: %d:%02d (greičiu %0.1f×)"
 
-#: ../src/sj-extracting.c:515
+#: ../src/sj-extracting.c:519
 msgid "Estimated time left: unknown"
 msgstr "Apytiksliai liko laiko: nežinoma"
 
-#: ../src/sj-extracting.c:605
+#: ../src/sj-extracting.c:609
 msgid "CD rip complete"
 msgstr "Rašymas iš CD baigtas"
 
-#: ../src/sj-extracting.c:697
+#: ../src/sj-extracting.c:701
 msgid "Sound Juicer could not extract this CD."
 msgstr "Sound Juicer nepavyko įrašyti iš šio CD."
 
-#: ../src/sj-extracting.c:699 ../src/sj-main.c:179 ../src/sj-main.c:426
-#: ../src/sj-main.c:465 ../src/sj-main.c:1275 ../src/sj-main.c:1463
+#: ../src/sj-extracting.c:703 ../src/sj-main.c:175 ../src/sj-main.c:418
+#: ../src/sj-main.c:457 ../src/sj-main.c:1267 ../src/sj-main.c:1455
 msgid "Reason"
 msgstr "Priežastis"
 
 #. Change the label to Stop while extracting
-#: ../src/sj-extracting.c:789 ../src/sj-main.c:2347
+#: ../src/sj-extracting.c:793 ../src/sj-main.c:2319
 msgid "_Stop"
 msgstr "_Sustabdyti"
 
-#: ../src/sj-extracting.c:817 ../src/sj-extracting.c:825
+#: ../src/sj-extracting.c:821 ../src/sj-extracting.c:829
 msgid "Extracting audio from CD"
 msgstr "Muzika rašoma iš CD"
 
-#: ../src/sj-extracting.c:981
+#: ../src/sj-extracting.c:985
 msgid "Unknown Composer"
 msgstr "Nežinomas kompozitorius"
 
-#: ../src/sj-extracting.c:982
+#: ../src/sj-extracting.c:986
 msgid "Unknown Track"
 msgstr "Nežinomas takelis"
 
@@ -743,7 +741,7 @@ msgstr "Foninė"
 msgid "Blues"
 msgstr "Bliuzas"
 
-#: ../src/sj-genres.c:35 ../src/sj-main.c:514
+#: ../src/sj-genres.c:35 ../src/sj-main.c:506
 msgid "Classical"
 msgstr "Klasika"
 
@@ -804,37 +802,37 @@ msgstr "Šneka"
 msgid "Error while saving custom genre: %s"
 msgstr "Klaida rašant pasirinktinį žanrą: %s"
 
-#: ../src/sj-main.c:178
+#: ../src/sj-main.c:174
 msgid "Could not start Sound Juicer"
 msgstr "Nepavyko paleisti Sound Juicer"
 
-#: ../src/sj-main.c:181
+#: ../src/sj-main.c:177
 msgid "Please consult the documentation for assistance."
 msgstr "Jei reikia pagalbos, skaitykite dokumentaciją."
 
-#: ../src/sj-main.c:238
+#: ../src/sj-main.c:234
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr ""
 "Šiuo metu atliekama rašymo iš CD operacija. Ar norite tuoj pat užverti, ar "
 "tęsti?"
 
-#: ../src/sj-main.c:239 ../src/sj-main.c:1587
+#: ../src/sj-main.c:235 ../src/sj-main.c:1579
 msgid "_Quit"
 msgstr "_Išeiti"
 
-#: ../src/sj-main.c:287 ../src/sj-main.c:2294 ../src/sj-main.c:2370
+#: ../src/sj-main.c:283 ../src/sj-main.c:2266 ../src/sj-main.c:2342
 msgid "Select None"
 msgstr "Nepasirinkti nieko"
 
-#: ../src/sj-main.c:301 ../src/sj-main.c:2364
+#: ../src/sj-main.c:297 ../src/sj-main.c:2336
 msgid "Select All"
 msgstr "Pasirinkti viską"
 
-#: ../src/sj-main.c:322 ../src/sj-main.c:673
+#: ../src/sj-main.c:318 ../src/sj-main.c:665
 msgid "(unknown)"
 msgstr "(nežinoma)"
 
-#: ../src/sj-main.c:364
+#: ../src/sj-main.c:356
 msgid ""
 "This album is not in the MusicBrainz database, please click ‘Edit Album’ to "
 "open your browser and edit it in MusicBrainz."
@@ -842,7 +840,7 @@ msgstr ""
 "Šio albumo nėra MusicBrainz duomenų bazėje, spauskite „Keisti albumą“ "
 "naršyklei atverti ir jį redaguoti MusicBrainz."
 
-#: ../src/sj-main.c:366
+#: ../src/sj-main.c:358
 #, c-format
 msgid ""
 "Could not find %s by %s on MusicBrainz, please click ‘Edit Album’ to open "
@@ -851,62 +849,62 @@ msgstr ""
 "Nepavyko MusicBrainz rasti %2$s %1$s, spauskite „Keisti albumą“ naršyklei "
 "atverti ir jį redaguoti MusicBrainz."
 
-#: ../src/sj-main.c:402
+#: ../src/sj-main.c:394
 msgid "Click ‘Reload’ to load the edited album details from MusicBrainz"
 msgstr "Spauskite „Iš naujo įkelti albumą“ informacijai iš MusicBrainz įkelti"
 
-#: ../src/sj-main.c:424
+#: ../src/sj-main.c:416
 msgid "Could not open URL"
 msgstr "Nepavyko atverti URL"
 
-#: ../src/sj-main.c:425
+#: ../src/sj-main.c:417
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer nepavyko atverti nusiuntimo URL"
 
-#: ../src/sj-main.c:463
+#: ../src/sj-main.c:455
 msgid "Could not duplicate disc"
 msgstr "Nepavyko nukopijuoti disko"
 
-#: ../src/sj-main.c:464
+#: ../src/sj-main.c:456
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Sound Juicer nepavyko nukopijuoti disko"
 
-#: ../src/sj-main.c:514
+#: ../src/sj-main.c:506
 msgid "Lieder"
 msgstr "Lieder"
 
-#: ../src/sj-main.c:514
+#: ../src/sj-main.c:506
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/sj-main.c:514
+#: ../src/sj-main.c:506
 msgid "Chamber"
 msgstr "Chamber"
 
-#: ../src/sj-main.c:514
+#: ../src/sj-main.c:506
 msgid "Musical"
 msgstr "Muzikos"
 
 #. Translators: this string is a list of catalog number(s) used by
 #. the label(s) to identify the release
-#: ../src/sj-main.c:897
+#: ../src/sj-main.c:889
 msgid "Catalog No.: "
 msgid_plural "Catalog Nos.: "
 msgstr[0] "Katalogo nr.: "
 msgstr[1] "Katalogų nr.: "
 msgstr[2] "Katalogų nr.: "
 
-#: ../src/sj-main.c:939
+#: ../src/sj-main.c:931
 #, c-format
 msgid "Released: %s in %d on %s"
 msgstr "Išleista: %s %d m. %s"
 
-#: ../src/sj-main.c:948
+#: ../src/sj-main.c:940
 #, c-format
 msgid "Released: %s on %s"
 msgstr "Išleista: %s %s"
 
-#: ../src/sj-main.c:956
+#: ../src/sj-main.c:948
 #, c-format
 msgid "Released: %s in %d"
 msgstr "Išleista: %s %d m."
@@ -914,12 +912,12 @@ msgstr "Išleista: %s %d m."
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released: <country>"
-#: ../src/sj-main.c:963
+#: ../src/sj-main.c:955
 #, c-format
 msgid "Released: %s"
 msgstr "Išleista: %s"
 
-#: ../src/sj-main.c:971
+#: ../src/sj-main.c:963
 #, c-format
 msgid "Released in %d on %s"
 msgstr "Išleista %d m. %s"
@@ -927,7 +925,7 @@ msgstr "Išleista %d m. %s"
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released in <year>"
-#: ../src/sj-main.c:978
+#: ../src/sj-main.c:970
 #, c-format
 msgid "Released in %d"
 msgstr "Išleista %d m."
@@ -935,73 +933,73 @@ msgstr "Išleista %d m."
 #. Translators: this string appears when multiple CDs were
 #. * found in musicbrainz online database, it corresponds to
 #. * "Released on <label>"
-#: ../src/sj-main.c:985
+#: ../src/sj-main.c:977
 #, c-format
 msgid "Released on %s"
 msgstr "Išleista %s"
 
-#: ../src/sj-main.c:988
+#: ../src/sj-main.c:980
 #, c-format
 msgid "Release label, year & country unknown"
 msgstr "Leidėjas, metai ir šalis nežinoma"
 
-#: ../src/sj-main.c:998 ../src/sj-main.c:1007
+#: ../src/sj-main.c:990 ../src/sj-main.c:999
 msgid "Barcode:"
 msgstr "Brūkšninis kodas:"
 
-#: ../src/sj-main.c:1051
+#: ../src/sj-main.c:1043
 msgid "Albums"
 msgstr "Albumai"
 
-#: ../src/sj-main.c:1085
+#: ../src/sj-main.c:1077
 #, c-format
 msgid " (Disc %d/%d)"
 msgstr " (Diskas %d iš %d)"
 
-#: ../src/sj-main.c:1273 ../src/sj-main.c:1461
+#: ../src/sj-main.c:1265 ../src/sj-main.c:1453
 msgid "Could not read the CD"
 msgstr "Nepavyko perskaityti CD"
 
-#: ../src/sj-main.c:1274
+#: ../src/sj-main.c:1266
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer nepavyko perskaityti šio CD takelių sąrašo."
 
-#: ../src/sj-main.c:1423
+#: ../src/sj-main.c:1415
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "Sound Juicer neturi prieigos prie CD-ROM įrenginio „%s“"
 
-#: ../src/sj-main.c:1430
+#: ../src/sj-main.c:1422
 msgid "HAL daemon may not be running."
 msgstr "HAL tarnyba neveikia."
 
-#: ../src/sj-main.c:1454
+#: ../src/sj-main.c:1446
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "Sound Juicer neturi prieigos prie CD-ROM įrenginio „%s“"
 
-#: ../src/sj-main.c:1552
+#: ../src/sj-main.c:1544
 msgid "No CD-ROM drives found"
 msgstr "CD-ROM įrenginių nerasta"
 
-#: ../src/sj-main.c:1553
+#: ../src/sj-main.c:1545
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer nerado jokių skaitomų CD-ROM įrenginių."
 
-#: ../src/sj-main.c:1586
+#: ../src/sj-main.c:1578
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Dabar pasirinktas garso profilis Jūsų sistemoje yra neprieinamas."
 
-#: ../src/sj-main.c:1588
+#: ../src/sj-main.c:1580
 msgid "_Change Profile"
 msgstr "_Keisti profilį"
 
-#: ../src/sj-main.c:1977
+#: ../src/sj-main.c:1969
 msgid "Unknown widget calling on_person_edit_changed."
 msgstr "Nežinomas valdiklis kviečia on_person_edit_changed."
 
-#: ../src/sj-main.c:2077 ../src/sj-prefs.c:120
+#: ../src/sj-main.c:2069 ../src/sj-prefs.c:120
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -1010,43 +1008,55 @@ msgstr ""
 "Nepavyko parodyti Sound Juicer žinyno\n"
 "%s"
 
-#: ../src/sj-main.c:2136
+#: ../src/sj-main.c:2128
 msgid "Retrieving track listing...please wait."
 msgstr "Gaunamas takelių sąrašas... luktelėkite."
 
-#: ../src/sj-main.c:2323 ../src/sj-play.c:301
+#: ../src/sj-main.c:2295 ../src/sj-play.c:301
 msgid "_Pause"
 msgstr "_Pristabdyti"
 
-#: ../src/sj-main.c:2401
+#: ../src/sj-main.c:2373
 msgid "Track"
 msgstr "Takelis"
 
-#: ../src/sj-main.c:2415
+#: ../src/sj-main.c:2385
+msgid "Title"
+msgstr "Pavadinimas"
+
+#: ../src/sj-main.c:2386
+msgid "Artist"
+msgstr "Atlikėjas"
+
+#: ../src/sj-main.c:2387
 msgid "Composer"
 msgstr "Kompozitorius"
 
-#: ../src/sj-main.c:2569
+#: ../src/sj-main.c:2393
+msgid "Duration"
+msgstr "Trukmė"
+
+#: ../src/sj-main.c:2541
 msgid "Start extracting immediately"
 msgstr "Pradėti rašymą tuojau pat"
 
-#: ../src/sj-main.c:2570
+#: ../src/sj-main.c:2542
 msgid "Start playing immediately"
 msgstr "Pradėti grojimą tuojau pat"
 
-#: ../src/sj-main.c:2571
+#: ../src/sj-main.c:2543
 msgid "What CD device to read"
 msgstr "Kokį CD įrenginį skaityti"
 
-#: ../src/sj-main.c:2571
+#: ../src/sj-main.c:2543
 msgid "DEVICE"
 msgstr "ĮRENGINYS"
 
-#: ../src/sj-main.c:2572
+#: ../src/sj-main.c:2544
 msgid "URI to the CD device to read"
 msgstr "URI iki skaitytino CD įrenginio"
 
-#: ../src/sj-main.c:2584
+#: ../src/sj-main.c:2556
 msgid "- Extract music from your CDs"
 msgstr "– Įsirašykite muzikos iš savo CD"
 
@@ -1177,6 +1187,51 @@ msgstr ""
 #: ../src/sj-prefs.c:250
 msgid "Example Path: "
 msgstr "Kelio pavyzdys: "
+
+#~ msgid "Audio Profile"
+#~ msgstr "Garso profilis"
+
+#~ msgid "The GStreamer Encoding Profile used for encoding audio"
+#~ msgstr "Garso kodavimui naudojamas GStreamer garso profilis"
+
+#~ msgid "Paranoia Level"
+#~ msgstr "Paranojos lygmuo"
+
+#~ msgid "The paranoia level"
+#~ msgstr "Paranojos lygmuo"
+
+#~ msgid "device"
+#~ msgstr "įrenginys "
+
+#~ msgid "The device"
+#~ msgstr "Įrenginys"
+
+#~ msgid "URI"
+#~ msgstr "URI"
+
+#~ msgid "The URI of the audio file"
+#~ msgstr "Garso failo URI"
+
+#~ msgid "The title of the current stream."
+#~ msgstr "Dabartinio srauto pavadinimas."
+
+#~ msgid "The artist of the current stream."
+#~ msgstr "Dabartinio srauto atlikėjas."
+
+#~ msgid "Album"
+#~ msgstr "Albumas"
+
+#~ msgid "The album of the current stream."
+#~ msgstr "Dabartinio srauto albumas."
+
+#~ msgid "Position"
+#~ msgstr "Vieta"
+
+#~ msgid "The position in the current stream in seconds."
+#~ msgstr "Padėtis dabartiniame sraute sekundėmis."
+
+#~ msgid "The duration of the current stream in seconds."
+#~ msgstr "Dabartinio srauto trukmė sekundėmis."
 
 #~ msgid "Submit Track Names"
 #~ msgstr "Siųsti takelių pavadinimus"
