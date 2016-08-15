@@ -1133,7 +1133,7 @@ artist-rels";
       full_release = mb5_metadata_get_release (release_md);
     if (full_release) {
       Mb5MediumList media;
-      Mb5Metadata metadata = NULL;
+      Mb5Metadata group_md = NULL;
       Mb5ReleaseGroup group;
       int j;
 
@@ -1148,15 +1148,15 @@ artist-rels";
         char *includes = "artists url-rels";
 
         GET (releasegroupid, mb5_releasegroup_get_id, group);
-        metadata = query_musicbrainz (self, "release-group", releasegroupid, includes, cancellable, error);
+        group_md = query_musicbrainz (self, "release-group", releasegroupid, includes, cancellable, error);
         g_free (releasegroupid);
         if (*error != NULL) {
           mb5_metadata_delete (release_md);
           goto free_releases;
         }
 
-        if (metadata && mb5_metadata_get_releasegroup (metadata))
-          group = mb5_metadata_get_releasegroup (metadata);
+        if (group_md && mb5_metadata_get_releasegroup (group_md))
+          group = mb5_metadata_get_releasegroup (group_md);
 
         media = mb5_release_media_matching_discid (full_release, disc->id);
         for (j = 0; j < mb5_medium_list_size (media); j++) {
@@ -1166,7 +1166,7 @@ artist-rels";
           if (medium) {
             album = make_album_from_release (self, group, full_release, medium, cancellable, error);
             if (*error != NULL) {
-              mb5_metadata_delete (metadata);
+              mb5_metadata_delete (group_md);
               mb5_medium_list_delete (media);
               mb5_metadata_delete (release_md);
               goto free_releases;
@@ -1176,7 +1176,7 @@ artist-rels";
             albums = g_list_append (albums, album);
           }
         }
-        mb5_metadata_delete (metadata);
+        mb5_metadata_delete (group_md);
         mb5_medium_list_delete (media);
       }
       mb5_metadata_delete (release_md);
