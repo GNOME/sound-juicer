@@ -73,10 +73,8 @@ void show_about_dialog (void)
                          "authors", authors,
                          "documenters", documentors,
                          "artists", artists,
-                         /*
-                          * Translators: put here your name and email so it will show
-                          * up in the "about" box
-                          */
+                         /* Translators: put here your name and email
+                            so it will show up in the "about" box */
                          "translator-credits", _("translator-credits"),
                          "logo-icon-name", "sound-juicer",
                          "license", license_trans,
