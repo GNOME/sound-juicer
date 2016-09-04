@@ -18,6 +18,7 @@ sound_juicer_CPPFLAGS = \
 	-DSYSCONFDIR=\""$(sysconfdir)"\" \
 	-DPIXMAPDIR=\""$(datadir)/pixmaps"\" \
 	-DPKGDATADIR=\""$(datadir)/sound-juicer"\" \
+	-DG_LOG_USE_STRUCTURED=1 \
 	$(DISABLE_DEPRECATED) \
 	$(AM_CPPFLAGS)
 
