@@ -80,7 +80,7 @@ GSettings *sj_settings;
 GtkWidget *main_window;
 static GtkWidget *submit_bar, *submit_label;
 static GtkWidget *title_entry, *artist_entry, *composer_label, *composer_entry, *duration_label, *genre_entry, *year_entry, *disc_number_entry;
-static GtkWidget *entry_table; /* GtkTable containing composer_entry */
+static GtkWidget *entry_grid; /* GtkGrid containing album title, artist etc. */
 static GtkTreeViewColumn *composer_column; /* Treeview column containing composers */
 static GtkWidget *track_listview, *extract_button, *play_button, *select_button;
 static GtkWidget *multiple_album_dialog, *status_bar, *submit_button, *reload_button;
@@ -121,7 +121,6 @@ static CellCbContext cell_editing_context;
 
 #define DEFAULT_PARANOIA 15
 #define RAISE_WINDOW "raise-window"
-#define COMPOSER_ROW 2 /* Row of entry_table containing composer_entry */
 
 void
 sj_main_set_title (const char* detail)
@@ -462,7 +461,6 @@ static void on_duplicate_activate (GSimpleAction *action, GVariant *parameter, g
   }
 }
 
-#define TABLE_ROW_SPACING 6 /* spacing of rows in entry_table */
 
 /*
  * Show composer entry and composer column in track listview
@@ -471,8 +469,6 @@ static void
 show_composer_fields (void)
 {
   if (!gtk_widget_get_visible (GTK_WIDGET (composer_label))) {
-    gtk_table_set_row_spacing (GTK_TABLE (entry_table), COMPOSER_ROW,
-                               TABLE_ROW_SPACING);
     gtk_widget_show (GTK_WIDGET (composer_entry));
     gtk_widget_show (GTK_WIDGET (composer_label));
     gtk_tree_view_column_set_visible (composer_column, TRUE);
@@ -488,7 +484,6 @@ static void
 hide_composer_fields (void)
 {
   if (gtk_widget_get_visible (GTK_WIDGET (composer_label))) {
-    gtk_table_set_row_spacing (GTK_TABLE (entry_table), COMPOSER_ROW, 0);
     gtk_widget_hide (GTK_WIDGET (composer_entry));
     gtk_widget_hide (GTK_WIDGET (composer_label));
     gtk_tree_view_column_set_visible (composer_column, FALSE);
@@ -1830,7 +1825,7 @@ startup_cb (GApplication *app, gpointer user_data)
   play_button           = GET_WIDGET ("play_button");
   select_button         = GET_WIDGET ("select_button");
   status_bar            = GET_WIDGET ("status_bar");
-  entry_table           = GET_WIDGET ("entry_table");
+  entry_grid            = GET_WIDGET ("entry_grid");
 
   sj_main_window_init (GTK_WINDOW (main_window));
 
@@ -1928,9 +1923,6 @@ startup_cb (GApplication *app, gpointer user_data)
   }
 
   setup_genre_entry (genre_entry);
-
-  /* Remove row spacing from hidden row containing composer_entry */
-  gtk_table_set_row_spacing (GTK_TABLE (entry_table), COMPOSER_ROW, 0);
 
   track_store = gtk_list_store_new (COLUMN_TOTAL, G_TYPE_INT, G_TYPE_BOOLEAN, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_POINTER);
   gtk_tree_view_set_model (GTK_TREE_VIEW (track_listview), GTK_TREE_MODEL (track_store));

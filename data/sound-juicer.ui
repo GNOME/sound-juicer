@@ -140,20 +140,19 @@
             <property name="orientation">vertical</property>
             <property name="spacing">8</property>
             <child>
-              <object class="GtkTable" id="entry_table">
+              <object class="GtkGrid" id="entry_grid">
                 <property name="visible">True</property>
-                <property name="n_rows">5</property>
-                <property name="n_columns">2</property>
                 <property name="column_spacing">12</property>
-                <property name="row_spacing">6</property>
                 <child>
                   <object class="GtkHBox" id="hbox1">
                     <property name="visible">True</property>
+                    <property name="margin-top">6</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                     <property name="spacing">12</property>
                     <child>
                       <object class="GtkEntry" id="genre_entry">
                         <property name="visible">True</property>
+                        <property name="hexpand">True</property>
                         <property name="can_focus">True</property>
                         <signal name="activate" handler="on_activate_move_focus"/>
                         <signal name="changed" handler="on_genre_edit_changed"/>
@@ -239,11 +238,7 @@
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
-                    <property name="right_attach">2</property>
                     <property name="top_attach">3</property>
-                    <property name="bottom_attach">4</property>
-                    <property name="x_options">GTK_SHRINK | GTK_FILL</property>
-                    <property name="y_options">GTK_SHRINK | GTK_FILL</property>
                   </packing>
                 </child>
                 <child>
@@ -257,28 +252,24 @@
                       <attribute name="weight" value="bold"/>
                     </attributes>
                   </object>
-                  <packing>
-                    <property name="x_options">GTK_FILL</property>
-                    <property name="y_options"></property>
-                  </packing>
                 </child>
                 <child>
                   <object class="GtkEntry" id="title_entry">
                     <property name="visible">True</property>
+                    <property name="hexpand">True</property>
                     <property name="can_focus">True</property>
                     <signal name="activate" handler="on_activate_move_focus"/>
                     <signal name="changed" handler="on_title_edit_changed" after="yes"/>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
-                    <property name="right_attach">2</property>
-                    <property name="y_options"></property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkLabel" id="label2">
                     <property name="visible">True</property>
                     <property name="xalign">0</property>
+                    <property name="margin-top">6</property>
                     <property name="label" translatable="yes">_Artist:</property>
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">artist_entry</property>
@@ -287,31 +278,29 @@
                     </attributes>
                   </object>
                   <packing>
+                    <property name="left_attach">0</property>
                     <property name="top_attach">1</property>
-                    <property name="bottom_attach">2</property>
-                    <property name="x_options">GTK_FILL</property>
-                    <property name="y_options"></property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkEntry" id="artist_entry">
                     <property name="visible">True</property>
+                    <property name="margin-top">6</property>
+                    <property name="hexpand">True</property>
                     <property name="can_focus">True</property>
                     <signal name="activate" handler="on_activate_move_focus"/>
                     <signal name="changed" handler="on_person_edit_changed" after="yes"/>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
-                    <property name="right_attach">2</property>
                     <property name="top_attach">1</property>
-                    <property name="bottom_attach">2</property>
-                    <property name="y_options"></property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkLabel" id="composer_label">
                     <property name="visible">False</property>
                     <property name="xalign">0</property>
+                    <property name="margin-top">6</property>
                     <property name="label" translatable="yes">_Composer:</property>
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">composer_entry</property>
@@ -320,31 +309,29 @@
                     </attributes>
                   </object>
                   <packing>
+                    <property name="left_attach">0</property>
                     <property name="top_attach">2</property>
-                    <property name="bottom_attach">3</property>
-                    <property name="x_options">GTK_FILL</property>
-                    <property name="y_options"></property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkEntry" id="composer_entry">
                     <property name="visible">False</property>
+                    <property name="margin-top">6</property>
+                    <property name="hexpand">True</property>
                     <property name="can_focus">True</property>
                     <signal name="activate" handler="on_activate_move_focus"/>
                     <signal name="changed" handler="on_person_edit_changed" after="yes"/>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
-                    <property name="right_attach">2</property>
                     <property name="top_attach">2</property>
-                    <property name="bottom_attach">3</property>
-                    <property name="y_options"></property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkLabel" id="label31">
                     <property name="visible">True</property>
                     <property name="xalign">0</property>
+                    <property name="margin-top">6</property>
                     <property name="label" translatable="yes">_Genre:</property>
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">genre_entry</property>
@@ -353,16 +340,15 @@
                     </attributes>
                   </object>
                   <packing>
+                    <property name="left_attach">0</property>
                     <property name="top_attach">3</property>
-                    <property name="bottom_attach">4</property>
-                    <property name="x_options">GTK_FILL</property>
-                    <property name="y_options"></property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkLabel" id="label3">
                     <property name="visible">True</property>
                     <property name="xalign">0</property>
+                    <property name="margin-top">9</property>
                     <property name="label" translatable="yes">Duration:</property>
                     <accessibility>
                       <relation type="label-for" target="duration_label"/>
@@ -372,28 +358,22 @@
                     </attributes>
                   </object>
                   <packing>
+                    <property name="left_attach">0</property>
                     <property name="top_attach">4</property>
-                    <property name="bottom_attach">5</property>
-                    <property name="x_options">GTK_FILL</property>
-                    <property name="y_options"></property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkLabel" id="duration_label">
                     <property name="visible">True</property>
                     <property name="xalign">0</property>
-                    <property name="ypad">3</property>
+                    <property name="margin-top">9</property>
                     <accessibility>
                       <relation type="labelled-by" target="label3"/>
                     </accessibility>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
-                    <property name="right_attach">2</property>
                     <property name="top_attach">4</property>
-                    <property name="bottom_attach">5</property>
-                    <property name="x_options">GTK_FILL</property>
-                    <property name="y_options"></property>
                   </packing>
                 </child>
               </object>
