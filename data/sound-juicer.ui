@@ -7,7 +7,7 @@
     <property name="title" translatable="yes">Sound Juicer</property>
     <signal name="delete_event" handler="on_delete_event"/>
     <child>
-      <object class="GtkVBox" id="vbox1">
+      <object class="GtkBox" id="vbox1">
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
         <child>
@@ -134,7 +134,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkVBox" id="vbox2">
+          <object class="GtkBox" id="vbox2">
             <property name="visible">True</property>
             <property name="border_width">8</property>
             <property name="orientation">vertical</property>
@@ -144,7 +144,7 @@
                 <property name="visible">True</property>
                 <property name="column_spacing">12</property>
                 <child>
-                  <object class="GtkHBox" id="hbox1">
+                  <object class="GtkBox" id="hbox1">
                     <property name="visible">True</property>
                     <property name="margin-top">6</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
@@ -385,6 +385,7 @@
             <child>
               <object class="GtkScrolledWindow" id="scrolledwindow1">
                 <property name="visible">True</property>
+                <property name="expand">True</property>
                 <property name="can_focus">True</property>
                 <property name="hscrollbar_policy">automatic</property>
                 <property name="vscrollbar_policy">automatic</property>
@@ -412,11 +413,11 @@
               </packing>
             </child>
             <child>
-              <object class="GtkHBox" id="hbox10">
+              <object class="GtkBox" id="hbox10">
                 <property name="visible">True</property>
                 <property name="spacing">6</property>
                 <child>
-                  <object class="GtkHButtonBox" id="hbuttonbox1">
+                  <object class="GtkButtonBox" id="hbuttonbox1">
                     <property name="visible">True</property>
                     <property name="spacing">6</property>
                     <property name="layout_style">end</property>
@@ -460,6 +461,7 @@
                 <child>
                   <object class="GtkScale" id="seek_scale">
                     <property name="orientation">0</property>
+                    <property name="hexpand">True</property>
                     <property name="adjustment">seek_adjustment</property>
                     <property name="can_focus">True</property>
                     <property name="digits">0</property>
@@ -535,7 +537,7 @@ audio-volume-medium</property>
           </packing>
         </child>
         <child>
-          <object class="GtkHBox" id="hbox13">
+          <object class="GtkBox" id="hbox13">
             <property name="height_request">22</property>
             <property name="visible">True</property>
             <child>
@@ -578,7 +580,7 @@ audio-volume-medium</property>
     <property name="modal">True</property>
     <signal name="delete_event" handler="gtk_widget_hide_on_delete"/>
     <child internal-child="vbox">
-      <object class="GtkVBox" id="dialog-vbox4">
+      <object class="GtkBox" id="dialog-vbox4">
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
         <child>
