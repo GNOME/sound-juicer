@@ -36,11 +36,6 @@
                           <relation type="labelled-by" target="submit_label"/>
                         </accessibility>
                       </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">0</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="submit_bar_reload_button">
@@ -55,8 +50,6 @@
                         </accessibility>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
                         <property name="position">1</property>
                       </packing>
                      </child>
@@ -74,24 +67,12 @@
                         </child>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
                         <property name="position">2</property>
                       </packing>
                     </child>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">0</property>
-                  </packing>
                 </child>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">0</property>
-              </packing>
             </child>
             <action-widgets>
               <action-widget response="close">submit_bar_close_button</action-widget>
@@ -110,26 +91,14 @@
                     <property name="xalign">0</property>
                     <property name="wrap">True</property>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">0</property>
-                  </packing>
                 </child>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">0</property>
-              </packing>
             </child>
             <child>
               <placeholder/>
             </child>
           </object>
           <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
             <property name="position">1</property>
           </packing>
         </child>
@@ -157,9 +126,6 @@
                         <signal name="activate" handler="on_activate_move_focus"/>
                         <signal name="changed" handler="on_genre_edit_changed"/>
                       </object>
-                      <packing>
-                        <property name="position">0</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="label4">
@@ -177,7 +143,6 @@
                         </attributes>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
@@ -194,7 +159,6 @@
                         <signal name="changed" handler="on_year_edit_changed"/>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
                         <property name="position">2</property>
                       </packing>
                     </child>
@@ -214,7 +178,6 @@
                         </attributes>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
                         <property name="position">3</property>
                       </packing>
                     </child>
@@ -231,7 +194,6 @@
                         <signal name="changed" handler="on_disc_number_edit_changed"/>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
                         <property name="position">4</property>
                       </packing>
                     </child>
@@ -377,10 +339,6 @@
                   </packing>
                 </child>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="position">0</property>
-              </packing>
             </child>
             <child>
               <object class="GtkScrolledWindow" id="scrolledwindow1">
@@ -430,11 +388,6 @@
                         <property name="can_default">True</property>
                         <property name="receives_default">False</property>
                       </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">0</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="extract_button">
@@ -447,20 +400,16 @@
                         <signal name="clicked" handler="on_extract_activate"/>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkScale" id="seek_scale">
-                    <property name="orientation">0</property>
                     <property name="hexpand">True</property>
                     <property name="adjustment">seek_adjustment</property>
                     <property name="can_focus">True</property>
@@ -504,7 +453,6 @@ audio-volume-medium</property>
                     <signal name="value_changed" handler="on_volume_changed"/>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
                     <property name="position">2</property>
                   </packing>
                 </child>
@@ -525,9 +473,6 @@ audio-volume-medium</property>
                 </child>
               </object>
               <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="pack_type">end</property>
                 <property name="position">2</property>
               </packing>
             </child>
@@ -548,11 +493,6 @@ audio-volume-medium</property>
                 <property name="margin-left">14</property>
                 <property name="valign">center</property>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">0</property>
-              </packing>
             </child>
             <child>
               <object class="GtkStatusbar" id="status_bar">
@@ -564,8 +504,6 @@ audio-volume-medium</property>
             </child>
           </object>
           <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
             <property name="position">3</property>
           </packing>
         </child>
