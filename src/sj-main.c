@@ -1762,9 +1762,23 @@ add_editable_listview_column (const char       *title,
   return renderer;
 }
 
+/*
+ * Action accelerator definitions. For each action the first entry is
+ * the detailed name of the action followed by up to 3 accelerators
+ * followed by NULL.
+ */
+static const gchar *action_accels[][5] = {
+  { "win.play", "<Primary>p", NULL },
+  { "win.next-track", "<Primary>n", NULL },
+  { "win.previous-track", "<Primary>b", NULL},
+  { "win.select-all", "<Primary>a", NULL},
+  { "win.deselect-all", "<Primary><Shift>a", NULL}
+};
+
 static void
 startup_cb (GApplication *app, gpointer user_data)
 {
+  gsize i;
   GtkTreeSelection *selection;
   GError *error = NULL;
 
@@ -1841,16 +1855,10 @@ startup_cb (GApplication *app, gpointer user_data)
   gtk_actionable_set_action_name(GTK_ACTIONABLE(play_button), "win.play");
 
   /* window actions are only available via shortcuts */
-  gtk_application_add_accelerator (GTK_APPLICATION (app),
-                                   "<Primary>p", "win.play", NULL);
-  gtk_application_add_accelerator (GTK_APPLICATION (app),
-                                   "<Primary>n", "win.next-track", NULL);
-  gtk_application_add_accelerator (GTK_APPLICATION (app),
-                                   "<Primary>b", "win.previous-track", NULL);
-  gtk_application_add_accelerator (GTK_APPLICATION (app),
-                                   "<Primary>a", "win.select-all", NULL);
-  gtk_application_add_accelerator (GTK_APPLICATION (app),
-                                   "<Primary><Shift>a", "win.deselect-all", NULL);
+  for (i = 0; i < G_N_ELEMENTS (action_accels); i++)
+    gtk_application_set_accels_for_action (GTK_APPLICATION (app),
+                                           action_accels[i][0],
+                                           &action_accels[i][1]);
 
   { /* ensure that the play/pause button's size is constant */
     GtkWidget *fake_button1, *fake_button2;
