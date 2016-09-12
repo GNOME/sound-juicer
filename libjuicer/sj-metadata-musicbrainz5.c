@@ -810,6 +810,12 @@ static void work_cb (SjMetadataMusicbrainz5 *self,
   transcribers = composer_context.composers;
   if (*context->error != NULL)
     goto cleanup;
+  relationlist_list_foreach_relation (self, relation_lists,
+                                      "artist", "vocal arranger",
+                                      composer_cb, &composer_context);
+  transcribers = composer_context.composers;
+  if (*context->error != NULL)
+    goto cleanup;
 
   build_composer_text (composers, arrangers, orchestrators, transcribers,
                        &context->track->composer, &context->track->composer_sortname);
