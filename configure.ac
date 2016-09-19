@@ -30,7 +30,7 @@ AC_PROG_MKDIR_P
 
 GNOME_COMPILE_WARNINGS([maximum])
 
-GTK_REQUIRED=3.21.3
+GTK_REQUIRED=3.21.6
 GLIB_GSETTINGS
 
 # Find glib-compile-resources
