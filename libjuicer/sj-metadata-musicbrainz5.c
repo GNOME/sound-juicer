@@ -899,8 +899,8 @@ fill_tracks_from_medium (SjMetadataMusicbrainz5  *self,
 
     recording = mb5_track_get_recording (mbt);
     /*
-     * title points to a string on the stack so set it to NULL to
-     * prevent the GET macro from trying to free it
+     * title is owned by the last track so set it to NULL to prevent
+     * the GET macro from freeing it
      */
     title = NULL;
     GET (title, mb5_track_get_title, mbt);
@@ -913,6 +913,7 @@ fill_tracks_from_medium (SjMetadataMusicbrainz5  *self,
      */
     if (skip_data_tracks) {
       if (g_strcmp0 (title, "[data track]") == 0) {
+        g_free (title);
         continue;
       } else {
         skip_data_tracks = FALSE;
@@ -921,7 +922,7 @@ fill_tracks_from_medium (SjMetadataMusicbrainz5  *self,
     }
 
     track = g_new0 (TrackDetails, 1);
-    track->title = g_strdup (title);
+    track->title = title;
     track->album = album;
 
     track->number = mb5_track_get_position (mbt) - track_offset;
