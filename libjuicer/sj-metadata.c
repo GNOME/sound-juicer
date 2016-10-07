@@ -366,7 +366,7 @@ sj_metadata_helper_lookup_country_code (const char *code)
   /* Musicbrainz uses some additional codes on top of ISO-3166 so
      treat those as a special case if we don't get a match from the
      iso-codes data */
-  const static struct {
+  static const struct {
     char *code;
     char *name;
   } mb_countries[]  = {

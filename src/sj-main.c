@@ -502,7 +502,7 @@ hide_composer_fields (void)
 static void
 composer_show_hide (const char* genre)
 {
-  const static char *composer_genres[] = {
+  static const char *composer_genres[] = {
     N_("Classical"), N_("Lieder"), N_("Opera"), N_("Chamber"), N_("Musical")
   };  /* Genres for which the composer fields should be shown. */
 #define COUNT (G_N_ELEMENTS (composer_genres))
