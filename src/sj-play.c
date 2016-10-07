@@ -405,7 +405,7 @@ void toggle_play ()
     if (!gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (track_store),
                                           &current_iter, NULL, seek_to_track))
         return;
-	set_gst_ui_and_play ();
+    set_gst_ui_and_play ();
   } else if (setup (&err)) {
 	current_track = -1;
 	cb_hop_track (NULL,NULL,NULL);
