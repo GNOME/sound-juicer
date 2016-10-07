@@ -525,7 +525,7 @@ composer_show_hide (const char* genre)
 
   composer_show = !sj_str_is_empty (current_album->composer);
   for (l = current_album->tracks; l; l = g_list_next (l)) {
-    if (!sj_str_is_empty (((TrackDetails*) (l->data))->composer) == TRUE) {
+    if (!sj_str_is_empty (((TrackDetails*) (l->data))->composer)) {
       composer_show = TRUE;
       break;
     }
