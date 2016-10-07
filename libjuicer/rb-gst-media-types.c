@@ -247,7 +247,7 @@ rb_gst_get_encoding_profile (const char *media_type)
 gboolean
 rb_gst_media_type_is_lossless (const char *media_type)
 {
-	int i;
+	gsize i;
 	const char *lossless_types[] = {
 		"audio/x-flac",
 		"audio/x-alac",

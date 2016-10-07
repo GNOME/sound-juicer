@@ -509,7 +509,7 @@ composer_show_hide (const char* genre)
   static char *genres[COUNT]; /* store localized genre names */
   static gboolean init = FALSE; /* TRUE if localized genre names initalized*/
   gboolean composer_show = FALSE;
-  int i;
+  gsize i;
   GList* l;
   char *folded_genre;
 

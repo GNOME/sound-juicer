@@ -415,7 +415,7 @@ get_artist_list (SjMetadataMusicbrainz5 *self,
 {
   Mb5NameCreditList name_list;
   GList *artists;
-  unsigned int i;
+  int i;
   char buffer[512]; /* for the GET macro */
 
   if (credit == NULL)
@@ -574,7 +574,7 @@ static void relationlist_list_foreach_relation(SjMetadataMusicbrainz5 *self,
                                                RelationForeachFunc     callback,
                                                gpointer                user_data)
 {
-  unsigned int j;
+  int j;
 
   if (relation_lists == NULL)
     return;
@@ -582,7 +582,7 @@ static void relationlist_list_foreach_relation(SjMetadataMusicbrainz5 *self,
   for (j = 0; j < mb5_relationlist_list_size (relation_lists); j++) {
     Mb5RelationList relations;
     char type[512]; /* To hold relationlist target-type and relation type */
-    unsigned int i;
+    int i;
 
     relations = mb5_relationlist_list_item (relation_lists, j);
     if (relations == NULL)
@@ -872,7 +872,7 @@ fill_tracks_from_medium (SjMetadataMusicbrainz5  *self,
 {
   Mb5TrackList track_list;
   GList *tracks;
-  unsigned int i;
+  int i;
   gboolean skip_data_tracks;
   char buffer[512]; /* for the GET() macro */
 
