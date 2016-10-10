@@ -219,7 +219,7 @@ static void pattern_label_update (void)
     .artist_id = NULL, /* artist ID */
   };
 
-  g_object_get (extractor, "profile", &profile, NULL);
+  g_object_get (sj_extractor, "profile", &profile, NULL);
   /* It's possible the profile isn't set, in which case do nothing */
   if (!profile) {
     return;
@@ -424,7 +424,7 @@ void show_preferences_dialog ()
     g_signal_connect (G_OBJECT (sj_settings), "changed::"SJ_SETTINGS_STRIP,
                       (GCallback)strip_changed_cb, NULL);
 
-    g_signal_connect (extractor, "notify::profile", pattern_label_update, NULL);
+    g_signal_connect (sj_extractor, "notify::profile", pattern_label_update, NULL);
 
     baseuri_changed_cb (sj_settings, SJ_SETTINGS_BASEURI, NULL);
     settings_changed_cb (sj_settings, SJ_SETTINGS_AUDIO_PROFILE, profile_option);

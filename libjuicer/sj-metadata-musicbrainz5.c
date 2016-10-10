@@ -1124,7 +1124,7 @@ mb5_list_albums (SjMetadata    *metadata,
     AlbumDetails *album;
     Mb5Release full_release = NULL;
     Mb5Metadata release_md = NULL;
-    char *includes = "aliases artists artist-credits labels recordings \
+    char *release_includes = "aliases artists artist-credits labels recordings \
 release-groups url-rels discids recording-level-rels work-level-rels work-rels \
 artist-rels";
 
@@ -1132,7 +1132,7 @@ artist-rels";
      * In order to get metadata for artist aliases & work / composer
      * relationships we need to perform a custom query
      */
-    release_md = query_musicbrainz (self, "release", disc->release_ids[i], includes, cancellable, error);
+    release_md = query_musicbrainz (self, "release", disc->release_ids[i], release_includes, cancellable, error);
     if (*error != NULL)
       goto free_releases;
 
@@ -1152,10 +1152,10 @@ artist-rels";
          * release-group, so run a separate query to get these urls
          */
         char *releasegroupid = NULL;
-        char *includes = "artists url-rels";
+        char *group_includes = "artists url-rels";
 
         GET (releasegroupid, mb5_releasegroup_get_id, group);
-        group_md = query_musicbrainz (self, "release-group", releasegroupid, includes, cancellable, error);
+        group_md = query_musicbrainz (self, "release-group", releasegroupid, group_includes, cancellable, error);
         g_free (releasegroupid);
         if (*error != NULL) {
           mb5_metadata_delete (release_md);

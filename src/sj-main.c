@@ -73,7 +73,7 @@ G_MODULE_EXPORT void on_activate_move_focus (GtkWidget *widget, gpointer data);
 GtkBuilder *builder;
 
 SjMetadataGetter *metadata;
-SjExtractor *extractor;
+SjExtractor *sj_extractor;
 
 GSettings *sj_settings;
 
@@ -87,9 +87,9 @@ static GtkWidget *multiple_album_dialog, *status_bar, *submit_button, *reload_bu
 GtkListStore *track_store;
 GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer, *composer_renderer;
 
-char *path_pattern, *file_pattern;
-GFile *base_uri;
-BraseroDrive *drive = NULL;
+char *sj_path_pattern, *sj_file_pattern;
+GFile *sj_base_uri;
+BraseroDrive *sj_drive = NULL;
 gboolean strip_chars;
 gboolean eject_finished;
 gboolean open_finished;
@@ -104,7 +104,7 @@ static char *current_submit_url = NULL;
 static GCancellable *reread_cancellable; /* weak reference */
 
 gboolean autostart = FALSE, autoplay = FALSE;
-static char *device = NULL, **uris = NULL;
+static char *sj_device = NULL, **uris = NULL;
 
 static guint debug_flags = 0;
 
@@ -218,7 +218,7 @@ static void on_eject_activate (GSimpleAction *action, GVariant *parameter, gpoin
 {
   disc_ejected_cb ();
   eject_activated = TRUE;
-  brasero_drive_eject (drive, FALSE, NULL);
+  brasero_drive_eject (sj_drive, FALSE, NULL);
 }
 
 G_MODULE_EXPORT gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data)
@@ -442,7 +442,7 @@ static void on_duplicate_activate (GSimpleAction *action, GVariant *parameter, g
   GError *error = NULL;
   const gchar* device;
 
-  device = brasero_drive_get_device (drive);
+  device = brasero_drive_get_device (sj_drive);
   if (!g_spawn_command_line_async (g_strconcat ("brasero -c ", device, NULL), &error)) {
       GtkWidget *dialog;
 
@@ -697,19 +697,19 @@ static void baseuri_changed_cb (GSettings *settings, gchar *key, gpointer user_d
 {
   gchar *value;
   g_assert (strcmp (key, SJ_SETTINGS_BASEURI) == 0);
-  if (base_uri) {
-    g_object_unref (base_uri);
+  if (sj_base_uri) {
+    g_object_unref (sj_base_uri);
   }
   value = g_settings_get_string (settings, key);
   if (sj_str_is_empty (value)) {
-    base_uri = sj_get_default_music_directory ();
+    sj_base_uri = sj_get_default_music_directory ();
   } else {
     GFileType file_type;
-    base_uri = g_file_new_for_uri (value);
-    file_type = g_file_query_file_type (base_uri, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, NULL);
+    sj_base_uri = g_file_new_for_uri (value);
+    file_type = g_file_query_file_type (sj_base_uri, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, NULL);
     if (file_type != G_FILE_TYPE_DIRECTORY) {
-      g_object_unref (base_uri);
-      base_uri = sj_get_default_music_directory ();
+      g_object_unref (sj_base_uri);
+      sj_base_uri = sj_get_default_music_directory ();
     }
   }
   g_free (value);
@@ -721,11 +721,11 @@ static void baseuri_changed_cb (GSettings *settings, gchar *key, gpointer user_d
 static void path_pattern_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
   g_assert (strcmp (key, SJ_SETTINGS_PATH_PATTERN) == 0);
-  g_free (path_pattern);
-  path_pattern = g_settings_get_string (settings, key);
-  if (sj_str_is_empty (path_pattern)) {
-    g_free (path_pattern);
-    path_pattern = g_strdup (sj_get_default_path_pattern ());
+  g_free (sj_path_pattern);
+  sj_path_pattern = g_settings_get_string (settings, key);
+  if (sj_str_is_empty (sj_path_pattern)) {
+    g_free (sj_path_pattern);
+    sj_path_pattern = g_strdup (sj_get_default_path_pattern ());
   }
   /* TODO: sanity check the pattern */
 }
@@ -736,11 +736,11 @@ static void path_pattern_changed_cb (GSettings *settings, gchar *key, gpointer u
 static void file_pattern_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
 {
   g_assert (strcmp (key, SJ_SETTINGS_FILE_PATTERN) == 0);
-  g_free (file_pattern);
-  file_pattern = g_settings_get_string (settings, key);
-  if (sj_str_is_empty (file_pattern)) {
-    g_free (file_pattern);
-    file_pattern = g_strdup (sj_get_default_file_pattern ());
+  g_free (sj_file_pattern);
+  sj_file_pattern = g_settings_get_string (settings, key);
+  if (sj_str_is_empty (sj_file_pattern)) {
+    g_free (sj_file_pattern);
+    sj_file_pattern = g_strdup (sj_get_default_file_pattern ());
   }
   /* TODO: sanity check the pattern */
 }
@@ -755,9 +755,9 @@ static void paranoia_changed_cb (GSettings *settings, gchar *key, gpointer user_
   value = g_settings_get_flags (settings, key);
   if (value >= 0) {
     if (value < 32) {
-      sj_extractor_set_paranoia (extractor, value);
+      sj_extractor_set_paranoia (sj_extractor, value);
     } else {
-      sj_extractor_set_paranoia (extractor, DEFAULT_PARANOIA);
+      sj_extractor_set_paranoia (sj_extractor, DEFAULT_PARANOIA);
     }
   }
 }
@@ -909,14 +909,14 @@ static void reread_cd (void)
   /* Make sure nothing is playing */
   stop_playback ();
 
-  if (!drive)
+  if (!sj_drive)
     sj_debug (DEBUG_CD, "Attempting to re-read NULL drive\n");
 
   g_free (current_submit_url);
   current_submit_url = NULL;
   set_action_enabled ("submit-tracks", FALSE);
 
-  if (!is_audio_cd (drive)) {
+  if (!is_audio_cd (sj_drive)) {
     sj_debug (DEBUG_CD, "Media is not an audio CD\n");
     set_action_state ("re-read(false)");
     update_ui_for_album (NULL);
@@ -972,17 +972,17 @@ set_drive_from_device (const char *device)
 {
   BraseroMediumMonitor *monitor;
 
-  if (drive) {
-    g_object_unref (drive);
-    drive = NULL;
+  if (sj_drive) {
+    g_object_unref (sj_drive);
+    sj_drive = NULL;
   }
 
   if (! device)
     return;
 
   monitor = brasero_medium_monitor_get_default ();
-  drive = brasero_medium_monitor_get_drive (monitor, device);
-  if (! drive) {
+  sj_drive = brasero_medium_monitor_get_drive (monitor, device);
+  if (!sj_drive) {
     GtkWidget *dialog;
     char *message;
     message = g_strdup_printf (_("Sound Juicer could not use the CD-ROM device ‘%s’"), device);
@@ -1039,16 +1039,16 @@ set_device (const char* device)
   }
 
   sj_metadata_getter_set_cdrom (metadata, device);
-  sj_extractor_set_device (extractor, device);
+  sj_extractor_set_device (sj_extractor, device);
 
-  if (drive != NULL) {
-    tray_opened = brasero_drive_is_door_open (drive);
+  if (sj_drive != NULL) {
+    tray_opened = brasero_drive_is_door_open (sj_drive);
     if (tray_opened == FALSE) {
       reread_cd ();
     }
 
     /* Enable/disable the eject options based on wether the drive supports ejection */
-    set_action_enabled ("eject", brasero_drive_can_eject (drive));
+    set_action_enabled ("eject", brasero_drive_can_eject (sj_drive));
   }
 }
 
@@ -1138,7 +1138,7 @@ static void profile_changed_cb (GSettings *settings, gchar *key, gpointer user_d
   profile = rb_gst_get_encoding_profile (media_type);
   g_free (media_type);
   if (profile != NULL)
-    g_object_set (extractor, "profile", profile, NULL);
+    g_object_set (sj_extractor, "profile", profile, NULL);
 
   if (profile == NULL || !sj_extractor_supports_profile(profile)) {
     GtkWidget *dialog;
@@ -1976,8 +1976,8 @@ startup_cb (GApplication *app, gpointer user_data)
     gtk_tree_view_append_column (GTK_TREE_VIEW (track_listview), column);
   }
 
-  extractor = SJ_EXTRACTOR (sj_extractor_new());
-  error = sj_extractor_get_new_error (extractor);
+  sj_extractor = SJ_EXTRACTOR (sj_extractor_new());
+  error = sj_extractor_get_new_error (sj_extractor);
   if (error) {
     error_on_start (error);
     exit (1);
@@ -1999,15 +1999,15 @@ startup_cb (GApplication *app, gpointer user_data)
   eject_changed_cb (sj_settings, SJ_SETTINGS_EJECT, NULL);
   open_changed_cb (sj_settings, SJ_SETTINGS_OPEN, NULL);
   audio_volume_changed_cb (sj_settings, SJ_SETTINGS_AUDIO_VOLUME, NULL);
-  if (device == NULL && uris == NULL) {
+  if (sj_device == NULL && uris == NULL) {
     /* FIXME: this should set the device gsettings key to a meaningful
      * value if it's empty (which is the case until the user changes it in
      * the prefs)
      */
     device_changed_cb (sj_settings, SJ_SETTINGS_DEVICE, NULL);
   } else {
-    if (device)
-      set_device (device);
+    if (sj_device)
+      set_device (sj_device);
     else {
       char *d;
 
@@ -2118,7 +2118,7 @@ int main (int argc, char **argv)
   const GOptionEntry entries[] = {
     { "auto-start", 'a', 0, G_OPTION_ARG_NONE, &autostart, N_("Start extracting immediately"), NULL },
     { "play", 'p', 0, G_OPTION_ARG_NONE, &autoplay, N_("Start playing immediately"), NULL},
-    { "device", 'd', 0, G_OPTION_ARG_FILENAME, &device, N_("What CD device to read"), N_("DEVICE") },
+    { "device", 'd', 0, G_OPTION_ARG_FILENAME, &sj_device, N_("What CD device to read"), N_("DEVICE") },
     { G_OPTION_REMAINING, '\0', 0, G_OPTION_ARG_FILENAME_ARRAY, &uris, N_("URI to the CD device to read"), NULL },
     { NULL }
   };
@@ -2162,9 +2162,9 @@ int main (int argc, char **argv)
   g_object_unref (app);
 
   sj_metadata_helper_cleanup ();
-  g_object_unref (base_uri);
+  g_object_unref (sj_base_uri);
   g_object_unref (metadata);
-  g_object_unref (extractor);
+  g_object_unref (sj_extractor);
   g_object_unref (sj_settings);
   brasero_media_library_stop ();
 

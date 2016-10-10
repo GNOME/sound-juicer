@@ -47,7 +47,7 @@ extern GtkBuilder *builder;
 /**
  * The extractor GObject being used
  */
-extern SjExtractor *extractor;
+extern SjExtractor *sj_extractor;
 
 /**
  * Set if currently extracting
@@ -91,22 +91,22 @@ extern GtkListStore *track_store;
 /**
  * The device we are extracting from.
  */
-extern BraseroDrive *drive;
+extern BraseroDrive *sj_drive;
 
 /**
  * The root path to write files too
  */
-extern GFile *base_uri;
+extern GFile *sj_base_uri;
 
 /**
  * The pattern to expand when naming folders
  */
-extern char *path_pattern;
+extern char *sj_path_pattern;
 
 /**
  * The pattern to expand when naming files
  */
-extern char *file_pattern;
+extern char *sj_file_pattern;
 
 /**
  * If file names should be shell-friendly (i.e no [ /&*?\] characters

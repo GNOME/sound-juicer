@@ -60,7 +60,7 @@ typedef enum {
   NORMAL = 3
 } OverWriteModes;
 
-int overwrite_mode;
+int sj_overwrite_mode;
 
 typedef enum {
   BUTTON_SKIP = 1,
@@ -124,7 +124,7 @@ static guint cookie;
  * Build the absolute filename for the specified track.
  *
  * The base path is the extern variable 'base_uri', the formats to use are the
- * extern variables 'path_pattern' and 'file_pattern'. Free the result when you
+ * extern variables 'sj_path_pattern' and 'sj_file_pattern'. Free the result when you
  * have finished with it.
  */
 static GFile *
@@ -137,10 +137,10 @@ build_filename (const TrackDetails *track, gboolean temp_filename, GError **erro
   int max_realfile = INT_MAX;
   GstEncodingProfile *profile;
 
-  g_object_get (extractor, "profile", &profile, NULL);
+  g_object_get (sj_extractor, "profile", &profile, NULL);
 
-  realpath = filepath_parse_pattern (path_pattern, track);
-  new = g_file_get_child (base_uri, realpath);
+  realpath = filepath_parse_pattern (sj_path_pattern, track);
+  new = g_file_get_child (sj_base_uri, realpath);
   uri = new;
   g_free (realpath);
 
@@ -173,7 +173,7 @@ build_filename (const TrackDetails *track, gboolean temp_filename, GError **erro
     g_set_error_literal (error, SJ_ERROR, SJ_ERROR_INTERNAL_ERROR, _("Name too long"));
     return NULL;
   }
-  realfile = filepath_parse_pattern (file_pattern, track);
+  realfile = filepath_parse_pattern (sj_file_pattern, track);
   if (temp_filename) {
     filename = g_strdup_printf (".%.*s.%s", max_realfile-1, realfile, extension);
   } else {
@@ -210,7 +210,7 @@ cleanup (void)
   /* We're not extracting any more */
   extracting = FALSE;
 
-  brasero_drive_unlock (drive);
+  brasero_drive_unlock (sj_drive);
 
   gtk_application_uninhibit (GTK_APPLICATION (g_application_get_default ()),
                              cookie);
@@ -468,7 +468,7 @@ pop_and_extract (int *overwrite_mode)
     gtk_tree_path_free(path);
 
     /* Now actually do the extraction */
-    sj_extractor_extract_track (extractor, track, temp_file, &error);
+    sj_extractor_extract_track (sj_extractor, track, temp_file, &error);
     if (error) {
       goto error;
     } else
@@ -616,7 +616,7 @@ finished_actions (void)
 
   /* Maybe eject */
   if (eject_finished && successful_extract) {
-    brasero_drive_eject (drive, FALSE, NULL);
+    brasero_drive_eject (sj_drive, FALSE, NULL);
   }
 
   /* Maybe open the target directory */
@@ -719,7 +719,7 @@ on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
   GFile *file;
   GError *error = NULL;
 
-  sj_extractor_cancel_extract (extractor);
+  sj_extractor_cancel_extract (sj_extractor);
 
   gtk_tree_model_get (GTK_TREE_MODEL (track_store), &current,
                       COLUMN_DETAILS, &track, -1);
@@ -758,7 +758,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   total_extracting = 0;
   current_duration = total_duration = 0;
   before.seconds = -1;
-  overwrite_mode = NORMAL;
+  sj_overwrite_mode = NORMAL;
   gtk_tree_model_foreach (GTK_TREE_MODEL (track_store), extract_track_foreach_cb, NULL);
   /* If the pending list is still empty, return */
   if (total_extracting == 0) {
@@ -770,9 +770,9 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   /* Initialise ourself */
   if (!initialised) {
     /* Connect to the SjExtractor signals */
-    g_signal_connect (extractor, "progress", G_CALLBACK (on_progress_cb), NULL);
-    g_signal_connect (extractor, "completion", G_CALLBACK (on_completion_cb), (gpointer)&overwrite_mode);
-    g_signal_connect (extractor, "error", G_CALLBACK (on_error_cb), NULL);
+    g_signal_connect (sj_extractor, "progress", G_CALLBACK (on_progress_cb), NULL);
+    g_signal_connect (sj_extractor, "completion", G_CALLBACK (on_completion_cb), (gpointer)&sj_overwrite_mode);
+    g_signal_connect (sj_extractor, "error", G_CALLBACK (on_error_cb), NULL);
 
     extract_button    = GET_WIDGET ("extract_button");
     play_button       = GET_WIDGET ("play_button");
@@ -818,7 +818,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   g_object_set (G_OBJECT (artist_renderer), "editable", FALSE, NULL);
   g_signal_handlers_block_by_func (track_listview, on_tracklist_row_activate, NULL);
 
-  if (! brasero_drive_lock (drive, _("Extracting audio from CD"), &reason)) {
+  if (! brasero_drive_lock (sj_drive, _("Extracting audio from CD"), &reason)) {
     g_warning ("Could not lock drive: %s", reason);
     g_free (reason);
   }
@@ -836,7 +836,7 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   extracting = TRUE;
   gtk_tree_model_get_iter_first (GTK_TREE_MODEL (track_store), &current);
   find_next ();
-  pop_and_extract (&overwrite_mode);
+  pop_and_extract (&sj_overwrite_mode);
 }
 
 /*
@@ -988,7 +988,7 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
   if (pattern == NULL || pattern[0] == 0)
     return g_strdup (" ");
 
-  fs_info = g_file_query_filesystem_info (base_uri, G_FILE_ATTRIBUTE_FILESYSTEM_TYPE,
+  fs_info = g_file_query_filesystem_info (sj_base_uri, G_FILE_ATTRIBUTE_FILESYSTEM_TYPE,
                                           NULL, NULL);
   if (fs_info) {
     filesystem_type = g_file_info_get_attribute_as_string (fs_info, G_FILE_ATTRIBUTE_FILESYSTEM_TYPE);
@@ -1158,9 +1158,9 @@ filepath_parse_pattern (const char* pattern, const TrackDetails *track)
       case 'n':
         /* Disc and track number */
         if (track->album->disc_number > 0) {
-          char *s = g_strdup_printf ("Disc %d - %02d", track->album->disc_number, track->number);
-          string = sanitize_path (s, filesystem_type); /* strip spaces if required */
-          g_free (s);
+          char *dtn = g_strdup_printf ("Disc %d - %02d", track->album->disc_number, track->number);
+          string = sanitize_path (dtn, filesystem_type); /* strip spaces if required */
+          g_free (dtn);
         } else {
           string = g_strdup_printf ("%d", track->number);
         }
