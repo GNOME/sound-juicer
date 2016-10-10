@@ -1,4 +1,4 @@
-AC_INIT([Sound Juicer],[3.22.0],[http://bugzilla.gnome.org/enter_bug.cgi?product=sound-juicer],[sound-juicer])
+AC_INIT([Sound Juicer],[3.22.1],[http://bugzilla.gnome.org/enter_bug.cgi?product=sound-juicer],[sound-juicer])
 
 AC_PREREQ(2.60)
 
