@@ -43,8 +43,8 @@ static GtkWidget *cd_option, *path_option, *file_option, *basepath_fcb, *check_s
 static GtkWidget *path_example_label;
 
 typedef struct {
-  char* name;
-  char* pattern;
+  const char* name;
+  const char* pattern;
 } FilePattern;
 
 static const FilePattern path_patterns[] = {
@@ -156,7 +156,7 @@ static void prefs_pattern_option_changed (GtkComboBox *combo, gpointer key)
   }
 }
 
-static void baseuri_changed_cb  (GSettings *settings, gchar *key, gpointer user_data)
+static void baseuri_changed_cb  (GSettings *settings, const gchar *key, gpointer user_data)
 {
   /*
    * The conflict between separation of the prefs and the main window,
@@ -260,7 +260,7 @@ static void pattern_label_update (void)
   g_free (format);
 }
 
-static void settings_changed_cb (GSettings *settings, gchar *key, gpointer combo)
+static void settings_changed_cb (GSettings *settings, const gchar *key, gpointer combo)
 {
   char *value;
 
@@ -275,7 +275,7 @@ static void settings_changed_cb (GSettings *settings, gchar *key, gpointer combo
 /**
  * Default device changed (either GSettings key or the widget)
  */
-static void device_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
+static void device_changed_cb (GSettings *settings, const gchar *key, gpointer user_data)
 {
   BraseroDrive *drive;
   BraseroMediumMonitor *monitor;
@@ -310,7 +310,7 @@ static void prefs_drive_changed (BraseroDriveSelection *selection, BraseroDrive 
 /**
  * The GSettings key for the strip characters option changed
  */
-static void strip_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
+static void strip_changed_cb (GSettings *settings, const gchar *key, gpointer user_data)
 {
   /* NOTE that strip_changed_cb in sj-main.c will also be called, and will also update
      the global value strip_chars - but which function will get called first?
@@ -378,8 +378,8 @@ void show_preferences_dialog ()
   if (prefs_dialog) {
     gtk_window_present (GTK_WINDOW (prefs_dialog));
   } else {
-    static gchar *path_key = SJ_SETTINGS_PATH_PATTERN;
-    static gchar *file_key = SJ_SETTINGS_FILE_PATTERN;
+    static const gchar *path_key = SJ_SETTINGS_PATH_PATTERN;
+    static const gchar *file_key = SJ_SETTINGS_FILE_PATTERN;
 
     prefs_dialog = GET_WIDGET ("prefs_dialog");
     g_assert (prefs_dialog != NULL);

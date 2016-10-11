@@ -213,18 +213,21 @@ static Mb5Metadata
 query_musicbrainz (SjMetadataMusicbrainz5  *self,
                    const char              *entity,
                    const char              *id,
-                   char                    *includes,
+                   const char              *includes,
                    GCancellable            *cancellable,
                    GError                 **error)
 {
   Mb5Metadata metadata;
-  char *inc[] = { "inc" };
+  char *inc, *includes_copy;
   gint64 delay = 4 * G_USEC_PER_SEC;
   int count = 0;
   SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (self);
   gint64 t;
 
   g_info ("Querying %s %s", entity, id);
+
+  inc = g_strdup ("inc");
+  includes_copy = g_strdup (includes);
 
   while (TRUE) {
     if (g_cancellable_set_error_if_cancelled (cancellable, error))
@@ -241,7 +244,7 @@ query_musicbrainz (SjMetadataMusicbrainz5  *self,
                                   0, NULL, NULL);
     else
       metadata = mb5_query_query (priv->mb, entity, id, "",
-                                  1, inc, &includes);
+                                  1, &inc, &includes_copy);
 
     if (metadata != NULL || ++count == 5 ||
         mb5_query_get_lasthttpcode (priv->mb) != 503)
@@ -261,6 +264,8 @@ query_musicbrainz (SjMetadataMusicbrainz5  *self,
     print_musicbrainz_query_error (self, entity, id);
 
   last_query_time = g_get_monotonic_time ();
+  g_free (inc);
+  g_free (includes_copy);
   return metadata;
 }
 
@@ -1124,7 +1129,7 @@ mb5_list_albums (SjMetadata    *metadata,
     AlbumDetails *album;
     Mb5Release full_release = NULL;
     Mb5Metadata release_md = NULL;
-    char *release_includes = "aliases artists artist-credits labels recordings \
+    const char *release_includes = "aliases artists artist-credits labels recordings \
 release-groups url-rels discids recording-level-rels work-level-rels work-rels \
 artist-rels";
 
@@ -1152,7 +1157,7 @@ artist-rels";
          * release-group, so run a separate query to get these urls
          */
         char *releasegroupid = NULL;
-        char *group_includes = "artists url-rels";
+        const char *group_includes = "artists url-rels";
 
         GET (releasegroupid, mb5_releasegroup_get_id, group);
         group_md = query_musicbrainz (self, "release-group", releasegroupid, group_includes, cancellable, error);

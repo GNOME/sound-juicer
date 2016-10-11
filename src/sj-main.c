@@ -693,7 +693,7 @@ choose_album(GList *albums)
 /**
  * The GSettings key for the base path changed
  */
-static void baseuri_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
+static void baseuri_changed_cb (GSettings *settings, const gchar *key, gpointer user_data)
 {
   gchar *value;
   g_assert (strcmp (key, SJ_SETTINGS_BASEURI) == 0);
@@ -718,7 +718,7 @@ static void baseuri_changed_cb (GSettings *settings, gchar *key, gpointer user_d
 /**
  * The GSettings key for the directory pattern changed
  */
-static void path_pattern_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
+static void path_pattern_changed_cb (GSettings *settings, const gchar *key, gpointer user_data)
 {
   g_assert (strcmp (key, SJ_SETTINGS_PATH_PATTERN) == 0);
   g_free (sj_path_pattern);
@@ -733,7 +733,7 @@ static void path_pattern_changed_cb (GSettings *settings, gchar *key, gpointer u
 /**
  * The GSettings key for the filename pattern changed
  */
-static void file_pattern_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
+static void file_pattern_changed_cb (GSettings *settings, const gchar *key, gpointer user_data)
 {
   g_assert (strcmp (key, SJ_SETTINGS_FILE_PATTERN) == 0);
   g_free (sj_file_pattern);
@@ -748,7 +748,7 @@ static void file_pattern_changed_cb (GSettings *settings, gchar *key, gpointer u
 /**
  * The GSettings key for the paranoia mode has changed
  */
-static void paranoia_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
+static void paranoia_changed_cb (GSettings *settings, const gchar *key, gpointer user_data)
 {
   int value;
   g_assert (strcmp (key, SJ_SETTINGS_PARANOIA) == 0);
@@ -765,7 +765,7 @@ static void paranoia_changed_cb (GSettings *settings, gchar *key, gpointer user_
 /**
  * The GSettings key for the strip characters option changed
  */
-static void strip_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
+static void strip_changed_cb (GSettings *settings, const gchar *key, gpointer user_data)
 {
   g_assert (strcmp (key, SJ_SETTINGS_STRIP) == 0);
   strip_chars = g_settings_get_boolean (settings, key);
@@ -774,7 +774,7 @@ static void strip_changed_cb (GSettings *settings, gchar *key, gpointer user_dat
 /**
  * The GSettings key for the eject when finished option changed
  */
-static void eject_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
+static void eject_changed_cb (GSettings *settings, const gchar *key, gpointer user_data)
 {
   g_assert (strcmp (key, SJ_SETTINGS_EJECT) == 0);
   eject_finished = g_settings_get_boolean (settings, key);
@@ -783,7 +783,7 @@ static void eject_changed_cb (GSettings *settings, gchar *key, gpointer user_dat
 /**
  * The GSettings key for the open when finished option changed
  */
-static void open_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
+static void open_changed_cb (GSettings *settings, const gchar *key, gpointer user_data)
 {
   g_assert (strcmp (key, SJ_SETTINGS_OPEN) == 0);
   open_finished = g_settings_get_boolean (settings, key);
@@ -792,7 +792,7 @@ static void open_changed_cb (GSettings *settings, gchar *key, gpointer user_data
 /**
  * The GSettings key for audio volume changes
  */
-static void audio_volume_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
+static void audio_volume_changed_cb (GSettings *settings, const gchar *key, gpointer user_data)
 {
   g_assert (strcmp (key, SJ_SETTINGS_AUDIO_VOLUME) == 0);
 
@@ -1097,7 +1097,7 @@ prefs_get_default_device (void)
 /**
  * The GSettings key for the device changed
  */
-static void device_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
+static void device_changed_cb (GSettings *settings, const gchar *key, gpointer user_data)
 {
   const char *device;
   char *value;
@@ -1128,7 +1128,7 @@ static void device_changed_cb (GSettings *settings, gchar *key, gpointer user_da
   g_free (value);
 }
 
-static void profile_changed_cb (GSettings *settings, gchar *key, gpointer user_data)
+static void profile_changed_cb (GSettings *settings, const gchar *key, gpointer user_data)
 {
   GstEncodingProfile *profile;
   char *media_type;

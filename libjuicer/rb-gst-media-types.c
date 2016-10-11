@@ -205,7 +205,7 @@ GstEncodingTarget *
 rb_gst_get_default_encoding_target (void)
 {
 	if (default_target == NULL) {
-		char *target_file;
+                const char *target_file;
 		GError *error = NULL;
 
 		if (g_file_test (SOURCE_ENCODING_TARGET_FILE,

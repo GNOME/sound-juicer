@@ -367,8 +367,8 @@ sj_metadata_helper_lookup_country_code (const char *code)
      treat those as a special case if we don't get a match from the
      iso-codes data */
   static const struct {
-    char *code;
-    char *name;
+    const char *code;
+    const char *name;
   } mb_countries[]  = {
     {"XC", N_("Czechoslovakia")},
     {"XG", N_("East Germany")},
