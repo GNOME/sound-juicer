@@ -29,4 +29,26 @@
 void sj_add_default_dirs (GtkFileChooser *dialog);
 GFile *sj_get_default_music_directory (void);
 gboolean sj_str_is_empty (const char *s);
+
+/* clang has -Wincompatible-pointer-types-discards-qualifiers instead
+   of -Wdiscarded-qualifiers */
+#if !defined __clang__ && G_GNUC_CHECK_VERSION (4, 2)
+#define SJ_BEGIN_IGNORE_DISCARDED_QUANTIFIERS                                   \
+  _Pragma ("GCC diagnostic push")                                               \
+  _Pragma ("GCC diagnostic ignored \"-Wdiscarded-qualifiers\"")
+
+#define SJ_END_IGNORE_DISCARDED_QUANTIFIERS                                     \
+  _Pragma ("GCC diagnostic pop")
+#elif defined __clang__ && G_GNUC_CHECK_VERSION (4, 2)
+#define SJ_BEGIN_IGNORE_DISCARDED_QUANTIFIERS                                   \
+  _Pragma ("clang diagnostic push")                                             \
+  _Pragma ("clang diagnostic ignored \"-Wincompatible-pointer-types-discards-qualifiers\"")
+
+#define SJ_END_IGNORE_DISCARDED_QUANTIFIERS                                     \
+  _Pragma ("clang diagnostic pop")
+#else
+#define SJ_BEGIN_IGNORE_DISCARDED_QUANTIFIERS
+#define SJ_END_IGNORE_DISCARDED_QUANTIFIERS
+#endif
+
 #endif /* SJ_UTIL_H */
