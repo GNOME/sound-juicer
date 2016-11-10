@@ -386,7 +386,7 @@ stop_playback (void)
 /*
  * Interface entry point.
  */
-void toggle_play ()
+void toggle_play (void)
 {
   GError *err = NULL;
 
@@ -457,12 +457,12 @@ on_tracklist_row_activate (GtkTreeView * treeview, GtkTreePath * path,
   }
 }
 
-void play_next_track ()
+void play_next_track (void)
 {
   cb_hop_track (NULL, NULL, NULL);
 }
 
-void play_previous_track ()
+void play_previous_track (void)
 {
   GtkTreeModel *model;
   gint prev_track = current_track - 1;

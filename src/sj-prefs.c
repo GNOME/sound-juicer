@@ -376,7 +376,7 @@ static void populate_profile_combo (GtkComboBox *combo)
 /**
  * Clicked on Preferences in the UI
  */
-void show_preferences_dialog ()
+void show_preferences_dialog (void)
 {
   static GtkWidget *prefs_dialog = NULL;
 
