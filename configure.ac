@@ -2,6 +2,10 @@ AC_INIT([Sound Juicer],[3.22.0],[http://bugzilla.gnome.org/enter_bug.cgi?product
 
 AC_PREREQ(2.60)
 
+AX_IS_RELEASE([git-directory])
+AX_REQUIRE_DEFINED([YELP_HELP_INIT])
+AX_REQUIRE_DEFINED([APPSTREAM_XML])
+
 AC_CONFIG_AUX_DIR([build-aux])
 
 AM_INIT_AUTOMAKE([1.9 subdir-objects no-dist-gzip dist-xz check-news])
@@ -13,7 +17,7 @@ AC_CONFIG_HEADERS([config.h])
 # Enable silent build when available (Automake 1.11)
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 
-GNOME_DEBUG_CHECK
+AX_CHECK_ENABLE_DEBUG([yes])
 
 AM_MAINTAINER_MODE([enable])
 
@@ -28,7 +32,7 @@ AC_HEADER_STDC
 AC_PROG_INSTALL
 AC_PROG_MKDIR_P
 
-GNOME_COMPILE_WARNINGS([maximum])
+AX_COMPILER_FLAGS([WARN_CFLAGS],[WARN_LDFLAGS])
 
 GTK_REQUIRED=3.21.6
 GLIB_GSETTINGS
