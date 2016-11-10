@@ -194,6 +194,10 @@ static void pattern_label_update (void)
   char *media_type;
   GstEncodingProfile *profile;
 
+  /* Disable -Wdiscarded-quantifiers to prevent warnings as we're
+     initalizing gchar* from const gchar*. This is safe as the strings
+     are never changed. */
+SJ_BEGIN_IGNORE_DISCARDED_QUANTIFIERS
   static const AlbumDetails sample_album = {
     .title = "Help!", /* title */
     .artist = "The Beatles", /* artist */
@@ -218,6 +222,7 @@ static void pattern_label_update (void)
     .track_id = NULL, /* track ID */
     .artist_id = NULL, /* artist ID */
   };
+SJ_END_IGNORE_DISCARDED_QUANTIFIERS
 
   g_object_get (sj_extractor, "profile", &profile, NULL);
   /* It's possible the profile isn't set, in which case do nothing */
@@ -399,9 +404,19 @@ void show_preferences_dialog ()
 
     sj_add_default_dirs (GTK_FILE_CHOOSER (basepath_fcb));
     populate_pattern_combo (GTK_COMBO_BOX (path_option), path_patterns);
-    g_signal_connect (path_option, "changed", G_CALLBACK (prefs_pattern_option_changed), path_key);
-    populate_pattern_combo (GTK_COMBO_BOX (file_option), file_patterns);
-    g_signal_connect (file_option, "changed", G_CALLBACK (prefs_pattern_option_changed), file_key);
+    /* The gpointer cast is to prevent -Wdiscarded-quantifiers from
+       producing a warning. This is safe as the string is treated as
+       const gchar* in the callback. */
+    g_signal_connect (path_option, "changed",
+                      G_CALLBACK (prefs_pattern_option_changed),
+                      (gpointer) path_key);
+    populate_pattern_combo (GTK_COMBO_BOX (file_option), (gpointer) file_patterns);
+    /* The gpointer cast is to prevent -Wdiscarded-quantifiers from
+       producing a warning. This is safe as the string is treated as
+       const gchar* in the callback. */
+    g_signal_connect (file_option, "changed",
+                      G_CALLBACK (prefs_pattern_option_changed),
+                      (gpointer) file_key);
     populate_profile_combo (GTK_COMBO_BOX (profile_option));
     g_signal_connect (profile_option, "changed", G_CALLBACK (prefs_profile_changed), NULL);
 
