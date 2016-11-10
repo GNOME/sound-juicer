@@ -51,4 +51,16 @@ gboolean sj_str_is_empty (const char *s);
 #define SJ_END_IGNORE_DISCARDED_QUANTIFIERS
 #endif
 
+#if G_GNUC_CHECK_VERSION (4,2)
+#define SJ_BEGIN_IGNORE_SWITCH_ENUM                                             \
+  _Pragma ("GCC diagnostic push")                                               \
+  _Pragma ("GCC diagnostic ignored \"-Wswitch-enum\"")
+
+#define SJ_END_IGNORE_SWITCH_ENUM                                               \
+  _Pragma ("GCC diagnostic pop")
+#else
+#define SJ_BEGIN_IGNORE_SWITCH_ENUM
+#define SJ_END_IGNORE_SWITCH_ENUM
+#endif
+
 #endif /* SJ_UTIL_H */
