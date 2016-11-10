@@ -157,4 +157,6 @@ G_GNUC_PRINTF(2,3) void sj_debug (SjDebugDomain domain, const gchar* format, ...
 /* TODO: need to add a SjWindow object or something */
 void sj_main_set_title (const char* detail);
 
+void set_action_enabled (const char *name, gboolean enabled);
+
 #endif /* SOUND_JUICER_H */

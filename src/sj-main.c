@@ -49,7 +49,6 @@
 #include "sj-structures.h"
 #include "sj-error.h"
 #include "sj-util.h"
-#include "sj-main.h"
 #include "sj-prefs.h"
 #include "sj-play.h"
 #include "sj-genres.h"
@@ -65,6 +64,7 @@ static void set_action_state (const char *detailed_name);
 /* Prototypes for the signal blocking/unblocking in update_ui_for_album */
 G_MODULE_EXPORT void on_title_edit_changed(GtkEditable *widget, gpointer user_data);
 G_MODULE_EXPORT void on_person_edit_changed(GtkEditable *widget, gpointer user_data);
+G_MODULE_EXPORT void on_genre_edit_changed(GtkEditable *widget, gpointer user_data);
 G_MODULE_EXPORT void on_year_edit_changed(GtkEditable *widget, gpointer user_data);
 G_MODULE_EXPORT void on_disc_number_edit_changed(GtkEditable *widget, gpointer user_data);
 G_MODULE_EXPORT void submit_bar_response_cb (GtkInfoBar *infobar, int response_id, gpointer user_data);

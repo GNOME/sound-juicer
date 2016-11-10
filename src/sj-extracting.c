@@ -40,7 +40,6 @@
 
 #include "sj-error.h"
 #include "sj-extracting.h"
-#include "sj-main.h"
 #include "sj-util.h"
 #include "sj-play.h"
 #include "sj-genres.h"

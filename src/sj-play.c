@@ -28,7 +28,6 @@
 
 #include "sound-juicer.h"
 #include "sj-play.h"
-#include "sj-main.h"
 
 static GstElement *pipeline = NULL;
 static guint id = 0, button_change_id = 0;
