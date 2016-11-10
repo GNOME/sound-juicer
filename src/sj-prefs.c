@@ -35,9 +35,6 @@
 #include "sj-extracting.h"
 #include "sj-prefs.h"
 
-extern GtkBuilder *builder;
-extern GtkWidget *main_window;
-
 static GtkWidget *profile_option;
 static GtkWidget *cd_option, *path_option, *file_option, *basepath_fcb, *check_strip, *check_eject, *check_open;
 static GtkWidget *path_example_label;

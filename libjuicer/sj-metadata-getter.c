@@ -44,7 +44,6 @@ struct SjMetadataGetterPrivate {
 typedef struct SjMetadataGetterPrivate SjMetadataGetterPrivate;
 
 static void sj_metadata_getter_finalize (GObject *object);
-static void sj_metadata_getter_init (SjMetadataGetter *mdg);
 
 G_DEFINE_TYPE(SjMetadataGetter, sj_metadata_getter, G_TYPE_OBJECT);
 

@@ -84,8 +84,6 @@ struct _EggPlayPreviewPrivate {
 	gchar *uri;
 };
 
-static void	egg_play_preview_class_init   (EggPlayPreviewClass *klass);
-static void	egg_play_preview_init         (EggPlayPreview      *play_preview);
 static void egg_play_preview_finalize     (GObject             *object);
 static void egg_play_preview_dispose      (GObject             *object);
 static void	egg_play_preview_set_property (GObject             *object,
