@@ -794,9 +794,11 @@ static void open_changed_cb (GSettings *settings, const gchar *key, gpointer use
  */
 static void audio_volume_changed_cb (GSettings *settings, const gchar *key, gpointer user_data)
 {
+  GtkWidget *volb;
+
   g_assert (strcmp (key, SJ_SETTINGS_AUDIO_VOLUME) == 0);
 
-  GtkWidget *volb = GET_WIDGET ("volume_button");
+  volb = GET_WIDGET ("volume_button");
   gtk_scale_button_set_value (GTK_SCALE_BUTTON (volb), g_settings_get_double (settings, key));
 }
 
@@ -1661,25 +1663,25 @@ static void on_contents_activate(GSimpleAction *action, GVariant *parameter, gpo
 static gboolean
 is_cd_duplication_available(void)
 {
+  gchar *brasero_cd_burner, *cdrdao;
+  BraseroMediumMonitor *monitor;
+  GSList *drives, *iter;
+
   /* First check the brasero tool is available in the path */
-  gchar* brasero_cd_burner = g_find_program_in_path ("brasero");
+  brasero_cd_burner = g_find_program_in_path ("brasero");
   if (brasero_cd_burner == NULL) {
     return FALSE;
   }
   g_free(brasero_cd_burner);
 
   /* Second check the cdrdao tool is available in the path */
-  gchar* cdrdao = g_find_program_in_path ("cdrdao");
+  cdrdao = g_find_program_in_path ("cdrdao");
   if (cdrdao == NULL) {
     return FALSE;
   }
   g_free(cdrdao);
 
   /* Now check that there is at least one cd recorder available */
-  BraseroMediumMonitor     *monitor;
-  GSList		   *drives;
-  GSList		   *iter;
-
   monitor = brasero_medium_monitor_get_default ();
   drives = brasero_medium_monitor_get_drives (monitor, BRASERO_DRIVE_TYPE_ALL);
 

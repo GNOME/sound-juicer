@@ -63,9 +63,10 @@ metadata_cb (GObject *object, GAsyncResult *result, gpointer user_data)
   album_list = albums;
   while (albums) {
     AlbumDetails *album;
-    album = (AlbumDetails*)albums->data;
     char *disc_number;
     char *release_date = NULL;
+
+    album = (AlbumDetails*)albums->data;
     g_print ("Source: %s\n", source_to_str(album->metadata_source));
     if (album->metadata_source == SOURCE_MUSICBRAINZ)
       g_print ("Album ID: %s\n", album->album_id);

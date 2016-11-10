@@ -405,6 +405,8 @@ pop_and_extract (int *overwrite_mode)
     char *directory;
     GFile *file = NULL, *temp_file = NULL;
     GError *error = NULL;
+    goffset file_size;
+    GtkTreePath* path;
 
     /* Pop the next track to extract */
     gtk_tree_model_get (GTK_TREE_MODEL (track_store), &current, COLUMN_DETAILS, &track, -1);
@@ -428,8 +430,6 @@ pop_and_extract (int *overwrite_mode)
     /* Save the directory name for later */
     paths = g_list_append (paths, directory);
 
-
-    goffset file_size;
     file_size = check_file_size (file);
 
     /* Skip if destination file can't be accessed (unexpected error). */
@@ -462,7 +462,7 @@ pop_and_extract (int *overwrite_mode)
                                    CLAMP ((float)current_duration / (float)total_duration, 0.0, 1.0));
 
     /* Set the Treelist focus to the item to be extracted */
-    GtkTreePath* path = gtk_tree_model_get_path(GTK_TREE_MODEL (track_store), &current);
+    path = gtk_tree_model_get_path(GTK_TREE_MODEL (track_store), &current);
     gtk_tree_view_set_cursor(GTK_TREE_VIEW (track_listview), path, NULL, TRUE);
     gtk_tree_path_free(path);
 

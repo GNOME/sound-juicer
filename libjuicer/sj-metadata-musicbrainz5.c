@@ -315,13 +315,15 @@ static gboolean
 mcn_matches_barcode (const char *mcn,
                      const char *barcode)
 {
+  gsize len;
+
   if (mcn == NULL || barcode == NULL)
     return FALSE;
 
   /* The MCN should match an EAN barcode (13 digits)
    * or an UPC barcode (12 digits) with a leading '0'.
    */
-  gsize len = strlen (barcode);
+  len = strlen (barcode);
   if (len == 12) /* UPC barcode - skip leading '0' */
     return *mcn == '0' && strcmp (mcn + 1, barcode) == 0;
   else if (len == 13) /* EAN barcode */
