@@ -40,6 +40,7 @@ extern GtkWidget *main_window;
 
 static GtkWidget *profile_option;
 static GtkWidget *cd_option, *path_option, *file_option, *basepath_fcb, *check_strip, *check_eject, *check_open;
+static GtkWidget *path_entry, *file_entry;
 static GtkWidget *path_example_label;
 
 typedef struct {
@@ -151,6 +152,16 @@ static void prefs_pattern_option_changed (GtkComboBox *combo, gpointer key)
   const char* pattern;
 
   pattern = gtk_combo_box_get_active_id (combo);
+  if (pattern) {
+    g_settings_set_string (sj_settings, key, pattern);
+  }
+}
+
+static void prefs_pattern_entry_changed (GtkEntry *entry, gpointer key)
+{
+  const char* pattern;
+
+  pattern = gtk_entry_get_text (entry);
   if (pattern) {
     g_settings_set_string (sj_settings, key, pattern);
   }
@@ -272,6 +283,16 @@ static void settings_changed_cb (GSettings *settings, gchar *key, gpointer combo
   pattern_label_update ();
 }
 
+static void settings_changed_entry (GSettings *settings, gchar *key, gpointer entry)
+{
+  char *value;
+
+  value = g_settings_get_string (settings, key);
+  gtk_entry_set_text ((GtkEntry*)entry, value);
+
+  g_free (value);
+  pattern_label_update ();
+}
 /**
  * Default device changed (either GSettings key or the widget)
  */
@@ -391,6 +412,8 @@ void show_preferences_dialog ()
     basepath_fcb       = GET_WIDGET ("path_chooser");
     path_option        = GET_WIDGET ("path_option");
     file_option        = GET_WIDGET ("file_option");
+    file_entry         = GET_WIDGET ("file_entry");
+    path_entry         = GET_WIDGET ("path_entry");
     profile_option     = GET_WIDGET ("profile_option");
     check_strip        = GET_WIDGET ("check_strip");
     check_eject        = GET_WIDGET ("check_eject");
@@ -400,8 +423,10 @@ void show_preferences_dialog ()
     sj_add_default_dirs (GTK_FILE_CHOOSER (basepath_fcb));
     populate_pattern_combo (GTK_COMBO_BOX (path_option), path_patterns);
     g_signal_connect (path_option, "changed", G_CALLBACK (prefs_pattern_option_changed), path_key);
+    g_signal_connect (path_entry,  "changed", G_CALLBACK (prefs_pattern_entry_changed),  path_key);
     populate_pattern_combo (GTK_COMBO_BOX (file_option), file_patterns);
     g_signal_connect (file_option, "changed", G_CALLBACK (prefs_pattern_option_changed), file_key);
+    g_signal_connect (file_entry,  "changed", G_CALLBACK (prefs_pattern_entry_changed),  file_key);
     populate_profile_combo (GTK_COMBO_BOX (profile_option));
     g_signal_connect (profile_option, "changed", G_CALLBACK (prefs_profile_changed), NULL);
 
@@ -421,6 +446,10 @@ void show_preferences_dialog ()
                       (GCallback)settings_changed_cb, path_option);
     g_signal_connect (G_OBJECT (sj_settings), "changed::"SJ_SETTINGS_FILE_PATTERN,
                       (GCallback)settings_changed_cb, file_option);
+    g_signal_connect (G_OBJECT (sj_settings), "changed::"SJ_SETTINGS_PATH_PATTERN,
+                      (GCallback)settings_changed_entry, path_entry);
+    g_signal_connect (G_OBJECT (sj_settings), "changed::"SJ_SETTINGS_FILE_PATTERN,
+                      (GCallback)settings_changed_entry, file_entry);
     g_signal_connect (G_OBJECT (sj_settings), "changed::"SJ_SETTINGS_STRIP,
                       (GCallback)strip_changed_cb, NULL);
 
@@ -430,6 +459,8 @@ void show_preferences_dialog ()
     settings_changed_cb (sj_settings, SJ_SETTINGS_AUDIO_PROFILE, profile_option);
     settings_changed_cb (sj_settings, SJ_SETTINGS_FILE_PATTERN, file_option);
     settings_changed_cb (sj_settings, SJ_SETTINGS_PATH_PATTERN, path_option);
+    settings_changed_entry (sj_settings, SJ_SETTINGS_PATH_PATTERN, path_entry);
+    settings_changed_entry (sj_settings, SJ_SETTINGS_FILE_PATTERN, file_entry);
     device_changed_cb (sj_settings, SJ_SETTINGS_DEVICE, NULL);
 
     gtk_widget_show_all (prefs_dialog);
