@@ -646,6 +646,8 @@ sj_extractor_extract_track (SjExtractor *extractor, const TrackDetails *track, G
     case GST_ITERATOR_DONE:
       done = TRUE;
       break;
+    default:
+      break;
     }
   }
   g_value_unset (&item);

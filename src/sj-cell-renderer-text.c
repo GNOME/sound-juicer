@@ -90,6 +90,8 @@ sj_cell_renderer_text_key_press (GtkWidget   *entry,
         move_focus (entry, tree_view, direction);
       }
       return TRUE;
+    default:
+      break;
     }
   }
 
@@ -108,6 +110,8 @@ sj_cell_renderer_text_key_press (GtkWidget   *entry,
                              GTK_MOVEMENT_BUFFER_ENDS, count, &ret_val);
       event->state ^= GDK_CONTROL_MASK;
       return TRUE;
+    default:
+      break;
     }
   }
 
@@ -121,6 +125,8 @@ sj_cell_renderer_text_key_press (GtkWidget   *entry,
     case GDK_KEY_3270_BackTab:
       move_focus (entry, tree_view, GTK_DIR_TAB_BACKWARD);
       return TRUE;
+    default:
+      break;
     }
   }
 
@@ -132,6 +138,8 @@ sj_cell_renderer_text_key_press (GtkWidget   *entry,
     case GDK_KEY_3270_BackTab:
       move_focus (entry, tree_view, GTK_DIR_TAB_BACKWARD);
       return TRUE;
+    default:
+      break;
     }
   }
   return FALSE;
