@@ -18,6 +18,7 @@
  */
 
 #include "sj-tree-view.h"
+#include "sj-util.h"
 
 static GtkTreeViewClass *parent_class;
 
@@ -238,6 +239,8 @@ find_next_activatable_column (GtkTreeView      *self,
 
   column_list = gtk_tree_view_get_columns (self);
   current_column = g_list_find (column_list, column);
+
+  SJ_BEGIN_IGNORE_SWITCH_ENUM
   switch (direction) {
   case GTK_DIR_TAB_FORWARD:
     wrap = TRUE;
@@ -262,6 +265,7 @@ find_next_activatable_column (GtkTreeView      *self,
                direction);
     return FALSE;
   }
+  SJ_END_IGNORE_SWITCH_ENUM
 
   *move_row = 0;
   do {
@@ -360,6 +364,7 @@ sj_tree_view_move_cursor (GtkTreeView     *self,
 
   start_editing = sj_tree_view_is_editing (self);
 
+  SJ_BEGIN_IGNORE_SWITCH_ENUM
   switch (step) {
   case GTK_MOVEMENT_LOGICAL_POSITIONS:
   case GTK_MOVEMENT_VISUAL_POSITIONS:
@@ -390,6 +395,7 @@ sj_tree_view_move_cursor (GtkTreeView     *self,
   default:
     g_return_val_if_reached (FALSE);
   }
+  SJ_END_IGNORE_SWITCH_ENUM
 
   if (!moved)
     return FALSE;

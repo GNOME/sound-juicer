@@ -1329,6 +1329,7 @@ on_cell_editing_done_foreach (GtkTreeModel *model,
   gtk_tree_model_get (GTK_TREE_MODEL (track_store), iter,
                       COLUMN_DETAILS, &track,
                       -1);
+  SJ_BEGIN_IGNORE_SWITCH_ENUM
   switch (context->column) {
   case COLUMN_TITLE:
     g_free (track->title);
@@ -1358,6 +1359,7 @@ on_cell_editing_done_foreach (GtkTreeModel *model,
     g_warning ("Unknown column %d in on_cell_editing_done_foreach",
                context->column);
   }
+  SJ_END_IGNORE_SWITCH_ENUM
 }
 
 static void
@@ -1373,6 +1375,7 @@ on_cell_editing_canceled_foreach (GtkTreeModel *model,
   /* COLUMN_DETAILS isn't updated during editing so get original
      values back from it. */
   gtk_tree_model_get (model, iter, COLUMN_DETAILS, &track, -1);
+  SJ_BEGIN_IGNORE_SWITCH_ENUM
   switch (context->column) {
   case COLUMN_TITLE:
     text = track->title;
@@ -1388,6 +1391,7 @@ on_cell_editing_canceled_foreach (GtkTreeModel *model,
                context->column);
     return;
   }
+ SJ_END_IGNORE_SWITCH_ENUM
   gtk_list_store_set (track_store, iter, context->column, text, -1);
 }
 

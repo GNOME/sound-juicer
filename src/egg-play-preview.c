@@ -31,6 +31,7 @@
 #include <gst/gst.h>
 
 #include "egg-play-preview.h"
+#include "sj-util.h"
 
 enum {
 	PROP_NONE,
@@ -712,6 +713,7 @@ _process_bus_messages (GstBus *bus, GstMessage *msg, EggPlayPreview *play_previe
 
 	priv = GET_PRIVATE (play_preview);
 
+        SJ_BEGIN_IGNORE_SWITCH_ENUM
 	switch (GST_MESSAGE_TYPE (msg)) {
 	case GST_MESSAGE_DURATION_CHANGED:
 		if (!gst_element_query_duration (priv->playbin, GST_FORMAT_TIME, &duration))
@@ -789,6 +791,7 @@ _process_bus_messages (GstBus *bus, GstMessage *msg, EggPlayPreview *play_previe
 	default:
 		break;
 	}
+        SJ_END_IGNORE_SWITCH_ENUM
 
 	return TRUE;
 }
