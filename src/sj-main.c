@@ -706,7 +706,7 @@ static void baseuri_changed_cb (GSettings *settings, const gchar *key, gpointer 
   } else {
     GFileType file_type;
     sj_base_uri = g_file_new_for_uri (value);
-    file_type = g_file_query_file_type (sj_base_uri, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, NULL);
+    file_type = g_file_query_file_type (sj_base_uri, G_FILE_QUERY_INFO_NONE, NULL);
     if (file_type != G_FILE_TYPE_DIRECTORY) {
       g_object_unref (sj_base_uri);
       sj_base_uri = sj_get_default_music_directory ();
