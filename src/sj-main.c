@@ -2135,9 +2135,7 @@ void set_action_enabled (const char *name, gboolean enabled)
 
 int main (int argc, char **argv)
 {
-  GError *error = NULL;
   GtkApplication *app;
-  GOptionContext *ctx;
   const GOptionEntry entries[] = {
     { "auto-start", 'a', 0, G_OPTION_ARG_NONE, &autostart, N_("Start extracting immediately"), NULL },
     { "play", 'p', 0, G_OPTION_ARG_NONE, &autoplay, N_("Start playing immediately"), NULL},
@@ -2153,23 +2151,11 @@ int main (int argc, char **argv)
 
   g_set_application_name (_("Sound Juicer"));
 
-  ctx = g_option_context_new (N_("- Extract music from your CDs"));
-  g_option_context_add_main_entries (ctx, entries, PACKAGE);
-  g_option_context_set_translation_domain(ctx, PACKAGE);
-  g_option_context_add_group (ctx, gtk_get_option_group (TRUE));
-  g_option_context_add_group (ctx, gst_init_get_option_group ());
-  g_option_context_add_group (ctx, brasero_media_get_option_group ());
-  g_option_context_set_ignore_unknown_options (ctx, TRUE);
-
-  g_option_context_parse (ctx, &argc, &argv, &error);
-  if (error != NULL) {
-      g_printerr ("Error parsing options: %s", error->message);
-      exit (1);
-  }
-  g_option_context_free (ctx);
-
   app = gtk_application_new ("org.gnome.sound-juicer",
                              G_APPLICATION_FLAGS_NONE);
+  g_application_add_main_option_entries (G_APPLICATION (app), entries);
+  g_application_add_option_group (G_APPLICATION (app), gst_init_get_option_group ());
+  g_application_add_option_group (G_APPLICATION (app), brasero_media_get_option_group ());
 
   g_object_set (app, "register-session", TRUE, NULL);
   g_signal_connect (app, "startup", G_CALLBACK (startup_cb), NULL);
