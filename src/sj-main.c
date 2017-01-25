@@ -2151,8 +2151,9 @@ int main (int argc, char **argv)
 
   g_set_application_name (_("Sound Juicer"));
 
-  app = gtk_application_new ("org.gnome.sound-juicer",
+  app = gtk_application_new ("org.gnome.SoundJuicer",
                              G_APPLICATION_FLAGS_NONE);
+  g_application_set_resource_base_path (G_APPLICATION (app), "/org/gnome/sound-juicer");
   g_application_add_main_option_entries (G_APPLICATION (app), entries);
   g_application_add_option_group (G_APPLICATION (app), gst_init_get_option_group ());
   g_application_add_option_group (G_APPLICATION (app), brasero_media_get_option_group ());
