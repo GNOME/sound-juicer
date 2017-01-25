@@ -1788,6 +1788,12 @@ startup_cb (GApplication *app, gpointer user_data)
   GtkTreeSelection *selection;
   GError *error = NULL;
 
+  g_setenv ("PULSE_PROP_media.role", "music", TRUE);
+
+  sj_debug_init ();
+
+  gtk_window_set_default_icon_name ("sound-juicer");
+
   brasero_media_library_start ();
 
   metadata = sj_metadata_getter_new ();
@@ -2135,7 +2141,6 @@ int main (int argc, char **argv)
   textdomain (PACKAGE);
 
   g_set_application_name (_("Sound Juicer"));
-  g_setenv ("PULSE_PROP_media.role", "music", TRUE);
 
   ctx = g_option_context_new (N_("- Extract music from your CDs"));
   g_option_context_add_main_entries (ctx, entries, PACKAGE);
@@ -2151,10 +2156,6 @@ int main (int argc, char **argv)
       exit (1);
   }
   g_option_context_free (ctx);
-
-  sj_debug_init ();
-
-  gtk_window_set_default_icon_name ("sound-juicer");
 
   app = gtk_application_new ("org.gnome.sound-juicer",
                              G_APPLICATION_FLAGS_NONE);
