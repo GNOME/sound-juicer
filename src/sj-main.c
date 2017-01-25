@@ -2053,6 +2053,17 @@ startup_cb (GApplication *app, gpointer user_data)
 }
 
 static void
+shutdown_cb (GApplication *app, gpointer user_data)
+{
+  sj_metadata_helper_cleanup ();
+  g_object_unref (sj_base_uri);
+  g_object_unref (metadata);
+  g_object_unref (sj_extractor);
+  g_object_unref (sj_settings);
+  brasero_media_library_stop ();
+}
+
+static void
 activate_cb (GApplication *app, gpointer user_data)
 {
   gtk_window_present (GTK_WINDOW (main_window));
@@ -2162,18 +2173,12 @@ int main (int argc, char **argv)
 
   g_object_set (app, "register-session", TRUE, NULL);
   g_signal_connect (app, "startup", G_CALLBACK (startup_cb), NULL);
+  g_signal_connect (app, "shutdown", G_CALLBACK (shutdown_cb), NULL);
   g_signal_connect (app, "activate", G_CALLBACK (activate_cb), NULL);
 
   status = g_application_run (G_APPLICATION (app), argc, argv);
 
   g_object_unref (app);
-
-  sj_metadata_helper_cleanup ();
-  g_object_unref (sj_base_uri);
-  g_object_unref (metadata);
-  g_object_unref (sj_extractor);
-  g_object_unref (sj_settings);
-  brasero_media_library_stop ();
 
   return status;
 }
