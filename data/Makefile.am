@@ -1,3 +1,4 @@
+appid=org.gnome.SoundJuicer
 desktopdir = $(datadir)/applications
 desktop_in_files = data/sound-juicer.desktop.in.in
 desktop_DATA = $(desktop_in_files:.desktop.in.in=.desktop)
@@ -7,6 +8,15 @@ $(desktop_DATA): data/sound-juicer.desktop.in
 	$(AM_V_GEN)$(MSGFMT) --desktop --keyword= --keyword=Name             \
 		--keyword=GenericName --keyword=Comment --keyword=Keywords   \
 		--template $< -d $(top_srcdir)/po -o $@
+
+dbusservicedir = $(datadir)/dbus-1/services
+dbusservice_DATA = $(appid).service
+
+$(dbusservice_DATA): Makefile
+	$(AM_V_GEN) printf '[D-BUS Service]\nName=%s\nExec=%s'      \
+	"$(appid)"                                                  \
+	"$(bindir)/sound-juicer --gapplication-service" > $@.tmp && \
+	mv $@.tmp $@
 
 DISTCHECK_CONFIGURE_FLAGS += --enable-appstream-util
 @APPSTREAM_XML_RULES@
@@ -80,6 +90,7 @@ uninstall-local: uninstall-icons
 uninstall-hook: update-icon-cache
 
 CLEANFILES += \
+	$(dbusservice_DATA) \
 	$(desktop_DATA) \
 	$(appstream_XML)
 
