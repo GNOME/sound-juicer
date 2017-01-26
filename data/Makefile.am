@@ -1,10 +1,10 @@
 appid=org.gnome.SoundJuicer
 desktopdir = $(datadir)/applications
-desktop_in_files = data/sound-juicer.desktop.in.in
+desktop_in_files = data/$(appid).desktop.in.in
 desktop_DATA = $(desktop_in_files:.desktop.in.in=.desktop)
 
 # Use a custom set of keywords to prevent the icon name from being translated
-$(desktop_DATA): data/sound-juicer.desktop.in
+$(desktop_DATA): data/$(appid).desktop.in
 	$(AM_V_GEN)$(MSGFMT) --desktop --keyword= --keyword=Name             \
 		--keyword=GenericName --keyword=Comment --keyword=Keywords   \
 		--template $< -d $(top_srcdir)/po -o $@

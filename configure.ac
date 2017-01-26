@@ -125,7 +125,7 @@ AC_SUBST([AM_LDFLAGS])
 AC_CONFIG_FILES([
 sound-juicer.spec
 Makefile
-data/sound-juicer.desktop.in
+data/org.gnome.SoundJuicer.desktop.in
 help/Makefile
 po/Makefile.in
 ])
