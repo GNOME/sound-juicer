@@ -896,7 +896,7 @@ fill_tracks_from_medium (SjMetadataMusicbrainz5  *self,
     Mb5Recording recording;
     TrackDetails *track;
     gchar *title;
-    gint track_offset;
+    gint track_offset = 0;
 
     mbt = mb5_track_list_item (track_list, i);
     if (!mbt)
