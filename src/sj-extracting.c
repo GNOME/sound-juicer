@@ -133,7 +133,7 @@ build_filename (const TrackDetails *track, gboolean temp_filename, GError **erro
   GFile *uri, *new;
   gchar *realfile, *realpath, *filename, *scheme;
   const gchar *extension;
-  size_t len_extension;
+  int len_extension;
   int max_realfile = INT_MAX;
   GstEncodingProfile *profile;
 
@@ -155,7 +155,7 @@ build_filename (const TrackDetails *track, gboolean temp_filename, GError **erro
       gst_encoding_profile_unref (profile);
   }
 
-  len_extension = 1 + strlen (extension);
+  len_extension = 1 + (int) strlen (extension);
 #if defined(NAME_MAX) && NAME_MAX > 0
   max_realfile = NAME_MAX - len_extension;
 #endif /* NAME_MAX */
@@ -163,7 +163,7 @@ build_filename (const TrackDetails *track, gboolean temp_filename, GError **erro
   scheme = g_file_get_uri_scheme (uri);
   if (scheme && !strcmp (scheme, "file")) {
     gchar *path = g_file_get_path (uri);
-    size_t len_path = strlen (path) + 1;
+    int len_path = (int) strlen (path) + 1;
     max_realfile = MIN (max_realfile, PATH_MAX - len_path - len_extension);
     g_free (path);
   }
