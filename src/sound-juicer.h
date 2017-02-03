@@ -136,7 +136,7 @@ extern GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer, *com
 /**
  * Debug
  */
-void sj_debug (SjDebugDomain domain, const gchar* format, ...);
+G_GNUC_PRINTF(2,3) void sj_debug (SjDebugDomain domain, const gchar* format, ...);
 
 /**
  * GSettings key names

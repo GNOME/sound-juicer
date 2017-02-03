@@ -41,7 +41,7 @@ release_type_to_id (const char *type)
 	return NULL;
 }
 
-static void
+G_GNUC_NORETURN static void
 metadata_cb (GObject *object, GAsyncResult *result, gpointer user_data)
 {
   SjMetadataGetter* metadata = SJ_METADATA_GETTER (object);
