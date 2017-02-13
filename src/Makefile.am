@@ -14,7 +14,6 @@ sound_juicer_SOURCES += \
 	src/sj-genres.c \
 	src/sj-genres.h \
 	src/sj-main.c \
-	src/sj-main.h \
 	src/sj-play.c \
 	src/sj-play.h \
 	src/sj-prefs.c \
