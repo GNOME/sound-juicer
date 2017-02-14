@@ -21,7 +21,7 @@ $(dbusservice_DATA): Makefile
 DISTCHECK_CONFIGURE_FLAGS += --enable-appstream-util
 @APPSTREAM_XML_RULES@
 appstream_XML = $(appstream_in_files:.xml.in=.xml)
-appstream_in_files = data/appdata/sound-juicer.appdata.xml.in
+appstream_in_files = data/appdata/org.gnome.SoundJuicer.appdata.xml.in
 
 $(appstream_XML): $(appstream_in_files)
 	$(MKDIR_P) data/appdata
