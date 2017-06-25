@@ -40,11 +40,14 @@
 typedef char Mbid[40];
 
 typedef struct {
-  gint count;
   gchar *id;
   gchar *mcn;
   gchar *url;
+  gint release_count;
   Mbid  *release_ids;
+  gint sectors;
+  gint track_count;
+  gint *lengths;
 } DiscDetails;
 
 static char language[3];
@@ -126,6 +129,7 @@ disc_details_free (DiscDetails *disc)
   g_free (disc->mcn);
   g_free (disc->url);
   g_free (disc->release_ids);
+  g_free (disc->lengths);
   g_free (disc);
 }
 
@@ -298,6 +302,10 @@ get_disc_md (SjMetadataMusicbrainz5  *self,
   DiscId disc;
   Mb5Metadata disc_md = NULL;
   SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (self);
+  char *names[2], *values[2];
+  char cdstubs[] = "cdstubs";
+  char toc[] = "toc";
+  int count = 0, first, i, length;
 
   if (sj_metadata_helper_check_media (priv->cdrom, error) == FALSE) {
     return NULL;
@@ -309,23 +317,64 @@ get_disc_md (SjMetadataMusicbrainz5  *self,
   if (discid_read_sparse (disc, priv->cdrom, DISCID_FEATURE_MCN) == 0)
     goto out;
 
-  if (g_getenv("MUSICBRAINZ_FORCE_DISC_ID")) {
-    discid = g_getenv("MUSICBRAINZ_FORCE_DISC_ID");
-  } else {
+  if (g_getenv ("MUSICBRAINZ_FORCE_DISC_ID"))
+    discid = g_getenv ("MUSICBRAINZ_FORCE_DISC_ID");
+  else
     discid = discid_get_id (disc);
+
+  /* Allow MUSICBRAINZ_FORCE_DISC_ID=- to force a fuzzy match with the
+     toc of the disc in the drive */
+  if (!g_getenv ("MUSICBRAINZ_FORCE_DISC_ID") ||
+      strcmp (discid, "-") == 0) {
+    names[count] = toc;
+    values[count] = g_strdup (discid_get_toc_string (disc));
+    count++;
   }
   if (g_cancellable_set_error_if_cancelled (cancellable, error))
     goto out;
 
-  disc_md = query_musicbrainz (self, "discid", discid, NULL, cancellable, error);
-  disc_data->url = g_strdup (discid_get_submission_url (disc));
-  disc_data->mcn = g_strdup (discid_get_mcn (disc));
+  names[count] = cdstubs;
+  values[count] = g_strdup ("no");
+  count++;
+  disc_md = query_musicbrainz_full (self, "discid", discid,
+                                    count, names, values, cancellable, error);
+
   disc_data->id = g_strdup (discid);
-  g_info ("Disc id %s\nSubmission URL %s\nDisc MCN %s",
-          disc_data->id,
-          disc_data->url,
-          disc_data->mcn);
+  /* Only use the details of the disc in the drive if the discid
+     hasn't been forced */
+  if (!g_getenv ("MUSICBRAINZ_FORCE_DISC_ID") ||
+      strcmp (discid, "-") == 0) {
+    disc_data->url = g_strdup (discid_get_submission_url (disc));
+    disc_data->mcn = g_strdup (discid_get_mcn (disc));
+    disc_data->sectors = discid_get_sectors (disc);
+    first = discid_get_first_track_num (disc);
+    disc_data->track_count = 1 + discid_get_last_track_num (disc) - first;
+    disc_data->lengths = g_new (int, disc_data->track_count);
+    for (i = 0; i < disc_data->track_count; i++) {
+      length = discid_get_track_length (disc, i + first);
+      /* multiply by 1000 as we want the time in milliseconds
+         80 min * 60 sec * 1000 ms * 75 sectors < 2^29 so 32 bit int ok */
+      length *= 1000;
+      length /= 75; /* divide by sectors / second */
+      disc_data->lengths[i] = length;
+    }
+    g_info ("Disc id %s\nSubmission URL %s\nDisc MCN %s",
+            disc_data->id,
+            disc_data->url,
+            disc_data->mcn);
+  } else {
+    disc_data->url = g_strdup ("");
+    disc_data->mcn = g_strdup ("");
+    disc_data->sectors = 0;
+    disc_data->track_count = 0;
+    disc_data->lengths = NULL;
+    g_info ("Forced discid %s", disc_data->id);
+  }
+
  out:
+  for (i = 0; i < count; i++) {
+    g_free (values[i]);
+  }
   discid_free (disc);
   return disc_md;
 }
@@ -356,28 +405,43 @@ filter_releases (Mb5Metadata  disc_md,
                  DiscDetails *disc)
 {
   int i, j, count;
+  Mb5Disc mb_disc;
   Mb5ReleaseList releases;
 
-  releases = mb5_disc_get_releaselist (mb5_metadata_get_disc (disc_md));
-  count = disc->count = mb5_release_list_size (releases);
-  if (disc->count == 0)
+  /*
+   * If the discid matches a release MusicBrainz returns an Mb5Disc
+   * which contains an Mb5ReleaseList, if not the fuzzy match results
+   * are returned as an Mb5ReleaseList directly.
+   */
+  mb_disc = mb5_metadata_get_disc (disc_md);
+  if (mb_disc != NULL) {
+    g_info ("Exact discid match");
+    releases = mb5_disc_get_releaselist (mb_disc);
+  } else {
+    g_info ("Fuzzy TOC match");
+    releases = mb5_metadata_get_releaselist (disc_md);
+  }
+
+  count = disc->release_count = mb5_release_list_size (releases);
+  g_info ("%d matching releases", count);
+  if (disc->release_count == 0)
     return;
 
-  disc->release_ids = g_new0 (Mbid, disc->count);
+  disc->release_ids = g_new0 (Mbid, disc->release_count);
   for (i = 0, j = 0; i < count; i++) {
     Mb5Release release;
     gchar barcode[16];
 
     release = mb5_release_list_item (releases, i);
     if (release == NULL) {
-      disc->count--;
+      disc->release_count--;
       continue;
     }
 
     mb5_release_get_id (release, disc->release_ids[j], sizeof(Mbid));
     mb5_release_get_barcode (release, barcode, sizeof(barcode));
     if (mcn_matches_barcode (disc->mcn, barcode)) {
-      disc->count = 1;
+      disc->release_count = 1;
       strcpy (disc->release_ids[0], disc->release_ids[j]);
       break;
     }
@@ -1123,6 +1187,140 @@ make_album_from_release (SjMetadataMusicbrainz5  *self,
 }
 
 /*
+ * See if the discid of a medium matches the id of the disc being
+ * ripped. As the discid is a hash check the sector count as well as
+ * the discid to filter out discid collisions
+ */
+static gboolean
+match_discid (DiscDetails *disc_details,
+              Mb5Medium    medium)
+{
+  Mb5DiscList disc_list;
+  Mb5Disc mb_disc;
+  char buffer[512];
+  int disc_count, i;
+  gboolean sector_match;
+
+  disc_list = mb5_medium_get_disclist (medium);
+  disc_count = mb5_disc_list_size (disc_list);
+  for (i = 0; i < disc_count; i++) {
+    mb_disc = mb5_disc_list_item (disc_list, i);
+    sector_match = disc_details->sectors ?
+                     mb5_disc_get_sectors (mb_disc) == disc_details->sectors :
+                     TRUE;
+    mb5_disc_get_id (mb_disc, buffer, sizeof(buffer));
+    if (*buffer && strcmp (buffer, disc_details->id) == 0)
+      return sector_match ? 1 : -1;
+  }
+  return 0;
+}
+
+/*
+ * Fuzzy track length matching. Calculate the sum of the squares of
+ * the difference between the track length on the disc and the track
+ * length reported by MusicBrainz. We use the square rather than abs()
+ * so one large difference is penalized more than several small ones.
+ */
+static guint
+track_delta_sum (DiscDetails  *disc,
+                 Mb5TrackList  tracks)
+{
+  Mb5Recording recording;
+  Mb5Track track;
+  int count, i, length;
+  uint delta, sum;
+
+  sum = 0;
+  count = disc->track_count;
+  for (i = 0; i < count; i++) {
+    track = mb5_track_list_item (tracks, i);
+    length = mb5_track_get_length (track);
+    if (length == 0) {
+      recording = mb5_track_get_recording (track);
+      length = mb5_recording_get_length (recording);
+    }
+    delta = abs (disc->lengths[i] - length);
+    if (!g_uint_checked_mul (&delta, delta, delta)) {
+      sum = G_MAXUINT;
+      break;
+    }
+    if (!g_uint_checked_add (&sum, sum, delta)) {
+      sum = G_MAXUINT;
+      break;
+    }
+  }
+  return sum;
+}
+
+/*
+ * Return a GSList of media in the release that match the disc being
+ * ripped. If MusicBrainz returned a fuzzy match then the discid's of
+ * the media wont match the id of the disc being ripped so match on
+ * track lengths instead.
+ */
+static Mb5Medium
+get_matching_media (DiscDetails *disc,
+                    Mb5Release   release)
+{
+  Mb5MediumList media;
+  Mb5Medium medium;
+  Mb5TrackList tracks;
+  GSList *matches = NULL;
+  int i, medium_count, res;
+  uint best_sum, sum;
+
+  best_sum = G_MAXUINT;
+  media = mb5_release_get_mediumlist (release);
+  medium_count = mb5_medium_list_size (media);
+  for (i = 0; i < medium_count; i++) {
+    medium = mb5_medium_list_item (media, i);
+    tracks = mb5_medium_get_tracklist (medium);
+    /* Don't match track count with MUSICBRAINZ_FORCE_DISC_ID */
+    if (disc->track_count > 0 &&
+        mb5_track_list_size (tracks) != disc->track_count)
+      continue;
+
+    res = match_discid (disc, medium);
+    if (res < 0) {
+      /*
+       * Discid collision, clear fuzzy matches and only allow an
+       * (unlikely) exact match from another medium
+       */
+      if (best_sum != 0) {
+        best_sum = 0;
+        matches = NULL;
+      }
+      g_info ("Discid collision: disc %2d", i + 1);
+      continue;
+    } else if (res > 0) {
+      /* Exact match, clear any fuzzy matches */
+      sum = 0;
+      g_info ("Exact match: disc %2d", i + 1);
+    } else {
+      /*
+       * Fuzzy match, skip if we're only interested in exact matches
+       * or MUSICBRAINZ_FORCE_DISC_ID is set
+       */
+      if (best_sum == 0 || disc->track_count == 0)
+        continue;
+
+      if (!g_uint_checked_add (&sum, track_delta_sum (disc, tracks), 1))
+        continue;
+
+      g_info ("Fuzzy Match: disc: %2d, sum: %8u", i + 1, sum);
+    }
+
+    if (sum < best_sum) {
+      matches = g_slist_prepend (NULL, medium);
+      best_sum = sum;
+    } else if (sum == best_sum) {
+      matches = g_slist_prepend (matches, medium);
+    }
+  }
+  return matches;
+}
+
+/*
  * Virtual methods
  */
 static GList *
@@ -1146,7 +1344,7 @@ mb5_list_albums (SjMetadata    *metadata,
   if (disc == NULL)
     return NULL;
 
-  for (i = 0; i < disc->count; i++) {
+  for (i = 0; i < disc->release_count; i++) {
     AlbumDetails *album;
     Mb5Release full_release = NULL;
     Mb5Metadata release_md = NULL;
@@ -1165,10 +1363,8 @@ artist-rels";
     if (release_md && mb5_metadata_get_release (release_md))
       full_release = mb5_metadata_get_release (release_md);
     if (full_release) {
-      Mb5MediumList media;
       Mb5Metadata group_md = NULL;
       Mb5ReleaseGroup group;
-      int j;
 
       group = mb5_release_get_releasegroup (full_release);
       if (group) {
@@ -1177,6 +1373,7 @@ artist-rels";
          * lookup_release query doesn't have the url relations for the
          * release-group, so run a separate query to get these urls
          */
+        GSList *media, *medium;
         char *releasegroupid = NULL;
         const char *group_includes = "artists url-rels";
 
@@ -1191,26 +1388,21 @@ artist-rels";
         if (group_md && mb5_metadata_get_releasegroup (group_md))
           group = mb5_metadata_get_releasegroup (group_md);
 
-        media = mb5_release_media_matching_discid (full_release, disc->id);
-        for (j = 0; j < mb5_medium_list_size (media); j++) {
-          Mb5Medium medium;
-
-          medium = mb5_medium_list_item (media, j);
-          if (medium) {
-            album = make_album_from_release (self, group, full_release, medium, cancellable, error);
-            if (*error != NULL) {
-              mb5_metadata_delete (group_md);
-              mb5_medium_list_delete (media);
-              mb5_metadata_delete (release_md);
-              goto free_releases;
-            }
-
-            album->metadata_source = SOURCE_MUSICBRAINZ;
-            albums = g_list_append (albums, album);
+        media = get_matching_media (disc, full_release);
+        for (medium = media; medium; medium = medium->next) {
+          album = make_album_from_release (self, group, full_release, medium->data, cancellable, error);
+          if (*error != NULL) {
+            mb5_metadata_delete (group_md);
+            g_slist_free (media);
+            mb5_metadata_delete (release_md);
+            goto free_releases;
           }
+
+          album->metadata_source = SOURCE_MUSICBRAINZ;
+          albums = g_list_prepend (albums, album);
         }
         mb5_metadata_delete (group_md);
-        mb5_medium_list_delete (media);
+        g_slist_free (media);
       }
       mb5_metadata_delete (release_md);
     }
