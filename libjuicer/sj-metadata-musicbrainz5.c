@@ -210,24 +210,22 @@ print_musicbrainz_query_error (SjMetadataMusicbrainz5 *self,
 static gint64 last_query_time;
 
 static Mb5Metadata
-query_musicbrainz (SjMetadataMusicbrainz5  *self,
-                   const char              *entity,
-                   const char              *id,
-                   const char              *includes,
-                   GCancellable            *cancellable,
-                   GError                 **error)
+query_musicbrainz_full (SjMetadataMusicbrainz5  *self,
+                        const char              *entity,
+                        const char              *id,
+                        int                      param_count,
+                        char                   **param_names,
+                        char                   **param_values,
+                        GCancellable            *cancellable,
+                        GError                 **error)
 {
   Mb5Metadata metadata;
-  char *inc, *includes_copy;
   gint64 delay = 4 * G_USEC_PER_SEC;
   int count = 0;
   SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (self);
   gint64 t;
 
   g_info ("Querying %s %s", entity, id);
-
-  inc = g_strdup ("inc");
-  includes_copy = g_strdup (includes);
 
   while (TRUE) {
     if (g_cancellable_set_error_if_cancelled (cancellable, error))
@@ -239,12 +237,8 @@ query_musicbrainz (SjMetadataMusicbrainz5  *self,
       t = g_get_monotonic_time ();
     }
 
-    if (includes == NULL)
       metadata = mb5_query_query (priv->mb, entity, id, "",
-                                  0, NULL, NULL);
-    else
-      metadata = mb5_query_query (priv->mb, entity, id, "",
-                                  1, &inc, &includes_copy);
+                                  param_count, param_names, param_values);
 
     if (metadata != NULL || ++count == 5 ||
         mb5_query_get_lasthttpcode (priv->mb) != 503)
@@ -264,6 +258,31 @@ query_musicbrainz (SjMetadataMusicbrainz5  *self,
     print_musicbrainz_query_error (self, entity, id);
 
   last_query_time = g_get_monotonic_time ();
+  return metadata;
+}
+
+static Mb5Metadata
+query_musicbrainz (SjMetadataMusicbrainz5  *self,
+                   const char              *entity,
+                   const char              *id,
+                   const char              *includes,
+                   GCancellable            *cancellable,
+                   GError                 **error)
+{
+  Mb5Metadata metadata;
+  char *inc, *includes_copy;
+
+  inc = g_strdup ("inc");
+  includes_copy = g_strdup (includes);
+
+  if (includes == NULL)
+    metadata = query_musicbrainz_full (self, entity, id,
+                                       0, NULL, NULL,
+                                       cancellable, error);
+  else
+    metadata = query_musicbrainz_full (self, entity, id,
+                                       1, &inc, &includes_copy,
+                                       cancellable, error);
   g_free (inc);
   g_free (includes_copy);
   return metadata;
