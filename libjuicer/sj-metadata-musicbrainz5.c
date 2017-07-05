@@ -40,11 +40,19 @@
 typedef char Mbid[40];
 
 typedef struct {
+  Mbid release_id;
+  Mbid group_id;
+  uint is_cd :1;
+  uint barcode_matches :1;
+  uint wanted :1;
+} DiscMatch;
+
+typedef struct {
   gchar *id;
   gchar *mcn;
   gchar *url;
-  gint release_count;
-  Mbid  *release_ids;
+  gint match_count;
+  DiscMatch *matches;
   gint sectors;
   gint track_count;
   gint *lengths;
@@ -128,7 +136,7 @@ disc_details_free (DiscDetails *disc)
   g_free (disc->id);
   g_free (disc->mcn);
   g_free (disc->url);
-  g_free (disc->release_ids);
+  g_free (disc->matches);
   g_free (disc->lengths);
   g_free (disc);
 }
@@ -302,8 +310,10 @@ get_disc_md (SjMetadataMusicbrainz5  *self,
   DiscId disc;
   Mb5Metadata disc_md = NULL;
   SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (self);
-  char *names[2], *values[2];
+  char *names[4], *values[4];
   char cdstubs[] = "cdstubs";
+  char inc[] = "inc";
+  char media_format[] = "media-format";
   char toc[] = "toc";
   int count = 0, first, i, length;
 
@@ -335,6 +345,12 @@ get_disc_md (SjMetadataMusicbrainz5  *self,
 
   names[count] = cdstubs;
   values[count] = g_strdup ("no");
+  count++;
+  names[count] = media_format;
+  values[count] = g_strdup ("all");
+  count++;
+  names[count] = inc;
+  values[count] = g_strdup ("release-groups");
   count++;
   disc_md = query_musicbrainz_full (self, "discid", discid,
                                     count, names, values, cancellable, error);
@@ -401,8 +417,69 @@ mcn_matches_barcode (const char *mcn,
 }
 
 static void
-filter_releases (Mb5Metadata  disc_md,
-                 DiscDetails *disc)
+fill_disc_match (DiscMatch   *match,
+                 Mb5Release  *release,
+                 const gchar *mcn)
+{
+  Mb5MediumList media;
+  Mb5Medium medium;
+  Mb5ReleaseGroup group;
+  gchar buffer[255];
+  gint count, i;
+
+  mb5_release_get_id (release, match->release_id, sizeof(match->release_id));
+  group = mb5_release_get_releasegroup (release);
+  mb5_releasegroup_get_id (group, match->group_id, sizeof(match->group_id));
+  mb5_release_get_barcode (release, buffer, sizeof(buffer));
+  match->barcode_matches = mcn_matches_barcode (mcn, buffer);
+  media = mb5_release_get_mediumlist (release);
+  if (media == NULL)
+    return;
+
+  count = mb5_medium_list_get_count (media);
+  for (i = 0; i < count; i++) {
+    medium = mb5_medium_list_item (media, i);
+    if (medium == NULL)
+      continue;
+
+    mb5_medium_get_format (medium, buffer, sizeof(buffer));
+    if (strstr (buffer, "CD") != NULL) {
+      match->is_cd = 1;
+      break;
+    }
+  }
+}
+
+/*
+ * Callback for sorting the list disc matches into the order required
+ * by mark_wanted_releases(). Sort by release group then release type
+ * with CDs coming first, then by barcode match with matching releases
+ * coming first.
+ */
+static int
+disc_match_cmp (gconstpointer p,
+                gconstpointer q)
+{
+  const DiscMatch *a, *b;
+  int ret;
+
+  a = p;
+  b = q;
+  ret = strcmp (a->group_id, b->group_id);
+  if (ret != 0)
+    return ret;
+
+  ret = (a->is_cd < b->is_cd) - (a->is_cd > b->is_cd);
+  if (ret != 0)
+    return ret;
+
+  return (a->barcode_matches < b->barcode_matches) -
+    (a->barcode_matches > b->barcode_matches);
+}
+
+static void
+fill_disc_matches (Mb5Metadata  disc_md,
+                   DiscDetails *disc)
 {
   int i, j, count;
   Mb5Disc mb_disc;
@@ -422,32 +499,102 @@ filter_releases (Mb5Metadata  disc_md,
     releases = mb5_metadata_get_releaselist (disc_md);
   }
 
-  count = disc->release_count = mb5_release_list_size (releases);
+  count = disc->match_count = mb5_release_list_size (releases);
   g_info ("%d matching releases", count);
-  if (disc->release_count == 0)
+  if (disc->match_count == 0)
     return;
 
-  disc->release_ids = g_new0 (Mbid, disc->release_count);
+  disc->matches = g_new0 (DiscMatch, disc->match_count);
   for (i = 0, j = 0; i < count; i++) {
     Mb5Release release;
-    gchar barcode[16];
 
     release = mb5_release_list_item (releases, i);
     if (release == NULL) {
-      disc->release_count--;
+      disc->match_count--;
       continue;
     }
-
-    mb5_release_get_id (release, disc->release_ids[j], sizeof(Mbid));
-    mb5_release_get_barcode (release, barcode, sizeof(barcode));
-    if (mcn_matches_barcode (disc->mcn, barcode)) {
-      disc->release_count = 1;
-      strcpy (disc->release_ids[0], disc->release_ids[j]);
-      break;
-    }
+    fill_disc_match (&disc->matches[j], release, disc->mcn);
     j++;
   }
+  qsort (disc->matches,
+         disc->match_count,
+         sizeof(DiscMatch),
+         disc_match_cmp);
 }
+
+/*
+ * If we have a fuzzy match then it's possible that the same album
+ * will appear as two releases - one on CD and the other as a digital
+ * release. Use the fact that they'll both be in the same release
+ * group to remove the digital release from the list to be queried.
+ *
+ * If there are two versions of an album with the same discid then if
+ * the barcode of one of them matches the MCN of the disc remove the
+ * other from the list to be queried.
+ *
+ * This function assumes the list of matches is sorted by release
+ * group then release type with CDs coming first, then by barcode
+ * match with matching releases coming first.
+ */
+static void
+mark_wanted_releases (DiscDetails *disc)
+{
+  DiscMatch *end, *match;
+  int i;
+  const gchar *group_id = "";
+  enum { INIT, CD, BARCODE, CD_BARCODE } state = INIT;
+
+  g_info ("Marking wanted releases [wanted is_cd barcode_matches release_id \
+group_id]");
+  end = disc->matches + disc->match_count;
+  for (match = disc->matches; match < end; match++) {
+    if (strcmp (group_id, match->group_id) != 0) {
+      group_id = match->group_id;
+      state = INIT;
+    }
+
+    switch (state) {
+      case INIT:
+        if (match->is_cd) {
+          if (match->barcode_matches)
+            state = CD_BARCODE;
+          else
+            state = CD;
+          match->wanted = 1;
+        } else if (match->barcode_matches) {
+          state = BARCODE;
+          match->wanted = 1;
+        }
+        break;
+      case CD:
+        if (match->is_cd)
+          match->wanted = 1;
+        if (match->barcode_matches)
+          state = CD_BARCODE;
+        break;
+      case BARCODE:
+        if (match->barcode_matches)
+          match->wanted = 1;
+        break;
+      case CD_BARCODE:
+        if (match->is_cd && match->barcode_matches)
+          match->wanted = 1;
+        break;
+      default:
+        g_assert_not_reached ();
+    }
+    g_info ("%d %d %d %s %s", match->wanted, match->is_cd,
+            match->barcode_matches, match->release_id, match->group_id);
+  }
+  /* If we've not marked anything then mark everything */
+  for (i = 0, match = disc->matches; i < disc->match_count; i++, match++)
+    if (match->wanted)
+      return;
+  g_info ("Marking all matches");
+  for (i = 0, match = disc->matches; i < disc->match_count; i++, match++)
+    match->wanted = 1;
+}
+
 
 static DiscDetails*
 get_disc_details (SjMetadataMusicbrainz5  *self,
@@ -468,7 +615,8 @@ get_disc_details (SjMetadataMusicbrainz5  *self,
   if (disc_md == NULL)
     return disc;
 
-  filter_releases (disc_md, disc);
+  fill_disc_matches (disc_md, disc);
+  mark_wanted_releases (disc);
 
   mb5_metadata_delete (disc_md);
 
@@ -1332,8 +1480,8 @@ mb5_list_albums (SjMetadata    *metadata,
   SjMetadataMusicbrainz5 *self;
   GList *albums = NULL;
   DiscDetails *disc;
+  DiscMatch *end, *match;
   char buffer[1024];
-  int i;
 
   g_return_val_if_fail (SJ_IS_METADATA_MUSICBRAINZ5 (metadata), NULL);
 
@@ -1344,7 +1492,8 @@ mb5_list_albums (SjMetadata    *metadata,
   if (disc == NULL)
     return NULL;
 
-  for (i = 0; i < disc->release_count; i++) {
+  end = disc->matches + disc->match_count;
+  for (match = disc->matches; match < end; match++) {
     AlbumDetails *album;
     Mb5Release full_release = NULL;
     Mb5Metadata release_md = NULL;
@@ -1352,11 +1501,16 @@ mb5_list_albums (SjMetadata    *metadata,
 release-groups url-rels discids recording-level-rels work-level-rels work-rels \
 artist-rels";
 
+    if (!match->wanted)
+      continue;
+
     /*
      * In order to get metadata for artist aliases & work / composer
      * relationships we need to perform a custom query
      */
-    release_md = query_musicbrainz (self, "release", disc->release_ids[i], release_includes, cancellable, error);
+    release_md = query_musicbrainz (self, "release",
+                                    match->release_id, release_includes,
+                                    cancellable, error);
     if (*error != NULL)
       goto free_releases;
 
