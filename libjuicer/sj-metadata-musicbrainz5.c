@@ -1481,7 +1481,9 @@ mb5_list_albums (SjMetadata    *metadata,
   GList *albums = NULL;
   DiscDetails *disc;
   DiscMatch *end, *match;
-  char buffer[1024];
+  Mb5Metadata group_md = NULL;
+  Mb5ReleaseGroup group = NULL;
+  const char *group_id = "";
 
   g_return_val_if_fail (SJ_IS_METADATA_MUSICBRAINZ5 (metadata), NULL);
 
@@ -1497,8 +1499,9 @@ mb5_list_albums (SjMetadata    *metadata,
     AlbumDetails *album;
     Mb5Release full_release = NULL;
     Mb5Metadata release_md = NULL;
-    const char *release_includes = "aliases artists artist-credits labels recordings \
-release-groups url-rels discids recording-level-rels work-level-rels work-rels \
+    const char *group_includes = "artists url-rels";
+    const char *release_includes = "aliases artists artist-credits labels \
+recordings url-rels discids recording-level-rels work-level-rels work-rels \
 artist-rels";
 
     if (!match->wanted)
@@ -1514,34 +1517,30 @@ artist-rels";
     if (*error != NULL)
       goto free_releases;
 
-    if (release_md && mb5_metadata_get_release (release_md))
+    if (release_md != NULL)
       full_release = mb5_metadata_get_release (release_md);
     if (full_release) {
-      Mb5Metadata group_md = NULL;
-      Mb5ReleaseGroup group;
-
-      group = mb5_release_get_releasegroup (full_release);
-      if (group) {
+      if (strcmp (group_id, match->group_id) != 0) {
+        group_id = match->group_id;
+        if (group_md != NULL)
+          mb5_metadata_delete (group_md);
+        group_md = query_musicbrainz (self, "release-group",
+                                      group_id, group_includes,
+                                      cancellable, error);
+        if (*error != NULL) {
+          mb5_metadata_delete (release_md);
+          goto free_releases;
+        }
+        if (group_md != NULL)
+          group = mb5_metadata_get_releasegroup (group_md);
+      }
+      if (group != NULL) {
         /*
          * The release-group information we can extract from the
          * lookup_release query doesn't have the url relations for the
          * release-group, so run a separate query to get these urls
          */
         GSList *media, *medium;
-        char *releasegroupid = NULL;
-        const char *group_includes = "artists url-rels";
-
-        GET (releasegroupid, mb5_releasegroup_get_id, group);
-        group_md = query_musicbrainz (self, "release-group", releasegroupid, group_includes, cancellable, error);
-        g_free (releasegroupid);
-        if (*error != NULL) {
-          mb5_metadata_delete (release_md);
-          goto free_releases;
-        }
-
-        if (group_md && mb5_metadata_get_releasegroup (group_md))
-          group = mb5_metadata_get_releasegroup (group_md);
-
         media = get_matching_media (disc, full_release);
         for (medium = media; medium; medium = medium->next) {
           album = make_album_from_release (self, group, full_release, medium->data, cancellable, error);
@@ -1555,12 +1554,13 @@ artist-rels";
           album->metadata_source = SOURCE_MUSICBRAINZ;
           albums = g_list_prepend (albums, album);
         }
-        mb5_metadata_delete (group_md);
         g_slist_free (media);
       }
       mb5_metadata_delete (release_md);
     }
   }
+  if (group_md != NULL)
+    mb5_metadata_delete (group_md);
 
   if (url != NULL)
     *url = g_strdup (disc->url);
