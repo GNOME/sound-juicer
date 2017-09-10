@@ -1,18 +1,18 @@
 # Hungarian translation of sound-juicer.
-# Copyright (C) 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2013 Free Software Foundation, Inc.
+# Copyright (C) 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2013, 2014, 2017 Free Software Foundation, Inc.
 # This file is distributed under the same license as the sound-juicer package.
 #
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2013.
 # Laszlo Dvornik <dvornik at gnome dot hu>, 2004, 2005.
 # Máthé Zoltán <mathzoltan at gmail dot com>, 2008.
-# Balázs Úr <urbalazs at gmail dot com>, 2013, 2014.
+# Balázs Úr <urbalazs at gmail dot com>, 2013, 2014, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
 "juicer&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-12-30 23:40+0000\n"
-"PO-Revision-Date: 2014-12-31 11:36+0100\n"
+"POT-Creation-Date: 2017-06-28 18:07+0000\n"
+"PO-Revision-Date: 2017-09-10 20:20+0200\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
@@ -143,8 +143,9 @@ msgstr "Kódolás ebbe a GStreamer médiatípusba."
 msgid "Audio volume"
 msgstr "Hangerő"
 
-#: ../data/sound-juicer.desktop.in.in.h:1 ../data/sound-juicer.ui.h:1
-#: ../src/sj-main.c:131 ../src/sj-main.c:133 ../src/sj-main.c:2450
+#: ../data/sound-juicer.desktop.in.in.h:1
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:1 ../data/sound-juicer.ui.h:1
+#: ../src/sj-main.c:131 ../src/sj-main.c:133 ../src/sj-main.c:2459
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
@@ -163,6 +164,35 @@ msgstr "Zene másolása CD lemezekről"
 #: ../data/sound-juicer.desktop.in.in.h:5
 msgid "Ripper;"
 msgstr "Ripper;Beolvasó;"
+
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:2
+msgid "CD ripper with a clean interface and simple preferences"
+msgstr "CD-beolvasó letisztult felülettel és egyszerű beállításokkal"
+
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:3
+msgid ""
+"Sound Juicer is a simple and clean CD ripping tool. It allows you to extract "
+"the audio from audio compact discs and convert them into audio files that "
+"your computer can understand and play. Sound Juicer can also play the audio "
+"tracks directly from the CD, allowing you to preview the CD before ripping "
+"it."
+msgstr ""
+"A Sound Juicer egy egyszerű és letisztult CD-beolvasó eszköz. Lehetővé teszi "
+"a hang CD-k hangjának lemásolását, és a számítógép által lejátszható "
+"hangfájlokká konvertálását. A Sound Juicer képes lejátszani a hangsávokat "
+"közvetlenül a CD-ről, így a CD beolvasása előtt belehallgathat."
+
+#: ../data/appdata/sound-juicer.appdata.xml.in.h:4
+msgid ""
+"Sound Juicer is designed to be easy to use, and to work with little user "
+"intervention. When you start Sound Juicer, it will examine the CD in the "
+"drive and try to locate information about the audio tracks using the freely-"
+"available MusicBrainz service."
+msgstr ""
+"A Sound Juicert egyszerűen használhatónak, valamint kevés felhasználói "
+"beavatkozással működőnek tervezték. A Sound Juicer indításakor megvizsgálja "
+"a CD-t a meghajtóban, és megpróbál információkat keresni a hangsávokról az "
+"ingyenesen elérhető MusicBrainz szolgáltatással."
 
 #: ../data/sound-juicer.ui.h:2
 msgid "S_ubmit Album"
@@ -204,13 +234,13 @@ msgstr "Időtartam:"
 msgid "Tracks"
 msgstr "Számok"
 
-#: ../data/sound-juicer.ui.h:12 ../src/sj-main.c:2185 ../src/sj-play.c:121
+#: ../data/sound-juicer.ui.h:12 ../src/sj-main.c:2194 ../src/sj-play.c:121
 #: ../src/sj-play.c:259 ../src/sj-play.c:622
 msgid "_Play"
 msgstr "_Lejátszás"
 
 #: ../data/sound-juicer.ui.h:13 ../src/sj-extracting.c:233
-#: ../src/sj-main.c:2209
+#: ../src/sj-main.c:2218
 msgid "E_xtract"
 msgstr "_Beolvasás"
 
@@ -527,7 +557,7 @@ msgstr "URI"
 msgid "The URI of the audio file"
 msgstr "A hangfájl URI-címe"
 
-#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2282
+#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2291
 msgid "Title"
 msgstr "Cím"
 
@@ -535,7 +565,7 @@ msgstr "Cím"
 msgid "The title of the current stream."
 msgstr "Az aktuális adatfolyam címe."
 
-#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2283
+#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2292
 msgid "Artist"
 msgstr "Előadó"
 
@@ -559,7 +589,7 @@ msgstr "Pozíció"
 msgid "The position in the current stream in seconds."
 msgstr "Pozíció az aktuális adatfolyamban, másodpercben."
 
-#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2290
+#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2299
 msgid "Duration"
 msgstr "Időtartam"
 
@@ -681,13 +711,13 @@ msgid "Sound Juicer could not extract this CD."
 msgstr "A Sound Juicer nem tudta beolvasni a CD-t."
 
 #: ../src/sj-extracting.c:699 ../src/sj-main.c:177 ../src/sj-main.c:384
-#: ../src/sj-main.c:423 ../src/sj-main.c:1138 ../src/sj-main.c:1263
-#: ../src/sj-main.c:1365
+#: ../src/sj-main.c:423 ../src/sj-main.c:1132 ../src/sj-main.c:1240
+#: ../src/sj-main.c:1342
 msgid "Reason"
 msgstr "Ok"
 
 #. Change the label to Stop while extracting
-#: ../src/sj-extracting.c:789 ../src/sj-main.c:2216
+#: ../src/sj-extracting.c:789 ../src/sj-main.c:2225
 msgid "_Stop"
 msgstr "_Leállítás"
 
@@ -784,16 +814,15 @@ msgstr "Segítségért tekintse meg a dokumentációt."
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Jelenleg épp beolvas egy CD-t. Kilép vagy folytatja?"
 
-#: ../src/sj-main.c:214 ../src/sj-main.c:1490
-#| msgid "Quit"
+#: ../src/sj-main.c:214 ../src/sj-main.c:1467
 msgid "_Quit"
 msgstr "_Kilépés"
 
-#: ../src/sj-main.c:262 ../src/sj-main.c:2163 ../src/sj-main.c:2239
+#: ../src/sj-main.c:262 ../src/sj-main.c:2172 ../src/sj-main.c:2248
 msgid "Select None"
 msgstr "Kijelölés megszüntetése"
 
-#: ../src/sj-main.c:276 ../src/sj-main.c:2233
+#: ../src/sj-main.c:276 ../src/sj-main.c:2242
 msgid "Select All"
 msgstr "Összes kijelölése"
 
@@ -911,55 +940,50 @@ msgstr "Albumok"
 msgid " (Disc %d/%d)"
 msgstr " (Lemez: %d/%d)"
 
-#: ../src/sj-main.c:1136 ../src/sj-main.c:1259 ../src/sj-main.c:1363
+#: ../src/sj-main.c:1130 ../src/sj-main.c:1236 ../src/sj-main.c:1340
 msgid "Could not read the CD"
 msgstr "A CD nem olvasható"
 
-#: ../src/sj-main.c:1137 ../src/sj-main.c:1262
+#: ../src/sj-main.c:1131 ../src/sj-main.c:1239
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "A Sound Juicer nem tudta beolvasni a CD számlistáját."
 
-#. Set statusbar message
-#: ../src/sj-main.c:1232
-msgid "Retrieving track listing...please wait."
-msgstr "Számlista betöltése… kis türelmet."
-
-#: ../src/sj-main.c:1325
+#: ../src/sj-main.c:1302
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgstr "A Sound Juicer nem tudta használni a(z) „%s” CD-ROM eszközt"
 
-#: ../src/sj-main.c:1332
+#: ../src/sj-main.c:1309
 msgid "HAL daemon may not be running."
 msgstr "Lehetséges, hogy a HAL démon nem fut."
 
-#: ../src/sj-main.c:1356
+#: ../src/sj-main.c:1333
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgstr "A Sound Juicer nem tudott hozzáférni a(z) „%s” CD-ROM meghajtóhoz"
 
-#: ../src/sj-main.c:1455
+#: ../src/sj-main.c:1432
 msgid "No CD-ROM drives found"
 msgstr "CD-ROM nem található"
 
-#: ../src/sj-main.c:1456
+#: ../src/sj-main.c:1433
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "A Sound Juicer nem talált olvasható CD-ROM meghajtót."
 
-#: ../src/sj-main.c:1489
+#: ../src/sj-main.c:1466
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "A jelenleg kiválasztott hangprofil nem érhető el a rendszeren."
 
-#: ../src/sj-main.c:1491
+#: ../src/sj-main.c:1468
 msgid "_Change Profile"
 msgstr "Profil _megváltoztatása"
 
-#: ../src/sj-main.c:1879
+#: ../src/sj-main.c:1856
 msgid "Unknown widget calling on_person_edit_changed."
 msgstr "Ismeretlen on_person_edit_changed eseményt hívó felületi elem."
 
-#: ../src/sj-main.c:1979 ../src/sj-prefs.c:127
+#: ../src/sj-main.c:1956 ../src/sj-prefs.c:120
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -968,39 +992,43 @@ msgstr ""
 "A Sound Juicer súgója nem jeleníthető meg\n"
 "%s"
 
-#: ../src/sj-main.c:2192 ../src/sj-play.c:301
+#: ../src/sj-main.c:2015
+msgid "Retrieving track listing...please wait."
+msgstr "Számlista betöltése… kis türelmet."
+
+#: ../src/sj-main.c:2201 ../src/sj-play.c:301
 msgid "_Pause"
 msgstr "_Szünet"
 
-#: ../src/sj-main.c:2270
+#: ../src/sj-main.c:2279
 msgid "Track"
 msgstr "Szám"
 
-#: ../src/sj-main.c:2284
+#: ../src/sj-main.c:2293
 msgid "Composer"
 msgstr "Zeneszerző"
 
-#: ../src/sj-main.c:2438
+#: ../src/sj-main.c:2447
 msgid "Start extracting immediately"
 msgstr "Beolvasás indítása azonnal"
 
-#: ../src/sj-main.c:2439
+#: ../src/sj-main.c:2448
 msgid "Start playing immediately"
 msgstr "Lejátszás indítása azonnal"
 
-#: ../src/sj-main.c:2440
+#: ../src/sj-main.c:2449
 msgid "What CD device to read"
 msgstr "Olvasandó CD eszköz"
 
-#: ../src/sj-main.c:2440
+#: ../src/sj-main.c:2449
 msgid "DEVICE"
 msgstr "ESZKÖZ"
 
-#: ../src/sj-main.c:2441
+#: ../src/sj-main.c:2450
 msgid "URI to the CD device to read"
 msgstr "Olvasandó CD eszköz URI címe"
 
-#: ../src/sj-main.c:2453
+#: ../src/sj-main.c:2462
 msgid "- Extract music from your CDs"
 msgstr "– Zene beolvasása CD lemezekről"
 
@@ -1124,93 +1152,7 @@ msgstr "Sorszám. Szám zeneszerzője - Szám előadója - Szám címe"
 msgid "Number-Track Composer-Track Artist-Track Title (lowercase)"
 msgstr "Sorszám-Szám zeneszerzője-Szám előadója-Szám címe (kisbetűs)"
 
-#: ../src/sj-prefs.c:311
-#| msgid "Example Path"
+#: ../src/sj-prefs.c:250
 msgid "Example Path: "
 msgstr "Példa útvonal: "
 
-#~ msgid "Ca_ncel"
-#~ msgstr "Mé_gse"
-
-#~ msgid "Unknown column %d was edited"
-#~ msgstr "%d. ismeretlen oszlop szerkesztve"
-
-#~ msgid "The MusicBrainz server to use"
-#~ msgstr "A használandó MusicBrainz kiszolgáló"
-
-#~ msgid ""
-#~ "If specified, this value will override the default MusicBrainz server."
-#~ msgstr ""
-#~ "Ha meg van adva, akkor ez az érték felülbírálja az alapértelmezett "
-#~ "MusicBrainz kiszolgálót."
-
-#~ msgid "(obsolete) Audio Profile with which to encode"
-#~ msgstr "(elavult) Tömörítéshez használandó hangprofil"
-
-#~ msgid ""
-#~ "This key used to store the GNOME Audio Profile with which to encode. This "
-#~ "has been superseded by GStreamer encoding profiles, which are configured "
-#~ "using the audio_profile_media_type key."
-#~ msgstr ""
-#~ "Ez a kulcs tárolta a kódoláshoz használandó GNOME hangprofilt. Ezt a "
-#~ "GStreamer kódolási profilok leváltották, azok beállítása az "
-#~ "audio_profile_media_type kulccsal történik."
-
-#~ msgid "About Sound Juicer"
-#~ msgstr "A Sound Juicer névjegye"
-
-#~ msgid "GConf error: %s"
-#~ msgstr "GConf hiba: %s"
-
-#~ msgid "All further errors shown only on terminal."
-#~ msgstr "Minden további hiba csak a terminálon jelenik meg."
-
-#~ msgid "Could not create GConf client.\n"
-#~ msgstr "A GConf kliens nem hozható létre.\n"
-
-#~ msgid "Extract"
-#~ msgstr "Kibontás"
-
-#~ msgid "Edit _Profiles..."
-#~ msgstr "_Profilok szerkesztése…"
-
-#~ msgid "Skip to the next track"
-#~ msgstr "Ugrás a következő számra"
-
-#~ msgid "Skip to the previous track"
-#~ msgstr "Ugrás az előző számra"
-
-#~ msgid "_Deselect All"
-#~ msgstr "_Kijelölés megszüntetése"
-
-#~ msgid "_Disc"
-#~ msgstr "_Lemez"
-
-#~ msgid "_Edit"
-#~ msgstr "S_zerkesztés"
-
-#~ msgid ""
-#~ "%at -- album title %aT -- album title (lowercase) %aa -- album artist %aA "
-#~ "-- album artist (lowercase) %as -- album artist (sortable) %aS -- album "
-#~ "artist (sortable lowercase) %ay -- album year %tt -- track title %tT -- "
-#~ "track title (lowercase) %ta -- track artist %tA -- track artist "
-#~ "(lowercase) %ts -- track artist (sortable) %tS -- track artist (sortable "
-#~ "lowercase)"
-#~ msgstr ""
-#~ "%at – album címe %aT – album címe (kisbetűs) %aa – album előadója %aA – "
-#~ "album előadója (kisbetűs) %as – album előadója (rendezhető) %aS – album "
-#~ "előadója(kisbetűs, rendezhető) %ay – album éve %tt – szám címe %tT – szám "
-#~ "címe (kisbetűs) %ta – szám előadója %tA – szám előadója (kisbetűs) %ts – "
-#~ "szám előadója(rendezhető) %tS – szám előadója (kisbetűs, rendezhető)"
-
-#~ msgid "The GNOME Audio Profile with which to encode."
-#~ msgstr "A GNOME hangprofil, amellyel a hang tömörítve lesz."
-
-#~ msgid "Could not create CD lookup thread"
-#~ msgstr "A CD lekérdező szál nem hozható létre"
-
-#~ msgid "Failed to link pipeline"
-#~ msgstr "A csővezeték linkelése meghiúsult"
-
-#~ msgid "Failed to create audio output"
-#~ msgstr "Nem sikerült létrehozni a hangkimenetet"
