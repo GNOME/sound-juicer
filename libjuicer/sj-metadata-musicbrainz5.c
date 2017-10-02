@@ -1436,6 +1436,7 @@ get_matching_media (DiscDetails *disc,
        */
       if (best_sum != 0) {
         best_sum = 0;
+        g_slist_free (matches);
         matches = NULL;
       }
       g_info ("Discid collision: disc %2d", i + 1);
@@ -1459,6 +1460,7 @@ get_matching_media (DiscDetails *disc,
     }
 
     if (sum < best_sum) {
+      g_slist_free (matches);
       matches = g_slist_prepend (NULL, medium);
       best_sum = sum;
     } else if (sum == best_sum) {
