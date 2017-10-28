@@ -79,7 +79,7 @@ void show_about_dialog (void)
                          "logo-icon-name", "sound-juicer",
                          "license", license_trans,
                          "wrap-license", TRUE,
-                         "website", "http://burtonini.com/blog/computers/sound-juicer",
+                         "website", "https://wiki.gnome.org/Apps/SoundJuicer",
                          NULL);
 
   g_free (license_trans);
