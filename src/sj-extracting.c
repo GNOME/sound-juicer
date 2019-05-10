@@ -459,7 +459,7 @@ pop_and_extract (int *overwrite_mode)
 
     /* Update the progress bars */
     gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (progress_bar),
-                                   CLAMP ((float)current_duration / (float)total_duration, 0.0, 1.0));
+                                   CLAMP (current_duration / total_duration, 0.0, 1.0));
 
     /* Set the Treelist focus to the item to be extracted */
     path = gtk_tree_model_get_path(GTK_TREE_MODEL (track_store), &current);
@@ -513,7 +513,7 @@ update_speed_progress (SjExtractor *extractor, float speed, int eta)
   char *eta_str;
 
   if (eta >= 0) {
-    eta_str = g_strdup_printf (_("Estimated time left: %d:%02d (at %0.1f\303\227)"), eta / 60, eta % 60, speed);
+    eta_str = g_strdup_printf (_("Estimated time left: %d:%02d (at %0.1f\303\227)"), eta / 60, eta % 60, (double) speed);
   } else {
     eta_str = g_strdup (_("Estimated time left: unknown"));
   }
@@ -625,7 +625,7 @@ finished_actions (void)
     /* Find the deepest common directory. */
     g_list_foreach (paths, (GFunc)base_finder, &base);
 
-    gtk_show_uri (NULL, base, GDK_CURRENT_TIME, NULL);
+    gtk_show_uri_on_window (NULL, base, GDK_CURRENT_TIME, NULL);
 
     g_free (base);
   }

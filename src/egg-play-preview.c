@@ -128,14 +128,12 @@ static void _stop                            (EggPlayPreview *play_preview);
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (EggPlayPreview, egg_play_preview, GTK_TYPE_BOX)
+G_DEFINE_TYPE_WITH_PRIVATE (EggPlayPreview, egg_play_preview, GTK_TYPE_BOX)
 
 static void
 egg_play_preview_class_init (EggPlayPreviewClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-
-	g_type_class_add_private (klass, sizeof (EggPlayPreviewPrivate));
 
 	gobject_class->finalize = egg_play_preview_finalize;
 	gobject_class->dispose = egg_play_preview_dispose;

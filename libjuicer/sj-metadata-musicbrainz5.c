@@ -97,6 +97,7 @@ static void metadata_interface_init (gpointer g_iface, gpointer iface_data);
 G_DEFINE_TYPE_WITH_CODE (SjMetadataMusicbrainz5,
                          sj_metadata_musicbrainz5,
                          G_TYPE_OBJECT,
+                         G_ADD_PRIVATE (SjMetadataMusicbrainz5)
                          G_IMPLEMENT_INTERFACE (SJ_TYPE_METADATA,
                                                 metadata_interface_init));
 
@@ -1368,8 +1369,6 @@ sj_metadata_musicbrainz5_class_init (SjMetadataMusicbrainz5Class *class)
 {
   const gchar * const * l;
   GObjectClass *object_class = (GObjectClass*)class;
-
-  g_type_class_add_private (class, sizeof (SjMetadataMusicbrainz5Private));
 
   object_class->get_property = sj_metadata_musicbrainz5_get_property;
   object_class->set_property = sj_metadata_musicbrainz5_set_property;
