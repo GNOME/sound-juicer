@@ -404,7 +404,7 @@ static void on_submit_activate (GSimpleAction *action, GVariant *parameter, gpoi
   GError *error = NULL;
 
   if (current_submit_url) {
-      if (!gtk_show_uri (NULL, current_submit_url, GDK_CURRENT_TIME, &error)) {
+      if (!gtk_show_uri_on_window (NULL, current_submit_url, GDK_CURRENT_TIME, &error)) {
       GtkWidget *dialog;
 
       dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (main_window),
@@ -847,7 +847,7 @@ metadata_cb (GObject      *source,
   }
 
   /* Free old album details */
-  g_clear_pointer (&current_album, (GDestroyNotify) album_details_free);
+  g_clear_pointer (&current_album, album_details_free);
   /* Set the new current album pointer */
   if (albums != NULL) {
     if (albums->next != NULL) {
@@ -860,7 +860,7 @@ metadata_cb (GObject      *source,
     } else {
       current_album = albums->data;
       /* current_album now owns ->data, so just free the list */
-      g_clear_pointer (&albums, (GDestroyNotify) g_list_free);
+      g_clear_pointer (&albums, g_list_free);
     }
   }
   update_ui_for_album (current_album);
@@ -1637,7 +1637,7 @@ G_MODULE_EXPORT void on_disc_number_edit_changed(GtkEditable *widget, gpointer u
 static void on_contents_activate(GSimpleAction *action, GVariant *parameter, gpointer data) {
   GError *error = NULL;
 
-  gtk_show_uri (NULL, "help:sound-juicer", GDK_CURRENT_TIME, &error);
+  gtk_show_uri_on_window (NULL, "help:sound-juicer", GDK_CURRENT_TIME, &error);
   if (error) {
     GtkWidget *dialog;
 

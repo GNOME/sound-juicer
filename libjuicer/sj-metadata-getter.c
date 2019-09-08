@@ -45,7 +45,7 @@ typedef struct SjMetadataGetterPrivate SjMetadataGetterPrivate;
 
 static void sj_metadata_getter_finalize (GObject *object);
 
-G_DEFINE_TYPE(SjMetadataGetter, sj_metadata_getter, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(SjMetadataGetter, sj_metadata_getter, G_TYPE_OBJECT);
 
 #define GETTER_PRIVATE(o)                                            \
   (G_TYPE_INSTANCE_GET_PRIVATE ((o), SJ_TYPE_METADATA_GETTER, SjMetadataGetterPrivate))
@@ -55,9 +55,6 @@ sj_metadata_getter_class_init (SjMetadataGetterClass *klass)
 {
   GObjectClass *object_class;
   object_class = (GObjectClass *)klass;
-
-  g_type_class_add_private (klass, sizeof (SjMetadataGetterPrivate));
-
   object_class->finalize = sj_metadata_getter_finalize;
 }
 
