@@ -21,6 +21,7 @@
 #include <gio/gio.h>
 #include <glib-object.h>
 #include <glib/gi18n.h>
+#include <gsettings-desktop-schemas/gdesktop-enums.h>
 #include "sj-structures.h"
 #include "sj-metadata-getter.h"
 #include "sj-metadata.h"
@@ -36,6 +37,10 @@
 #define SJ_SETTINGS_PROXY_USE_AUTHENTICATION "use-authentication"
 #define SJ_SETTINGS_PROXY_USERNAME "authentication-user"
 #define SJ_SETTINGS_PROXY_PASSWORD "authentication-password"
+
+/* Note that this wouldn't work if we had non-musicbrainz online
+ * metadata getters, or used a different server */
+#define DEFAULT_MUSICBRAINZ_SERVER "musicbrainz.org"
 
 struct SjMetadataGetterPrivate {
   char *cdrom;
@@ -101,48 +106,98 @@ sj_metadata_getter_set_cdrom (SjMetadataGetter *mdg, const char* device)
 }
 
 static void
-bind_http_proxy_settings (SjMetadata *metadata)
+set_http_proxy (SjMetadata *metadata,
+                const char *proxy_url)
 {
-  GSettings *settings;
+  GstUri *uri;
+  char *host;
+  guint port;
+  char *userinfo;
+  char **user_strv;
 
-  settings = g_settings_new ("org.gnome.system.proxy.http");
-  /* bind with G_SETTINGS_BIND_GET_NO_CHANGES to avoid occasional
-     segfaults in g_object_set_property called with an invalid pointer
-     which I think were caused by the update being scheduled before
-     metadata was destroy but happening afterwards (g_settings_bind is
-     not called from the main thread). metadata is a short lived
-     object so there shouldn't be a problem in practice, as the setting
-     are unlikely to change while it exists. If the settings change
-     between ripping one CD and the next then as a new metadata object
-     is created for the second query it will have the updated
-     settings. */
-  g_settings_bind (settings, SJ_SETTINGS_PROXY_HOST,
-                   metadata, "proxy-host",
-                   G_SETTINGS_BIND_GET_NO_CHANGES);
+  uri = gst_uri_from_string (proxy_url);
+  if (!uri) {
+    GST_DEBUG ("Failed to parse URI '%s'", proxy_url);
+    g_object_set (metadata,
+                  "proxy-mode", G_DESKTOP_PROXY_MODE_NONE,
+                  NULL);
+    return;
+  }
 
-  g_settings_bind (settings, SJ_SETTINGS_PROXY_PORT,
-                   metadata, "proxy-port",
-                   G_SETTINGS_BIND_GET_NO_CHANGES);
+  host = gst_uri_get_host (uri);
+  port = gst_uri_get_port (uri);
 
-  g_settings_bind (settings, SJ_SETTINGS_PROXY_USERNAME,
-                   metadata, "proxy-username",
-                   G_SETTINGS_BIND_GET_NO_CHANGES);
+  g_object_set (metadata,
+                "proxy-host", host,
+                "proxy-port", port,
+                NULL);
 
-  g_settings_bind (settings, SJ_SETTINGS_PROXY_PASSWORD,
-                   metadata, "proxy-password",
-                   G_SETTINGS_BIND_GET_NO_CHANGES);
+  /* https doesn't handle authentication yet */
+  if (gst_uri_has_protocol (proxy_url, "https")) {
+    g_object_set (metadata,
+                  "proxy-use-authentication", FALSE,
+                  NULL);
+    goto finish;
+  }
 
-  g_settings_bind (settings, SJ_SETTINGS_PROXY_USE_AUTHENTICATION,
-                   metadata, "proxy-use-authentication",
-                   G_SETTINGS_BIND_GET_NO_CHANGES);
+  userinfo = gst_uri_get_userinfo (uri);
+  if (userinfo == NULL) {
+    g_object_set (metadata,
+                  "proxy-use-authentication", FALSE,
+                  NULL);
+    goto finish;
+  }
 
-  g_object_unref (settings);
+  user_strv = g_strsplit (userinfo, ":", 2);
+  g_free (userinfo);
 
-  settings = g_settings_new ("org.gnome.system.proxy");
-  g_settings_bind (settings, SJ_SETTINGS_PROXY_MODE,
-                   metadata, "proxy-mode",
-                   G_SETTINGS_BIND_GET_NO_CHANGES);
-  g_object_unref (settings);
+  g_object_set (metadata,
+                "proxy-username", user_strv[0],
+                "proxy-password", user_strv[1],
+                "proxy-use-authentication", TRUE,
+                NULL);
+  g_strfreev (user_strv);
+
+finish:
+  gst_uri_unref (uri);
+}
+
+static void
+set_http_proxy_settings (SjMetadata *metadata)
+{
+  GError *error = NULL;
+  char **uris;
+
+  uris = g_proxy_resolver_lookup (g_proxy_resolver_get_default (),
+                                  DEFAULT_MUSICBRAINZ_SERVER,
+                                  NULL,
+                                  &error);
+  if (!uris) {
+    if (error != NULL) {
+      g_debug ("Failed to look up proxy for '%s': %s",
+               DEFAULT_MUSICBRAINZ_SERVER,
+               error->message);
+      g_clear_error (&error);
+    }
+    g_object_set (metadata,
+                  "proxy-mode", G_DESKTOP_PROXY_MODE_NONE,
+                  NULL);
+    return;
+  }
+
+  if (g_str_equal (uris[0], "direct://")) {
+    g_strfreev (uris);
+    g_object_set (metadata,
+                  "proxy-mode", G_DESKTOP_PROXY_MODE_NONE,
+                  NULL);
+    return;
+  }
+
+  g_object_set (metadata,
+                "proxy-mode", G_DESKTOP_PROXY_MODE_MANUAL,
+                NULL);
+  set_http_proxy (metadata, uris[0]);
+  g_strfreev (uris);
 }
 
 GList *
@@ -194,7 +249,7 @@ list_albums_thread_cb (GTask        *task,
     metadata = g_object_new (types[i],
                              "device", task_data,
                              NULL);
-    bind_http_proxy_settings (metadata);
+    set_http_proxy_settings (metadata);
     if (url == NULL)
       albums = sj_metadata_list_albums (metadata, &url, cancellable, &error);
     else
