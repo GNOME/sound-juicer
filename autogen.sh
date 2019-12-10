@@ -23,6 +23,8 @@ if [ "$#" = 0 -a "x$NOCONFIGURE" = "x" ]; then
 fi
 
 aclocal --install || exit 1
+autoheader || exit 1
+glib-gettextize -f -c || exit 1
 autoreconf --verbose --force --install || exit 1
 
 cd "$olddir"

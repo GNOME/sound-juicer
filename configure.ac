@@ -23,7 +23,7 @@ AM_MAINTAINER_MODE([enable])
 
 # Use GNU Gettext
 AM_GNU_GETTEXT([external],[need-ngettext])
-AM_GNU_GETTEXT_VERSION([0.19.6])
+AM_GNU_GETTEXT_VERSION([0.20])
 
 # Standard C and C++ compiler mojo
 AC_ISC_POSIX
