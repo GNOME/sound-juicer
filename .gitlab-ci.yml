@@ -1,0 +1,14 @@
+stages:
+- test
+
+build-fedora:
+  image: fedora:latest
+  stage: test
+  before_script:
+    - dnf install -y redhat-rpm-config gcc make git autoconf autoconf-archive yelp-tools libappstream-glib-devel diffutils automake "pkgconfig(gmodule-export-2.0)" "pkgconfig(gsettings-desktop-schemas)" "pkgconfig(gstreamer-1.0)" "pkgconfig(gstreamer-plugins-base-1.0)" "pkgconfig(gstreamer-pbutils-1.0)" "pkgconfig(gtk+-3.0)" "pkgconfig(iso-codes)" "pkgconfig(libbrasero-media3)" "pkgconfig(libcanberra-gtk3)" "pkgconfig(libdiscid)" "pkgconfig(libmusicbrainz5)" gstreamer1-plugins-good gettext-devel desktop-file-utils itstool /usr/bin/appstream-util
+  script:
+    - mkdir _build
+    - cd _build
+    - ../autogen.sh --disable-dependency-tracking --disable-Werror
+    - make
+    - sudo make install
