@@ -113,7 +113,7 @@ set_http_proxy (SjMetadata *metadata,
   const char *host;
   guint port;
   const char *userinfo;
-  char **user_strv;
+  g_auto(GStrv) user_strv = NULL;
 
   uri = gst_uri_from_string (proxy_url);
   if (!uri) {
@@ -155,7 +155,6 @@ set_http_proxy (SjMetadata *metadata,
                 "proxy-password", user_strv[1],
                 "proxy-use-authentication", TRUE,
                 NULL);
-  g_strfreev (user_strv);
 
 finish:
   gst_uri_unref (uri);
