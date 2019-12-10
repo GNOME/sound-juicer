@@ -110,9 +110,9 @@ set_http_proxy (SjMetadata *metadata,
                 const char *proxy_url)
 {
   GstUri *uri;
-  char *host;
+  const char *host;
   guint port;
-  char *userinfo;
+  const char *userinfo;
   char **user_strv;
 
   uri = gst_uri_from_string (proxy_url);
@@ -149,7 +149,6 @@ set_http_proxy (SjMetadata *metadata,
   }
 
   user_strv = g_strsplit (userinfo, ":", 2);
-  g_free (userinfo);
 
   g_object_set (metadata,
                 "proxy-username", user_strv[0],
