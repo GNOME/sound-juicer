@@ -41,8 +41,7 @@ SUBDIRS = . po help
 ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
 EXTRA_DIST += \
-	autogen.sh \
-	sound-juicer.spec
+	autogen.sh
 
 sound_juicer_LDFLAGS = \
 	$(AM_LDFLAGS)
