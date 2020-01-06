@@ -19,7 +19,5 @@ libjuicer_SOURCES += \
 	libjuicer/sj-util.h
 
 sound_juicer_SOURCES += $(libjuicer_SOURCES)
-sound_juicer_CFLAGS += $(CDIO_CFLAGS)
-sound_juicer_LDADD += $(CDIO_LIBS)
 sound_juicer_LDADD += $(MUSICBRAINZ5_LIBS)
 sound_juicer_CFLAGS += $(MUSICBRAINZ5_CFLAGS)

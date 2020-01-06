@@ -1,0 +1,157 @@
+{
+    "app-id": "org.gnome.SoundJuicer",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "master",
+    "sdk": "org.gnome.Sdk",
+    "command": "sound-juicer",
+    "rename-icon": "sound-juicer",
+    "tags": [ "nightly" ],
+    "finish-args": [
+        /* X11 + XShm access */
+        "--share=ipc", "--socket=x11",
+        /* Wayland access */
+        "--socket=wayland",
+        /* audio CDs */
+        "--device=all",
+        /* Needs to talk to the network */
+        "--share=network",
+        /* Play sounds */
+        "--socket=pulseaudio",
+        /* Browse user's Music directory */
+        "--filesystem=xdg-music",
+        /* Needed for dconf to work */
+        "--filesystem=xdg-run/dconf", "--filesystem=~/.config/dconf:ro",
+        "--talk-name=ca.desrt.dconf", "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
+        /* optical media detection */
+        "--talk-name=org.gtk.vfs", "--talk-name=org.gtk.vfs.*",
+        /* Force volume monitor with optical media detection support */
+        "--env=GIO_USE_VOLUME_MONITOR=udisks2",
+        /* Ensure cdda gstreamer plugin is picked found for audio CD's */
+        "--env=GST_PLUGIN_PATH=/app/lib/codecs/lib/gstreamer-1.0"
+    ],
+    "build-options" : {
+        "cflags": "-O2 -g",
+        "cxxflags": "-O2 -g"
+    },
+    "cleanup": [ "/include", "/share/bash-completion" ],
+    "modules": [
+        /* gst-plugins-base needs cdparanoia to add support for cdda */
+        {
+            "name": "cdparanoia",
+            "buildsystem": "simple",
+            "build-commands": [
+                "cp /usr/share/automake-*/config.{sub,guess} .",
+                "./configure --prefix=/app",
+                "make all slib",
+                "make install"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://downloads.xiph.org/releases/cdparanoia/cdparanoia-III-10.2.src.tgz",
+                    "sha256": "005db45ef4ee017f5c32ec124f913a0546e77014266c6a1c50df902a55fe64df"
+                },
+                {
+                    "type": "patch",
+                    "path": "cdparanoia-use-proper-gnu-config-files.patch"
+                }
+            ]
+        },
+        /* To play cdda */
+        {
+            "name": "gst-plugins-base",
+            "buildsystem": "meson",
+            "config-opts": [
+                "--prefix=/app",
+                "-Dauto_features=disabled",
+                "-Dcdparanoia=enabled"
+            ],
+            "cleanup": [ "*.la", "/share/gtk-doc" ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.freedesktop.org/gstreamer/gst-plugins-base.git",
+                    "branch" : "1.16.2",
+                    "commit" : "9d3581b2e6f12f0b7e790d1ebb63b90cf5b1ef4e"
+                }
+            ]
+        },
+        /* libneon is required to build libmusicbrainz */
+        {
+            "name": "libneon",
+            "config-opts": [
+                "--enable-shared",
+                "--with-gssapi",
+                "--with-libxml2"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://www.webdav.org/neon/neon-0.30.2.tar.gz",
+                    "sha256": "db0bd8cdec329b48f53a6f00199c92d5ba40b0f015b153718d1b15d3d967fbca"
+                }
+            ]
+        },
+        {
+            "name": "libdiscid",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/metabrainz/libdiscid/archive/v0.6.2.tar.gz",
+                    "sha256": "a9b73b030603ce707941a3aab4f46649fa5029025e7e2bfbbe0c3c93a86d7b20"
+                }
+            ],
+            "cleanup": [
+                "/include",
+                "/lib/pkgconfig"
+            ]
+        },
+        /* libmusicbrainz is required for Audio CD track listing support */
+        {
+            "name": "libmusicbrainz",
+            "buildsystem": "cmake",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/metabrainz/libmusicbrainz/releases/download/release-5.1.0/libmusicbrainz-5.1.0.tar.gz",
+                    "sha256": "6749259e89bbb273f3f5ad7acdffb7c47a2cf8fcaeab4c4695484cef5f4c6b46"
+                }
+            ]
+        },
+        /* libbrasero-media is required for optical disc enumeration */
+        {
+            "name": "intltool",
+            "cleanup": [ "*" ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz",
+                    "sha256": "67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd"
+                }
+            ]
+        },
+        {
+            "name": "libbrasero",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://ftp.acc.umu.se/pub/gnome/sources/brasero/3.12/brasero-3.12.2.tar.xz",
+                    "sha256": "6822166f9d08efcf8d900cab6f563e87f49f0e078ca10595dcd908498ef12041"
+                }
+            ]
+        },
+        {
+            "name": "sound-juicer",
+            "config-opts": [
+                "--disable-Werror"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/sound-juicer.git"
+                }
+            ]
+        }
+    ]
+}
