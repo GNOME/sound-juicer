@@ -1,4 +1,115 @@
-include: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_ci_initiative.yml'
+.flatpak:
+  image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master'
+  stage: '.pre'
+  script:
+    - flatpak-builder --stop-at=${FLATPAK_MODULE} flatpak_app ${MANIFEST_PATH}
+    # Make sure to keep this in sync with the Flatpak manifest, all arguments
+    # are passed except the config-args because we build it ourselves
+    - flatpak build flatpak_app ./autogen.sh --prefix=/app --disable-Werror
+    - flatpak build flatpak_app make install
+    - |
+      flatpak build flatpak_app bash -c \
+      'for lang in $(ls /app/share/locale/); do \
+        ll=$(echo ${lang} | egrep -o '^[a-z]+'); \
+        test ${ll} == en && continue; \
+        test -L /app/share/locale/${lang} && continue; \
+        mkdir -p /app/share/runtime/locale/${ll}/share; \
+        mv /app/share/locale/${lang} /app/share/runtime/locale/${ll}/share/; \
+        ln -s ../../share/runtime/locale/${ll}/share/${lang} /app/share/locale; \
+      done'
+    - |
+      flatpak build flatpak_app bash -c \
+      "find /app -type f '(' -perm -111 -o -name '*.so*' ')' -print0 | while read -r -d $'\\0' file; do \
+        read -n4 hdr < \${file} || continue; \
+        if [ \"\$hdr\" != \$(printf \\\\x7fELF) ]; then \
+          continue; \
+        fi; \
+        if objdump -j .gnu_debuglink -s \${file} &> /dev/null; then \
+          continue; \
+        fi; \
+        case \${file} in /app/lib/debug/*) \
+            continue ;; \
+        esac; \
+        debugedit -i --list-file=source-files.part --base-dir=\${PWD} --dest-dir=/app/lib/debug/source//${FLATPAK_MODULE} \${file} &> /dev/null; \
+        cat source-files.part >> source-files; \
+        realpath=\$(realpath -s --relative-to=/app \${file}); \
+        debugfile=/app/lib/debug/\${realpath}.debug; \
+        mkdir -p \$(dirname \${debugfile}); \
+        objcopy --only-keep-debug --compress-debug-sections \${file} \${debugfile}; \
+        chmod 644 \${debugfile}; \
+        mode=\$(stat -c 0%a \${file}); \
+        [ -w \${file} ] || chmod +w \${file}; \
+        strip --remove-section=.comment --remove-section=.note --strip-unneeded --remove-section=.gnu_debugaltlink \${file}; \
+        objcopy --add-gnu-debuglink \${debugfile} \${file}; \
+        chmod \${mode} \${file}; \
+      done; \
+      sort -zu < source-files | while read -r -d \$'\\0' source; do \
+        dst=/app/lib/debug/source/${FLATPAK_MODULE}/\${source}; \
+        src=\${source}; \
+        if [ -d \${src} ]; then \
+          install -m0755 -d \${dst}; \
+          continue; \
+        fi; \
+        [ -f \${src} ] || continue; \
+        install -m0644 -D \${src} \${dst}; \
+      done"
+
+    - flatpak-builder --finish-only --repo=repo ${BRANCH:+--default-branch=$BRANCH} flatpak_app ${MANIFEST_PATH}
+
+    # Generate a Flatpak bundle
+    - flatpak build-bundle repo ${BUNDLE} --runtime-repo=${RUNTIME_REPO} ${APP_ID} ${BRANCH}
+  artifacts:
+    name: 'Flatpak artifacts'
+    expose_as: 'Get Flatpak bundle here'
+    when: 'always'
+    paths:
+      - "${BUNDLE}"
+      - 'repo/'
+      - '_build/meson-logs/meson-log.txt'
+      - '_build/meson-logs/testlog.txt'
+    expire_in: 14 days
+  cache:
+    key: "$CI_JOB_NAME"
+    paths:
+      - '.flatpak-builder/downloads'
+      - '.flatpak-builder/git'
+
+.review:
+  stage: '.post'
+  script:
+    - echo "This job has been deprecated and is no longer needed!"
+  except:
+    refs:
+      - 'tags'
+      - 'master'
+      - 'branches'
+
+.stop_review:
+  stage: '.post'
+  script:
+    - echo "This job has been deprecated and is no longer needed!"
+  except:
+    refs:
+      - 'tags'
+      - 'master'
+      - 'branches'
+
+.publish_nightly:
+  image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/flat-manager-client'
+  stage: '.post'
+  script:
+    - BUILD_ID=$(flat-manager-client create ${FLAT_MANAGER_URL} ${FLATPAK_REPO})
+    - flat-manager-client push --commit --publish --wait ${BUILD_ID} repo/ || result=$?
+    - flat-manager-client purge ${BUILD_ID}
+    - exit $result
+  variables:
+    FLAT_MANAGER_URL: https://nightly.gnome.org/
+    FLATPAK_REPO: nightly
+  only:
+    refs:
+      - master
+    variables:
+      - $REPO_TOKEN
 
 stages:
 - test
