@@ -76,7 +76,7 @@ configure_file(
 doc_data = files(
   'COPYING',
   'NEWS',
-  'README',
+  'README.md',
   'AUTHORS'
 )
 
