@@ -847,7 +847,7 @@ metadata_cb (GObject      *source,
   }
 
   /* Free old album details */
-  g_clear_pointer (&current_album, (GDestroyNotify) album_details_free);
+  g_clear_pointer (&current_album, album_details_free);
   /* Set the new current album pointer */
   if (albums != NULL) {
     if (albums->next != NULL) {
@@ -860,7 +860,7 @@ metadata_cb (GObject      *source,
     } else {
       current_album = albums->data;
       /* current_album now owns ->data, so just free the list */
-      g_clear_pointer (&albums, (GDestroyNotify) g_list_free);
+      g_clear_pointer (&albums, g_list_free);
     }
   }
   update_ui_for_album (current_album);
