@@ -25,9 +25,7 @@
 #include "sj-structures.h"
 #include "sj-metadata-getter.h"
 #include "sj-metadata.h"
-#ifdef HAVE_MUSICBRAINZ5
 #include "sj-metadata-musicbrainz5.h"
-#endif /* HAVE_MUSICBRAINZ5 */
 #include "sj-metadata-gvfs.h"
 #include "sj-error.h"
 
@@ -239,9 +237,7 @@ list_albums_thread_cb (GTask        *task,
   GList *albums = NULL;
   gchar *url = NULL;
   GType types[] = {
-#ifdef HAVE_MUSICBRAINZ5
     SJ_TYPE_METADATA_MUSICBRAINZ5,
-#endif /* HAVE_MUSICBRAINZ5 */
     SJ_TYPE_METADATA_GVFS
   };
 
