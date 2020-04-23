@@ -7,51 +7,50 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer 2.16.0\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
-"juicer\n"
-"POT-Creation-Date: 2016-09-25 19:00+0200\n"
-"PO-Revision-Date: 2016-08-24 17:48+0100\n"
-"Last-Translator: David <rbndavid@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/sound-juicer/issues\n"
+"POT-Creation-Date: 2020-04-03 11:35+0000\n"
+"PO-Revision-Date: 2020-04-20 11:57+0200\n"
+"Last-Translator: Carles Ferrando Garcia <carles.ferrando@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 2.0.6\n"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:1
+#: data/org.gnome.sound-juicer.gschema.xml:19
 msgid "The CD to extract from"
 msgstr "El CD del qual extreure"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:2
+#: data/org.gnome.sound-juicer.gschema.xml:20
 msgid ""
 "Please note: Sound Juicer currently only handles real device names, no "
 "symlinks like e.g. /dev/cdrom. An empty key implicates that the system's "
 "default CD-ROM drive will be used."
 msgstr ""
 "Si us plau, tingueu en compte que actualment el Sound Juicer només gestiona "
-"noms de dispositius reals, no enllaços simbòlics, p. ex. /dev/cdrom. Una clau "
-"buida implica que s'usarà el dispositiu de CD-ROM predeterminat del sistema."
+"noms de dispositius reals, no enllaços simbòlics, p. ex. /dev/cdrom. Una "
+"clau buida implica que s'usarà el dispositiu de CD-ROM predeterminat del "
+"sistema."
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:3
+#: data/org.gnome.sound-juicer.gschema.xml:25
 msgid "Whether to eject the CD when finished extracting"
 msgstr "Si s'ha d'expulsar el CD quan s'acabi l'extracció"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:4
+#: data/org.gnome.sound-juicer.gschema.xml:30
 msgid "Whether to open the target directory when finished extracting"
 msgstr "Si s'ha d'obrir el directori de destinació quan s'acabi l'extracció"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:5
+#: data/org.gnome.sound-juicer.gschema.xml:35
 msgid "The URI to save the extracted music to"
 msgstr "L'URL on desar la música extreta"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:6
+#: data/org.gnome.sound-juicer.gschema.xml:40
 msgid "The directory structure for the files"
 msgstr "L'estructura del directori per als fitxers"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:8
-#, no-c-format
+#: data/org.gnome.sound-juicer.gschema.xml:41
 msgid ""
 "Format specifiers: %at - album title; %aT - album title (lowercase); %aa - "
 "album artist; %aA - album artist (lowercase); %as - album artist (sortable); "
@@ -75,12 +74,11 @@ msgstr ""
 "%tC - compositor (en minúscula), %tp - compositor de la pista (ordenable), "
 "%tP - compositor de la pista (ordenable en minúscula)."
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:9
+#: data/org.gnome.sound-juicer.gschema.xml:46
 msgid "The name pattern for files"
 msgstr "El patró de noms de fitxers per als fitxers"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:11
-#, no-c-format
+#: data/org.gnome.sound-juicer.gschema.xml:47
 msgid ""
 "Do not specify an extension. Format specifiers: %at - album title; %aT - "
 "album title (lowercase); %aa - album artist; %aA - album artist (lowercase); "
@@ -99,30 +97,31 @@ msgstr ""
 "l'àlbum, %aT - títol de l'àlbum (en minúscules), %aa - artista de l'àlbum, "
 "%aA - artista de l'àlbum (en minúscules), %as - artista de l'àlbum "
 "(ordenable), %aS - artista de l'àlbum (ordenable en minúscules), %tn - "
-"número de pista (p. ex.: 8), %tN - número de pista, emplenat amb zeros (p. ex.: "
-"08), %tt - títol de la pista, %tT - títol de la pista (en minúscules), %ta - "
-"artista de la pista, %tA - artista de la pista (en minúscules), %ts - "
+"número de pista (p. ex.: 8), %tN - número de pista, emplenat amb zeros (p. "
+"ex.: 08), %tt - títol de la pista, %tT - títol de la pista (en minúscules), "
+"%ta - artista de la pista, %tA - artista de la pista (en minúscules), %ts - "
 "artista de la pista (ordenable), %tS - artista de la pista (ordenable en "
 "minúscules), %tc - compositor de la pista, %tC - compositor de la pista (en "
 "minúscules), %tp - compositor de la pista (ordenable), %tP - compositor de "
-"la pista (ordenable en minúscules), %dn - disc i número de pista (p. ex.: disc "
-"2 - 6 o 6), %dN - número de disc, emplenat amb zeros (p. ex.: d02p06 o 06)."
+"la pista (ordenable en minúscules), %dn - disc i número de pista (p. ex.: "
+"disc 2 - 6 o 6), %dN - número de disc, emplenat amb zeros (p. ex.: d02p06 o "
+"06)."
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:12
+#: data/org.gnome.sound-juicer.gschema.xml:52
 msgid "The paranoia mode to use"
 msgstr "El mode de paranoia a usar"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:13
+#: data/org.gnome.sound-juicer.gschema.xml:53
 msgid "Paranoia flags: disable; fragment; overlap; scratch; repair."
 msgstr ""
 "Indicadors de paranoia: inhabilita, fragmentació, simultaneïtat, ratllat i "
 "repara."
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:14
+#: data/org.gnome.sound-juicer.gschema.xml:58
 msgid "Whether to strip special characters from filenames"
 msgstr "Si s'han d'eliminar els caràcters especials dels noms de fitxer"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:15
+#: data/org.gnome.sound-juicer.gschema.xml:59
 msgid ""
 "If enabled, special characters such as space, wildcards and backslashes will "
 "be removed from the output filename."
@@ -130,43 +129,317 @@ msgstr ""
 "Si s'habilita, se suprimiran els caràcters especials, com espais, comodins i "
 "barres invertides, del nom de fitxer de sortida."
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:16
+#: data/org.gnome.sound-juicer.gschema.xml:64
 msgid "Media type to encode to"
 msgstr "Tipus de format en què s'ha de codificar"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:17
+#: data/org.gnome.sound-juicer.gschema.xml:65
 msgid "The GStreamer media type to encode to."
 msgstr "El tipus de format de la GStreamer en què s'ha de codificar."
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:18
+#: data/org.gnome.sound-juicer.gschema.xml:71
 msgid "Audio volume"
 msgstr "Volum de l'àudio"
 
-#: ../libjuicer/sj-extractor.c:355
+#: data/org.gnome.SoundJuicer.desktop.in.in:3
+#: data/appdata/org.gnome.SoundJuicer.appdata.xml.in:7 data/sound-juicer.ui:7
+#: src/sj-main.c:129 src/sj-main.c:131 src/sj-main.c:2152
+msgid "Sound Juicer"
+msgstr "Sound Juicer"
+
+#: data/org.gnome.SoundJuicer.desktop.in.in:4
+msgid "Audio CD Extractor"
+msgstr "Un extractor d'àudio CD"
+
+#: data/org.gnome.SoundJuicer.desktop.in.in:5
+msgid "Copy music from your CDs"
+msgstr "Extraieu música dels CD"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.SoundJuicer.desktop.in.in:7
+msgid "Ripper;"
+msgstr "Extraure;"
+
+#: data/appdata/org.gnome.SoundJuicer.appdata.xml.in:8
+msgid "CD ripper with a clean interface and simple preferences"
+msgstr ""
+"Extractor de dades d'àudio de CD amb una interfície neta i preferències "
+"simples"
+
+#: data/appdata/org.gnome.SoundJuicer.appdata.xml.in:10
+msgid ""
+"Sound Juicer is a simple and clean CD ripping tool. It allows you to extract "
+"the audio from audio compact discs and convert them into audio files that "
+"your computer can understand and play. Sound Juicer can also play the audio "
+"tracks directly from the CD, allowing you to preview the CD before ripping "
+"it."
+msgstr ""
+"Sound Juicer és una eina simple per extraure dades d'àudio de CD. Us permet "
+"extraure l'àudio des d'un disc compacte i convertir-lo en fitxers d'àudio "
+"que el vostre ordinador pot entendre i reproduir. Sound Juicer també permet "
+"reproduir les pistes d'àudio directament del CD, permetent la "
+"previsualització del CD abans d'extraure el àudio."
+
+#: data/appdata/org.gnome.SoundJuicer.appdata.xml.in:17
+msgid ""
+"Sound Juicer is designed to be easy to use, and to work with little user "
+"intervention. When you start Sound Juicer, it will examine the CD in the "
+"drive and try to locate information about the audio tracks using the freely-"
+"available MusicBrainz service."
+msgstr ""
+"Sound Juicer ha estat dissenyat per funcionar de forma fàcil, i treballa una "
+"intervenció de l'usuari mínima. Quan inicieu Sound Juicer. examina la unitat "
+"CD i intenta localitzar informació sobre les pistes d'àudio usant un servei "
+"MusicBrainz disponible lliure."
+
+#. This is a translatable version of project_group
+#: data/appdata/org.gnome.SoundJuicer.appdata.xml.in:36
+msgid "The GNOME Project"
+msgstr "El projecte GNOME"
+
+#: data/sj-album-chooser-dialog.ui:6
+msgid "Select Album"
+msgstr "Seleccioneu l'àlbum"
+
+#: data/sj-album-chooser-dialog.ui:11
+msgid "_Select"
+msgstr "_Seleccioneu"
+
+#: data/sj-album-chooser-dialog.ui:27
+msgid "This CD could be more than one album. Please select which album it is."
+msgstr ""
+"Aquest CD podria ser més d’un àlbum. Seleccioneu de quin àlbum es tracta."
+
+#: data/sound-juicer.ui:29
+msgid "_Edit Album"
+msgstr "_Edita l'album"
+
+#: data/sound-juicer.ui:42
+msgid "_Reload Album"
+msgstr "_Torna a carregar l'album"
+
+#: data/sound-juicer.ui:135
+msgid "_Year:"
+msgstr "_Any:"
+
+#: data/sound-juicer.ui:170
+msgid "_Disc:"
+msgstr "_Disc:"
+
+#: data/sound-juicer.ui:210
+msgid "_Title:"
+msgstr "_Títol:"
+
+#: data/sound-juicer.ui:235
+msgid "_Artist:"
+msgstr "_Artista:"
+
+#: data/sound-juicer.ui:266
+msgid "_Composer:"
+msgstr "_Compositor:"
+
+#: data/sound-juicer.ui:297
+msgid "_Genre:"
+msgstr "_Gènere:"
+
+#: data/sound-juicer.ui:314
+msgid "Duration:"
+msgstr "Duració:"
+
+#: data/sound-juicer.ui:360
+msgid "Tracks"
+msgstr "Pistes"
+
+#: data/sound-juicer.ui:384 src/sj-main.c:1881 src/sj-play.c:120
+#: src/sj-play.c:258 src/sj-play.c:621
+msgid "_Play"
+msgstr "_Reprodueix"
+
+#: data/sound-juicer.ui:394 src/sj-extracting.c:232 src/sj-main.c:1905
+msgid "E_xtract"
+msgstr "E_xtreu"
+
+#: data/sound-juicer.ui:420
+msgid "Track Progress"
+msgstr "Progrés de la pista"
+
+#: data/sound-juicer.ui:515 data/sound-juicer-menu.ui:33
+msgid "Preferences"
+msgstr "Preferències"
+
+#: data/sound-juicer.ui:534
+msgid "Device"
+msgstr "Dispositiu"
+
+#: data/sound-juicer.ui:550
+msgid "CD _drive:"
+msgstr "_Unitat CD:"
+
+#: data/sound-juicer.ui:572
+msgid "_Eject after extracting tracks"
+msgstr "_Expulsa després d'extraure les pistes"
+
+#: data/sound-juicer.ui:587
+msgid "_Open music folder when finished"
+msgstr "_Obre la carpeta de música quan acabis"
+
+#: data/sound-juicer.ui:605
+msgid "Music Folder"
+msgstr "Carpeta de música"
+
+#: data/sound-juicer.ui:621
+msgid "_Folder:"
+msgstr "_Carpeta:"
+
+#: data/sound-juicer.ui:637
+msgid "Select A Folder"
+msgstr "Selecciona una carpeta"
+
+#: data/sound-juicer.ui:650
+msgid "Track Names"
+msgstr "Noms de les pistes"
+
+#: data/sound-juicer.ui:666
+msgid "Folder hie_rarchy:"
+msgstr "Je_rarquia de la carpeta:"
+
+#: data/sound-juicer.ui:697
+msgid "File _name:"
+msgstr "_Nom del fitxer:"
+
+#: data/sound-juicer.ui:725
+msgid "_Strip special characters"
+msgstr "Elimina el caràcter_s especials"
+
+#: data/sound-juicer.ui:756
+msgid "Format"
+msgstr "Format"
+
+#: data/sound-juicer.ui:772
+msgid "O_utput Format:"
+msgstr "Format de s_ortida:"
+
+#: data/sound-juicer-menu.ui:5
+msgid "Disc"
+msgstr "Disc"
+
+#: data/sound-juicer-menu.ui:8
+msgid "Re-read"
+msgstr "Torna a llegir"
+
+#: data/sound-juicer-menu.ui:13
+msgid "Duplicate"
+msgstr "Duplica"
+
+#: data/sound-juicer-menu.ui:17
+msgid "Eject"
+msgstr "Expulsa"
+
+#: data/sound-juicer-menu.ui:26
+msgid "Open MusicBrainz"
+msgstr "Obre MusicBrainz"
+
+#: data/sound-juicer-menu.ui:39
+msgid "Shortcuts"
+msgstr "Dreceres"
+
+#: data/sound-juicer-menu.ui:43
+msgid "Help"
+msgstr "Ajuda"
+
+#: data/sound-juicer-menu.ui:48
+msgid "About"
+msgstr "Quant a"
+
+#: data/sound-juicer-menu.ui:52
+msgid "Quit"
+msgstr "Surt"
+
+#: data/sound-juicer-shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Disc"
+msgstr "Disc"
+
+#: data/sound-juicer-shortcuts.ui:19
+msgctxt "shortcut window"
+msgid "Reread track names"
+msgstr "Re-llegeix nom pistes"
+
+#: data/sound-juicer-shortcuts.ui:26
+msgctxt "shortcut window"
+msgid "Eject disc"
+msgstr "Expulsa el disc"
+
+#: data/sound-juicer-shortcuts.ui:33
+msgctxt "shortcut window"
+msgid "Toggle playback"
+msgstr "Commuta reproducció"
+
+#: data/sound-juicer-shortcuts.ui:40
+msgctxt "shortcut window"
+msgid "Next track"
+msgstr "Pista següent"
+
+#: data/sound-juicer-shortcuts.ui:47
+msgctxt "shortcut window"
+msgid "Previous track"
+msgstr "Pista prèvia"
+
+#: data/sound-juicer-shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "General"
+msgstr "General"
+
+#: data/sound-juicer-shortcuts.ui:60
+msgctxt "shortcut window"
+msgid "Help"
+msgstr "Ajuda"
+
+#: data/sound-juicer-shortcuts.ui:67
+msgctxt "shortcut window"
+msgid "Shortcuts help"
+msgstr "Dreceres d'ajuda"
+
+#: data/sound-juicer-shortcuts.ui:74
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Surt"
+
+#: data/sound-juicer-shortcuts.ui:81
+msgctxt "shortcut window"
+msgid "Select all tracks"
+msgstr "Selecciona totes pistes"
+
+#: data/sound-juicer-shortcuts.ui:88
+msgctxt "shortcut window"
+msgid "Unselect all tracks"
+msgstr "Desmarca totes pistes"
+
+#: libjuicer/sj-extractor.c:355
 #, c-format
 msgid "Could not create GStreamer CD reader"
 msgstr "No s'ha pogut crear un lector de CD de GStreamer"
 
-#: ../libjuicer/sj-extractor.c:373
+#: libjuicer/sj-extractor.c:373
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "No s'han pogut crear codificadors de GStreamer per a %s"
 
-#: ../libjuicer/sj-extractor.c:385
+#: libjuicer/sj-extractor.c:385
 #, c-format
 msgid "Could not create GStreamer file output"
 msgstr "No s'ha pogut crear un fitxer de sortida del GStreamer"
 
-#: ../libjuicer/sj-extractor.c:399
+#: libjuicer/sj-extractor.c:399
 #, c-format
 msgid "Could not link pipeline"
 msgstr "No s'ha pogut enllaçar el conducte"
 
-#: ../libjuicer/sj-extractor.c:422
+#: libjuicer/sj-extractor.c:422
 msgid "Could not get current track position"
 msgstr "No s'ha pogut obtenir la posició actual de la pista"
 
-#: ../libjuicer/sj-extractor.c:451
+#: libjuicer/sj-extractor.c:451
 #, c-format
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
@@ -174,32 +447,32 @@ msgstr ""
 "L'objecte d'extracció no és vàlid. És dolent, comproveu la consola per "
 "veure'n els errors."
 
-#: ../libjuicer/sj-extractor.c:711
+#: libjuicer/sj-extractor.c:713
 #, c-format
 msgid "The plugin necessary for CD access was not found"
 msgstr "No s'ha trobat el connector necessari per a l'accés al CD"
 
-#: ../libjuicer/sj-extractor.c:719
+#: libjuicer/sj-extractor.c:721
 #, c-format
 msgid "The plugin necessary for file access was not found"
 msgstr "No s'ha trobat el connector necessari per a l'accés al fitxer"
 
-#: ../libjuicer/sj-metadata.c:211 ../libjuicer/sj-metadata.c:234
-#: ../libjuicer/sj-metadata.c:245
+#: libjuicer/sj-metadata.c:211 libjuicer/sj-metadata.c:234
+#: libjuicer/sj-metadata.c:245
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "No es pot llegir el CD: %s"
 
-#: ../libjuicer/sj-metadata.c:212
+#: libjuicer/sj-metadata.c:212
 msgid "Devices haven't been all probed yet"
 msgstr "Encara no s'han provat tots els dispositius"
 
-#: ../libjuicer/sj-metadata.c:228
+#: libjuicer/sj-metadata.c:228
 #, c-format
 msgid "Device ‘%s’ does not contain any media"
 msgstr "El dispositiu «%s» no conté cap mitjà"
 
-#: ../libjuicer/sj-metadata.c:231
+#: libjuicer/sj-metadata.c:231
 #, c-format
 msgid ""
 "Device ‘%s’ could not be opened. Check the access permissions on the device."
@@ -207,55 +480,55 @@ msgstr ""
 "No s'ha pogut obrir el dispositiu «%s». Comproveu els permisos d'accés al "
 "dispositiu."
 
-#: ../libjuicer/sj-metadata.c:373
+#: libjuicer/sj-metadata.c:373
 msgid "Czechoslovakia"
 msgstr "Txecoslovàquia"
 
-#: ../libjuicer/sj-metadata.c:374
+#: libjuicer/sj-metadata.c:374
 msgid "East Germany"
 msgstr "Alemanya de l'Est"
 
-#: ../libjuicer/sj-metadata.c:375
+#: libjuicer/sj-metadata.c:375
 msgid "Europe"
 msgstr "Europa"
 
-#: ../libjuicer/sj-metadata.c:376
+#: libjuicer/sj-metadata.c:376
 msgid "Serbia and Montenegro"
 msgstr "Sèrbia i Montenegro"
 
-#: ../libjuicer/sj-metadata.c:377
+#: libjuicer/sj-metadata.c:377
 msgid "Soviet Union"
 msgstr "Unió Soviètica"
 
-#: ../libjuicer/sj-metadata.c:378
+#: libjuicer/sj-metadata.c:378
 msgid "Worldwide"
 msgstr "Mundial"
 
-#: ../libjuicer/sj-metadata.c:379
+#: libjuicer/sj-metadata.c:379
 msgid "Yugoslavia"
 msgstr "Iugoslàvia"
 
-#: ../libjuicer/sj-metadata-gvfs.c:97
+#: libjuicer/sj-metadata-gvfs.c:97
 #, c-format
 msgid "Cannot access CD"
 msgstr "No es pot accedir al CD"
 
-#: ../libjuicer/sj-metadata-gvfs.c:119 ../src/egg-play-preview.c:575
-#: ../src/sj-main.c:355
+#: libjuicer/sj-metadata-gvfs.c:119 src/egg-play-preview.c:574
+#: src/sj-main.c:354
 msgid "Unknown Title"
 msgstr "Títol desconegut"
 
-#: ../libjuicer/sj-metadata-gvfs.c:125 ../libjuicer/sj-metadata-gvfs.c:155
-#: ../src/egg-play-preview.c:580 ../src/sj-extracting.c:984
+#: libjuicer/sj-metadata-gvfs.c:125 libjuicer/sj-metadata-gvfs.c:155
+#: src/egg-play-preview.c:579 src/sj-extracting.c:983
 msgid "Unknown Artist"
 msgstr "Artista desconegut"
 
-#: ../libjuicer/sj-metadata-gvfs.c:149
+#: libjuicer/sj-metadata-gvfs.c:149
 #, c-format
 msgid "Track %d"
 msgstr "Pista %d"
 
-#: ../libjuicer/sj-metadata-gvfs.c:176
+#: libjuicer/sj-metadata-gvfs.c:176
 #, c-format
 msgid "Cannot access CD: %s"
 msgstr "No es pot accedir al CD: %s"
@@ -263,21 +536,21 @@ msgstr "No es pot accedir al CD: %s"
 #. Translators: This string is used to build the composer tag
 #. when a track has composers and arrangers, or a composer and a
 #. mixture of arrangers, orchestrators and transcribers
-#: ../libjuicer/sj-metadata-musicbrainz5.c:695
+#: libjuicer/sj-metadata-musicbrainz5.c:702
 #, c-format
 msgid "%s arr. %s"
 msgstr "%s arr. %s"
 
 #. Translators: This string is used to build the composer tag
 #. when a track has composers and orchestrators
-#: ../libjuicer/sj-metadata-musicbrainz5.c:699
+#: libjuicer/sj-metadata-musicbrainz5.c:706
 #, c-format
 msgid "%s orch. %s"
 msgstr "%s orq. %s"
 
 #. Translators: This string is used to build the composer tag
 #. when a track has composers and transcribers
-#: ../libjuicer/sj-metadata-musicbrainz5.c:703
+#: libjuicer/sj-metadata-musicbrainz5.c:710
 #, c-format
 msgid "%s trans. %s"
 msgstr "%s trans. %s"
@@ -285,30 +558,30 @@ msgstr "%s trans. %s"
 #. Translators: This string is used to build the composer tag
 #. when a track has a mixture of arrangers, orchestrators and
 #. transcribers but no composers
-#: ../libjuicer/sj-metadata-musicbrainz5.c:713
+#: libjuicer/sj-metadata-musicbrainz5.c:720
 #, c-format
 msgid "arr. %s"
 msgstr "arr. %s"
 
 #. Translators: This string is used to build the composer tag
 #. when a track has orchestrators but no composer
-#: ../libjuicer/sj-metadata-musicbrainz5.c:717
+#: libjuicer/sj-metadata-musicbrainz5.c:724
 #, c-format
 msgid "orch. %s"
 msgstr "orq. %s"
 
 #. Translators: This string is used to build the composer tag
 #. when a track has a transcribers but no composer
-#: ../libjuicer/sj-metadata-musicbrainz5.c:721
+#: libjuicer/sj-metadata-musicbrainz5.c:728
 #, c-format
 msgid "trans. %s"
 msgstr "trans. %s"
 
-#: ../src/egg-play-preview.c:581 ../src/sj-extracting.c:983
+#: src/egg-play-preview.c:580 src/sj-extracting.c:982
 msgid "Unknown Album"
 msgstr "Àlbum desconegut"
 
-#: ../src/sj-about.c:51
+#: src/sj-about.c:51
 msgid ""
 "Sound Juicer is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -320,7 +593,7 @@ msgstr ""
 "publicada per la Free Software Foundation; bé sota la versió 2 de la "
 "Llicència o bé (si ho preferiu) sota qualsevol versió posterior."
 
-#: ../src/sj-about.c:55
+#: src/sj-about.c:55
 msgid ""
 "Sound Juicer is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -330,9 +603,9 @@ msgstr ""
 "El Sound Juicer es distribueix amb l'expectativa que serà útil, però SENSE "
 "CAP GARANTIA; ni tan sols la garantia implícita de COMERCIALITZACIÓ o "
 "ADEQUACIÓ PER UN PROPÒSIT PARTICULAR.  Vegeu la Llicència Pública General "
-"GNU per obtenir-ne més detalls."
+"GNU per a obtenir-ne més detalls."
 
-#: ../src/sj-about.c:59
+#: src/sj-about.c:59
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "Sound Juicer; if not, write to the Free Software Foundation, Inc., 51 "
@@ -342,13 +615,13 @@ msgstr ""
 "juntament amb el Sound Juicer; en cas contrari, escriviu a la Free Software "
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
 
-#: ../src/sj-about.c:70
+#: src/sj-about.c:70
 msgid "An Audio CD Extractor"
 msgstr "Un extractor d'àudio CD"
 
 #. Translators: put here your name and email
 #. so it will show up in the "about" box
-#: ../src/sj-about.c:78
+#: src/sj-about.c:78
 msgid "translator-credits"
 msgstr ""
 "Jordi Mallach <jordi@sindominio.net>\n"
@@ -356,7 +629,7 @@ msgstr ""
 
 #. Translators: this string is a list of catalog number(s) used by
 #. the label(s) to identify the release
-#: ../src/sj-album-chooser-dialog.c:242
+#: src/sj-album-chooser-dialog.c:242
 msgid "Catalog No.: "
 msgid_plural "Catalog Nos.: "
 msgstr[0] "Núm. de catàleg:"
@@ -365,7 +638,7 @@ msgstr[1] "Núms. de catàleg:"
 #. Translators: this string appears when multiple CDs were
 #. found in musicbrainz online database, it corresponds to
 #. "Released: <country> in <year> on <label>"
-#: ../src/sj-album-chooser-dialog.c:284
+#: src/sj-album-chooser-dialog.c:284
 #, c-format
 msgid "Released: %s in %d on %s"
 msgstr "Publicat a %s, el %d, a %s"
@@ -373,7 +646,7 @@ msgstr "Publicat a %s, el %d, a %s"
 #. Translators: this string appears when multiple CDs were
 #. found in musicbrainz online database, it corresponds to
 #. "Released: <country> on <label>"
-#: ../src/sj-album-chooser-dialog.c:292
+#: src/sj-album-chooser-dialog.c:292
 #, c-format
 msgid "Released: %s on %s"
 msgstr "Publicat a %s, a %s"
@@ -381,7 +654,7 @@ msgstr "Publicat a %s, a %s"
 #. Translators: this string appears when multiple CDs were
 #. found in musicbrainz online database, it corresponds to
 #. "Released: <country> in <year>"
-#: ../src/sj-album-chooser-dialog.c:299
+#: src/sj-album-chooser-dialog.c:299
 #, c-format
 msgid "Released: %s in %d"
 msgstr "Publicat a %s, el %d"
@@ -389,7 +662,7 @@ msgstr "Publicat a %s, el %d"
 #. Translators: this string appears when multiple CDs were
 #. found in musicbrainz online database, it corresponds to
 #. "Released: <country>"
-#: ../src/sj-album-chooser-dialog.c:306
+#: src/sj-album-chooser-dialog.c:306
 #, c-format
 msgid "Released: %s"
 msgstr "Publicat a %s"
@@ -397,7 +670,7 @@ msgstr "Publicat a %s"
 #. Translators: this string appears when multiple CDs were
 #. found in musicbrainz online database, it corresponds to
 #. "Released in <year> on <label>"
-#: ../src/sj-album-chooser-dialog.c:313
+#: src/sj-album-chooser-dialog.c:313
 #, c-format
 msgid "Released in %d on %s"
 msgstr "Publicat el %d, a %s"
@@ -405,7 +678,7 @@ msgstr "Publicat el %d, a %s"
 #. Translators: this string appears when multiple CDs were
 #. found in musicbrainz online database, it corresponds to
 #. "Released in <year>"
-#: ../src/sj-album-chooser-dialog.c:320
+#: src/sj-album-chooser-dialog.c:320
 #, c-format
 msgid "Released in %d"
 msgstr "Publicat el %d"
@@ -413,12 +686,12 @@ msgstr "Publicat el %d"
 #. Translators: this string appears when multiple CDs were
 #. found in musicbrainz online database, it corresponds to
 #. "Released on <label>"
-#: ../src/sj-album-chooser-dialog.c:327
+#: src/sj-album-chooser-dialog.c:327
 #, c-format
 msgid "Released on %s"
 msgstr "Publicat a %s"
 
-#: ../src/sj-album-chooser-dialog.c:330
+#: src/sj-album-chooser-dialog.c:330
 #, c-format
 msgid "Release label, year & country unknown"
 msgstr "Segell discogràfic, any i país desconeguts"
@@ -426,33 +699,29 @@ msgstr "Segell discogràfic, any i país desconeguts"
 #. Translators: this string identifies
 #. the number of the barcode printed on
 #. the release
-#: ../src/sj-album-chooser-dialog.c:341 ../src/sj-album-chooser-dialog.c:350
+#: src/sj-album-chooser-dialog.c:341 src/sj-album-chooser-dialog.c:350
 msgid "Barcode:"
 msgstr "Codi de barres:"
 
-#: ../src/sj-album-chooser-dialog.c:374
+#: src/sj-album-chooser-dialog.c:374
 #, c-format
 msgid " (Disc %d/%d)"
 msgstr " (Disc %d/%d)"
 
-#: ../src/sj-extracting.c:148
+#: src/sj-extracting.c:147
 #, c-format
 msgid "Failed to get output format"
 msgstr "No s'ha pogut obtenir el format de sortida"
 
-#: ../src/sj-extracting.c:173
+#: src/sj-extracting.c:172
 msgid "Name too long"
 msgstr "El nom és massa llarg"
 
-#: ../src/sj-extracting.c:233 ../src/sj-main.c:1890
-msgid "E_xtract"
-msgstr "E_xtreu"
-
-#: ../src/sj-extracting.c:309
+#: src/sj-extracting.c:308
 msgid "A file with the same name exists"
 msgstr "Ja existeix un fitxer amb aquest nom"
 
-#: ../src/sj-extracting.c:311
+#: src/sj-extracting.c:310
 #, c-format
 msgid ""
 "A file called ‘%s’ exists, size %s.\n"
@@ -461,179 +730,175 @@ msgstr ""
 "Ja existeix un fitxer «%s», de mida %s.\n"
 "Voleu ometre aquesta pista o sobreescriure-la?"
 
-#: ../src/sj-extracting.c:325
+#: src/sj-extracting.c:324
 msgid "_Skip"
 msgstr "Ome_t"
 
-#: ../src/sj-extracting.c:326
+#: src/sj-extracting.c:325
 msgid "S_kip All"
 msgstr "Omet-les _totes"
 
-#: ../src/sj-extracting.c:327
+#: src/sj-extracting.c:326
 msgid "_Overwrite"
 msgstr "S_obreescriu"
 
-#: ../src/sj-extracting.c:328
+#: src/sj-extracting.c:327
 msgid "Overwrite _All"
 msgstr "Sobreescriu-_les totes"
 
-#: ../src/sj-extracting.c:377
+#: src/sj-extracting.c:376
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "No s'ha pogut crear el directori de sortida: %s"
 
-#: ../src/sj-extracting.c:517
+#: src/sj-extracting.c:516
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Temps restant estimat: %d:%02d (a %0.1fx)"
 
-#: ../src/sj-extracting.c:519
+#: src/sj-extracting.c:518
 msgid "Estimated time left: unknown"
 msgstr "Temps restant estimat: desconegut"
 
-#: ../src/sj-extracting.c:609
+#: src/sj-extracting.c:608
 msgid "CD rip complete"
 msgstr "S'ha completat l'extracció del CD"
 
-#: ../src/sj-extracting.c:701
+#: src/sj-extracting.c:700
 msgid "Sound Juicer could not extract this CD."
 msgstr "El Sound Juicer no ha pogut extreure aquest CD."
 
-#: ../src/sj-extracting.c:703 ../src/sj-main.c:176 ../src/sj-main.c:418
-#: ../src/sj-main.c:457 ../src/sj-main.c:842 ../src/sj-main.c:1033
+#: src/sj-extracting.c:702 src/sj-main.c:175 src/sj-main.c:417
+#: src/sj-main.c:456 src/sj-main.c:839 src/sj-main.c:1030
 msgid "Reason"
 msgstr "Raó"
 
-#: ../src/sj-extracting.c:793 ../src/sj-main.c:1897
+#: src/sj-extracting.c:792 src/sj-main.c:1912
 msgid "_Stop"
 msgstr "_Atura"
 
-#: ../src/sj-extracting.c:821 ../src/sj-extracting.c:829
+#: src/sj-extracting.c:820 src/sj-extracting.c:828
 msgid "Extracting audio from CD"
 msgstr "S'està extraient l'àudio del CD"
 
-#: ../src/sj-extracting.c:985
+#: src/sj-extracting.c:984
 msgid "Unknown Composer"
 msgstr "Compositor desconegut"
 
-#: ../src/sj-extracting.c:986
+#: src/sj-extracting.c:985
 msgid "Unknown Track"
 msgstr "Pista desconeguda"
 
-#: ../src/sj-genres.c:33
+#: src/sj-genres.c:33
 msgid "Ambient"
 msgstr "Ambient"
 
-#: ../src/sj-genres.c:34
+#: src/sj-genres.c:34
 msgid "Blues"
 msgstr "Blues"
 
-#: ../src/sj-genres.c:35 ../src/sj-main.c:506
+#: src/sj-genres.c:35 src/sj-main.c:501
 msgid "Classical"
 msgstr "Clàssica"
 
-#: ../src/sj-genres.c:36
+#: src/sj-genres.c:36
 msgid "Country"
 msgstr "Country"
 
-#: ../src/sj-genres.c:37
+#: src/sj-genres.c:37
 msgid "Dance"
 msgstr "Dance"
 
-#: ../src/sj-genres.c:38
+#: src/sj-genres.c:38
 msgid "Electronica"
 msgstr "Electrònica"
 
-#: ../src/sj-genres.c:39
+#: src/sj-genres.c:39
 msgid "Folk"
 msgstr "Folk"
 
-#: ../src/sj-genres.c:40
+#: src/sj-genres.c:40
 msgid "Funk"
 msgstr "Funk"
 
-#: ../src/sj-genres.c:41
+#: src/sj-genres.c:41
 msgid "Jazz"
 msgstr "Jazz"
 
-#: ../src/sj-genres.c:42
+#: src/sj-genres.c:42
 msgid "Latin"
 msgstr "Llatí"
 
-#: ../src/sj-genres.c:43
+#: src/sj-genres.c:43
 msgid "Pop"
 msgstr "Pop"
 
-#: ../src/sj-genres.c:44
+#: src/sj-genres.c:44
 msgid "Rap"
 msgstr "Rap"
 
-#: ../src/sj-genres.c:45
+#: src/sj-genres.c:45
 msgid "Reggae"
 msgstr "Reggae"
 
-#: ../src/sj-genres.c:46
+#: src/sj-genres.c:46
 msgid "Rock"
 msgstr "Rock"
 
-#: ../src/sj-genres.c:47
+#: src/sj-genres.c:47
 msgid "Soul"
 msgstr "Soul"
 
-#: ../src/sj-genres.c:48
+#: src/sj-genres.c:48
 msgid "Spoken Word"
 msgstr "Parlat"
 
-#: ../src/sj-genres.c:197
+#: src/sj-genres.c:197
 #, c-format
 msgid "Error while saving custom genre: %s"
 msgstr "S'ha produït un error en desar el gènere personalitzat: %s"
 
-#: ../src/sj-main.c:130 ../src/sj-main.c:132 ../src/sj-main.c:2131
-msgid "Sound Juicer"
-msgstr "Sound Juicer"
-
-#: ../src/sj-main.c:175
+#: src/sj-main.c:174
 msgid "Could not start Sound Juicer"
 msgstr "No s'ha pogut iniciar el Sound Juicer"
 
-#: ../src/sj-main.c:178
+#: src/sj-main.c:177
 msgid "Please consult the documentation for assistance."
-msgstr "Consulteu la documentació per obtenir ajuda."
+msgstr "Consulteu la documentació per a obtenir ajuda."
 
-#: ../src/sj-main.c:234
+#: src/sj-main.c:233
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Esteu extraient un CD. Voleu sortir ara o continuar?"
 
-#: ../src/sj-main.c:235 ../src/sj-main.c:1157
+#: src/sj-main.c:234 src/sj-main.c:1154
 msgid "_Quit"
 msgstr "_Surt"
 
-#: ../src/sj-main.c:236
+#: src/sj-main.c:235
 msgid "_Continue"
 msgstr "_Continua"
 
-#: ../src/sj-main.c:283 ../src/sj-main.c:1844 ../src/sj-main.c:1920
+#: src/sj-main.c:282 src/sj-main.c:1865 src/sj-main.c:1935
 msgid "Select None"
 msgstr "No en seleccionis cap"
 
-#: ../src/sj-main.c:297 ../src/sj-main.c:1914
+#: src/sj-main.c:296 src/sj-main.c:1929
 msgid "Select All"
 msgstr "Selecciona-ho tot"
 
-#: ../src/sj-main.c:318 ../src/sj-main.c:665
+#: src/sj-main.c:317 src/sj-main.c:660
 msgid "(unknown)"
 msgstr "(desconegut)"
 
-#: ../src/sj-main.c:356
+#: src/sj-main.c:355
 msgid ""
 "This album is not in the MusicBrainz database, please click ‘Edit Album’ to "
 "open your browser and edit it in MusicBrainz."
 msgstr ""
 "Aquest àlbum no és a la base de dades del MusicBrainz. Cliqueu a «Edita "
-"l'àlbum» per obrir el navegador i editar-lo al MusicBrainz."
+"l'àlbum» per a obrir el navegador i editar-lo al MusicBrainz."
 
-#: ../src/sj-main.c:358
+#: src/sj-main.c:357
 #, c-format
 msgid ""
 "Could not find %s by %s on MusicBrainz, please click ‘Edit Album’ to open "
@@ -642,92 +907,92 @@ msgstr ""
 "No s'ha pogut trobar %s per %s al MusicBrainz. Cliqueu a «Edita l'àlbum» per "
 "obrir el navegador i editar-lo al MusicBrainz."
 
-#: ../src/sj-main.c:394
+#: src/sj-main.c:393
 msgid "Click ‘Reload’ to load the edited album details from MusicBrainz"
 msgstr ""
-"Cliqueu a «Torna a carregar» per carregar els detalls editats de l'àlbum des "
+"Cliqueu a «Torna a carregar» per a carregar els detalls editats de l'àlbum des "
 "del MusicBrainz"
 
-#: ../src/sj-main.c:416
+#: src/sj-main.c:415
 msgid "Could not open URL"
 msgstr "No s'ha pogut obrir l'URL"
 
-#: ../src/sj-main.c:417
+#: src/sj-main.c:416
 msgid "Sound Juicer could not open the submission URL"
 msgstr "El Sound Juicer no ha pogut obrir l'URL d'enviament"
 
-#: ../src/sj-main.c:455
+#: src/sj-main.c:454
 msgid "Could not duplicate disc"
 msgstr "No s'ha pogut duplicar el disc"
 
-#: ../src/sj-main.c:456
+#: src/sj-main.c:455
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "El Sound Juicer no ha pogut duplicar el disc"
 
-#: ../src/sj-main.c:506
+#: src/sj-main.c:501
 msgid "Lieder"
 msgstr "Lieder"
 
-#: ../src/sj-main.c:506
+#: src/sj-main.c:501
 msgid "Opera"
 msgstr "Òpera"
 
-#: ../src/sj-main.c:506
+#: src/sj-main.c:501
 msgid "Chamber"
 msgstr "Cambra"
 
-#: ../src/sj-main.c:506
+#: src/sj-main.c:501
 msgid "Musical"
 msgstr "Musical"
 
-#: ../src/sj-main.c:840 ../src/sj-main.c:1031
+#: src/sj-main.c:837 src/sj-main.c:1028
 msgid "Could not read the CD"
 msgstr "No s'ha pogut llegir el CD"
 
-#: ../src/sj-main.c:841
+#: src/sj-main.c:838
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "El Sound Juicer no ha pogut llegir la llista de pistes d'aquest CD."
 
-#: ../src/sj-main.c:993
+#: src/sj-main.c:990
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device ‘%s’"
 msgstr "El Sound Juicer no ha pogut usar el dispositiu de CD-ROM «%s»"
 
-#: ../src/sj-main.c:1000
+#: src/sj-main.c:997
 msgid "HAL daemon may not be running."
 msgstr "Potser no està funcionant el dimoni HAL."
 
-#: ../src/sj-main.c:1024
+#: src/sj-main.c:1021
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device ‘%s’"
 msgstr "El Sound Juicer no ha pogut accedir al dispositiu de CD-ROM «%s»"
 
-#: ../src/sj-main.c:1122
+#: src/sj-main.c:1119
 msgid "No CD-ROM drives found"
 msgstr "No s'han trobat unitats de CD-ROM"
 
-#: ../src/sj-main.c:1123
+#: src/sj-main.c:1120
 msgid "Sound Juicer could not find any CD-ROM drives to read."
-msgstr "El Sound Juicer no ha trobat cap unitat de CD-ROM per llegir."
+msgstr "El Sound Juicer no ha trobat cap unitat de CD-ROM per a llegir."
 
-#: ../src/sj-main.c:1156
+#: src/sj-main.c:1153
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr ""
 "El perfil d'àudio seleccionat actualment no és disponible a la vostra "
 "instal·lació."
 
-#: ../src/sj-main.c:1158
+#: src/sj-main.c:1155
 msgid "_Change Profile"
 msgstr "_Canvia el perfil"
 
-#: ../src/sj-main.c:1547
+#: src/sj-main.c:1548
 msgid "Unknown widget calling on_person_edit_changed."
 msgstr ""
 "Un giny desconegut crida en_canviar_ l'edició_personal "
 "(on_person_edit_changed)."
 
-#: ../src/sj-main.c:1647 ../src/sj-prefs.c:120
+#: src/sj-main.c:1648 src/sj-prefs.c:117
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -736,64 +1001,55 @@ msgstr ""
 "No s'ha pogut mostrar l'ajuda del Sound Juicer\n"
 "%s"
 
-#: ../src/sj-main.c:1706
+#: src/sj-main.c:1707
 msgid "Retrieving track listing…please wait."
 msgstr "S'està obtenint el llistat de pistes... espereu."
 
-#: ../src/sj-main.c:1866 ../src/sj-play.c:121 ../src/sj-play.c:259
-#: ../src/sj-play.c:622
-msgid "_Play"
-msgstr "Re_produeix"
-
-#: ../src/sj-main.c:1873 ../src/sj-play.c:301
+#: src/sj-main.c:1888 src/sj-play.c:300
 msgid "_Pause"
 msgstr "_Pausa"
 
-#: ../src/sj-main.c:1951
+#: src/sj-main.c:1963
 msgid "Track"
 msgstr "Pista"
 
-#: ../src/sj-main.c:1963
+#: src/sj-main.c:1975
 msgid "Title"
 msgstr "Títol"
 
-#: ../src/sj-main.c:1964
+#: src/sj-main.c:1976
 msgid "Artist"
 msgstr "Artista"
 
-#: ../src/sj-main.c:1965
+#: src/sj-main.c:1977
 msgid "Composer"
 msgstr "Compositor"
 
-#: ../src/sj-main.c:1971
+#: src/sj-main.c:1983
 msgid "Duration"
 msgstr "Durada"
 
-#: ../src/sj-main.c:2119
+#: src/sj-main.c:2140
 msgid "Start extracting immediately"
 msgstr "Comença l'extracció immediatament"
 
-#: ../src/sj-main.c:2120
+#: src/sj-main.c:2141
 msgid "Start playing immediately"
 msgstr "Comença la reproducció immediatament"
 
-#: ../src/sj-main.c:2121
+#: src/sj-main.c:2142
 msgid "What CD device to read"
 msgstr "Quin dispositiu de CD cal llegir"
 
-#: ../src/sj-main.c:2121
+#: src/sj-main.c:2142
 msgid "DEVICE"
 msgstr "DISPOSITIU"
 
-#: ../src/sj-main.c:2122
+#: src/sj-main.c:2143
 msgid "URI to the CD device to read"
-msgstr "URI del dispositiu de CD per llegir"
+msgstr "URI del dispositiu de CD per a llegir"
 
-#: ../src/sj-main.c:2134
-msgid "- Extract music from your CDs"
-msgstr "- Extraieu música dels CD"
-
-#: ../src/sj-play.c:193 ../src/sj-play.c:417 ../src/sj-play.c:453
+#: src/sj-play.c:192 src/sj-play.c:416 src/sj-play.c:452
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -804,118 +1060,117 @@ msgstr ""
 "\n"
 "Raó: %s"
 
-#: ../src/sj-play.c:355
+#: src/sj-play.c:354
 #, c-format
 msgid "Failed to create CD source element"
 msgstr "No s'ha pogut crear un element de font de CD"
 
-#: ../src/sj-play.c:593
+#: src/sj-play.c:592
 #, c-format
 msgid "Seeking to %s"
 msgstr "S'està cercant a %s"
 
-#: ../src/sj-prefs.c:51
+#: src/sj-prefs.c:48
 msgid "Album Artist, Album Title"
 msgstr "Artista de l'àlbum, títol de l'àlbum"
 
-#: ../src/sj-prefs.c:52
+#: src/sj-prefs.c:49
 msgid "Album Artist (sortable), Album Title"
 msgstr "Artista de l'àlbum (ordenable), títol de l'àlbum"
 
-#: ../src/sj-prefs.c:53
+#: src/sj-prefs.c:50
 msgid "Track Artist, Album Title"
 msgstr "Artista de la pista, títol de l'àlbum"
 
-#: ../src/sj-prefs.c:54
+#: src/sj-prefs.c:51
 msgid "Track Artist (sortable), Album Title"
 msgstr "Artista de la pista (ordenable), títol de l'àlbum"
 
-#: ../src/sj-prefs.c:55
+#: src/sj-prefs.c:52
 msgid "Album Title"
 msgstr "Títol de l'àlbum"
 
-#: ../src/sj-prefs.c:56
+#: src/sj-prefs.c:53
 msgid "Album Artist"
 msgstr "Artista de l'àlbum"
 
-#: ../src/sj-prefs.c:57
+#: src/sj-prefs.c:54
 msgid "Album Artist (sortable)"
 msgstr "Artista de l'àlbum (ordenable)"
 
-#: ../src/sj-prefs.c:58
+#: src/sj-prefs.c:55
 msgid "Album Artist - Album Title"
 msgstr "Artista de l'àlbum - títol de l'àlbum"
 
-#: ../src/sj-prefs.c:59
+#: src/sj-prefs.c:56
 msgid "Album Artist (sortable) - Album Title"
 msgstr "Artista de l'àlbum (ordenable) - títol de l'àlbum"
 
-#: ../src/sj-prefs.c:60
+#: src/sj-prefs.c:57
 msgid "Album Composer, Album Title"
 msgstr "Compositor de l'àlbum, títol de l'àlbum"
 
-#: ../src/sj-prefs.c:61
+#: src/sj-prefs.c:58
 msgid "Album Composer (sortable), Album Title"
 msgstr "Compositor de l'àlbum (ordenable), títol de l'àlbum"
 
-#: ../src/sj-prefs.c:62
+#: src/sj-prefs.c:59
 msgid "Track Composer, Album Title"
 msgstr "Compositor de la pista, títol de l'àlbum"
 
-#: ../src/sj-prefs.c:63
+#: src/sj-prefs.c:60
 msgid "Track Composer (sortable), Album Title"
 msgstr "Compositor de la pista (ordenable), títol de l'àlbum"
 
-#: ../src/sj-prefs.c:64
+#: src/sj-prefs.c:61
 msgid "[none]"
 msgstr "[cap]"
 
-#: ../src/sj-prefs.c:69
+#: src/sj-prefs.c:66
 msgid "Number - Title"
 msgstr "Número - Títol"
 
-#: ../src/sj-prefs.c:70
+#: src/sj-prefs.c:67
 msgid "Track Title"
 msgstr "Títol de la pista"
 
-#: ../src/sj-prefs.c:71
+#: src/sj-prefs.c:68
 msgid "Track Artist - Track Title"
 msgstr "Artista de la pista - Títol de la pista"
 
-#: ../src/sj-prefs.c:72
+#: src/sj-prefs.c:69
 msgid "Track Artist (sortable) - Track Title"
 msgstr "Artista de la pista (ordenable) - Títol de la pista"
 
-#: ../src/sj-prefs.c:73
+#: src/sj-prefs.c:70
 msgid "Number. Track Artist - Track Title"
 msgstr "Número. Artista de la pista - Títol de la pista"
 
-#: ../src/sj-prefs.c:75
+#: src/sj-prefs.c:72
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Número-Artista de la pista-Títol de la pista (minúscules)"
 
-#: ../src/sj-prefs.c:77
+#: src/sj-prefs.c:74
 msgid "Track Composer - Track Artist - Track Title"
 msgstr "Compositor de la pista - Artista de la pista - Títol de la pista"
 
-#: ../src/sj-prefs.c:78
+#: src/sj-prefs.c:75
 msgid "Track Composer (sortable) - Track Artist (sortable) - Track Title"
 msgstr ""
 "Compositor de la pista (ordenable) - Artista de la pista (ordenable) - Títol "
 "de la pista"
 
-#: ../src/sj-prefs.c:79
+#: src/sj-prefs.c:76
 msgid "Number. Track Composer - Track Artist - Track Title"
 msgstr ""
 "Número. Compositor de la pista - Artista de la pista  - Títol de la pista"
 
-#: ../src/sj-prefs.c:80
+#: src/sj-prefs.c:77
 msgid "Number-Track Composer-Track Artist-Track Title (lowercase)"
 msgstr ""
 "Número-Compositor de la pista-Artista de la pista-Títol de la pista "
 "(minúscules)"
 
-#: ../src/sj-prefs.c:250
+#: src/sj-prefs.c:252
 msgid "Example Path: "
 msgstr "Exemple de camí:"
-
