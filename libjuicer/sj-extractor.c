@@ -78,10 +78,7 @@ struct SjExtractorPrivate {
  * GObject methods
  */
 
-G_DEFINE_TYPE (SjExtractor, sj_extractor, G_TYPE_OBJECT);
-
-#define EXTRACTOR_PRIVATE(o)                                            \
-  (G_TYPE_INSTANCE_GET_PRIVATE ((o), SJ_TYPE_EXTRACTOR, SjExtractorPrivate))
+G_DEFINE_TYPE_WITH_PRIVATE (SjExtractor, sj_extractor, G_TYPE_OBJECT);
 
 static void
 sj_extractor_set_property (GObject *object, guint property_id,
@@ -177,8 +174,6 @@ sj_extractor_class_init (SjExtractorClass *klass)
   GObjectClass *object_class;
   object_class = (GObjectClass *)klass;
 
-  g_type_class_add_private (klass, sizeof (SjExtractorPrivate));
-
   /* GObject */
   object_class->set_property = sj_extractor_set_property;
   object_class->get_property = sj_extractor_get_property;
@@ -237,7 +232,7 @@ sj_extractor_class_init (SjExtractorClass *klass)
 static void
 sj_extractor_init (SjExtractor *extractor)
 {
-  extractor->priv = EXTRACTOR_PRIVATE (extractor);
+  extractor->priv = sj_extractor_get_instance_private (extractor);
   extractor->priv->profile = rb_gst_get_encoding_profile (DEFAULT_MEDIA_TYPE);
   extractor->priv->rebuild_pipeline = TRUE;
   extractor->priv->paranoia_mode = 8; /* TODO: replace with construct params */

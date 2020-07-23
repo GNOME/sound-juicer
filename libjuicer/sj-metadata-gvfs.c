@@ -39,9 +39,6 @@ struct SjMetadataGvfsPrivate {
   char *uri;
 };
 
-#define GET_PRIVATE(o)  \
-  (G_TYPE_INSTANCE_GET_PRIVATE ((o), SJ_TYPE_METADATA_GVFS, SjMetadataGvfsPrivate))
-
 enum {
   PROP_0,
   PROP_DEVICE,
@@ -57,6 +54,7 @@ static void metadata_iface_init (gpointer g_iface, gpointer iface_data);
 
 G_DEFINE_TYPE_WITH_CODE (SjMetadataGvfs, sj_metadata_gvfs,
                          G_TYPE_OBJECT,
+                         G_ADD_PRIVATE (SjMetadataGvfs)
                          G_IMPLEMENT_INTERFACE (SJ_TYPE_METADATA, metadata_iface_init));
 
 
@@ -255,7 +253,7 @@ sj_metadata_gvfs_finalize (GObject *object)
 static void
 sj_metadata_gvfs_init (SjMetadataGvfs *gvfs)
 {
-  gvfs->priv = GET_PRIVATE (gvfs);
+  gvfs->priv = sj_metadata_gvfs_get_instance_private (gvfs);
 }
 
 static void
@@ -270,8 +268,6 @@ static void
 sj_metadata_gvfs_class_init (SjMetadataGvfsClass *class)
 {
   GObjectClass *object_class = (GObjectClass*) class;
-
-  g_type_class_add_private (class, sizeof (SjMetadataGvfsPrivate));
 
   object_class->get_property = sj_metadata_gvfs_get_property;
   object_class->set_property = sj_metadata_gvfs_set_property;
