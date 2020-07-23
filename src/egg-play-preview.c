@@ -52,8 +52,6 @@ enum {
 	LAST_SIGNAL
 };
 
-#define GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), EGG_TYPE_PLAY_PREVIEW, EggPlayPreviewPrivate))
-
 struct _EggPlayPreviewPrivate {
 
 	GtkWidget *title_label;
@@ -128,14 +126,12 @@ static void _stop                            (EggPlayPreview *play_preview);
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (EggPlayPreview, egg_play_preview, GTK_TYPE_BOX)
+G_DEFINE_TYPE_WITH_PRIVATE (EggPlayPreview, egg_play_preview, GTK_TYPE_BOX)
 
 static void
 egg_play_preview_class_init (EggPlayPreviewClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-
-	g_type_class_add_private (klass, sizeof (EggPlayPreviewPrivate));
 
 	gobject_class->finalize = egg_play_preview_finalize;
 	gobject_class->dispose = egg_play_preview_dispose;
@@ -240,7 +236,8 @@ egg_play_preview_init (EggPlayPreview *play_preview)
 	PangoAttrList *attrs;
 	GtkGrid *grid;
 
-	play_preview->priv = priv = GET_PRIVATE (play_preview);
+	play_preview->priv = priv =
+		egg_play_preview_get_instance_private (play_preview);
 
 	_setup_pipeline (play_preview);
 
@@ -343,7 +340,7 @@ egg_play_preview_dispose (GObject *object)
 	EggPlayPreviewPrivate *priv;
 
 	play_preview = EGG_PLAY_PREVIEW (object);
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 
 	_clear_pipeline (play_preview);
 
@@ -497,7 +494,7 @@ set_time_label_width (EggPlayPreview *play_preview)
 	int w;
 	gchar *s;
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 	g_object_set (priv->time_label, "width-request", -1, NULL);
 	calculate_widths (priv->time_label, widths);
 	s = get_widest_time (widths, priv->duration / GST_SECOND);
@@ -527,8 +524,7 @@ static gboolean
 _timeout_cb (EggPlayPreview *play_preview)
 {
 	EggPlayPreviewPrivate *priv;
-
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 
 	if (priv->seeking)
 		return TRUE;
@@ -553,7 +549,7 @@ _ui_update_duration (EggPlayPreview *play_preview)
 	EggPlayPreviewPrivate *priv;
 	gchar *str;
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 
 	str = g_strdup_printf ("%u:%02u/%u:%02u",
 						   (int) (priv->position / 60 / GST_SECOND), (int) (priv->position / GST_SECOND) % 60,
@@ -569,7 +565,7 @@ _ui_update_tags (EggPlayPreview *play_preview)
 	EggPlayPreviewPrivate *priv;
 	gchar *str;
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 
 	str = g_strdup_printf ("%s", priv->title ? priv->title : _("Unknown Title"));
 	gtk_label_set_text (GTK_LABEL (priv->title_label), str);
@@ -587,7 +583,7 @@ _ui_set_sensitive (EggPlayPreview *play_preview, gboolean sensitive)
 {
 	EggPlayPreviewPrivate *priv;
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 
 	gtk_widget_set_sensitive (priv->play_button, sensitive);
 	gtk_widget_set_sensitive (priv->time_scale, sensitive && priv->is_seekable);
@@ -607,7 +603,7 @@ _change_value_cb (GtkRange *range, GtkScrollType scroll, gdouble value, EggPlayP
 	GtkAdjustment *adjustment;
 	double lower, upper;
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 	adjustment = gtk_range_get_adjustment (range);
 	lower = gtk_adjustment_get_lower (adjustment);
 	upper = gtk_adjustment_get_upper (adjustment);
@@ -632,7 +628,7 @@ _clicked_cb (GtkButton *button, EggPlayPreview *play_preview)
 {
 	EggPlayPreviewPrivate *priv;
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 
 	if (priv->playbin == NULL)
 		return;
@@ -653,7 +649,7 @@ _setup_pipeline (EggPlayPreview *play_preview)
 	GstBus *bus = NULL;
         guint flags;
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 
 	priv->state = GST_STATE_NULL;
 
@@ -684,7 +680,7 @@ _clear_pipeline (EggPlayPreview *play_preview)
 	EggPlayPreviewPrivate *priv;
 	GstBus *bus;
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 
 	if (priv->playbin) {
 		bus = gst_pipeline_get_bus (GST_PIPELINE (priv->playbin));
@@ -709,7 +705,7 @@ _process_bus_messages (GstBus *bus, GstMessage *msg, EggPlayPreview *play_previe
 	GstState state;
 	GstStateChangeReturn result;
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 
         SJ_BEGIN_IGNORE_SWITCH_ENUM
 	switch (GST_MESSAGE_TYPE (msg)) {
@@ -865,7 +861,7 @@ _seek (EggPlayPreview *play_preview, GstElement *element, gint64 position)
 {
 	EggPlayPreviewPrivate *priv;
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 	if (gst_element_seek_simple (priv->playbin, GST_FORMAT_TIME,
 								 GST_SEEK_FLAG_FLUSH, position))
 		priv->seeking = TRUE;
@@ -882,7 +878,7 @@ _play (EggPlayPreview *play_preview)
 {
 	EggPlayPreviewPrivate *priv;
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 
 	gst_element_set_state (priv->playbin, GST_STATE_PLAYING);
 
@@ -896,7 +892,7 @@ _pause (EggPlayPreview *play_preview)
 {
 	EggPlayPreviewPrivate *priv;
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 
 	gst_element_set_state (priv->playbin, GST_STATE_PAUSED);
 
@@ -910,7 +906,7 @@ _stop (EggPlayPreview *play_preview)
 {
 	EggPlayPreviewPrivate *priv;
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 
 	gst_element_set_state (priv->playbin, GST_STATE_READY);
 
@@ -947,7 +943,7 @@ egg_play_preview_set_uri (EggPlayPreview *play_preview, const gchar *uri)
 
 	g_return_if_fail (EGG_IS_PLAY_PREVIEW (play_preview));
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 
 	if (priv->uri) {
 		g_free (priv->uri);
@@ -992,7 +988,7 @@ egg_play_preview_set_position (EggPlayPreview *play_preview, gint64 position)
 
 	g_return_if_fail (EGG_IS_PLAY_PREVIEW (play_preview));
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 
 	/* FIXME: write function content */
 	if (priv->is_seekable) {
@@ -1009,7 +1005,7 @@ egg_play_preview_get_uri (EggPlayPreview *play_preview)
 
 	g_return_val_if_fail (EGG_IS_PLAY_PREVIEW (play_preview), NULL);
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 
 	return priv->uri;
 }
@@ -1021,7 +1017,7 @@ egg_play_preview_get_title (EggPlayPreview *play_preview)
 
 	g_return_val_if_fail (EGG_IS_PLAY_PREVIEW (play_preview), NULL);
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 
 	return priv->title;
 }
@@ -1033,7 +1029,7 @@ egg_play_preview_get_artist (EggPlayPreview *play_preview)
 
 	g_return_val_if_fail (EGG_IS_PLAY_PREVIEW (play_preview), NULL);
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 
 	return priv->artist;
 }
@@ -1045,7 +1041,7 @@ egg_play_preview_get_album (EggPlayPreview *play_preview)
 
 	g_return_val_if_fail (EGG_IS_PLAY_PREVIEW (play_preview), NULL);
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 
 	return priv->album;
 }
@@ -1057,7 +1053,7 @@ egg_play_preview_get_position (EggPlayPreview *play_preview)
 
 	g_return_val_if_fail (EGG_IS_PLAY_PREVIEW (play_preview), 0);
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 
 	return priv->position;
 }
@@ -1069,7 +1065,7 @@ egg_play_preview_get_duration (EggPlayPreview *play_preview)
 
 	g_return_val_if_fail (EGG_IS_PLAY_PREVIEW (play_preview), -1);
 
-	priv = GET_PRIVATE (play_preview);
+	priv = egg_play_preview_get_instance_private (play_preview);
 
 	return priv->duration;
 }
