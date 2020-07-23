@@ -625,7 +625,7 @@ finished_actions (void)
     /* Find the deepest common directory. */
     g_list_foreach (paths, (GFunc)base_finder, &base);
 
-    gtk_show_uri (NULL, base, GDK_CURRENT_TIME, NULL);
+    gtk_show_uri_on_window (NULL, base, GDK_CURRENT_TIME, NULL);
 
     g_free (base);
   }

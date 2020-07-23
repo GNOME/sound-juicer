@@ -106,7 +106,7 @@ void show_help (GtkWindow *parent)
 {
   GError *error = NULL;
 
-  gtk_show_uri (NULL, "help:sound-juicer/preferences", GDK_CURRENT_TIME, &error);
+  gtk_show_uri_on_window (NULL, "help:sound-juicer/preferences", GDK_CURRENT_TIME, &error);
   if (error) {
     GtkWidget *dialog;
 

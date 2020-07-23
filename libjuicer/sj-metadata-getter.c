@@ -48,7 +48,7 @@ typedef struct SjMetadataGetterPrivate SjMetadataGetterPrivate;
 
 static void sj_metadata_getter_finalize (GObject *object);
 
-G_DEFINE_TYPE(SjMetadataGetter, sj_metadata_getter, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE (SjMetadataGetter, sj_metadata_getter, G_TYPE_OBJECT);
 
 #define GETTER_PRIVATE(o)                                            \
   (G_TYPE_INSTANCE_GET_PRIVATE ((o), SJ_TYPE_METADATA_GETTER, SjMetadataGetterPrivate))
@@ -58,19 +58,16 @@ sj_metadata_getter_class_init (SjMetadataGetterClass *klass)
 {
   GObjectClass *object_class;
   object_class = (GObjectClass *)klass;
-
-  g_type_class_add_private (klass, sizeof (SjMetadataGetterPrivate));
-
   object_class->finalize = sj_metadata_getter_finalize;
 }
 
 static void
 sj_metadata_getter_finalize (GObject *object)
 {
-  SjMetadataGetterPrivate *priv = GETTER_PRIVATE (object);
-
+  SjMetadataGetter *self = (SjMetadataGetter *)object;
+  SjMetadataGetterPrivate *priv;
+  priv = sj_metadata_getter_get_instance_private (self);
   g_free (priv->cdrom);
-
   G_OBJECT_CLASS (sj_metadata_getter_parent_class)->finalize (object);
 }
 
@@ -89,9 +86,7 @@ void
 sj_metadata_getter_set_cdrom (SjMetadataGetter *mdg, const char* device)
 {
   SjMetadataGetterPrivate *priv;
-
-  priv = GETTER_PRIVATE (mdg);
-
+  priv = sj_metadata_getter_get_instance_private (mdg);
   g_free (priv->cdrom);
 
 #ifdef __sun
@@ -276,7 +271,7 @@ sj_metadata_getter_list_albums_async (SjMetadataGetter    *mdg,
   GTask *task;
   SjMetadataGetterPrivate *priv;
 
-  priv = GETTER_PRIVATE (mdg);
+  priv = sj_metadata_getter_get_instance_private (mdg);
   task = g_task_new (mdg, cancellable, callback, user_data);
   g_task_set_task_data (task, g_strdup (priv->cdrom), g_free);
   g_task_set_return_on_cancel (task, TRUE);

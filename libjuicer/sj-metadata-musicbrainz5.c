@@ -78,9 +78,6 @@ typedef struct {
   gboolean proxy_use_authentication;
 } SjMetadataMusicbrainz5Private;
 
-#define GET_PRIVATE(o)  \
-  (G_TYPE_INSTANCE_GET_PRIVATE ((o), SJ_TYPE_METADATA_MUSICBRAINZ5, SjMetadataMusicbrainz5Private))
-
 enum {
   PROP_0,
   PROP_DEVICE,
@@ -97,6 +94,7 @@ static void metadata_interface_init (gpointer g_iface, gpointer iface_data);
 G_DEFINE_TYPE_WITH_CODE (SjMetadataMusicbrainz5,
                          sj_metadata_musicbrainz5,
                          G_TYPE_OBJECT,
+                         G_ADD_PRIVATE (SjMetadataMusicbrainz5)
                          G_IMPLEMENT_INTERFACE (SJ_TYPE_METADATA,
                                                 metadata_interface_init));
 
@@ -171,7 +169,8 @@ make_artist_details (SjMetadataMusicbrainz5 *self,
 {
   char buffer[512]; /* For the GET macro */
   ArtistDetails *details;
-  SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (self);
+  SjMetadataMusicbrainz5Private *priv
+    = sj_metadata_musicbrainz5_get_instance_private (self);
 
   mb5_artist_get_id (artist, buffer, sizeof(buffer));
   details = g_hash_table_lookup (priv->artist_cache, buffer);
@@ -192,7 +191,8 @@ print_musicbrainz_query_error (SjMetadataMusicbrainz5 *self,
                                const char             *entity,
                                const char             *id)
 {
-  SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (self);
+  SjMetadataMusicbrainz5Private *priv
+    = sj_metadata_musicbrainz5_get_instance_private (self);
   int len;
   char *message;
   int code =  mb5_query_get_lasthttpcode (priv->mb);
@@ -221,7 +221,8 @@ query_musicbrainz (SjMetadataMusicbrainz5  *self,
   char *inc, *includes_copy;
   gint64 delay = 4 * G_USEC_PER_SEC;
   int count = 0;
-  SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (self);
+  SjMetadataMusicbrainz5Private *priv =
+    sj_metadata_musicbrainz5_get_instance_private (self);
   gint64 t;
 
   g_info ("Querying %s %s", entity, id);
@@ -278,7 +279,8 @@ get_disc_md (SjMetadataMusicbrainz5  *self,
   const char *discid;
   DiscId disc;
   Mb5Metadata disc_md = NULL;
-  SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (self);
+  SjMetadataMusicbrainz5Private *priv =
+    sj_metadata_musicbrainz5_get_instance_private (self);
 
   if (sj_metadata_helper_check_media (priv->cdrom, error) == FALSE) {
     return NULL;
@@ -398,7 +400,8 @@ query_artist (SjMetadataMusicbrainz5  *self,
               GCancellable            *cancellable,
               GError                 **error)
 {
-  SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (self);
+  SjMetadataMusicbrainz5Private *priv =
+    sj_metadata_musicbrainz5_get_instance_private (self);
   ArtistDetails *details = g_hash_table_lookup (priv->artist_cache, id);
 
   if (details == NULL) {
@@ -1257,7 +1260,7 @@ sj_metadata_musicbrainz5_init (SjMetadataMusicbrainz5 *self)
 {
   SjMetadataMusicbrainz5Private *priv;
 
-  priv = GET_PRIVATE (self);
+  priv = sj_metadata_musicbrainz5_get_instance_private (self);
   priv->mb = mb5_query_new (SJ_MUSICBRAINZ_USER_AGENT, NULL, 0);
 
   priv->artist_cache = g_hash_table_new_full (g_str_hash, g_str_equal,
@@ -1268,7 +1271,9 @@ static void
 sj_metadata_musicbrainz5_get_property (GObject *object, guint property_id,
                                        GValue *value, GParamSpec *pspec)
 {
-  SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (object);
+  SjMetadataMusicbrainz5 *self = (SjMetadataMusicbrainz5 *)object;
+  SjMetadataMusicbrainz5Private *priv =
+    sj_metadata_musicbrainz5_get_instance_private (self);
   g_assert (priv);
 
   switch (property_id) {
@@ -1302,7 +1307,9 @@ static void
 sj_metadata_musicbrainz5_set_property (GObject *object, guint property_id,
                                        const GValue *value, GParamSpec *pspec)
 {
-  SjMetadataMusicbrainz5Private *priv = GET_PRIVATE (object);
+  SjMetadataMusicbrainz5 *self = (SjMetadataMusicbrainz5 *)object;
+  SjMetadataMusicbrainz5Private *priv =
+    sj_metadata_musicbrainz5_get_instance_private (self);
   g_assert (priv);
 
   switch (property_id) {
@@ -1346,9 +1353,9 @@ sj_metadata_musicbrainz5_set_property (GObject *object, guint property_id,
 static void
 sj_metadata_musicbrainz5_finalize (GObject *object)
 {
+  SjMetadataMusicbrainz5 *self = (SjMetadataMusicbrainz5 *)object;
   SjMetadataMusicbrainz5Private *priv;
-
-  priv = GET_PRIVATE (object);
+  priv = sj_metadata_musicbrainz5_get_instance_private (self);
 
   if (priv->mb != NULL) {
     mb5_query_delete (priv->mb);
@@ -1368,8 +1375,6 @@ sj_metadata_musicbrainz5_class_init (SjMetadataMusicbrainz5Class *class)
 {
   const gchar * const * l;
   GObjectClass *object_class = (GObjectClass*)class;
-
-  g_type_class_add_private (class, sizeof (SjMetadataMusicbrainz5Private));
 
   object_class->get_property = sj_metadata_musicbrainz5_get_property;
   object_class->set_property = sj_metadata_musicbrainz5_set_property;
