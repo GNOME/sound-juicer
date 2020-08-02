@@ -18,5 +18,5 @@ flatpak:master:
 
 nightly:
     extends: '.publish_nightly'
-    dependencies: ['flatpak']
-    needs: ['flatpak']
+    dependencies: ['flatpak:master']
+    needs: ['flatpak:master']
