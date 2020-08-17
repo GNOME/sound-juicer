@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/sound-juicer/issues\n"
-"POT-Creation-Date: 2018-06-10 18:46+0000\n"
-"PO-Revision-Date: 2018-08-18 16:53+0300\n"
+"POT-Creation-Date: 2020-07-06 18:20+0000\n"
+"PO-Revision-Date: 2020-08-17 18:23+0300\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.4.1\n"
 
 #: data/org.gnome.sound-juicer.gschema.xml:19
 msgid "The CD to extract from"
@@ -36,12 +36,13 @@ msgid ""
 "symlinks like e.g. /dev/cdrom. An empty key implicates that the system's "
 "default CD-ROM drive will be used."
 msgstr ""
+"Huomioi: Musiikkimaija käsittelee vain todellisia laitenimiä, ei symbolisia "
+"linkkejä kuten /dev/cdrom. Tyhjä arvo merkitsee, että käytetään järjestelmän "
+"oletusarvoista CD-asemaa."
 
 #: data/org.gnome.sound-juicer.gschema.xml:25
-#, fuzzy
-#| msgid "Whether to eject the CD when finished extracting."
 msgid "Whether to eject the CD when finished extracting"
-msgstr "Poista CD-levy kopioinnin päätyttyä."
+msgstr "Poistetaanko CD asemasta purkamisen päätyttyä"
 
 #: data/org.gnome.sound-juicer.gschema.xml:30
 msgid "Whether to open the target directory when finished extracting"
@@ -184,11 +185,6 @@ msgstr "Kopioi musiikkia CD-levyiltä"
 #: data/org.gnome.SoundJuicer.desktop.in.in:7
 msgid "Ripper;"
 msgstr "Ripper;levykopiointi;kopioitsin;"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.gnome.SoundJuicer.desktop.in.in:10
-msgid "sound-juicer"
-msgstr "sound-juicer"
 
 #: data/appdata/org.gnome.SoundJuicer.appdata.xml.in:8
 msgid "CD ripper with a clean interface and simple preferences"
@@ -495,7 +491,7 @@ msgstr "CD-levyä ei voi lukea: %s"
 
 #: libjuicer/sj-metadata.c:212
 msgid "Devices haven't been all probed yet"
-msgstr ""
+msgstr "Kaikkia laitteita ei ole vielä tutkittu"
 
 #: libjuicer/sj-metadata.c:228
 #, c-format
@@ -652,7 +648,7 @@ msgstr "Ääni-CD:n kopioitsin"
 #: src/sj-about.c:78
 msgid "translator-credits"
 msgstr ""
-"Jiri Grönroos, 2013-2018.\n"
+"Jiri Grönroos, 2013-2020.\n"
 "Timo Jyrinki, 2008.\n"
 "Ilkka Tuohela, 2004-2009.\n"
 "Tommi Vainikainen, 2004-2006, 2008.\n"
@@ -664,8 +660,8 @@ msgstr ""
 #: src/sj-album-chooser-dialog.c:242
 msgid "Catalog No.: "
 msgid_plural "Catalog Nos.: "
-msgstr[0] "Kataloginumero:"
-msgstr[1] "Kataloginumerot:"
+msgstr[0] "Kataloginumero: "
+msgstr[1] "Kataloginumerot: "
 
 #. Translators: this string appears when multiple CDs were
 #. found in musicbrainz online database, it corresponds to
@@ -942,6 +938,8 @@ msgstr ""
 #: src/sj-main.c:393
 msgid "Click ‘Reload’ to load the edited album details from MusicBrainz"
 msgstr ""
+"Napsauta \"Lataa uudelleen\" ladataksesi muokatut albumin tiedot "
+"MusicBrainzista"
 
 #: src/sj-main.c:415
 msgid "Could not open URL"
@@ -1198,6 +1196,9 @@ msgstr "Numero-Kappaleen esittäjä-Kappaleen nimi (pienaakkosin)"
 #: src/sj-prefs.c:252
 msgid "Example Path: "
 msgstr "Esimerkkipolku: "
+
+#~ msgid "sound-juicer"
+#~ msgstr "sound-juicer"
 
 #~ msgid "- Extract music from your CDs"
 #~ msgstr "- Kopioi musiikkia CD-levyiltä"
