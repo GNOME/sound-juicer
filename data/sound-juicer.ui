@@ -4,8 +4,34 @@
   <object class="GtkApplicationWindow" id="main_window">
     <property name="width_request">500</property>
     <property name="height_request">420</property>
-    <property name="title" translatable="yes">Sound Juicer</property>
     <signal name="delete_event" handler="on_delete_event"/>
+    <child type="titlebar">
+      <object class="GtkHeaderBar" id="headerbar">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="show_close_button">True</property>
+        <property name="title" translatable="yes">Sound Juicer</property>
+        <child>
+          <object class="GtkMenuButton" id="menu_button">
+            <property name="visible">True</property>
+            <property name="direction">none</property>
+            <property name="use-popover">True</property>
+            <property name="menu-model">popover-menu</property>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="icon_name">open-menu-symbolic</property>
+                <property name="icon_size">1</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="pack_type">end</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
     <child>
       <object class="GtkBox" id="vbox1">
         <property name="visible">True</property>
@@ -800,4 +826,60 @@ audio-volume-medium</property>
       </object>
     </child>
   </object>
+  <menu id="popover-menu">
+    <section>
+      <submenu>
+        <attribute name="label" translatable="yes">Disc</attribute>
+        <section>
+          <item>
+            <attribute name="label" translatable="yes">Re-read</attribute>
+            <attribute name="action">app.re-read</attribute>
+            <attribute name="accel">&lt;Primary&gt;r</attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="yes">Duplicate</attribute>
+            <attribute name="action">app.duplicate</attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="yes">Eject</attribute>
+            <attribute name="action">app.eject</attribute>
+            <attribute name="accel">&lt;Primary&gt;j</attribute>
+          </item>
+        </section>
+      </submenu>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Open MusicBrainz</attribute>
+        <attribute name="action">app.submit-tracks</attribute>
+        <attribute name="accel">&lt;Primary&gt;s</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Preferences</attribute>
+        <attribute name="action">app.preferences</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Shortcuts</attribute>
+        <attribute name="action">win.show-help-overlay</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Help</attribute>
+        <attribute name="action">app.help</attribute>
+        <attribute name="accel">F1</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">About Sound Juicer</attribute>
+        <attribute name="action">app.about</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Quit</attribute>
+        <attribute name="action">app.quit</attribute>
+        <attribute name="accel">&lt;Primary&gt;q</attribute>
+      </item>
+    </section>
+  </menu>
 </interface>
