@@ -58,8 +58,7 @@ gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data
 
 static void reread_cd (void);
 static void update_ui_for_album (AlbumDetails *album);
-static gboolean get_action_state_bool (const char *name);
-static void set_action_state (const char *detailed_name);
+static void update_reading_status (gboolean status);
 
 /* Prototypes for the signal blocking/unblocking in update_ui_for_album */
 G_MODULE_EXPORT void on_title_edit_changed(GtkEditable *widget, gpointer user_data);
@@ -97,6 +96,7 @@ gboolean extracting = FALSE;
 static gboolean duplication_enabled;
 
 static gboolean eject_activated;
+static gboolean reading_cd;
 static gint total_no_of_tracks;
 static gint no_of_tracks_selected;
 static AlbumDetails *current_album;
@@ -206,7 +206,7 @@ disc_ejected_cb (void)
     g_cancellable_cancel (reread_cancellable);
     reread_cancellable = NULL;
   }
-  set_action_state ("re-read(false)");
+  update_reading_status (FALSE);
   set_action_enabled ("re-read", FALSE);
   set_action_enabled ("submit-tracks", FALSE);
 }
@@ -823,7 +823,7 @@ metadata_cb (GObject      *source,
   }
 
   reread_cancellable = NULL;
-  set_action_state ("re-read(false)");
+  update_reading_status (FALSE);
 
   if (error != NULL) {
     gboolean realized;
@@ -905,7 +905,7 @@ is_audio_cd (BraseroDrive *drive)
  */
 static void reread_cd (void)
 {
-  set_action_state ("re-read(true)");
+  update_reading_status (TRUE);
   set_action_enabled ("re-read", FALSE);
 
   /* Make sure nothing is playing */
@@ -920,7 +920,7 @@ static void reread_cd (void)
 
   if (!is_audio_cd (sj_drive)) {
     sj_debug (DEBUG_CD, "Media is not an audio CD\n");
-    set_action_state ("re-read(false)");
+    update_reading_status (FALSE);
     update_ui_for_album (NULL);
     return;
   }
@@ -948,7 +948,7 @@ media_added_cb (BraseroMediumMonitor	*drive,
 
   sj_debug (DEBUG_CD, "Media added to device %s\n", brasero_drive_get_device (brasero_medium_get_drive (medium)));
   /* Don't call re-read if metadata is already being retreived */
-  if (!get_action_state_bool ("re-read"))
+  if (!reading_cd)
     reread_cd ();
 }
 
@@ -1699,36 +1699,22 @@ is_cd_duplication_available(void)
   return FALSE;
 }
 
-static void
-ui_set_retrieving_metadata (gboolean state)
+static void update_reading_status (gboolean status)
 {
-  if (state) {
+  reading_cd = status;
+  if (status) {
     gtk_statusbar_push(GTK_STATUSBAR(status_bar), 1,
                        _("Retrieving track listing…please wait."));
     g_application_mark_busy (g_application_get_default ());
   } else {
+
     gtk_statusbar_pop(GTK_STATUSBAR(status_bar), 1);
     g_application_unmark_busy (g_application_get_default ());
   }
 }
 
-static void
-reread_state_changed_cb (gchar    *group_name,
-                         gchar    *action_name,
-                         GVariant *value,
-                         gpointer  user_data)
-{
-  static gboolean state = FALSE;
-
-  if (g_variant_get_boolean (value) == state)
-    return;
-
-  state = !state;
-  ui_set_retrieving_metadata (state);
-}
-
 GActionEntry app_entries[] = {
-  { "re-read", on_reread_activate, NULL, "false", NULL },
+  { "re-read", on_reread_activate, NULL, NULL, NULL },
   { "duplicate", on_duplicate_activate, NULL, NULL, NULL },
   { "eject", on_eject_activate, NULL, NULL, NULL },
   { "submit-tracks", on_submit_activate, NULL, NULL, NULL },
@@ -1824,10 +1810,6 @@ startup_cb (GApplication *app, gpointer user_data)
   g_action_map_add_action_entries (G_ACTION_MAP (app),
                                    app_entries, G_N_ELEMENTS (app_entries),
                                    NULL);
-  g_signal_connect (app,
-                    "action-state-changed::re-read",
-                    G_CALLBACK (reread_state_changed_cb),
-                    NULL);
 
   builder = gtk_builder_new_from_resource ("/org/gnome/sound-juicer/sound-juicer.ui");
 
@@ -2083,45 +2065,6 @@ lookup_action (const gchar* name)
     g_warning ("Action '%s' not found", name);
 
   return action;
-}
-
-static gboolean
-get_action_state_bool (const gchar* name)
-{
-  gboolean state = FALSE;
-  GAction *action;
-
-  action = lookup_action (name);
-  if (action != NULL) {
-    GVariant *value = g_action_get_state (action);
-    state = g_variant_get_boolean (value);
-    g_variant_unref (value);
-  }
-
-  return state;
-}
-
-static void
-set_action_state (const gchar *detailed_name)
-{
-  gchar *name;
-  GVariant *value;
-  GError *error = NULL;
-
-  if (g_action_parse_detailed_name (detailed_name, &name, &value, &error)) {
-    GSimpleAction *action;
-
-    action = G_SIMPLE_ACTION (lookup_action (name));
-    if (action != NULL)
-      g_simple_action_set_state (action, value);
-
-    g_free (name);
-    g_variant_unref (value);
-  } else {
-    g_warning ("Error parsing detailed action name '%s' - %s",
-               detailed_name, error->message);
-    g_error_free (error);
-  }
 }
 
 void set_action_enabled (const char *name, gboolean enabled)
