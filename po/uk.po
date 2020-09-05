@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/sound-juicer/issues\n"
-"POT-Creation-Date: 2020-02-27 19:17+0000\n"
-"PO-Revision-Date: 2020-04-03 14:33+0300\n"
+"POT-Creation-Date: 2020-09-05 10:05+0000\n"
+"PO-Revision-Date: 2020-09-05 15:26+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 20.07.70\n"
+"X-Generator: Lokalize 20.11.70\n"
 
 #: data/org.gnome.sound-juicer.gschema.xml:19
 msgid "The CD to extract from"
@@ -149,32 +149,32 @@ msgstr "Тип носія GStreamer для кодування даних."
 msgid "Audio volume"
 msgstr "Гучність аудіо"
 
-#: data/sound-juicer.desktop.in.in:3 data/appdata/sound-juicer.appdata.xml.in:7
-#: data/sound-juicer.ui:7 src/sj-main.c:130 src/sj-main.c:132
-#: src/sj-main.c:2131
+#: data/org.gnome.SoundJuicer.desktop.in.in:3
+#: data/appdata/org.gnome.SoundJuicer.appdata.xml.in:7 data/sound-juicer.ui:13
+#: src/sj-main.c:129 src/sj-main.c:131 src/sj-main.c:2095
 msgid "Sound Juicer"
 msgstr "Sound Juicer"
 
-#: data/sound-juicer.desktop.in.in:4
+#: data/org.gnome.SoundJuicer.desktop.in.in:4
 msgid "Audio CD Extractor"
 msgstr "Програма копіювання звукових CD"
 
-#: data/sound-juicer.desktop.in.in:5
+#: data/org.gnome.SoundJuicer.desktop.in.in:5
 msgid "Copy music from your CDs"
 msgstr "Копіювання музики з компакт-дисків"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/sound-juicer.desktop.in.in:7
+#: data/org.gnome.SoundJuicer.desktop.in.in:7
 msgid "Ripper;"
 msgstr "Ripper;засіб;видобування;витягування;"
 
-#: data/appdata/sound-juicer.appdata.xml.in:8
+#: data/appdata/org.gnome.SoundJuicer.appdata.xml.in:8
 msgid "CD ripper with a clean interface and simple preferences"
 msgstr ""
 "Програма для видобування даних зі звукових компакт-дисків із простим "
 "інтерфейсом і налаштуваннями"
 
-#: data/appdata/sound-juicer.appdata.xml.in:10
+#: data/appdata/org.gnome.SoundJuicer.appdata.xml.in:10
 msgid ""
 "Sound Juicer is a simple and clean CD ripping tool. It allows you to extract "
 "the audio from audio compact discs and convert them into audio files that "
@@ -189,7 +189,7 @@ msgstr ""
 "відтворювати звукові доріжки безпосередньо з компакт-диска і дає змогу "
 "попередньо переглядати вміст компакт-диска до видобування даних."
 
-#: data/appdata/sound-juicer.appdata.xml.in:17
+#: data/appdata/org.gnome.SoundJuicer.appdata.xml.in:17
 msgid ""
 "Sound Juicer is designed to be easy to use, and to work with little user "
 "intervention. When you start Sound Juicer, it will examine the CD in the "
@@ -201,6 +201,11 @@ msgstr ""
 "виконає вивчення компакт-диска у пристрої для читання і спробує виявити дані "
 "щодо звукових доріжок за допомогою загальнодоступної служби MusicBrainz."
 
+#. This is a translatable version of project_group
+#: data/appdata/org.gnome.SoundJuicer.appdata.xml.in:36
+msgid "The GNOME Project"
+msgstr "Проєкт GNOME"
+
 #: data/sj-album-chooser-dialog.ui:6
 msgid "Select Album"
 msgstr "Виберіть альбом"
@@ -209,154 +214,151 @@ msgstr "Виберіть альбом"
 msgid "_Select"
 msgstr "_Вибрати"
 
-#: data/sj-album-chooser-dialog.ui:28
+#: data/sj-album-chooser-dialog.ui:27
 msgid "This CD could be more than one album. Please select which album it is."
 msgstr ""
 "Цьому диску відповідає декілька альбомів. Будь ласка, виберіть належний "
 "альбом."
 
-#: data/sound-juicer.ui:29
+#: data/sound-juicer.ui:55
 msgid "_Edit Album"
 msgstr "_Редагувати альбом"
 
-#: data/sound-juicer.ui:47
+#: data/sound-juicer.ui:68
 msgid "_Reload Album"
 msgstr "П_ерезавантажити альбом"
 
-#: data/sound-juicer.ui:170
+#: data/sound-juicer.ui:161
 msgid "_Year:"
 msgstr "_Рік:"
 
-#: data/sound-juicer.ui:207
+#: data/sound-juicer.ui:196
 msgid "_Disc:"
 msgstr "_Диск:"
 
-#: data/sound-juicer.ui:253
+#: data/sound-juicer.ui:236
 msgid "_Title:"
 msgstr "_Заголовок:"
 
-#: data/sound-juicer.ui:282
+#: data/sound-juicer.ui:261
 msgid "_Artist:"
 msgstr "_Виконавець:"
 
-#: data/sound-juicer.ui:315
+#: data/sound-juicer.ui:292
 msgid "_Composer:"
 msgstr "_Композитор:"
 
-#: data/sound-juicer.ui:348
+#: data/sound-juicer.ui:323
 msgid "_Genre:"
 msgstr "_Жанр:"
 
-#: data/sound-juicer.ui:366
+#: data/sound-juicer.ui:340
 msgid "Duration:"
 msgstr "Тривалість:"
 
-#: data/sound-juicer.ui:421
+#: data/sound-juicer.ui:386
 msgid "Tracks"
 msgstr "Доріжки"
 
-#: data/sound-juicer.ui:445 src/sj-main.c:1866 src/sj-play.c:121
-#: src/sj-play.c:259 src/sj-play.c:622
+#: data/sound-juicer.ui:410 src/sj-main.c:1863 src/sj-play.c:120
+#: src/sj-play.c:258 src/sj-play.c:621
 msgid "_Play"
 msgstr "_Відтворити"
 
-#: data/sound-juicer.ui:460 src/sj-extracting.c:233 src/sj-main.c:1890
+#: data/sound-juicer.ui:420 src/sj-extracting.c:232 src/sj-main.c:1887
 msgid "E_xtract"
 msgstr "_Копіювати"
 
-#: data/sound-juicer.ui:489
+#: data/sound-juicer.ui:446
 msgid "Track Progress"
 msgstr "Стан доріжки"
 
-#: data/sound-juicer.ui:595 data/sound-juicer-menu.ui:33
+#: data/sound-juicer.ui:541 data/sound-juicer.ui:855
 msgid "Preferences"
 msgstr "Параметри"
 
-#: data/sound-juicer.ui:614
+#: data/sound-juicer.ui:560
 msgid "Device"
 msgstr "Пристрій"
 
-#: data/sound-juicer.ui:630
+#: data/sound-juicer.ui:576
 msgid "CD _drive:"
 msgstr "_Пристрій CD:"
 
-#: data/sound-juicer.ui:652
+#: data/sound-juicer.ui:598
 msgid "_Eject after extracting tracks"
 msgstr "_Витягувати після копіювання доріжок"
 
-#: data/sound-juicer.ui:667
+#: data/sound-juicer.ui:613
 msgid "_Open music folder when finished"
 msgstr "_Відкривати теку музики після завершення"
 
-#: data/sound-juicer.ui:685
+#: data/sound-juicer.ui:631
 msgid "Music Folder"
 msgstr "Тека музики"
 
-#: data/sound-juicer.ui:701
+#: data/sound-juicer.ui:647
 msgid "_Folder:"
 msgstr "_Тека:"
 
-#: data/sound-juicer.ui:717
+#: data/sound-juicer.ui:663
 msgid "Select A Folder"
 msgstr "Вибір теки"
 
-#: data/sound-juicer.ui:730
+#: data/sound-juicer.ui:676
 msgid "Track Names"
 msgstr "Назви доріжок"
 
-#: data/sound-juicer.ui:746
+#: data/sound-juicer.ui:692
 msgid "Folder hie_rarchy:"
 msgstr "_Ієрархія тек:"
 
-#: data/sound-juicer.ui:777
+#: data/sound-juicer.ui:723
 msgid "File _name:"
 msgstr "_Назва файлу:"
 
-#: data/sound-juicer.ui:805
+#: data/sound-juicer.ui:751
 msgid "_Strip special characters"
 msgstr "Від_сікати спеціальні символи"
 
-#: data/sound-juicer.ui:836
+#: data/sound-juicer.ui:782
 msgid "Format"
 msgstr "Формат"
 
-#: data/sound-juicer.ui:852
+#: data/sound-juicer.ui:798
 msgid "O_utput Format:"
 msgstr "_Формат виводу:"
 
-#: data/sound-juicer-menu.ui:5
-msgid "Disc"
-msgstr "Диск"
-
-#: data/sound-juicer-menu.ui:8
+#: data/sound-juicer.ui:832
 msgid "Re-read"
 msgstr "Перечитати"
 
-#: data/sound-juicer-menu.ui:13
+#: data/sound-juicer.ui:837
 msgid "Duplicate"
 msgstr "Здублювати"
 
-#: data/sound-juicer-menu.ui:17
+#: data/sound-juicer.ui:841
 msgid "Eject"
 msgstr "Виштовхнути"
 
-#: data/sound-juicer-menu.ui:26
+#: data/sound-juicer.ui:848
 msgid "Open MusicBrainz"
 msgstr "Відкрити MusicBrainz"
 
-#: data/sound-juicer-menu.ui:39
+#: data/sound-juicer.ui:861
 msgid "Shortcuts"
 msgstr "Скорочення"
 
-#: data/sound-juicer-menu.ui:43
+#: data/sound-juicer.ui:865
 msgid "Help"
 msgstr "Довідка"
 
-#: data/sound-juicer-menu.ui:48
-msgid "About"
-msgstr "Про програму"
+#: data/sound-juicer.ui:870
+#| msgid "Sound Juicer"
+msgid "About Sound Juicer"
+msgstr "Про «Sound Juicer»"
 
-#: data/sound-juicer-menu.ui:52
+#: data/sound-juicer.ui:874
 msgid "Quit"
 msgstr "Вийти"
 
@@ -420,47 +422,50 @@ msgctxt "shortcut window"
 msgid "Unselect all tracks"
 msgstr "Зняти позначення з усіх доріжок"
 
-#: libjuicer/sj-extractor.c:355
+#: libjuicer/sj-extractor.c:350
 #, c-format
 msgid "Could not create GStreamer CD reader"
 msgstr "Не вдається створити GStreamer CD reader"
 
-#: libjuicer/sj-extractor.c:373
+#: libjuicer/sj-extractor.c:368
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Не вдається створити об'єкт кодування GStreamer для %s"
 
-#: libjuicer/sj-extractor.c:385
+#: libjuicer/sj-extractor.c:380
 #, c-format
 msgid "Could not create GStreamer file output"
 msgstr "Не вдається створити файл виводу GStreamer"
 
-#: libjuicer/sj-extractor.c:399
+#: libjuicer/sj-extractor.c:394
 #, c-format
 msgid "Could not link pipeline"
 msgstr "Не вдається зв'язатись з конвеєром"
 
-#: libjuicer/sj-extractor.c:422
+#: libjuicer/sj-extractor.c:417
 msgid "Could not get current track position"
 msgstr "Не вдається отримати поточну позицію доріжки"
 
-#: libjuicer/sj-extractor.c:451
+#: libjuicer/sj-extractor.c:446
 #, c-format
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Об'єкт отримання звуку неправильний. Це погано, помилки дивіться у консолі."
 
-#: libjuicer/sj-extractor.c:711
+#: libjuicer/sj-extractor.c:708
 #, c-format
 msgid "The plugin necessary for CD access was not found"
 msgstr "Не знайдено необхідний модуль для доступу до CD"
 
-#: libjuicer/sj-extractor.c:719
+#: libjuicer/sj-extractor.c:716
 #, c-format
 msgid "The plugin necessary for file access was not found"
 msgstr "Не знайдено необхідний модуль для доступу до файлу"
 
+#. FIXME: would be nicer to only check if "cdrom" is being probed,
+#. * but libbrasero doesn't seem to have an API for that
+#.
 #: libjuicer/sj-metadata.c:211 libjuicer/sj-metadata.c:234
 #: libjuicer/sj-metadata.c:245
 #, c-format
@@ -511,27 +516,27 @@ msgstr "У всьому світі"
 msgid "Yugoslavia"
 msgstr "Югославія"
 
-#: libjuicer/sj-metadata-gvfs.c:97
+#: libjuicer/sj-metadata-gvfs.c:95
 #, c-format
 msgid "Cannot access CD"
 msgstr "Не вдається зчитати CD"
 
-#: libjuicer/sj-metadata-gvfs.c:119 src/egg-play-preview.c:575
-#: src/sj-main.c:355
+#: libjuicer/sj-metadata-gvfs.c:117 src/egg-play-preview.c:570
+#: src/sj-main.c:354
 msgid "Unknown Title"
 msgstr "Невідома назва"
 
-#: libjuicer/sj-metadata-gvfs.c:125 libjuicer/sj-metadata-gvfs.c:155
-#: src/egg-play-preview.c:580 src/sj-extracting.c:984
+#: libjuicer/sj-metadata-gvfs.c:123 libjuicer/sj-metadata-gvfs.c:153
+#: src/egg-play-preview.c:575 src/sj-extracting.c:983
 msgid "Unknown Artist"
 msgstr "Невідомий виконавець"
 
-#: libjuicer/sj-metadata-gvfs.c:149
+#: libjuicer/sj-metadata-gvfs.c:147
 #, c-format
 msgid "Track %d"
 msgstr "Доріжка %d"
 
-#: libjuicer/sj-metadata-gvfs.c:176
+#: libjuicer/sj-metadata-gvfs.c:174
 #, c-format
 msgid "Cannot access CD: %s"
 msgstr "Не вдається зчитати CD: %s"
@@ -539,21 +544,21 @@ msgstr "Не вдається зчитати CD: %s"
 #. Translators: This string is used to build the composer tag
 #. when a track has composers and arrangers, or a composer and a
 #. mixture of arrangers, orchestrators and transcribers
-#: libjuicer/sj-metadata-musicbrainz5.c:695
+#: libjuicer/sj-metadata-musicbrainz5.c:705
 #, c-format
 msgid "%s arr. %s"
 msgstr "%s ар. %s"
 
 #. Translators: This string is used to build the composer tag
 #. when a track has composers and orchestrators
-#: libjuicer/sj-metadata-musicbrainz5.c:699
+#: libjuicer/sj-metadata-musicbrainz5.c:709
 #, c-format
 msgid "%s orch. %s"
 msgstr "%s орк. %s"
 
 #. Translators: This string is used to build the composer tag
 #. when a track has composers and transcribers
-#: libjuicer/sj-metadata-musicbrainz5.c:703
+#: libjuicer/sj-metadata-musicbrainz5.c:713
 #, c-format
 msgid "%s trans. %s"
 msgstr "%s транскр. %s"
@@ -561,26 +566,26 @@ msgstr "%s транскр. %s"
 #. Translators: This string is used to build the composer tag
 #. when a track has a mixture of arrangers, orchestrators and
 #. transcribers but no composers
-#: libjuicer/sj-metadata-musicbrainz5.c:713
+#: libjuicer/sj-metadata-musicbrainz5.c:723
 #, c-format
 msgid "arr. %s"
 msgstr "ар. %s"
 
 #. Translators: This string is used to build the composer tag
 #. when a track has orchestrators but no composer
-#: libjuicer/sj-metadata-musicbrainz5.c:717
+#: libjuicer/sj-metadata-musicbrainz5.c:727
 #, c-format
 msgid "orch. %s"
 msgstr "орк. %s"
 
 #. Translators: This string is used to build the composer tag
 #. when a track has a transcribers but no composer
-#: libjuicer/sj-metadata-musicbrainz5.c:721
+#: libjuicer/sj-metadata-musicbrainz5.c:731
 #, c-format
 msgid "trans. %s"
 msgstr "транскр. %s"
 
-#: src/egg-play-preview.c:581 src/sj-extracting.c:983
+#: src/egg-play-preview.c:576 src/sj-extracting.c:982
 msgid "Unknown Album"
 msgstr "Невідомий альбом"
 
@@ -713,20 +718,20 @@ msgstr "Штрих-код:"
 msgid " (Disc %d/%d)"
 msgstr " (диск %d з %d)"
 
-#: src/sj-extracting.c:148
+#: src/sj-extracting.c:147
 #, c-format
 msgid "Failed to get output format"
 msgstr "Помилка при отриманні формату виводу"
 
-#: src/sj-extracting.c:173
+#: src/sj-extracting.c:172
 msgid "Name too long"
 msgstr "Надто довга назва"
 
-#: src/sj-extracting.c:309
+#: src/sj-extracting.c:308
 msgid "A file with the same name exists"
 msgstr "Вже існує файл з такою ж назвою"
 
-#: src/sj-extracting.c:311
+#: src/sj-extracting.c:310
 #, c-format
 msgid ""
 "A file called ‘%s’ exists, size %s.\n"
@@ -735,62 +740,63 @@ msgstr ""
 "Файл з назвою «%s» вже існує, розмір %s.\n"
 "Бажаєте пропустити цю доріжку чи перезаписати його?"
 
-#: src/sj-extracting.c:325
+#: src/sj-extracting.c:324
 msgid "_Skip"
 msgstr "_Пропустити"
 
-#: src/sj-extracting.c:326
+#: src/sj-extracting.c:325
 msgid "S_kip All"
 msgstr "Пропустити _все"
 
-#: src/sj-extracting.c:327
+#: src/sj-extracting.c:326
 msgid "_Overwrite"
 msgstr "Пере_записати"
 
-#: src/sj-extracting.c:328
+#: src/sj-extracting.c:327
 msgid "Overwrite _All"
 msgstr "Перезаписати вс_е"
 
-#: src/sj-extracting.c:377
+#: src/sj-extracting.c:376
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Помилка при створенні каталогу виводу: %s"
 
-#: src/sj-extracting.c:517
+#: src/sj-extracting.c:516
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Залишилось часу: %d:%02d (у %0.1f×)"
 
-#: src/sj-extracting.c:519
+#: src/sj-extracting.c:518
 msgid "Estimated time left: unknown"
 msgstr "Залишилось часу: невідомо"
 
-#: src/sj-extracting.c:609
+#: src/sj-extracting.c:608
 msgid "CD rip complete"
 msgstr "Переписування з диска завершено"
 
-#: src/sj-extracting.c:701
+#: src/sj-extracting.c:700
 msgid "Sound Juicer could not extract this CD."
 msgstr "Програма Sound Juicer не може витягнути цей диск."
 
-#: src/sj-extracting.c:703 src/sj-main.c:176 src/sj-main.c:418
-#: src/sj-main.c:457 src/sj-main.c:842 src/sj-main.c:1033
+#: src/sj-extracting.c:702 src/sj-main.c:175 src/sj-main.c:417
+#: src/sj-main.c:456 src/sj-main.c:839 src/sj-main.c:1030
 msgid "Reason"
 msgstr "Причина"
 
-#: src/sj-extracting.c:793 src/sj-main.c:1897
+#. Change the label to Stop while extracting
+#: src/sj-extracting.c:792 src/sj-main.c:1894
 msgid "_Stop"
 msgstr "З_упинити"
 
-#: src/sj-extracting.c:821 src/sj-extracting.c:829
+#: src/sj-extracting.c:820 src/sj-extracting.c:828
 msgid "Extracting audio from CD"
 msgstr "Копіювання звукових доріжок з CD"
 
-#: src/sj-extracting.c:985
+#: src/sj-extracting.c:984
 msgid "Unknown Composer"
 msgstr "Невідомий композитор"
 
-#: src/sj-extracting.c:986
+#: src/sj-extracting.c:985
 msgid "Unknown Track"
 msgstr "Невідома доріжка"
 
@@ -802,7 +808,7 @@ msgstr "Ембієнт"
 msgid "Blues"
 msgstr "Блюз"
 
-#: src/sj-genres.c:35 src/sj-main.c:506
+#: src/sj-genres.c:35 src/sj-main.c:501
 msgid "Classical"
 msgstr "Класична"
 
@@ -863,40 +869,40 @@ msgstr "Потік свідомості"
 msgid "Error while saving custom genre: %s"
 msgstr "Помилка при збереженні власного жанру: %s"
 
-#: src/sj-main.c:175
+#: src/sj-main.c:174
 msgid "Could not start Sound Juicer"
 msgstr "Не вдається запустити Sound Juicer"
 
-#: src/sj-main.c:178
+#: src/sj-main.c:177
 msgid "Please consult the documentation for assistance."
 msgstr "Зверніться до документації за довідкою."
 
-#: src/sj-main.c:234
+#: src/sj-main.c:233
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr ""
 "Наразі триває копіювання CD. Вийти з програми зараз чи продовжити копіювання?"
 
-#: src/sj-main.c:235 src/sj-main.c:1157
+#: src/sj-main.c:234 src/sj-main.c:1154
 msgid "_Quit"
 msgstr "Ви_йти"
 
-#: src/sj-main.c:236
+#: src/sj-main.c:235
 msgid "_Continue"
 msgstr "_Продовжити"
 
-#: src/sj-main.c:283 src/sj-main.c:1844 src/sj-main.c:1920
+#: src/sj-main.c:282 src/sj-main.c:1847 src/sj-main.c:1917
 msgid "Select None"
 msgstr "Зняти вибір"
 
-#: src/sj-main.c:297 src/sj-main.c:1914
+#: src/sj-main.c:296 src/sj-main.c:1911
 msgid "Select All"
 msgstr "Вибрати все"
 
-#: src/sj-main.c:318 src/sj-main.c:665
+#: src/sj-main.c:317 src/sj-main.c:660
 msgid "(unknown)"
 msgstr "(невідомо)"
 
-#: src/sj-main.c:356
+#: src/sj-main.c:355
 msgid ""
 "This album is not in the MusicBrainz database, please click ‘Edit Album’ to "
 "open your browser and edit it in MusicBrainz."
@@ -905,7 +911,7 @@ msgstr ""
 "«Редагувати альбом», щоб відкрити браузер і виконати редагування альбому у "
 "MusicBrainz."
 
-#: src/sj-main.c:358
+#: src/sj-main.c:357
 #, c-format
 msgid ""
 "Could not find %s by %s on MusicBrainz, please click ‘Edit Album’ to open "
@@ -915,96 +921,96 @@ msgstr ""
 "«Редагувати альбом», щоб відкрити браузер і виконати редагування альбому у "
 "MusicBrainz."
 
-#: src/sj-main.c:394
+#: src/sj-main.c:393
 msgid "Click ‘Reload’ to load the edited album details from MusicBrainz"
 msgstr ""
 "Натисніть кнопку «Перезавантажити», щоб завантажити дані редагованого "
 "альбому з MusicBrainz"
 
-#: src/sj-main.c:416
+#: src/sj-main.c:415
 msgid "Could not open URL"
 msgstr "Не вдається відкрити URL"
 
-#: src/sj-main.c:417
+#: src/sj-main.c:416
 msgid "Sound Juicer could not open the submission URL"
 msgstr ""
 "Програмі Sound Juicer не вдається відкрити URL для передавання назв доріжок"
 
-#: src/sj-main.c:455
+#: src/sj-main.c:454
 msgid "Could not duplicate disc"
 msgstr "Не вдається створити копію компакт-диска"
 
-#: src/sj-main.c:456
+#: src/sj-main.c:455
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Програмі Sound Juicer не вдається створити копію диска"
 
-#: src/sj-main.c:506
+#: src/sj-main.c:501
 msgid "Lieder"
 msgstr "Лідер"
 
-#: src/sj-main.c:506
+#: src/sj-main.c:501
 msgid "Opera"
 msgstr "Опера"
 
-#: src/sj-main.c:506
+#: src/sj-main.c:501
 msgid "Chamber"
 msgstr "Кімната"
 
-#: src/sj-main.c:506
+#: src/sj-main.c:501
 msgid "Musical"
 msgstr "Музична"
 
-#: src/sj-main.c:840 src/sj-main.c:1031
+#: src/sj-main.c:837 src/sj-main.c:1028
 msgid "Could not read the CD"
 msgstr "Не вдається зчитати компакт-диск"
 
-#: src/sj-main.c:841
+#: src/sj-main.c:838
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr ""
 "Програмі Sound Juicer не вдалося зчитати перелік доріжок цього компакт-диска."
 
-#: src/sj-main.c:993
+#: src/sj-main.c:990
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device ‘%s’"
 msgstr ""
 "«Sound Juicer» не вдалося скористатися пристроєм для читання компакт-дисків "
 "«%s»"
 
-#: src/sj-main.c:1000
+#: src/sj-main.c:997
 msgid "HAL daemon may not be running."
 msgstr "Можливо, служба HAL не запущена."
 
-#: src/sj-main.c:1024
+#: src/sj-main.c:1021
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device ‘%s’"
 msgstr ""
 "«Sound Juicer» не вдалося отримати доступ до пристрою для читання компакт-"
 "дисків «%s»"
 
-#: src/sj-main.c:1122
+#: src/sj-main.c:1119
 msgid "No CD-ROM drives found"
 msgstr "Не знайдено пристроїв CD-ROM"
 
-#: src/sj-main.c:1123
+#: src/sj-main.c:1120
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr ""
 "Програмі Sound Juicer не вдається знайти жодного пристрою CD-ROM для "
 "зчитування."
 
-#: src/sj-main.c:1156
+#: src/sj-main.c:1153
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Вибраний звуковий профіль недоступний у вашому встановленні."
 
-#: src/sj-main.c:1158
+#: src/sj-main.c:1155
 msgid "_Change Profile"
 msgstr "_Змінити профіль"
 
-#: src/sj-main.c:1547
+#: src/sj-main.c:1548
 msgid "Unknown widget calling on_person_edit_changed."
 msgstr "Невідомий віджет, що викликає on_person_edit_changed."
 
-#: src/sj-main.c:1647 src/sj-prefs.c:120
+#: src/sj-main.c:1648 src/sj-prefs.c:117
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -1013,60 +1019,55 @@ msgstr ""
 "Не вдається відобразити довідку з Sound Juicer\n"
 "%s"
 
-#: src/sj-main.c:1706
+#: src/sj-main.c:1707
 msgid "Retrieving track listing…please wait."
 msgstr "Отримуємо список доріжок… Будь ласка, зачекайте."
 
-#: src/sj-main.c:1873 src/sj-play.c:301
+#: src/sj-main.c:1870 src/sj-play.c:300
 msgid "_Pause"
 msgstr "П_ризупинити"
 
-#: src/sj-main.c:1951
+#: src/sj-main.c:1945
 msgid "Track"
 msgstr "Доріжка"
 
-#: src/sj-main.c:1963
+#: src/sj-main.c:1957
 msgid "Title"
 msgstr "Заголовок"
 
-#: src/sj-main.c:1964
+#: src/sj-main.c:1958
 msgid "Artist"
 msgstr "Виконавець"
 
-#: src/sj-main.c:1965
+#: src/sj-main.c:1959
 msgid "Composer"
 msgstr "Композитор"
 
-#: src/sj-main.c:1971
+#: src/sj-main.c:1965
 msgid "Duration"
 msgstr "Тривалість"
 
-#: src/sj-main.c:2119
+#: src/sj-main.c:2083
 msgid "Start extracting immediately"
 msgstr "Почати копіювання негайно"
 
-#: src/sj-main.c:2120
+#: src/sj-main.c:2084
 msgid "Start playing immediately"
 msgstr "Почати відтворення негайно"
 
-#: src/sj-main.c:2121
+#: src/sj-main.c:2085
 msgid "What CD device to read"
 msgstr "Який пристрій використовувати для читання"
 
-#: src/sj-main.c:2121
+#: src/sj-main.c:2085
 msgid "DEVICE"
 msgstr "ПРИСТРІЙ"
 
-#: src/sj-main.c:2122
+#: src/sj-main.c:2086
 msgid "URI to the CD device to read"
 msgstr "URI до CD-пристрою для читання"
 
-#: src/sj-main.c:2134
-#| msgid "Copy music from your CDs"
-msgid "- Extract music from your CDs"
-msgstr "– видобування музики з компакт-дисків"
-
-#: src/sj-play.c:193 src/sj-play.c:417 src/sj-play.c:453
+#: src/sj-play.c:192 src/sj-play.c:416 src/sj-play.c:452
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -1077,119 +1078,128 @@ msgstr ""
 "\n"
 "Причина: %s"
 
-#: src/sj-play.c:355
+#: src/sj-play.c:354
 #, c-format
 msgid "Failed to create CD source element"
 msgstr "Не вдається створити елемент джерела типу CD"
 
-#: src/sj-play.c:593
+#: src/sj-play.c:592
 #, c-format
 msgid "Seeking to %s"
 msgstr "Переміщення на %s"
 
-#: src/sj-prefs.c:51
+#: src/sj-prefs.c:48
 msgid "Album Artist, Album Title"
 msgstr "Виконавець альбому, назва альбому"
 
-#: src/sj-prefs.c:52
+#: src/sj-prefs.c:49
 msgid "Album Artist (sortable), Album Title"
 msgstr "Виконавець альбому (сортується), назва альбому"
 
-#: src/sj-prefs.c:53
+#: src/sj-prefs.c:50
 msgid "Track Artist, Album Title"
 msgstr "Виконавець доріжки, назва альбому"
 
-#: src/sj-prefs.c:54
+#: src/sj-prefs.c:51
 msgid "Track Artist (sortable), Album Title"
 msgstr "Виконавець доріжки (сортується), назва альбому"
 
-#: src/sj-prefs.c:55
+#: src/sj-prefs.c:52
 msgid "Album Title"
 msgstr "Назва альбому"
 
-#: src/sj-prefs.c:56
+#: src/sj-prefs.c:53
 msgid "Album Artist"
 msgstr "Виконавець альбому"
 
-#: src/sj-prefs.c:57
+#: src/sj-prefs.c:54
 msgid "Album Artist (sortable)"
 msgstr "Виконавець альбому (сортується)"
 
-#: src/sj-prefs.c:58
+#: src/sj-prefs.c:55
 msgid "Album Artist - Album Title"
 msgstr "Виконавець альбому - назва альбому"
 
-#: src/sj-prefs.c:59
+#: src/sj-prefs.c:56
 msgid "Album Artist (sortable) - Album Title"
 msgstr "Виконавець альбому (сортується) - назва альбому"
 
-#: src/sj-prefs.c:60
+#: src/sj-prefs.c:57
 msgid "Album Composer, Album Title"
 msgstr "Композитор альбому, назва альбому"
 
-#: src/sj-prefs.c:61
+#: src/sj-prefs.c:58
 msgid "Album Composer (sortable), Album Title"
 msgstr "Композитор альбому (сортується), назва альбому"
 
-#: src/sj-prefs.c:62
+#: src/sj-prefs.c:59
 msgid "Track Composer, Album Title"
 msgstr "Композитор доріжки, назва альбому"
 
-#: src/sj-prefs.c:63
+#: src/sj-prefs.c:60
 msgid "Track Composer (sortable), Album Title"
 msgstr "Композитор доріжки (сортується), назва альбому"
 
-#: src/sj-prefs.c:64
+#: src/sj-prefs.c:61
 msgid "[none]"
 msgstr "[немає]"
 
-#: src/sj-prefs.c:69
+#: src/sj-prefs.c:66
 msgid "Number - Title"
 msgstr "Номер - Назва"
 
-#: src/sj-prefs.c:70
+#: src/sj-prefs.c:67
 msgid "Track Title"
 msgstr "Назва доріжки"
 
-#: src/sj-prefs.c:71
+#: src/sj-prefs.c:68
 msgid "Track Artist - Track Title"
 msgstr "Виконавець доріжки - назва доріжки"
 
-#: src/sj-prefs.c:72
+#: src/sj-prefs.c:69
 msgid "Track Artist (sortable) - Track Title"
 msgstr "Виконавець доріжки (сортується) - назва доріжки"
 
-#: src/sj-prefs.c:73
+#: src/sj-prefs.c:70
 msgid "Number. Track Artist - Track Title"
 msgstr "Номер. Виконавець доріжки - Назва доріжки "
 
-#: src/sj-prefs.c:75
+#. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
+#: src/sj-prefs.c:72
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Номер. Виконавець доріжки - Назва доріжки (маленькими літерами)"
 
-#: src/sj-prefs.c:77
+#. {N_("Number-Track Artist (sortable)-Track Title (lowercase)"), "%tN-%tS-%tT"},
+#: src/sj-prefs.c:74
 msgid "Track Composer - Track Artist - Track Title"
 msgstr "Композитор доріжки - Виконавець доріжки - Назва доріжки "
 
-#: src/sj-prefs.c:78
+#: src/sj-prefs.c:75
 msgid "Track Composer (sortable) - Track Artist (sortable) - Track Title"
 msgstr ""
 "Композитор доріжки (сортується) - Виконавець доріжки (сортується) - назва "
 "доріжки"
 
-#: src/sj-prefs.c:79
+#: src/sj-prefs.c:76
 msgid "Number. Track Composer - Track Artist - Track Title"
 msgstr "Номер. Композитор доріжки - Виконавець доріжки - Назва доріжки "
 
-#: src/sj-prefs.c:80
+#: src/sj-prefs.c:77
 msgid "Number-Track Composer-Track Artist-Track Title (lowercase)"
 msgstr ""
 "Номер-Композитор доріжки-Виконавець доріжки-Назва доріжки (маленькими "
 "літерами)"
 
-#: src/sj-prefs.c:250
+#: src/sj-prefs.c:252
 msgid "Example Path: "
 msgstr "Приклад шляху: "
 
-#~ msgid "The GNOME Project"
-#~ msgstr "Проєкт GNOME"
+#~ msgid "Disc"
+#~ msgstr "Диск"
+
+#~ msgid "About"
+#~ msgstr "Про програму"
+
+#~| msgid "Copy music from your CDs"
+#~ msgid "- Extract music from your CDs"
+#~ msgstr "– видобування музики з компакт-дисків"
