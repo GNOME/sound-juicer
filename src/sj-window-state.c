@@ -60,7 +60,8 @@ open_state_file (void)
                                   filename,
                                   G_KEY_FILE_KEEP_COMMENTS,
                                   &err)) {
-    g_warning ("Unable to open '%s' - %s", filename, err->message);
+    if (!g_error_matches (err, G_FILE_ERROR, G_FILE_ERROR_NOENT))
+      g_warning ("Unable to open '%s' - %s", filename, err->message);
     g_error_free (err);
   }
   g_free (filename);
