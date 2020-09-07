@@ -28,7 +28,7 @@ configure_file(
 )
 
 # Metainfo
-i18n.merge_file(
+metainfo_file = i18n.merge_file(
   'metainfo',
   input: files(join_paths('metainfo', 'org.gnome.SoundJuicer.metainfo.xml.in')),
   output: 'org.gnome.SoundJuicer.metainfo.xml',
@@ -36,6 +36,15 @@ i18n.merge_file(
   install: true,
   install_dir: join_paths(sound_juicer_datadir, 'metainfo'),
 )
+
+# Validate Metainfo
+appstream_util = find_program('appstream-util', required: false)
+if appstream_util.found()
+  test(
+      'validate-metainfo', appstream_util,
+      args: ['validate', metainfo_file.full_path()]
+      )
+endif
 
 # GSettings
 gnome.compile_schemas(
