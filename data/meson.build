@@ -27,11 +27,11 @@ configure_file(
   install_dir: join_paths(sound_juicer_datadir, 'dbus-1', 'services'),
 )
 
-# Appdata
+# Metainfo
 i18n.merge_file(
-  'appdata',
-  input: files(join_paths('appdata', 'org.gnome.SoundJuicer.appdata.xml.in')),
-  output: 'org.gnome.SoundJuicer.appdata.xml',
+  'metainfo',
+  input: files(join_paths('metainfo', 'org.gnome.SoundJuicer.metainfo.xml.in')),
+  output: 'org.gnome.SoundJuicer.metainfo.xml',
   po_dir: po_dir,
   install: true,
   install_dir: join_paths(sound_juicer_datadir, 'metainfo'),
