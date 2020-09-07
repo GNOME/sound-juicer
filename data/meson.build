@@ -78,5 +78,5 @@ icondir = join_paths(sound_juicer_datadir, 'icons', 'hicolor')
 foreach icon : icons
   name = icon.split('.')[0].split('-')
   size = name[2]
-  install_data(icon, install_dir: join_paths(icondir, size + 'x' + size, 'apps'), rename: 'sound-juicer.png')
+  install_data(icon, install_dir: join_paths(icondir, size + 'x' + size, 'apps'), rename: 'org.gnome.SoundJuicer.png')
 endforeach
