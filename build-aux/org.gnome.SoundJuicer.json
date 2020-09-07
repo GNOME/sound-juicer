@@ -20,9 +20,8 @@
         "--socket=pulseaudio",
         /* Browse user's Music directory */
         "--filesystem=xdg-music",
-        /* Needed for dconf to work */
-        "--filesystem=xdg-run/dconf", "--filesystem=~/.config/dconf:ro",
-        "--talk-name=ca.desrt.dconf", "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
+        /* Migrate DConf settings from the host */
+        "--metadata=X-DConf=migrate-path=/org/gnome/sound-juicer/",
         /* optical media detection */
         "--talk-name=org.gtk.vfs", "--talk-name=org.gtk.vfs.*",
         /* Force volume monitor with optical media detection support */
