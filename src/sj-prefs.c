@@ -285,20 +285,21 @@ static void device_changed_cb (GSettings *settings, const gchar *key, gpointer u
 
   g_return_if_fail (strcmp (key, SJ_SETTINGS_DEVICE) == 0);
 
+  monitor = brasero_medium_monitor_get_default ();
   value = g_settings_get_string (settings, key);
   if ((value != NULL) && (*value != '\0')) {
-    monitor = brasero_medium_monitor_get_default ();
     drive = brasero_medium_monitor_get_drive (monitor, value);
     brasero_drive_selection_set_active (BRASERO_DRIVE_SELECTION (cd_option), drive);
     g_object_unref (drive);
-    g_object_unref (monitor);
   } else {
-    /* FIXME: see the FIXME in sj-main.c around one of the
-     * device_changed_cb calls for a way to fix this
-     */
-    g_warn_if_reached();
+    GSList *drives;
+    drives = brasero_medium_monitor_get_drives (monitor, BRASERO_DRIVE_TYPE_ALL_BUT_FILE);
+    if (drives != NULL)
+      brasero_drive_selection_set_active (BRASERO_DRIVE_SELECTION (cd_option), drives->data);
+    g_slist_free_full (drives, (GDestroyNotify) g_object_unref);
   }
   g_free (value);
+  g_object_unref (monitor);
 }
 
 static void prefs_drive_changed (BraseroDriveSelection *selection, BraseroDrive *drive, gpointer user_data)
