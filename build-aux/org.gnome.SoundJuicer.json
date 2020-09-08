@@ -50,25 +50,6 @@
                 }
             ]
         },
-        /* To play cdda */
-        {
-            "name": "gst-plugins-base",
-            "buildsystem": "meson",
-            "config-opts": [
-                "--prefix=/app",
-                "-Dauto_features=disabled",
-                "-Dcdparanoia=enabled"
-            ],
-            "cleanup": [ "*.la", "/share/gtk-doc" ],
-            "sources": [
-                {
-                    "type": "git",
-                    "url": "https://gitlab.freedesktop.org/gstreamer/gst-plugins-base.git",
-                    "branch" : "1.16.2",
-                    "commit" : "9d3581b2e6f12f0b7e790d1ebb63b90cf5b1ef4e"
-                }
-            ]
-        },
         /* To encode in MP3 */
         {
           "name": "taglib",
@@ -88,39 +69,48 @@
             }
          ]
         },
+        /* To play cdda */
         {
-            "name": "gst-plugins-good",
+            "name": "gstreamer",
             "buildsystem": "meson",
             "config-opts": [
-                "--prefix=/app",
                 "-Dauto_features=disabled",
-                "-Dtaglib=enabled"
+                "-Dgst-plugins-base:cdparanoia=enabled",
+                "-Dgst-plugins-base:ogg=enabled",
+                "-Dgst-plugins-base:vorbis=enabled",
+                "-Dgst-plugins-base:opus=enabled",
+                "-Dgst-plugins-base:encoding=enabled",
+                "-Dgst-plugins-good:taglib=enabled",
+                "-Dgst-plugins-good:lame=enabled",
+                "-Dgst-plugins-good:isomp4=enabled",
+                "-Dgst-plugins-good:flac=enabled",
+                "-Dgst-plugins-bad:fdkaac=enabled",
+                "-Dgst-plugins-ugly:xingmux=enabled",
+                "-Dpython=disabled",
+                "-Ddevtools=disabled",
+                "-Dges=disabled",
+                "-Drtsp_server=disabled",
+                "-Domx=disabled",
+                "-Dsharp=disabled",
+                "-Dgst-examples=disabled",
+                "-Dtests=disabled",
+                "-Dexamples=disabled",
+                "-Ddoc=disabled",
+                "-Dgtk_doc=disabled",
+                "-Dgpl=enabled",
+                "-Dlibav=disabled",
+                "-Dbad=enabled",
+                "-Dvaapi=disabled",
+                "-Dugly=enabled"
             ],
-            "cleanup": [ "*.la", "/share/gtk-doc" ],
+            "cleanup": [ "/share/gtk-doc" ],
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://gitlab.freedesktop.org/gstreamer/gst-plugins-good.git",
-                    "branch" : "1.16.2",
-                    "commit" : "ce0723527aa37d5f4d19ef8021c0b2eb8f83b08d"
-                }
-            ]
-        },
-        {
-            "name": "gst-plugins-ugly",
-            "buildsystem": "meson",
-            "config-opts": [
-                "--prefix=/app",
-                "-Dauto_features=disabled",
-                "-Dxingmux=enabled"
-            ],
-            "cleanup": [ "*.la", "/share/gtk-doc" ],
-            "sources": [
-                {
-                    "type": "git",
-                    "url": "https://gitlab.freedesktop.org/gstreamer/gst-plugins-ugly.git",
-                    "branch" : "1.16.2",
-                    "commit" : "4b2943ee2788331e4000f0f7e226cd5ce2c135a4"
+                    "disable-submodules": true,
+                    "url": "https://gitlab.freedesktop.org/gstreamer/gstreamer.git",
+                    "commit" : "8dbfc89a850d484a27937eb882978251bfce06b3",
+                    "tag": "1.20.2"
                 }
             ]
         },
