@@ -23,8 +23,6 @@
         "--metadata=X-DConf=migrate-path=/org/gnome/sound-juicer/",
         /* optical media detection */
         "--talk-name=org.gtk.vfs", "--talk-name=org.gtk.vfs.*",
-        /* Force volume monitor with optical media detection support */
-        "--env=GIO_USE_VOLUME_MONITOR=udisks2",
         /* Ensure cdda gstreamer plugin is picked found for audio CD's */
         "--env=GST_PLUGIN_PATH=/app/lib/codecs/lib/gstreamer-1.0"
     ],
@@ -68,6 +66,61 @@
                     "url": "https://gitlab.freedesktop.org/gstreamer/gst-plugins-base.git",
                     "branch" : "1.16.2",
                     "commit" : "9d3581b2e6f12f0b7e790d1ebb63b90cf5b1ef4e"
+                }
+            ]
+        },
+        /* To encode in MP3 */
+        {
+          "name": "taglib",
+          "buildsystem": "cmake-ninja",
+          "config-opts": [
+            "-DBUILD_SHARED_LIBS=ON"
+          ],
+          "cleanup": [
+            "/include",
+            "/lib/*.so"
+          ],
+          "sources": [
+            {
+              "type": "archive",
+              "url": "http://taglib.github.io/releases/taglib-1.11.1.tar.gz",
+              "sha256": "b6d1a5a610aae6ff39d93de5efd0fdc787aa9e9dc1e7026fa4c961b26563526b"
+            }
+         ]
+        },
+        {
+            "name": "gst-plugins-good",
+            "buildsystem": "meson",
+            "config-opts": [
+                "--prefix=/app",
+                "-Dauto_features=disabled",
+                "-Dtaglib=enabled"
+            ],
+            "cleanup": [ "*.la", "/share/gtk-doc" ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.freedesktop.org/gstreamer/gst-plugins-good.git",
+                    "branch" : "1.16.2",
+                    "commit" : "ce0723527aa37d5f4d19ef8021c0b2eb8f83b08d"
+                }
+            ]
+        },
+        {
+            "name": "gst-plugins-ugly",
+            "buildsystem": "meson",
+            "config-opts": [
+                "--prefix=/app",
+                "-Dauto_features=disabled",
+                "-Dxingmux=enabled"
+            ],
+            "cleanup": [ "*.la", "/share/gtk-doc" ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.freedesktop.org/gstreamer/gst-plugins-ugly.git",
+                    "branch" : "1.16.2",
+                    "commit" : "4b2943ee2788331e4000f0f7e226cd5ce2c135a4"
                 }
             ]
         },

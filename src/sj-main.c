@@ -1709,7 +1709,8 @@ static void update_reading_status (gboolean status)
   } else {
 
     gtk_statusbar_pop(GTK_STATUSBAR(status_bar), 1);
-    g_application_unmark_busy (g_application_get_default ());
+    if (g_application_get_is_busy (g_application_get_default ()))
+      g_application_unmark_busy (g_application_get_default ());
   }
 }
 
