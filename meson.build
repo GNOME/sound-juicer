@@ -1,4 +1,4 @@
-project('sound-juicer', 'c', version: '3.24.0')
+project('sound-juicer', 'c', version: '3.38.0')
 
 sound_juicer_prefix = get_option('prefix')
 sound_juicer_bindir = join_paths(sound_juicer_prefix, get_option('bindir'))
