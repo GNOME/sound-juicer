@@ -1,11 +1,11 @@
 # sound-juicer ja.po.
-# Copyright (C) 2003-2010 Free Software Foundation, Inc.
+# Copyright (C) 2003-2011, 2019-2020 Free Software Foundation, Inc.
 # This file is distributed under the same license as the sound-juicer package.
 # Takeshi AIHANA <takeshi.aihana@gmail.com>, 2003-2009.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2004, 2009-2010.
 # Satoru SATOH <ss@gnome.gr.jp>, 2004, 2006.
 # Hideki Yamane <henrich@debian.org>, 2011.
-# sicklylife <translation@sicklylife.jp>, 2019.
+# sicklylife <translation@sicklylife.jp>, 2019-2020.
 #
 # *訳語の凡例*
 # (since 2005-11-24):
@@ -19,13 +19,14 @@ msgstr ""
 "Project-Id-Version: sound-juicer master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/sound-juicer/issues\n"
 "POT-Creation-Date: 2020-09-07 15:28+0000\n"
-"PO-Revision-Date: 2019-09-07 21:15+0900\n"
+"PO-Revision-Date: 2020-09-11 21:26+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:7
 #: data/org.gnome.SoundJuicer.desktop.in.in:3 data/sound-juicer.ui:13
@@ -36,6 +37,7 @@ msgstr "Sound Juicer"
 #: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:8
 msgid "CD ripper with a clean interface and simple preferences"
 msgstr ""
+"クリーンなインターフェースとシンプルな設定の CD リッパー"
 
 #: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:10
 msgid ""
@@ -57,7 +59,7 @@ msgstr ""
 #. This is a translatable version of project_group
 #: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:36
 msgid "The GNOME Project"
-msgstr ""
+msgstr "The GNOME Project"
 
 #: data/org.gnome.SoundJuicer.desktop.in.in:4
 msgid "Audio CD Extractor"
@@ -70,7 +72,7 @@ msgstr "お気に入りの CD から楽曲をコピーします"
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.SoundJuicer.desktop.in.in:7
 msgid "Ripper;"
-msgstr ""
+msgstr "Ripper;リッパー;取り込み;抽出;"
 
 #: data/org.gnome.sound-juicer.gschema.xml:19
 msgid "The CD to extract from"
@@ -414,10 +416,8 @@ msgid "Help"
 msgstr "ヘルプ"
 
 #: data/sound-juicer.ui:870
-#, fuzzy
-#| msgid "Sound Juicer"
 msgid "About Sound Juicer"
-msgstr "Sound Juicer"
+msgstr "Sound Juicer について"
 
 #: data/sound-juicer.ui:874
 msgid "Quit"
@@ -513,7 +513,7 @@ msgstr "ソビエト連邦"
 
 #: libjuicer/sj-metadata.c:378
 msgid "Worldwide"
-msgstr ""
+msgstr "ワールドワイド"
 
 #: libjuicer/sj-metadata.c:379
 msgid "Yugoslavia"
@@ -626,7 +626,7 @@ msgstr ""
 
 #: src/sj-about.c:70
 msgid "An Audio CD Extractor"
-msgstr "音楽 CD の取り込みツールです。"
+msgstr "音楽 CD 取り込みツール"
 
 #. Translators: put here your name and email
 #. so it will show up in the "about" box
@@ -645,8 +645,7 @@ msgstr ""
 #: src/sj-album-chooser-dialog.c:242
 msgid "Catalog No.: "
 msgid_plural "Catalog Nos.: "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "カタログナンバー: "
 
 #. Translators: this string appears when multiple CDs were
 #. found in musicbrainz online database, it corresponds to
@@ -654,7 +653,7 @@ msgstr[1] ""
 #: src/sj-album-chooser-dialog.c:284
 #, c-format
 msgid "Released: %s in %d on %s"
-msgstr ""
+msgstr "リリース: %s / %d / %s"
 
 #. Translators: this string appears when multiple CDs were
 #. found in musicbrainz online database, it corresponds to
@@ -662,7 +661,7 @@ msgstr ""
 #: src/sj-album-chooser-dialog.c:292
 #, c-format
 msgid "Released: %s on %s"
-msgstr ""
+msgstr "リリース: %s / %s"
 
 #. Translators: this string appears when multiple CDs were
 #. found in musicbrainz online database, it corresponds to
@@ -670,7 +669,7 @@ msgstr ""
 #: src/sj-album-chooser-dialog.c:299
 #, c-format
 msgid "Released: %s in %d"
-msgstr ""
+msgstr "リリース: %s / %d"
 
 #. Translators: this string appears when multiple CDs were
 #. found in musicbrainz online database, it corresponds to
@@ -678,7 +677,7 @@ msgstr ""
 #: src/sj-album-chooser-dialog.c:306
 #, c-format
 msgid "Released: %s"
-msgstr ""
+msgstr "リリース: %s"
 
 #. Translators: this string appears when multiple CDs were
 #. found in musicbrainz online database, it corresponds to
@@ -686,7 +685,7 @@ msgstr ""
 #: src/sj-album-chooser-dialog.c:313
 #, c-format
 msgid "Released in %d on %s"
-msgstr ""
+msgstr "リリース: %d / %s"
 
 #. Translators: this string appears when multiple CDs were
 #. found in musicbrainz online database, it corresponds to
@@ -694,7 +693,7 @@ msgstr ""
 #: src/sj-album-chooser-dialog.c:320
 #, c-format
 msgid "Released in %d"
-msgstr ""
+msgstr "リリース: %d"
 
 #. Translators: this string appears when multiple CDs were
 #. found in musicbrainz online database, it corresponds to
@@ -702,24 +701,24 @@ msgstr ""
 #: src/sj-album-chooser-dialog.c:327
 #, c-format
 msgid "Released on %s"
-msgstr ""
+msgstr "リリース: %s"
 
 #: src/sj-album-chooser-dialog.c:330
 #, c-format
 msgid "Release label, year & country unknown"
-msgstr ""
+msgstr "リリースされた年、レーベル、国が不明です"
 
 #. Translators: this string identifies
 #. the number of the barcode printed on
 #. the release
 #: src/sj-album-chooser-dialog.c:341 src/sj-album-chooser-dialog.c:350
 msgid "Barcode:"
-msgstr ""
+msgstr "バーコード:"
 
 #: src/sj-album-chooser-dialog.c:374
 #, c-format
 msgid " (Disc %d/%d)"
-msgstr "(ディスク %d/%d)"
+msgstr " (ディスク %d/%d)"
 
 #: src/sj-extracting.c:147
 #, c-format
@@ -913,6 +912,8 @@ msgid ""
 "This album is not in the MusicBrainz database, please click ‘Edit Album’ to "
 "open your browser and edit it in MusicBrainz."
 msgstr ""
+"このアルバムは MusicBrainz のデータベースにありません。‘アルバムを編集’を"
+"クリックしてブラウザーを開き、MusicBrainz で編集してください。"
 
 #: src/sj-main.c:357
 #, c-format
@@ -920,10 +921,13 @@ msgid ""
 "Could not find %s by %s on MusicBrainz, please click ‘Edit Album’ to open "
 "your browser and edit it in MusicBrainz."
 msgstr ""
+"%s (%s) が MusicBrainz で見つかりませんでした。‘アルバムを編集’をクリック"
+"してブラウザーを開き、MusicBrainz で編集してください。"
 
 #: src/sj-main.c:393
 msgid "Click ‘Reload’ to load the edited album details from MusicBrainz"
-msgstr ""
+msgstr "‘再読み込み’をクリックして編集しているアルバムの詳細を MusicBrainz "
+"から読み込んでください"
 
 #: src/sj-main.c:415
 msgid "Could not open URL"
@@ -931,7 +935,7 @@ msgstr "URL を開けませんでした"
 
 #: src/sj-main.c:416
 msgid "Sound Juicer could not open the submission URL"
-msgstr "Sound Juicer は指定した URL を開けませんでした。"
+msgstr "指定した URL を開けませんでした"
 
 #: src/sj-main.c:454
 msgid "Could not duplicate disc"
@@ -939,7 +943,7 @@ msgstr "ディスクの複製を生成できませんでした"
 
 #: src/sj-main.c:455
 msgid "Sound Juicer could not duplicate the disc"
-msgstr "Sound Juicer はディスクをコピーできませんでした。"
+msgstr "ディスクをコピーできませんでした"
 
 #: src/sj-main.c:501
 msgid "Lieder"
@@ -947,15 +951,15 @@ msgstr ""
 
 #: src/sj-main.c:501
 msgid "Opera"
-msgstr ""
+msgstr "オペラ"
 
 #: src/sj-main.c:501
 msgid "Chamber"
-msgstr ""
+msgstr "チェンバー"
 
 #: src/sj-main.c:501
 msgid "Musical"
-msgstr ""
+msgstr "ミュージカル"
 
 #: src/sj-main.c:837 src/sj-main.c:1028
 msgid "Could not read the CD"
@@ -1011,7 +1015,7 @@ msgstr ""
 
 #: src/sj-main.c:1707
 msgid "Retrieving track listing…please wait."
-msgstr "トラック一覧の問い合わせ中…しばらくお待ちください"
+msgstr "トラック一覧の問い合わせ中…しばらくお待ちください。"
 
 #: src/sj-main.c:1870 src/sj-play.c:300
 msgid "_Pause"
