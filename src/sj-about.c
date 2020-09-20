@@ -76,7 +76,7 @@ void show_about_dialog (void)
                          /* Translators: put here your name and email
                             so it will show up in the "about" box */
                          "translator-credits", _("translator-credits"),
-                         "logo-icon-name", "sound-juicer",
+                         "logo-icon-name", "org.gnome.SoundJuicer",
                          "license", license_trans,
                          "wrap-license", TRUE,
                          "website", "https://wiki.gnome.org/Apps/SoundJuicer",
