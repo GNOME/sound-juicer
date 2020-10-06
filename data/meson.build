@@ -42,7 +42,7 @@ appstream_util = find_program('appstream-util', required: false)
 if appstream_util.found()
   test(
       'validate-metainfo', appstream_util,
-      args: ['validate', metainfo_file.full_path()]
+      args: ['validate', '--nonet', metainfo_file.full_path()]
       )
 endif
 
