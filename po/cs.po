@@ -7,15 +7,14 @@
 # Lucas Lommer <llommer@svn.gnome.org>, 2008.
 # Pavel Šefránek <ps@pjoul.cz>, 2008, 2009.
 # Petr Kovar <pknbe@volny.cz>, 2008, 2009.
-# Marek Černocký <marek@manet.cz>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017.
+# Marek Černocký <marek@manet.cz>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
-"juicer&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-02-13 10:56+0000\n"
-"PO-Revision-Date: 2017-02-13 23:42+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/sound-juicer/issues\n"
+"POT-Creation-Date: 2020-09-07 15:28+0000\n"
+"PO-Revision-Date: 2020-11-12 22:12+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -24,6 +23,61 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Gtranslator 2.91.7\n"
+
+#: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:7
+#: data/org.gnome.SoundJuicer.desktop.in.in:3 data/sound-juicer.ui:13
+#: src/sj-main.c:129 src/sj-main.c:131 src/sj-main.c:2095
+msgid "Sound Juicer"
+msgstr "Sound Juicer"
+
+#: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:8
+msgid "CD ripper with a clean interface and simple preferences"
+msgstr ""
+"Nástroj pro extrahování CD s přehledným rozhraním a jednoduchým nastavením"
+
+#: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:10
+msgid ""
+"Sound Juicer is a simple and clean CD ripping tool. It allows you to extract "
+"the audio from audio compact discs and convert them into audio files that "
+"your computer can understand and play. Sound Juicer can also play the audio "
+"tracks directly from the CD, allowing you to preview the CD before ripping "
+"it."
+msgstr ""
+"Sound Juicer je jednoduchý a přehledný nástroj k extrahování CD. Umožňuje "
+"vám získat zvukovou nahrávku ze zvukového kompaktního disku a převést ji na "
+"zvukový soubor, kterému rozumí váš počítač a umí jej přehrát. Sound Juicer "
+"umí zvukové stopy z CD i přímo přehrávat, takže si je můžete dopředu "
+"naslechnout."
+
+#: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:17
+msgid ""
+"Sound Juicer is designed to be easy to use, and to work with little user "
+"intervention. When you start Sound Juicer, it will examine the CD in the "
+"drive and try to locate information about the audio tracks using the freely-"
+"available MusicBrainz service."
+msgstr ""
+"Sound Juicer je navržen tak, aby se snadno používal a fungoval s minimálními "
+"zásahy od uživatele. Když jej spustíte, zjistí si CD v mechanice a zkusí "
+"pomocí volně dostupné služby MusicBrainz vyhledat informace o zvukových "
+"stopách na něm."
+
+#. This is a translatable version of project_group
+#: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:36
+msgid "The GNOME Project"
+msgstr "Projekt GNOME"
+
+#: data/org.gnome.SoundJuicer.desktop.in.in:4
+msgid "Audio CD Extractor"
+msgstr "Extraktor zvukových CD"
+
+#: data/org.gnome.SoundJuicer.desktop.in.in:5
+msgid "Copy music from your CDs"
+msgstr "Kopírujte hudbu ze svých CD"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.SoundJuicer.desktop.in.in:7
+msgid "Ripper;"
+msgstr "Extraktor;"
 
 #: data/org.gnome.sound-juicer.gschema.xml:19
 msgid "The CD to extract from"
@@ -145,66 +199,6 @@ msgstr "Typ média GStreamer, do kterého se má kódovat."
 msgid "Audio volume"
 msgstr "Hlasitost zvuku"
 
-#: data/org.gnome.SoundJuicer.desktop.in.in:3
-#: data/appdata/sound-juicer.appdata.xml.in:7 data/sound-juicer.ui:7
-#: src/sj-main.c:129 src/sj-main.c:131 src/sj-main.c:2152
-msgid "Sound Juicer"
-msgstr "Sound Juicer"
-
-#: data/org.gnome.SoundJuicer.desktop.in.in:4
-msgid "Audio CD Extractor"
-msgstr "Extraktor zvukových CD"
-
-#: data/org.gnome.SoundJuicer.desktop.in.in:5
-msgid "Copy music from your CDs"
-msgstr "Kopírujte hudbu ze svých CD"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.SoundJuicer.desktop.in.in:7
-msgid "Ripper;"
-msgstr "Extraktor;"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.gnome.SoundJuicer.desktop.in.in:10
-msgid "sound-juicer"
-msgstr "sound-juicer"
-
-#: data/appdata/sound-juicer.appdata.xml.in:8
-msgid "CD ripper with a clean interface and simple preferences"
-msgstr ""
-"Nástroj pro extrahování CD s přehledným rozhraním a jednoduchým nastavením"
-
-#: data/appdata/sound-juicer.appdata.xml.in:10
-msgid ""
-"Sound Juicer is a simple and clean CD ripping tool. It allows you to extract "
-"the audio from audio compact discs and convert them into audio files that "
-"your computer can understand and play. Sound Juicer can also play the audio "
-"tracks directly from the CD, allowing you to preview the CD before ripping "
-"it."
-msgstr ""
-"Sound Juicer je jednoduchý a přehledný nástroj k extrahování CD. Umožňuje "
-"vám získat zvukovou nahrávku ze zvukového kompaktního disku a převést ji na "
-"zvukový soubor, kterému rozumí váš počítač a umí jej přehrát. Sound Juicer "
-"umí zvukové stopy z CD i přímo přehrávat, takže si je můžete dopředu "
-"naslechnout."
-
-#: data/appdata/sound-juicer.appdata.xml.in:17
-msgid ""
-"Sound Juicer is designed to be easy to use, and to work with little user "
-"intervention. When you start Sound Juicer, it will examine the CD in the "
-"drive and try to locate information about the audio tracks using the freely-"
-"available MusicBrainz service."
-msgstr ""
-"Sound Juicer je navržen tak, aby se snadno používal a fungoval s minimálními "
-"zásahy od uživatele. Když jej spustíte, zjistí si CD v mechanice a zkusí "
-"pomocí volně dostupné služby MusicBrainz vyhledat informace o zvukových "
-"stopách na něm."
-
-#. This is a translatable version of project_group
-#: data/appdata/sound-juicer.appdata.xml.in:36
-msgid "The GNOME Project"
-msgstr "Projekt GNOME"
-
 #: data/sj-album-chooser-dialog.ui:6
 msgid "Select Album"
 msgstr "Výběr alba"
@@ -218,151 +212,6 @@ msgid "This CD could be more than one album. Please select which album it is."
 msgstr ""
 "Toto hudební CD může být více než jedno album. Vyberte prosím, které album "
 "to je."
-
-#: data/sound-juicer.ui:29
-msgid "_Edit Album"
-msgstr "_Upravit album"
-
-#: data/sound-juicer.ui:42
-msgid "_Reload Album"
-msgstr "Zn_ovu načíst album"
-
-#: data/sound-juicer.ui:135
-msgid "_Year:"
-msgstr "Ro_k:"
-
-#: data/sound-juicer.ui:170
-msgid "_Disc:"
-msgstr "_Disk:"
-
-#: data/sound-juicer.ui:210
-msgid "_Title:"
-msgstr "_Název:"
-
-#: data/sound-juicer.ui:235
-msgid "_Artist:"
-msgstr "_Umělec:"
-
-#: data/sound-juicer.ui:266
-msgid "_Composer:"
-msgstr "_Skladatel:"
-
-#: data/sound-juicer.ui:297
-msgid "_Genre:"
-msgstr "Žán_r:"
-
-#: data/sound-juicer.ui:314
-msgid "Duration:"
-msgstr "Délka:"
-
-#: data/sound-juicer.ui:360
-msgid "Tracks"
-msgstr "Stopy"
-
-#: data/sound-juicer.ui:384 src/sj-main.c:1881 src/sj-play.c:120
-#: src/sj-play.c:258 src/sj-play.c:621
-msgid "_Play"
-msgstr "_Přehrát"
-
-#: data/sound-juicer.ui:394 src/sj-extracting.c:232 src/sj-main.c:1905
-msgid "E_xtract"
-msgstr "_Extrahovat"
-
-#: data/sound-juicer.ui:420
-msgid "Track Progress"
-msgstr "Průběh stopy"
-
-#: data/sound-juicer.ui:515 data/sound-juicer-menu.ui:33
-msgid "Preferences"
-msgstr "Nastavení"
-
-#: data/sound-juicer.ui:534
-msgid "Device"
-msgstr "Zařízení"
-
-#: data/sound-juicer.ui:550
-msgid "CD _drive:"
-msgstr "_Mechanika CD:"
-
-#: data/sound-juicer.ui:572
-msgid "_Eject after extracting tracks"
-msgstr "Po dokončení vysunout CD z _mechaniky"
-
-#: data/sound-juicer.ui:587
-msgid "_Open music folder when finished"
-msgstr "P_o dokončení otevřít složku s hudbou"
-
-#: data/sound-juicer.ui:605
-msgid "Music Folder"
-msgstr "Hudební složka"
-
-#: data/sound-juicer.ui:621
-msgid "_Folder:"
-msgstr "_Složka:"
-
-#: data/sound-juicer.ui:637
-msgid "Select A Folder"
-msgstr "Vybrat složku"
-
-#: data/sound-juicer.ui:650
-msgid "Track Names"
-msgstr "Názvy stop"
-
-#: data/sound-juicer.ui:666
-msgid "Folder hie_rarchy:"
-msgstr "Hierarchie _složek:"
-
-#: data/sound-juicer.ui:697
-msgid "File _name:"
-msgstr "Název _souboru:"
-
-#: data/sound-juicer.ui:725
-msgid "_Strip special characters"
-msgstr "_Odstranit speciální znaky"
-
-#: data/sound-juicer.ui:756
-msgid "Format"
-msgstr "Formát"
-
-#: data/sound-juicer.ui:772
-msgid "O_utput Format:"
-msgstr "_Formát výstupu:"
-
-#: data/sound-juicer-menu.ui:5
-msgid "Disc"
-msgstr "Disk"
-
-#: data/sound-juicer-menu.ui:8
-msgid "Re-read"
-msgstr "Znovu načíst"
-
-#: data/sound-juicer-menu.ui:13
-msgid "Duplicate"
-msgstr "Duplikovat"
-
-#: data/sound-juicer-menu.ui:17
-msgid "Eject"
-msgstr "Vysunout"
-
-#: data/sound-juicer-menu.ui:26
-msgid "Open MusicBrainz"
-msgstr "Otevřít MusicBrainz"
-
-#: data/sound-juicer-menu.ui:39
-msgid "Shortcuts"
-msgstr "Klávesové zkratky"
-
-#: data/sound-juicer-menu.ui:43
-msgid "Help"
-msgstr "Nápověda"
-
-#: data/sound-juicer-menu.ui:48
-msgid "About"
-msgstr "O aplikaci"
-
-#: data/sound-juicer-menu.ui:52
-msgid "Quit"
-msgstr "Ukončit"
 
 #: data/sound-juicer-shortcuts.ui:14
 msgctxt "shortcut window"
@@ -424,31 +273,172 @@ msgctxt "shortcut window"
 msgid "Unselect all tracks"
 msgstr "Zrušit výběr všech stop"
 
-#: libjuicer/sj-extractor.c:355
+#: data/sound-juicer.ui:55
+msgid "_Edit Album"
+msgstr "_Upravit album"
+
+#: data/sound-juicer.ui:68
+msgid "_Reload Album"
+msgstr "Zn_ovu načíst album"
+
+#: data/sound-juicer.ui:161
+msgid "_Year:"
+msgstr "Ro_k:"
+
+#: data/sound-juicer.ui:196
+msgid "_Disc:"
+msgstr "_Disk:"
+
+#: data/sound-juicer.ui:236
+msgid "_Title:"
+msgstr "_Název:"
+
+#: data/sound-juicer.ui:261
+msgid "_Artist:"
+msgstr "_Umělec:"
+
+#: data/sound-juicer.ui:292
+msgid "_Composer:"
+msgstr "_Skladatel:"
+
+#: data/sound-juicer.ui:323
+msgid "_Genre:"
+msgstr "Žán_r:"
+
+#: data/sound-juicer.ui:340
+msgid "Duration:"
+msgstr "Délka:"
+
+#: data/sound-juicer.ui:386
+msgid "Tracks"
+msgstr "Stopy"
+
+#: data/sound-juicer.ui:410 src/sj-main.c:1863 src/sj-play.c:120
+#: src/sj-play.c:258 src/sj-play.c:621
+msgid "_Play"
+msgstr "_Přehrát"
+
+#: data/sound-juicer.ui:420 src/sj-extracting.c:232 src/sj-main.c:1887
+msgid "E_xtract"
+msgstr "_Extrahovat"
+
+#: data/sound-juicer.ui:446
+msgid "Track Progress"
+msgstr "Průběh stopy"
+
+#: data/sound-juicer.ui:541 data/sound-juicer.ui:855
+msgid "Preferences"
+msgstr "Nastavení"
+
+#: data/sound-juicer.ui:560
+msgid "Device"
+msgstr "Zařízení"
+
+#: data/sound-juicer.ui:576
+msgid "CD _drive:"
+msgstr "_Mechanika CD:"
+
+#: data/sound-juicer.ui:598
+msgid "_Eject after extracting tracks"
+msgstr "Po dokončení vysunout CD z _mechaniky"
+
+#: data/sound-juicer.ui:613
+msgid "_Open music folder when finished"
+msgstr "P_o dokončení otevřít složku s hudbou"
+
+#: data/sound-juicer.ui:631
+msgid "Music Folder"
+msgstr "Hudební složka"
+
+#: data/sound-juicer.ui:647
+msgid "_Folder:"
+msgstr "_Složka:"
+
+#: data/sound-juicer.ui:663
+msgid "Select A Folder"
+msgstr "Vybrat složku"
+
+#: data/sound-juicer.ui:676
+msgid "Track Names"
+msgstr "Názvy stop"
+
+#: data/sound-juicer.ui:692
+msgid "Folder hie_rarchy:"
+msgstr "Hierarchie _složek:"
+
+#: data/sound-juicer.ui:723
+msgid "File _name:"
+msgstr "Název _souboru:"
+
+#: data/sound-juicer.ui:751
+msgid "_Strip special characters"
+msgstr "_Odstranit speciální znaky"
+
+#: data/sound-juicer.ui:782
+msgid "Format"
+msgstr "Formát"
+
+#: data/sound-juicer.ui:798
+msgid "O_utput Format:"
+msgstr "_Formát výstupu:"
+
+#: data/sound-juicer.ui:832
+msgid "Re-read"
+msgstr "Znovu načíst"
+
+#: data/sound-juicer.ui:837
+msgid "Duplicate"
+msgstr "Duplikovat"
+
+#: data/sound-juicer.ui:841
+msgid "Eject"
+msgstr "Vysunout"
+
+#: data/sound-juicer.ui:848
+msgid "Open MusicBrainz"
+msgstr "Otevřít MusicBrainz"
+
+#: data/sound-juicer.ui:861
+msgid "Shortcuts"
+msgstr "Klávesové zkratky"
+
+#: data/sound-juicer.ui:865
+msgid "Help"
+msgstr "Nápověda"
+
+#: data/sound-juicer.ui:870
+msgid "About Sound Juicer"
+msgstr "O aplikaci Sound Juicer"
+
+#: data/sound-juicer.ui:874
+msgid "Quit"
+msgstr "Ukončit"
+
+#: libjuicer/sj-extractor.c:350
 #, c-format
 msgid "Could not create GStreamer CD reader"
 msgstr "Nelze vytvořit GStreamer čteč CD"
 
-#: libjuicer/sj-extractor.c:373
+#: libjuicer/sj-extractor.c:368
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Nelze vytvořit enkodéry GStreamer pro %s"
 
-#: libjuicer/sj-extractor.c:385
+#: libjuicer/sj-extractor.c:380
 #, c-format
 msgid "Could not create GStreamer file output"
 msgstr "Nelze vytvořit soubor výstupu pro GStreamer"
 
-#: libjuicer/sj-extractor.c:399
+#: libjuicer/sj-extractor.c:394
 #, c-format
 msgid "Could not link pipeline"
 msgstr "Nelze propojit rouru"
 
-#: libjuicer/sj-extractor.c:422
+#: libjuicer/sj-extractor.c:417
 msgid "Could not get current track position"
 msgstr "Nelze získat aktuální pozici stopy"
 
-#: libjuicer/sj-extractor.c:451
+#: libjuicer/sj-extractor.c:446
 #, c-format
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
@@ -456,16 +446,19 @@ msgstr ""
 "Objekt extraktoru není platný. To je špatné, přečtěte si chyby ve své "
 "konzoli."
 
-#: libjuicer/sj-extractor.c:713
+#: libjuicer/sj-extractor.c:708
 #, c-format
 msgid "The plugin necessary for CD access was not found"
 msgstr "Nebyl nalezen zásuvný modul potřebný pro přístup k CD"
 
-#: libjuicer/sj-extractor.c:721
+#: libjuicer/sj-extractor.c:716
 #, c-format
 msgid "The plugin necessary for file access was not found"
 msgstr "Nebyl nalezen zásuvný modul potřebný pro přístup k souborům"
 
+#. FIXME: would be nicer to only check if "cdrom" is being probed,
+#. * but libbrasero doesn't seem to have an API for that
+#.
 #: libjuicer/sj-metadata.c:211 libjuicer/sj-metadata.c:234
 #: libjuicer/sj-metadata.c:245
 #, c-format
@@ -516,27 +509,27 @@ msgstr "Celý svět"
 msgid "Yugoslavia"
 msgstr "Jugoslávie"
 
-#: libjuicer/sj-metadata-gvfs.c:97
+#: libjuicer/sj-metadata-gvfs.c:95
 #, c-format
 msgid "Cannot access CD"
 msgstr "Nelze přístupovat k CD"
 
-#: libjuicer/sj-metadata-gvfs.c:119 src/egg-play-preview.c:574
+#: libjuicer/sj-metadata-gvfs.c:117 src/egg-play-preview.c:570
 #: src/sj-main.c:354
 msgid "Unknown Title"
 msgstr "Neznámý název"
 
-#: libjuicer/sj-metadata-gvfs.c:125 libjuicer/sj-metadata-gvfs.c:155
-#: src/egg-play-preview.c:579 src/sj-extracting.c:983
+#: libjuicer/sj-metadata-gvfs.c:123 libjuicer/sj-metadata-gvfs.c:153
+#: src/egg-play-preview.c:575 src/sj-extracting.c:983
 msgid "Unknown Artist"
 msgstr "Neznámý umělec"
 
-#: libjuicer/sj-metadata-gvfs.c:149
+#: libjuicer/sj-metadata-gvfs.c:147
 #, c-format
 msgid "Track %d"
 msgstr "Stopa %d"
 
-#: libjuicer/sj-metadata-gvfs.c:176
+#: libjuicer/sj-metadata-gvfs.c:174
 #, c-format
 msgid "Cannot access CD: %s"
 msgstr "Nelze přístupovat k CD: %s"
@@ -544,21 +537,21 @@ msgstr "Nelze přístupovat k CD: %s"
 #. Translators: This string is used to build the composer tag
 #. when a track has composers and arrangers, or a composer and a
 #. mixture of arrangers, orchestrators and transcribers
-#: libjuicer/sj-metadata-musicbrainz5.c:702
+#: libjuicer/sj-metadata-musicbrainz5.c:705
 #, c-format
 msgid "%s arr. %s"
 msgstr "%s aran. %s"
 
 #. Translators: This string is used to build the composer tag
 #. when a track has composers and orchestrators
-#: libjuicer/sj-metadata-musicbrainz5.c:706
+#: libjuicer/sj-metadata-musicbrainz5.c:709
 #, c-format
 msgid "%s orch. %s"
 msgstr "%s orch. %s"
 
 #. Translators: This string is used to build the composer tag
 #. when a track has composers and transcribers
-#: libjuicer/sj-metadata-musicbrainz5.c:710
+#: libjuicer/sj-metadata-musicbrainz5.c:713
 #, c-format
 msgid "%s trans. %s"
 msgstr "%s trans. %s"
@@ -566,26 +559,26 @@ msgstr "%s trans. %s"
 #. Translators: This string is used to build the composer tag
 #. when a track has a mixture of arrangers, orchestrators and
 #. transcribers but no composers
-#: libjuicer/sj-metadata-musicbrainz5.c:720
+#: libjuicer/sj-metadata-musicbrainz5.c:723
 #, c-format
 msgid "arr. %s"
 msgstr "aran. %s"
 
 #. Translators: This string is used to build the composer tag
 #. when a track has orchestrators but no composer
-#: libjuicer/sj-metadata-musicbrainz5.c:724
+#: libjuicer/sj-metadata-musicbrainz5.c:727
 #, c-format
 msgid "orch. %s"
 msgstr "orch. %s"
 
 #. Translators: This string is used to build the composer tag
 #. when a track has a transcribers but no composer
-#: libjuicer/sj-metadata-musicbrainz5.c:728
+#: libjuicer/sj-metadata-musicbrainz5.c:731
 #, c-format
 msgid "trans. %s"
 msgstr "trans. %s"
 
-#: src/egg-play-preview.c:580 src/sj-extracting.c:982
+#: src/egg-play-preview.c:576 src/sj-extracting.c:982
 msgid "Unknown Album"
 msgstr "Neznámé album"
 
@@ -786,7 +779,8 @@ msgstr "Sound Juicer nemohl extrahovat toto CD."
 msgid "Reason"
 msgstr "Důvod"
 
-#: src/sj-extracting.c:792 src/sj-main.c:1912
+#. Change the label to Stop while extracting
+#: src/sj-extracting.c:792 src/sj-main.c:1894
 msgid "_Stop"
 msgstr "Za_stavit"
 
@@ -891,11 +885,11 @@ msgstr "U_končit"
 msgid "_Continue"
 msgstr "_Pokračovat"
 
-#: src/sj-main.c:282 src/sj-main.c:1865 src/sj-main.c:1935
+#: src/sj-main.c:282 src/sj-main.c:1847 src/sj-main.c:1917
 msgid "Select None"
 msgstr "Zrušit výběr"
 
-#: src/sj-main.c:296 src/sj-main.c:1929
+#: src/sj-main.c:296 src/sj-main.c:1911
 msgid "Select All"
 msgstr "Vybrat vše"
 
@@ -1014,47 +1008,47 @@ msgstr ""
 msgid "Retrieving track listing…please wait."
 msgstr "Získává se seznam stop… čekejte prosím."
 
-#: src/sj-main.c:1888 src/sj-play.c:300
+#: src/sj-main.c:1870 src/sj-play.c:300
 msgid "_Pause"
 msgstr "_Pozastavit"
 
-#: src/sj-main.c:1963
+#: src/sj-main.c:1945
 msgid "Track"
 msgstr "Stopa"
 
-#: src/sj-main.c:1975
+#: src/sj-main.c:1957
 msgid "Title"
 msgstr "Název"
 
-#: src/sj-main.c:1976
+#: src/sj-main.c:1958
 msgid "Artist"
 msgstr "Umělec"
 
-#: src/sj-main.c:1977
+#: src/sj-main.c:1959
 msgid "Composer"
 msgstr "Skladatel"
 
-#: src/sj-main.c:1983
+#: src/sj-main.c:1965
 msgid "Duration"
 msgstr "Délka"
 
-#: src/sj-main.c:2140
+#: src/sj-main.c:2083
 msgid "Start extracting immediately"
 msgstr "Začít extrahovat okamžitě"
 
-#: src/sj-main.c:2141
+#: src/sj-main.c:2084
 msgid "Start playing immediately"
 msgstr "Začít přehrávat okamžitě"
 
-#: src/sj-main.c:2142
+#: src/sj-main.c:2085
 msgid "What CD device to read"
 msgstr "Které zařízení CD číst"
 
-#: src/sj-main.c:2142
+#: src/sj-main.c:2085
 msgid "DEVICE"
 msgstr "ZAŘÍZENÍ"
 
-#: src/sj-main.c:2143
+#: src/sj-main.c:2086
 msgid "URI to the CD device to read"
 msgstr "URI CD mechaniky pro čtení"
 
@@ -1155,10 +1149,12 @@ msgstr "Umělec stopy (seřaditelný) – název stopy"
 msgid "Number. Track Artist - Track Title"
 msgstr "Číslo. umělec stopy – název stopy"
 
+#. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
 #: src/sj-prefs.c:72
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Číslo-umělec stopy-název stopy (malými písmeny)"
 
+#. {N_("Number-Track Artist (sortable)-Track Title (lowercase)"), "%tN-%tS-%tT"},
 #: src/sj-prefs.c:74
 msgid "Track Composer - Track Artist - Track Title"
 msgstr "Skladatel stopy – umělec stopy – název stopy"
@@ -1179,6 +1175,3 @@ msgstr "Číslo-skladatel stopy-umělec stopy-název stopy (malými písmeny)"
 #: src/sj-prefs.c:252
 msgid "Example Path: "
 msgstr "Příklad umístění: "
-
-#~ msgid "- Extract music from your CDs"
-#~ msgstr "- Extrahovat hudbu z vašich CD"
