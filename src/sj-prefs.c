@@ -286,18 +286,17 @@ G_DEFINE_AUTOPTR_CLEANUP_FUNC(BraseroDrive, g_object_unref)
  */
 static void device_changed_cb (GSettings *settings, const gchar *key, gpointer user_data)
 {
-  BraseroDrive *drive;
-  BraseroMediumMonitor *monitor;
-  char *value;
+  g_autoptr(BraseroMediumMonitor) monitor = NULL;
+  g_autofree char *value = NULL;
 
   g_return_if_fail (strcmp (key, SJ_SETTINGS_DEVICE) == 0);
 
   monitor = brasero_medium_monitor_get_default ();
   value = g_settings_get_string (settings, key);
   if ((value != NULL) && (*value != '\0')) {
+    g_autoptr(BraseroDrive) drive = NULL;
     drive = brasero_medium_monitor_get_drive (monitor, value);
     brasero_drive_selection_set_active (BRASERO_DRIVE_SELECTION (cd_option), drive);
-    g_object_unref (drive);
   } else {
     GSList *drives;
     drives = brasero_medium_monitor_get_drives (monitor, BRASERO_DRIVE_TYPE_ALL_BUT_FILE);
@@ -305,8 +304,6 @@ static void device_changed_cb (GSettings *settings, const gchar *key, gpointer u
       brasero_drive_selection_set_active (BRASERO_DRIVE_SELECTION (cd_option), drives->data);
     g_slist_free_full (drives, (GDestroyNotify) g_object_unref);
   }
-  g_free (value);
-  g_object_unref (monitor);
 }
 
 static void prefs_drive_changed (BraseroDriveSelection *selection, BraseroDrive *drive, gpointer user_data)
