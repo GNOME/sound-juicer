@@ -274,6 +274,13 @@ static void settings_changed_cb (GSettings *settings, const gchar *key, gpointer
   pattern_label_update ();
 }
 
+#ifndef BraseroMediumMonitor_autoptr
+G_DEFINE_AUTOPTR_CLEANUP_FUNC(BraseroMediumMonitor, g_object_unref)
+#endif
+#ifndef BraseroDrive_autoptr
+G_DEFINE_AUTOPTR_CLEANUP_FUNC(BraseroDrive, g_object_unref)
+#endif
+
 /**
  * Default device changed (either GSettings key or the widget)
  */
