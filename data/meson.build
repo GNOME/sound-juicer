@@ -1,6 +1,5 @@
 # Desktop file
 i18n.merge_file(
-  'desktop',
   input: configure_file(
     input: 'org.gnome.SoundJuicer.desktop.in.in',
     output: 'org.gnome.SoundJuicer.desktop.in',
@@ -29,7 +28,6 @@ configure_file(
 
 # Metainfo
 metainfo_file = i18n.merge_file(
-  'metainfo',
   input: files(join_paths('metainfo', 'org.gnome.SoundJuicer.metainfo.xml.in')),
   output: 'org.gnome.SoundJuicer.metainfo.xml',
   po_dir: po_dir,
