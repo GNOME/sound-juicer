@@ -6,54 +6,94 @@
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2004, 2005, 2006, 2007, 2008, 2009, 2010.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2014, 2015.
 # Edurne Labaka <elabaka@uzei.com>, 2015.
+# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2021.
 #
 msgid ""
-msgstr ""
-"Project-Id-Version: sound-juicer master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=sound-"
-"juicer&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-02-07 18:18+0100\n"
-"PO-Revision-Date: 2014-05-03 12:23+0200\n"
-"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
-"Language-Team: Basque <librezale@librezale.org>\n"
+msgstr "Project-Id-Version: sound-juicer master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/sound-juicer/issues\n"
+"POT-Creation-Date: 2021-08-07 21:31+0000\n"
+"PO-Revision-Date: 2022-03-22 17:46+0200\n"
+"Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
+"Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.4\n"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:1
-msgid "The CD to extract from"
+#: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:7
+#: data/org.gnome.SoundJuicer.desktop.in.in:3 data/sound-juicer.ui:13
+#: src/sj-main.c:129 src/sj-main.c:131 src/sj-main.c:2096
+msgid "Sound Juicer"
+msgstr "Sound Juicer"
+
+#: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:8
+msgid "CD ripper with a clean interface and simple preferences"
+msgstr "Interfaze garbia eta hobespen sinpleak dituen CD erauzlea"
+
+#: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:10
+msgid ""
+"Sound Juicer is a simple and clean CD ripping tool. It allows you to extract "
+"the audio from audio compact discs and convert them into audio files that "
+"your computer can understand and play. Sound Juicer can also play the audio "
+"tracks directly from the CD, allowing you to preview the CD before ripping "
+"it."
 msgstr ""
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:2
+#: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:17
+msgid ""
+"Sound Juicer is designed to be easy to use, and to work with little user "
+"intervention. When you start Sound Juicer, it will examine the CD in the "
+"drive and try to locate information about the audio tracks using the freely-"
+"available MusicBrainz service."
+msgstr ""
+
+#. This is a translatable version of project_group
+#: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:36
+msgid "The GNOME Project"
+msgstr "GNOME proiektua"
+
+#: data/org.gnome.SoundJuicer.desktop.in.in:4
+msgid "Audio CD Extractor"
+msgstr "Audio CD erauzlea"
+
+#: data/org.gnome.SoundJuicer.desktop.in.in:5
+msgid "Copy music from your CDs"
+msgstr "Kopiatu musika zure CD-etatik"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.SoundJuicer.desktop.in.in:7
+msgid "Ripper;"
+msgstr "Erauzlea;"
+
+#: data/org.gnome.sound-juicer.gschema.xml:19
+msgid "The CD to extract from"
+msgstr "Informazioa erauziko zaion CDa"
+
+#: data/org.gnome.sound-juicer.gschema.xml:20
 msgid ""
 "Please note: Sound Juicer currently only handles real device names, no "
 "symlinks like e.g. /dev/cdrom. An empty key implicates that the system's "
 "default CD-ROM drive will be used."
 msgstr ""
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:3
-#, fuzzy
+#: data/org.gnome.sound-juicer.gschema.xml:25
 msgid "Whether to eject the CD when finished extracting"
-msgstr "Erauzketa amaitzean CDa egotzi nahi duzun ala ez."
+msgstr "Erauzketa amaitzean CDa egotziko den ala ez"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:4
-#, fuzzy
+#: data/org.gnome.sound-juicer.gschema.xml:30
 msgid "Whether to open the target directory when finished extracting"
-msgstr "Erauzketa amaitzean helburuko direktorioa irekiko den ala ez."
+msgstr "Erauzketa amaitzean helburuko direktorioa irekiko den ala ez"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:5
+#: data/org.gnome.sound-juicer.gschema.xml:35
 msgid "The URI to save the extracted music to"
-msgstr ""
+msgstr "Erauzitako musika gordetzeko erabiliko den URIa"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:6
+#: data/org.gnome.sound-juicer.gschema.xml:40
 msgid "The directory structure for the files"
 msgstr "Direktorioen egitura fitxategientzat"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:8
-#, fuzzy, no-c-format
+#: data/org.gnome.sound-juicer.gschema.xml:41
 msgid ""
 "Format specifiers: %at - album title; %aT - album title (lowercase); %aa - "
 "album artist; %aA - album artist (lowercase); %as - album artist (sortable); "
@@ -65,23 +105,12 @@ msgid ""
 "composer; %tC - track composer (lowercase); %tp - track composer (sortable); "
 "%tP - track composer (sortable lowercase)."
 msgstr ""
-"Ez zehaztu luzapenik. %at -- albumaren titulua %aT -- albumaren titulua "
-"(letra-xehez) %aa -- albumaren artista %aA -- albumaren artista (letra-"
-"xehez) %as -- albumaren artista (ordena daiteke)  %aS -- albumaren artista "
-"(letra-xehez ordena daiteke) %tn -- pistaren zenbakia (adib. 8) %tN -- "
-"pistaren zenbakia, zeroz betea (adib. 08) %tt -- pistaren titulua %tT -- "
-"pistaren titulua (letra-xehez) %ta -- pistaren artista %tA -- pistaren "
-"artista (letra-xehez) %ts -- pistaren artista (ordena daiteke) %tS pistaren "
-"artista (letra-xehez ordena daiteke) %dn -- disko eta pistaren zenbakia "
-"(adib. diskoa 2 - 6, edo 6) %dN -- diskoaren zenbakia, zeroz betea (adib. "
-"d02t06, edo 06)"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:9
+#: data/org.gnome.sound-juicer.gschema.xml:46
 msgid "The name pattern for files"
 msgstr "Izenen ereduak fitxategientzat"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:11
-#, fuzzy, no-c-format
+#: data/org.gnome.sound-juicer.gschema.xml:47
 msgid ""
 "Do not specify an extension. Format specifiers: %at - album title; %aT - "
 "album title (lowercase); %aa - album artist; %aA - album artist (lowercase); "
@@ -96,328 +125,286 @@ msgid ""
 "number (i.e Disk 2 - 6, or 6); %dN - disc number, zero padded (i.e d02t06, "
 "or 06)."
 msgstr ""
-"Ez zehaztu luzapenik. %at -- albumaren titulua %aT -- albumaren titulua "
-"(letra-xehez) %aa -- albumaren artista %aA -- albumaren artista (letra-"
-"xehez) %as -- albumaren artista (ordena daiteke)  %aS -- albumaren artista "
-"(letra-xehez ordena daiteke) %tn -- pistaren zenbakia (adib. 8) %tN -- "
-"pistaren zenbakia, zeroz betea (adib. 08) %tt -- pistaren titulua %tT -- "
-"pistaren titulua (letra-xehez) %ta -- pistaren artista %tA -- pistaren "
-"artista (letra-xehez) %ts -- pistaren artista (ordena daiteke) %tS pistaren "
-"artista (letra-xehez ordena daiteke) %dn -- disko eta pistaren zenbakia "
-"(adib. diskoa 2 - 6, edo 6) %dN -- diskoaren zenbakia, zeroz betea (adib. "
-"d02t06, edo 06)"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:12
+#: data/org.gnome.sound-juicer.gschema.xml:52
 msgid "The paranoia mode to use"
 msgstr "Erabiliko den paranoia maila"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:13
-#, fuzzy
+#: data/org.gnome.sound-juicer.gschema.xml:53
 msgid "Paranoia flags: disable; fragment; overlap; scratch; repair."
-msgstr ""
-"Paranoia modua: 0) desgaitu 2) zatia 4) gainjarri 8) urratua 16) konpondu "
-"255) osoa"
+msgstr "Paranoia banderak: disable (desgaitu); fragment (zatia); overlap (gainjarri); scratch (urratua); repair (konpondu)"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:14
-#, fuzzy
+#: data/org.gnome.sound-juicer.gschema.xml:58
 msgid "Whether to strip special characters from filenames"
 msgstr "Fitxategi-izenetatik karaktere bereziak kenduko diren ala ez"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:15
+#: data/org.gnome.sound-juicer.gschema.xml:59
 msgid ""
 "If enabled, special characters such as space, wildcards and backslashes will "
 "be removed from the output filename."
-msgstr ""
-"Gaitzen bada, hutsuneak eta * ? / bezalako karaktere bereziak ezabatuko dira "
-"irteerako fitxategi-izenetatik."
+msgstr "Gaitzen bada, hutsuneak eta * ? / bezalako karaktere bereziak ezabatuko dira irteerako fitxategi-izenetatik."
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:16
+#: data/org.gnome.sound-juicer.gschema.xml:64
 msgid "Media type to encode to"
-msgstr ""
+msgstr "Euskarri mota horra kodetzeko"
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:17
+#: data/org.gnome.sound-juicer.gschema.xml:65
 msgid "The GStreamer media type to encode to."
-msgstr ""
+msgstr "GStreamer euskarri mota, horra kodetzeko."
 
-#: ../data/org.gnome.sound-juicer.gschema.xml.h:18
+#: data/org.gnome.sound-juicer.gschema.xml:71
 msgid "Audio volume"
 msgstr "Audioaren bolumena"
 
-#: ../data/sound-juicer.desktop.in.in.h:1 ../data/sound-juicer.ui.h:1
-#: ../src/sj-main.c:131 ../src/sj-main.c:133 ../src/sj-main.c:2450
-msgid "Sound Juicer"
-msgstr "Sound Juicer"
+#: data/sj-album-chooser-dialog.ui:6
+msgid "Select Album"
+msgstr "Hautatu albuma"
 
-#: ../data/sound-juicer.desktop.in.in.h:2
-msgid "Audio CD Extractor"
-msgstr "Audio CD erauzlea"
+#: data/sj-album-chooser-dialog.ui:11
+msgid "_Select"
+msgstr "_Hautatu"
 
-#: ../data/sound-juicer.desktop.in.in.h:3
-msgid "Sound Juicer Audio CD Extractor"
-msgstr "Sound Juicer Audio CD erauzlea"
+#: data/sj-album-chooser-dialog.ui:27
+msgid "This CD could be more than one album. Please select which album it is."
+msgstr "CD honek album bat baino gehiago eduki dezake. Hautatu zein album den."
 
-#: ../data/sound-juicer.desktop.in.in.h:4
-msgid "Copy music from your CDs"
-msgstr "Kopiatu musika zure CD-etatik"
+#: data/sound-juicer-shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Disc"
+msgstr "Diskoa"
 
-#: ../data/sound-juicer.desktop.in.in.h:5
-msgid "Ripper;"
-msgstr ""
+#: data/sound-juicer-shortcuts.ui:19
+msgctxt "shortcut window"
+msgid "Reread track names"
+msgstr "Berrirakurri pisten izenak"
 
-#: ../data/appdata/sound-juicer.appdata.xml.in.h:1
-msgid ""
-"Sound Juicer is a simple and clean CD ripping tool. It allows you to extract "
-"the audio from audio compact discs and convert them into audio files that "
-"your computer can understand and play. Sound Juicer can also play the audio "
-"tracks directly from the CD, allowing you to preview the CD before ripping "
-"it."
-msgstr ""
+#: data/sound-juicer-shortcuts.ui:26
+msgctxt "shortcut window"
+msgid "Eject disc"
+msgstr "Egotzi diskoa"
 
-#: ../data/appdata/sound-juicer.appdata.xml.in.h:2
-msgid ""
-"Sound Juicer is designed to be easy to use, and to work with little user "
-"intervention. When you start Sound Juicer, it will examine the CD in the "
-"drive and try to locate information about the audio tracks using the freely-"
-"available MusicBrainz service."
-msgstr ""
+#: data/sound-juicer-shortcuts.ui:33
+msgctxt "shortcut window"
+msgid "Toggle playback"
+msgstr "Txandakatu erreprodukzioa"
 
-#: ../data/sound-juicer.ui.h:2
-msgid "S_ubmit Album"
-msgstr "_Bidali albuma"
+#: data/sound-juicer-shortcuts.ui:40
+msgctxt "shortcut window"
+msgid "Next track"
+msgstr "Hurrengo pista"
 
-#: ../data/sound-juicer.ui.h:3
-msgid "You can improve the MusicBrainz database by adding this album."
-msgstr "MusicBrain-eko datu-basea hobetu dezakezu album hau gehituz."
+#: data/sound-juicer-shortcuts.ui:47
+msgctxt "shortcut window"
+msgid "Previous track"
+msgstr "Aurreko pista"
 
-#: ../data/sound-juicer.ui.h:4
+#: data/sound-juicer-shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Orokorra"
+
+#: data/sound-juicer-shortcuts.ui:60
+msgctxt "shortcut window"
+msgid "Help"
+msgstr "Laguntza"
+
+#: data/sound-juicer-shortcuts.ui:67
+msgctxt "shortcut window"
+msgid "Shortcuts help"
+msgstr "Lasterbideen laguntza"
+
+#: data/sound-juicer-shortcuts.ui:74
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Irten"
+
+#: data/sound-juicer-shortcuts.ui:81
+msgctxt "shortcut window"
+msgid "Select all tracks"
+msgstr "Hautatu pista guztiak"
+
+#: data/sound-juicer-shortcuts.ui:88
+msgctxt "shortcut window"
+msgid "Unselect all tracks"
+msgstr "Desautatu pista guztiak"
+
+#: data/sound-juicer.ui:55
+msgid "_Edit Album"
+msgstr "_Editatu albuma"
+
+#: data/sound-juicer.ui:68
+msgid "_Reload Album"
+msgstr "_Birkargatu albuma"
+
+#: data/sound-juicer.ui:161
 msgid "_Year:"
 msgstr "_Urtea:"
 
-#: ../data/sound-juicer.ui.h:5
-#, fuzzy
+#: data/sound-juicer.ui:196
 msgid "_Disc:"
-msgstr "_Diskoa"
+msgstr "_Diskoa:"
 
-#: ../data/sound-juicer.ui.h:6
+#: data/sound-juicer.ui:236
 msgid "_Title:"
 msgstr "_Titulua:"
 
-#: ../data/sound-juicer.ui.h:7
+#: data/sound-juicer.ui:261
 msgid "_Artist:"
 msgstr "_Artista:"
 
-#: ../data/sound-juicer.ui.h:8
+#: data/sound-juicer.ui:292
 msgid "_Composer:"
-msgstr ""
+msgstr "_Konpositorea:"
 
-#: ../data/sound-juicer.ui.h:9
+#: data/sound-juicer.ui:323
 msgid "_Genre:"
 msgstr "_Generoa:"
 
-#: ../data/sound-juicer.ui.h:10
+#: data/sound-juicer.ui:340
 msgid "Duration:"
 msgstr "Iraupena:"
 
-#: ../data/sound-juicer.ui.h:11
+#: data/sound-juicer.ui:386
 msgid "Tracks"
 msgstr "Pistak"
 
-#: ../data/sound-juicer.ui.h:12 ../src/sj-main.c:2185 ../src/sj-play.c:121
-#: ../src/sj-play.c:259 ../src/sj-play.c:622
-#, fuzzy
+#: data/sound-juicer.ui:410 src/sj-main.c:1864 src/sj-play.c:120
+#: src/sj-play.c:258 src/sj-play.c:621
 msgid "_Play"
-msgstr "Erreproduzitu"
+msgstr "_Erreproduzitu"
 
-#: ../data/sound-juicer.ui.h:13 ../src/sj-extracting.c:233
-#: ../src/sj-main.c:2209
+#: data/sound-juicer.ui:420 src/sj-extracting.c:232 src/sj-main.c:1888
 msgid "E_xtract"
 msgstr "E_rauzi"
 
-#: ../data/sound-juicer.ui.h:14
+#: data/sound-juicer.ui:446
 msgid "Track Progress"
 msgstr "Pistaren progresioa"
 
-#: ../data/sound-juicer.ui.h:15
-msgid "Multiple Albums Found"
-msgstr "Hainbat album aurkitu dira"
-
-#: ../data/sound-juicer.ui.h:16
-msgid ""
-"This CD could be more than one album. Please select which album it is below "
-"and press <i>Continue</i>."
-msgstr ""
-"CD honek album bat baino gehiago eduki ditzake. Hautatu albuma behean eta "
-"sakatu <i>Jarraitu</i> botoia."
-
-#: ../data/sound-juicer.ui.h:17 ../src/sj-main.c:215
-msgid "_Continue"
-msgstr "_Jarraitu"
-
-#: ../data/sound-juicer.ui.h:18 ../data/sound-juicer-menu.ui.h:6
+#: data/sound-juicer.ui:541 data/sound-juicer.ui:855
 msgid "Preferences"
 msgstr "Hobespenak"
 
-#: ../data/sound-juicer.ui.h:19
+#: data/sound-juicer.ui:560
 msgid "Device"
 msgstr "Gailua"
 
-#: ../data/sound-juicer.ui.h:20
+#: data/sound-juicer.ui:576
 msgid "CD _drive:"
 msgstr "CD _unitatea:"
 
-#: ../data/sound-juicer.ui.h:21
+#: data/sound-juicer.ui:598
 msgid "_Eject after extracting tracks"
 msgstr "_Egotzi pistak erauzi ondoren"
 
-#: ../data/sound-juicer.ui.h:22
+#: data/sound-juicer.ui:613
 msgid "_Open music folder when finished"
 msgstr "_Ireki musikaren karpeta amaitzean"
 
-#: ../data/sound-juicer.ui.h:23
+#: data/sound-juicer.ui:631
 msgid "Music Folder"
 msgstr "Musikaren karpeta"
 
-#: ../data/sound-juicer.ui.h:24
+#: data/sound-juicer.ui:647
 msgid "_Folder:"
 msgstr "_Karpeta:"
 
-#: ../data/sound-juicer.ui.h:25
+#: data/sound-juicer.ui:663
 msgid "Select A Folder"
 msgstr "Hautatu karpeta"
 
-#: ../data/sound-juicer.ui.h:26
+#: data/sound-juicer.ui:676
 msgid "Track Names"
 msgstr "Pisten izenak"
 
-#: ../data/sound-juicer.ui.h:27
+#: data/sound-juicer.ui:692
 msgid "Folder hie_rarchy:"
 msgstr "D_irektorio-hierarkia:"
 
-#: ../data/sound-juicer.ui.h:28
+#: data/sound-juicer.ui:723
 msgid "File _name:"
 msgstr "_Fitxategi-izena:"
 
-#: ../data/sound-juicer.ui.h:29
+#: data/sound-juicer.ui:751
 msgid "_Strip special characters"
 msgstr "_Kendu karaktere bereziak"
 
-#: ../data/sound-juicer.ui.h:30
+#: data/sound-juicer.ui:782
 msgid "Format"
 msgstr "Formatua"
 
-#: ../data/sound-juicer.ui.h:31
+#: data/sound-juicer.ui:798
 msgid "O_utput Format:"
 msgstr "_Irteerako formatua:"
 
-#: ../data/sound-juicer.ui.h:32
-msgid "_Help"
-msgstr "_Laguntza"
-
-#: ../data/sound-juicer.ui.h:33
-msgid "_Close"
-msgstr ""
-
-#: ../data/sound-juicer-menu.ui.h:1
-#, fuzzy
-msgid "Disc"
-msgstr "_Diskoa"
-
-#: ../data/sound-juicer-menu.ui.h:2
-#, fuzzy
+#: data/sound-juicer.ui:832
 msgid "Re-read"
-msgstr "_Berrirakurri diskoa"
+msgstr "Berrirakurri"
 
-#: ../data/sound-juicer-menu.ui.h:3
-#, fuzzy
+#: data/sound-juicer.ui:837
 msgid "Duplicate"
-msgstr "_Bikoiztu diskoa"
+msgstr "Bikoiztu"
 
-#: ../data/sound-juicer-menu.ui.h:4
-#, fuzzy
+#: data/sound-juicer.ui:841
 msgid "Eject"
-msgstr "Eg_otzi"
+msgstr "Egotzi"
 
-#: ../data/sound-juicer-menu.ui.h:5
-#, fuzzy
-msgid "Submit Track Names"
-msgstr "_Bidali abestien izenak..."
+#: data/sound-juicer.ui:848
+msgid "Open MusicBrainz"
+msgstr "Ireki MusicBrainz"
 
-#: ../data/sound-juicer-menu.ui.h:7
-#, fuzzy
+#: data/sound-juicer.ui:861
+msgid "Shortcuts"
+msgstr "Lasterbideak"
+
+#: data/sound-juicer.ui:865
 msgid "Help"
-msgstr "_Laguntza"
+msgstr "Laguntza"
 
-#: ../data/sound-juicer-menu.ui.h:8
-msgid "About"
-msgstr ""
+#: data/sound-juicer.ui:870
+msgid "About Sound Juicer"
+msgstr "Sound Juicer aplikazioari buruz"
 
-#: ../data/sound-juicer-menu.ui.h:9
+#: data/sound-juicer.ui:874
 msgid "Quit"
-msgstr ""
+msgstr "Irten"
 
-#: ../libjuicer/sj-extractor.c:192
-msgid "Audio Profile"
-msgstr "Audio-profila"
-
-#: ../libjuicer/sj-extractor.c:193
-#, fuzzy
-msgid "The GStreamer Encoding Profile used for encoding audio"
-msgstr "GNOMEren audio-profila, audioa kodetzeko"
-
-#: ../libjuicer/sj-extractor.c:198
-msgid "Paranoia Level"
-msgstr "Maila paranoikoa"
-
-#: ../libjuicer/sj-extractor.c:199
-msgid "The paranoia level"
-msgstr "Erabiliko den paranoia maila"
-
-#: ../libjuicer/sj-extractor.c:204
-msgid "device"
-msgstr "gailua"
-
-#: ../libjuicer/sj-extractor.c:205
-msgid "The device"
-msgstr "Gailua"
-
-#: ../libjuicer/sj-extractor.c:355
+#: libjuicer/sj-extractor.c:350
 #, c-format
 msgid "Could not create GStreamer CD reader"
 msgstr "Ezin izan da GStreamer CD irakurlea sortu"
 
-#: ../libjuicer/sj-extractor.c:373
+#: libjuicer/sj-extractor.c:368
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Ezin izan da %s(r)en GStreamer kodetzailea sortu"
 
-#: ../libjuicer/sj-extractor.c:385
+#: libjuicer/sj-extractor.c:380
 #, c-format
 msgid "Could not create GStreamer file output"
 msgstr "Ezin izan da GStreamer-en irteerako fitxategia sortu"
 
-#: ../libjuicer/sj-extractor.c:399
+#: libjuicer/sj-extractor.c:394
 #, c-format
 msgid "Could not link pipeline"
 msgstr "Huts egin du hodia estekatzean"
 
-#: ../libjuicer/sj-extractor.c:422
+#: libjuicer/sj-extractor.c:417
 msgid "Could not get current track position"
 msgstr "Ezin izan da uneko pistaren posizioa lortu"
 
-#: ../libjuicer/sj-extractor.c:451
+#: libjuicer/sj-extractor.c:446
 #, c-format
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
-msgstr ""
-"Objektu-erauzlea baliogabea da. Honek itxura txarra dauka, erabili kontsola "
-"erroreak aztertzeko."
+msgstr "Objektu-erauzlea baliogabea da. Honek itxura txarra dauka, erabili kontsola erroreak aztertzeko."
 
-#: ../libjuicer/sj-extractor.c:711
+#: libjuicer/sj-extractor.c:708
 #, c-format
 msgid "The plugin necessary for CD access was not found"
 msgstr "Ez da CDa atzitzeko beharrezkoa den plugin-a aurkitu"
 
-#: ../libjuicer/sj-extractor.c:719
+#: libjuicer/sj-extractor.c:716
 #, c-format
 msgid "The plugin necessary for file access was not found"
 msgstr "Ez da fitxategiak atzitzeko beharrezkoa den plugin-a aurkitu"
@@ -425,759 +412,770 @@ msgstr "Ez da fitxategiak atzitzeko beharrezkoa den plugin-a aurkitu"
 #. FIXME: would be nicer to only check if "cdrom" is being probed,
 #. * but libbrasero doesn't seem to have an API for that
 #.
-#: ../libjuicer/sj-metadata.c:188 ../libjuicer/sj-metadata.c:211
-#: ../libjuicer/sj-metadata.c:222
+#: libjuicer/sj-metadata.c:211 libjuicer/sj-metadata.c:234
+#: libjuicer/sj-metadata.c:245
 #, c-format
 msgid "Cannot read CD: %s"
 msgstr "Ezin izan da CDa irakurri: %s"
 
-#: ../libjuicer/sj-metadata.c:189
+#: libjuicer/sj-metadata.c:212
 msgid "Devices haven't been all probed yet"
-msgstr ""
+msgstr "Gailuak ez dira oraindik guztiak probatu"
 
-#: ../libjuicer/sj-metadata.c:205
+#: libjuicer/sj-metadata.c:228
 #, c-format
-msgid "Device '%s' does not contain any media"
-msgstr "'%s' gailuak ez du euskarririk"
+msgid "Device ‘%s’ does not contain any media"
+msgstr "‘%s‘ gailuak ez du multimediarik"
 
-#: ../libjuicer/sj-metadata.c:208
+#: libjuicer/sj-metadata.c:231
 #, c-format
 msgid ""
-"Device '%s' could not be opened. Check the access permissions on the device."
-msgstr ""
-"Ezin izan da '%s' gailua ireki. Ziurtatu gailua erabiltzeko baimenak "
-"dituzula."
+"Device ‘%s’ could not be opened. Check the access permissions on the device."
+msgstr "Ezin izan da ‘%s‘ gailua ireki. Ziurtatu gailua erabiltzeko baimenak dituzula."
 
-#: ../libjuicer/sj-metadata.c:350
+#: libjuicer/sj-metadata.c:373
 msgid "Czechoslovakia"
-msgstr ""
+msgstr "Txekoslovakia"
 
-#: ../libjuicer/sj-metadata.c:351
+#: libjuicer/sj-metadata.c:374
 msgid "East Germany"
-msgstr ""
+msgstr "Alemania Ekialdekoa"
 
-#: ../libjuicer/sj-metadata.c:352
+#: libjuicer/sj-metadata.c:375
 msgid "Europe"
-msgstr ""
+msgstr "Europa"
 
-#: ../libjuicer/sj-metadata.c:353
+#: libjuicer/sj-metadata.c:376
 msgid "Serbia and Montenegro"
-msgstr ""
+msgstr "Serbia eta Montenegro"
 
-#: ../libjuicer/sj-metadata.c:354
+#: libjuicer/sj-metadata.c:377
 msgid "Soviet Union"
-msgstr ""
+msgstr "Sobietar Batasuna"
 
-#: ../libjuicer/sj-metadata.c:355
+#: libjuicer/sj-metadata.c:378
 msgid "Worldwide"
-msgstr ""
+msgstr "Mundu osoa"
 
-#: ../libjuicer/sj-metadata.c:356
+#: libjuicer/sj-metadata.c:379
 msgid "Yugoslavia"
-msgstr ""
+msgstr "Jugoslavia"
 
-#: ../libjuicer/sj-metadata-gvfs.c:95
+#: libjuicer/sj-metadata-gvfs.c:95
 #, c-format
 msgid "Cannot access CD"
 msgstr "Ezin da CDa atzitu"
 
-#: ../libjuicer/sj-metadata-gvfs.c:115 ../src/egg-play-preview.c:469
-#: ../src/sj-main.c:338
+#: libjuicer/sj-metadata-gvfs.c:117 src/egg-play-preview.c:570
+#: src/sj-main.c:354
 msgid "Unknown Title"
 msgstr "Titulu ezezaguna"
 
-#: ../libjuicer/sj-metadata-gvfs.c:121 ../libjuicer/sj-metadata-gvfs.c:151
-#: ../src/egg-play-preview.c:474 ../src/sj-extracting.c:980
+#: libjuicer/sj-metadata-gvfs.c:123 libjuicer/sj-metadata-gvfs.c:153
+#: src/egg-play-preview.c:575 src/sj-extracting.c:983
 msgid "Unknown Artist"
 msgstr "Artista ezezaguna"
 
-#: ../libjuicer/sj-metadata-gvfs.c:145
+#: libjuicer/sj-metadata-gvfs.c:147
 #, c-format
 msgid "Track %d"
 msgstr "%d. pista"
 
-#: ../libjuicer/sj-metadata-gvfs.c:172
+#: libjuicer/sj-metadata-gvfs.c:174
 #, c-format
 msgid "Cannot access CD: %s"
 msgstr "Ezin izan da CDa atzitu: %s"
 
-#. Tranlators: This string is used to build the composer tag when
-#. a track has a mixture of arrangers, orchestrators and
-#. transcribers but no composers
-#: ../libjuicer/sj-metadata-musicbrainz5.c:478
-#, c-format
-msgid "arr. %s"
-msgstr ""
-
-#. Tranlators: This string is used to build the composer tag when a
-#. track has composers and arrangers, or a composer and a mixture
-#. of arrangers, orchestrators and transcribers
-#: ../libjuicer/sj-metadata-musicbrainz5.c:482
+#. Translators: This string is used to build the composer tag
+#. when a track has composers and arrangers, or a composer and a
+#. mixture of arrangers, orchestrators and transcribers
+#: libjuicer/sj-metadata-musicbrainz5.c:705
 #, c-format
 msgid "%s arr. %s"
-msgstr ""
+msgstr "%s mold. %s"
 
-#. Tranlators: This string is used to build the composer tag
-#. when a track has orchestrators but no composer
-#: ../libjuicer/sj-metadata-musicbrainz5.c:485
-#, c-format
-msgid "orch. %s"
-msgstr ""
-
-#. Tranlators: This string is used to build the composer tag
+#. Translators: This string is used to build the composer tag
 #. when a track has composers and orchestrators
-#: ../libjuicer/sj-metadata-musicbrainz5.c:488
+#: libjuicer/sj-metadata-musicbrainz5.c:709
 #, c-format
 msgid "%s orch. %s"
-msgstr ""
+msgstr "%s ork. %s"
 
-#. Tranlators: This string is used to build the composer tag
-#. when a track has a transcribers but no composer
-#: ../libjuicer/sj-metadata-musicbrainz5.c:495
-#, c-format
-msgid "trans. %s"
-msgstr ""
-
-#. Tranlators: This string is used to build the composer tag
+#. Translators: This string is used to build the composer tag
 #. when a track has composers and transcribers
-#: ../libjuicer/sj-metadata-musicbrainz5.c:498
+#: libjuicer/sj-metadata-musicbrainz5.c:713
 #, c-format
 msgid "%s trans. %s"
-msgstr ""
+msgstr "%s trans. %s"
 
-#: ../src/egg-play-preview.c:171
-msgid "URI"
-msgstr "URIa"
+#. Translators: This string is used to build the composer tag
+#. when a track has a mixture of arrangers, orchestrators and
+#. transcribers but no composers
+#: libjuicer/sj-metadata-musicbrainz5.c:723
+#, c-format
+msgid "arr. %s"
+msgstr "mold. %s"
 
-#: ../src/egg-play-preview.c:172
-msgid "The URI of the audio file"
-msgstr "Audioko fitxategiaren URIa"
+#. Translators: This string is used to build the composer tag
+#. when a track has orchestrators but no composer
+#: libjuicer/sj-metadata-musicbrainz5.c:727
+#, c-format
+msgid "orch. %s"
+msgstr "ork. %s"
 
-#: ../src/egg-play-preview.c:181 ../src/sj-main.c:2282
-msgid "Title"
-msgstr "Titulua"
+#. Translators: This string is used to build the composer tag
+#. when a track has a transcribers but no composer
+#: libjuicer/sj-metadata-musicbrainz5.c:731
+#, c-format
+msgid "trans. %s"
+msgstr "trans. %s"
 
-#: ../src/egg-play-preview.c:182
-msgid "The title of the current stream."
-msgstr "Uneko korrontearen titulua."
-
-#: ../src/egg-play-preview.c:191 ../src/sj-main.c:2283
-msgid "Artist"
-msgstr "Artista"
-
-#: ../src/egg-play-preview.c:192
-msgid "The artist of the current stream."
-msgstr "Uneko korrontearen artista."
-
-#: ../src/egg-play-preview.c:201
-msgid "Album"
-msgstr "Albuma"
-
-#: ../src/egg-play-preview.c:202
-msgid "The album of the current stream."
-msgstr "Uneko korrontearen albuma."
-
-#: ../src/egg-play-preview.c:211
-msgid "Position"
-msgstr "Posizioa"
-
-#: ../src/egg-play-preview.c:212
-msgid "The position in the current stream in seconds."
-msgstr "Posizioa uneko korrontean (segundotan)."
-
-#: ../src/egg-play-preview.c:221 ../src/sj-main.c:2290
-msgid "Duration"
-msgstr "Iraupena"
-
-#: ../src/egg-play-preview.c:222
-msgid "The duration of the current stream in seconds."
-msgstr "Uneko korrontearen iraupena (segundotan)."
-
-#: ../src/egg-play-preview.c:475 ../src/sj-extracting.c:979
+#: src/egg-play-preview.c:576 src/sj-extracting.c:982
 msgid "Unknown Album"
 msgstr "Album ezezaguna"
 
-#: ../src/sj-about.c:51
+#: src/sj-about.c:51
 msgid ""
 "Sound Juicer is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
 "Software Foundation; either version 2 of the License, or (at your option) "
 "any later version."
-msgstr ""
-"Sound-juicer software librea da; birbana eta/edo alda dezakezu Software "
-"Foundation-ek argitaratutako GNU Lizentzia Publiko Orokorraren 2. bertsioan, "
-"edo (nahiago baduzu) beste berriago batean, jasotako baldintzak betez gero."
+msgstr "Sound-juicer software librea da; birbana eta/edo alda dezakezu Software Foundation-ek argitaratutako GNU Lizentzia Publiko Orokorraren 2. bertsioan, edo (nahiago baduzu) beste berriago batean, jasotako baldintzak betez gero."
 
-#: ../src/sj-about.c:55
+#: src/sj-about.c:55
 msgid ""
 "Sound Juicer is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
 "FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
 "more details."
-msgstr ""
-"Sound-juicer erabilgarria izango delakoan banatzen da, baina, INOLAKO "
-"BERMERIK GABE; era berean, ez da bermatzen beraren EGOKITASUNA "
-"MERKATURATZEKO edo HELBURU PARTIKULARRETARAKO ERABILTZEKO. Argibide gehiago "
-"nahi izanez gero, ikus GNU Lizentzia Publiko Orokorra."
+msgstr "Sound-juicer erabilgarria izango delakoan banatzen da, baina, INOLAKO BERMERIK GABE; era berean, ez da bermatzen beraren EGOKITASUNA MERKATURATZEKO edo HELBURU PARTIKULARRETARAKO ERABILTZEKO. Argibide gehiago nahi izanez gero, ikus GNU Lizentzia Publiko Orokorra."
 
-#: ../src/sj-about.c:59
+#: src/sj-about.c:59
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "Sound Juicer; if not, write to the Free Software Foundation, Inc., 51 "
 "Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
-msgstr ""
-"Sound-juicer programarekin batera GNU Lizentzia Publiko Orokorraren kopia "
-"bat jasoko zenuen; hala ez bada, idatzi hona: Free SoftwareFoundation, Inc., "
-"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
+msgstr "Sound-juicer programarekin batera GNU Lizentzia Publiko Orokorraren kopia bat jasoko zenuen; hala ez bada, idatzi hona: Free SoftwareFoundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
 
-#: ../src/sj-about.c:70
+#: src/sj-about.c:70
 msgid "An Audio CD Extractor"
 msgstr "Audio CD erauzlea"
 
-#.
-#. * Note to translators: put here your name and email so it will show
-#. * up in the "about" box
-#.
-#: ../src/sj-about.c:80
+#. Translators: put here your name and email
+#. so it will show up in the "about" box
+#: src/sj-about.c:78
 msgid "translator-credits"
-msgstr ""
-"Mikel Olasagasti <hey_neken@mundurat.net>\n"
+msgstr "Mikel Olasagasti <hey_neken@mundurat.net>\n"
 "Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>"
 
-#: ../src/sj-extracting.c:148
+#. Translators: this string is a list of catalog number(s) used by
+#. the label(s) to identify the release
+#: src/sj-album-chooser-dialog.c:242
+msgid "Catalog No.: "
+msgid_plural "Catalog Nos.: "
+msgstr[0] "Katalogo zbkia.: "
+msgstr[1] "Katalogo zbkiak.: "
+
+#. Translators: this string appears when multiple CDs were
+#. found in musicbrainz online database, it corresponds to
+#. "Released: <country> in <year> on <label>"
+#: src/sj-album-chooser-dialog.c:284
+#, c-format
+msgid "Released: %s in %d on %s"
+msgstr "Argitalpena: %s, %d [%s]"
+
+#. Translators: this string appears when multiple CDs were
+#. found in musicbrainz online database, it corresponds to
+#. "Released: <country> on <label>"
+#: src/sj-album-chooser-dialog.c:292
+#, c-format
+msgid "Released: %s on %s"
+msgstr "Argitalpena: %s [%s]"
+
+#. Translators: this string appears when multiple CDs were
+#. found in musicbrainz online database, it corresponds to
+#. "Released: <country> in <year>"
+#: src/sj-album-chooser-dialog.c:299
+#, c-format
+msgid "Released: %s in %d"
+msgstr "Argitalpena: %s, %d"
+
+#. Translators: this string appears when multiple CDs were
+#. found in musicbrainz online database, it corresponds to
+#. "Released: <country>"
+#: src/sj-album-chooser-dialog.c:306
+#, c-format
+msgid "Released: %s"
+msgstr "Argitalpena: %s"
+
+#. Translators: this string appears when multiple CDs were
+#. found in musicbrainz online database, it corresponds to
+#. "Released in <year> on <label>"
+#: src/sj-album-chooser-dialog.c:313
+#, c-format
+msgid "Released in %d on %s"
+msgstr "Argitalpena: %d [%s]"
+
+#. Translators: this string appears when multiple CDs were
+#. found in musicbrainz online database, it corresponds to
+#. "Released in <year>"
+#: src/sj-album-chooser-dialog.c:320
+#, c-format
+msgid "Released in %d"
+msgstr "Argitalpena: %d"
+
+#. Translators: this string appears when multiple CDs were
+#. found in musicbrainz online database, it corresponds to
+#. "Released on <label>"
+#: src/sj-album-chooser-dialog.c:327
+#, c-format
+msgid "Released on %s"
+msgstr "Argitalpena: %s"
+
+#: src/sj-album-chooser-dialog.c:330
+#, c-format
+msgid "Release label, year & country unknown"
+msgstr "Argitalpenaren etiketa, urtea eta herrialdea ezezagunak"
+
+#. Translators: this string identifies
+#. the number of the barcode printed on
+#. the release
+#: src/sj-album-chooser-dialog.c:341 src/sj-album-chooser-dialog.c:350
+msgid "Barcode:"
+msgstr "Barra-kodea:"
+
+#: src/sj-album-chooser-dialog.c:374
+#, c-format
+msgid " (Disc %d/%d)"
+msgstr " (%d/%d diskoa)"
+
+#: src/sj-extracting.c:147
 #, c-format
 msgid "Failed to get output format"
 msgstr "Huts egin du irteerako formatua lortzean"
 
-#: ../src/sj-extracting.c:173
+#: src/sj-extracting.c:172
 msgid "Name too long"
 msgstr "Izena luzeegia"
 
-#: ../src/sj-extracting.c:309
+#: src/sj-extracting.c:308
 msgid "A file with the same name exists"
 msgstr "Izen bereko fitxategi bat badago lehendik ere"
 
-#: ../src/sj-extracting.c:311
+#: src/sj-extracting.c:310
 #, c-format
 msgid ""
-"A file called '%s' exists, size %s.\n"
+"A file called ‘%s’ exists, size %s.\n"
 "Do you want to skip this track or overwrite it?"
-msgstr ""
-"'%s' izeneko fitxategia badago lehendik, tamaina: %s.\n"
+msgstr "‘%s‘ izeneko fitxategia badago lehendik, tamaina: %s.\n"
 "Pista hau saltatu nahi duzu, ala gainidatzi?"
 
-#: ../src/sj-extracting.c:321
+#: src/sj-extracting.c:324
 msgid "_Skip"
 msgstr "_Saltatu"
 
-#: ../src/sj-extracting.c:322
+#: src/sj-extracting.c:325
 msgid "S_kip All"
 msgstr "_Saltatu denak"
 
-#: ../src/sj-extracting.c:323
+#: src/sj-extracting.c:326
 msgid "_Overwrite"
 msgstr "_Gainidatzi"
 
-#: ../src/sj-extracting.c:324
+#: src/sj-extracting.c:327
 msgid "Overwrite _All"
 msgstr "_Gainidatzi denak"
 
-#: ../src/sj-extracting.c:373
+#: src/sj-extracting.c:376
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Huts egin du irteerako direktorioa sortzean: %s"
 
-#: ../src/sj-extracting.c:513
+#: src/sj-extracting.c:516
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Geratzen den denbora: %d:%02d (%0.1fx)"
 
-#: ../src/sj-extracting.c:515
+#: src/sj-extracting.c:518
 msgid "Estimated time left: unknown"
 msgstr "Geratzen den denbora: ezezaguna"
 
-#: ../src/sj-extracting.c:605
+#: src/sj-extracting.c:608
 msgid "CD rip complete"
 msgstr "CDaren erauzketa burututa"
 
-#: ../src/sj-extracting.c:697
+#: src/sj-extracting.c:700
 msgid "Sound Juicer could not extract this CD."
 msgstr "Sound Juicer-ek ezin izan du CD hau erauzi."
 
-#: ../src/sj-extracting.c:699 ../src/sj-main.c:177 ../src/sj-main.c:384
-#: ../src/sj-main.c:423 ../src/sj-main.c:1138 ../src/sj-main.c:1263
-#: ../src/sj-main.c:1365
+#: src/sj-extracting.c:702 src/sj-main.c:175 src/sj-main.c:417
+#: src/sj-main.c:456 src/sj-main.c:839 src/sj-main.c:1030
 msgid "Reason"
 msgstr "Arrazoia"
 
 #. Change the label to Stop while extracting
-#: ../src/sj-extracting.c:789 ../src/sj-main.c:2216
-#, fuzzy
+#: src/sj-extracting.c:792 src/sj-main.c:1895
 msgid "_Stop"
-msgstr "Gelditu"
+msgstr "_Gelditu"
 
-#: ../src/sj-extracting.c:817 ../src/sj-extracting.c:825
+#: src/sj-extracting.c:820 src/sj-extracting.c:828
 msgid "Extracting audio from CD"
 msgstr "Audioa CDtik erauzten"
 
-#: ../src/sj-extracting.c:981
-#, fuzzy
+#: src/sj-extracting.c:984
 msgid "Unknown Composer"
-msgstr "Titulu ezezaguna"
+msgstr "Konpositore ezezaguna"
 
-#: ../src/sj-extracting.c:982
-#, fuzzy
+#: src/sj-extracting.c:985
 msgid "Unknown Track"
-msgstr "Titulu ezezaguna"
+msgstr "Pista ezezaguna"
 
-#: ../src/sj-genres.c:33
+#: src/sj-genres.c:33
 msgid "Ambient"
 msgstr "Giroko musika"
 
-#: ../src/sj-genres.c:34
+#: src/sj-genres.c:34
 msgid "Blues"
 msgstr "Blues-a"
 
-#: ../src/sj-genres.c:35 ../src/sj-main.c:472
+#: src/sj-genres.c:35 src/sj-main.c:501
 msgid "Classical"
 msgstr "Klasikoa"
 
-#: ../src/sj-genres.c:36
+#: src/sj-genres.c:36
 msgid "Country"
 msgstr "Country"
 
-#: ../src/sj-genres.c:37
+#: src/sj-genres.c:37
 msgid "Dance"
 msgstr "Dance-a"
 
-#: ../src/sj-genres.c:38
+#: src/sj-genres.c:38
 msgid "Electronica"
 msgstr "Elektronikoa"
 
-#: ../src/sj-genres.c:39
+#: src/sj-genres.c:39
 msgid "Folk"
 msgstr "Folka"
 
-#: ../src/sj-genres.c:40
+#: src/sj-genres.c:40
 msgid "Funk"
 msgstr "Funk-a"
 
-#: ../src/sj-genres.c:41
+#: src/sj-genres.c:41
 msgid "Jazz"
 msgstr "Jazz-a"
 
-#: ../src/sj-genres.c:42
+#: src/sj-genres.c:42
 msgid "Latin"
 msgstr "Latinoa"
 
-#: ../src/sj-genres.c:43
+#: src/sj-genres.c:43
 msgid "Pop"
 msgstr "Pop-a"
 
-#: ../src/sj-genres.c:44
+#: src/sj-genres.c:44
 msgid "Rap"
 msgstr "Rap-a"
 
-#: ../src/sj-genres.c:45
+#: src/sj-genres.c:45
 msgid "Reggae"
 msgstr "Reggae"
 
-#: ../src/sj-genres.c:46
+#: src/sj-genres.c:46
 msgid "Rock"
 msgstr "Rocka"
 
-#: ../src/sj-genres.c:47
+#: src/sj-genres.c:47
 msgid "Soul"
 msgstr "Soul-a"
 
-#: ../src/sj-genres.c:48
+#: src/sj-genres.c:48
 msgid "Spoken Word"
 msgstr "Berriketak"
 
-#: ../src/sj-genres.c:188
+#: src/sj-genres.c:197
 #, c-format
 msgid "Error while saving custom genre: %s"
 msgstr "Errorea genero pertsonalizatua gordetzean: %s"
 
-#: ../src/sj-main.c:176
+#: src/sj-main.c:174
 msgid "Could not start Sound Juicer"
 msgstr "Ezin izan da Sound Juicer abiatu"
 
-#: ../src/sj-main.c:179
+#: src/sj-main.c:177
 msgid "Please consult the documentation for assistance."
 msgstr "Irakurri dokumentazioa laguntzarako."
 
-#: ../src/sj-main.c:213
+#: src/sj-main.c:233
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Une honetan CD bat erauzten dago. Ziur zaude irten nahi duzula?"
 
-#: ../src/sj-main.c:214 ../src/sj-main.c:1490
+#: src/sj-main.c:234 src/sj-main.c:1154
 msgid "_Quit"
-msgstr ""
+msgstr "I_rten"
 
-#: ../src/sj-main.c:262 ../src/sj-main.c:2163 ../src/sj-main.c:2239
-#, fuzzy
+#: src/sj-main.c:235
+msgid "_Continue"
+msgstr "_Jarraitu"
+
+#: src/sj-main.c:282 src/sj-main.c:1848 src/sj-main.c:1918
 msgid "Select None"
-msgstr "Hautatu karpeta"
+msgstr "Ez hautatu ezer"
 
-#: ../src/sj-main.c:276 ../src/sj-main.c:2233
-#, fuzzy
+#: src/sj-main.c:296 src/sj-main.c:1912
 msgid "Select All"
-msgstr "_Hautatu denak"
+msgstr "Hautatu dena"
 
-#: ../src/sj-main.c:297 ../src/sj-main.c:631
+#: src/sj-main.c:317 src/sj-main.c:660
 msgid "(unknown)"
 msgstr "(ezezaguna)"
 
-#: ../src/sj-main.c:339
-msgid "This album is not in the MusicBrainz database."
-msgstr ""
+#: src/sj-main.c:355
+msgid ""
+"This album is not in the MusicBrainz database, please click ‘Edit Album’ to "
+"open your browser and edit it in MusicBrainz."
+msgstr "Album hau ez dago MusicBrainz datu-basean. Egin klik ‘Editatu albuma‘ aukeran web arakatzailea ireki eta MusicBrainz-en editatu."
 
-#: ../src/sj-main.c:341
+#: src/sj-main.c:357
 #, c-format
-msgid "Could not find %s by %s on MusicBrainz."
-msgstr "Ezin izan da %2$s(r)en '%1$s' albuma aurkitu MusicBrainz zerbitzarian."
+msgid ""
+"Could not find %s by %s on MusicBrainz, please click ‘Edit Album’ to open "
+"your browser and edit it in MusicBrainz."
+msgstr "Ezin izan da ‘%s‘ aurkitu %s arabera MusicBrainz-en. Egin klik ‘Editatu albuma‘ aukeran web arakatzailea ireki eta MusicBrainz-en editatu."
 
-#: ../src/sj-main.c:382
+#: src/sj-main.c:393
+msgid "Click ‘Reload’ to load the edited album details from MusicBrainz"
+msgstr "Egin klik ‘Birkargatu‘ editatutako albumaren xehetasunak MusicBrainz-etik kargatzeko."
+
+#: src/sj-main.c:415
 msgid "Could not open URL"
 msgstr "Ezin izan da URLa irakurri"
 
-#: ../src/sj-main.c:383
+#: src/sj-main.c:416
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Sound Juicer-ek ezin izan du bidaltzeko URLa ireki"
 
-#: ../src/sj-main.c:421
+#: src/sj-main.c:454
 msgid "Could not duplicate disc"
 msgstr "Ezin izan da diskoa bikoiztu"
 
-#: ../src/sj-main.c:422
+#: src/sj-main.c:455
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Sound Juicer-ek ezin izan du diskoa bikoiztu"
 
-#: ../src/sj-main.c:472
+#: src/sj-main.c:501
 msgid "Lieder"
-msgstr ""
+msgstr "Lieder"
 
-#: ../src/sj-main.c:472
+#: src/sj-main.c:501
 msgid "Opera"
-msgstr ""
+msgstr "Opera"
 
-#: ../src/sj-main.c:472
+#: src/sj-main.c:501
 msgid "Chamber"
-msgstr ""
+msgstr "Ganbera"
 
-#: ../src/sj-main.c:472
-#, fuzzy
+#: src/sj-main.c:501
 msgid "Musical"
-msgstr "Musikaren karpeta"
+msgstr "Musikala"
 
-#. Translators: this string appears when multiple CDs were
-#. * found in musicbrainz online database, it corresponds to
-#. * "Released: <country> in <year> on <label>"
-#: ../src/sj-main.c:848
-#, c-format
-msgid "Released: %s in %d on %s"
-msgstr ""
-
-#. Translators: this string appears when multiple CDs were
-#. * found in musicbrainz online database, it corresponds to
-#. * "Released: <country> on <label>"
-#: ../src/sj-main.c:856
-#, c-format
-msgid "Released: %s on %s"
-msgstr ""
-
-#. Translators: this string appears when multiple CDs were
-#. * found in musicbrainz online database, it corresponds to
-#. * "Released: <country> in <year>"
-#: ../src/sj-main.c:862
-#, c-format
-msgid "Released: %s in %d"
-msgstr ""
-
-#. Translators: this string appears when multiple CDs were
-#. * found in musicbrainz online database, it corresponds to
-#. * "Released: <country>"
-#: ../src/sj-main.c:868
-#, c-format
-msgid "Released: %s"
-msgstr ""
-
-#. Translators: this string appears when multiple CDs were
-#. * found in musicbrainz online database, it corresponds to
-#. * "Released in <year> on <label>"
-#: ../src/sj-main.c:875
-#, c-format
-msgid "Released in %d on %s"
-msgstr ""
-
-#. Translators: this string appears when multiple CDs were
-#. * found in musicbrainz online database, it corresponds to
-#. * "Released in <year>"
-#: ../src/sj-main.c:882
-#, c-format
-msgid "Released in %d"
-msgstr ""
-
-#. Translators: this string appears when multiple CDs were
-#. * found in musicbrainz online database, it corresponds to
-#. * "Released on <label>"
-#: ../src/sj-main.c:889
-#, c-format
-msgid "Released on %s"
-msgstr ""
-
-#: ../src/sj-main.c:891
-msgid "Release label, year & country unknown"
-msgstr ""
-
-#: ../src/sj-main.c:929
-#, fuzzy
-msgid "Albums"
-msgstr "Albuma"
-
-#: ../src/sj-main.c:963
-#, c-format
-msgid " (Disc %d/%d)"
-msgstr ""
-
-#: ../src/sj-main.c:1136 ../src/sj-main.c:1259 ../src/sj-main.c:1363
+#: src/sj-main.c:837 src/sj-main.c:1028
 msgid "Could not read the CD"
 msgstr "Ezin izan da CDa irakurri"
 
-#: ../src/sj-main.c:1137 ../src/sj-main.c:1262
+#: src/sj-main.c:838
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Sound Juicer-ek ezin izan du CD honen pista-zerrenda irakurri."
 
-#. Set statusbar message
-#: ../src/sj-main.c:1232
-msgid "Retrieving track listing...please wait."
-msgstr "Pista-zerrenda lortzen... itxoin apur bat."
-
-#: ../src/sj-main.c:1325
+#: src/sj-main.c:990
 #, c-format
-msgid "Sound Juicer could not use the CD-ROM device '%s'"
-msgstr "Sound Juicer-ek ezin izan du '%s' CD-ROM gailua erabili"
+msgid "Sound Juicer could not use the CD-ROM device ‘%s’"
+msgstr "Sound Juicer-ek ezin izan du ‘%s‘ CD-ROM gailua erabili"
 
-#: ../src/sj-main.c:1332
+#: src/sj-main.c:997
 msgid "HAL daemon may not be running."
 msgstr "Badirudi HAL daemon-a ez dela exekutatzen ari."
 
-#: ../src/sj-main.c:1356
+#: src/sj-main.c:1021
 #, c-format
-msgid "Sound Juicer could not access the CD-ROM device '%s'"
-msgstr "Sound Juicer-ek ezin izan du '%s' CD-ROM gailua atzitu"
+msgid "Sound Juicer could not access the CD-ROM device ‘%s’"
+msgstr "Sound Juicer-ek ezin izan du ‘%s‘ CD-ROM gailua atzitu"
 
-#: ../src/sj-main.c:1455
+#: src/sj-main.c:1119
 msgid "No CD-ROM drives found"
 msgstr "Ez da CD-ROM unitaterik aurkitu"
 
-#: ../src/sj-main.c:1456
+#: src/sj-main.c:1120
 msgid "Sound Juicer could not find any CD-ROM drives to read."
 msgstr "Sound Juicer-ek ezin izan du CD-ROM unitaterik aurkitu irakurtzeko."
 
-#: ../src/sj-main.c:1489
+#: src/sj-main.c:1153
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Unean hautatutako audio profila ez dago eskuragarri zure sisteman."
 
-#: ../src/sj-main.c:1491
+#: src/sj-main.c:1155
 msgid "_Change Profile"
 msgstr "_Aldatu profila"
 
-#: ../src/sj-main.c:1879
+#: src/sj-main.c:1548
 msgid "Unknown widget calling on_person_edit_changed."
-msgstr ""
+msgstr "Dei ezezaguna trepetari 'on_person_edit_changed' egoeran."
 
-#: ../src/sj-main.c:1979 ../src/sj-prefs.c:127
+#: src/sj-main.c:1648 src/sj-prefs.c:117
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
 "%s"
-msgstr ""
-"Ezin izan da Sound Juicer-en laguntza erakutsi\n"
+msgstr "Ezin izan da Sound Juicer-en laguntza erakutsi\n"
 "%s"
 
-#: ../src/sj-main.c:2192 ../src/sj-play.c:301
-#, fuzzy
-msgid "_Pause"
-msgstr "Pausatu"
+#: src/sj-main.c:1707
+msgid "Retrieving track listing…please wait."
+msgstr "Pista-zerrenda lortzen…itxaron apur bat."
 
-#: ../src/sj-main.c:2270
+#: src/sj-main.c:1871 src/sj-play.c:300
+msgid "_Pause"
+msgstr "_Pausarazi"
+
+#: src/sj-main.c:1946
 msgid "Track"
 msgstr "Pista"
 
-#: ../src/sj-main.c:2284
-msgid "Composer"
-msgstr ""
+#: src/sj-main.c:1958
+msgid "Title"
+msgstr "Titulua"
 
-#: ../src/sj-main.c:2438
+#: src/sj-main.c:1959
+msgid "Artist"
+msgstr "Artista"
+
+#: src/sj-main.c:1960
+msgid "Composer"
+msgstr "Konpositorea"
+
+#: src/sj-main.c:1966
+msgid "Duration"
+msgstr "Iraupena"
+
+#: src/sj-main.c:2084
 msgid "Start extracting immediately"
 msgstr "Hasi erauzten berehala"
 
-#: ../src/sj-main.c:2439
+#: src/sj-main.c:2085
 msgid "Start playing immediately"
 msgstr "Hasi erreproduzitzen berehala"
 
-#: ../src/sj-main.c:2440
+#: src/sj-main.c:2086
 msgid "What CD device to read"
 msgstr "Zein CD gailu irakurri"
 
-#: ../src/sj-main.c:2440
+#: src/sj-main.c:2086
 msgid "DEVICE"
 msgstr "GAILUA"
 
-#: ../src/sj-main.c:2441
+#: src/sj-main.c:2087
 msgid "URI to the CD device to read"
 msgstr "CD gailuaren URIa irakurtzeko"
 
-#: ../src/sj-main.c:2453
-msgid "- Extract music from your CDs"
-msgstr "- Erauzi musika zure CD-etatik"
-
-#: ../src/sj-play.c:193 ../src/sj-play.c:417 ../src/sj-play.c:453
+#: src/sj-play.c:192 src/sj-play.c:416 src/sj-play.c:452
 #, c-format
 msgid ""
 "Error playing CD.\n"
 "\n"
 "Reason: %s"
-msgstr ""
-"Errorea CDa erreproduzitzean.\n"
+msgstr "Errorea CDa erreproduzitzean.\n"
 "\n"
 "Arrazoia: %s"
 
-#: ../src/sj-play.c:355
+#: src/sj-play.c:354
 #, c-format
 msgid "Failed to create CD source element"
 msgstr "Huts egin du CDaren iturburu-elementua sortzean"
 
-#: ../src/sj-play.c:593
+#: src/sj-play.c:592
 #, c-format
 msgid "Seeking to %s"
 msgstr "%s bilatzen"
 
-#: ../src/sj-prefs.c:51
+#: src/sj-prefs.c:48
 msgid "Album Artist, Album Title"
 msgstr "Albumaren artista, albumaren titulua"
 
-#: ../src/sj-prefs.c:52
+#: src/sj-prefs.c:49
 msgid "Album Artist (sortable), Album Title"
 msgstr "Albumaren artista (ordena daiteke), albumaren titulua"
 
-#: ../src/sj-prefs.c:53
+#: src/sj-prefs.c:50
 msgid "Track Artist, Album Title"
 msgstr "Pistaren artista, albumaren titulua"
 
-#: ../src/sj-prefs.c:54
+#: src/sj-prefs.c:51
 msgid "Track Artist (sortable), Album Title"
 msgstr "Pistaren artista (ordena daiteke), albumaren titulua"
 
-#: ../src/sj-prefs.c:55
+#: src/sj-prefs.c:52
 msgid "Album Title"
 msgstr "Albumaren titulua"
 
-#: ../src/sj-prefs.c:56
+#: src/sj-prefs.c:53
 msgid "Album Artist"
 msgstr "Albumaren artista"
 
-#: ../src/sj-prefs.c:57
+#: src/sj-prefs.c:54
 msgid "Album Artist (sortable)"
 msgstr "Albumaren artista (ordena daiteke)"
 
-#: ../src/sj-prefs.c:58
+#: src/sj-prefs.c:55
 msgid "Album Artist - Album Title"
 msgstr "Albumaren artista - Albumaren titulua"
 
-#: ../src/sj-prefs.c:59
+#: src/sj-prefs.c:56
 msgid "Album Artist (sortable) - Album Title"
 msgstr "Albumaren artista (ordena daiteke) - Albumaren titulua"
 
-#: ../src/sj-prefs.c:60
-#, fuzzy
+#: src/sj-prefs.c:57
 msgid "Album Composer, Album Title"
-msgstr "Albumaren artista, albumaren titulua"
+msgstr "Albumaren konpositorea, albumaren titulua"
 
-#: ../src/sj-prefs.c:61
-#, fuzzy
+#: src/sj-prefs.c:58
 msgid "Album Composer (sortable), Album Title"
-msgstr "Albumaren artista (ordena daiteke), albumaren titulua"
+msgstr "Albumaren konpositorea (ordena daiteke), albumaren titulua"
 
-#: ../src/sj-prefs.c:62
-#, fuzzy
+#: src/sj-prefs.c:59
 msgid "Track Composer, Album Title"
-msgstr "Pistaren artista, albumaren titulua"
+msgstr "Pistaren konpositorea, albumaren titulua"
 
-#: ../src/sj-prefs.c:63
-#, fuzzy
+#: src/sj-prefs.c:60
 msgid "Track Composer (sortable), Album Title"
-msgstr "Pistaren artista (ordena daiteke), albumaren titulua"
+msgstr "Pistaren konpositorea (ordena daiteke), albumaren titulua"
 
-#: ../src/sj-prefs.c:64
+#: src/sj-prefs.c:61
 msgid "[none]"
 msgstr "[bat ere ez]"
 
-#: ../src/sj-prefs.c:69
+#: src/sj-prefs.c:66
 msgid "Number - Title"
 msgstr "Zenbakia - Titulua"
 
-#: ../src/sj-prefs.c:70
+#: src/sj-prefs.c:67
 msgid "Track Title"
 msgstr "Pistaren titulua"
 
-#: ../src/sj-prefs.c:71
+#: src/sj-prefs.c:68
 msgid "Track Artist - Track Title"
 msgstr "Pistaren artista - Pistaren titulua"
 
-#: ../src/sj-prefs.c:72
+#: src/sj-prefs.c:69
 msgid "Track Artist (sortable) - Track Title"
 msgstr "Pistaren artista (ordena daiteke)- Pistaren titulua"
 
-#: ../src/sj-prefs.c:73
+#: src/sj-prefs.c:70
 msgid "Number. Track Artist - Track Title"
 msgstr "Zenbakia. Pistaren artista - Pistaren titulua"
 
 #. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
-#: ../src/sj-prefs.c:75
+#: src/sj-prefs.c:72
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Zenbakia-Pistaren artista-Pistaren titulua (letra-xehez)"
 
 #. {N_("Number-Track Artist (sortable)-Track Title (lowercase)"), "%tN-%tS-%tT"},
-#: ../src/sj-prefs.c:77
-#, fuzzy
+#: src/sj-prefs.c:74
 msgid "Track Composer - Track Artist - Track Title"
-msgstr "Zenbakia. Pistaren artista - Pistaren titulua"
+msgstr "Pistaren konpositorea - Pistaren artista - Pistaren titulua"
 
-#: ../src/sj-prefs.c:78
-#, fuzzy
+#: src/sj-prefs.c:75
 msgid "Track Composer (sortable) - Track Artist (sortable) - Track Title"
-msgstr "Pistaren artista (ordena daiteke)- Pistaren titulua"
+msgstr "Pistaren konpositorea (ordena daiteke)- Pistaren artista (ordena daiteke) - Pistaren titulua"
 
-#: ../src/sj-prefs.c:79
-#, fuzzy
+#: src/sj-prefs.c:76
 msgid "Number. Track Composer - Track Artist - Track Title"
-msgstr "Zenbakia. Pistaren artista - Pistaren titulua"
+msgstr "Zenbakia. Pistaren konpositorea - Pistaren artista - Pistaren titulua"
 
-#: ../src/sj-prefs.c:80
-#, fuzzy
+#: src/sj-prefs.c:77
 msgid "Number-Track Composer-Track Artist-Track Title (lowercase)"
-msgstr "Zenbakia-Pistaren artista-Pistaren titulua (letra-xehez)"
+msgstr "Zenbakia-Pistaren konpositorea-Pistaren artista-Pistaren titulua (letra-xehez)"
 
-#: ../src/sj-prefs.c:311
-#, fuzzy
+#: src/sj-prefs.c:252
 msgid "Example Path: "
-msgstr "Adibideko bide-izena"
+msgstr "Adibideko bide-izena: "
+
+#~ msgid "Sound Juicer Audio CD Extractor"
+#~ msgstr "Sound Juicer Audio CD erauzlea"
+
+#~ msgid "You can improve the MusicBrainz database by adding this album."
+#~ msgstr "MusicBrain-eko datu-basea hobetu dezakezu album hau gehituz."
+
+#~ msgid "Multiple Albums Found"
+#~ msgstr "Hainbat album aurkitu dira"
+
+#~ msgid "_Help"
+#~ msgstr "_Laguntza"
+
+#~ msgid "Submit Track Names"
+#~ msgstr "_Bidali abestien izenak..."
+
+#~ msgid "Audio Profile"
+#~ msgstr "Audio-profila"
+
+#~ msgid "The GStreamer Encoding Profile used for encoding audio"
+#~ msgstr "GNOMEren audio-profila, audioa kodetzeko"
+
+#~ msgid "Paranoia Level"
+#~ msgstr "Maila paranoikoa"
+
+#~ msgid "The paranoia level"
+#~ msgstr "Erabiliko den paranoia maila"
+
+#~ msgid "device"
+#~ msgstr "gailua"
+
+#~ msgid "The device"
+#~ msgstr "Gailua"
+
+#~ msgid "URI"
+#~ msgstr "URIa"
+
+#~ msgid "The URI of the audio file"
+#~ msgstr "Audioko fitxategiaren URIa"
+
+#~ msgid "The title of the current stream."
+#~ msgstr "Uneko korrontearen titulua."
+
+#~ msgid "The artist of the current stream."
+#~ msgstr "Uneko korrontearen artista."
+
+#~ msgid "Album"
+#~ msgstr "Albuma"
+
+#~ msgid "The album of the current stream."
+#~ msgstr "Uneko korrontearen albuma."
+
+#~ msgid "Position"
+#~ msgstr "Posizioa"
+
+#~ msgid "The position in the current stream in seconds."
+#~ msgstr "Posizioa uneko korrontean (segundotan)."
+
+#~ msgid "The duration of the current stream in seconds."
+#~ msgstr "Uneko korrontearen iraupena (segundotan)."
+
+#~ msgid "Could not find %s by %s on MusicBrainz."
+#~ msgstr ""
+#~ "Ezin izan da %2$s(r)en '%1$s' albuma aurkitu MusicBrainz zerbitzarian."
+
+#~ msgid "Albums"
+#~ msgstr "Albuma"
+
+#~ msgid "- Extract music from your CDs"
+#~ msgstr "- Erauzi musika zure CD-etatik"
 
 #~ msgid "_Play / Pause"
 #~ msgstr "_Erreproduzitu / Pausarazi"
 
-#~ msgid "_Next Track"
-#~ msgstr "_Hurrengo pista"
-
 #~ msgid "Skip to the next track"
 #~ msgstr "Saltatu hurrengo pistara"
-
-#~ msgid "Pre_vious Track"
-#~ msgstr "_Aurreko pista"
 
 #~ msgid "Skip to the previous track"
 #~ msgstr "Saltatu aurreko pistara"
