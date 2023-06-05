@@ -53,6 +53,7 @@
 #include "sj-play.h"
 #include "sj-genres.h"
 #include "sj-window-state.h"
+#include "sj-tree-view.h"
 
 gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data);
 
@@ -1811,7 +1812,7 @@ startup_cb (GApplication *app, gpointer user_data)
   g_action_map_add_action_entries (G_ACTION_MAP (app),
                                    app_entries, G_N_ELEMENTS (app_entries),
                                    NULL);
-
+  g_type_ensure (SJ_TYPE_TREE_VIEW);
   builder = gtk_builder_new_from_resource ("/org/gnome/sound-juicer/sound-juicer.ui");
 
   gtk_builder_connect_signals (builder, NULL);
