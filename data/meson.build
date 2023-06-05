@@ -1,12 +1,6 @@
 # Desktop file
 i18n.merge_file(
-  input: configure_file(
-    input: 'org.gnome.SoundJuicer.desktop.in.in',
-    output: 'org.gnome.SoundJuicer.desktop.in',
-    configuration: configuration_data({
-        'VERSION': meson.project_version(),
-    }),
-  ),
+  input: 'org.gnome.SoundJuicer.desktop.in',
   output: 'org.gnome.SoundJuicer.desktop',
   type: 'desktop',
   po_dir: po_dir,
