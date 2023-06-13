@@ -35,7 +35,6 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
 
-#include <brasero-volume.h>
 #include <canberra-gtk.h>
 
 #include "sj-error.h"
@@ -209,7 +208,6 @@ cleanup (void)
   /* We're not extracting any more */
   extracting = FALSE;
 
-  brasero_drive_unlock (sj_drive);
 
   gtk_application_uninhibit (GTK_APPLICATION (g_application_get_default ()),
                              cookie);
@@ -615,7 +613,7 @@ finished_actions (void)
 
   /* Maybe eject */
   if (eject_finished && successful_extract) {
-    brasero_drive_eject (sj_drive, FALSE, NULL);
+    udisks_drive_call_eject_sync (sj_drive, NULL, NULL, NULL);
   }
 
   /* Maybe open the target directory */
@@ -741,8 +739,6 @@ on_progress_cancel_clicked (GtkWidget *button, gpointer user_data)
 G_MODULE_EXPORT void
 on_extract_activate (GtkWidget *button, gpointer user_data)
 {
-  char *reason = NULL;
-
   /* first make sure we're not playing, we cannot share the resource */
   stop_playback ();
 
@@ -817,9 +813,8 @@ on_extract_activate (GtkWidget *button, gpointer user_data)
   g_object_set (G_OBJECT (artist_renderer), "editable", FALSE, NULL);
   g_signal_handlers_block_by_func (track_listview, on_tracklist_row_activate, NULL);
 
-  if (! brasero_drive_lock (sj_drive, _("Extracting audio from CD"), &reason)) {
-    g_warning ("Could not lock drive: %s", reason);
-    g_free (reason);
+  if (! udisks_drive_get_media_available (sj_drive)) {
+    g_warning ("Could not lock drive: media unavailable");
   }
 
   cookie = gtk_application_inhibit (GTK_APPLICATION (g_application_get_default ()),

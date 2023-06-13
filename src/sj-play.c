@@ -332,8 +332,10 @@ cb_source_setup (GstElement *playbin, GstElement *source, gpointer user_data)
     if (g_object_class_find_property (G_OBJECT_GET_CLASS (source), "paranoia-mode"))
       g_object_set (source, "paranoia-mode", 0, NULL);
 
+    g_autoptr (UDisksBlock) block = NULL;
+    block = sj_drive_manager_get_block_for_drive (drive_manager, sj_drive);
     g_object_set (G_OBJECT (source),
-                  "device", brasero_drive_get_device (sj_drive),
+                  "device", udisks_block_get_device (block),
                   NULL);
 }
 

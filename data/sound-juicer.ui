@@ -583,9 +583,15 @@ audio-volume-medium</property>
               </packing>
             </child>
             <child>
-              <object class="BraseroDriveSelection" id="cd_option">
+              <object class="GtkComboBox" id="cd_option">
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
+                <child>
+                  <object class="GtkCellRendererText"/>
+                  <attributes>
+                    <attribute name="text">1</attribute>
+                  </attributes>
+                </child>
               </object>
               <packing>
                 <property name="left-attach">1</property>

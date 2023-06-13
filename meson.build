@@ -57,13 +57,13 @@ deps = [
   dependency('gmodule-export-2.0'),
   dependency('libcanberra-gtk3'),
   dependency('gsettings-desktop-schemas'),
-  dependency('libbrasero-media3'),
   dependency('gstreamer-1.0'),
   dependency('gstreamer-plugins-base-1.0'),
   dependency('gstreamer-pbutils-1.0'),
   dependency('libmusicbrainz5', version: '>=5.0.1'),
   dependency('iso-codes'),
   dependency('libdiscid', version: '>=0.4.0'),
+  dependency('udisks2')
 ]
 
 gst_inspect = find_program('gst-inspect-1.0')

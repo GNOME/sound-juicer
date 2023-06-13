@@ -23,12 +23,8 @@
 #include <stdio.h>
 #include <gdesktop-enums.h>
 
-#ifndef USE_TOTEM_PL_PARSER
 #include <unistd.h>
-#include <brasero-medium-selection.h>
-#else
-#include <totem-disc.h>
-#endif /* USE_TOTEM_PL_PARSER */
+#include <udisks/udisks.h>
 
 #include "sj-metadata.h"
 #include "sj-error.h"
@@ -193,34 +189,46 @@ sj_metadata_helper_scan_disc_number (const char *album_title, int *disc_number)
   return new_title;
 }
 
+/**
+ * sj_metadata_helper_check_media:
+ * @cdrom: UNIX device path of the CD-ROM to check.
+ * @error: (nullable): Return location for setting error details.
+ *
+ * Checks whether the device @cdrom has media available or not.
+ *
+ * Returns: %TRUE if @cdrom is ready. If %FALSE, @error is set with additional
+ * detail.
+ */
 gboolean
 sj_metadata_helper_check_media (const char *cdrom, GError **error)
 {
-#ifndef USE_TOTEM_PL_PARSER
-  BraseroMediumMonitor *monitor;
-  BraseroMedium *medium;
-  BraseroDrive *drive;
+  GError *err = NULL;
+  g_autoptr (UDisksClient) client = NULL;
+  g_autoptr (UDisksObject) object = NULL;
+  g_autoptr (UDisksBlock) block = NULL;
+  g_autoptr (UDisksDrive) drive = NULL;
+  g_autofree gchar *basename;
+  g_autofree gchar *object_path;
 
-
-  /* This initialize the library if it isn't done yet */
-  monitor = brasero_medium_monitor_get_default ();
-  if (brasero_medium_monitor_is_probing (monitor)) {
-      /* FIXME: would be nicer to only check if "cdrom" is being probed,
-       * but libbrasero doesn't seem to have an API for that
-       */
-      g_set_error (error, SJ_ERROR, SJ_ERROR_CD_BUSY, _("Cannot read CD: %s"),
-                   _("Devices haven't been all probed yet"));
-      return FALSE;
-  }
-  drive = brasero_medium_monitor_get_drive (monitor, cdrom);
-  if (drive == NULL) {
+  g_assert_null (err);
+  client = udisks_client_new_sync (NULL, &err);
+  if (err != NULL) {
+    g_propagate_error (error, err);
     return FALSE;
   }
+  basename = g_path_get_basename (cdrom);
+  object_path = g_strjoin ("/", "/org/freedesktop/UDisks2/block_devices", basename, NULL);
+  object = udisks_client_get_object (client, object_path);
+  if (object == NULL) {
+    g_set_error (error, SJ_ERROR, SJ_ERROR_INTERNAL_ERROR, _("Cannot get device ‘%s’"), cdrom);
+    return FALSE;
+  }
+  block = udisks_object_get_block (object);
+  g_assert_nonnull (block);
+  drive = udisks_client_get_drive_for_block (client, block);
+  g_assert_nonnull (drive);
 
-  medium = brasero_drive_get_medium (drive);
-  g_object_unref (drive);
-
-  if (!medium || !BRASERO_MEDIUM_VALID (brasero_medium_get_status (medium))) {
+  if (!udisks_drive_get_media_available (drive)) {
     char *msg;
     SjError err;
 
@@ -236,18 +244,6 @@ sj_metadata_helper_check_media (const char *cdrom, GError **error)
 
     return FALSE;
   }
-#else
-  GError *totem_error = NULL;
-
-  totem_cd_detect_type (cdrom, &totem_error);
-
-  if (totem_error != NULL) {
-    g_set_error (error, SJ_ERROR, SJ_ERROR_CD_NO_MEDIA, _("Cannot read CD: %s"), totem_error->message);
-    g_error_free (totem_error);
-
-    return FALSE;
-  }
-#endif /* !USE_TOTEM_PL_PARSER */
 
   return TRUE;
 }

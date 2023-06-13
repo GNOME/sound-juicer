@@ -35,8 +35,7 @@
 #include <gdk/gdkkeysyms.h>
 #include <gio/gio.h>
 #include <gtk/gtk.h>
-#include <brasero-medium-selection.h>
-#include <brasero-volume.h>
+#include <udisks/udisks.h>
 #include <gst/gst.h>
 #include <gst/pbutils/encoding-profile.h>
 
@@ -55,6 +54,7 @@
 #include "sj-genres.h"
 #include "sj-window-state.h"
 #include "sj-tree-view.h"
+#include "sj-drive-manager.h"
 
 gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data);
 
@@ -90,7 +90,8 @@ GtkCellRenderer *toggle_renderer, *title_renderer, *artist_renderer, *composer_r
 
 char *sj_path_pattern, *sj_file_pattern;
 GFile *sj_base_uri;
-BraseroDrive *sj_drive = NULL;
+UDisksDrive *sj_drive = NULL;
+SjDriveManager *drive_manager = NULL;
 gboolean strip_chars;
 gboolean eject_finished;
 gboolean open_finished;
@@ -220,7 +221,7 @@ static void on_eject_activate (GSimpleAction *action, GVariant *parameter, gpoin
 {
   disc_ejected_cb ();
   eject_activated = TRUE;
-  brasero_drive_eject (sj_drive, FALSE, NULL);
+  udisks_drive_call_eject (sj_drive, NULL, NULL, NULL, NULL);
 }
 
 G_MODULE_EXPORT gboolean on_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data)
@@ -443,8 +444,10 @@ static void on_duplicate_activate (GSimpleAction *action, GVariant *parameter, g
 {
   GError *error = NULL;
   const gchar* device;
+  g_autoptr (UDisksBlock) block = NULL;
 
-  device = brasero_drive_get_device (sj_drive);
+  block = sj_drive_manager_get_block_for_drive (drive_manager, sj_drive);
+  device = udisks_block_get_device (block);
   if (!g_spawn_command_line_async (g_strconcat ("brasero -c ", device, NULL), &error)) {
       GtkWidget *dialog;
 
@@ -885,21 +888,9 @@ metadata_cb (GObject      *source,
 }
 
 static gboolean
-is_audio_cd (BraseroDrive *drive)
+is_audio_cd (UDisksDrive *drive)
 {
-  BraseroMedium *medium;
-  BraseroMedia type;
-
-  medium = brasero_drive_get_medium (drive);
-  if (medium == NULL) return FALSE;
-  type = brasero_medium_get_status (medium);
-  if (type == BRASERO_MEDIUM_UNSUPPORTED) {
-    g_warning ("Error getting media type\n");
-  }
-  if (type == BRASERO_MEDIUM_BUSY) {
-    g_warning ("BUSY getting media type, should re-check\n");
-  }
-  return BRASERO_MEDIUM_IS (type, BRASERO_MEDIUM_HAS_AUDIO|BRASERO_MEDIUM_CD);
+  return (udisks_drive_get_optical_num_audio_tracks (drive) > 0);
 }
 
 /**
@@ -940,24 +931,27 @@ static void reread_cd (void)
 }
 
 static void
-media_added_cb (BraseroMediumMonitor	*drive,
-		BraseroMedium		*medium,
-                gpointer           	 data)
+media_added_cb (SjDriveManager *manager,
+                UDisksDrive    *drive,
+                gpointer        data)
 {
   if (extracting == TRUE) {
     /* FIXME: recover? */
   }
 
-  sj_debug (DEBUG_CD, "Media added to device %s\n", brasero_drive_get_device (brasero_medium_get_drive (medium)));
+  g_autoptr (UDisksBlock) block = sj_drive_manager_get_block_for_drive (manager, drive);
+  g_assert_nonnull (block);
+
+  sj_debug (DEBUG_CD, "Media added to device %s\n", udisks_block_get_device (block));
   /* Don't call re-read if metadata is already being retreived */
   if (!reading_cd)
     reread_cd ();
 }
 
 static void
-media_removed_cb (BraseroMediumMonitor	*drive,
-		  BraseroMedium		*medium,
-                  gpointer           data)
+media_removed_cb (SjDriveManager *manager,
+                  UDisksDrive    *drive,
+                  gpointer        data)
 {
   if (extracting == TRUE) {
     /* FIXME: recover? */
@@ -968,14 +962,15 @@ media_removed_cb (BraseroMediumMonitor	*drive,
   else
     eject_activated = FALSE;
 
-  sj_debug (DEBUG_CD, "Media removed from device %s\n", brasero_drive_get_device (brasero_medium_get_drive (medium)));
+  g_autoptr (UDisksBlock) block = sj_drive_manager_get_block_for_drive (manager, drive);
+  g_assert_nonnull (block);
+
+  sj_debug (DEBUG_CD, "Media removed from device %s\n", udisks_block_get_device (block));
 }
 
 static void
 set_drive_from_device (const char *device)
 {
-  BraseroMediumMonitor *monitor;
-
   if (sj_drive) {
     g_object_unref (sj_drive);
     sj_drive = NULL;
@@ -984,8 +979,7 @@ set_drive_from_device (const char *device)
   if (! device)
     return;
 
-  monitor = brasero_medium_monitor_get_default ();
-  sj_drive = brasero_medium_monitor_get_drive (monitor, device);
+  sj_drive = sj_drive_manager_get_drive_for_device (drive_manager, device);
   if (!sj_drive) {
     GtkWidget *dialog;
     char *message;
@@ -1003,15 +997,13 @@ set_drive_from_device (const char *device)
     return;
   }
 
-  g_signal_connect (monitor, "medium-added", G_CALLBACK (media_added_cb), NULL);
-  g_signal_connect (monitor, "medium-removed", G_CALLBACK (media_removed_cb), NULL);
+  g_signal_connect (drive_manager, "media-added", G_CALLBACK (media_added_cb), NULL);
+  g_signal_connect (drive_manager, "media-removed", G_CALLBACK (media_removed_cb), NULL);
 }
 
 static void
 set_device (const char* device)
 {
-  gboolean tray_opened;
-
   if (device == NULL) {
     set_drive_from_device (device);
   } else if (access (device, R_OK) != 0) {
@@ -1042,58 +1034,58 @@ set_device (const char* device)
     set_drive_from_device (device);
   }
 
-  sj_metadata_getter_set_cdrom (metadata, device);
-  sj_extractor_set_device (sj_extractor, device);
 
   if (sj_drive != NULL) {
-    tray_opened = brasero_drive_is_door_open (sj_drive);
-    if (tray_opened == FALSE) {
+    sj_metadata_getter_set_cdrom (metadata, device);
+    sj_extractor_set_device (sj_extractor, device);
+    if (udisks_drive_get_media_available (sj_drive)) {
       reread_cd ();
     }
 
     /* Enable/disable the eject options based on wether the drive supports ejection */
-    set_action_enabled ("eject", brasero_drive_can_eject (sj_drive));
+    set_action_enabled ("eject", udisks_drive_get_ejectable (sj_drive));
   }
 }
 
+/**
+ * cd_drive_exists:
+ * @device: A device path to check.
+ *
+ * Checks whether @device is a block device or not.
+ *
+ * Returns: %TRUE if @device is detected and is a block device. %FALSE otherwise.
+ */
 gboolean cd_drive_exists (const char *device)
 {
-  BraseroMediumMonitor *monitor;
-  BraseroDrive *drive;
-  gboolean exists;
-
-  if (device == NULL)
+  g_assert_nonnull (device);
+  if (g_strcmp0 (device, "") == 0)
     return FALSE;
 
-  monitor = brasero_medium_monitor_get_default ();
-  drive = brasero_medium_monitor_get_drive (monitor, device);
-  exists = (drive != NULL);
-  if (exists)
-    g_object_unref (drive);
-
-  return exists;
+  return sj_drive_manager_get_block_for_device (drive_manager, device) != NULL;
 }
 
+/**
+ * prefs_get_default_device:
+ * Scans the list of detected block devices and picks the first optical drive
+ * detected. Stores the device path in a static variable, so the scan is only
+ * performed once.
+ *
+ *
+ * Returns: (transfer none): A device path of an optical drive.
+ */
 const char *
 prefs_get_default_device (void)
 {
   static const char * default_device = NULL;
 
   if (default_device == NULL) {
-    BraseroMediumMonitor *monitor;
-
-    BraseroDrive *drive;
-    GSList *drives;
-
-    monitor = brasero_medium_monitor_get_default ();
-    drives = brasero_medium_monitor_get_drives (monitor, BRASERO_DRIVE_TYPE_ALL);
-    if (drives == NULL)
-      return NULL;
-
-    drive = drives->data;
-    default_device = brasero_drive_get_device (drive);
-
-    g_slist_free_full (drives, g_object_unref);
+    GList *drives = sj_drive_manager_get_drives (drive_manager);
+    if (drives) {
+      UDisksDrive *drive = UDISKS_DRIVE (drives->data);
+      g_autoptr (UDisksBlock) block = sj_drive_manager_get_block_for_drive (drive_manager, drive);
+      g_assert_nonnull (block);
+      default_device = udisks_block_dup_device (block);
+    }
   }
   return default_device;
 }
@@ -1110,21 +1102,6 @@ static void device_changed_cb (GSettings *settings, const gchar *key, gpointer u
   value = g_settings_get_string (settings, key);
   if (!cd_drive_exists (value)) {
     device = prefs_get_default_device();
-    if (device == NULL) {
-#ifndef IGNORE_MISSING_CD
-      GtkWidget *dialog;
-      dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (main_window),
-                                                   GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                   GTK_MESSAGE_ERROR,
-                                                   GTK_BUTTONS_CLOSE,
-                                                   "<b>%s</b>\n\n%s",
-                                                   _("No CD-ROM drives found"),
-                                                   _("Sound Juicer could not find any CD-ROM drives to read."));
-      gtk_dialog_run (GTK_DIALOG (dialog));
-      gtk_widget_destroy (dialog);
-      exit (1);
-#endif
-    }
   } else {
     device = value;
   }
@@ -1666,8 +1643,7 @@ static gboolean
 is_cd_duplication_available(void)
 {
   gchar *brasero_cd_burner, *cdrdao;
-  BraseroMediumMonitor *monitor;
-  GSList *drives, *iter;
+  GList *objects = NULL;
 
   /* First check the brasero tool is available in the path */
   brasero_cd_burner = g_find_program_in_path ("brasero");
@@ -1684,20 +1660,14 @@ is_cd_duplication_available(void)
   g_free(cdrdao);
 
   /* Now check that there is at least one cd recorder available */
-  monitor = brasero_medium_monitor_get_default ();
-  drives = brasero_medium_monitor_get_drives (monitor, BRASERO_DRIVE_TYPE_ALL);
+  objects = sj_drive_manager_get_drives (drive_manager);
 
-  for (iter = drives; iter; iter = iter->next) {
-    BraseroDrive *drive;
-
-    drive = iter->data;
-    if (brasero_drive_can_write (drive)) {
-      g_slist_free_full (drives, g_object_unref);
+  for (GList *elem = objects; elem != NULL; elem = elem->next) {
+    UDisksDrive *drive = UDISKS_DRIVE (elem->data);
+    if (sj_drive_manager_drive_has_media_compatibility (drive_manager, drive, "optical_cd_rw")) {
       return TRUE;
     }
   }
-
-  g_slist_free_full (drives, g_object_unref);
   return FALSE;
 }
 
@@ -1783,9 +1753,12 @@ startup_cb (GApplication *app, gpointer user_data)
 
   gtk_window_set_default_icon_name ("sound-juicer");
 
-  brasero_media_library_start ();
-
   metadata = sj_metadata_getter_new ();
+
+  drive_manager = sj_drive_manager_new_sync (NULL, &error);
+  if (error != NULL) {
+    g_error ("cannot create drive manager: %s", error->message);
+  }
 
   sj_settings = g_settings_new ("org.gnome.sound-juicer");
 
@@ -2064,7 +2037,6 @@ shutdown_cb (GApplication *app, gpointer user_data)
   g_object_unref (metadata);
   g_object_unref (sj_extractor);
   g_object_unref (sj_settings);
-  brasero_media_library_stop ();
 }
 
 static void
@@ -2121,7 +2093,6 @@ int main (int argc, char **argv)
   g_application_set_resource_base_path (G_APPLICATION (app), "/org/gnome/sound-juicer");
   g_application_add_main_option_entries (G_APPLICATION (app), entries);
   g_application_add_option_group (G_APPLICATION (app), gst_init_get_option_group ());
-  g_application_add_option_group (G_APPLICATION (app), brasero_media_get_option_group ());
 
   g_object_set (app, "register-session", TRUE, NULL);
   g_signal_connect (app, "startup", G_CALLBACK (startup_cb), NULL);

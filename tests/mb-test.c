@@ -1,6 +1,6 @@
 #include "config.h"
 #include <locale.h>
-#include <brasero-medium-monitor.h>
+#include <udisks/udisks.h>
 #include <glib.h>
 #include <stdlib.h>
 #include "sj-structures.h"
@@ -111,16 +111,15 @@ int main (int argc, char** argv)
 {
   SjMetadataGetter *metadata;
   GMainLoop *loop;
-  BraseroMediumMonitor *monitor;
+  g_autoptr (UDisksClient) client;
 
   setlocale (LC_ALL, "");
   gst_init (&argc, &argv);
 
   /* Make sure probing of the various media have settled before going on */
-  monitor = brasero_medium_monitor_get_default ();
-  while (brasero_medium_monitor_is_probing (monitor))
-      g_usleep (G_USEC_PER_SEC/10);
-  g_object_unref (G_OBJECT (monitor));
+  client = udisks_client_new_sync (NULL, NULL);
+  g_assert_nonnull (client);
+  udisks_client_settle (client);
 
 
   metadata = sj_metadata_getter_new ();

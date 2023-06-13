@@ -28,12 +28,12 @@
 #include <string.h>
 #include <gst/pbutils/encoding-profile.h>
 #include <gtk/gtk.h>
-#include <brasero-drive-selection.h>
 
 #include "rb-gst-media-types.h"
 #include "sj-util.h"
 #include "sj-extracting.h"
 #include "sj-prefs.h"
+#include "sj-drive-manager.h"
 
 static GtkWidget *profile_option;
 static GtkWidget *cd_option, *path_option, *file_option, *basepath_fcb, *check_strip, *check_eject, *check_open;
@@ -274,44 +274,46 @@ static void settings_changed_cb (GSettings *settings, const gchar *key, gpointer
   pattern_label_update ();
 }
 
-#ifndef BraseroMediumMonitor_autoptr
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(BraseroMediumMonitor, g_object_unref)
-#endif
-#ifndef BraseroDrive_autoptr
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(BraseroDrive, g_object_unref)
-#endif
-
 /**
  * Default device changed (either GSettings key or the widget)
  */
 static void device_changed_cb (GSettings *settings, const gchar *key, gpointer user_data)
 {
-  g_autoptr(BraseroMediumMonitor) monitor = NULL;
   g_autofree char *value = NULL;
 
   g_return_if_fail (strcmp (key, SJ_SETTINGS_DEVICE) == 0);
 
-  monitor = brasero_medium_monitor_get_default ();
   value = g_settings_get_string (settings, key);
   if ((value != NULL) && (*value != '\0')) {
-    g_autoptr(BraseroDrive) drive = NULL;
-    drive = brasero_medium_monitor_get_drive (monitor, value);
-    brasero_drive_selection_set_active (BRASERO_DRIVE_SELECTION (cd_option), drive);
+    g_autoptr (UDisksDrive) drive = sj_drive_manager_get_drive_for_device (drive_manager, value);
+    if (drive) {
+      g_debug ("selecting %s as combo box active id", udisks_drive_get_id (drive));
+      gtk_combo_box_set_active_id (GTK_COMBO_BOX (cd_option), udisks_drive_get_id (drive));
+    }
   } else {
-    GSList *drives;
-    drives = brasero_medium_monitor_get_drives (monitor, BRASERO_DRIVE_TYPE_ALL_BUT_FILE);
-    if (drives != NULL)
-      brasero_drive_selection_set_active (BRASERO_DRIVE_SELECTION (cd_option), drives->data);
-    g_slist_free_full (drives, (GDestroyNotify) g_object_unref);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (cd_option), -1);
   }
 }
 
-static void prefs_drive_changed (BraseroDriveSelection *selection, BraseroDrive *drive, gpointer user_data)
+static void prefs_drive_changed (GtkComboBox *combo_box, gpointer user_data)
 {
-  if (drive)
-    g_settings_set_string (sj_settings, SJ_SETTINGS_DEVICE, brasero_drive_get_device (drive));
-  else
-    g_settings_set_string (sj_settings, SJ_SETTINGS_DEVICE, NULL);
+  GtkTreeModel *model = gtk_combo_box_get_model (combo_box);
+  guint active_index = gtk_combo_box_get_active (combo_box);
+  const gchar *device = "";
+  g_autoptr (GtkTreePath) path = gtk_tree_path_new_from_indices (active_index, -1);
+  GtkTreeIter iter;
+  g_autoptr (UDisksDrive) drive = NULL;
+  g_autoptr (UDisksBlock) block = NULL;
+
+  if (gtk_tree_path_get_depth (path) > 0) {
+    gtk_tree_model_get_iter (model, &iter, path);
+    gtk_tree_model_get (model, &iter, 2, &drive, -1);
+    block = sj_drive_manager_get_block_for_drive (drive_manager, drive);
+
+    if (block)
+      device = udisks_block_get_device (block);
+  }
+  g_settings_set_string (sj_settings, SJ_SETTINGS_DEVICE, device);
 }
 
 /**
@@ -375,6 +377,25 @@ static void populate_profile_combo (GtkComboBox *combo)
   g_object_unref (model);
 }
 
+static void
+drive_added_removed_handler (SjDriveManager *manager,
+                             UDisksDrive    *drive,
+                             gpointer        user_data)
+{
+  GtkListStore *store = GTK_LIST_STORE (user_data);
+  GtkTreeIter iter;
+  g_autoptr (GList) objects = sj_drive_manager_get_drives (manager);
+
+  gtk_list_store_clear (store);
+  for (GList *elem = objects; elem != NULL; elem = elem->next) {
+    UDisksDrive *drive = UDISKS_DRIVE (elem->data);
+    if (drive) {
+      gtk_list_store_append (store, &iter);
+      gtk_list_store_set (store, &iter, 0, udisks_drive_get_id (drive), 1, udisks_drive_get_model (drive), 2, drive, -1);
+    }
+  }
+}
+
 /**
  * Clicked on Preferences in the UI
  */
@@ -422,7 +443,14 @@ void show_preferences_dialog (void)
     populate_profile_combo (GTK_COMBO_BOX (profile_option));
     g_signal_connect (profile_option, "changed", G_CALLBACK (prefs_profile_changed), NULL);
 
-    g_signal_connect (cd_option, "drive-changed", G_CALLBACK (prefs_drive_changed), NULL);
+    /* Create a list store and insert all detected drives. */
+    GtkListStore *model = gtk_list_store_new (3, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_OBJECT);
+    drive_added_removed_handler (drive_manager, NULL, model);
+    gtk_combo_box_set_model (GTK_COMBO_BOX (cd_option), GTK_TREE_MODEL (model));
+    gtk_combo_box_set_id_column (GTK_COMBO_BOX (cd_option), 0);
+    g_signal_connect (drive_manager, "drive-added", G_CALLBACK (drive_added_removed_handler), model);
+    g_signal_connect (drive_manager, "drive-removed", G_CALLBACK (drive_added_removed_handler), model);
+    g_signal_connect (cd_option, "changed", G_CALLBACK (prefs_drive_changed), NULL);
 
     /* Connect to GSettings to update the UI */
     g_settings_bind (sj_settings, SJ_SETTINGS_EJECT, G_OBJECT (check_eject), "active", G_SETTINGS_BIND_DEFAULT);

@@ -3,6 +3,7 @@ sources = [
     'egg-play-preview.c',
     'sj-about.c',
     'sj-cell-renderer-text.c',
+    'sj-drive-manager.c',
     'sj-extracting.c',
     'sj-genres.c',
     'sj-main.c',

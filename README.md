@@ -9,7 +9,7 @@ This is Sound Juicer, a CD ripping tool using GTK+ and GStreamer.
 
 Requirements:
 
-- GNOME 3.22 Platform (GTK, libbrasero-media, gnome-media-profiles, etc.)
+- GNOME 3.22 Platform (GTK, gnome-media-profiles, etc.)
 - GStreamer 1.0 and above
 
 If the CD lookup is returning weird data, export `G_MESSAGES_DEBUG=sj-metadata`

@@ -19,10 +19,14 @@
         "--socket=pulseaudio",
         /* Browse user's Music directory */
         "--filesystem=xdg-music",
+        /* Access to gvfs socket */
+        "--filesystem=xdg-run/gvfsd",
         /* Migrate DConf settings from the host */
         "--metadata=X-DConf=migrate-path=/org/gnome/sound-juicer/",
         /* optical media detection */
         "--talk-name=org.gtk.vfs", "--talk-name=org.gtk.vfs.*",
+        "--system-talk-name=org.freedesktop.UDisks2",
+        "--system-talk-name=org.freedesktop.UDisks2.*",
         /* Ensure cdda gstreamer plugin is picked found for audio CD's */
         "--env=GST_PLUGIN_PATH=/app/lib/codecs/lib/gstreamer-1.0"
     ],
@@ -80,10 +84,12 @@
                 "-Dgst-plugins-base:vorbis=enabled",
                 "-Dgst-plugins-base:opus=enabled",
                 "-Dgst-plugins-base:encoding=enabled",
+                "-Dgst-plugins-base:gio=enabled",
                 "-Dgst-plugins-good:taglib=enabled",
                 "-Dgst-plugins-good:lame=enabled",
                 "-Dgst-plugins-good:isomp4=enabled",
                 "-Dgst-plugins-good:flac=enabled",
+                "-Dgst-plugins-good:wavenc=enabled",
                 "-Dgst-plugins-bad:fdkaac=enabled",
                 "-Dgst-plugins-ugly:xingmux=enabled",
                 "-Dpython=disabled",
@@ -157,7 +163,7 @@
                 }
             ]
         },
-        /* libbrasero-media is required for optical disc enumeration */
+        /* intltool is required to build udisks */
         {
             "name": "intltool",
             "cleanup": [ "*" ],
@@ -166,6 +172,70 @@
                     "type": "archive",
                     "url": "https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz",
                     "sha256": "67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd"
+                }
+            ]
+        },
+        /* pam is required to build udisks */
+        {
+            "name": "pam",
+            "config-opts": [
+                "--includedir=/app/include/security",
+                "--disable-doc"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/linux-pam/linux-pam/releases/download/v1.4.0/Linux-PAM-1.4.0.tar.xz",
+                    "sha256": "cd6d928c51e64139be3bdb38692c68183a509b83d4f2c221024ccd4bcddfd034"
+                }
+            ]
+        },
+        /* polkit is required to build udisks */
+        {
+            "name": "polkit",
+            "config-opts": [
+                "--disable-polkitd",
+                "--enable-libelogind=no",
+                "--enable-libsystemd-login=no",
+                "--disable-introspection",
+                "--disable-man-pages",
+                "--disable-test",
+                "--with-systemdsystemunitdir=no"
+            ],
+            "rm-configure": true,
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://www.freedesktop.org/software/polkit/releases/polkit-0.116.tar.gz",
+                    "sha256": "88170c9e711e8db305a12fdb8234fac5706c61969b94e084d0f117d8ec5d34b1"
+                },
+                {
+                    "type": "patch",
+                    "path": "polkit-build-Add-option-to-build-without-polkitd.patch"
+                },
+                {
+                    "type": "file",
+                    "path": "polkit-autogen",
+                    "dest-filename": "autogen.sh"
+                }
+            ]
+        },
+        /* udisks is required to enumerate optical disks */
+        {
+            "name": "udisks2",
+            "buildsystem": "autotools",
+            "config-opts": [
+                "--enable-btrfs=no",
+                "--enable-introspection=no",
+                "--enable-lvm2=no",
+                "--enable-daemon=no",
+                "--with-systemdsystemunitdir=no",
+                "--with-tmpfilesdir=no"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/storaged-project/udisks.git"
                 }
             ]
         },
@@ -205,18 +275,9 @@
             ]
         },
         {
-            "name": "libbrasero",
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/gnome/sources/brasero/3.12/brasero-3.12.2.tar.xz",
-                    "sha256": "6822166f9d08efcf8d900cab6f563e87f49f0e078ca10595dcd908498ef12041"
-                }
-            ]
-        },
-        {
             "name": "sound-juicer",
             "buildsystem": "meson",
+            "builddir": true,
             "sources": [
                 {
                     "type": "git",

@@ -23,10 +23,11 @@
 #define SOUND_JUICER_H
 
 #include <glib/gi18n.h>
-#include <brasero-medium-selection.h>
+#include <udisks/udisks.h>
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 #include "sj-extractor.h"
+#include "sj-drive-manager.h"
 
 /**
  * A GSettings object
@@ -89,9 +90,14 @@ typedef enum {
 extern GtkListStore *track_store;
 
 /**
+ * The drive manager for monitoring device changes.
+ */
+extern SjDriveManager *drive_manager;
+
+/**
  * The device we are extracting from.
  */
-extern BraseroDrive *sj_drive;
+extern UDisksDrive *sj_drive;
 
 /**
  * The root path to write files too
