@@ -39,6 +39,7 @@ c_flags = [
   '-DLIBDIR="@0@"'.format(sound_juicer_libdir),
   '-DPKGDATADIR="@0@"'.format(join_paths(sound_juicer_datadir, meson.project_name())),
   '-DHAVE_CONFIG_H',
+  '-Wl,--export-dynamic'
 ]
 
 if not get_option('enable-deprecations')

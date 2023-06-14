@@ -46,6 +46,7 @@
 #include "sj-metadata.h"
 #include "sj-metadata-getter.h"
 #include "sj-extractor.h"
+#include "sj-extracting.h"
 #include "sj-structures.h"
 #include "sj-error.h"
 #include "sj-util.h"
@@ -1815,6 +1816,25 @@ startup_cb (GApplication *app, gpointer user_data)
   g_type_ensure (SJ_TYPE_TREE_VIEW);
   builder = gtk_builder_new_from_resource ("/org/gnome/sound-juicer/sound-juicer.ui");
 
+  gtk_builder_add_callback_symbols (builder,
+                                    "prefs_base_folder_changed", G_CALLBACK (prefs_base_folder_changed),
+                                    "on_delete_event", G_CALLBACK (on_delete_event),
+                                    "on_volume_changed", G_CALLBACK (on_volume_changed),
+                                    "on_seek_press", G_CALLBACK (on_seek_press),
+                                    "on_seek_moved", G_CALLBACK (on_seek_moved),
+                                    "on_seek_release", G_CALLBACK (on_seek_release),
+                                    "on_tracklist_row_selected", G_CALLBACK (on_tracklist_row_selected),
+                                    "on_tracklist_row_activate", G_CALLBACK (on_tracklist_row_activate),
+                                    "on_activate_move_focus", G_CALLBACK (on_activate_move_focus),
+                                    "on_person_edit_changed", G_CALLBACK (on_person_edit_changed),
+                                    "on_activate_move_focus", G_CALLBACK (on_activate_move_focus),
+                                    "on_title_edit_changed", G_CALLBACK (on_title_edit_changed),
+                                    "on_disc_number_edit_changed", G_CALLBACK (on_disc_number_edit_changed),
+                                    "on_year_edit_changed", G_CALLBACK (on_year_edit_changed),
+                                    "on_genre_edit_changed", G_CALLBACK (on_genre_edit_changed),
+                                    "submit_bar_response_cb", G_CALLBACK (submit_bar_response_cb),
+                                    "on_extract_activate", G_CALLBACK (on_extract_activate),
+                                    NULL);
   gtk_builder_connect_signals (builder, NULL);
 
   main_window           = GET_WIDGET ("main_window");
