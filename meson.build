@@ -1,5 +1,5 @@
 project('sound-juicer', 'c',
-  version: '3.38.0',
+  version: '3.40.0',
   meson_version: '>= 0.57.0',
 )
 
