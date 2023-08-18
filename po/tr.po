@@ -6,14 +6,15 @@
 # Baris Cicek <baris@teamforce.name.tr>, 2005, 2007, 2009.
 # Muhammet Kara <muhammet.k@gmail.com>, 2011.
 # İşbaran Akçayır <isbaran@gmail.com>, 2015.
-# Emin Tufan Çetin <etcetin@gmail.com>, 2018, 2020.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2018, 2020, 2023.
+# Sabri Ünal <libreajans@gmail.com>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: sound-juicer\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/sound-juicer/issues\n"
-"POT-Creation-Date: 2023-04-09 05:52+0000\n"
-"PO-Revision-Date: 2023-05-27 00:18+0300\n"
+"POT-Creation-Date: 2023-07-11 09:20+0000\n"
+"PO-Revision-Date: 2023-08-06 18:12+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -25,8 +26,8 @@ msgstr ""
 "X-POOTLE-MTIME: 1426261823.000000\n"
 
 #: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:7
-#: data/org.gnome.SoundJuicer.desktop.in.in:3 data/sound-juicer.ui:13
-#: src/sj-main.c:129 src/sj-main.c:131 src/sj-main.c:2096
+#: data/org.gnome.SoundJuicer.desktop.in:3 data/sound-juicer.ui:13
+#: src/sj-main.c:132 src/sj-main.c:134 src/sj-main.c:2089
 msgid "Sound Juicer"
 msgstr "Ses Sıkıcı"
 
@@ -61,19 +62,19 @@ msgstr ""
 
 #. This is a translatable version of project_group
 #: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:36
-msgid "The GNOME Project"
-msgstr "GNOME Projesi"
+msgid "Link Dupont"
+msgstr "Link Dupont"
 
-#: data/org.gnome.SoundJuicer.desktop.in.in:4
+#: data/org.gnome.SoundJuicer.desktop.in:4
 msgid "Audio CD Extractor"
 msgstr "Ses CDʼsi Aktarıcı"
 
-#: data/org.gnome.SoundJuicer.desktop.in.in:5
+#: data/org.gnome.SoundJuicer.desktop.in:5
 msgid "Copy music from your CDs"
 msgstr "Müzik CDʼlerinizi kopyalayın"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.SoundJuicer.desktop.in.in:7
+#: data/org.gnome.SoundJuicer.desktop.in:7
 msgid "Ripper;"
 msgstr "Sökücü;Kopyalayıcı;"
 
@@ -307,12 +308,12 @@ msgstr "Süre:"
 msgid "Tracks"
 msgstr "Parçalar"
 
-#: data/sound-juicer.ui:410 src/sj-main.c:1864 src/sj-play.c:120
-#: src/sj-play.c:258 src/sj-play.c:621
+#: data/sound-juicer.ui:410 src/sj-main.c:1858 src/sj-play.c:120
+#: src/sj-play.c:258 src/sj-play.c:623
 msgid "_Play"
 msgstr "_Çal"
 
-#: data/sound-juicer.ui:420 src/sj-extracting.c:232 src/sj-main.c:1888
+#: data/sound-juicer.ui:420 src/sj-extracting.c:230 src/sj-main.c:1882
 msgid "E_xtract"
 msgstr "A_ktar"
 
@@ -320,7 +321,7 @@ msgstr "A_ktar"
 msgid "Track Progress"
 msgstr "Parça İşleme Durumu"
 
-#: data/sound-juicer.ui:541 data/sound-juicer.ui:854
+#: data/sound-juicer.ui:541 data/sound-juicer.ui:860
 msgid "Preferences"
 msgstr "Tercihler"
 
@@ -332,79 +333,79 @@ msgstr "Aygıt"
 msgid "CD _drive:"
 msgstr "CD _sürücü:"
 
-#: data/sound-juicer.ui:597
+#: data/sound-juicer.ui:603
 msgid "_Eject after extracting tracks"
 msgstr "_Parçaları aktardıktan sonra diski çıkart"
 
-#: data/sound-juicer.ui:612
+#: data/sound-juicer.ui:618
 msgid "_Open music folder when finished"
 msgstr "_Bittiğinde müzik dizinini aç"
 
-#: data/sound-juicer.ui:630
+#: data/sound-juicer.ui:636
 msgid "Music Folder"
 msgstr "Müzik Klasörü"
 
-#: data/sound-juicer.ui:646
+#: data/sound-juicer.ui:652
 msgid "_Folder:"
 msgstr "_Dizin:"
 
-#: data/sound-juicer.ui:662
+#: data/sound-juicer.ui:668
 msgid "Select A Folder"
 msgstr "Dizin Seç"
 
-#: data/sound-juicer.ui:675
+#: data/sound-juicer.ui:681
 msgid "Track Names"
 msgstr "Parça Adları"
 
-#: data/sound-juicer.ui:691
+#: data/sound-juicer.ui:697
 msgid "Folder hie_rarchy:"
 msgstr "Dizin sı_radüzeni:"
 
-#: data/sound-juicer.ui:722
+#: data/sound-juicer.ui:728
 msgid "File _name:"
 msgstr "Dosya _adı:"
 
-#: data/sound-juicer.ui:750
+#: data/sound-juicer.ui:756
 msgid "_Strip special characters"
 msgstr "Özel karakterleri _sil"
 
-#: data/sound-juicer.ui:781
+#: data/sound-juicer.ui:787
 msgid "Format"
 msgstr "Biçim"
 
-#: data/sound-juicer.ui:797
+#: data/sound-juicer.ui:803
 msgid "O_utput Format:"
 msgstr "Çı_ktı Biçimi:"
 
-#: data/sound-juicer.ui:831
+#: data/sound-juicer.ui:837
 msgid "Re-read"
 msgstr "Yeniden oku"
 
-#: data/sound-juicer.ui:836
+#: data/sound-juicer.ui:842
 msgid "Duplicate"
 msgstr "Çiftle"
 
-#: data/sound-juicer.ui:840
+#: data/sound-juicer.ui:846
 msgid "Eject"
 msgstr "Çıkart"
 
-#: data/sound-juicer.ui:847
+#: data/sound-juicer.ui:853
 msgid "Open MusicBrainz"
 msgstr "MusicBrainzʼi Aç"
 
-#: data/sound-juicer.ui:860
+#: data/sound-juicer.ui:866
 msgid "Shortcuts"
 msgstr "Kısayollar"
 
-#: data/sound-juicer.ui:864
+#: data/sound-juicer.ui:870
 msgid "Help"
 msgstr "Yardım"
 
-#: data/sound-juicer.ui:869
+#: data/sound-juicer.ui:875
 msgid "About Sound Juicer"
 msgstr "Ses Sıkıcı Hakkında"
 
-#: data/sound-juicer.ui:873
+#: data/sound-juicer.ui:879
 msgid "Quit"
 msgstr "Çık"
 
@@ -448,55 +449,52 @@ msgstr "CD erişimi için gerekli eklenti bulunamadı"
 msgid "The plugin necessary for file access was not found"
 msgstr "Dosya erişimi için gerekli eklenti bulunamadı"
 
-#. FIXME: would be nicer to only check if "cdrom" is being probed,
-#. * but libbrasero doesn't seem to have an API for that
-#.
-#: libjuicer/sj-metadata.c:211 libjuicer/sj-metadata.c:234
-#: libjuicer/sj-metadata.c:245
+#: libjuicer/sj-metadata.c:223
 #, c-format
-msgid "Cannot read CD: %s"
-msgstr "CD okunamıyor: %s"
+msgid "Cannot get device ‘%s’"
+msgstr "‘%s’ aygıtı alınamadı"
 
-#: libjuicer/sj-metadata.c:212
-msgid "Devices haven't been all probed yet"
-msgstr "Aygıtlar henüz tümüyle soruşturulmadı"
-
-#: libjuicer/sj-metadata.c:228
+#: libjuicer/sj-metadata.c:236
 #, c-format
 msgid "Device ‘%s’ does not contain any media"
 msgstr "‘%s’ aygıtında herhangi bir ortam yok"
 
-#: libjuicer/sj-metadata.c:231
+#: libjuicer/sj-metadata.c:239
 #, c-format
 msgid ""
 "Device ‘%s’ could not be opened. Check the access permissions on the device."
 msgstr "‘%s’ aygıtı açılamadı. Aygıtın erişim izinlerini gözden geçirin."
 
-#: libjuicer/sj-metadata.c:373
+#: libjuicer/sj-metadata.c:242
+#, c-format
+msgid "Cannot read CD: %s"
+msgstr "CD okunamıyor: %s"
+
+#: libjuicer/sj-metadata.c:369
 msgid "Czechoslovakia"
 msgstr "Çekoslovakya"
 
-#: libjuicer/sj-metadata.c:374
+#: libjuicer/sj-metadata.c:370
 msgid "East Germany"
 msgstr "Doğu Almanya"
 
-#: libjuicer/sj-metadata.c:375
+#: libjuicer/sj-metadata.c:371
 msgid "Europe"
 msgstr "Avrupa"
 
-#: libjuicer/sj-metadata.c:376
+#: libjuicer/sj-metadata.c:372
 msgid "Serbia and Montenegro"
 msgstr "Sırbistan ve Karadağ"
 
-#: libjuicer/sj-metadata.c:377
+#: libjuicer/sj-metadata.c:373
 msgid "Soviet Union"
 msgstr "Sovyetler Birliği"
 
-#: libjuicer/sj-metadata.c:378
+#: libjuicer/sj-metadata.c:374
 msgid "Worldwide"
 msgstr "Dünya Geneli"
 
-#: libjuicer/sj-metadata.c:379
+#: libjuicer/sj-metadata.c:375
 msgid "Yugoslavia"
 msgstr "Yugoslavya"
 
@@ -506,12 +504,12 @@ msgid "Cannot access CD"
 msgstr "CDʼye erişilemiyor"
 
 #: libjuicer/sj-metadata-gvfs.c:117 src/egg-play-preview.c:570
-#: src/sj-main.c:354
+#: src/sj-main.c:357
 msgid "Unknown Title"
 msgstr "Bilinmeyen Parça Adı"
 
 #: libjuicer/sj-metadata-gvfs.c:123 libjuicer/sj-metadata-gvfs.c:153
-#: src/egg-play-preview.c:575 src/sj-extracting.c:983
+#: src/egg-play-preview.c:575 src/sj-extracting.c:978
 msgid "Unknown Artist"
 msgstr "Bilinmeyen Sanatçı"
 
@@ -569,7 +567,7 @@ msgstr "düzn. %s"
 msgid "trans. %s"
 msgstr "uyarl. %s"
 
-#: src/egg-play-preview.c:576 src/sj-extracting.c:982
+#: src/egg-play-preview.c:576 src/sj-extracting.c:977
 msgid "Unknown Album"
 msgstr "Bilinmeyen Albüm"
 
@@ -700,20 +698,20 @@ msgstr "Barkod:"
 msgid " (Disc %d/%d)"
 msgstr " (Disk %d/%d)"
 
-#: src/sj-extracting.c:147
+#: src/sj-extracting.c:146
 #, c-format
 msgid "Failed to get output format"
 msgstr "Çıktı biçimi alınamadı"
 
-#: src/sj-extracting.c:172
+#: src/sj-extracting.c:171
 msgid "Name too long"
 msgstr "Ad çok uzun"
 
-#: src/sj-extracting.c:308
+#: src/sj-extracting.c:306
 msgid "A file with the same name exists"
 msgstr "Aynı adda başka dosya var"
 
-#: src/sj-extracting.c:310
+#: src/sj-extracting.c:308
 #, c-format
 msgid ""
 "A file called ‘%s’ exists, size %s.\n"
@@ -722,63 +720,63 @@ msgstr ""
 "‘%s’ adında, %s boyutunda dosya var.\n"
 "Bu parçayı atlamayı mı yoksa üzerine yazmayı mı istiyorsunuz?"
 
-#: src/sj-extracting.c:324
+#: src/sj-extracting.c:322
 msgid "_Skip"
 msgstr "_Atla"
 
-#: src/sj-extracting.c:325
+#: src/sj-extracting.c:323
 msgid "S_kip All"
 msgstr "Tümünü A_tla"
 
-#: src/sj-extracting.c:326
+#: src/sj-extracting.c:324
 msgid "_Overwrite"
 msgstr "Ü_stüne Yaz"
 
-#: src/sj-extracting.c:327
+#: src/sj-extracting.c:325
 msgid "Overwrite _All"
 msgstr "Tümünün Ü_stüne Yaz"
 
-#: src/sj-extracting.c:376
+#: src/sj-extracting.c:374
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Çıktı dizini oluşturulamadı: %s"
 
-#: src/sj-extracting.c:516
+#: src/sj-extracting.c:514
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Öngörülen kalan süre: %d:%02d (%0.1fx)"
 
-#: src/sj-extracting.c:518
+#: src/sj-extracting.c:516
 msgid "Estimated time left: unknown"
 msgstr "Öngörülen kalan süre: bilinmiyor"
 
-#: src/sj-extracting.c:608
+#: src/sj-extracting.c:606
 msgid "CD rip complete"
 msgstr "CD aktarma başarılı"
 
-#: src/sj-extracting.c:700
+#: src/sj-extracting.c:698
 msgid "Sound Juicer could not extract this CD."
 msgstr "Ses Sıkıcı, bu CDʼyi aktaramadı."
 
-#: src/sj-extracting.c:702 src/sj-main.c:175 src/sj-main.c:417
-#: src/sj-main.c:456 src/sj-main.c:839 src/sj-main.c:1030
+#: src/sj-extracting.c:700 src/sj-main.c:178 src/sj-main.c:420
+#: src/sj-main.c:461 src/sj-main.c:844 src/sj-main.c:1024
 msgid "Reason"
 msgstr "Neden"
 
 #. Change the label to Stop while extracting
-#: src/sj-extracting.c:792 src/sj-main.c:1895
+#: src/sj-extracting.c:788 src/sj-main.c:1889
 msgid "_Stop"
 msgstr "_Durdur"
 
-#: src/sj-extracting.c:820 src/sj-extracting.c:828
+#: src/sj-extracting.c:823
 msgid "Extracting audio from CD"
 msgstr "CDʼden ses aktarılıyor"
 
-#: src/sj-extracting.c:984
+#: src/sj-extracting.c:979
 msgid "Unknown Composer"
 msgstr "Bilinmeyen Besteci"
 
-#: src/sj-extracting.c:985
+#: src/sj-extracting.c:980
 msgid "Unknown Track"
 msgstr "Bilinmeyen Parça"
 
@@ -790,7 +788,7 @@ msgstr "Ambiyans"
 msgid "Blues"
 msgstr "Blues"
 
-#: src/sj-genres.c:35 src/sj-main.c:501
+#: src/sj-genres.c:35 src/sj-main.c:506
 msgid "Classical"
 msgstr "Klasik"
 
@@ -851,41 +849,41 @@ msgstr "Konuşma"
 msgid "Error while saving custom genre: %s"
 msgstr "Özel müzik türü kaydedilirken hata oluştu: %s"
 
-#: src/sj-main.c:174
+#: src/sj-main.c:177
 msgid "Could not start Sound Juicer"
 msgstr "Ses Sıkıcı başlatılamadı"
 
-#: src/sj-main.c:177
+#: src/sj-main.c:180
 msgid "Please consult the documentation for assistance."
 msgstr "Yardım için lütfen belgelere göz atın."
 
-#: src/sj-main.c:233
+#: src/sj-main.c:236
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr ""
 "Şu anda CD aktarılıyor. Uygulamadan hemen çıkmak mı yoksa işlemi sürdürmek "
 "mi istiyorsunuz?"
 
-#: src/sj-main.c:234 src/sj-main.c:1154
+#: src/sj-main.c:237 src/sj-main.c:1133
 msgid "_Quit"
 msgstr "_Çık"
 
-#: src/sj-main.c:235
+#: src/sj-main.c:238
 msgid "_Continue"
 msgstr "_Sürdür"
 
-#: src/sj-main.c:282 src/sj-main.c:1848 src/sj-main.c:1918
+#: src/sj-main.c:285 src/sj-main.c:1842 src/sj-main.c:1912
 msgid "Select None"
 msgstr "Hiçbirini Seçme"
 
-#: src/sj-main.c:296 src/sj-main.c:1912
+#: src/sj-main.c:299 src/sj-main.c:1906
 msgid "Select All"
 msgstr "Tümünü Seç"
 
-#: src/sj-main.c:317 src/sj-main.c:660
+#: src/sj-main.c:320 src/sj-main.c:665
 msgid "(unknown)"
 msgstr "(bilinmiyor)"
 
-#: src/sj-main.c:355
+#: src/sj-main.c:358
 msgid ""
 "This album is not in the MusicBrainz database, please click ‘Edit Album’ to "
 "open your browser and edit it in MusicBrainz."
@@ -893,7 +891,7 @@ msgstr ""
 "Bu albüm MusicBrainz veri tabanında yok, tarayıcınızı açmak ve "
 "MusicBrainzʼde düzenlemek için ‘Albümü Düzenle’ye tıklayın."
 
-#: src/sj-main.c:357
+#: src/sj-main.c:360
 #, c-format
 msgid ""
 "Could not find %s by %s on MusicBrainz, please click ‘Edit Album’ to open "
@@ -902,88 +900,80 @@ msgstr ""
 "MusicBrainzʼde %2$s eseri %1$s bulunamadı, tarayıcınızı açmak ve "
 "MusicBrainzʼde düzenlemek için ‘Albümü Düzenle’ye tıklayın."
 
-#: src/sj-main.c:393
+#: src/sj-main.c:396
 msgid "Click ‘Reload’ to load the edited album details from MusicBrainz"
 msgstr ""
 "Düzenlenen albüm ayrıntılarını MusicBrainzʼden yüklemek için ‘Yeniden "
 "Yükle’ye tıklayın"
 
-#: src/sj-main.c:415
+#: src/sj-main.c:418
 msgid "Could not open URL"
 msgstr "URL açılamadı"
 
-#: src/sj-main.c:416
+#: src/sj-main.c:419
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Ses Sıkıcı, gönderim için kullanılacak URLʼyi açamadı"
 
-#: src/sj-main.c:454
+#: src/sj-main.c:459
 msgid "Could not duplicate disc"
 msgstr "Disk kopyalanamadı"
 
-#: src/sj-main.c:455
+#: src/sj-main.c:460
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Ses Sıkıcı, diski kopyalayamadı"
 
-#: src/sj-main.c:501
+#: src/sj-main.c:506
 msgid "Lieder"
 msgstr "Alman Türküleri"
 
-#: src/sj-main.c:501
+#: src/sj-main.c:506
 msgid "Opera"
 msgstr "Opera"
 
-#: src/sj-main.c:501
+#: src/sj-main.c:506
 msgid "Chamber"
 msgstr "Oda"
 
-#: src/sj-main.c:501
+#: src/sj-main.c:506
 msgid "Musical"
 msgstr "Müzikal"
 
-#: src/sj-main.c:837 src/sj-main.c:1028
+#: src/sj-main.c:842 src/sj-main.c:1022
 msgid "Could not read the CD"
 msgstr "CD okunamadı"
 
-#: src/sj-main.c:838
+#: src/sj-main.c:843
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Ses Sıkıcı, bu CDʼdeki parça sıralamasını okuyamadı."
 
-#: src/sj-main.c:990
+#: src/sj-main.c:986
 #, c-format
 msgid "Sound Juicer could not use the CD-ROM device ‘%s’"
 msgstr "Ses Sıkıcı, ‘%s’ CD-ROM sürücüsünü kullanamadı"
 
-#: src/sj-main.c:997
+#: src/sj-main.c:993
 msgid "HAL daemon may not be running."
 msgstr "HAL art alan hizmeti çalışmıyor olabilir."
 
-#: src/sj-main.c:1021
+#: src/sj-main.c:1015
 #, c-format
 msgid "Sound Juicer could not access the CD-ROM device ‘%s’"
 msgstr "Ses Sıkıcı, ‘%s’ CD-ROM sürücüsüne erişemedi"
 
-#: src/sj-main.c:1119
-msgid "No CD-ROM drives found"
-msgstr "CD-ROM sürücüsü bulunamadı"
-
-#: src/sj-main.c:1120
-msgid "Sound Juicer could not find any CD-ROM drives to read."
-msgstr "Ses Sıkıcı, okunacak CD-ROM sürücüsü bulamadı."
-
-#: src/sj-main.c:1153
+#: src/sj-main.c:1132
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Seçilen ses profili kurulumunuzda yok."
 
-#: src/sj-main.c:1155
+#: src/sj-main.c:1134
 msgid "_Change Profile"
 msgstr "_Profili Değiştir"
 
-#: src/sj-main.c:1548
+#: src/sj-main.c:1527
 msgid "Unknown widget calling on_person_edit_changed."
 msgstr "Bilinmeyen parçacık on_person_edit_changed çağırdı."
 
-#: src/sj-main.c:1648 src/sj-prefs.c:117
+#: src/sj-main.c:1627 src/sj-prefs.c:117
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -992,55 +982,55 @@ msgstr ""
 "Ses Sıkıcı yardım dosyası görüntülenemedi\n"
 "%s"
 
-#: src/sj-main.c:1707
+#: src/sj-main.c:1679
 msgid "Retrieving track listing…please wait."
 msgstr "Parça sıralaması alınıyor…lütfen bekleyin."
 
-#: src/sj-main.c:1871 src/sj-play.c:300
+#: src/sj-main.c:1865 src/sj-play.c:300
 msgid "_Pause"
 msgstr "_Duraklat"
 
-#: src/sj-main.c:1946
+#: src/sj-main.c:1940
 msgid "Track"
 msgstr "Parça"
 
-#: src/sj-main.c:1958
+#: src/sj-main.c:1952
 msgid "Title"
 msgstr "Parça Adı"
 
-#: src/sj-main.c:1959
+#: src/sj-main.c:1953
 msgid "Artist"
 msgstr "Sanatçı"
 
-#: src/sj-main.c:1960
+#: src/sj-main.c:1954
 msgid "Composer"
 msgstr "Besteci"
 
-#: src/sj-main.c:1966
+#: src/sj-main.c:1960
 msgid "Duration"
 msgstr "Süre"
 
-#: src/sj-main.c:2084
+#: src/sj-main.c:2077
 msgid "Start extracting immediately"
 msgstr "Aktarmaya şimdi başla"
 
-#: src/sj-main.c:2085
+#: src/sj-main.c:2078
 msgid "Start playing immediately"
 msgstr "Çalmaya başla"
 
-#: src/sj-main.c:2086
+#: src/sj-main.c:2079
 msgid "What CD device to read"
 msgstr "Okunacak CD aygıtı"
 
-#: src/sj-main.c:2086
+#: src/sj-main.c:2079
 msgid "DEVICE"
 msgstr "AYGIT"
 
-#: src/sj-main.c:2087
+#: src/sj-main.c:2080
 msgid "URI to the CD device to read"
 msgstr "Okunacak CD aygıtı için URI"
 
-#: src/sj-play.c:192 src/sj-play.c:416 src/sj-play.c:452
+#: src/sj-play.c:192 src/sj-play.c:418 src/sj-play.c:454
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -1051,12 +1041,12 @@ msgstr ""
 "\n"
 "Neden: %s"
 
-#: src/sj-play.c:354
+#: src/sj-play.c:356
 #, c-format
 msgid "Failed to create CD source element"
 msgstr "CD kaynak ögesi oluşturulamadı"
 
-#: src/sj-play.c:592
+#: src/sj-play.c:594
 #, c-format
 msgid "Seeking to %s"
 msgstr "%s parçasına geçiliyor"
