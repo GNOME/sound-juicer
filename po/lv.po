@@ -4,24 +4,76 @@
 #
 # Linux Centrs <info@linux.edu.lv>, 2006.
 # Raivis Dejus <orvils@gmail.com>, 2006.
-# Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2009.
+# SPDX-FileCopyrightText: 2009, 2024 Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>
 # Rūdofls Mazurs <rudolfs.mazurs@gmail.com>, 2011, 2012, 2013, 2016, 2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: lv\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=sound-j"
-"uicer&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-09-24 22:28+0000\n"
-"PO-Revision-Date: 2018-04-10 21:48+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/sound-juicer/issues\n"
+"POT-Creation-Date: 2024-01-30 09:58+0000\n"
+"PO-Revision-Date: 2024-03-10 21:48+0200\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 23.08.1\n"
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 :"
 " 2);\n"
+
+#: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:7
+#: data/org.gnome.SoundJuicer.desktop.in:3 data/sound-juicer.ui:13
+#: src/sj-main.c:132 src/sj-main.c:134 src/sj-main.c:2089
+msgid "Sound Juicer"
+msgstr "Skaņas izvilcējs"
+
+#: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:8
+msgid "CD ripper with a clean interface and simple preferences"
+msgstr "CD izvilcējs ar vienkāršu saskarni un vienkāršiem iestatījumiem"
+
+#: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:10
+msgid ""
+"Sound Juicer is a simple and clean CD ripping tool. It allows you to extract "
+"the audio from audio compact discs and convert them into audio files that "
+"your computer can understand and play. Sound Juicer can also play the audio "
+"tracks directly from the CD, allowing you to preview the CD before ripping "
+"it."
+msgstr ""
+"Skaņas izvilcējs ir vienkāršs CD izvilkšanas rīks. Tas jums ļauj izvilkt "
+"audio no audio diskiem un pārveidot to par audio datnēm, ko var saprast un "
+"atskaņot dators. Skaņu izvilcējs var arī atskaņot audio celiņus tieši no CD, "
+"ļaujot priekšskatīt CD pirms no tiem izvilkt."
+
+#: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:17
+msgid ""
+"Sound Juicer is designed to be easy to use, and to work with little user "
+"intervention. When you start Sound Juicer, it will examine the CD in the "
+"drive and try to locate information about the audio tracks using the freely-"
+"available MusicBrainz service."
+msgstr ""
+"Skaņu izvilcējs ir radīts ērtai lietošanai un minimālai piepūlei. Kad "
+"palaižat Skaņu izvilcēju, tas apskatīs CD kompaktdisku dzinī un mēģinās "
+"atrast informāciju par audio celiņiem, izmantojot brīvi pieejamo MusicBrainz "
+"pakalpojumu."
+
+#. This is a translatable version of project_group
+#: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:36
+msgid "Link Dupont"
+msgstr "Link Dupont"
+
+#: data/org.gnome.SoundJuicer.desktop.in:4
+msgid "Audio CD Extractor"
+msgstr "Audio CD izvilcējs"
+
+#: data/org.gnome.SoundJuicer.desktop.in:5
+msgid "Copy music from your CDs"
+msgstr "Kopē mūziku no sava CD"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.SoundJuicer.desktop.in:7
+msgid "Ripper;"
+msgstr "Izvilcējs;Ripinātājs;"
 
 #: data/org.gnome.sound-juicer.gschema.xml:19
 msgid "The CD to extract from"
@@ -143,228 +195,19 @@ msgstr "GStreamer multimediju tips, uz kuru iekodēt."
 msgid "Audio volume"
 msgstr "Audio skaļums"
 
-#: data/org.gnome.SoundJuicer.desktop.in.in:3
-#: data/appdata/org.gnome.SoundJuicer.appdata.xml.in:7 data/sound-juicer.ui:7
-#: src/sj-main.c:129 src/sj-main.c:131 src/sj-main.c:2152
-msgid "Sound Juicer"
-msgstr "Skaņas izvilcējs"
-
-#: data/org.gnome.SoundJuicer.desktop.in.in:4
-msgid "Audio CD Extractor"
-msgstr "Audio CD izvilcējs"
-
-#: data/org.gnome.SoundJuicer.desktop.in.in:5
-msgid "Copy music from your CDs"
-msgstr "Kopē mūziku no sava CD"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.SoundJuicer.desktop.in.in:7
-msgid "Ripper;"
-msgstr "Izvilcējs;Ripinātājs;"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.gnome.SoundJuicer.desktop.in.in:10
-#| msgid "Sound Juicer"
-msgid "sound-juicer"
-msgstr "sound-juicer"
-
-#: data/appdata/org.gnome.SoundJuicer.appdata.xml.in:8
-msgid "CD ripper with a clean interface and simple preferences"
-msgstr "CD izvilcējs ar vienkāršu saskarni un vienkāršiem iestatījumiem"
-
-#: data/appdata/org.gnome.SoundJuicer.appdata.xml.in:10
-msgid ""
-"Sound Juicer is a simple and clean CD ripping tool. It allows you to extract "
-"the audio from audio compact discs and convert them into audio files that "
-"your computer can understand and play. Sound Juicer can also play the audio "
-"tracks directly from the CD, allowing you to preview the CD before ripping "
-"it."
-msgstr ""
-"Skaņas izvilcējs ir vienkāršs CD izvilkšanas rīks. Tas jums ļauj izvilkt "
-"audio no audio diskiem un pārveidot to par audio datnēm, ko var saprast un "
-"atskaņot dators. Skaņu izvilcējs var arī atskaņot audio celiņus tieši no CD, "
-"ļaujot priekšskatīt CD pirms no tiem izvilkt."
-
-#: data/appdata/org.gnome.SoundJuicer.appdata.xml.in:17
-msgid ""
-"Sound Juicer is designed to be easy to use, and to work with little user "
-"intervention. When you start Sound Juicer, it will examine the CD in the "
-"drive and try to locate information about the audio tracks using the freely-"
-"available MusicBrainz service."
-msgstr ""
-"Skaņu izvilcējs ir radīts ērtai lietošanai un minimālai piepūlei. Kad "
-"palaižat Skaņu izvilcēju, tas apskatīs CD kompaktdisku dzinī un mēģinās "
-"atrast informāciju par audio celiņiem, izmantojot brīvi pieejamo MusicBrainz "
-"pakalpojumu."
-
-#. This is a translatable version of project_group
-#: data/appdata/org.gnome.SoundJuicer.appdata.xml.in:36
-msgid "The GNOME Project"
-msgstr "GNOME projekts"
-
 #: data/sj-album-chooser-dialog.ui:6
-#| msgid "Select All"
 msgid "Select Album"
 msgstr "Izvēlēties albumu"
 
 #: data/sj-album-chooser-dialog.ui:11
-#| msgid "Select All"
 msgid "_Select"
 msgstr "Izvēlētie_s"
 
 #: data/sj-album-chooser-dialog.ui:27
-#| msgid ""
-#| "This CD could be more than one album. Please select which album it is "
-#| "below and press <i>Continue</i>."
 msgid "This CD could be more than one album. Please select which album it is."
 msgstr ""
-"Šis kompaktdisks varētu būt vairāk kā viens albums. Lūdzu, izvēlieties, kurš"
-" albums tas ir."
-
-#: data/sound-juicer.ui:29
-msgid "_Edit Album"
-msgstr "R_ediģēt albumu"
-
-#: data/sound-juicer.ui:42
-msgid "_Reload Album"
-msgstr "Pā_rlādēt albumu"
-
-#: data/sound-juicer.ui:135
-msgid "_Year:"
-msgstr "_Gads:"
-
-#: data/sound-juicer.ui:170
-msgid "_Disc:"
-msgstr "_Disks:"
-
-#: data/sound-juicer.ui:210
-msgid "_Title:"
-msgstr "_Nosaukums:"
-
-#: data/sound-juicer.ui:235
-msgid "_Artist:"
-msgstr "_Izpildītājs:"
-
-#: data/sound-juicer.ui:266
-msgid "_Composer:"
-msgstr "K_omponists:"
-
-#: data/sound-juicer.ui:297
-msgid "_Genre:"
-msgstr "Žan_rs:"
-
-#: data/sound-juicer.ui:314
-msgid "Duration:"
-msgstr "Ilgums:"
-
-#: data/sound-juicer.ui:360
-msgid "Tracks"
-msgstr "Celiņi"
-
-#: data/sound-juicer.ui:384 src/sj-main.c:1881 src/sj-play.c:120
-#: src/sj-play.c:258 src/sj-play.c:621
-msgid "_Play"
-msgstr "_Atskaņot"
-
-#: data/sound-juicer.ui:394 src/sj-extracting.c:232 src/sj-main.c:1905
-msgid "E_xtract"
-msgstr "I_zvilkt"
-
-#: data/sound-juicer.ui:420
-msgid "Track Progress"
-msgstr "Celiņa progress"
-
-#: data/sound-juicer.ui:515 data/sound-juicer-menu.ui:33
-msgid "Preferences"
-msgstr "Iestatījumi"
-
-#: data/sound-juicer.ui:534
-msgid "Device"
-msgstr "Ierīce"
-
-#: data/sound-juicer.ui:550
-msgid "CD _drive:"
-msgstr "CD _dzinis:"
-
-#: data/sound-juicer.ui:572
-msgid "_Eject after extracting tracks"
-msgstr "_Izgrūst pēc celiņu izvilkšanas"
-
-#: data/sound-juicer.ui:587
-msgid "_Open music folder when finished"
-msgstr "_Atvērt mūzikas mapi, kad pabeigts"
-
-#: data/sound-juicer.ui:605
-msgid "Music Folder"
-msgstr "Mūzikas mape"
-
-#: data/sound-juicer.ui:621
-msgid "_Folder:"
-msgstr "_Mape:"
-
-#: data/sound-juicer.ui:637
-msgid "Select A Folder"
-msgstr "Izvēlieties mapi"
-
-#: data/sound-juicer.ui:650
-msgid "Track Names"
-msgstr "Celiņa nosaukumi"
-
-#: data/sound-juicer.ui:666
-msgid "Folder hie_rarchy:"
-msgstr "Mapes hie_rarhija:"
-
-#: data/sound-juicer.ui:697
-msgid "File _name:"
-msgstr "Datnes _nosaukums:"
-
-#: data/sound-juicer.ui:725
-msgid "_Strip special characters"
-msgstr "Izņemt īpašās rak_stzīmes"
-
-#: data/sound-juicer.ui:756
-msgid "Format"
-msgstr "Formāts"
-
-#: data/sound-juicer.ui:772
-msgid "O_utput Format:"
-msgstr "I_zvades formāts:"
-
-#: data/sound-juicer-menu.ui:5
-msgid "Disc"
-msgstr "Disks"
-
-#: data/sound-juicer-menu.ui:8
-msgid "Re-read"
-msgstr "Pārlasīt"
-
-#: data/sound-juicer-menu.ui:13
-msgid "Duplicate"
-msgstr "Dublēt"
-
-#: data/sound-juicer-menu.ui:17
-msgid "Eject"
-msgstr "Izgrūst"
-
-#: data/sound-juicer-menu.ui:26
-msgid "Open MusicBrainz"
-msgstr "Atvērt MusicBrainz"
-
-#: data/sound-juicer-menu.ui:39
-msgid "Shortcuts"
-msgstr "Saīsnes"
-
-#: data/sound-juicer-menu.ui:43
-msgid "Help"
-msgstr "Palīdzība"
-
-#: data/sound-juicer-menu.ui:48
-msgid "About"
-msgstr "Par"
-
-#: data/sound-juicer-menu.ui:52
-msgid "Quit"
-msgstr "Iziet"
+"Šis kompaktdisks varētu būt vairāk kā viens albums. Lūdzu, izvēlieties, kurš "
+"albums tas ir."
 
 #: data/sound-juicer-shortcuts.ui:14
 msgctxt "shortcut window"
@@ -426,121 +269,259 @@ msgctxt "shortcut window"
 msgid "Unselect all tracks"
 msgstr "Neizvēlēties nevienu celiņu"
 
-#: libjuicer/sj-extractor.c:355
+#: data/sound-juicer.ui:55
+msgid "_Edit Album"
+msgstr "R_ediģēt albumu"
+
+#: data/sound-juicer.ui:68
+msgid "_Reload Album"
+msgstr "Pā_rlādēt albumu"
+
+#: data/sound-juicer.ui:161
+msgid "_Year:"
+msgstr "_Gads:"
+
+#: data/sound-juicer.ui:196
+msgid "_Disc:"
+msgstr "_Disks:"
+
+#: data/sound-juicer.ui:236
+msgid "_Title:"
+msgstr "_Nosaukums:"
+
+#: data/sound-juicer.ui:261
+msgid "_Artist:"
+msgstr "_Izpildītājs:"
+
+#: data/sound-juicer.ui:292
+msgid "_Composer:"
+msgstr "K_omponists:"
+
+#: data/sound-juicer.ui:323
+msgid "_Genre:"
+msgstr "Žan_rs:"
+
+#: data/sound-juicer.ui:340
+msgid "Duration:"
+msgstr "Ilgums:"
+
+#: data/sound-juicer.ui:386
+msgid "Tracks"
+msgstr "Celiņi"
+
+#: data/sound-juicer.ui:410 src/sj-main.c:1858 src/sj-play.c:120
+#: src/sj-play.c:258 src/sj-play.c:623
+msgid "_Play"
+msgstr "_Atskaņot"
+
+#: data/sound-juicer.ui:420 src/sj-extracting.c:230 src/sj-main.c:1882
+msgid "E_xtract"
+msgstr "I_zvilkt"
+
+#: data/sound-juicer.ui:446
+msgid "Track Progress"
+msgstr "Celiņa progress"
+
+#: data/sound-juicer.ui:541 data/sound-juicer.ui:860
+msgid "Preferences"
+msgstr "Iestatījumi"
+
+#: data/sound-juicer.ui:560
+msgid "Device"
+msgstr "Ierīce"
+
+#: data/sound-juicer.ui:576
+msgid "CD _drive:"
+msgstr "CD _dzinis:"
+
+#: data/sound-juicer.ui:603
+msgid "_Eject after extracting tracks"
+msgstr "_Izgrūst pēc celiņu izvilkšanas"
+
+#: data/sound-juicer.ui:618
+msgid "_Open music folder when finished"
+msgstr "_Atvērt mūzikas mapi, kad pabeigts"
+
+#: data/sound-juicer.ui:636
+msgid "Music Folder"
+msgstr "Mūzikas mape"
+
+#: data/sound-juicer.ui:652
+msgid "_Folder:"
+msgstr "_Mape:"
+
+#: data/sound-juicer.ui:668
+msgid "Select A Folder"
+msgstr "Izvēlieties mapi"
+
+#: data/sound-juicer.ui:681
+msgid "Track Names"
+msgstr "Celiņa nosaukumi"
+
+#: data/sound-juicer.ui:697
+msgid "Folder hie_rarchy:"
+msgstr "Mapes hie_rarhija:"
+
+#: data/sound-juicer.ui:728
+msgid "File _name:"
+msgstr "Datnes _nosaukums:"
+
+#: data/sound-juicer.ui:756
+msgid "_Strip special characters"
+msgstr "Izņemt īpašās rak_stzīmes"
+
+#: data/sound-juicer.ui:787
+msgid "Format"
+msgstr "Formāts"
+
+#: data/sound-juicer.ui:803
+msgid "O_utput Format:"
+msgstr "I_zvades formāts:"
+
+#: data/sound-juicer.ui:837
+msgid "Re-read"
+msgstr "Pārlasīt"
+
+#: data/sound-juicer.ui:842
+msgid "Duplicate"
+msgstr "Dublēt"
+
+#: data/sound-juicer.ui:846
+msgid "Eject"
+msgstr "Izgrūst"
+
+#: data/sound-juicer.ui:853
+msgid "Open MusicBrainz"
+msgstr "Atvērt MusicBrainz"
+
+#: data/sound-juicer.ui:866
+msgid "Shortcuts"
+msgstr "Saīsnes"
+
+#: data/sound-juicer.ui:870
+msgid "Help"
+msgstr "Palīdzība"
+
+#: data/sound-juicer.ui:875
+#| msgid "Sound Juicer"
+msgid "About Sound Juicer"
+msgstr "Par skaņas izvilcēju"
+
+#: data/sound-juicer.ui:879
+msgid "Quit"
+msgstr "Iziet"
+
+#: libjuicer/sj-extractor.c:350
 #, c-format
 msgid "Could not create GStreamer CD reader"
 msgstr "Nevarēja izveidot GStreamer CD lasītāju"
 
-#: libjuicer/sj-extractor.c:373
+#: libjuicer/sj-extractor.c:368
 #, c-format
 msgid "Could not create GStreamer encoders for %s"
 msgstr "Nevarēja izveidot %s GStreamer iekodētājus"
 
-#: libjuicer/sj-extractor.c:385
+#: libjuicer/sj-extractor.c:380
 #, c-format
 msgid "Could not create GStreamer file output"
 msgstr "Nevarēja izveidot GStreamer datnes izvadi"
 
-#: libjuicer/sj-extractor.c:399
+#: libjuicer/sj-extractor.c:394
 #, c-format
 msgid "Could not link pipeline"
 msgstr "Nevarēja sasaitēt konveijeru"
 
-#: libjuicer/sj-extractor.c:422
+#: libjuicer/sj-extractor.c:417
 msgid "Could not get current track position"
 msgstr "Nevarēja dabūt tekošā celiņa pozīciju"
 
-#: libjuicer/sj-extractor.c:451
+#: libjuicer/sj-extractor.c:446
 #, c-format
 msgid ""
 "Extractor object is not valid. This is bad, check your console for errors."
 msgstr ""
 "Izvilcēja objekts nav derīgs. Tas ir slikti, pārbaudiet kļūdas komandrindā."
 
-#: libjuicer/sj-extractor.c:713
+#: libjuicer/sj-extractor.c:708
 #, c-format
 msgid "The plugin necessary for CD access was not found"
 msgstr "CD pieejai nepieciešamais spraudnis netika atrasts"
 
-#: libjuicer/sj-extractor.c:721
+#: libjuicer/sj-extractor.c:716
 #, c-format
 msgid "The plugin necessary for file access was not found"
 msgstr "Datnes pieejai nepieciešamais spraudnis netika atrasts"
 
-#: libjuicer/sj-metadata.c:211 libjuicer/sj-metadata.c:234
-#: libjuicer/sj-metadata.c:245
+#: libjuicer/sj-metadata.c:223
 #, c-format
-msgid "Cannot read CD: %s"
-msgstr "Nevar nolasīt CD — %s"
+msgid "Cannot get device ‘%s’"
+msgstr "Nevar saņemt ierīci “%s”"
 
-#: libjuicer/sj-metadata.c:212
-msgid "Devices haven't been all probed yet"
-msgstr "Ne visas ierīces jau ir zondētas"
-
-#: libjuicer/sj-metadata.c:228
+#: libjuicer/sj-metadata.c:236
 #, c-format
-#| msgid "Device '%s' does not contain any media"
 msgid "Device ‘%s’ does not contain any media"
 msgstr "Ierīce “%s” nesatur nekādu datu nesēju"
 
-#: libjuicer/sj-metadata.c:231
+#: libjuicer/sj-metadata.c:239
 #, c-format
-#| msgid ""
-#| "Device '%s' could not be opened. Check the access permissions on the "
-#| "device."
 msgid ""
 "Device ‘%s’ could not be opened. Check the access permissions on the device."
 msgstr "Nevarēja atvērt ierīci “%s”. Pārbaudiet piekļuves atļaujas ierīcei."
 
-#: libjuicer/sj-metadata.c:373
+#: libjuicer/sj-metadata.c:242
+#, c-format
+msgid "Cannot read CD: %s"
+msgstr "Nevar nolasīt CD — %s"
+
+#: libjuicer/sj-metadata.c:369
 msgid "Czechoslovakia"
 msgstr "Čehoslovākija"
 
-#: libjuicer/sj-metadata.c:374
+#: libjuicer/sj-metadata.c:370
 msgid "East Germany"
 msgstr "Austrumvācija"
 
-#: libjuicer/sj-metadata.c:375
+#: libjuicer/sj-metadata.c:371
 msgid "Europe"
 msgstr "Eiropa"
 
-#: libjuicer/sj-metadata.c:376
+#: libjuicer/sj-metadata.c:372
 msgid "Serbia and Montenegro"
 msgstr "Serbija un Melnkalne"
 
-#: libjuicer/sj-metadata.c:377
+#: libjuicer/sj-metadata.c:373
 msgid "Soviet Union"
 msgstr "Padomju savienība"
 
-#: libjuicer/sj-metadata.c:378
+#: libjuicer/sj-metadata.c:374
 msgid "Worldwide"
 msgstr "Vispasaules"
 
-#: libjuicer/sj-metadata.c:379
+#: libjuicer/sj-metadata.c:375
 msgid "Yugoslavia"
 msgstr "Dienvidslāvija"
 
-#: libjuicer/sj-metadata-gvfs.c:97
+#: libjuicer/sj-metadata-gvfs.c:95
 #, c-format
 msgid "Cannot access CD"
 msgstr "Nevar piekļūt CD"
 
-#: libjuicer/sj-metadata-gvfs.c:119 src/egg-play-preview.c:574
-#: src/sj-main.c:354
+#: libjuicer/sj-metadata-gvfs.c:117 src/egg-play-preview.c:570
+#: src/sj-main.c:357
 msgid "Unknown Title"
 msgstr "Nezināms nosaukums"
 
-#: libjuicer/sj-metadata-gvfs.c:125 libjuicer/sj-metadata-gvfs.c:155
-#: src/egg-play-preview.c:579 src/sj-extracting.c:983
+#: libjuicer/sj-metadata-gvfs.c:123 libjuicer/sj-metadata-gvfs.c:153
+#: src/egg-play-preview.c:575 src/sj-extracting.c:978
 msgid "Unknown Artist"
 msgstr "Nezināms izpildītājs"
 
-#: libjuicer/sj-metadata-gvfs.c:149
+#: libjuicer/sj-metadata-gvfs.c:147
 #, c-format
 msgid "Track %d"
 msgstr "Celiņš %d"
 
-#: libjuicer/sj-metadata-gvfs.c:176
+#: libjuicer/sj-metadata-gvfs.c:174
 #, c-format
 msgid "Cannot access CD: %s"
 msgstr "Nevar piekļūt CD — %s"
@@ -548,21 +529,21 @@ msgstr "Nevar piekļūt CD — %s"
 #. Translators: This string is used to build the composer tag
 #. when a track has composers and arrangers, or a composer and a
 #. mixture of arrangers, orchestrators and transcribers
-#: libjuicer/sj-metadata-musicbrainz5.c:702
+#: libjuicer/sj-metadata-musicbrainz5.c:705
 #, c-format
 msgid "%s arr. %s"
 msgstr "%s ar. %s"
 
 #. Translators: This string is used to build the composer tag
 #. when a track has composers and orchestrators
-#: libjuicer/sj-metadata-musicbrainz5.c:706
+#: libjuicer/sj-metadata-musicbrainz5.c:709
 #, c-format
 msgid "%s orch. %s"
 msgstr "%s orķ. %s"
 
 #. Translators: This string is used to build the composer tag
 #. when a track has composers and transcribers
-#: libjuicer/sj-metadata-musicbrainz5.c:710
+#: libjuicer/sj-metadata-musicbrainz5.c:713
 #, c-format
 msgid "%s trans. %s"
 msgstr "%s trans. %s"
@@ -570,26 +551,26 @@ msgstr "%s trans. %s"
 #. Translators: This string is used to build the composer tag
 #. when a track has a mixture of arrangers, orchestrators and
 #. transcribers but no composers
-#: libjuicer/sj-metadata-musicbrainz5.c:720
+#: libjuicer/sj-metadata-musicbrainz5.c:723
 #, c-format
 msgid "arr. %s"
 msgstr "ar. %s"
 
 #. Translators: This string is used to build the composer tag
 #. when a track has orchestrators but no composer
-#: libjuicer/sj-metadata-musicbrainz5.c:724
+#: libjuicer/sj-metadata-musicbrainz5.c:727
 #, c-format
 msgid "orch. %s"
 msgstr "orķ. %s"
 
 #. Translators: This string is used to build the composer tag
 #. when a track has a transcribers but no composer
-#: libjuicer/sj-metadata-musicbrainz5.c:728
+#: libjuicer/sj-metadata-musicbrainz5.c:731
 #, c-format
 msgid "trans. %s"
 msgstr "trans. %s"
 
-#: src/egg-play-preview.c:580 src/sj-extracting.c:982
+#: src/egg-play-preview.c:576 src/sj-extracting.c:977
 msgid "Unknown Album"
 msgstr "Nezināms albums"
 
@@ -718,24 +699,21 @@ msgstr "Svītrkods:"
 msgid " (Disc %d/%d)"
 msgstr " (Disks %d/%d)"
 
-#: src/sj-extracting.c:147
+#: src/sj-extracting.c:146
 #, c-format
 msgid "Failed to get output format"
 msgstr "Neizdevās iegūt izvades formātu"
 
-#: src/sj-extracting.c:172
+#: src/sj-extracting.c:171
 msgid "Name too long"
 msgstr "Pārāk garš nosaukums"
 
-#: src/sj-extracting.c:308
+#: src/sj-extracting.c:306
 msgid "A file with the same name exists"
 msgstr "Datne ar tādu pašu nosaukumu jau eksistē"
 
-#: src/sj-extracting.c:310
+#: src/sj-extracting.c:308
 #, c-format
-#| msgid ""
-#| "A file called '%s' exists, size %s.\n"
-#| "Do you want to skip this track or overwrite it?"
 msgid ""
 "A file called ‘%s’ exists, size %s.\n"
 "Do you want to skip this track or overwrite it?"
@@ -743,62 +721,63 @@ msgstr ""
 "Datne ar nosaukumu “%s” eksistē, tās izmērs %s.\n"
 "Vai vēlaties izlaist šo celiņu vai arī to pārrakstīt?"
 
-#: src/sj-extracting.c:324
+#: src/sj-extracting.c:322
 msgid "_Skip"
 msgstr "Izlai_st"
 
-#: src/sj-extracting.c:325
+#: src/sj-extracting.c:323
 msgid "S_kip All"
 msgstr "_Izlaist visus"
 
-#: src/sj-extracting.c:326
+#: src/sj-extracting.c:324
 msgid "_Overwrite"
 msgstr "_Pārrakstīt"
 
-#: src/sj-extracting.c:327
+#: src/sj-extracting.c:325
 msgid "Overwrite _All"
 msgstr "Pārrakstīt _visus"
 
-#: src/sj-extracting.c:376
+#: src/sj-extracting.c:374
 #, c-format
 msgid "Failed to create output directory: %s"
 msgstr "Neizdevās izveidot izvades direktoriju — %s"
 
-#: src/sj-extracting.c:516
+#: src/sj-extracting.c:514
 #, c-format
 msgid "Estimated time left: %d:%02d (at %0.1f×)"
 msgstr "Atlikušā laika novērtējums — %d:%02d (ar %0.1f×)"
 
-#: src/sj-extracting.c:518
+#: src/sj-extracting.c:516
 msgid "Estimated time left: unknown"
 msgstr "Atlikušā laika novērtējums — nezināms"
 
-#: src/sj-extracting.c:608
+#: src/sj-extracting.c:606
 msgid "CD rip complete"
 msgstr "CD izvilkšana pabeigta"
 
-#: src/sj-extracting.c:700
+#: src/sj-extracting.c:698
 msgid "Sound Juicer could not extract this CD."
 msgstr "Skaņas izvilcējs nevarēja izvilkt no šī CD."
 
-#: src/sj-extracting.c:702 src/sj-main.c:175 src/sj-main.c:417
-#: src/sj-main.c:456 src/sj-main.c:839 src/sj-main.c:1030
+#: src/sj-extracting.c:700 src/sj-main.c:178 src/sj-main.c:420
+#: src/sj-main.c:461 src/sj-main.c:844 src/sj-main.c:1024
 msgid "Reason"
 msgstr "Iemesls"
 
-#: src/sj-extracting.c:792 src/sj-main.c:1912
+#. Change the label to Stop while extracting
+#: src/sj-extracting.c:788 src/sj-main.c:1889
 msgid "_Stop"
 msgstr "_Apturēt"
 
-#: src/sj-extracting.c:820 src/sj-extracting.c:828
+#: src/sj-extracting.c:823
 msgid "Extracting audio from CD"
 msgstr "Izvelk audio no CD"
 
-#: src/sj-extracting.c:984
+#: src/sj-extracting.c:979
 msgid "Unknown Composer"
 msgstr "Nezināms komponists"
 
-#: src/sj-extracting.c:985
+#: src/sj-extracting.c:980
 msgid "Unknown Track"
 msgstr "Nezināms celiņš"
 
@@ -810,7 +789,7 @@ msgstr "Apkārtējs"
 msgid "Blues"
 msgstr "Blūzs"
 
-#: src/sj-genres.c:35 src/sj-main.c:501
+#: src/sj-genres.c:35 src/sj-main.c:506
 msgid "Classical"
 msgstr "Klasika"
 
@@ -871,39 +850,39 @@ msgstr "Izrunāts"
 msgid "Error while saving custom genre: %s"
 msgstr "Kļūda, saglabājot pielāgoto žanru — %s"
 
-#: src/sj-main.c:174
+#: src/sj-main.c:177
 msgid "Could not start Sound Juicer"
 msgstr "Nevarēja palaist skaņas izvilcēju"
 
-#: src/sj-main.c:177
+#: src/sj-main.c:180
 msgid "Please consult the documentation for assistance."
 msgstr "Lūdzu, meklējiet palīdzību dokumentācijā."
 
-#: src/sj-main.c:233
+#: src/sj-main.c:236
 msgid "You are currently extracting a CD. Do you want to quit now or continue?"
 msgstr "Jūs pašlaik izvelkat CD. Vai vēlaties iziet tagad vai arī turpināt?"
 
-#: src/sj-main.c:234 src/sj-main.c:1154
+#: src/sj-main.c:237 src/sj-main.c:1133
 msgid "_Quit"
 msgstr "_Iziet"
 
-#: src/sj-main.c:235
+#: src/sj-main.c:238
 msgid "_Continue"
 msgstr "_Turpināt"
 
-#: src/sj-main.c:282 src/sj-main.c:1865 src/sj-main.c:1935
+#: src/sj-main.c:285 src/sj-main.c:1842 src/sj-main.c:1912
 msgid "Select None"
 msgstr "Neizvēlēties nevienu"
 
-#: src/sj-main.c:296 src/sj-main.c:1929
+#: src/sj-main.c:299 src/sj-main.c:1906
 msgid "Select All"
 msgstr "Izvēlēties visu"
 
-#: src/sj-main.c:317 src/sj-main.c:660
+#: src/sj-main.c:320 src/sj-main.c:665
 msgid "(unknown)"
 msgstr "(nezināms)"
 
-#: src/sj-main.c:355
+#: src/sj-main.c:358
 msgid ""
 "This album is not in the MusicBrainz database, please click ‘Edit Album’ to "
 "open your browser and edit it in MusicBrainz."
@@ -911,7 +890,7 @@ msgstr ""
 "Šis albums nav MusicBrainz datubāzē, spiediet “Rediģēt albumu”, lai atvērtu "
 "pārlūku un rediģētu to MusicBrainz vietnē."
 
-#: src/sj-main.c:357
+#: src/sj-main.c:360
 #, c-format
 msgid ""
 "Could not find %s by %s on MusicBrainz, please click ‘Edit Album’ to open "
@@ -920,89 +899,79 @@ msgstr ""
 "Nevarēja atrast %s (izpilda %s) MusicBrainz datubāzē, spiediet “Rediģēt "
 "albumu”, lai atvērtu pārlūku un rediģētu to MusicBrainz vietnē."
 
-#: src/sj-main.c:393
+#: src/sj-main.c:396
 msgid "Click ‘Reload’ to load the edited album details from MusicBrainz"
 msgstr ""
 "Spiediet “Pārlādēt”, lai ielādētu rediģēto albuma informāciju no MusicBrainz"
 
-#: src/sj-main.c:415
+#: src/sj-main.c:418
 msgid "Could not open URL"
 msgstr "Nevarēja atvērt URL"
 
-#: src/sj-main.c:416
+#: src/sj-main.c:419
 msgid "Sound Juicer could not open the submission URL"
 msgstr "Skaņas izvilcējs nevarēja atvērt nosūtāmo URL"
 
-#: src/sj-main.c:454
+#: src/sj-main.c:459
 msgid "Could not duplicate disc"
 msgstr "Nevarēja dublēt disku"
 
-#: src/sj-main.c:455
+#: src/sj-main.c:460
 msgid "Sound Juicer could not duplicate the disc"
 msgstr "Skaņas izvilcējs nevarēja dublēt disku"
 
-#: src/sj-main.c:501
+#: src/sj-main.c:506
 msgid "Lieder"
 msgstr "Lieder"
 
-#: src/sj-main.c:501
+#: src/sj-main.c:506
 msgid "Opera"
 msgstr "Opera"
 
-#: src/sj-main.c:501
+#: src/sj-main.c:506
 msgid "Chamber"
 msgstr "Kamermūzika"
 
-#: src/sj-main.c:501
+#: src/sj-main.c:506
 msgid "Musical"
 msgstr "Mūzikls"
 
-#: src/sj-main.c:837 src/sj-main.c:1028
+#: src/sj-main.c:842 src/sj-main.c:1022
 msgid "Could not read the CD"
 msgstr "Nevarēja nolasīt CD"
 
-#: src/sj-main.c:838
+#: src/sj-main.c:843
 msgid "Sound Juicer could not read the track listing on this CD."
 msgstr "Skaņas izvilcējs nevarēja nolasīt celiņu sarakstu no šī CD."
 
-#: src/sj-main.c:990
+#: src/sj-main.c:986
 #, c-format
-#| msgid "Sound Juicer could not use the CD-ROM device '%s'"
 msgid "Sound Juicer could not use the CD-ROM device ‘%s’"
 msgstr "Skaņas izvilcējs nevarēja izmantot diskdzini “%s”"
 
-#: src/sj-main.c:997
+#: src/sj-main.c:993
 msgid "HAL daemon may not be running."
 msgstr "Iespējams, HAL dēmons nedarbojas."
 
-#: src/sj-main.c:1021
+#: src/sj-main.c:1015
 #, c-format
-#| msgid "Sound Juicer could not access the CD-ROM device '%s'"
 msgid "Sound Juicer could not access the CD-ROM device ‘%s’"
 msgstr "Skaņas izvilcējs nevarēja piekļūt diskdzinim “%s”"
 
-#: src/sj-main.c:1119
-msgid "No CD-ROM drives found"
-msgstr "Diskdziņi nav atrasti"
-
-#: src/sj-main.c:1120
-msgid "Sound Juicer could not find any CD-ROM drives to read."
-msgstr "Skaņas izvilcējs nevarēja atrast nevienu diskdzini, ko lasīt."
-
-#: src/sj-main.c:1153
+#: src/sj-main.c:1132
 msgid ""
 "The currently selected audio profile is not available on your installation."
 msgstr "Pašreiz izvēlētais audio profils nav pieejams ar šo instalāciju."
 
-#: src/sj-main.c:1155
+#: src/sj-main.c:1134
 msgid "_Change Profile"
 msgstr "_Mainīt profilu"
 
-#: src/sj-main.c:1548
+#: src/sj-main.c:1527
 msgid "Unknown widget calling on_person_edit_changed."
 msgstr "Nezināma logdaļa izsauca on_person_edit_changed."
 
-#: src/sj-main.c:1648 src/sj-prefs.c:117
+#: src/sj-main.c:1627 src/sj-prefs.c:117
 #, c-format
 msgid ""
 "Could not display help for Sound Juicer\n"
@@ -1011,56 +980,55 @@ msgstr ""
 "Nevarēja parādīt skaņas izvilcēja palīdzību\n"
 "%s"
 
-#: src/sj-main.c:1707
-#| msgid "Retrieving track listing...please wait."
+#: src/sj-main.c:1679
 msgid "Retrieving track listing…please wait."
 msgstr "Saņem celiņu listi… lūdzu, uzgaidiet."
 
-#: src/sj-main.c:1888 src/sj-play.c:300
+#: src/sj-main.c:1865 src/sj-play.c:300
 msgid "_Pause"
 msgstr "_Pauzēt"
 
-#: src/sj-main.c:1963
+#: src/sj-main.c:1940
 msgid "Track"
 msgstr "Celiņš"
 
-#: src/sj-main.c:1975
+#: src/sj-main.c:1952
 msgid "Title"
 msgstr "Nosaukums"
 
-#: src/sj-main.c:1976
+#: src/sj-main.c:1953
 msgid "Artist"
 msgstr "Izpildītājs"
 
-#: src/sj-main.c:1977
+#: src/sj-main.c:1954
 msgid "Composer"
 msgstr "Komponists"
 
-#: src/sj-main.c:1983
+#: src/sj-main.c:1960
 msgid "Duration"
 msgstr "Ilgums"
 
-#: src/sj-main.c:2140
+#: src/sj-main.c:2077
 msgid "Start extracting immediately"
 msgstr "Sākt izvilkšanu nekavējoties"
 
-#: src/sj-main.c:2141
+#: src/sj-main.c:2078
 msgid "Start playing immediately"
 msgstr "Sākt atskaņot nekavējoties"
 
-#: src/sj-main.c:2142
+#: src/sj-main.c:2079
 msgid "What CD device to read"
 msgstr "Kuru CD ierīci lasīt"
 
-#: src/sj-main.c:2142
+#: src/sj-main.c:2079
 msgid "DEVICE"
 msgstr "IERĪCE"
 
-#: src/sj-main.c:2143
+#: src/sj-main.c:2080
 msgid "URI to the CD device to read"
 msgstr "CD ierīce URI, kuru lasīt"
 
-#: src/sj-play.c:192 src/sj-play.c:416 src/sj-play.c:452
+#: src/sj-play.c:192 src/sj-play.c:418 src/sj-play.c:454
 #, c-format
 msgid ""
 "Error playing CD.\n"
@@ -1071,12 +1039,12 @@ msgstr ""
 "\n"
 "Iemesls — %s"
 
-#: src/sj-play.c:354
+#: src/sj-play.c:356
 #, c-format
 msgid "Failed to create CD source element"
 msgstr "Neizdevās izveidot CD avota elementu"
 
-#: src/sj-play.c:592
+#: src/sj-play.c:594
 #, c-format
 msgid "Seeking to %s"
 msgstr "Meklē līdz %s"
@@ -1157,10 +1125,12 @@ msgstr "Celiņa mākslinieks (kārtojams) - Celiņa nosaukums"
 msgid "Number. Track Artist - Track Title"
 msgstr "Numurs. Celiņa komponists - Celiņa nosaukums"
 
+#. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
 #: src/sj-prefs.c:72
 msgid "Number-Track Artist-Track Title (lowercase)"
 msgstr "Numurs-Celiņa komponists-Celiņa nosaukums (mazie burti)"
 
+#. {N_("Number-Track Artist (sortable)-Track Title (lowercase)"), "%tN-%tS-%tT"},
 #: src/sj-prefs.c:74
 msgid "Track Composer - Track Artist - Track Title"
 msgstr "Celiņa komponists - Celiņa izpildītājs - Celiņa nosaukums"
@@ -1184,6 +1154,28 @@ msgstr ""
 msgid "Example Path: "
 msgstr "Parauga ceļš: "
 
+#~| msgid "Sound Juicer"
+#~ msgid "sound-juicer"
+#~ msgstr "sound-juicer"
+
+#~ msgid "The GNOME Project"
+#~ msgstr "GNOME projekts"
+
+#~ msgid "Disc"
+#~ msgstr "Disks"
+
+#~ msgid "About"
+#~ msgstr "Par"
+
+#~ msgid "Devices haven't been all probed yet"
+#~ msgstr "Ne visas ierīces jau ir zondētas"
+
+#~ msgid "No CD-ROM drives found"
+#~ msgstr "Diskdziņi nav atrasti"
+
+#~ msgid "Sound Juicer could not find any CD-ROM drives to read."
+#~ msgstr "Skaņas izvilcējs nevarēja atrast nevienu diskdzini, ko lasīt."
+
 #~ msgid "Sound Juicer Audio CD Extractor"
 #~ msgstr "Skaņas izvilcējs audio CD izvilcējs"
 
@@ -1201,3 +1193,4 @@ msgstr "Parauga ceļš: "
 
 #~ msgid "- Extract music from your CDs"
 #~ msgstr "- Izvilkt mūziku no jūsu CD"
+
