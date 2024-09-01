@@ -1751,7 +1751,8 @@ startup_cb (GApplication *app, gpointer user_data)
 
   sj_debug_init ();
 
-  gtk_window_set_default_icon_name ("sound-juicer");
+  g_set_prgname ("org.gnome.SoundJuicer");
+  gtk_window_set_default_icon_name ("org.gnome.SoundJuicer");
 
   metadata = sj_metadata_getter_new ();
 
