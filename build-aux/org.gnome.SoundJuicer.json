@@ -79,24 +79,23 @@
             "buildsystem": "meson",
             "config-opts": [
                 "-Dauto_features=disabled",
+                "-Dtools=enabled",
                 "-Dgst-plugins-base:cdparanoia=enabled",
                 "-Dgst-plugins-base:ogg=enabled",
                 "-Dgst-plugins-base:vorbis=enabled",
                 "-Dgst-plugins-base:opus=enabled",
                 "-Dgst-plugins-base:encoding=enabled",
-                "-Dgst-plugins-base:gio=enabled",
                 "-Dgst-plugins-good:taglib=enabled",
                 "-Dgst-plugins-good:lame=enabled",
                 "-Dgst-plugins-good:isomp4=enabled",
                 "-Dgst-plugins-good:flac=enabled",
                 "-Dgst-plugins-good:wavenc=enabled",
+                "-Dgst-plugins-good:xingmux=enabled",
                 "-Dgst-plugins-bad:fdkaac=enabled",
-                "-Dgst-plugins-ugly:xingmux=enabled",
                 "-Dpython=disabled",
                 "-Ddevtools=disabled",
                 "-Dges=disabled",
                 "-Drtsp_server=disabled",
-                "-Domx=disabled",
                 "-Dsharp=disabled",
                 "-Dgst-examples=disabled",
                 "-Dtests=disabled",
@@ -115,8 +114,7 @@
                     "type": "git",
                     "disable-submodules": true,
                     "url": "https://gitlab.freedesktop.org/gstreamer/gstreamer.git",
-                    "commit" : "8dbfc89a850d484a27937eb882978251bfce06b3",
-                    "tag": "1.20.2"
+                    "tag": "1.24.12"
                 }
             ]
         },
