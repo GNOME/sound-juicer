@@ -59,7 +59,8 @@
           "name": "taglib",
           "buildsystem": "cmake-ninja",
           "config-opts": [
-            "-DBUILD_SHARED_LIBS=ON"
+            "-DBUILD_SHARED_LIBS=ON",
+            "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
           ],
           "cleanup": [
             "/include",
