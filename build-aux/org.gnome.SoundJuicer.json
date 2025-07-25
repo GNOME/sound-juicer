@@ -32,6 +32,29 @@
     ],
     "cleanup": [ "/include", "/share/bash-completion" ],
     "modules": [
+        {
+            "name": "fdkaac",
+            "config-opts": [
+                "--with-pic",
+                "--disable-static",
+                "--enable-shared",
+                "--prefix=/app/share/vlc/extra/fdkaac"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/mstorsjo/fdk-aac/archive/v2.0.2.tar.gz",
+                    "sha256": "7812b4f0cf66acda0d0fe4302545339517e702af7674dd04e5fe22a5ade16a90"
+                },
+                {
+                    "type": "script",
+                    "commands": [
+                        "autoreconf -fiv"
+                    ],
+                    "dest-filename": "autogen.sh"
+                }
+            ]
+        },
         /* gst-plugins-base needs cdparanoia to add support for cdda */
         {
             "name": "cdparanoia",
