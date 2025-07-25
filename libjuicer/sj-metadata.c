@@ -207,8 +207,8 @@ sj_metadata_helper_check_media (const char *cdrom, GError **error)
   g_autoptr (UDisksObject) object = NULL;
   g_autoptr (UDisksBlock) block = NULL;
   g_autoptr (UDisksDrive) drive = NULL;
-  g_autofree gchar *basename;
-  g_autofree gchar *object_path;
+  g_autofree gchar *basename = NULL;
+  g_autofree gchar *object_path = NULL;
 
   g_assert_null (err);
   client = udisks_client_new_sync (NULL, &err);
