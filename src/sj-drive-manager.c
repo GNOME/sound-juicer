@@ -43,13 +43,6 @@ G_DEFINE_TYPE_EXTENDED (SjDriveManager,
                         G_IMPLEMENT_INTERFACE (G_TYPE_INITABLE, sj_drive_manager_initable_interface_init))
 
 enum {
-  PROP_0,
-  N_PROPS
-};
-
-static GParamSpec *properties [N_PROPS];
-
-enum {
   SIGNAL_DRIVE_ADDED,
   SIGNAL_DRIVE_REMOVED,
   SIGNAL_MEDIA_ADDED,
@@ -180,9 +173,6 @@ sj_drive_manager_drive_has_media_compatibility (SjDriveManager *self,
 static void
 sj_drive_manager_finalize (GObject *object)
 {
-  SjDriveManager *self = SJ_DRIVE_MANAGER (object);
-  SjDriveManagerPrivate *priv = sj_drive_manager_get_instance_private (self);
-
   G_OBJECT_CLASS (sj_drive_manager_parent_class)->finalize (object);
 }
 
@@ -203,44 +193,12 @@ sj_drive_manager_dispose (GObject *object)
 }
 
 static void
-sj_drive_manager_get_property (GObject    *object,
-                                guint       prop_id,
-                                GValue     *value,
-                                GParamSpec *pspec)
-{
-  SjDriveManager *self = SJ_DRIVE_MANAGER (object);
-
-  switch (prop_id)
-    {
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-    }
-}
-
-static void
-sj_drive_manager_set_property (GObject      *object,
-                                guint         prop_id,
-                                const GValue *value,
-                                GParamSpec   *pspec)
-{
-  SjDriveManager *self = SJ_DRIVE_MANAGER (object);
-
-  switch (prop_id)
-    {
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-    }
-}
-
-static void
 sj_drive_manager_class_init (SjDriveManagerClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   object_class->dispose = sj_drive_manager_dispose;
   object_class->finalize = sj_drive_manager_finalize;
-  object_class->get_property = sj_drive_manager_get_property;
-  object_class->set_property = sj_drive_manager_set_property;
 
   /**
    * SjDriveManager::drive-added:
