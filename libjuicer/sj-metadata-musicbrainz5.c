@@ -489,10 +489,11 @@ get_artist_info (GList *artists, char **name, char **sortname, char **id)
         *id = g_strdup (details->id);
   }
 
-  if (name != NULL)
-    *name = artist_name->str;
-
-  g_string_free (artist_name, FALSE);
+  if (name != NULL) {
+    *name = g_string_free (artist_name, FALSE);
+  } else {
+    g_string_free (artist_name, TRUE);
+  }
 }
 
 static GList*
