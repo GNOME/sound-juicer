@@ -1,0 +1,1158 @@
+# Kazakh translation for sound-juicer.
+# Copyright (C) 2026 sound-juicer's COPYRIGHT HOLDER
+# This file is distributed under the same license as the sound-juicer package.
+# Baurzhan Muftakhidinov <baurthefirst@gmail.com>,  2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: sound-juicer master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/sound-juicer/issues/\n"
+"POT-Creation-Date: 2026-01-01 13:34+0000\n"
+"PO-Revision-Date: 2026-03-15 01:23+0500\n"
+"Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
+"Language-Team: Kazakh <Kazakh>\n"
+"Language: kk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.9\n"
+
+#: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:8
+#: data/org.gnome.SoundJuicer.desktop.in:2 data/sound-juicer.ui:13
+#: src/sj-main.c:132 src/sj-main.c:134 src/sj-main.c:2090
+msgid "Sound Juicer"
+msgstr "Sound Juicer"
+
+#: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:9
+msgid "CD ripper with a clean interface and simple preferences"
+msgstr "Таза интерфейсі және қарапайым баптаулары бар CD риппері"
+
+#: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:11
+msgid ""
+"Sound Juicer is a simple and clean CD ripping tool. It allows you to "
+"extract the audio from audio compact discs and convert them into audio "
+"files that your computer can understand and play. Sound Juicer can also "
+"play the audio tracks directly from the CD, allowing you to preview the CD "
+"before ripping it."
+msgstr ""
+"Sound Juicer - қарапайым және таза CD риптеу сайманы. Ол аудио жинақ "
+"дискілерінен аудионы шығарып алып, оларды компьютеріңіз түсінетін және "
+"ойната алатын аудио файлдарға айналдыруға мүмкіндік береді. Sound Juicer "
+"аудио тректерді тікелей CD-ден ойната алады, бұл оны риптеу алдында алдын "
+"ала тыңдауға мүмкіндік береді."
+
+#: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:18
+msgid ""
+"Sound Juicer is designed to be easy to use, and to work with little user "
+"intervention. When you start Sound Juicer, it will examine the CD in the "
+"drive and try to locate information about the audio tracks using the freely-"
+"available MusicBrainz service."
+msgstr ""
+"Sound Juicer пайдалануға оңай болу үшін және пайдаланушының аз араласуымен "
+"жұмыс істеу үшін жасалған. Sound Juicer іске қосылғанда, ол жетектегі CD-ді "
+"тексереді және еркін қолжетімді MusicBrainz қызметін пайдаланып аудио "
+"тректер туралы ақпаратты табуға тырысады."
+
+#. This is a translatable version of project_group
+#: data/metainfo/org.gnome.SoundJuicer.metainfo.xml.in:40
+msgid "Link Dupont"
+msgstr "Link Dupont"
+
+#: data/org.gnome.SoundJuicer.desktop.in:3
+msgid "Audio CD Extractor"
+msgstr "Аудио CD шығарып алушы"
+
+#: data/org.gnome.SoundJuicer.desktop.in:4
+msgid "Copy music from your CDs"
+msgstr "CD-леріңізден музыканы көшіру"
+
+#. Translators: Search terms to find this application. Do NOT translate or
+#. localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.SoundJuicer.desktop.in:6
+msgid "Ripper;"
+msgstr "Риппер;"
+
+#: data/org.gnome.sound-juicer.gschema.xml:19
+msgid "The CD to extract from"
+msgstr "Шығарып алатын CD"
+
+#: data/org.gnome.sound-juicer.gschema.xml:20
+msgid ""
+"Please note: Sound Juicer currently only handles real device names, no "
+"symlinks like e.g. /dev/cdrom. An empty key implicates that the system's "
+"default CD-ROM drive will be used."
+msgstr ""
+"Назар аударыңыз: Sound Juicer қазіргі уақытта тек нақты құрылғы атауларымен "
+"жұмыс істейді, /dev/cdrom сияқты символдық сілтемелерді қолдамайды. Бос "
+"кілт жүйенің бастапқы CD-ROM жетегі пайдаланылатынын білдіреді."
+
+#: data/org.gnome.sound-juicer.gschema.xml:25
+msgid "Whether to eject the CD when finished extracting"
+msgstr "Шығарып алу аяқталған соң CD-ді шығару керек пе"
+
+#: data/org.gnome.sound-juicer.gschema.xml:30
+msgid "Whether to open the target directory when finished extracting"
+msgstr "Шығарып алу аяқталған соң мақсатты буманы ашу керек пе"
+
+#: data/org.gnome.sound-juicer.gschema.xml:35
+msgid "The URI to save the extracted music to"
+msgstr "Шығарып алынған музыканы сақтауға арналған URI"
+
+#: data/org.gnome.sound-juicer.gschema.xml:40
+msgid "The directory structure for the files"
+msgstr "Файлдарға арналған бума құрылымы"
+
+#: data/org.gnome.sound-juicer.gschema.xml:41
+msgid ""
+"Format specifiers: %at - album title; %aT - album title (lowercase); %aa - "
+"album artist; %aA - album artist (lowercase); %as - album artist "
+"(sortable); %aS - album artist (sortable lowercase); %ac - album composer; "
+"%aC - album composer (lowercase); %ap - album composer (sortable); %aP - "
+"album composer (sortable lowercase); %ay - album year; %tt - track title; "
+"%tT - track title (lowercase); %ta - track artist; %tA - track artist "
+"(lowercase); %ts - track artist (sortable); %tS - track artist (sortable "
+"lowercase); %tc - track composer; %tC - track composer (lowercase); %tp - "
+"track composer (sortable); %tP - track composer (sortable lowercase)."
+msgstr ""
+"Пішім спецификаторлары: %at - альбом тақырыбы; %aT - альбом тақырыбы (кіші "
+"әріппен); %aa - альбом орындаушысы; %aA - альбом орындаушысы (кіші "
+"әріппен); %as - альбом орындаушысы (сұрыпталатын); %aS - альбом орындаушысы "
+"(сұрыпталатын кіші әріппен); %ac - альбом композиторы; %aC - альбом "
+"композиторы (кіші әріппен); %ap - альбом композиторы (сұрыпталатын); %aP - "
+"альбом композиторы (сұрыпталатын кіші әріппен); %ay - альбом жылы; %tt - "
+"трек тақырыбы; %tT - трек тақырыбы (кіші әріппен); %ta - трек орындаушысы; "
+"%tA - трек орындаушысы (кіші әріппен); %ts - трек орындаушысы "
+"(сұрыпталатын); %tS - трек орындаушысы (сұрыпталатын кіші әріппен); %tc - "
+"трек композиторы; %tC - трек композиторы (кіші әріппен); %tp - трек "
+"композиторы (сұрыпталатын); %tP - трек композиторы (сұрыпталатын кіші "
+"әріппен)."
+
+#: data/org.gnome.sound-juicer.gschema.xml:46
+msgid "The name pattern for files"
+msgstr "Файлдарға арналған атау үлгісі"
+
+#: data/org.gnome.sound-juicer.gschema.xml:47
+msgid ""
+"Do not specify an extension. Format specifiers: %at - album title; %aT - "
+"album title (lowercase); %aa - album artist; %aA - album artist "
+"(lowercase); %as - album artist (sortable); %aS - album artist (sortable "
+"lowercase); %ac - album composer; %aC - album composer (lowercase); %ap - "
+"album composer (sortable); %aP - album composer (sortable lowercase); %tn - "
+"track number (i.e 8); %tN - track number, zero padded (i.e 08); %tt - track "
+"title; %tT - track title (lowercase); %ta - track artist; %tA - track "
+"artist (lowercase); %ts - track artist (sortable); %tS - track artist "
+"(sortable lowercase); %tc - track composer; %tC - track composer "
+"(lowercase); %tp - track composer (sortable); %tP - track composer "
+"(sortable lowercase); %dn - disc and track number (i.e Disk 2 - 6, or 6); "
+"%dN - disc number, zero padded (i.e d02t06, or 06)."
+msgstr ""
+"Кеңейтуді көрсетпеңіз. Пішім спецификаторлары: %at - альбом тақырыбы; %aT - "
+"альбом тақырыбы (кіші әріппен); %aa - альбом орындаушысы; %aA - альбом "
+"орындаушысы (кіші әріппен); %as - альбом орындаушысы (сұрыпталатын); %aS - "
+"альбом орындаушысы (сұрыпталатын кіші әріппен); %ac - альбом композиторы; "
+"%aC - альбом композиторы (кіші әріппен); %ap - альбом композиторы "
+"(сұрыпталатын); %aP - альбом композиторы (сұрыпталатын кіші әріппен); %tn - "
+"трек нөмірі (яғни 8); %tN - трек нөмірі, нөлмен толтырылған (яғни 08); %tt "
+"- трек тақырыбы; %tT - трек тақырыбы (кіші әріппен); %ta - трек "
+"орындаушысы; %tA - трек орындаушысы (кіші әріппен); %ts - трек орындаушысы "
+"(сұрыпталатын); %tS - трек орындаушысы (сұрыпталатын кіші әріппен); %tc - "
+"трек композиторы; %tC - трек композиторы (кіші әріппен); %tp - трек "
+"композиторы (сұрыпталатын); %tP - трек композиторы (сұрыпталатын кіші "
+"әріппен); %dn - диск және трек нөмірі (яғни Disk 2 - 6 немесе 6); %dN - "
+"диск нөмірі, нөлмен толтырылған (яғни d02t06 немесе 06)."
+
+#: data/org.gnome.sound-juicer.gschema.xml:52
+msgid "The paranoia mode to use"
+msgstr "Пайдаланылатын paranoia режимі"
+
+#: data/org.gnome.sound-juicer.gschema.xml:53
+msgid "Paranoia flags: disable; fragment; overlap; scratch; repair."
+msgstr "Paranoia жалаушалары: сөндіру; фрагмент; қабаттасу; сызат; жөндеу."
+
+#: data/org.gnome.sound-juicer.gschema.xml:58
+msgid "Whether to strip special characters from filenames"
+msgstr "Файл атауларынан арнайы таңбаларды алып тастау керек пе"
+
+#: data/org.gnome.sound-juicer.gschema.xml:59
+msgid ""
+"If enabled, special characters such as space, wildcards and backslashes "
+"will be removed from the output filename."
+msgstr ""
+"Егер іске қосылған болса, бос орын, таңбалар және кері қиғаш сызықтар "
+"сияқты арнайы таңбалар шығыс файл атауынан өшіріледі."
+
+#: data/org.gnome.sound-juicer.gschema.xml:64
+msgid "Media type to encode to"
+msgstr "Кодтауға арналған медиа түрі"
+
+#: data/org.gnome.sound-juicer.gschema.xml:65
+msgid "The GStreamer media type to encode to."
+msgstr "Кодтауға арналған GStreamer медиа түрі."
+
+#: data/org.gnome.sound-juicer.gschema.xml:71
+msgid "Audio volume"
+msgstr "Аудио дыбыс деңгейі"
+
+#: data/sj-album-chooser-dialog.ui:6
+msgid "Select Album"
+msgstr "Альбомды таңдау"
+
+#: data/sj-album-chooser-dialog.ui:11
+msgid "_Select"
+msgstr "_Таңдау"
+
+#: data/sj-album-chooser-dialog.ui:27
+msgid "This CD could be more than one album. Please select which album it is."
+msgstr "Бұл CD бірнеше альбом болуы мүмкін. Оның қай альбом екенін таңдаңыз."
+
+#: data/sound-juicer-shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Disc"
+msgstr "Диск"
+
+#: data/sound-juicer-shortcuts.ui:19
+msgctxt "shortcut window"
+msgid "Reread track names"
+msgstr "Трек атауларын қайта оқу"
+
+#: data/sound-juicer-shortcuts.ui:26
+msgctxt "shortcut window"
+msgid "Eject disc"
+msgstr "Дискіні шығару"
+
+#: data/sound-juicer-shortcuts.ui:33
+msgctxt "shortcut window"
+msgid "Toggle playback"
+msgstr "Ойнатуды ауыстыру"
+
+#: data/sound-juicer-shortcuts.ui:40
+msgctxt "shortcut window"
+msgid "Next track"
+msgstr "Келесі трек"
+
+#: data/sound-juicer-shortcuts.ui:47
+msgctxt "shortcut window"
+msgid "Previous track"
+msgstr "Алдыңғы трек"
+
+#: data/sound-juicer-shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Жалпы"
+
+#: data/sound-juicer-shortcuts.ui:60
+msgctxt "shortcut window"
+msgid "Help"
+msgstr "Көмек"
+
+#: data/sound-juicer-shortcuts.ui:67
+msgctxt "shortcut window"
+msgid "Shortcuts help"
+msgstr "Жарлықтар көмегі"
+
+#: data/sound-juicer-shortcuts.ui:74
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Шығу"
+
+#: data/sound-juicer-shortcuts.ui:81
+msgctxt "shortcut window"
+msgid "Select all tracks"
+msgstr "Барлық тректерді таңдау"
+
+#: data/sound-juicer-shortcuts.ui:88
+msgctxt "shortcut window"
+msgid "Unselect all tracks"
+msgstr "Барлық тректерден таңдауды алып тастау"
+
+#: data/sound-juicer.ui:55
+msgid "_Edit Album"
+msgstr "Альбомды _түзету"
+
+#: data/sound-juicer.ui:68
+msgid "_Reload Album"
+msgstr "Альбомды _қайта жүктеу"
+
+#: data/sound-juicer.ui:161
+msgid "_Year:"
+msgstr "_Жыл:"
+
+#: data/sound-juicer.ui:196
+msgid "_Disc:"
+msgstr "_Диск:"
+
+#: data/sound-juicer.ui:236
+msgid "_Title:"
+msgstr "_Тақырыбы:"
+
+#: data/sound-juicer.ui:261
+msgid "_Artist:"
+msgstr "_Орындаушы:"
+
+#: data/sound-juicer.ui:292
+msgid "_Composer:"
+msgstr "_Композитор:"
+
+#: data/sound-juicer.ui:323
+msgid "_Genre:"
+msgstr "_Жанр:"
+
+#: data/sound-juicer.ui:340
+msgid "Duration:"
+msgstr "Ұзақтығы:"
+
+#: data/sound-juicer.ui:386
+msgid "Tracks"
+msgstr "Тректер"
+
+#: data/sound-juicer.ui:410 src/sj-main.c:1859 src/sj-play.c:120
+#: src/sj-play.c:258 src/sj-play.c:623
+msgid "_Play"
+msgstr "_Ойнату"
+
+#: data/sound-juicer.ui:420 src/sj-extracting.c:230 src/sj-main.c:1883
+msgid "E_xtract"
+msgstr "_Шығарып алу"
+
+#: data/sound-juicer.ui:446
+msgid "Track Progress"
+msgstr "Трек барысы"
+
+#: data/sound-juicer.ui:541 data/sound-juicer.ui:860
+msgid "Preferences"
+msgstr "Баптаулар"
+
+#: data/sound-juicer.ui:560
+msgid "Device"
+msgstr "Құрылғы"
+
+#: data/sound-juicer.ui:576
+msgid "CD _drive:"
+msgstr "CD _жетегі:"
+
+#: data/sound-juicer.ui:603
+msgid "_Eject after extracting tracks"
+msgstr "Тректерді шығарып алғаннан кейін _шығару"
+
+#: data/sound-juicer.ui:618
+msgid "_Open music folder when finished"
+msgstr "Аяқталған соң музыка _бумасын ашу"
+
+#: data/sound-juicer.ui:636
+msgid "Music Folder"
+msgstr "Музыка бумасы"
+
+#: data/sound-juicer.ui:652
+msgid "_Folder:"
+msgstr "_Бума:"
+
+#: data/sound-juicer.ui:668
+msgid "Select A Folder"
+msgstr "Буманы таңдау"
+
+#: data/sound-juicer.ui:681
+msgid "Track Names"
+msgstr "Трек атаулары"
+
+#: data/sound-juicer.ui:697
+msgid "Folder hie_rarchy:"
+msgstr "Бумалар _иерархиясы:"
+
+#: data/sound-juicer.ui:728
+msgid "File _name:"
+msgstr "Файл _аты:"
+
+#: data/sound-juicer.ui:756
+msgid "_Strip special characters"
+msgstr "Арнайы таңбаларды _алып тастау"
+
+#: data/sound-juicer.ui:787
+msgid "Format"
+msgstr "Пішім"
+
+#: data/sound-juicer.ui:803
+msgid "O_utput Format:"
+msgstr "_Шығыс пішімі:"
+
+#: data/sound-juicer.ui:837
+msgid "Re-read"
+msgstr "Қайта оқу"
+
+#: data/sound-juicer.ui:842
+msgid "Duplicate"
+msgstr "Дубликаттау"
+
+#: data/sound-juicer.ui:846
+msgid "Eject"
+msgstr "Шығару"
+
+#: data/sound-juicer.ui:853
+msgid "Open MusicBrainz"
+msgstr "MusicBrainz ашу"
+
+#: data/sound-juicer.ui:866
+msgid "Shortcuts"
+msgstr "Жарлықтар"
+
+#: data/sound-juicer.ui:870
+msgid "Help"
+msgstr "Көмек"
+
+#: data/sound-juicer.ui:875
+msgid "About Sound Juicer"
+msgstr "Sound Juicer туралы"
+
+#: data/sound-juicer.ui:879
+msgid "Quit"
+msgstr "Шығу"
+
+#: libjuicer/sj-extractor.c:350
+#, c-format
+msgid "Could not create GStreamer CD reader"
+msgstr "GStreamer CD оқу құралын жасау мүмкін емес"
+
+#: libjuicer/sj-extractor.c:368
+#, c-format
+msgid "Could not create GStreamer encoders for %s"
+msgstr "%s үшін GStreamer кодтаушыларын жасау мүмкін емес"
+
+#: libjuicer/sj-extractor.c:380
+#, c-format
+msgid "Could not create GStreamer file output"
+msgstr "GStreamer файл шығысын жасау мүмкін емес"
+
+#: libjuicer/sj-extractor.c:394
+#, c-format
+msgid "Could not link pipeline"
+msgstr "Конвейерді байланыстыру мүмкін емес"
+
+#: libjuicer/sj-extractor.c:417
+msgid "Could not get current track position"
+msgstr "Тректің ағымдағы орнын алу мүмкін емес"
+
+#: libjuicer/sj-extractor.c:446
+#, c-format
+msgid ""
+"Extractor object is not valid. This is bad, check your console for errors."
+msgstr ""
+"Шығарып алушы объектісі жарамсыз. Бұл нашар, қателерді консольден "
+"тексеріңіз."
+
+#: libjuicer/sj-extractor.c:708
+#, c-format
+msgid "The plugin necessary for CD access was not found"
+msgstr "CD-ге қол жеткізуге қажетті плагин табылмады"
+
+#: libjuicer/sj-extractor.c:716
+#, c-format
+msgid "The plugin necessary for file access was not found"
+msgstr "Файлға қол жеткізуге қажетті плагин табылмады"
+
+#: libjuicer/sj-metadata.c:223
+#, c-format
+msgid "Cannot get device ‘%s’"
+msgstr "«%s» құрылғысын алу мүмкін емес"
+
+#: libjuicer/sj-metadata.c:236
+#, c-format
+msgid "Device ‘%s’ does not contain any media"
+msgstr "«%s» құрылғысында ешқандай медиа жоқ"
+
+#: libjuicer/sj-metadata.c:239
+#, c-format
+msgid ""
+"Device ‘%s’ could not be opened. Check the access permissions on the device."
+msgstr ""
+"«%s» құрылғысын ашу мүмкін болмады. Құрылғыға қол жеткізу рұқсаттарын "
+"тексеріңіз."
+
+#: libjuicer/sj-metadata.c:242
+#, c-format
+msgid "Cannot read CD: %s"
+msgstr "CD-ді оқу мүмкін емес: %s"
+
+#: libjuicer/sj-metadata.c:369
+msgid "Czechoslovakia"
+msgstr "Чехословакия"
+
+#: libjuicer/sj-metadata.c:370
+msgid "East Germany"
+msgstr "Шығыс Германия"
+
+#: libjuicer/sj-metadata.c:371
+msgid "Europe"
+msgstr "Еуропа"
+
+#: libjuicer/sj-metadata.c:372
+msgid "Serbia and Montenegro"
+msgstr "Сербия және Черногория"
+
+#: libjuicer/sj-metadata.c:373
+msgid "Soviet Union"
+msgstr "Кеңес Одағы"
+
+#: libjuicer/sj-metadata.c:374
+msgid "Worldwide"
+msgstr "Дүниежүзілік"
+
+#: libjuicer/sj-metadata.c:375
+msgid "Yugoslavia"
+msgstr "Югославия"
+
+#: libjuicer/sj-metadata-gvfs.c:95
+#, c-format
+msgid "Cannot access CD"
+msgstr "CD-ге қол жеткізу мүмкін емес"
+
+#: libjuicer/sj-metadata-gvfs.c:117 src/egg-play-preview.c:570
+#: src/sj-main.c:357
+msgid "Unknown Title"
+msgstr "Белгісіз тақырып"
+
+#: libjuicer/sj-metadata-gvfs.c:123 libjuicer/sj-metadata-gvfs.c:153
+#: src/egg-play-preview.c:575 src/sj-extracting.c:978
+msgid "Unknown Artist"
+msgstr "Белгісіз орындаушы"
+
+#: libjuicer/sj-metadata-gvfs.c:147
+#, c-format
+msgid "Track %d"
+msgstr "Трек %d"
+
+#: libjuicer/sj-metadata-gvfs.c:174
+#, c-format
+msgid "Cannot access CD: %s"
+msgstr "CD-ге қол жеткізу мүмкін емес: %s"
+
+#. Translators: This string is used to build the composer tag
+#. when a track has composers and arrangers, or a composer and a
+#. mixture of arrangers, orchestrators and transcribers
+#: libjuicer/sj-metadata-musicbrainz5.c:705
+#, c-format
+msgid "%s arr. %s"
+msgstr "%s өңд. %s"
+
+#. Translators: This string is used to build the composer tag
+#. when a track has composers and orchestrators
+#: libjuicer/sj-metadata-musicbrainz5.c:709
+#, c-format
+msgid "%s orch. %s"
+msgstr "%s орк. %s"
+
+#. Translators: This string is used to build the composer tag
+#. when a track has composers and transcribers
+#: libjuicer/sj-metadata-musicbrainz5.c:713
+#, c-format
+msgid "%s trans. %s"
+msgstr "%s ауд. %s"
+
+#. Translators: This string is used to build the composer tag
+#. when a track has a mixture of arrangers, orchestrators and
+#. transcribers but no composers
+#: libjuicer/sj-metadata-musicbrainz5.c:723
+#, c-format
+msgid "arr. %s"
+msgstr "өңд. %s"
+
+#. Translators: This string is used to build the composer tag
+#. when a track has orchestrators but no composer
+#: libjuicer/sj-metadata-musicbrainz5.c:727
+#, c-format
+msgid "orch. %s"
+msgstr "орк. %s"
+
+#. Translators: This string is used to build the composer tag
+#. when a track has a transcribers but no composer
+#: libjuicer/sj-metadata-musicbrainz5.c:731
+#, c-format
+msgid "trans. %s"
+msgstr "ауд. %s"
+
+#: src/egg-play-preview.c:576 src/sj-extracting.c:977
+msgid "Unknown Album"
+msgstr "Белгісіз альбом"
+
+#: src/sj-about.c:51
+msgid ""
+"Sound Juicer is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version."
+msgstr ""
+"Sound Juicer - еркін бағдарламалық қамтама; оны Еркін бағдарламалық қамтама "
+"қоры жариялаған GNU General Public License шарттарына сәйкес қайта таратуға "
+"және/немесе өзгертуге болады; лицензияның 2-нұсқасы немесе (өз таңдауыңыз "
+"бойынша) кез келген кейінгі нұсқасы."
+
+#: src/sj-about.c:55
+msgid ""
+"Sound Juicer is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details."
+msgstr ""
+"Sound Juicer пайдалы болады деген үмітпен таратылады, бірақ ЕШҚАНДАЙ "
+"КЕПІЛДІК берілмейді; тіпті САТУҒА ЖАРАМДЫЛЫҚ немесе БЕЛГІЛІ БІР МАҚСАТҚА "
+"СӘЙКЕСТІК кепілдігі де жоқ. Толық ақпарат алу үшін GNU General Public "
+"License қараңыз."
+
+#: src/sj-about.c:59
+msgid ""
+"You should have received a copy of the GNU General Public License along "
+"with Sound Juicer; if not, write to the Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
+msgstr ""
+"Сіз Sound Juicer бағдарламасымен бірге GNU General Public License "
+"көшірмесін алуыңыз керек еді; егер алмасаңыз, мына мекенжайға жазыңыз: Free "
+"Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA "
+"02110-1301 USA"
+
+#: src/sj-about.c:70
+msgid "An Audio CD Extractor"
+msgstr "Аудио CD шығарып алушы"
+
+#. Translators: put here your name and email
+#. so it will show up in the "about" box
+#: src/sj-about.c:78
+msgid "translator-credits"
+msgstr "Baurzhan Muftakhidinov <baurthefirst@gmail.com>"
+
+#. Translators: this string is a list of catalog number(s) used by
+#. the label(s) to identify the release
+#: src/sj-album-chooser-dialog.c:242
+msgid "Catalog No.: "
+msgid_plural "Catalog Nos.: "
+msgstr[0] "Каталог нөмірлері: "
+
+#. Translators: this string appears when multiple CDs were
+#. found in musicbrainz online database, it corresponds to
+#. "Released: <country> in <year> on <label>"
+#: src/sj-album-chooser-dialog.c:284
+#, c-format
+msgid "Released: %s in %d on %s"
+msgstr "Шыққан күні: %s, %d ж., %s лейблінде"
+
+#. Translators: this string appears when multiple CDs were
+#. found in musicbrainz online database, it corresponds to
+#. "Released: <country> on <label>"
+#: src/sj-album-chooser-dialog.c:292
+#, c-format
+msgid "Released: %s on %s"
+msgstr "Шыққан күні: %s, %s лейблінде"
+
+#. Translators: this string appears when multiple CDs were
+#. found in musicbrainz online database, it corresponds to
+#. "Released: <country> in <year>"
+#: src/sj-album-chooser-dialog.c:299
+#, c-format
+msgid "Released: %s in %d"
+msgstr "Шыққан күні: %s, %d"
+
+#. Translators: this string appears when multiple CDs were
+#. found in musicbrainz online database, it corresponds to
+#. "Released: <country>"
+#: src/sj-album-chooser-dialog.c:306
+#, c-format
+msgid "Released: %s"
+msgstr "Шыққан күні: %s"
+
+#. Translators: this string appears when multiple CDs were
+#. found in musicbrainz online database, it corresponds to
+#. "Released in <year> on <label>"
+#: src/sj-album-chooser-dialog.c:313
+#, c-format
+msgid "Released in %d on %s"
+msgstr "%d жылы %s лейблінде шыққан"
+
+#. Translators: this string appears when multiple CDs were
+#. found in musicbrainz online database, it corresponds to
+#. "Released in <year>"
+#: src/sj-album-chooser-dialog.c:320
+#, c-format
+msgid "Released in %d"
+msgstr "%d жылы шыққан"
+
+#. Translators: this string appears when multiple CDs were
+#. found in musicbrainz online database, it corresponds to
+#. "Released on <label>"
+#: src/sj-album-chooser-dialog.c:327
+#, c-format
+msgid "Released on %s"
+msgstr "%s лейблінде шыққан"
+
+#: src/sj-album-chooser-dialog.c:330
+#, c-format
+msgid "Release label, year & country unknown"
+msgstr "Шығару лейблі, жылы және елі белгісіз"
+
+#. Translators: this string identifies
+#. the number of the barcode printed on
+#. the release
+#: src/sj-album-chooser-dialog.c:341 src/sj-album-chooser-dialog.c:350
+msgid "Barcode:"
+msgstr "Штрих-код:"
+
+#: src/sj-album-chooser-dialog.c:374
+#, c-format
+msgid " (Disc %d/%d)"
+msgstr " (%d/%d дискі)"
+
+#: src/sj-extracting.c:146
+#, c-format
+msgid "Failed to get output format"
+msgstr "Шығыс пішімін алу сәтсіз аяқталды"
+
+#: src/sj-extracting.c:171
+msgid "Name too long"
+msgstr "Аты тым ұзын"
+
+#: src/sj-extracting.c:306
+msgid "A file with the same name exists"
+msgstr "Осындай атты файл бар"
+
+#: src/sj-extracting.c:308
+#, c-format
+msgid ""
+"A file called ‘%s’ exists, size %s.\n"
+"Do you want to skip this track or overwrite it?"
+msgstr ""
+"«%s» деп аталатын файл бар, өлшемі %s.\n"
+"Бұл тректі өткізіп жіберуді немесе үстінен жазуды қалайсыз ба?"
+
+#: src/sj-extracting.c:322
+msgid "_Skip"
+msgstr "Өткі_зіп жіберу"
+
+#: src/sj-extracting.c:323
+msgid "S_kip All"
+msgstr "Бәрін ө_ткізіп жіберу"
+
+#: src/sj-extracting.c:324
+msgid "_Overwrite"
+msgstr "Ү_стінен жазу"
+
+#: src/sj-extracting.c:325
+msgid "Overwrite _All"
+msgstr "Барлығын үстінен _жазу"
+
+#: src/sj-extracting.c:374
+#, c-format
+msgid "Failed to create output directory: %s"
+msgstr "Шығыс бумасын жасау сәтсіз аяқталды: %s"
+
+#: src/sj-extracting.c:514
+#, c-format
+msgid "Estimated time left: %d:%02d (at %0.1f×)"
+msgstr "Шамамен қалған уақыт: %d:%02d (%0.1f  жылдамдықпен)"
+
+#: src/sj-extracting.c:516
+msgid "Estimated time left: unknown"
+msgstr "Шамамен қалған уақыт: белгісіз"
+
+#: src/sj-extracting.c:606
+msgid "CD rip complete"
+msgstr "CD риптеу аяқталды"
+
+#: src/sj-extracting.c:698
+msgid "Sound Juicer could not extract this CD."
+msgstr "Sound Juicer бұл CD-ді шығарып ала алмады."
+
+#: src/sj-extracting.c:700 src/sj-main.c:178 src/sj-main.c:420
+#: src/sj-main.c:461 src/sj-main.c:844 src/sj-main.c:1024
+msgid "Reason"
+msgstr "Себебі"
+
+#. Change the label to Stop while extracting
+#: src/sj-extracting.c:788 src/sj-main.c:1890
+msgid "_Stop"
+msgstr "_Тоқтату"
+
+#: src/sj-extracting.c:823
+msgid "Extracting audio from CD"
+msgstr "Аудионы CD-ден шығарып алу"
+
+#: src/sj-extracting.c:979
+msgid "Unknown Composer"
+msgstr "Белгісіз композитор"
+
+#: src/sj-extracting.c:980
+msgid "Unknown Track"
+msgstr "Белгісіз трек"
+
+#: src/sj-genres.c:33
+msgid "Ambient"
+msgstr "Эмбиент"
+
+#: src/sj-genres.c:34
+msgid "Blues"
+msgstr "Блюз"
+
+#: src/sj-genres.c:35 src/sj-main.c:506
+msgid "Classical"
+msgstr "Классика"
+
+#: src/sj-genres.c:36
+msgid "Country"
+msgstr "Кантри"
+
+#: src/sj-genres.c:37
+msgid "Dance"
+msgstr "Дэнс"
+
+#: src/sj-genres.c:38
+msgid "Electronica"
+msgstr "Электроника"
+
+#: src/sj-genres.c:39
+msgid "Folk"
+msgstr "Фолк"
+
+#: src/sj-genres.c:40
+msgid "Funk"
+msgstr "Фанк"
+
+#: src/sj-genres.c:41
+msgid "Jazz"
+msgstr "Джаз"
+
+#: src/sj-genres.c:42
+msgid "Latin"
+msgstr "Латын"
+
+#: src/sj-genres.c:43
+msgid "Pop"
+msgstr "Поп"
+
+#: src/sj-genres.c:44
+msgid "Rap"
+msgstr "Рэп"
+
+#: src/sj-genres.c:45
+msgid "Reggae"
+msgstr "Регги"
+
+#: src/sj-genres.c:46
+msgid "Rock"
+msgstr "Рок"
+
+#: src/sj-genres.c:47
+msgid "Soul"
+msgstr "Соул"
+
+#: src/sj-genres.c:48
+msgid "Spoken Word"
+msgstr "Сөйлеу"
+
+#: src/sj-genres.c:197
+#, c-format
+msgid "Error while saving custom genre: %s"
+msgstr "Таңдаулы жанрды сақтау кезіндегі қате: %s"
+
+#: src/sj-main.c:177
+msgid "Could not start Sound Juicer"
+msgstr "Sound Juicer бағдарламасын іске қосу мүмкін емес"
+
+#: src/sj-main.c:180
+msgid "Please consult the documentation for assistance."
+msgstr "Көмек алу үшін құжаттамаға жүгініңіз."
+
+#: src/sj-main.c:236
+msgid ""
+"You are currently extracting a CD. Do you want to quit now or continue?"
+msgstr ""
+"Қазір CD шығарып алынуда. Қазір шығуды немесе жалғастыруды қалайсыз ба?"
+
+#: src/sj-main.c:237 src/sj-main.c:1133
+msgid "_Quit"
+msgstr "_Шығу"
+
+#: src/sj-main.c:238
+msgid "_Continue"
+msgstr "_Жалғастыру"
+
+#: src/sj-main.c:285 src/sj-main.c:1843 src/sj-main.c:1913
+msgid "Select None"
+msgstr "Ештеңе таңдамау"
+
+#: src/sj-main.c:299 src/sj-main.c:1907
+msgid "Select All"
+msgstr "Барлығын таңдау"
+
+#: src/sj-main.c:320 src/sj-main.c:665
+msgid "(unknown)"
+msgstr "(белгісіз)"
+
+#: src/sj-main.c:358
+msgid ""
+"This album is not in the MusicBrainz database, please click ‘Edit Album’ to "
+"open your browser and edit it in MusicBrainz."
+msgstr ""
+"Бұл альбом MusicBrainz дерекқорында жоқ, браузерді ашып, оны MusicBrainz-де "
+"түзету үшін «Альбомды түзету» батырмасын шертіңіз."
+
+#: src/sj-main.c:360
+#, c-format
+msgid ""
+"Could not find %s by %s on MusicBrainz, please click ‘Edit Album’ to open "
+"your browser and edit it in MusicBrainz."
+msgstr ""
+"MusicBrainz-ден %s (%s орындауындағы) табылмады, браузерді ашып, оны "
+"MusicBrainz-де түзету үшін «Альбомды түзету» батырмасын шертіңіз."
+
+#: src/sj-main.c:396
+msgid "Click ‘Reload’ to load the edited album details from MusicBrainz"
+msgstr ""
+"Өңделген альбом мәліметтерін MusicBrainz-ден жүктеу үшін «Қайта жүктеу» "
+"батырмасын шертіңіз"
+
+#: src/sj-main.c:418
+msgid "Could not open URL"
+msgstr "URL ашу мүмкін емес"
+
+#: src/sj-main.c:419
+msgid "Sound Juicer could not open the submission URL"
+msgstr "Sound Juicer жіберу URL-ін аша алмады"
+
+#: src/sj-main.c:459
+msgid "Could not duplicate disc"
+msgstr "Дискінің дубликатын жасау мүмкін емес"
+
+#: src/sj-main.c:460
+msgid "Sound Juicer could not duplicate the disc"
+msgstr "Sound Juicer дискінің дубликатын жасай алмады"
+
+#: src/sj-main.c:506
+msgid "Lieder"
+msgstr "Лидер"
+
+#: src/sj-main.c:506
+msgid "Opera"
+msgstr "Опера"
+
+#: src/sj-main.c:506
+msgid "Chamber"
+msgstr "Камералық"
+
+#: src/sj-main.c:506
+msgid "Musical"
+msgstr "Мюзикл"
+
+#: src/sj-main.c:842 src/sj-main.c:1022
+msgid "Could not read the CD"
+msgstr "CD-ді оқу мүмкін емес"
+
+#: src/sj-main.c:843
+msgid "Sound Juicer could not read the track listing on this CD."
+msgstr "Sound Juicer бұл CD-дегі тректер тізімін оқи алмады."
+
+#: src/sj-main.c:986
+#, c-format
+msgid "Sound Juicer could not use the CD-ROM device ‘%s’"
+msgstr "Sound Juicer «%s» CD-ROM құрылғысын пайдалана алмады"
+
+#: src/sj-main.c:993
+msgid "HAL daemon may not be running."
+msgstr "HAL қызметі жұмыс істемей тұрған болуы мүмкін."
+
+#: src/sj-main.c:1015
+#, c-format
+msgid "Sound Juicer could not access the CD-ROM device ‘%s’"
+msgstr "Sound Juicer «%s» CD-ROM құрылғысына қол жеткізе алмады"
+
+#: src/sj-main.c:1132
+msgid ""
+"The currently selected audio profile is not available on your installation."
+msgstr ""
+"Қазіргі уақытта таңдалған аудио профилі орнатылымыңызда қолжетімді емес."
+
+#: src/sj-main.c:1134
+msgid "_Change Profile"
+msgstr "Профильді _өзгерту"
+
+#: src/sj-main.c:1527
+msgid "Unknown widget calling on_person_edit_changed."
+msgstr "on_person_edit_changed шақыратын белгісіз виджет."
+
+#: src/sj-main.c:1627 src/sj-prefs.c:117
+#, c-format
+msgid ""
+"Could not display help for Sound Juicer\n"
+"%s"
+msgstr ""
+"Sound Juicer үшін көмекті көрсету мүмкін емес\n"
+"%s"
+
+#: src/sj-main.c:1679
+msgid "Retrieving track listing…please wait."
+msgstr "Тректер тізімі алынуда… күте тұрыңыз."
+
+#: src/sj-main.c:1866 src/sj-play.c:300
+msgid "_Pause"
+msgstr "_Аялдату"
+
+#: src/sj-main.c:1941
+msgid "Track"
+msgstr "Трек"
+
+#: src/sj-main.c:1953
+msgid "Title"
+msgstr "Тақырыбы"
+
+#: src/sj-main.c:1954
+msgid "Artist"
+msgstr "Орындаушы"
+
+#: src/sj-main.c:1955
+msgid "Composer"
+msgstr "Композитор"
+
+#: src/sj-main.c:1961
+msgid "Duration"
+msgstr "Ұзақтығы"
+
+#: src/sj-main.c:2078
+msgid "Start extracting immediately"
+msgstr "Шығарып алуды бірден бастау"
+
+#: src/sj-main.c:2079
+msgid "Start playing immediately"
+msgstr "Ойнатуды бірден бастау"
+
+#: src/sj-main.c:2080
+msgid "What CD device to read"
+msgstr "Оқитын CD құрылғысы"
+
+#: src/sj-main.c:2080
+msgid "DEVICE"
+msgstr "ҚҰРЫЛҒЫ"
+
+#: src/sj-main.c:2081
+msgid "URI to the CD device to read"
+msgstr "Оқитын CD құрылғысына арналған URI"
+
+#: src/sj-play.c:192 src/sj-play.c:418 src/sj-play.c:454
+#, c-format
+msgid ""
+"Error playing CD.\n"
+"\n"
+"Reason: %s"
+msgstr ""
+"CD ойнату кезіндегі қате.\n"
+"\n"
+"Себебі: %s"
+
+#: src/sj-play.c:356
+#, c-format
+msgid "Failed to create CD source element"
+msgstr "CD бастапқы элементін жасау сәтсіз аяқталды"
+
+#: src/sj-play.c:594
+#, c-format
+msgid "Seeking to %s"
+msgstr "%s орнына ауысу"
+
+#: src/sj-prefs.c:48
+msgid "Album Artist, Album Title"
+msgstr "Альбом орындаушысы, Альбом тақырыбы"
+
+#: src/sj-prefs.c:49
+msgid "Album Artist (sortable), Album Title"
+msgstr "Альбом орындаушысы (сұрыпталатын), Альбом тақырыбы"
+
+#: src/sj-prefs.c:50
+msgid "Track Artist, Album Title"
+msgstr "Трек орындаушысы, Альбом тақырыбы"
+
+#: src/sj-prefs.c:51
+msgid "Track Artist (sortable), Album Title"
+msgstr "Трек орындаушысы (сұрыпталатын), Альбом тақырыбы"
+
+#: src/sj-prefs.c:52
+msgid "Album Title"
+msgstr "Альбом тақырыбы"
+
+#: src/sj-prefs.c:53
+msgid "Album Artist"
+msgstr "Альбом орындаушысы"
+
+#: src/sj-prefs.c:54
+msgid "Album Artist (sortable)"
+msgstr "Альбом орындаушысы (сұрыпталатын)"
+
+#: src/sj-prefs.c:55
+msgid "Album Artist - Album Title"
+msgstr "Альбом орындаушысы - Альбом тақырыбы"
+
+#: src/sj-prefs.c:56
+msgid "Album Artist (sortable) - Album Title"
+msgstr "Альбом орындаушысы (сұрыпталатын) - Альбом тақырыбы"
+
+#: src/sj-prefs.c:57
+msgid "Album Composer, Album Title"
+msgstr "Альбом композиторы, Альбом тақырыбы"
+
+#: src/sj-prefs.c:58
+msgid "Album Composer (sortable), Album Title"
+msgstr "Альбом композиторы (сұрыпталатын), Альбом тақырыбы"
+
+#: src/sj-prefs.c:59
+msgid "Track Composer, Album Title"
+msgstr "Трек композиторы, Альбом тақырыбы"
+
+#: src/sj-prefs.c:60
+msgid "Track Composer (sortable), Album Title"
+msgstr "Трек композиторы (сұрыпталатын), Альбом тақырыбы"
+
+#: src/sj-prefs.c:61
+msgid "[none]"
+msgstr "[жоқ]"
+
+#: src/sj-prefs.c:66
+msgid "Number - Title"
+msgstr "Нөмірі - Тақырыбы"
+
+#: src/sj-prefs.c:67
+msgid "Track Title"
+msgstr "Трек тақырыбы"
+
+#: src/sj-prefs.c:68
+msgid "Track Artist - Track Title"
+msgstr "Трек орындаушысы - Трек тақырыбы"
+
+#: src/sj-prefs.c:69
+msgid "Track Artist (sortable) - Track Title"
+msgstr "Трек орындаушысы (сұрыпталатын) - Трек тақырыбы"
+
+#: src/sj-prefs.c:70
+msgid "Number. Track Artist - Track Title"
+msgstr "Нөмірі. Трек орындаушысы - Трек тақырыбы"
+
+#. {N_("Number. Track Artist (sortable) - Track Title"), "%tN. %ts - %tt"},
+#: src/sj-prefs.c:72
+msgid "Number-Track Artist-Track Title (lowercase)"
+msgstr "Нөмірі-Трек орындаушысы-Трек тақырыбы (кіші әріппен)"
+
+#. {N_("Number-Track Artist (sortable)-Track Title (lowercase)"),
+#. "%tN-%tS-%tT"},
+#: src/sj-prefs.c:74
+msgid "Track Composer - Track Artist - Track Title"
+msgstr "Трек композиторы - Трек орындаушысы - Трек тақырыбы"
+
+#: src/sj-prefs.c:75
+msgid "Track Composer (sortable) - Track Artist (sortable) - Track Title"
+msgstr ""
+"Трек композиторы (сұрыпталатын) - Трек орындаушысы (сұрыпталатын) - Трек "
+"тақырыбы"
+
+#: src/sj-prefs.c:76
+msgid "Number. Track Composer - Track Artist - Track Title"
+msgstr "Нөмірі. Трек композиторы - Трек орындаушысы - Трек тақырыбы"
+
+#: src/sj-prefs.c:77
+msgid "Number-Track Composer-Track Artist-Track Title (lowercase)"
+msgstr "Нөмірі-Трек композиторы-Трек орындаушысы-Трек тақырыбы (кіші әріппен)"
+
+#: src/sj-prefs.c:252
+msgid "Example Path: "
+msgstr "Мысал жолы: "
